@@ -12,34 +12,36 @@ Train (2009). Discrete Choice Methods with Simulation https://www.amazon.com/dp/
 - A helpful reference but used only in Part 4.
 
 Topics (in order):
-Part 1: Old things: Cournot, Bertrand, SCP Paradigm, Conjectural Variations
 
-Part 2: Homogenous Products / The Simultaneity Problem: From Working (1927) to Angrist, Imbens, Graddy (2000).
+1. Old things: Cournot, Bertrand, SCP Paradigm, Conjectural Variations
 
-Part 3: Demand Models: Intro and Representative Agents
+2. Homogenous Products / The Simultaneity Problem: From Working (1927) to Angrist, Imbens, Graddy (2000).
 
-Part 4: Statistical Models of Differentiated Products (Train 2003).
+3. Demand Models: Intro and Representative Agents
 
-Part 5: IV Models of Differentiated Products (Berry 1994 and BLP 1995).
+4. Statistical Models of Differentiated Products (Train 2003).
 
-Part 6: Welfare Effects in Differentiated Products Markets.
+5. IV Models of Differentiated Products (Berry 1994 and BLP 1995).
 
-Part 7: Pricing, Mergers and Unilateral Efffects
+6. Welfare Effects in Differentiated Products Markets.
 
-Part 8: Conduct and Collusion
+7. Pricing, Mergers and Unilateral Efffects
 
-Part 9: Dynamic Discrete Choice Models: (Rust 1987) (Hotz and Miller 1993)
+8. Conduct and Collusion
 
-Part 10: Dynamic Discrete Choice Models: Persisence and Unobserved Heterogeneity
+9. Dynamic Discrete Choice Models: (Rust 1987) (Hotz and Miller 1993)
 
-Part 11: Dynamic Demand: Durable Goods and Storable Goods
+10. Dynamic Discrete Choice Models: Persisence and Unobserved Heterogeneity
 
-Part 12: Dynamic Demand: Learning and Experience Goods
+11. Dynamic Demand: Durable Goods and Storable Goods
 
-Part 13: Network Effects and Switching Costs
+12. Dynamic Demand: Learning and Experience Goods
 
-Part 14: Two Period Entry Models
-Part 15: Partial Identification and Moment Inequalities
+13. Network Effects and Switching Costs
+
+14. Two Period Entry Models
+
+15. Partial Identification and Moment Inequalities
 
 
 
