@@ -6,6 +6,7 @@ It is meant for second year PhD students.
 
 Books:
 In theory this course presumes knowledge in Tirole: https://www.amazon.com/dp/B0093C1K3M.
+
 In practice, not so much.
 
 Train (2009). Discrete Choice Methods with Simulation https://www.amazon.com/dp/B00H7WPAKY
