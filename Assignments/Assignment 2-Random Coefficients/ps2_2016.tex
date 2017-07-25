@@ -1,0 +1,155 @@
+\documentclass[12pt]{article}
+\usepackage{enumerate, amsmath, amsfonts, hyperref, parskip}
+\setlength{\parindent}{0pt}
+\addtolength{\topmargin}{-1in}
+\textwidth = 7.0 in
+\textheight = 9.0 in
+\oddsidemargin = -0.2 in
+\evensidemargin = 0.0 in
+
+\newcounter{mycounter} %used for breaks in the enumerate between logit, nested-logit, and BLP
+
+\begin{document}
+
+\title{Empirical IO, Problem Set 2:\\
+ Logit, Nested Logit, and Random-Coefficient Logit}
+\author{Chris Conlon}
+\date{Due Date: 5.00pm, Friday, October 14, 2016}
+\maketitle
+
+\paragraph{Instructions} As in your first problem set: when asked to describe an estimation algorithm, please provide enough detail so that an RA who knows Python/Matlab but has never taken any IO could use your description to write the estimation program. Actual estimation can be done in groups if you prefer. Please provide individual write-ups of your work, and note the members of your group. Attach a printout of your programs to your solutions.
+
+\paragraph{Data} Download ``ps2\_data.txt'' from the course's web page. It is a simulated panel dataset that contains the following information:
+
+\begin{table}[htb]
+\center
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Column & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\ \hline
+ Variable & car id & year & firm id & price & quantity & weight & hp & ac & nest3 & nest4\\
+\hline
+\end{tabular}
+\end{table} 
+\paragraph{Market size} Assume throughout that the market size $M$ is equal to 100 million in each year, which is approximately the number of households in the US.
+
+\paragraph{Outside good} Let the share of the outside good vary across the three years, but keep $M$ fixed throughout.
+
+
+%%%%be fixed at its average across years. (This allows for substitution over time within the panel, in recognition of the durable nature of automobiles. More practically, this assumption will make your estimator better behaved in this application.)
+%\textbf{***Maybe we should give some intuition why we do it***}
+
+\paragraph{Normalization and instruments} Estimation procedures can have problems when they contain variables that differ by several orders of magnitude. To avoid problems you should normalize the covariates you use. You will also need to create instruments. For all estimation procedures in this problem set, create the instruments from the original values, and then normalize the continuous covariates before performing the regression. Do not normalize dummy variables, constants, the log of within group share (in the nested logit problem), the left-hand side variables (functions of deltas or shares), or the instruments that you create. In other words, you only need to normalize weight, horsepower, and price. Normalize by dividing each variable by its mean. \\
+
+\noindent
+Now suppose that the model is a logit model. The difference between the vertical model and this logit model is that the utility error is now i.i.d. extreme value
+and $\alpha _{i}=\alpha $ for all $i$, i.e.:
+$$\boldsymbol{u_{ijt}=\delta _{jt}^{\ast }+\epsilon _{ijt} \quad \text{ and } \quad \delta
+_{jt}^{\ast }=x_{jt}\beta -\alpha p_{jt}+\xi _{jt} \quad \forall \; t \in T}$$
+\begin{enumerate}
+\item Beginning with the utility function, derive market share as a function of \(\delta^*\)s. Then invert the equation to solve for \(\delta^*\) as a function of shares. Allow each year to be separately estimated.
+
+\item If instead, I asked you to pool the data and estimate a single model, what would change in your derivation?
+
+%%%\textbf{To simplify the derivation, assume that the market is evolving independently over time and suppress the $t$ subscript}.
+
+\item \label{est:logit} Estimate the demand system parameters using GMM with just the demand-side moment conditions. Since price is endogenous, you will need to use at least one instrument. Construct the BLP instruments (characteristics of competing products \textbf{in a given year}) analogously to the vertical demand problem set.
+
+\item Explain why own and cross price elasticites from this logit model may be unrealistic.
+\setcounter{mycounter}{\value{enumi}}
+\end{enumerate}
+\mbox{} \\
+\noindent
+Now use a nested logit model with a single level of nesting. 
+%\textbf{Continue to suppress the time subscript to simplify the analytic derivation.}
+\begin{enumerate}
+\setcounter{enumi}{\value{mycounter}}
+\item
+    \begin{enumerate}[(a)]
+    \item Write down market share for a single product as a function of the vector \(\boldsymbol{\delta}^*\) and the nesting parameter \(\sigma\). Use the \(\sigma\) and group notation used by Berry (1994 Rand), not the \(\lambda\) notation used by Train and McFadden.
+    \item Invert that equation to solve for \(\delta_{j}^*\) as a function of market shares, within group shares, and \(\sigma\).
+    \item Finally, use this second equation to write a regression equation with an observed quantity on the left-hand-side and observed variables and coefficients (including \(\sigma\)) on the right-hand-side.
+    \end{enumerate}
+\item \begin{enumerate}[(a)]
+    \item Estimate the demand system parameters using just the demand-side moment conditions for this nested-logit model. 
+        %Sort the products into $n$ groups by creating $n$ equally sized intervals of \(\frac{\text{hp}}{\text{weight}}\) (implicitly, the outside good will be in its own additional group in each year). Write the code so that you can change the number of groups by altering a single variable. Confirm that your results match the ``nest3'' and ``nest4'' variables. 
+        Instrument for price using the average of product characteristics (i.e. weight, hp, ac) of products produced by other firms \textbf{in a given year}. Similarly, construct the instrumental variables by using the average of product characteristics of other products (including those of the same firm) within the same group in a given year. For your nests, use two different nesting structures: one that groups products based on the ``nest3'' variable, and one that groups products based on the ``nest4'' variable. (Implicitly, the outside good is in its own additional group in each year.) 
+%However, calculate the within group shares based on time invariant nests, that is treating the panel as a cross section.
+Calculate 2SLS estimates, allowing all coefficients to vary across the three years of data, and use them as starting values for the optimization in your GMM routine. Report your results for $n=3$ (inside) groups and \(n=4\) (inside) groups.
+    \item Suppose instead that we estimated a version of a nested-logit model that pooled all three years' worth of data. What assumption on intertemporal substitution patterns is implicit in this choice?
+    \item Are your estimates of sigma sensitive to the number of groups? Can you give an explanation for this result?
+    \item How does your estimate of $\alpha$ change across the three years' of data?
+    \end{enumerate}
+\item
+    \begin{enumerate}[(a)]
+    \item How is nested logit an improvement over plain logit?
+    \item Think of another nesting structure you would use, and explain what additional data you would need to estimate it.
+    \item Why might all forms of nested logit be problematic?
+    \end{enumerate}
+
+\item Suppose we were interested in improving the substitution patterns.
+    \begin{enumerate}[(a)]
+    \item Would the Multinomial Probit model be appealing in this setting?\ Why, or why not?
+    \item Would the Pure Characteristics model be appealing in this setting?\ Why, or why not?
+    \end{enumerate}
+\setcounter{mycounter}{\value{enumi}}
+\end{enumerate}
+Now assume that the model is a logit model but each individual has a different price coefficient, i.e. $u_{ijt}=x_{jt}\beta -\alpha _{i}p_{jt}+\xi_{jt}+\epsilon _{ijt}$
+
+\begin{enumerate}
+\setcounter{enumi}{\value{mycounter}}
+\item
+    \begin{enumerate}[(a)]
+    \item \label{alg:simpleLogNormal} Suppose $\alpha _{i}=1/y_{i}$ and $y_{i}$ is distributed
+    lognormally. Can you now explain how you would do estimation (you don't
+    actually have to do this). Write out the moment conditions and estimation
+    algorithm you would use to estimate $\beta $ in this model.
+
+    \item Now suppose $\alpha_{i} = \alpha_{1} + \alpha_{2}/y_{i}$ and $y_i$ is still distributed lognormally. How exactly would this change the estimation? Write out the moment conditions and
+    estimation algorithm you would use to estimate $\beta $ in this model.
+    Are the parameters of the lognormal distribution, $\alpha
+    _{1}$ and $\alpha _{2}$ identified by the data provided to you?
+    \end{enumerate}
+
+\item
+    \begin{enumerate}[(a)]
+    \item \label{est:blp} Among the other parameters you would have estimated in question \ref{alg:simpleLogNormal} are the mean and the variance of the lognormal distribution. Now
+    assume that you knew that the mean of income was $\$35,000$ and that the
+    standard deviation is $\$45,000$. Using only the demand system, estimate the
+    $\beta $ parameters under these assumptions. Continue to use the moment conditions involving the excluded instruments you used for plain logit.
+    \item Are the own and cross price
+    elasticities from this system more realistic than those in the plain and nested logit models,
+    and if so why?
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Dropped Material
+
+%%% Micro-Moment BLP Question %%%%
+\begin{enumerate}
+\item Finally, consider the possibility of adding a micro moment to the
+estimation. Micro moments are pieces of data typically taken from micro
+datasets that tell us more about consumer preferences. For example, suppose
+we know from a detailed survey on purchases that wealthier consumers prefer
+more powerful cars. That is, the true correlation between income ($y_{i}$)
+and the power-to-weight ratio (hp/weight) is $0.7$. Describe how you would
+incorporate this micro moment into the estimation algorithm described in
+question \ref{est:blp}. Write out the moment function for this case.
+\item Could this moment be
+used in the estimation in question \ref{est:logit}?
+\end{enumerate}
+
+
+%%%%%% Explanation of nested logit with two different sigmas. %%%%%%%%%%%%%%%%%%%%%
+The first dimension will be between inside goods and the outside good. The second dimension will be between makes of cars (firm id). We will use the notation of Berry(1994 Rand), generalized to the case of two nesting dimensions, which assumes the existence of a single nesting parameter for each dimension of nesting. In the notation below \(\sigma_1\) is the parameter for the highest dimension of nesting, and \(\sigma_2\) is the parameter for the lower dimension of nesting. \\ \\
+For a product \(j\) in subgroup \(g\) of group \(G_f\), the market share as a fraction of the market share of subgroup \(g\) is
+\[s_{j/g}(\boldsymbol{\delta}^{*},\sigma_2) = \frac{ e^{\delta^{*}_j / (1-\sigma_2)}}{D_g} \quad \text{ where } \quad D_g = \sum_{j\prime \in g} e^{\delta^{*}_j / (1-\sigma_2)}\]
+The market share of subgroup \(g\), as a fraction of the market share of all subgroups in group \(G_f\), is
+\[s_{g/G_{f}}(\boldsymbol{\delta}^{*}, \sigma_1, \sigma_2) = \frac{D_g^{(1-\sigma_2)/(1-\sigma_1)}}{\sum_{g\prime \in G_f}D_{g^{\prime}}^{(1-\sigma_2)/(1-\sigma_1)}} \]
+Finally, the market share of group \(G_f\) is
+\[s_{G_{f}}(\boldsymbol{\delta}^{*},\sigma_1, \sigma_2) = \frac{ \left( \sum_{g\prime \in G_f} D_{g^{\prime}}^{(1-\sigma_2)/(1-\sigma_1)} \right)^{(1-\sigma_1)}}{\sum_{f^{\prime}}  \left( \sum_{g\prime \in G_{f^{\prime}}} D_{g^{\prime}}^{(1-\sigma_2)/(1-\sigma_1)} \right)^{(1-\sigma_1)} }\]
+
+By multiplying these three pieces together we can find the market share of product \(j\) as a function of \(\delta^{*}\)s and \(\sigma\)s.

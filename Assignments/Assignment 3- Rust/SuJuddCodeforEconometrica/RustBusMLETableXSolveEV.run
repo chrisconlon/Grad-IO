@@ -1,0 +1,60 @@
+# Call solver and give it options
+
+model RustBusMLETableXSolveEV.mod;
+data RustBusMLETableXSolveEV.dat;
+ 
+# Specify KNITRO solver options:
+
+option knitro_options 'alg=1 outlev=3 maxit=200', solver knitroampl; 
+ 
+# Initial guesses set at trivial values; probably not good initial guess
+     let {i in X} EV[i] := -50;
+     let RC := RCsol; 
+     let thetaCost := thetaCostsol;
+     let {i in 1..M} thetaProbs[i] := thetaProbssol[i];
+
+# Fix the structural parameters at the true values
+fix RC;
+fix thetaCost;
+fix thetaProbs;
+
+# Solve command
+     solve MPECZurcher;
+
+if match (solve_message, "Locally optimal solution") > 0 then { 
+			printf "%s\n", "Optimal solution found" > EV/RustBusMLETableXSol.txt;
+                        printf "%5.0f \n", 0 > EV/KnitroExit.sol ; 
+			}
+		else if match (solve_message, "Iteration limit reached") > 0 then { 
+			printf "%s\n", "Iteration limit reached" > EV/RustBusMLETableXSol.txt;
+                        printf "%5.0f \n", 400 > EV/KnitroExit.sol ; 
+			}
+                else if match (solve_message, "Evaluation error") > 0 then { 
+			printf "%s\n", "Evaluation error" > EV/RustBusMLETableXSol.txt;
+			printf "%5.0f \n", 502 > EV/KnitroExit.sol ; 
+			}
+                else {
+			printf "%s\n", "No solution" > EV/RustBusMLETableXSol.txt;
+			printf "%5.0f \n", 1000 > EV/KnitroExit.sol ; 
+            }
+	
+	display _solve_time;
+# Output commands
+     option display_round 6, display_width 120;
+
+# display the value function
+      display EV;
+
+# display the structural parameters (remember beta was fixed)
+     display beta, RC, thetaCost, thetaProbs;
+  printf "%10.7f \n", _solve_time > EV/solvetime.sol;
+#  printf "%10.7f \n", Likelihood > EV/objval.sol;     
+  printf "%10.7f \n", RC > EV/RC.sol;
+  printf "%10.7f \n", thetaCost > EV/thetCost.sol;
+for {i in 1..M} {
+  	printf "%10.7f \n", thetaProbs[i] > EV/thetaProbs.sol;
+}
+  # write EV to a file EV.sol 
+for {i in X} {
+  	printf "%10.7f \n", EV[i] > EV/EV.sol;
+}

@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{verbatim}
+\usepackage{fullpage}
+
+\title{Empirical IO: Problem Set 3}
+\begin{document}
+\small
+\date{Due date: October 28, 2016}
+\maketitle
+Your answers should be produced in \LaTeX, and should include all relevant graph and code.  Code should be in the appropriate verbatim environment and properly documented.
+\section*{Part 1: Computing the HZ Model}
+\begin{itemize}
+\item Find (or write!) a underflow safe function that handles $\log sum \exp (\cdot)$ called \textbf{logsumexp}. A useful approximation is that $\log (\sum_i e^{x_i}) \approx \log (\sum_i e^{x_i -A}) +A$. A good choice for A is the maximum value $\max_i x_i = A$.
+\item Calculate (analytically) the gradient of the log-likelihood function in Rust with respect to the parameters of the model and write down the analytic results.
+\end{itemize}
+
+\section*{Part 2: Estimation MLE and MPEC}
+\begin{itemize}
+\item Estimate the model using the NPMLE approach of Rust. You will want to use the gradient.
+\begin{enumerate}
+\item Compute the transition probabilities in a separate first stage -- you should have 5 of them.
+\item Compute $EV(x, \theta)$ for a given guess of the parameters via the fixed point.
+\item Construct the CCP given your $EV(x, \theta)$
+\item Construct the likelihood and its gradient with respect to $\theta$
+\end{enumerate}
+\item Estimate the model using the MPEC method of Su and Judd.
+\item Compare the results in a table, including the nonparametric answers below and discuss the results.
+\item Plot the $EV(\cdot)$ you have obtained for both estimators.
+\end{itemize}
+
+
+\section*{Part 3: The Stata Estimator}
+This is taken from Han Hong's problem set at Stanford, the idea is that we can use the arguments in Hotz-Miller (1993), or Pesendorfer Schmidt-Dengler (2008) to construct an optimization free method to recover the utility parameters in the Rust problem.\\
+
+We began by defining the choice specific value function with $\epsilon_{it}$ i.i.d. and EV.
+\begin{eqnarray*}
+v(x,d) &=& u(x,d) + \beta \int \log \left ( \sum_{d' \in D} \exp ( v (x',d'))  \right) p(x' | x, d) dx' \\
+v(x,d) &=& u(x,d) + \beta \int \log \left ( \sum_{d' \in D} \exp ( v (x',d') - v(x',1) )  \right) p(x' | x, d) dx'  + \beta \int v(x,1) p (x' | x,1) dx'\\
+\end{eqnarray*}
+\begin{enumerate}
+\item Estimate $p(x' | x,d)$ non parametrically or parametrically (for example as a set of  multinomial with $n$ outcomes or an exponential distribution).  Call your estimate $\hat{p}(x' | x,d)$.
+\item Estimate $p(d | x)$ (the CCP) non-parametrically. You can use the binomial logit model with a basis function (increasing number of terms) or you can use a kernel such as $\mathbf{ksdensity}$ or $\mathbf{ecdf}$.
+\item Now use the Hotz-Miller inversion to estimate:  $\hat{v}(x,d) - \hat{v}(x,1) = \log \hat{p}(d|x) - \log \hat{p}(1|x)$
+\item Normalize $u(x,1) = 0$ and so for $=1$  we have that 
+\begin{eqnarray*}
+v(x,1) &=& \beta \int v(x',1) p(x' | x,1) dx' + \beta \int \log \left( \sum_{d' \in D} \exp(\hat{v}(x',d') - \hat{v}(x',1)) \right) \hat{p}(x' | x,1) dx' \\
+&=& \beta \int v(x',1) p(x' | x,1) dx' - \beta \int \log \left(\hat{p}(1| x') \right)  \hat{p}(x' | x,1) dx' \\
+\end{eqnarray*}
+This defines a fixed point that we can iterate on to obtain a nonparametric estimate of $\hat{v}(x,1)$ .  Add this to $\hat{v}(x,d) - \hat{v}(x,1)$ to recover the choice specific value functions for $d=1,\ldots,D$.
+\item  Once we know $\hat{v}(x,d)$ for all $d \in D$ we can recover the nonparametric estimate of $u(x,d)$ for $d \geq 2$ by 
+\begin{eqnarray*}
+\hat{u}(x,d) = \hat{v}(x,d) - \beta \int \log \left(\exp(\hat{v}(x',d') \right) \hat{p}(x' | x,d) dx'
+\end{eqnarray*}
+\end{enumerate}
+This estimator should be very simple to implement (and only requires one fixed point) so we could do inference via the bootstrap if we wanted to.
+
+
+
+\end{document}
+

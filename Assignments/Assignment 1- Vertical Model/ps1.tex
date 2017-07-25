@@ -1,0 +1,84 @@
+\documentclass[12pt]{article}
+
+\addtolength{\topmargin}{-1in}
+\textwidth = 7.0 in
+\textheight = 9.0 in
+\oddsidemargin = -0.2 in
+\evensidemargin = 0.0 in
+
+\begin{document}
+
+\title{Empirical IO, Problem Set 1: \\
+Demand Estimation - Vertical Model}
+\author{Chris Conlon}
+\date{Due Date: 5.00pm, Friday, October 7, 2016}
+\maketitle
+
+\paragraph{Instructions} When asked to describe an estimation algorithm, please provide enough detail so
+that an RA who knows Python/Matlab but has never taken any IO could use your description
+to write the estimation program. Actual estimation can be done
+in pairs if you prefer.  
+%of three or less.  
+Please provide individual write-ups of your work, and
+note the members of your group. Attach a printout of your programs to your solutions.
+
+\paragraph{Data} We will use data on a cross-section of automobile data from 1990, including prices, quantities and characteristics. The data are ``ps1\_data\_nohead.txt," and you can download the data from the course's web page. The variables are in the following order: \texttt{price, quantity, weight, horse power, air condition, firm}.
+The \texttt{firm} variable contains a firm identifier. The greatest firm identifier is 23, but there are fewer than 23 total firms. You will want to handle this before you begin.
+
+\paragraph{Market Size} You should assume throughout that the
+market size $M$ is equal to 100 million, which is approximately the number
+of households in the US. \\
+
+\noindent
+Consider a model similar to Bresnahan's vertical model of the auto industry.
+Each consumer $i$ has utility for product $j$ as a function of price and
+product quality, $\delta _{j}$, of
+\[
+u_{ij}=\delta _{j}-\alpha _{i}p_{j}.
+\]
+
+\noindent
+The distribution of consumer tastes for quality, $\alpha _{i}$, is
+exponential with parameter $\lambda $. For simplicity, assume $\lambda =4*10^{-6}$.
+
+\begin{enumerate}
+\item Solve for the \(\delta\)'s as a function of observed market shares, price, and \(\lambda\).
+\item Assume that $\delta _{j}=x_{j}\beta +\xi _{j}$, and that $\xi $ is uncorrelated with all the characteristics of all the products except price and quantity. Estimate the parameter vector \(\beta\) with GMM using the demand-side moment restrictions, $E[x\xi] = 0$. Make sure to include a constant.
+\item
+    \begin{enumerate}
+    \item Is this GMM regression equivalent to OLS?
+    \item How would you estimate the parameters if you were not given an assumed value of \(\lambda\)?
+    \item We could have used firm fixed effects (e.g. firm dummy variables) in the regression. What are the advantages and disadvantages of using firm fixed effects in this model with this data?
+	\end{enumerate}
+
+\item (Intuition only.)  Note that in your data each car model has a different price.
+    \begin{enumerate}
+    \item What would the model predict for two cars with identical prices?
+    \item Explain why own and cross price elasticities from the vertical model may be unrealistic.
+    \end{enumerate}
+\item Derive the pricing equation under each of the following equilibrium assumptions:
+	
+		\begin{enumerate}
+		\item marginal cost pricing (no derivation needed).
+		
+		\item single product firms in a Bertrand Nash Equilibrium
+		
+		\item multiproduct firms in a Bertrand Nash Equilibrium
+
+        \item perfect collusion / joint profit maximization
+		\end{enumerate}	
+
+\item Assume that marginal cost is given by $mc_{j}=x_{j}\gamma +\eta
+q_{j}+\omega _{j}$, and that $\omega $ is uncorrelated with all the characteristics of all the products (except price and quantity of course, for which you will need to instrument appropriately). For pricing assumptions (a), (b), and (c) above, use both the demand system and the derived pricing equation to estimate the parameters of the model with two-step GMM (i.e. use both demand side moment conditions and supply side moment conditions simultaneously). Present the results of your work and discuss them briefly.
+\paragraph{Hints:} The supply side moments will take the form \(E[\omega Z]\) = 0. When you instrument for quantity, use characteristics of competing products, and define ``competing products'' as products produced by other firms. Note for the two Bertrand equilibria you will need to calculate own- and adjacent-price elasticities of demand using the equation for market shares and the estimates of \(\delta\) you obtained in problem 1.
+
+\item Is this simultaneous estimation equivalent to separately estimating the demand equation and the pricing equation using GMM? Explain.
+
+\item (Intuition only.)  You are now required to select among the different pricing
+assumptions. Explain what sort of results might help you to decide which
+model fits the data best. Suggest other possible ways to test among the
+different pricing models.
+
+\end{enumerate}
+
+\end{document} 

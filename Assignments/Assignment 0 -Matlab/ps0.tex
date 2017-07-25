@@ -1,0 +1,134 @@
+\documentclass{article}
+\usepackage{verbatim}
+\usepackage{fullpage}
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+\begin{document}
+
+\title{Empirical IO I: Problem Set 0}
+\author{Chris Conlon}
+\date{Due: Sept 23, 2015}
+\maketitle
+This problem set is designed to make sure that your $\mathtt{MATLAB}$ skills are up to speed. For each question, the expectation is that you complete the task, provide the appropriate code, and fully read the documentation, and work the $\mathtt{MATLAB}$ provided examples on your own.  The tasks should be fairly easy.  The goal is to accomplish the tasks in the most straightforward manner with the least amount of code.  You may refer to Peter Acclam's \emph{MATLAB Array Manipulation Tips and Tricks (MTT)} when necessary.
+
+In theory this can all be done in Python, though I haven't tried it. You will get full credit if you use Python instead of MATLAB.
+
+
+\section*{Part 0: Logit Inclusive Value}
+The logit inclusive value or $IV = -\log \sum_{i=1}^N \exp[x_i]$.
+\begin{enumerate}
+\item Show that the this function is everywhere concave.
+\item A common problem in practice is that if one of the $x_i > 600$ that we have an ``overflow'' error on a computer. In this case $\exp[600] \approx 10^{260}$ which is too large to store with any real precision, especially if another $x$ has a different scale (say $x_2=10$). A common ``trick'' is to subtract off $m_i = \max_i x_i$ from all $x_i$.  Show how to implement the trick and get the correct value of $IV$.
+\end{enumerate}
+
+
+\section*{Part 1: Markov Chains}
+Consider the following Markov TPM:\\
+Let $P = \{p_{i,j} \}$ be an $n \times n$ transition matrix of a Markov process where $\{p_{i,j} \}$ is interpreted as the probability that the system, when it is in state $i$, will move to state $j$. If we denote by $\pi_t [ \pi_{t,1} , \pi_{t,2}, \ldots, \pi_{t,n}]$ the probability mass function of the system over the $n$ states then $\pi_{t,j}$ evolves according to 
+\begin{eqnarray*}
+\pi_{t+1,j} = \sum_{i=1}^n p_{i,j} \pi_{t,i}
+\end{eqnarray*}
+Then we can write the state to state transition matrix as :
+\begin{eqnarray*}
+\pi_{t+1}& &= \pi_t P \\
+P &=&
+\left[ {\begin{array}{ccc}
+    0.2&    0.4&    0.4\\
+    0.1&    0.3&    0.6\\
+    0.5&    0.1&    0.4\\
+ \end{array} } \right]
+\end{eqnarray*}
+We're interested in the ergodic distribution $\pi P = \pi$. This is similar to the transition matrix infinitely many periods into the future $P^{\infty}$. Write a function that computes the ergodic distribution of the matrix $P$ by examining the properly rescaled eigenvectors and compare your result to $P^{100}$.
+\section*{Part 2: Numerical Integration}
+In this part we will look to integrate the function $p =\int_{\infty}^{\infty} \frac{\exp(\beta_i X)}{1+ \exp(\beta_i X)} f(\beta_i | \theta)$. \\
+ Assume $f \sim N(0.5,2)$ and that $X = 0.5$
+ 
+\begin{enumerate}
+\item Create the function in an M-file in Matlab called $\mathtt{binomiallogit}$. You will want two versions, one that includes the PDF and one that does not. (It should take $\beta$ the item you integrate over as its argument).
+\begin{comment}
+\begin{verbatim}
+function f=binomiallogit(beta)
+     X=0.5; mu = 0.5; sigma =2;
+     beta = beta*sigma*sqrt(2)+mu;
+     f=exp(beta*X)./(1+exp(beta*X));
+end
+
+
+function f=binomiallogit(beta)
+     X=0.5; mu = 0.5; sigma =2;
+     f=exp(beta*X)./(1+exp(beta*X)) .* normpdf(beta,mu,sigma);
+end
+\end{verbatim}
+\end{comment}
+
+\item Integrate the function using Matlab's $\mathtt{quad}$ command and setting the tolerance to $1\e{-14}$.  Treat this a the ``true'' value.
+\begin{comment}
+\begin{verbatim}
+[Ftrue,nevals]=quad(@binomiallogit,-10,10,1e-14);
+z=randn(100,1);
+Fmc=sum(binomiallogitnopdf(z))./length(z);
+Fgh=binomiallogitnopdf(x)'*(w./sum(w));
+\end{verbatim}
+\end{comment}
+
+\item Integrate the function by taking 20 and 400 Monte Carlo draws from $f$ and computing the sample mean.
+\item Integrate the function using Gauss-Hermite quadrature for $k=4, 12$ (Try some odd ones too). Obtain the quadrature points and nodes from the internet. Gauss-Hermite quadrature assumes a weighting function of $\exp[-x^2]$, you will need a change of variables to integrate over a normal density. You also need to pay attention to the constant of integration.
+\item Compare results to the Monte Carlo the results \textit{Make sure your quadrature weights sum to 1!}
+\begin{comment}
+\begin{table}[htdp]
+\caption{True value: 0.5515}
+\begin{center}
+\begin{tabular}{l r r r }
+Method & Points & Error\\
+quad & 2597 & 1e-14 \\
+monte carlo & 100 & 0.0166\\
+Gauss Hermite & 4 & 0.0044234\\
+Gauss Hermite & 12 & 0.0044469\\
+\end{tabular}
+\end{center}
+\end{table}
+\end{comment}
+
+\item Repeat the exercise in two dimensions where $\mu = (0.5,1), \sigma = (2,1)$, and $X=(0.5,1)$.
+\item Put everything into two tables (one for the 1-D integral, one for the 2-D integral). Showing the error from the ``true'' value and the number of points used in the evaluation.
+\begin{comment}
+\begin{table}[htdp]
+\caption{2-D Results True value: 0.7145}
+\begin{center}
+\begin{tabular}{l r r r }
+Method & Points & Error\\
+quad & n/a & 1e-14 \\
+monte carlo & 100 &  0.0174\\
+Gauss Hermite(PR) & 25 & 0.0250\\
+SGI-GQN & 13 & 0.0091\\
+SGI-KPN & 17 & -6.9355e-04\\
+\end{tabular}
+\end{center}
+\end{table}%
+\end{comment}
+\item Now Construct a new function $\mathtt{binomiallogitmixture}$ that takes a vector for $X$ are returns a vector of binomial probabilities (appropriately integrated over $f(\beta_i | \theta)$ for the 1-D mixture). It should be obvious that Gauss-Hermite is the most efficient way to do this. \textit{Do NOT use loops}.
+\end{enumerate}
+
+\section*{Part 3: Functional Approximation}
+What is interpolation? Suppose you have a collection of $n$ points in $R^2$ and $D=\{(x_1,y_1),\ldots,(x_n,y_n)\}$  where $y_i = g(x_i)$, $x_i \neq x_j$  $\forall i \neq j$ and you want to construct a function that closely fits these data points. Interpolation offers a variety of different techniques that perform this task in a more or less smooth manner.\\
+
+
+We are interested in interpolating your $\mathtt{binomiallogitmixture}(x)$ from the previous part at 20 evenly spaced data points $(\mathtt{linspace})$ from $[-4,4]$. (You may want to work with an easier function such as $\mathtt{sin(x)}$ first.\\
+
+We are going to use Chebyshev regression to construct a degree $n$ polynomial that approximates a function $f$ for $x \in [a,b]$ using $m > n $ points. The implementation requires the following steps, which you should include in your function $\mathtt{chebfit(fname,a,b,n)}$.
+\begin{enumerate}
+\item Compute the $m$ Chebyshev interpolation nodes on $[-1,1]$, $z_k = - \cos\left(\frac{2k-1}{2m} \pi \right)$ for $k=1,\ldots, m$.
+\item Adjust the nodes to the $[a,b]$ interval $x_k = (1+z_k) \left(\frac{b-a}{2} \right) + a$, for $k=1,\ldots,m$.
+\item Evaluate the function $f$ at the approximation nodes $y_k = f(x_k)$  for $k=1,\ldots,m$
+\item Compute the Chebyshev polynomial coefficients via $a_i = \frac{\sum_{k=1}^m y_k T_i(z_k)}{\sum_{k=1}^m  T_i(z_k)^2}$ where the polynomials\\ $T_0(x) = 1, T_1(x) = x, T_{i+1}(x) = 2xT_i(x) - T_{i-1}(x)$. 
+\item Your function should return the nodes $z_k$ and the coefficients $c$.
+\item Write a new function that takes the coefficients $c$ and computes a (vectorized) approximation to your function
+\begin{eqnarray*}
+\hat{f}(x) = \sum_{i=0}^n a_i T_i \left( 2 \frac{x-a}{b-a} -1 \right)
+\end{eqnarray*}
+\item Compare your approximation to MATLABs built-in cubic spline interpoland $\mathtt{csapi}$ and see how it does. (Plot both approximations on $0.01$ spaced grid-points against the actual nodes).
+\item What happens to the approximations outside the domain? What happens as we vary $n$?
+
+\end{enumerate}
+
+\end{document}
+

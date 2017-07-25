@@ -1,0 +1,37 @@
+     # List true values for our reference
+     # let RC := 1.2170;
+     # let theta1 := 0.0851;
+
+# Call solver and give it options
+
+ 
+# default options for SNOPT 6.2
+
+option snopt_options $snopt_options 'outlev=2 timing=1 ';  # output level
+ 
+# Initial guesses set at trivial values; probably not good initial guess
+     let {i in X} EV[i] := 0;
+     let {i in 1..3} thetaProbs[i] := 1/3;
+
+
+# Solve command
+     solve MPECZurcher;
+
+display _solve_time;
+
+# Output commands
+     option display_round 6, display_width 120;
+#      option display_width 120;
+
+# write the value function
+     display EV;
+
+# write the structural parameters (remember beta was fixed)
+     display beta, RC, thetaCost, thetaProbs, TransProb;
+
+# write errors in Bellman equations
+      display Bellman_1toNminusM.body; 
+      display Bellman_LastM.body; 
+      display Bellman_N.body;
+
+      display BellmanViola;
