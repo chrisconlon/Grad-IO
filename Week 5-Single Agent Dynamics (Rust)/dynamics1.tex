@@ -1,0 +1,389 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\usetheme{default}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+
+\usepackage[english]{babel}
+%\usepackage[table]{xcolor}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+\usepackage{amsmath,amssymb,setspace}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+\DeclareMathSizes{10}{10}{6}{6} 
+
+
+\title [Single-agent dynamic optimization models]{Single-agent dynamic optimization models}
+\author{C.Conlon - Adapted from M. Shum}
+\institute{Grad IO }
+\date{\today}
+\setbeamerfont{equation}{size=\tiny}
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}{Single-agent dynamic optimization models}
+\vspace{.5mm}
+{\bf 1. Rust (1987)} \\
+\vspace{3mm}
+Rust (1987) is one of the first papers in this literature. Model is quite simple, but empirical framework introduced in this paper for dynamic discrete-choice (DDC) models is still widely applied.\\
+\vspace{3mm}
+Agent is Harold Zurcher, manager of bus depot in Madison, Wisconsin. Each week, HZ must decide whether to replace the bus engine, or keep it running for another week. \end{frame}
+
+
+\begin{frame}{Rust (1987)}
+This engine replacement problem is an example of an optimal stopping problem, which features the usual tradeoff:\\
+\vspace{3mm}
+(i) there are large fixed costs associated with "stopping" (replacing the engine), but new engine has lower associated future maintenance costs;\\
+(ii) by not replacing the engine, you avoid the fixed replacement costs, but suffer higher future maintenance costs. Optimal solution is characterized by a threshold type of rule: there is a "critical" cutoff mileage level $x^*$ below which no replacement takes place, but above which replacement will take place.\\
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+\emph{Remark:} Another well-known example of optimal stopping problem in economics is job search model: each period, unemployed worker decides whether to accept a job offer, or continue searching. Optimal policy is characterized by "reservation wage": accept all job offers with wage above a certain threshold. 
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+\vspace{.5mm}
+{\bf 1.1. Behavioral Model}\\
+\vspace{3mm}
+At the end of each week $t$, HZ decides whether or not to replace engine. \emph{Control} variable defined as:
+\begin{equation*}
+i_t = \left \{ \begin{matrix} 1 & \text{if HZ replaces} \\ 0 & \text{otherwise} \end{matrix} \right . 
+\end{equation*}
+For simplicity, we describe the case where there is only one bus (in the paper, buses are treated as independent entities). \\
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+HZ chooses the (infinite) sequence $\{i_1, i_2, i_3, \cdots, i_t, i_{t+1}, \cdots \}$ to maximize discounted expected utility stream:
+\begin{eqnarray*}
+\max_{\{i_1, i_2, i_3, \cdots, i_t, i_{t+1}, \cdots \}} E \sum^{\infty}_{t=1} \beta^{t-1} u (x_t, \epsilon_t, i_t; \theta)
+\end{eqnarray*}
+where: $x_t$ is the mileage of the bus at the end of week $t$. Assume that evolution of mileage is stochastic (from HZ's point of view) and follows
+\begin{eqnarray*}
+x_{t+1} \left \{ \begin{matrix} \sim G(x' | x_t) &\text{if } i_t =& 0 (\text{ don't replace engine in period } t) \\
+= 0 &\text{if } i_t =& 1\text{ once replaced, bus is good as new} \end{matrix} \right .
+\end{eqnarray*}
+and $G(x' | x)$ is the conditional probability distribution of next period's mileage $x$'s given that current mileage is $x$. HZ knows $G$; econometrician knows the form of $G$, up to a vector of parameters which are estimated. 
+\end{frame}
+
+
+\begin{frame}{Rust (1987)}
+$\bullet$ $\epsilon_t$ denotes shocks in period $t$, which affect HZ's choice of whether to replace the engine. These are the "structural errors" of the model (they are observed by HZ, but not by us), and we will discuss them in more detail below. \\
+\vspace{3mm}
+$\bullet$ Since mileage evolves randomly, this implies that even given a sequence of replacement choices $\{ i_1, i_2, i_3, \cdots , i_t, i_{t+1}, \cdots \}$, the corresponding sequence of mileages $\{x_1, x_2, x_3, \cdots, x_t, x_{t+1}, \cdots \}$ is still random. The expectation in Eq. (1) is over this stochastic sequence of mileages and over the shocks $\{\epsilon_1, \epsilon_2, \cdots \}$. 
+\end{frame} 
+
+\begin{frame}{Rust (1987)}
+$\bullet$ The \emph{state} variables of this problem are: \\
+\vspace{3mm}
+\quad 1. $x_t$: the mileage. Both HZ and the econometrician observe this, so we call this the "observed state variable" \\
+\vspace{3mm}
+\quad 2. $\epsilon_t$: the utility shocks. Econometrician does not observe this, so we call it the "unobserved state variable"
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+Define value function:
+\begin{equation*}
+V(x_t, \epsilon_t) = \max_{i_{\tau}, \tau = t+1, t+2, \cdots} E_t \left [ \sum^{\infty}_{\tau=t+1} \beta^{\tau-t} u(x_t, \epsilon_t, i_t;\theta | x_t \right ]
+\end{equation*}
+where maximum is over all possible sequences of $\{ i_{t+1}, i_{t+2}, \cdots\}$. Note that we have imposed stationarity, so that the value function $V(\cdot)$ is a function of $t$ only indirectly, through the value that the state variable $x$ takes during period $t$. \\
+\vspace{2mm}
+\emph{Remark:} An important disctintion between empirical papers with dynamic optimization models is whether agents have infinite-horizon problems, and they are solved using value function iteration. Finite-horizon problems are non-stationary, and solved by backward induction starting from the final period. Most structural dynamic models used in labor economics and macro are finite-horizon. 
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+Using the Bellman equation, we can break down the DO problem into an (infinite) sequence of single-period decisions:
+\begin{equation*}
+i_t = i^{*} (x_t, \epsilon_t; \theta) = \text{argmax}_i \{u(x_t, \epsilon_t, i ; \theta) + \beta E_{x', \epsilon ' | x_t, \epsilon_t, i_t} V(x', \epsilon ') \}
+\end{equation*}
+where the value function is 
+\begin{equation*}
+\begin{split}
+V(x, & \epsilon) = \text{ max}_{i = 1, 0} \{ u(x, \epsilon, i; \theta) + \beta E_{x', \epsilon ' | x_t, \epsilon_t, i_t} V(x', \epsilon ') \}\\
+= & \text{ max} \{u(x, \epsilon, 0; \theta) + \beta E_{x', \epsilon ' | x_t, \epsilon_t, i_t} V(x', \epsilon '), u(x, \epsilon, 1; \theta) + \beta E V(0, \epsilon ') \} \\
+= & \text{ max} \left\{ \tilde V (x_t, \epsilon_t, 1), \tilde V (x_t, \epsilon_t, 0) \right \} .
+\end{split}
+\end{equation*}
+\end{frame}
+
+
+\begin{frame}{Rust (1987)}
+In the above, we define the {\bf choice-specific value function}
+\begin{equation*}
+\tilde V (x_t, \epsilon_t, i_t) = \left \{ 
+\begin{array}{lr}
+u(x_t, \epsilon_t, 1;\theta) + \beta EV(0, \epsilon ') & \text{ if } i_t = 1 \\
+u(x_t, \epsilon_t, 0; \theta) + \beta E_{x', \epsilon ' | x_t, \epsilon_t, i_t} V(x', \epsilon ') & \text{ if } i_t = 0
+\end{array}
+\right .
+\end{equation*}
+We make the following parametric assumptions on utility flow:
+\begin{equation*}
+u(x_t, \epsilon_t, i_t; \theta) = -c ((1-i_t) * x_t;\theta) - i_t * RC + \epsilon_{it}
+\end{equation*}
+where\\
+\vspace{2mm}
+$\bullet$ $c(\cdots)$ is the maintenance cost function, which is presumably increasing in $x$ (higher $x$ means higher costs) \\
+\vspace{2mm}
+$\bullet$ \emph{RC} denotes the "lumpy" fixed costs of adjustment. The presence of these costs implies that HZ won't want to replace the egine every period.
+\end{frame}
+
+
+\begin{frame}{Rust (1987)}
+$\bullet$ $\epsilon_{it}, ~ i = 0,1$ are structural errors, which represent factors which affect HZ's replacement choice $i_t$ in period $t$, but are unobserved by the econometrician. Define $\epsilon_t \equiv (\epsilon_{0t}, \epsilon_{1t})$. \\
+\vspace{3mm}
+As Rust remarks (bottom, pg. 1008), you need this in order to generate a positive likelihood for your observed data. Without these $\epsilon$'s, we observe as much as HZ does, and $i_t = i^* (x_t; \theta)$, so that replacement decision should be perfectly explained by mileage. Hence, model will not be able to explain situations where there are two periods with identical mileage, but in one period HZ replaced, and in the other HZ doesn't replace. \\
+\vspace{3mm}
+(Tension between this empirical practice and "falsifiability" of model)
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+Given additivity, we also define the \emph{choice-specific utility flow}
+\begin{equation*}
+u(x, i;\theta) \equiv u(x, \epsilon, i; \theta) - \epsilon_i
+\end{equation*}
+equal to the utility flow minus the $\epsilon_i$\\
+\vspace{3mm}
+As remarked earlier, these assumptions imply a very simple type of optimal decision rule $i^* (x, \epsilon;\theta)$: in any period $t$, you replace when $x_t \geq x^*(\epsilon_t)$, where $x^*(\epsilon_t)$ is some optimal cutoff mileage level, which depends on the value of the shocks $\epsilon_t$. 
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+Parameters to be estimated are: \\
+\vspace{3mm}
+\quad 1. parameters of maintenance cost function $c(\cdots)$; \\
+\vspace{2mm}
+\quad 2. replacement cost \emph{RC}; \\
+\vspace{2mm} 
+\quad 3. parameters of mileage transition function $G(x' | x)$. \\
+\vspace{3mm}
+\emph{Remark:} In these models, the discount factor $\beta$ is typically not estimated. Essentially, the time series data on $\{ i_t, x_t \}$ could be equally well explained by a myopic model, which posits that, 
+\begin{equation*}
+i_t = \text{argmax}_{i \in \{ 0, 1 \} } \{ u(x_t, \epsilon_t, 0), u(x_t, \epsilon_t, 1) \},
+\end{equation*}
+or a forward-looking model, which posits that 
+\begin{equation*}
+i_t = \text{argmax}_{i \in \{ 0, 1 \} } \left \{ \tilde V (x_t, \epsilon_t, 0), \tilde V (x_t, \epsilon_t, 1) \right \}.
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+In both models, the choice $i_t$ depends just on the current state variables $x_t, \epsilon_t$. Indeed, Magnac and Thesmar (2002) shows that in general, DDC models are nonparametrically underidentified, without knowledge of $\beta$ and $F(\epsilon)$, the distribution of the $\epsilon$ shocks. (Below, we show how knowledge of $\beta$ and $F$, along with an additional normalization, permits nonparametric identification of the utility function in this model.) \\
+\vspace{3mm}
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+Intuitively, in this model, it is difficult to identify $\beta$ apart from fixed costs. In this model, if HZ were myopic (i.e. $\beta$ close to zero) and replacement costs $RC$ were low, his decisions may look similar as when he were forward-looking (i.e. $\beta$ close to 1) and $RC$ were large. \\
+\vspace{.5cm}
+
+Reduced-form tests for forward-looking behavior exploit scenarios in which some variables which affect future utility are known in period $t$: consumers are deemed forward-looking if their period $t$ decisions depends on these variables. (Example: Chevalier and Goolsbee (2005) examine whether students' choices of purchasing a textbook now depend on the possibility that a new edition will be released soon.) 
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+\vspace{.5mm}
+{\bf 1.2 Econometric Model} \\
+\vspace{3mm}
+Data: observe $i_t, x_t$, $t=1, \cdots, T$ for 62 buses. Treat buses as homogeneous and independent (i.e. replacement decision on bus $i$ is not affected by replacement decision on bus $j$). \\
+\vspace{3mm}
+Rust makes the following conditional independence assumption, on the Markovian transition probabilities in the Bellman equation above:
+\begin{equation}
+\begin{split}
+p(x', \epsilon ' | x, \epsilon, i) = & p(\epsilon '| x', x, \epsilon, i) \cdot p(x' | x, \epsilon, i) \\
+ = & p(\epsilon ' | x') \cdot p (x' |x ,i ). 
+\end{split}
+\end{equation}
+The first line is just factoring the joint density into a conditional times a marginal. The second line shows the simplifications from Rust's assumptions. Namely, two types of conditional independence: (i) given $x, ~ \epsilon$'s are independent over time; and (ii) conditional on $x$ and $i, x'$ is independent of $\epsilon$. 
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+Likelihood function for a single bus:
+\begin{equation}
+\begin{split}
+& l (x_1, \cdots , x_T, i_t, \cdots , i_T | x_0, i_0 ; \theta) \\
+= & \prod^T_{t=1} Prob (i_t, x_t | x_0, i_0, \cdots , x_{t-1}, i_{t-1} ; \theta) \\
+= & \prod^T_{t=1} Prob (i_t, x_t |  x_{t-1}, i_{t-1} ; \theta) \\
+= & \prod^T_{t=1} Prob (i_t | x_t; \theta) x \prod^T_{t=1} Prob (x_t | x_{t-1}, i_{t-1} ; \theta_3) .
+\end{split}
+\end{equation}
+The third line arises from the Markovian feature of the problem, and the last equality arises due to the conditional independence assumption. 
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+Hence, the log likelihood is additively separable in the two components:
+\begin{equation*}
+\text{log } l = \sum^T_{t=1} \text{log } Prob (i_t | x_t ; \theta) + \sum^T_{t=1} \text{log } Prob (x_t | x_{t-1}, i_{t-1}; \theta_3).
+\end{equation*}
+Give the factorization of the likelihood function above, we can estimate in two steps: \\
+\vspace{3mm}
+1. Estimate $\theta_3$, the parameters of the Markov transition probabilities for mileage, conditional on non-replacement of engine (i.e. $i_t = 0$). (Recall that $x_{t+1} = 0$ wp1 if $i_t = 1$.)
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+We assume a discrete distribution for $\triangle x_t \equiv x_{t+1} - x_t$, the incremental mileage between any two periods:
+\begin{equation*}
+\triangle x_t = \left \{ 
+\begin{matrix}
+[0, 5000) & \text{w/prob } p \\
+[5000, 10000) & \text{w/prob } q \\
+[10000, \infty) & \text{w/prob } 1 - p - q  
+\end{matrix}
+\right .
+\end{equation*}
+so that $\theta \equiv \{p, q \}$, with $0 < p, q< 1$ and $p + q < 1$. \\
+\vspace{2mm}
+This first step can be executed separately from the more substantial second step. $\theta_3$ estimated just by empirical frequencies: $\hat p = \text{freq} \{ \triangle x_t \in  [0, 5000) \}$, etc. 
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+2. Estimate $\theta$, parameters of maintenance cost function $c (\cdots)$ and engine replacement costs. \\
+\vspace{3mm}
+Here, we make a further assumption that the $\epsilon$'s are distributed i.i.d. (across choices and periods), according to the Type I extreme value distribution. So this implies that in Eq. (4) above, $p(\epsilon ' | x') = p(\epsilon ')$, for all $x'$. \\
+\vspace{3mm}
+Expand the expression for $Prob(i_t = 1 |x_t; \theta)$ equals
+\begin{equation*}
+\begin{split}
+ Prob \{& -c(0; \theta) - RC + \epsilon_{1t} + \beta  EV(0, \epsilon ') > \\
+  &- c(x_t; \theta) + \epsilon_{0t}  + \beta E_{x', \epsilon ' | x_t, \epsilon_t, i_t =0 } V( x', \epsilon ' ) \} \\
+= Prob \{& \epsilon_{1t} - \epsilon_{0t} > c(0;\theta) - c(x_t; \theta) + \\
+& \beta [E_{x', \epsilon ' | x_t, \epsilon_t, i_t =0 }  V( x, \epsilon )  - EV(0, \epsilon ')] + RC \}
+\end{split}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+Because of the logit assumptions on $\epsilon_t$, the replacement probability simplifies to a multinomial logit-like expression:
+\begin{equation*}
+\begin{split}
+\resizebox{.99\hsize}{!}{$= \frac {\exp ( - c(0; \theta) - RC+ \beta EV (0, \epsilon ')) } { \exp (-c (0; \theta) - RC + \beta EV (0, \epsilon'))+ \exp (-c(x_t; \theta) + \beta E_{x', \epsilon ' | x_t, \epsilon_t, i} V(x', \epsilon')) }$} \\
+\end{split}
+\end{equation*}
+This is called a "dynamic logit" model, in the literature. \\
+\vspace{2mm}
+Using the choice-specific utility flow notation, the choice probability takes the form 
+\begin{equation}
+Prob(i_t | x_t;\theta) = \frac {\exp ( u(x_t, i_t, \theta) + \beta E_{x', \epsilon ' | x_t, \epsilon_t, i_t} V(x', \epsilon ' ))} { \sum_{i=0,1} \exp (u (x_t, i, \theta) + \beta E_{x', \epsilon ' | x_t, \epsilon_t, i} V(x', \epsilon))}.
+\end{equation}
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+\vspace{.5mm}
+\textbf{1.2.1 Estimation method for second step: Nested fixed-point algorithm} \\
+\vspace{3mm}
+The second-step of the estimation procedures is via a "nested fixed point algorithm". \\
+\vspace{3mm}
+\textbf{Outer loop:} search over different parameter values $\hat \theta$. \\
+\vspace{3mm}
+\textbf{Inner loop:} For $\hat \theta$, we need to compute the value function $V(x, \epsilon;\hat \theta)$. After $V(x, \epsilon;\hat \theta)$ is obtained, we can compute the LL function in Eq. (6). 
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+\vspace{.5mm}
+\textbf{1.2.2 Computational details for inner loop} \\
+\vspace{3mm}
+Compute value function $V(x, \epsilon; \hat \theta)$ by iterating over Bellman's equation (3). \\
+\vspace{3mm}
+A clever and computationally convenient feature in Rust's paper is that he iterates over the \emph{expected} value function $EV(x, i) \equiv E_{x', \epsilon ' | x, i} V(x', \epsilon ' ; \theta)$. The reason for this is that you avoid having to calculate the value function at values $\epsilon_0$ and $\epsilon_1$, which are additional state variables. He iterates over the following equation (which is Eq. 4.14 in his paper): 
+\begin{equation}
+\resizebox{.9\hsize}{!}{$EV(x,i) = \int_y \log \left \{ \sum_{j \in C(y)} \exp [ u(y,j; \theta) + \beta EV(y, j)] \right \} p(dy|x,i) $}
+\end{equation}
+Somewhat awkward notation: here "EV" denotes a function. Here $x, i$ denotes the \emph{previous} period's mileage and replacement choice, and $y, j$ denote the \emph{current} period's mileage and choice (as will be clear below). 
+\end{frame}
+
+
+\begin{frame}{Rust (1987)}
+This equation can be derived from Bellman's equation (3):
+\begin{equation*}
+\begin{split}
+V(y, \epsilon ;\theta) = & \max_{j \in 0,1} [ u(y, j ; \theta) + \epsilon + \beta EV(y,j)] \\
+\Longrightarrow & E_{y, \epsilon} = [V(y, \epsilon ; \theta) | x, i ] \equiv  EV(x, i ; \theta) \\
+= & E_{y, \epsilon | x, i } \left \{ \max_{ j \in 0,1} [ u(y, j ; \theta) + \epsilon + \beta EV(y,j)] \right \} \\
+= &  E_{y | x, i }  E_{\epsilon | x, i } \left \{ \max_{ j \in 0,1} [ u(y, j ; \theta) + \epsilon + \beta EV(y,j)] \right \} \\
+= &  E_{y | x, i } \log \left \{ \sum_{j=0,1} \exp [ u(y, j ; \theta)  + \beta EV(y,j)] \right \} \\
+= & \int_y \log  \left \{ \sum_{j=0,1} \exp [ u(y, j ; \theta)  + \beta EV(y,j)] \right \} p(dy|x,i).
+\end{split}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+The next-to-last equality uses the closed-form expression for the expectation of the maximum, for extreme-value variates.\\
+\vspace{3mm}
+Once the $EV(x, i ;\theta)$ function is computed for $\theta$, the choice probabilities $p(i_t |x_t)$ can be constructed as
+\begin{equation*}
+\frac {\exp(u(x_t, i_t ;\theta) + \beta EV (x_t, i_t; \theta))}{\sum_{i=0,1} \exp(u(x_t, i;\theta) + \beta EV(x_t, i;\theta))}.
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+\vspace{.5mm}
+\textbf{The value iteration procedure:} The expected value function $EV(\cdots ; \theta)$ will be computed for each value of the parameters $\theta$. The computational procedure is iterative. \\
+\vspace{3mm}
+Let $\tau$ index the iterations. Let $EV^{\tau} (x, i)$ denote the expected value function during the $\tau$-th iteration. (We suppress the functional dependence of $EV$ on $\theta$ for convenience.) Let the values of the state variable $x$ be discretized into a grid of points, which we denote $\vec r$. \\
+\vspace{3mm}
+$\bullet$ $\tau = 0$: Start from an initial guess of the expected value function $EV(x, i)$. Common way is to start with $EV(x, i) = 0$, for all $x \in \vec r$, and $i=0,1$. \\
+$\bullet$ $\tau =1$: Use Eq. (7) and $EV^0 (x; \theta)$ to calculate, at each $x \in \vec r$, and $i \in \{0, 1\}$. 
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+\begin{equation*}
+\begin{split}
+EV^1 (x, i) & = \in_y \log \left \{ \sum_{j \in C(y)} \exp [u(y, j;\theta) + \beta EV^0 (y, j)] \right \} p(dy |x,i) \\
+& = p \cdot \int^{x + 5000}_x \log\left \{ \sum_{j \in C(y)} \exp [u(y, j;\theta) + \beta EV^0 (y, j)] \right \} + \\
+& q \cdot \int^{x + 10000}_{x+ 5000} \log \{ \cdots \} dy + (1 - p - q) \cdot \int^{infty}_{x + 10000} \log \{ \cdots \} dy. 
+\end{split}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+Now check: is $EV^1 (x, i)$ close to $EV^0(x, i)$? One way is to check whether 
+\begin{equation*}
+\sup_{x,i} | EV^1 (x, i) - EV^0 (x, i) | < \eta
+\end{equation*}
+where $\eta$ is some very small number (e.g. 0.0001). If so, then you are done. If not, then \\
+\vspace{2mm}
+\quad - Interpolate to get $EV^1 (\cdot, i)$ at all points $x \notin \vec r$. \\
+\vspace{2mm}
+\quad  - Go to next iteration $\tau = 2$. 
+\end{frame}
+
+\begin{frame}{Single-agent dynamic optimization models}
+\vspace{.5mm}
+\textbf{References}\\
+\vspace{3mm}
+CHEVALIER, J., AND A. GOOLSBEE (2005): "Are Durable Goods Consumers Forward Looking?," NBER working paper 11421.\\
+\vspace{3mm}
+MAGNAC, T., AND D. THESMAR (2002): "Identifying Dynamic Discrete Decision Processes," \emph{Econometrica}, 70, 801--816 \\
+\vspace{3mm}
+RUST, J. (1987): "Optimal Replacement of GMC Bus Engines: An Empirical Model of Harold Zurcher," \emph{Econometrica}, 55, 999--1033.
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

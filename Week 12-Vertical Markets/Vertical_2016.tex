@@ -1,0 +1,834 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\usetheme{default}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+
+\usepackage[english]{babel}
+%\usepackage[table]{xcolor}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+\usepackage{amsmath,amssymb,setspace}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+\usepackage[absolute,overlay]{textpos} 
+\newenvironment{reference}[2]{% 
+  \begin{textblock*}{\textwidth}(#1,#2) 
+      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+
+\DeclareMathSizes{10}{10}{6}{6} 
+
+
+\title{Vertical Control (Undergrad Notes)}
+\author{Chris Conlon}
+%\institute{EC853}
+\date{\today}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+% outline at the beginning of each section
+%\AtBeginSection[]
+%{
+%\begin{frame}[plain]
+% \frametitle{Outline}
+% \tableofcontents[currentsection]
+% \normalsize
+%\end{frame}
+%}
+
+\frame[plain]{\titlepage}
+
+\section[Outline]{}
+\frame[plain]{
+\frametitle{Outline}
+\tableofcontents}
+
+\section{Overview}
+
+
+\frame[plain]{ 
+\frametitle{Vertical Control}
+
+Manufacturers rarely supply final consumers directly (as we have modeled them so far).  
+Instead, most industries are vertically separated.\\  
+\vspace{0.2in} 
+We often refer to firms in these markets as upstream and downstream firms.  In these settings, 
+downstream firms are the customers of the upstream firms, and many of the standard issues 
+still apply.  For example:\\
+\begin{enumerate}
+\item choice of price is endogenous\\
+\item price discrimination (both the upstream and downstream firms)\\
+\item mergers\\
+\item entry, etc.\\ 
+\end{enumerate}
+}
+
+\frame[plain]{
+\frametitle{Vertical Control}
+
+However, things can also get more complicated in vertically separated environments.  In particular, downstream firms 
+do not usually consume the good, but typically make further decisions regarding the product.\\ 
+\vspace{0.2in}
+Examples of activities of downstream firms:\\
+\begin{enumerate}
+\item determination of final price\\
+\item promotional effort\\
+\item placement of product on store shelves\\
+\item promotion and placement of competing products\\
+\item technological inputs\\
+\end{enumerate}
+}
+
+\frame[plain]{
+\frametitle{Vertical Control}
+Why don't manufacturers simply engage in direct marketing to consumers?\\
+\vspace{0.2in}
+Some reasons:\\
+\begin{enumerate}
+\item increasing returns to distribution due to shopping needs or travel costs for consumers\\
+\item choice of variety\\
+\item demand for service \\
+\item integration of complementary products\\
+\item different geographical markets, etc. 
+\end{enumerate}
+}
+
+\frame[plain]{
+\frametitle{Vertical Control}
+Unlike the consumption activities of final consumers, the activities of the downstream firms may affect the profits of the upstream firm.\\
+\vspace{0.2in}
+This is why upstream firms care about the activities of the downstream firms, and why we study vertical control/restraints between firms in these settings.\\
+\vspace{0.2in}
+We focus on the incentives for vertical control when the market for the intermediate good is imperfectly competitive.\\
+}
+\frame[plain]{
+\frametitle{Vertical Control}
+A common benchmark for what firms can achieve through vertical control is the ``vertically integrated profit.''  This is the maximum industry or aggregate (manufacturer plus retailer) profit.  \\
+\vspace{0.2in}
+If firms use vertical restraints efficiently, they should achieve the vertically integrated profit.\\
+}
+
+\frame[plain]{
+\frametitle{Vertical Control}
+
+There are several types of vertical restraints used by firms in vertically-separated markets:\\
+\begin{enumerate}
+\item {\it Exclusive Territories}: a dealer/ distributor/ retailer is assigned a (usually geographic) territory by the manufacturer/ upstream firm and given monopoly rights to sell in that area.\\
+\vspace{0.2in}
+\item {\it Exclusive Dealing}:  a dealer/ distributor/ retailer is not allowed to carry the brands of a competing upstream firm.\\
+\vspace{0.2in}
+\item {\it Full-line forcing}:  a dealer is committed to sell all the varieties of the manufacturer's products rather than a limited selection.  (i.e., the upstream firm ties all its products to sell to the downstream firm).\\
+\end{enumerate}
+}
+
+\frame[plain]{
+\frametitle{Vertical Control}
+\begin{enumerate}
+\setcounter{enumi}{3}
+\item {\it Resale Price Maintenance}:  a dealer commits to a retail price or a range of retail prices for the product.  This can 
+take the form of either minimum resale price maintenance or maximum resale price maintenance.  Equivalently, firms can engage in quantity forcing or quantity rationing.\\
+\vspace{0.2in}
+\item {\it Contractual arrangements}:  upstream and downstream firms write contracts to provide greater flexibility in the transfer 
+of the product.  Profit sharing and revenue sharing are the most common, which we'll see soon.  Also, franchising arrangements.\\
+\end{enumerate}
+}
+
+
+\frame[plain]{
+\frametitle{Vertical Control}
+The typical outline of vertical control is as follows:\\
+\begin{enumerate}
+\item Basic Framework\\
+
+\item Externalities between downstream and upstream firms (Maximum Resale Price Maintenance, Quantity Forcing, Contractual Arrangements, or Full-line Forcing)\\
+
+\item Downstream Moral Hazard, or Externalities from Intrabrand competition (Exclusive Territories, Minimum RPM, or Quantity Rationing)\\
+
+\item Interbrand competition (Exclusive Dealing or possibly Full-line Forcing)\\
+\end{enumerate}
+
+}
+\section{Basic Framework}
+
+\frame[plain]{
+\frametitle{Basic Framework}
+\begin{itemize}
+\item Simple model: homogeneous good with (inverse) demand given by:
+\[ p = a - Q\]
+\item Suppose we have a monopolistic manufacturer and we have given exclusive rights to a dealer to sell the product of the manufacturer, so both the upstream and downstream firms are monopolistic. \\ 
+\vspace{0.1in}
+\item The downstream firm has marginal cost of selling 
+the product of $d$ which is equal to the wholesale cost of purchasing the product from the manufacturer.\\
+\vspace{0.1in}
+\item The manufacturer has marginal cost of producing the good equal to $c$.
+\end{itemize}
+}
+
+\frame[plain]{
+\frametitle{Basic Framework}
+Dealer maximizes his profit given by
+\[ \pi_d = p(Q) Q - d Q = (a - Q) Q - d Q\]
+
+
+F.O.C.:
+\[ \frac{\partial \pi_d}{\partial Q} = 0 = a - 2Q - d\]
+
+\[Q^* = \frac{a - d}{2} \hspace{0.4in} p^* = \frac{a+d}{2} \hspace{0.4in} \pi_d = \frac{(a - d)^2}{4}\]\\
+\vspace{0.1in}
+Next solve for the upstream firm's choice of $d$.
+}
+
+
+\frame[plain]{
+\frametitle{Basic Framework}
+Manufacturer maximizes profit given by
+\[\pi_m = (d - c) Q = (d - c) \frac{a - d}{2}\]
+
+F.O.C.:
+\[ \frac{\partial \pi_m}{\partial d} = 0 = a - 2d + c\]
+
+\[d^* = \frac{a + c}{2} \hspace{0.4in} \pi_m = \frac{(a - c)^2}{8}\]\\
+\vspace{0.1in}
+Note that we can now substitute into the dealer's solutions (for $d$) and get:
+\[Q^* = \frac{a - c}{4} \hspace{0.4in} p^* = \frac{3a+c}{4} \hspace{0.4in} \pi = \frac{(a - c)^2}{16}\]
+
+
+}
+
+\section{Externalities}
+
+\frame[plain]{
+\frametitle{Externalities}
+Results:\\
+\begin{enumerate}
+\item The manufacturer earns a higher profit than the dealer\\
+\item The manufacturer could earn a higher profit if he did the selling himself.\\
+\end{enumerate}
+Total industry profit in this case is lower 
+than the vertically integrated profit.  Shown here:
+
+\[ \pi_{VI} = \frac{(a - c)^2}{4} > (\pi_d + \pi_m) = \frac{3 (a - c)^2}{16}\]
+
+The presence of two markups introduces an inefficiency.  
+
+}
+
+\frame[plain]{
+\frametitle{Externalities}
+This basic fact is called:\\
+\begin{itemize}
+\item double-monopoly markup problem, 
+\item successive monopolies problem, or 
+\item double marginalization.
+\end{itemize}
+\vspace{0.1in}
+As mentioned earlier, there are many ways around these problems, including RPM, contracts, etc. \\
+\vspace{0.2in}
+There are also other problems that arise, and sometimes firms might choose to create a successive monopoly problem in order to solve other incentive problems in 
+the vertical channel.  
+}
+
+\frame[plain]{
+\frametitle{Externalities}
+
+
+
+\begin{picture}(5,35)(-40,-5)
+\setlength{\unitlength}{1mm}
+
+\linethickness{1pt}
+% this one is horizontal
+\put(-5,-35){\line(1,0){85}}
+% this one is vertical
+\put(-5,-35){\line(0,1){70}}
+%labels
+\put(-10,35){\makebox(0,0)[l]{$P$}}
+\put(85,-35){\makebox(0,0)[r]{$Q$}}
+
+%this one is demand
+\put(-5,25){\line(4,-3){85}}
+\put(80,-41){\makebox(0,0)[r]{$D_r$}}
+%this one is marginal revenue
+\put(-5,25){\line(2,-3){42.5}}
+\put(45,-41){\makebox(0,0)[r]{$MR_r=D_w$}}
+%this one is marginal revenue #2
+\put(-5,25){\line(1,-3){21.25}}
+\put(20,-41){\makebox(0,0)[r]{$MR_w$}}
+% this one is marginal cost
+\put(-5,-25){\line(2,0){70}}
+\put(72,-25){\makebox(0,0)[r]{$MC$}}
+% this one is wholesale price
+%\put(-5,0){\line(2,0){33.5}}
+%%%%%
+\qbezier[13](-5,0)(3.5,0)(12,0)
+%\put(70,0){\makebox(0,0)[r]{\tiny{$wholesale \, price$}}}
+\put(-11,0){\makebox(0,0)[l]{$P_w$}}
+
+
+%this one is VI choice of q
+%%\qbezier[25](28,5,-35)(28.5,-17.5)(28.5,0)
+%this is 2nd monopoly choice of q
+\qbezier[25](12,-25)(12,-8.75)(12,12.5)
+%this is retail price
+\qbezier[13](-5,12.5)(3.5,12.5)(12,12.5)
+\put(-10,12.5){\makebox(0,0)[l]{$P_r$}}
+
+\linethickness{1pt}
+% this one is horizontal
+%%\put(-5,-35){\line(2,0){85}}
+% this one is vertical
+%%\put(-5,-35){\line(0,2){70}}
+%labels
+%%\put(-10,30){\makebox(0,0)[l]{\tiny{$P$}}}
+%%\put(85,-35){\makebox(0,0)[r]{\tiny{$Q$}}}
+
+%this one is demand
+%%\put(-5,25){\line(4,-3){85}}
+%%\put(80,-40){\makebox(0,0)[r]{\tiny{$D_r$}}}
+%this one is marginal revenue
+%%\put(-5,25){\line(2,-3){42.5}}
+%%\put(45,-40){\makebox(0,0)[r]{\tiny{$MR_r=D_w$}}}
+%this one is marginal revenue #2
+%%\put(-5,25){\line(1,-3){22.25}}
+%%\put(20,-40){\makebox(0,0)[r]{\tiny{$MR_w$}}}
+% this one is marginal cost
+%%\put(-5,-25){\line(2,0){140}}
+%%\put(70,-25){\makebox(0,0)[r]{\tiny{$MC$}}}
+% this one is wholesale price
+%\put(-5,0){\line(2,0){33.5}}
+\qbezier[25](-5,0)(12,0)(28.5,0)
+%\put(70,0){\makebox(0,0)[r]{\tiny{$wholesale \, price$}}}
+%%\put(-10,0){\makebox(0,0)[l]{\tiny{$P_w$}}}
+
+
+%this one is VI choice of q
+\qbezier[25](28.5,-35)(28.5,-17.5)(28.5,0)
+%this is 2nd monopoly choice of q
+%%\qbezier[50](12,-25)(12,-8.75)(12,12.5)
+%this is retail price
+%%\qbezier[25](-5,12.5)(3.5,12.5)(12,12.5)
+%%\put(-10,12.5){\makebox(0,0)[l]{\tiny{$P_r$}}}
+
+\end{picture}
+
+}
+
+\frame[plain]{
+\frametitle{Externalities}
+\begin{itemize}
+\item {\it Maximum Resale Price Maintenance (Maximum RPM)}, or {\it Quantity Forcing}: \\Set a maximum resale price below the optimal retail price, in order to mitigate the double marginalization problem.  Equivalently, use a quantity forcing arrangement.\\
+\vspace{0.2in}
+Examples include:
+\begin{itemize}
+\item gasoline
+\item newspapers
+\item ``suggested retail prices''
+\end{itemize}
+\vspace{0.2in}
+Important court cases are:
+\begin{itemize}
+\item Albrecht v. The Herald Co. (1968) (per se)
+\item State Oil Co. v. Khan (1997) (rule of reason)
+\end{itemize}
+\end{itemize}
+}
+
+\frame[plain]{
+\frametitle{Externalities}
+\begin{itemize}
+\item {\it Contractual Arrangements}: \\Instead of using Maximum RPM, write other types of contracts.  Perhaps lease the good to the downstream firm, perhaps use 
+profit-sharing contracts.  \\
+\vspace{0.1in}
+\item {\it Profit-sharing or revenue-sharing contracts}: \\Similar to a two-part tariff.  Instead of charging linear prices, the
+manufacturer requires a lump-sum transfer as well as a per-unit charge.
+\end{itemize}
+} 
+
+
+\frame[plain]{
+\frametitle{Externalities}
+Consider a simple linear demand model in a vertical setting where consumer demand is, for example,
+
+\[Q = V - \eta p \]
+
+Where $p$ is the price charged under simple linear pricing with no cover charge.  With two monopolists, we end up with:\\
+
+Demand facing manufacturer, optimal wholesale price, optimal retail price:
+
+\[ Q = V - 2\eta p, \hspace{0.4in} p_w^* = \frac{V}{4\eta} \hspace{0.4in} p_r^* = \frac{5V}{8\eta}\]
+
+}
+
+\frame[plain]{
+\frametitle{Externalities}
+
+And firm profits under the case of linear pricing only are:
+
+\[ \pi_m = \frac{V}{4}(\frac{V}{\eta} - \frac{V}{4\eta}) = \frac{3V^2}{16\eta} \]
+
+\[ \pi_r = \frac{3V}{8}(\frac{V}{\eta} - \frac{5V}{8\eta}) = \frac{9V^2}{64\eta} \]
+
+\[(\pi_r + \pi_m = \frac{21V^2}{64\eta}) \]
+
+(This gives us well-behaved profit functions that actually have a maximum so we don't require capacity constraints.  Note that $p_r^*$ accounted for the fact that the downstream firm paid a marginal cost of $p_w^*$.)  
+
+}
+
+\frame[plain]{
+\frametitle{Externalities}
+Now case 2, with a lump-sum payment:  (Remember we're assuming that production costs are zero.)\\
+\vspace{0.2in}
+The best the downstream firm can do when he does not have to pay for the incremental units is to maximize profit according to:
+
+\[ \max \pi_r = p (V - \eta p)\]
+
+Which yields 
+
+\[ p_r^* = \frac{V}{2\eta} \hspace{0.4in}  \pi_r = \frac{V^2}{2\eta} > \frac{21V^2}{64\eta}\]
+
+
+}
+
+\frame[plain]{
+\frametitle{Externalities}
+Let's say the upstream firm charges the downstream firm a lump-sum payment $C$ for quantity $Q^*$ of the good.\\
+The upstream firm's profit function is $\pi_m = C$.\\
+\vspace{0.2in}
+Satisfy a zero profit condition for the downstream firm.  Then 
+
+\[ \pi_m = C \mbox{ s.t. } \frac{V^2}{2\eta} - C = 0 \]
+
+Therefore,
+
+\[ C = \frac{V^2}{2\eta}\]
+
+The upstream firm makes profits of $\frac{V^2}{2\eta}$ and the downstream firm makes zero profit, but aggregate profits are 
+higher.
+
+}
+
+\frame[plain]{
+\frametitle{Externalities}
+We'll see that sometimes firms face a menu of such contracts.  In that case, the firms will bargain over the extra 
+profit (relative to the baseline profits under linear per-unit pricing).\\
+\vspace{0.2in}  
+The upstream firm will have to give at least $\frac{3V^2}{16\eta}$ to the downstream firm in order to induce him to accept the other contract.
+
+ }
+\section{Downstream Moral Hazard}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+Consider the example of promotions or advertising.  Assume (inverse) demand is given by
+
+\[ p = \sqrt A - Q\]
+
+The manufacturer sells to two dealers who compete in price.  Denote the wholesale price as $d$ and advertising expenditures as 
+$A_1$ and $A_2$, where $A = A_1 + A_2.$  \\
+\vspace{0.2in}
+First result:
+For any given $d$, no dealer will engage in advertising and demand would shrink to zero, with no sales.  (Firms compete in price, and they sell a homogeneous product.)
+
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+What can Minimum Resale Price Maintenance (or Quantity Rationing) do?\\
+\vspace{0.2in}
+
+{\it Minimum} Resale Price Maintenance: $p= p^f \geq d$\\
+\vspace{0.2in}
+Now demand is:
+
+\[ Q = \sqrt{(A_1 + A_2)} - p^f\]
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+Assume that quantity demanded is split evenly between the two retailers.  The only strategic variable for the retailers is 
+$A$.  Thus, writing profits as a function of $A$ and finding the F.O.C. yields:\\
+
+
+
+\[ \pi_i = \frac{\sqrt{(A_i + A_j)} - p^f}{2} (p^f - d) - A_i\]
+
+F.O.C.:
+
+\[ 0 = \frac{\partial \pi_i}{\partial A_i} = \frac{p^f - d}{4\sqrt{(A_i + A_j)}} - 1 \]
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+Note that we can only identify the sum of $A_1 + A_2$ and not $A_1$ and $A_2$ individually. \\
+\vspace{0.2in}
+But the idea is that retailers will compete on promotion now.  As long as $p^f > d$ then at least one retailer has an incentive to advertise, and the totaldollars spent on ads increases with the markup.\\
+\vspace{0.2in}
+Thus, we can induce dealers or retailers to allocate resources for promoting the product, or exert other forms of effort in distributing the product.  
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+Examples of minimum RPM, also sometimes called\\ ``Telser special services'': 
+\begin{itemize}
+\item perfume 
+\item cameras 
+\item Coors beer 
+\item Windows 98, Windows XP, Vista
+\item books
+\item many, many retail products (toys, electronics, etc.)\\
+\end{itemize}
+\vspace{0.2in}
+Important court cases include:\\
+\begin{itemize}
+\item Miles Medical v. John Park and Sons (1911) (per se)\\
+\item Leegin Creative Leather Products v. PSKS (2007) (rule of reason)\\
+\end{itemize}
+
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+Note that the problem of downstream moral hazard was that competition between the retailers resulted in too much 
+competition downstream, so that firms could not afford to advertise as a vertically-integrated firm would choose to do.\\
+\vspace{0.2in}
+Another (non-price) way around that: Exclusive Territories or ``Territorial Dealerships''\\
+
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+Simple Model of Exclusive Territories:\\
+\begin{itemize}
+\item Manufacturer must choose whether to grant dealerships to several or one dealer(s).
+\item A similar literature looks at these decisions in the context of licensing for inventors. (i.e., when I invent a new product, do I want to sell it myself, license it exclusively to a retailer/distributor, or license it to many competing retailers?)
+\end{itemize}
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+Model:\\
+\vspace{0.2in}
+Assume mfg's production cost c = 0\\
+The wholesale (linear) price is d (strategy variable of the mfg)\\
+There is a fixed cost to setting up a dealership given by F $>$ 0\\
+\vspace{0.2in}
+Consider an `address' model of differentiated products with consumers located along a line:
+
+\begin{picture}(15,15)(25,20)
+\setlength{\unitlength}{.7mm} \linethickness{1pt}
+\put(35,0){\line(2,0){100}} \put(35,-5){\line(0,2){10}}
+\put(135,-5){\line(0,2){10}}
+\put(35,10){\makebox(0,0)[c]{\small{Consumer 1}}}
+\put(135,10){\makebox(0,0)[c]{\small{Consumer 2}}}
+\end{picture}
+
+\vfill 
+\vspace{0.2in}
+Here, consider 2 consumers located at the edge of town.
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+
+The manufacturer must decide whether to license a single dealer in
+the center of town:\\
+\vspace{0.5in}
+\begin{picture}(15,15)(25,-20)
+\setlength{\unitlength}{.7mm} \linethickness{1pt}
+\put(35,0){\line(2,0){100}} \put(35,-5){\line(0,2){10}}
+\put(135,-5){\line(0,2){10}} \put(35,10){\makebox(0,0)[c]{\small{C
+1}}} \put(135,10){\makebox(0,0)[c]{\small{C 2}}}
+%
+\put(85,-5){\line(0,2){10}}
+\put(85,10){\makebox(0,0)[c]{\small{Dealer}}}
+\put(135,4){\vector(-2,0){48}}
+\put(110,7){\makebox(0,0)[c]{\small{T}}}
+\end{picture}
+
+Or two dealerships at the edges of town:\\
+
+\begin{picture}(15,15)(25,20)
+\setlength{\unitlength}{.7mm} \linethickness{1pt}
+\put(35,0){\line(2,0){100}} \put(35,-5){\line(0,2){10}}
+\put(135,-5){\line(0,2){10}} \put(35,10){\makebox(0,0)[c]{\small{C
+1}}} \put(135,10){\makebox(0,0)[c]{\small{C 2}}}
+%
+\put(35,-12){\makebox(0,0)[c]{\small{Dealer 1}}}
+\put(135,-12){\makebox(0,0)[c]{\small{Dealer 2}}}
+\put(135,4){\vector(-2,0){98}}
+\put(85,7){\makebox(0,0)[c]{\small{2T}}}
+\end{picture}
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+
+Assume the travel costs for a consumer of
+travelling from either
+edge of town to the center are T.\\
+\vspace{.2in}
+Also assume that consumers have the same basic value for the
+product, = B.\\
+\vspace{.2in}
+Thus, the utility functions of the consumers are:\\
+\[ u^i = \left\{ \begin{array}{ll}
+B - T - p & \mbox{buy from a center dealer}\\
+B - p_i & \mbox{buy from local (edge) dealer}\\
+B - 2T - p_j & \mbox{buy from other side of town}\\
+0 & o.w.\\
+\end{array} \right. \]
+}
+
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+
+Let's work out profits in each case.\\
+\vspace{.2in}
+Dealer(s) choose $p$ (retail price to consumers)\\
+Manufacturer chooses $d$ (wholesale price to dealers)\\
+\vspace{0.2in}
+\underline{Exclusive `Town-center' Dealer}\\
+Dealer's task is easy: extract all consumer surplus\\
+\hspace*{0.2in} $\Rightarrow$ p = B - T\\
+\hspace*{0.2in} Q = 2\\
+$\hspace*{0.2in} \pi_d$ = 2(p - d) = 2(B - T - d) - F\\
+\hspace*{0.2in} (don't forget fixed cost)\\
+\hspace*{0.2in} Mfg's problem -- \LARGE $\ast$ \\
+}
+
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+\underline{Two Edge--of--Town Dealerships}\\
+\vspace{.2in}
+2 cases: large town, and small town\\
+(Really these are towns with high or low transportation costs, or
+possibly high/low search costs for consumers\ldots)\\
+\vspace{.2in}
+\underline{Case I: Large Town}\\
+\vspace{.2in}
+Define a large town as one in which T $> \frac{F}{4}$\\
+\vspace{.2in}
+Define a small town as one in which T $< \frac{F}{4}$\\
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+
+\LARGE $\ast$ \normalsize Manufacturer's problem in the case of 'Town
+Center' Dealer:\\
+\vspace{.2in}
+\hspace*{0.2in} max d\ \ $\pi_m$ = d$\cdot$ Q\\
+\vspace{.2in}
+\hspace*{0.2in} Subject to $\pi_d$ = 2(B - T - d) - F $\geq$ 0 \hspace{.5in} (1)\\
+\vspace{.1in}
+\hspace*{0.2in} (Zero-profit condition for the dealer).\\
+\hspace*{0.2in} Suppose this constraint is satisfied exactly.  Then:\\
+\vspace{.2in}
+\hspace*{0.2in} d* = B - T - $\frac{F}{2}$\ \ (rearranging (1))\\
+\vspace{.2in}
+\hspace*{0.2in} $\Rightarrow$ \hspace{0.2in} $\pi_m$ = (B - T -
+$\frac{F}{2})\cdot$ 2\\
+\vspace{.2in}
+\hspace*{0.2in} \fbox{$\pi_m$ = 2(B - T) - F}
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+
+We want to find an equilibrium in which the two dealers do
+not undercut each others' prices.  Thus, we want to find an
+equilibrium s.t.\\
+\vspace{.2in}
+$\pi_1 = p_1$ -d - F $\geq$ 2(($p_2$ - 2T) -d) - F\\
+(Profit to firm 1 is higher if they don't undercut
+firm 2 and take all of firm 2's customers), and (vice versa).\\
+\vspace{.2in}
+$\pi_2 = p_2$ - d - F $\geq$ 2($p_1$ - 2T - d) - F\\
+(same requirement for firm 2)\\
+\vspace{.3in}
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+
+\emph{Large town} (T $> \frac{F}{4}$)\\
+\vspace{.2in}
+In this case, subsidizing the consumers' transportation cost is
+too expensive (you have to reduce your price by a
+\underline{lot}). So we can support the equilibrium above.\\
+\vspace{.2in}
+Thus, consumers have w.t.p. = B (i.e., utility = B - p)\\
+\vspace{0.2in}
+Dealer charges p = B, extracting all consumer surplus.\\
+\vspace{0.2in}
+Dealer profits are p - d - F = $\pi$\\
+\vspace{.2in}
+Therefore\ \fbox{$\pi$ = B - d - F}
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+
+What is the optimal wholesale price (d) for the manufacturer to
+charge?\\
+\vspace{.2in}
+Dealer will stay in business as long as $\pi \geq$ 0.  So, if mfg.
+changes d = B - F, dealer makes:\\
+\begin{center}
+\begin{tabbing}
+$\pi$ \== B - d - F\\
+\>= B - (B - F) - F\\
+\>= 0
+\end{tabbing}
+\end{center}
+Manufacturer extracts all rents by setting d = B - F\\
+(i.e., mfg extracts all the consumer's w.t.p. from the dealer, but
+allows the dealer to cover fixed costs)\\
+\vspace{.2in}
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+By the way, check that this is an undercut-proof equilibrium!\\
+$p_1$ - d - F $\geq$ 2($p_2$ - 2T - d) - F, and\\
+$p_2$ - d -F $\geq$ 2($p_1$ - 2T - d) - F\\
+\vspace{0.2in}
+ Notice that\\
+$p_1$ - d - F $\geq$ 2($p_2$ - 2T - d) - F\\
+$\Rightarrow$ B - B + F - F $\geq$ 2(B - 2T - B + F) - F\\
+\vspace{.1in}
+which holds if\\
+\vspace{.1in}
+0 $\geq$ 2B - 4T - 2B + 2F - F\\
+\vspace{.1in}
+$\Rightarrow$ 4T $\geq$ F, or\ \ T $\geq
+\frac{F}{4}$\\
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+
+Finally, profits of the mfg. are:\\
+$\pi_m$ = 2d\\
+\hspace*{.2in} = 2(B - F)\\
+\vspace{.2in}
+What should the mfg. do?  Set up 1 dealership or two?\\
+$\pi_m$ of 1 dealership = 2(B - T) - F\\
+$\pi_m$ of 2 dealerships = 2(B - F)\\
+\vspace{.2in}
+Therefore, a single dealership is more profitable if\\
+2B - 2T - F $>$ 2B - 2F\\
+$\Rightarrow$ \fbox{F $>$ 2T}\\
+And we're in a large town, so that\\
+\fbox{F $<$ 4T}
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+\emph{Large Town: Result}
+\begin{itemize}
+\item If F $\epsilon$ [2T, 4T] we set up a single dealership in a large town.\\
+\item If F $<$ 2T, we set up 2 dealerships at the edges of a large town.\\
+\item Intuition: If the sunk costs of establishing a dealership are
+high, we will only set up 1.
+\end{itemize}
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+Now in a small town, it is too hard to commit to not undercutting
+price, since the consumers on the other side of town don't have
+far to go to get to your dealership.\\
+\vspace{0.2in}
+In the small town case, we almost always chose a single dealership.\\
+\vspace{0.2in}
+Recall F $>$ 4T for the small town, so\\
+\vspace{0.2in}
+$\Rightarrow$ if F $<$ 2T: two dealerships\\
+\hspace*{.15in} if F $>$ 2T: single dealership
+}
+
+\frame[plain]{
+\frametitle{Downstream Moral Hazard, or Externalities from Intrabrand Competition}
+One contractual way to get around this problem is to set up
+exclusive territories so that two dealerships are simply not allowed
+to compete with each other. (i.e., we contract around the problem
+of intrabrand competition)\\
+\vspace{0.2in}
+In the previous example, each dealer becomes a monopolist on his
+half of the linear market, so the profit condition now becomes:\\
+\begin{center}
+$\pi_{d,i}$ = B - d - F $\geq$ 0\\
+\end{center}
+He is contractually prohibited from stealing consumers from dealer
+$j$.
+}
+\section{Interbrand Competition and Legal Issues}
+
+\frame[plain]{
+\frametitle{Interbrand Competition, and the use of Exclusive Dealing and Full-line Forcing}
+
+Interbrand competition is what we have in mind in exercises that ignore retail markets: competition between different brands of cereal at the grocery store, for example.\\
+\vspace{0.2in}
+There are two ways in which vertical restraints may be used.
+\begin{enumerate}
+\item Efficiency
+\item Anti-competitive foreclosure incentives upstream
+\end{enumerate}
+\vspace{0.2in}
+The Asker paper on beer examines these issues.
+
+}
+
+\frame[plain]{
+\frametitle{Legal Issues}
+
+%Legal Issues
+\vspace{0.1in}
+\begin{itemize}
+\item There are many ambiguities in the legal treatment of vertical contracts.\\
+\vspace{0.1in}
+\item Until 1970s, RPM and E. Territories were \underline{per se}
+illegal under Sherman Act.\\
+\vspace{0.1in}
+\item But many states passed fair trade laws that were interpreted to
+cover some of these cases.\\
+\vspace{0.1in}
+\item Furthermore, the Khan case in 1997 switched Maximum RPM to a ``rule of reason'' status, as did the Leegin Leather Products case in 2007 for Minimum RPM.\\
+\end{itemize}
+}
+
+\frame[plain]{
+\frametitle{Legal Issues}
+
+Thus, although price fixing remains \underline{per se} illegal,
+it's not always applied in vertical settings because it conflicts with
+free-trade notions between mfgs and their distributors.\\
+\vspace{0.2in}
+Non-price issues have been generally accepted to be ok by the
+courts.  Decisions turn on arguments about efficiency vs. anti-competitive effects.\\
+\begin{itemize}
+\item Exclusive territories 
+\item Refusal to deal 
+\item Foreclosure, etc.
+\end{itemize}
+}
+
+\end{document}

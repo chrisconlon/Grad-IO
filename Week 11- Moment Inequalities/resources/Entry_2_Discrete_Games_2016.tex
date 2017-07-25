@@ -1,0 +1,633 @@
+%2multibyte Version: 5.50.0.2960 CodePage: 65001
+
+\documentclass[notes=show]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{Codepage=65001}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Sunday, September 13, 2009 21:00:46}
+%TCIDATA{LastRevised=Monday, October 18, 2010 12:43:12}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%TCIDATA{CSTFile=beamer.cst}
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+%\usetheme{Madrid}
+\usetheme{Warsaw}
+%\input{tcilatex}
+\begin{document}
+\title[Entry II, Discrete Games]{Entry II, Discrete Games}
+\subtitle{}
+\author[]{Julie Holland Mortimer}
+%\institute[]{Ec 853}
+\date[]{Economics 853}
+\maketitle
+
+\begin{frame}{Entry Models as Discrete Games}
+Up to now, we have motivated the empirical entry models from the point of view of Sutton's comparative static regarding market size vs. the number of firms. \\
+\vspace{2mm}
+Alternatively, taking $N$ (the number of firms, or potential entrants) to be fixed, entry model is also a $N$-player discrete game. It is a game because entry choices of competing firms are interdependent (i.e. entry choice of firm 1 affects profits of firm 2). In this section, we study entry games as an important example of \emph{static discrete games}. \\
+
+\vspace{2mm}
+
+Often we consider two-period models.
+
+\end{frame}
+
+%\section{General Introduction to Two-Period Models}
+
+\begin{frame}{Introduction to Two-Period Models}
+Two-period models were introduced into I.O. in the context of
+entry models, but they have since been used in several other contexts including models involving other investments, and models
+of contracting. The models have:
+\begin{itemize}
+\item  a first period which establishes the state variables that determine the nature of product market competition, and then
+\item a second period in which that competition takes place.
+\end{itemize}
+
+In the investment/entry models we establish the number of
+firms, or the size of their capital stocks in the first period, and
+in the second period firms compete in prices or quantities.
+
+\end{frame}
+
+\begin{frame}{Basic Two-Period Model}
+The solution concept used in all of these models is ``subgame
+perfection", which in this context (finite horizon), simply means
+we solve the game backward. I.e. we
+\begin{itemize}
+\item solve the game in period 2 for the Nash quantities (or
+prices) that would result from (usually every possible) set
+of period 1 choices
+\item assuming the period 2 quantity choices are (always) unique,
+use the result of the first stage to compute the resultant period 2 expected net cash 
+flow (profits minus any fixed costs) conditional on the different possible period 1 choices
+by the agents, and then
+\item find a Nash equilibria in the first-period decision variable.
+\end{itemize}
+\end{frame}
+
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}{Basic Two-Period Model, Example}
+
+%EndExpansion
+
+
+Invesment in capital: capital is typically ``sunk" to some degree, and firms may use their capital investment decisions to signal potential entrants. 
+
+Stackelberg's example: Consider a two-firm industry. 
+
+\begin{itemize}
+\item Firm 1, the``first-mover," chooses a level of capital $K_{1}$,
+which is then fixed.
+
+\item Firm 2, the ``potential entrant", observes $K_{1}$ and chooses a
+level of capital $K_{2}$, which is then also fixed. 
+
+\item Profits of the firms are given by
+\begin{eqnarray*}
+\pi _{1}\left( K_{1},K_{2}\right)  &=&K_{1}\left( 1-K_{1}-K_{2}\right)  \\
+\pi _{2}\left( K_{1},K_{2}\right)  &=&K_{2}\left( 1-K_{1}-K_{2}\right) 
+\end{eqnarray*}
+
+Note two important properties:\ $\pi _{i}^{j}<0$, my profits are decreasing
+in the other firm's capital, and $\pi _{i}^{ij}<0$, my marginal product of
+capital is decreasing in the other firm's capital. Thus, capital levels are
+strategic substitutes. 
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}{Basic Two-Period Model -\ Stackelberg}
+%EndExpansion
+
+
+
+We will now proceed to solve this model. For now, suppose there is no fixed
+cost of entry. A sequential game; solve it backwards. \\
+\vspace{0.2in}
+
+First, Firm 2's profit-maximizing reaction function is given by:
+
+\[
+K_{2}=R_{2}\left( K_{1}\right) =\frac{1-K_{1}}{2}
+\]
+
+Turning to the first firm: it knows how Firm 2 will react; it maximizes
+
+\[
+\pi_{1}=K_{1}\left( 1-K_{1}-\frac{1-K_{1}}{2}\right) 
+\]
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}{Basic Two-Period Model -\ Stackelberg}
+%EndExpansion
+
+
+Therefore, this game has the following solution: 
+
+\begin{eqnarray*}
+K_{1}^{\ast } &=&\frac{1}{2}\text{, }K_{2}^{\ast }=\frac{1}{4} \\
+\pi_{1} &=&\frac{1}{8}\text{, }\pi_{2}=\frac{1}{16}
+\end{eqnarray*}
+
+Note that despite having the same technology (profit functions), Firm 1 is
+able to achieve significant higher profits.\ This is the nature of
+``First-mover Advantage."
+
+\begin{itemize}
+\item If the game were a simultaneous-move game, the solution would instead
+be 
+\begin{eqnarray*}
+K_{1}^{\ast } &=&K_{2}^{\ast }=\frac{1}{3} \\
+\pi_{1} &=&\pi_{2}=\frac{1}{9}
+\end{eqnarray*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}{Basic Two-Period Model -\ Stackelberg}
+%EndExpansion
+
+
+Now we want to investigate actual entry deterrence: we introduce a
+fixed cost of entry, $f$. Now, Firm 2's profit function is:\\
+
+\begin{equation*}
+\pi_{2}( K_{1},K_{2}) = K_{2}(1-K_{1}-K_{2}) - f 
+\end{equation*}
+
+if $K_{2}>0$, and zero if $K_{2}=0$.\\
+\vspace{0.2in}
+Recall that in the sequential game, Firm 2 earned $\pi_{2}=\frac{1}{16}$.
+Suppose $f<\frac{1}{16}$.
+
+\begin{itemize}
+\item If Firm 1 chooses $K_{1}=\frac{1}{2}$ as before, then Firm 2 will
+choose $K_{2}=\frac{1}{4}$ and earn $\pi_{2}=\frac{1}{16}-f$. 
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}{Basic Two-Period Model -\ Stackelberg}
+%EndExpansion
+
+
+However, Firm 1 may be able to increase profits by preventing Firm 2 from
+entering entirely. Specifically, the capital level $K_{1}^{s}$ that
+discourages entry is given by%
+\begin{eqnarray*}
+\max_{K_{2}}\left[ K_{2}\left( 1-K_{1}^{s}-K_{2}\right) -f\right]  &=&0 \\
+K_{1}^{s} &=&1-2\sqrt{f}
+\end{eqnarray*}
+
+\begin{itemize}
+\item Since we said that $f<\frac{1}{16}$, then $1-2\sqrt{f}>\frac{1}{2}$.
+That is, $K_{1}^{s}>K_{1}$. Firm 1's profit from deterring entry is%
+\[
+\pi ^{1}=2\sqrt{f}\left( 1-2\sqrt{f}\right) =2\sqrt{f}-4f
+\]
+
+\item If this profit is greater than $\frac{1}{8}$, then Firm 1 would prefer
+to completely discourage Firm 2 from entering (true if $f\in \left( \frac{3}{%
+32}-\frac{1}{16}\sqrt{2},\frac{1}{16}\right) $).
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}{Basic Two-Period Model -\ Stackelberg}
+%EndExpansion
+
+This model demonstrates a few concepts:
+
+\begin{itemize}
+\item Deterred entry:\ Firm 1 can make entry unprofitable for Firm 2 given a
+fixed cost of entry,
+
+\item Accomodated entry: Firm 1 can profit from its position as first-mover,
+
+\item Blockaded entry: Entry is not profitable for Firm 2 when Firm 1
+chooses its capital first ($f>\frac{1}{16}$).
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Basics of Discrete Games}
+
+\begin{frame}{Four Conditions Required for Discrete Games}
+Let $\pi(\cdot)$ be the profit earned in the second period, $d_i$ and $\mathbf{d_{-i}}$
+be the agent's and its competitors' choices, $\mathbf{y_i}$ be any variable (other than the decision variables) that affects the agent's profit, $D_i$ be the choice set, and $I_i$ be the agent's information set.  \large{$\varepsilon[\cdot|I_i]$} \normalsize is the agent's expectation conditional on the information set $I_i$.
+\vspace{0.2in}
+
+1. Nash Condition\ (C1).
+
+\begin{equation*}
+\sup_{d\in D_{i},d\neq d_{i}}\varepsilon\left[ \pi (d,\mathbf{d}_{-i},\mathbf{y}_{i},\theta _{0})|\mathit{I}_{i}\right] \leq \varepsilon\left[ \pi (d_{i},\mathbf{d}_{-i},\mathbf{y}_{i},\theta _{0})|\mathit{I}_{i}\right] 
+\end{equation*}
+
+where $D_{i}\subset D$, for $i=1,...,n$.
+
+\end{frame}
+
+\begin{frame}{Nash Condition (C1)}
+
+Notes about C1:
+
+\begin{itemize}
+\small
+\item No restriction on choice set; could be discrete (e.g., all bilateral
+contracts) or continuous (if so, the optimum could be at a corner and the objective function may
+have non-convexities), or a combination of discrete/continuous (e.g. a carbon tax on gas consumption may affect consumers' choices of car and the number of miles
+traveled conditional on car choice).
+
+\item C1 is a necessary condition for a Nash equilibrium, and is meant to be a rationality assumption (i.e., the agent's choice is optimal wrt his beliefs).  However, it does not imply uniqueness, and equilibrium selection can differ across observations.
+
+\item To check the Nash Condition, we need an approximation to what profits \textit{%
+would have been} had the agent made a choice which in fact he did not make.
+This requires a model of how the agent thinks that $\mathbf{d}_{-i}$ and $%
+\mathbf{y}_{i}$ are likely to change in response to a change in the agent's
+decision. 
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Counterfactual Condition (C2)}
+
+The model for how the agent thinks $(\mathbf{y_i, d_{-i}})$ are likely to
+respond to changes in $d_i$ may depend on other variables, say $z_i$, but we require $z_i$ to be exogenous (i.e., the agent believes $z_i$ will not change if the agent changes its own
+decision). Condition C2 formalizes this assumption.
+
+\vspace{0.2in}
+
+2. Counterfactual Condition\ (C2).
+
+\begin{equation*}
+\mathbf{d}_{-i}=d^{-i}(\mathbf{d}_{i},\mathbf{z}_{i}),\text{ \ }\mathbf{y}%
+_{i}=y(\mathbf{z}_{i},\mathbf{d}_{i},\mathbf{d}_{-i}),\text{ }and
+\end{equation*}
+
+the distribution of $\mathbf{z}_{i}$ conditional on $\mathit{I}_{i}$ does
+not depend on $d_{i}$.
+
+\end{frame}
+
+\begin{frame}{Counterfactual Condition (C2)}
+
+Notes about C2:
+
+\begin{itemize}
+
+%\item The assumption that the distribution of $\mathbf{z}_{i}$ conditional
+%on $\mathit{I}_{i}$ does not depend on $d_{i}$ is what we mean by $\mathbf{z}%
+%_{i}$ being an exogenous random variable.
+
+\item If we have simultaneous moves then $d^{-i}(d',\mathbf{z_i}) = \mathbf{d}_{-i}$ (i.e., there is no need for an explicit model of reactions by competitors, and Condition C2 is satisfied.)
+
+\item If there are sequential decisions and we want to use the decision of the first player in the analysis,
+then we have to specify a model for what the first player
+thinks the second player would do were the first player to
+change his decision.
+
+\item If there is a $\mathbf{y}$ which is ``endogenous" - i.e. its distribution depends on $d_{i}$ - then we
+need a model of that dependence.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Implication of C1 and C2}
+
+If $d^{\prime }\in D_{i}$ is any alternative choice, and 
+
+\begin{equation}
+\Delta \pi (d_{i},d^{\prime },d_{-i},z_{i})=\pi (d_{i},d_{-i},z_{i})-\pi
+(d^{\prime },d_{-i},z_{i})
+\end{equation}
+
+then%
+
+\begin{equation*}
+\varepsilon[ \Delta \pi (d_{i},d^{\prime },\mathbf{d}_{-i},\mathbf{z}_{i})|\mathit{I}_{i}] \geq 0 \text{ \hspace{0.1in}   } \forall  \text{   \hspace{0.1in}   }d'.
+\end{equation*}
+
+To use this inequality as a basis for an estimation algorithm, we need to specify the
+relationships between:
+
+\begin{itemize}
+\item the expectations underlying agents' decisions (\large{$\varepsilon(\cdot)$}) \normalsize and the expectations of the observed sample moments ($E(.)$), and 
+
+\item $\pi (.,\theta )$ and $(z\,_{i},d_{i},d_{-i})$ and their observable analogs.
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{Entry Models with Structural Errors, Example}
+
+\vspace{2mm}
+Before specifying the next two conditions, consider the information structure of a simple 2-firm entry model. Let $a_i \in \{0,1 \}$ denote the action of player $i = 1,2$. The profits are given by:
+\begin{equation*}
+\begin{split}
+\Pi_i (s) =& \left \{
+\begin{array}{l} 
+\beta' \text{s} - \delta a_{-i} + \epsilon_i , \;\; \text{if } a_i = 1 \\
+0 \;\; \;\; \;\; \text{otherwise}
+\end{array}
+\right. 
+\end{split}
+\end{equation*}
+where $s$ denotes market-level control variables. 
+\vfill
+Firm entry choices are interdependent, in the sense that firm 1's profits from entering (and, hence, his decision to enter) depend on whether firm 2 is in the market. \\
+\vfill
+As before, the error terms $\epsilon_i$ are assumed to be observed by both firms, but not by the econometrician. This is a ``perfect information" game. 
+%(Seim (2006) considers an ``incomplete information" game.)
+\end{frame}
+
+\begin{frame}{Entry Models with Structural Errors, Example}
+For fixed values of the errors $\epsilon \equiv (\epsilon_1, \epsilon_2)$ and parameters $\theta \equiv (\alpha_1, \alpha_2, \beta_1, \beta_2)$, the Nash equilibrium values $a^*_1, a^*_2$ must satisfy best-response conditions. For fixed $(\theta, \epsilon)$, the best-response conditions are:
+\begin{equation*}
+\begin{split}
+a^*_1 = & 1 \Leftrightarrow \Pi_1 (a^*_2) \geq 0 \\
+a^*_1 = & 0 \Leftrightarrow \Pi_1 (a^*_2) < 0 \\
+a^*_2 = & 1 \Leftrightarrow \Pi_2 (a^*_1) \geq 0 \\
+a^*_2 = & 0 \Leftrightarrow \Pi_2 (a^*_1) < 0
+\end{split}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Entry Models with Structural Errors, Example}
+For some values of parameters, there may be multiple equilibria. Define the mutually exclusive outcome indicators:
+\begin{equation*}
+\begin{split}
+Y_1 = & 1 (a_1 = 1, a_2 = 0) \\
+Y_2 = & 1 (a_1 = 0, a_2 = 1) \\
+Y_3 = & 1 (a_1 = 0, a_2 = 0) \\
+Y_4 = & 1 (a_1 = 1, a_2 = 1) 
+\end{split}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Entry Models with Structural Errors, Example}
+The moment inequalities for the Nash equilibrium assumptions are:
+\begin{equation*}
+\begin{split}
+\bullet & [1- \Phi(-\beta 's)][\Phi(\delta - \beta 's)] \geq E[Y_1 \mid s] \geq [1 -\Phi(-\beta 's)] \Phi(-\beta 's) + \\ 
+& [1 - \Phi(\delta - \beta 's)][\Phi(\delta - \beta 's) - \Phi(-\beta 's)] \\ \\
+\bullet & [1- \Phi(-\beta 's)][\Phi(\delta - \beta 's)] \geq E[Y_2 \mid s] \geq [1 -\Phi(-\beta 's)] \Phi(-\beta 's) + \\ 
+& [1 - \Phi(\delta - \beta 's)][\Phi(\delta - \beta 's) - \Phi(-\beta 's)] \\ \\
+\bullet & [\Phi(-\beta 's)]^2 \geq E[Y_3 \mid s] \geq [\Phi (-\beta 's)]^2 \\ \\
+\bullet & [1 - \Phi (\delta - \beta 's)]^2 \geq E[Y_4 \mid s] \geq [1 - \Phi (\delta - \beta 's)]^2
+\end{split}
+\end{equation*}
+\end{frame}
+
+
+\begin{frame}{Entry Models with Structural Errors, Example}
+We've already seen one alternative remedy to this problem. Instead of modeling events $Y_1 = 1 \text{ and } Y_2 = 1$ separately, we model the aggregate event $Y_5 \equiv Y_1 + Y_2 = 1$, which is the event that \emph{only one firm} enters. In other words, just model the likelihood of \emph{number of entrants}, but not the identities of entrants. This was done in Berry's (1992) paper. 
+
+\vspace{0.2in}
+More recently, researchers attempt to more flexibly address the problem of multiple equilibria by (1) generalizing the information structure of the game, and (2) working directly with the moment inequalities.  How these models are taken to data differ based on the assumptions that the researcher puts on the model's sources of error (and on the information structure of the game).
+
+\end{frame}
+
+
+\begin{frame}{Overview of Two-Period Models with Multiple Equilibria and Different Error Structures}
+
+Two-period games with multiple equilibria, including entry models, are closely related to the ``moment inequalities" that we generated from C1 and C2; indeed, those are generated directly from the theoretical model of the discrete game.  The next two conditions build on C1 and C2 and describe how we intend to take the conditions generated by the theoretical model to the data.  There are two main approaches.\\
+
+\end{frame}
+
+
+\begin{frame}{Overview of Two-Period Models with Different Error Structures}
+\vspace{2mm}
+1. {\bf No Specification Error:} Early papers focus on games where the moment (in)equalities are generated by ``structural" errors only (i.e. those observed by firms, but not by the econometrician).  
+\begin{itemize}
+\item Early versions of these models select an equilibrium ex-ante: Bresnahan and Reiss (1991 and others), Berry (1992), Mazzeo (2003), and Seim (2006).  
+\item Ciliberto and Tamer (2009) follow this approach too, but allow for multiple equilibria.  As a result of this, the parameters of their model are ``set identified,'' as we will see in the next lecture.
+\end{itemize}
+Each of these models are Full Information models except Seim; she introduces Asymmetric Information between firms but otherwise assumes no specification error.\\
+\end{frame}
+
+
+\begin{frame}{Overview of Two-Period Models with Different Error Structures}
+\vspace{2mm}
+2.  {\bf Expectational and Measurement Error:} More recently, estimation of discrete games has evolved to consider the case where the moment (in)equalities are generated by non-structural, expectational errors, which are not known by agents at the time that their decisions are made. This approach is broader than the entry literature per se, and follows the approach taken in Pakes, Porter, Ho, and Ishii. 
+\end{frame}
+
+\begin{frame}{Expectational Condition (FC3)}
+
+FC3 relates the data to agents' expectations.
+
+\vspace{0.2in}
+
+3. Expectational Condition (FC3).
+
+\begin{equation*}
+\pi (d,d_{-i},z_{i},\theta _{0})=\varepsilon \left[ \pi (d,\mathbf{d}%
+_{-i},\mathbf{z}_{i},\theta _{0})|\mathit{I}_{i}\right] \text{ \hspace{0.1in}} \forall  \text{ \hspace{0.1in}} d\in D_{i}
+\end{equation*}
+
+FC3 implies that the model does not allow for any expectational error. That
+is, it rules out asymmetric and/or incomplete information. The first ensures
+that other agents' actions ($d_{-i}$) are known with certainty at the time
+the agent makes its decision, and the second ensures that the agent knows $%
+z_{i}$ with certainty at the time its decision is made.  Note this restricts $D_i$ to pure strategies.  At a cost of
+notational complexity the model could be augmented to account for sequential
+games.
+
+\end{frame}
+
+\begin{frame}{Measurement Condition (FC4)}
+
+4. Measurement Conditions (FC4)
+
+
+\begin{equation*}
+\pi (.,\theta )\text{ is known.}
+\end{equation*}%
+\begin{equation*}
+z_{i}=(\upsilon _{2,i}^{f},z_{i}^{o})\text{ },\text{ }%
+(d_{i},d_{-i},z_{i}^{o},z_{-i}^{o})\text{ observed,}
+\end{equation*}%
+\begin{equation*}
+(\upsilon _{2,i}^{f},\upsilon _{2,-i}^{f})|_{z_{i}^{o},z_{-i}^{o}}\sim
+F(.;\theta )\text{, }F(.,\theta )\text{ is known.}
+\end{equation*}
+
+FC4 says that the model does not allow for any specification or measurement
+error. That is, our functional form for the profit equation is exactly the
+same as that of the agents. Some of the $z_{i}$ are observed by the
+econometrician (the $z_{i}^{o}$) and some are not ($\upsilon _{2,i}^{f}$).
+The $z_{i}^{o}$ that are observed are measured correctly. The agents know $%
+(\upsilon _{2,i}^{f},\upsilon _{2,-i}^{f})$ (from FC3), though the
+econometrician does not. The econometrician knows their joint distribution.
+We will see below that these assumptions provide a lot of power.
+\end{frame}
+
+\begin{frame}{Implications of FC3 and FC4}
+
+Substituting FC3 and FC4 into equation 1 gives:
+
+\begin{equation*}
+\Delta \pi (d_{i},d^{\prime },d_{-i},z_{i}^{o},\upsilon _{2,i}^{f};\theta
+_{0})\geq 0,
+\end{equation*}
+
+$\forall d\in D_{i}$, and%
+\begin{equation*}
+(\upsilon _{2,i}^{f},\upsilon _{2,-i}^{f})|_{z_{i}^{o},z_{-i}^{o}}\sim
+F(.;\theta _{0}).
+\end{equation*}
+
+This is almost enough to build an estimation algorithm. It does leave the
+logical problem that there may not be a $\theta $ that satisfies these
+conditions for all vectors of decisions. To ensure that the model assigns
+positive probability to the observed decisions for some $\theta $ we
+typically also assume additive separability:%
+\begin{equation*}
+\pi (d_{i},d_{-i},z_{i}^{o},\upsilon _{2,i}^{f})=\pi
+^{as}(d,d_{-i},z_{i}^{o},\theta _{0})+\upsilon _{2,i,d}^{f},
+\end{equation*}
+
+and that the distribution $\upsilon _{2,i}^{f}$ conditional on $\upsilon
+_{2,-i}^{f}$ has full support.
+
+
+\end{frame}
+
+\begin{frame}{Notes on FC3 and FC4}
+Notes:
+
+\small
+\begin{itemize}
+%\item FC3 and FC4 are implicit in the standard single agent discrete choice
+%literature, so all my comments apply to that literature also.
+
+\item The additive separability of $\upsilon _{2,i,d}^{f}$ cannot be
+obtained definitionally, by assuming $\upsilon _{2}$ is a residual from a
+projection because the RHS contains a
+decision variable which depends on $\upsilon _{2}$. In the single-agent discrete choice literature we can solve out for the $d_{i}$ to obtain a function that depends only on ``exogenous" variables.
+Here we can't because $d_{-i}$ is on the right hand side,
+and by assumption the $-i$ agents know $\upsilon _{2,i}$ when making their
+decisions.
+\item Early work on entry looked for a useful reduced form (one that could be used to summarize the effects of environmental characteristics of the market on number of participating agents). It typically assumed orthogonality of the error and solved for the optimal decision of each agent (enter or not). This work tended to find that the implied profits increased with the number of competitors. This was because more firms entered in more profitable markets (alternatively the error had components that were common to all participating agents, and hence were correlated with $d_{-i}$).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Notes on FC3 and FC4}
+\small
+\begin{itemize}
+
+
+
+\item Although the usual reduced-form assumptions used to generate discrete choice models do not do well when there are interacting agents, there is always a reduced-form for the single agent model that does make sense.  (Regress profits on variables of interest, assume a conditional distribution of the error, compute the choice as a function of the error, and form a standard estimator.)  It is the fact that this does not work for multiple agent problems that lead to the developments below.
+
+\item Suppose we wanted a reduced form for our problem. We could regress $\pi^{as}(\cdot)$ on variables of interest (e.g. $d_{-i}$ and other things). Were we to do so, we would pick up an additional error which is by construction, orthogonal to the included variables. Then we would have to deal with both errors in estimation, and they have different properties. The models we describe next, are going after such a reduced form, but they do not allow for the latter error. So there is a question of how any logical inconsistency affects the results.
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Entry Models with Structural Errors (Empirical Work)}
+
+\small
+The early entry models are the kind of entry models that had been used extensively in the theoretical literature to develop intuition on just what can happen once we endogenize entry. 
+\begin{itemize}
+\item When used in the empirical literature they organize data on the determinants of cross-sectional differences in market structure.
+\item The rationale for this is in an environment that has been stable for a very long time, and the only thing that changes over time is idiosyncratic incumbent and potential entrant specific, entry costs and selloff values. 
+\item Thus we expect the observed cross-sectional distribution conditional on covariates to converge to some constant ÒinvariantÓ distribution. 
+\item Differences across markets are expected to depend on the size and other characteristics of the market. Moreover different theories of competition suggest different effects of the number of competitors (think of Cournot vs Bertrand), so in a best-case scenario we might learn something about the nature of post-entry competition.
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{Entry Models with Structural Errors (Empirical Work)}
+
+\begin{itemize}
+
+\item The early models are not structural models in the sense of the static models we used above; that is we generally do not think of using them to estimate primitives and do counterfactuals (they do not let past conditions determine current market structure or allow perceptions about future conditions to impact on current decisions). 
+\item However, when applied and interpreted carefully, they may be suggestive about the likely strengths of various entry incentives.
+\end{itemize}
+
+Three generations of two-period entry models with structural errors:
+
+\begin{itemize}
+\item Models with identical firms (B/R)
+\item Models with heterogeneous fixed costs (Berry 1992)
+\item Models with heterogeneous continuation values (Seim 2006, Mazzeo 2003)
+\end{itemize}
+
+
+
+\end{frame}
+
+%\begin{frame}{Entry Models with Structural Errors (Empirical Work)}
+
+
+%\end{frame}
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

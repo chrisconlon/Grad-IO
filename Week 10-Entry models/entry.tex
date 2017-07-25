@@ -1,0 +1,1060 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\usetheme{default}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+
+\usepackage[english]{babel}
+%\usepackage[table]{xcolor}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+\usepackage{multirow,array}
+\usepackage{amsmath,amssymb,setspace}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+\usepackage[absolute,overlay]{textpos} 
+\newenvironment{reference}[2]{% 
+  \begin{textblock*}{\textwidth}(#1,#2) 
+      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+
+\DeclareMathSizes{10}{10}{6}{6} 
+
+
+\title []{Entry Models}
+\author{C.Conlon }
+\institute{Grad IO }
+\date{Fall 2016}
+\setbeamerfont{equation}{size=\tiny}
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+
+\begin{frame}{Short run vs. long run}
+\begin{itemize}
+\item Mostly we've looked at competition over the \alert{short run} where we hold the number/identity of competitors fixed.
+\item In the \alert{long run} firms may enter or exit depending on their fixed/sunk costs.
+\item When we teach undergrads we talk about \alert{long run average cost curves} in addition to short run (price) competition.
+\item Market structure will obviously change over time.
+\item Entry is a inherently dynamic process. First we are going to think about entry in a static or two period framework
+\begin{enumerate}
+\item $M$ Firms make simultaneous entry decision and pay sunk cost $F$ so that we have $n$ entrants.
+\item Firms see number/identity of competitors and set prices/quantities. $\pi_i(n)$
+\end{enumerate}
+\end{itemize}
+\end{frame} 
+
+
+\begin{frame}{Some Questions}
+\begin{itemize}
+\item Why are some industries concentrated and others not? Barriers to Entry? Returns to Scale? Productivity Dispersion?
+\item How many firms does it take for a market to be ``comepetitive''? Three? Four?
+\item Should we worry about concentrated industries?
+\begin{itemize}
+\item Baulmol (1982): Theory of \alert{contestable} markets. Firms keep innovation and market share high and profits low in order to deter prospective entrants.
+\item Schumpeter (1942): Monopoly rents provide an incentive for \alert{innovation}, which competition may reduce. (patents!)
+\item Arrow 1963: dominant firms may have dis-incentive to invest in innovation.
+\item Barriers to Entry create rents (Sutton 1991), Fewer firms facilitates collusion (Green and Porter 1984).
+\end{itemize}
+\end{itemize}
+\end{frame} 
+
+
+\begin{frame}{Basic Theoretical Framework}
+\begin{itemize}
+\item Begin by assuming symmetry so that $\pi_i(n) = \pi(n)$. (think of $\pi$ as a continuation value rather than per-period profits).
+\item First stage equilibria: Pure Strategies
+\begin{itemize}
+\item In equilibrium $n^*$ firms enter where 
+\begin{eqnarray*}
+\pi(n^*)  - F \geq 0 > \pi(n^* +1) -F
+\end{eqnarray*}
+\item Does not say anything about identity of entrants. How do firms coordinate on whether to enter or not?
+\end{itemize}
+\item First stage equilibria: Mixed Strategies:
+\begin{itemize}
+\item All firms enter with probability $p$ so that expected value of entry is $F$
+\begin{eqnarray*}
+\sum_{i=1}^M {{M-1}\choose{n-1}} p^{n-1} (1-p)^{M-n} \pi(n) - F = 0
+\end{eqnarray*}
+\item There may be \textit{ex post} regret in this case.
+\end{itemize}
+\end{itemize}
+\end{frame} 
+
+\begin{frame}{What is the optimal number of firms?}
+\begin{itemize}
+\item First best says: $P=MC$ with a single firm.
+\item Take second period equilibrium as given (Bertrand, Cournot, etc.).
+\item Compare free-entry equilibrium $\pi(n) =F$ with social planner's optimal number of firms
+\begin{eqnarray*}
+n^* = \arg \max_n \left (n \cdot (\pi(n) - F)  + CS(n) \right)
+\end{eqnarray*}
+\begin{description}
+\item[Business Stealing:] each entrant imposes \alert{negative} externality, leading too too much entry.
+\item[Consumer Surplus/Market Expansion:] each entrant creates a \alert{positive} externality, leading to too little entry.
+\end{description}
+\item Which effect dominates? Depends on the market conditions!
+\end{itemize}
+\end{frame} 
+
+\begin{frame}{Mankiw and Whinston (1986)}
+\begin{itemize}
+\item Symmetric, homogenous goods $p(n) = p( n \cdot q(n))$.
+\item Marginal private return to entry
+\begin{eqnarray*}
+\pi(n) - F = p(n) q(n) - c(q(n)) - F
+\end{eqnarray*}
+\item Social Planner solves:
+\begin{eqnarray*}
+S(n) &=& \max_n \left[ \int_0^{n q(n)} p(x) d\,x \right] - n c(q(n)) - nF \\
+S'(n) &=&  p(n) [ q(n) + nq'(n)] - c(q(n)) - nc'(q(n)) q'(n) - F\\
+S'(n) &=&  \pi(n) - F  + \underbrace{nq'(n) [p(n) - c'(q(n))] }_{\geq 0} \geq \pi(n) - F
+\end{eqnarray*}
+\item Social return $\leq $ Private Return (Excess entry!).
+\item Business stealing dominates market expansion.
+\end{itemize}
+\end{frame} 
+
+\begin{frame}
+\frametitle{A General Framework}
+\begin{eqnarray*}
+\pi(x_i, F_i;  n^*) &\equiv& \underbrace{v(x_i;n)}_{\mbox{Variable Profit}} -\underbrace{F_i}_{\mbox{fixed costs}}
+\end{eqnarray*}
+\begin{itemize}
+\item Assume that we have lots of cross sectional data so that probability of entry $p(x)$ is observed without error
+\item Goal: can we identify $v(x)$ and distribution of $F_i$,$\Phi(\cdot)$.
+\item Easy case: 
+\begin{itemize}
+\item Monopoly entry
+\item Assume that $F_i \perp v(x_i)$.
+\item enter when $F_i \leq v(x_i)$. \pause
+\item But, we can take a monotone transform of both sides without changing $p(x)$.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{A General Framework}
+Continue with the ``easy case'':
+\begin{itemize}
+\item Assume $F \sim U[0,1]$ then $v(x) = p(x)$. so that our condition is $F \leq p(x)$.
+\item Seems bad if $v(x)$ is some monotone transform of $p(x)$.
+\item Can still answer questions about ``sources of profitability''
+\begin{eqnarray*}
+\frac{\partial v/ \partial x^2}{\partial v/ \partial x^1} = \frac{\partial p(x) / \partial x^2}{\partial p(x)/ \partial x^1}
+\end{eqnarray*}
+is also invariant to monotone transforms of $v$.
+\end{itemize}
+How to proceed?
+\begin{itemize}
+\item Normalize $v$ using data (prices, quantities, etc.) then $p(x) = \Phi(v(x))$ to recover $\phi$.
+\item Or, place some structure on $\Phi$ such as assuming $\sim N(\mu,\sigma)$ with (un) known parameters.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric Identification}
+\small
+Can we proceed under weaker assumptions (Matzkin 1992):
+\begin{itemize}
+\item Assume that $v(x)$ is homogenous of degree 1 and $\exists\, x_0$ so that $v_1(x_0) =1$ then $v(\cdot)$ and $\Phi(\cdot)$ are identified.
+\item Suppose demand is purely proportional to the population (for dentists?) and that marginal cost is constant.
+\begin{eqnarray*}
+z_i v(x_i) - F_i
+\end{eqnarray*}
+\item Now $v$ is per-capita profit and $z$ is population. We can just normalize $v(x_0)=1$ for some arbitrary $x_0$
+\begin{eqnarray*}
+p(z,x_0) = Pr(F < z v(x_0)) = Pr( F < z) = \Phi(z)
+\end{eqnarray*}
+\item We need variation in $z$ so that $p(z,x_0)$ takes on every value between zero and one, then we can recover the entire $\Phi$.
+\item If you care about non-parametrics there are other versions for ``partially linear models'' or ``median independence'' (Manski 1988) instead of strict independence. [possibly less relevant for entry].
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bresnahan and Reiss (1991a/b)}
+\small
+\begin{itemize}
+\item Assume identical potential entrants with identical fixed costs.
+\item Assume many (possibly heterogeneous markets) so that $F_m$.
+\item Goal recover the shape of the profit function w.r.t. \# of firms. ($v_2/v_1$, $v_3/v_2$, etc.).
+\begin{eqnarray*}
+\pi(n_m, x_m, F_m) = v_{n_m} (x_m) - F_m
+\end{eqnarray*}
+\item Unique N.E. for \# firms (not identity): two inequalities: $v_{n}(x_m) \geq F_m$ and $v_{n+1}(x_m) < F_m$.
+\end{itemize}
+\begin{eqnarray*}
+Pr(n=0 | x) &=& 1- \Phi(v_1(x))\\
+Pr(n=1 | x) &=& \Phi(v_1(x))-\Phi(v_2(x))  \\
+Pr(n=2 | x) &=& \Phi(v_2(x))-\Phi(v_3(x))  \ldots
+\end{eqnarray*}
+Rewrite so that $G(x)$ is known (just like monopoly!):
+\begin{eqnarray*}
+ \Phi(v_1(x)) &=& 1- Pr(n=0 | x) = G_1(x)\\
+ \Phi(v_2(x)) &=& 1- Pr(n=0 | x)  - Pr(n=1 | x) = G_2(x)\\
+ \Phi(v_3(x)) &=& 1- Pr(n=0 | x)  - Pr(n=1 | x) - Pr(n=2 | x) = G_2(x)\\
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bresnahan and Reiss (1991a/b)}
+\small
+\begin{itemize}
+\item Identification is parametric. $G(x)$ is known. BR make assumptions on both $v(\cdot)$ and $\Phi(\cdot)$ and estimate the resulting model by MLE.
+\item Assume that $\Phi$ is lognormal so that $n$ follows an ordered probit. and that $v(x_i) = x_i \beta$.
+\item Interested in the ratio $\frac{v_2(x)}{v_1(x)}$.
+\begin{itemize}
+\item Fixed prices: $\frac{v_2(x)}{v_1(x)} = \frac{1}{2}$
+\item Cournot: $\frac{v_2(x)}{v_1(x)} \in (0, \frac{1}{2})$
+\item Bertrand: $\frac{v_2(x)}{v_1(x)} =0$
+\end{itemize}
+\item But this ratio is NOT robust to monotone transforms of $v_n$ and $F$
+\begin{itemize}
+\item The economic parameter of interest is NOT non-parametrically identified without shape restrictions!
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Result 3: Berry and Tamer (2006)}
+\footnotesize
+Key: homogeneity of degree one in population $z$ (Per-capita profits)
+\begin{enumerate}
+\item Suppose there exists $(x,x')$ so that $G_i(x') = G_j(x)$ for $i \neq j$ then $v_i(x') = v_j(x)$. (ie: $G_1(x') = G_2(x)$ then $v_1(x') = v_2(x)$.\\
+\textit{Match choice probabilities from markets with different entrants to recover regressor values for which variable profits match}.
+\item If $v_n(x) = z v_n(\tilde{x})$ and $x = (z,\tilde{x})$ and $x' = (z',\tilde{x}')$ so that $G_2(x') = G_1(x)$ then the ratio of interest is identified.
+\begin{eqnarray*}
+\frac{v_2(\tilde{x})} {v_1(\tilde{x})}  = \frac{z}{z'}
+\end{eqnarray*}
+\textit{Nonparametric point identification given variation in $(z,x)$ with the proportional to population assumption}
+\item If $v_n(x) = z v_n(\tilde{x})$ and $v_1(x_0) = a \equiv 1$ then $\Phi(z) = G_1(z,x_0)$ and hte function $\Phi(\cdot)$ is identified on the support of $z$. Also for all $y$ 
+\begin{eqnarray*}
+v_n(\tilde{x}) = \frac{F^{-1}G_n(z,\tilde{x})}{z}
+\end{eqnarray*}
+The function $v_n(\cdot)$ is identified on the support of $(x,z)$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Result 3: Berry and Tamer (2006) Extension}
+\begin{enumerate}
+\item With proportional to population assumption, can relax the model further to allow for $\Phi_n(F)$ (potentially increasing fixed costs with number of entrants -- higher rent?). [BR do this one]
+\item If we had additional data to pin down levels of $v_n(x)$ we could do even better.
+\begin{eqnarray*}
+Pr(y \geq n | x) = \Phi(v_n(x))
+\end{eqnarray*}
+(See Reiss and Spiller (1989) or Berry and Waldfogel (1999).
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bresnahan and Reiss: Data}
+\begin{itemize}
+\item Make your RA drive around isolated towns in the south-western US.
+\item Idea: each town is an isolated market.
+\item Confirm the number of dentists, plumbers, tire-dealers, etc. in the phonebook
+\item How many people do you need for a second dentist? $\alert{s_n(x_m)}$.
+\begin{itemize} 
+\item Twice as many as for the first dentist?
+\item More than that? Less than that?
+\end{itemize}
+\item Actual functional form (ordered probit)
+\begin{eqnarray*}
+\underbrace{S_m}_{\mbox{ market size } }\cdot \underbrace{\left(X_m \beta - \sum_{i=1}^n \alpha_i \right) }_{\mbox {per capita profit }} -\underbrace{ W_m \gamma + \varepsilon_m}_{\mbox { sunk cost}} > 0
+\end{eqnarray*}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bresnahan and Reiss: Results}
+Estimated ratios of per-firm thresholds. B \& R interpret the ratios greater
+than one as evidence of prices declining in N.
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Profession & $m\,_{2}/m_{1}$ & $m\,_{3}/m_{2}$ & $m\,_{4}/m_{3}$ & $m\,_{5}/m_{4}$ \\ \hline
+Doctors & 1.98 & 1.10 & 1.00 & 0.95 \\ \hline
+Dentists & 1.78 & 0.79 & 0.97 & 0.94 \\ \hline
+Plumbers & 1.06 & 1.00 & 1.02 & 0.96 \\ \hline
+Tire Dealers & 1.81 & 1.28 & 1.04 & 1.03 \\ \hline
+\end{tabular}
+\end{center}
+(Bresnahan and Reiss, 1991 Table 5\bigskip )
+\begin{itemize}
+\item Prices seem to decline a lot when moving from one to two doctors, tire
+dealers or dentists.
+\item But further increases in $N$ do not seem to increase competition much.
+\item Consistent with old jokes, plumbers' prices never fall.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The Model:\ Results cntd.}
+The caveats above may of course apply.
+
+\bigskip
+But there is good intuition behind the answers and none of our caveats
+explains why so many of the estimated threshold ratios are close to exactly
+one.
+
+\bigskip
+B \& R also look at the observed prices of tire dealers in a simple
+regression context. These prices do seem to fall with the first few entrants
+and then level out. This is consistent with the estimated entry thresholds.
+They also note the interesting fact that the prices in these small towns
+appear to level out at a much higher level than is observed at large,
+big-city tire dealers.
+\end{frame}
+
+\begin{frame} \frametitle{Adding Price and Quantity}
+\begin{itemize}
+\item Berry-Waldfogel (RAND 1999) consider entry into the radio industry,
+where both price and quantity data are available.
+\item They assume a simple parametric relationship between continuation
+values $v_n(x)$ and current profits (largely implicit in B\&R anyway) and use
+prices and quantities to estimate $v_n(x)$.
+\item Entry data are only needed to estimate distribution of fixed costs (which can be done non-parametrically).
+\item This works because they can normalize the scale of $v_n(x)$ instead of just relying on revealed preference inequalities.
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Berry and Waldfogel (1999):\ Overview}
+
+A three-equation model:
+
+\begin{enumerate}
+\item Slope of listeners as a function of $N.$ Stations ``produce" listeners,
+who make a free choice over stations. They use a nested logit. Each station
+produces an idiosyncratic benefit, so listening increases in $N$; but there
+is still a business stealing effect generated by entry.The logit functional
+form determines the effect of $N$ on total listening (so one should think
+hard about its implications).
+
+\item Revenues as a function of number of listeners (and therefore of $N$).
+Stations sell listeners to advertisers at some price per listener-hour.
+Advertisers' demand is downward sloping with a simple constant elasticity
+functional form.
+
+\item Entry equation. Free entry with identical firms:\ so given estimates
+of revenue as a function of $N$ from equations 1-2, the entry equation is
+the same as in Bresnahan and Reiss. If the
+(identical) fixed costs distribute (log) normally across markets, the entry
+equation is an ordered probit.
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Berry and Waldfogel, cntd.}
+\begin{itemize}
+\item Data:\ a cross section of 135 metro areas
+\item Results are used to look at relationship between PS and entry.
+\item Idea:\ as in Mankiw and Whinston (1986), there is a \textquotedblleft\
+business stealing\textquotedblright\ effect of new entry on the profits of
+existing firms
+\item Empirical results show a lot of business stealing by new stations,
+implying a large PS loss from free entry (approx 40\% of industry revenue).
+\item Implies a large potential gain from cartelization
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Berry and Waldfogel, cntd.}
+These results are interesting, but problematic for several reasons in
+addition to the general problems with the two period models.
+\begin{itemize}
+\item The results consider only PS. For a social planner CS matters too.
+\item Authors partially address this by trying to calculate externalities to
+listeners as a result of entry.
+\item But we've already discussed problems of estimating CS from logit
+estimates, plus here there's no mechanism for advertising to affect
+consumers and not enough flexibility to allow product diversity to affect
+utility.
+\item Note:\ the FCC established new, more liberal regulations on ownership
+in the radio industry from 1996 and there's debate on further
+liberalization. It would be interesting to investigate likely welfare
+effects.
+\item Waldfogel (2003) and Sweeting (2012) have done relevant work here.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Simple Bivariate Game}
+  \begin{table}
+    \setlength{\extrarowheight}{2pt}
+    \begin{tabular}{cc|c|c|}
+      & \multicolumn{1}{c}{} & \multicolumn{2}{c}{Player $Y$}\\
+      & \multicolumn{1}{c}{} & \multicolumn{1}{c}{$A$}  & \multicolumn{1}{c}{$B$} \\\cline{3-4}
+      \multirow{2}*{Player $X$}  & $A$ & $(x,y)$ & $(x,y)$ \\\cline{3-4}
+      & $B$ & $(x,y)$ & $(x,y)$ \\\cline{3-4}
+    \end{tabular}
+  \end{table}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Firm Heterogeneity}
+\begin{itemize}
+\item Two different ways of allowing for firm heterogeneity have been
+introduced into the entry models.
+
+\item The first allows for fixed costs:\ this was discussed in B\&R (who
+have some early results) and was extended by Berry (1992) who showed how to
+use simulation to ameliorate the computational problems with using the model.
+
+\item The second is heterogeneity in variable costs or in continuation
+values. There have been a number of ways recently proposed to do this; we
+will focus on Seim (2005), Mazzeo(2004) and Toivanen and Waterson (1999).
+\end{itemize}
+\end{frame}%
+\begin{frame}%
+
+\frametitle{Heterogeneity in Fixed Costs:\ Berry (1992)}
+
+\begin{itemize}
+\item Berry considers entry of airlines operating on city-pair routes soon
+after deregulation of the U.S. airline industry.
+
+\item Keeps the assumption that continuation values $VC(N)$ are the same
+across firms
+
+\item But lets $FC$ vary across firms. Entry values are given by 
+\begin{equation}
+EV(N,x_{m},z_{f},\varepsilon _{mf},\theta )=VC(N,x_{m},\theta
+)-FC(z_{f},\varepsilon _{mf},\theta )  \label{entry5}
+\end{equation}%
+where $x_{m}$ are market-specific variables, $z_{f}$ are firm specific
+variables, $\varepsilon $ is a firm/market specific profit shock and $\theta 
+$ is a vector of parameters to be estimated. Note the restriction that
+firm-specific variables do not enter continuation values (as before). Once
+we relax this assumption we will require both a different \textquotedblleft
+notion\textquotedblright\ of equilibrium, and a different estimation routine.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Berry (1992), cntd.}
+To parametrize even further, assume that:\ \ 
+\begin{equation}
+EV_{mf}(N)=x_{m}\beta +\delta \ln (N)-z_{mf}\alpha -\varepsilon _{mf}
+\label{entry6}
+\end{equation}
+
+with $\varepsilon $ modeled as having a market specific component, which
+allows for correlation in unobservables across firms within the market, 
+\begin{equation*}
+\varepsilon _{mf}=\rho u_{0m}+\sqrt{1-\rho ^{2}}u_{mf}
+\end{equation*}
+(Note the constraint on the variances to set the variance of $\varepsilon $
+equal to one; similar to any discrete choice model.)
+\end{frame}
+\begin{frame}
+
+\frametitle{Berry (1992), cntd.}
+\begin{itemize}
+\item The $\varepsilon $'s are known to the firms (but not the
+econometrician).
+
+\item This is a full information Nash equilibrium (all firms know each
+other's entry costs).
+
+\item The probability of an $N$ firm equilibrium is not an ordered probit
+because the unobservables are now a vector of dimension equal to the number
+of potential firms.
+
+\item Deriving the likelihood requires us to
+
+\begin{itemize}
+\item Find the $\varepsilon $'s that generate a particular outcome variable
+(this will be the number of entrants),
+
+\item Find the probability of observing these $\varepsilon $'s (i.e. the
+probability of the observed outcome) as a function of the parameters.
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+\frametitle{Berry (1992), cntd.}
+\begin{itemize}
+\item In these more general discrete entry models, it is not clear that an
+equilibrium exists or is unique.
+
+\item But Berry shows that if the continuation values are symmetric (depend
+on $N$ but not $z_{mf}$ ) and there is a finite number of potential
+entrants, then there is a simple constructive proof of an equilibrium which
+detemines a unique $N$ (though not a unique set of identities to the
+entrants).
+
+\item \textit{Proof} of unique N (sketch): Order firms in decreasing entry
+values, let entry occur until last profitable entry. Call this last firm $%
+N^{\ast }$. This allocation of firms to \textquotedblleft
+in\textquotedblright\ and \textquotedblleft out\textquotedblright\ is an
+equilibrium. Can't have fewer firms in equilibrium, because firm $N^{\ast }$
+would then enter. Can't have more because $N^{\ast }+1$'th firm won't be
+profitable in an $N^{\ast }+1$ equilibrium.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Berry (1992), cntd.}
+
+{\small (See the paper for details on existence and uniqueness. Existence
+comes from assuming that firm profits decrease in rivals' entry decisions
+and that we can rank firms in order of profitability. Uniqueness comes from
+firm heterogeneity entering only through the fixed portion of profits, ie
+through }$FC${\small . Ranking by decreasing profitability therefore implies
+a ranking by increasing }$FC${\small \ and the paper contains a proof that
+this is enough. (If not it could be that, if }$j${\small \ entered then }$%
+j+1 ${\small \ could enter too but if }$j+1${\small \ entered first then }$j~
+${\small could not.))}
+\end{frame}
+
+\begin{frame}
+\frametitle{Berry (1992), cntd.}
+\begin{itemize}
+\item While the number of firms is unique, the identities of the entering
+firms are not.
+
+\item It can happen that in equilibrium either firm A or firm B could enter,
+but not both. (This happens when both firms would make profits in a $N^{\ast
+}-1$ equilibrium but neither would in a $N^{\ast }+1$ equilibrium.)
+
+\item So the model does not identify the likelihood function for the
+identities of the entering firms without some further assumption (e.g. on
+the order of entry.)
+
+\item We therefore lose what information there might be in who enters, and
+just keep the information on the number of firms that enter.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Berry (1992), cntd.}
+\footnotesize
+The likelihood (the probability of drawing the $\varepsilon $'s that lead to 
+$N$ entrants) is hard to calculate because the region of the $\varepsilon $
+space that leads to an $N$-firm equilibrium is hard to describe. But Berry
+notes that it's easy to use simulation methods to solve the problem.
+\begin{itemize}
+\item Begin by taking $S$ draws on the underlying random variables $u$ in
+equations (6)-(7).
+\item For each guess of $\theta =(\alpha ,\beta ,\rho ,\delta )$ and each
+draw of the $u$'s, construct the (unique) equilibrium number of firms, $\hat{%
+N}(u_{s},\theta )$, via the constructive method of the equilibrium proof
+just given. Holding $\theta $ fixed, integrate over the draws on $u$ to find
+the probability of $N$ entrants for any $N$. (Show a picture in two
+dimensional space.)
+\item Iterate over guesses for $\theta $ to maximize the probability of the
+observed $N$ (simulated MLE) or to fit the observed to the predicted $N$
+(method of simulated moments) where $\hat{N}=E(N)$ is a continuous variable.
+Berry does the latter.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Berry (1992), cntd.}
+\footnotesize
+\begin{itemize}
+\item Note that for all this to work, we need to hold the random draws
+constant as we move the parameter vector, just as we always do when we use
+other simulation estimators (McFadden, 1986, Pakes and Pollard, 1986).
+\item Simulation has wide applicability in estimating game-theoretic models
+where the controls take on discrete values, because
+\begin{itemize}
+\item Even if we know a characteristic of the equilibrium (e.g. $N$) which
+is uniquely determined by the (observed and unobserved) characteristics of
+firms and the parameters, often the set of unobservables that lead to that
+characteristic has complicated boundaries and it's hard to integrate over
+that set.
+\item But it's easy to \textit{simulate} equilibrium realizations for this
+characteristic conditional on parameter values and base our estimation
+method on that simulation.
+\end{itemize}
+\item (The empirical application is to the importance of airline hubs in
+early deregulated airline industry. The data are a cross-section by
+city-pair market. But the application clearly isn't the focus here.)
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{A Start on Variable Continuation Values:\ Seim (2006)}
+\footnotesize
+\begin{itemize}
+\item Seim models geographic differentiation in the video retail market
+\item $N^{\ast }$ firms decide whether to enter a given market (indexed by $%
+m $); those that enter choose their location from a finite set of $L$
+locations
+\item Each firm makes its choices based on the expected post entry value.
+\item Seim assumes asymmetric information (firms know their own unobservable 
+$\eta _{i}^{a}$ but not other firms' $\eta _{i}^{-a}$). This makes verifying
+and solving for equilibria much easier than in the Berry case.
+\begin{itemize}
+\item Existence follows easily from Brouwer's fixed point theorem
+\item The Bayesian equilibrium concept outlined below makes solving the
+model much easier.
+\end{itemize}
+\item So we can include more product characteristics in the model.
+\item Application: video rental stores. Ideal for this type of model because
+the good is homogeneous, non-storable and relatively inexpensive and the
+main aspect of differentiation comes from geographic location.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Seim\ (2006), cntd.}
+\footnotesize
+Post entry value in location $i$ for firm $a$ is 
+\begin{eqnarray*}
+v_{i}^{a} &=&\xi ^{m}+x_{i}^{m}\beta +n_{i}^{m}\theta +\sum_{j\in
+d1i,j}x_{j}^{m}\beta _{1}+\sum_{j\in d2i,j}x_{j}^{m}\beta _{2}+ \\
+&&\sum_{j\in d1i,j}n_{1,j}^{m}\theta _{1}+\sum_{j\in d2i,j}n_{2,j}^{m}\theta
+_{2}+\eta _{i}^{a} \\
+&=&\tilde{v}_{i}^{a}+\eta _{i}^{a}
+\end{eqnarray*}
+where
+\begin{itemize}
+\item $d1i,j$ is an indicator for regions adjacent to location $i$ (one to
+three miles from), and $d2i,j$ is an indicator for locations somewhat
+farther away from $i$ (three to ten miles from location)
+\item $n_{i}^{m}$ is the number of entering firms in the immediate
+\textquotedblleft tract\textquotedblright ,
+\item $n_{1,j}^{m}$ is the number of firms within the distance defined from $%
+d1i,j$ etc.
+\item $x_{i}^{m}$ and $x_{j}^{m}$ are location characteristics
+\item $\eta _{i}^{a}$ is the only difference between firms:\ unsystematic,
+firm-specific characteristics.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Seim (2006), cntd.}
+\footnotesize
+\begin{itemize}
+\item The mean profitability from not entering is normalized to zero (this
+is a \textquotedblleft linear\textquotedblright\ discrete choice model so we
+can only define things up to an affine transformation).
+\item Unobservables are nested logit:\ the outer nest is \textquotedblleft
+in\textquotedblright\ or \textquotedblleft out\textquotedblright , inner
+nest is the choice of location.
+\item (This is the same as pure logit on the inner nest choices. But there's
+an extra unobservable with the same value for all the "in" choices, so they
+have a correlation that isn't shared by the "out" choice.)
+\item The model determines both how many firms enter, say $\hat{N}$, and a
+probability distribution for their locations.
+\item We will focus on the equilibrium probabilities of firms entering at
+different locations conditional on $\hat{N}$. (We won't run through the
+section that's more similar to previous entry models:\ given these
+probabilities, use revealed preference and fit observed to predicted $N$.)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Seim (2006), cntd.}
+\footnotesize
+Note that:
+\begin{itemize}
+\item You might think of estimating a demand equation, using it to determine
+the profit function and deriving the value function from that.
+\item This would give you a functional form with micro foundations. If
+individual utilities were derived from distance and other $x$'s, and we knew
+the distribution of locations, this would connect the $\beta $ and $\theta $
+to $\beta (d)$ and $\theta (d)$ and the characteristics of the adjacent
+locations.
+\item It would save on parameters, but would be harder to compute:
+\begin{itemize}
+\item we would need to aggregate up from location-level demand
+\item we would have to think seriously about how to move from static profits
+to value functions.
+\end{itemize}
+The fact that we don't do this seriously means that we should be primarily
+thinking in terms of a reduced form value function.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Seim (2006), cntd.}
+\footnotesize
+\begin{itemize}
+\item By going to the reduced form we introduce the \textquotedblleft too
+many parameters\textquotedblright\ problem that we saw in demand models in
+product space: the number of parameters grows geometrically in the number of
+possible locations.
+
+\item So she simplifies by saying the effect of a competitor is the same for
+all locations that are equidistant from the firm.
+
+\item The only difference between firms is $\eta _{i}^{a}$ which distributes
+extreme value. (Could be an idiosyncratic costs of operating for different
+potential firms?)
+
+\item The only unobservable that is correlated across firms is $\xi ^{m}$
+which is market-specific. Implicit assumption that we have very good data on
+within market differences in profit shifters.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Seim (2006):\ Methodology}
+
+\footnotesize
+\begin{itemize}
+\item The firm \textit{only knows} its \textit{own} unobservable. To form
+expected profits for any location it has to form the expected number of
+firms at all locations. These are expectations, rather than realizations,
+because no firm knows the other firm's values for $\eta $.
+\item The equilibrium expectation of the fraction that choose location $i$
+is just the expected fraction of firms for whom the max profits come from
+location $i.$
+\item Since all firms are symmetric in observables, this has a simple form.
+\item The true fraction of firms that will choose location $i$ is given by
+the usual logit probabilities; i.e. 
+\begin{equation*}
+s_{i}=\frac{\exp (\rho \tilde{v}_{i}^{a})}{\sum_{k}\exp (\rho \tilde{v}%
+_{k}^{a})}
+\end{equation*}
+where the $\rho $ comes from the use of a nested logit specification.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Seim (2006), cntd.}
+\footnotesize
+\begin{itemize}
+\item However, firms don't observe their rivals' $\eta $'s so have to form
+an expectation:\ $p_{i}^{a,b}$= firm $a$'s conjecture of the probability
+with which firm $b$ chooses location $i$:%
+\begin{equation*}
+p_{i}^{a,b}=\frac{\exp (\rho E_{\eta ^{-a}}\tilde{v}_{i}^{b})}{\sum_{k}\exp
+(\rho E_{\eta ^{-a}}\tilde{v}_{k}^{b})}
+\end{equation*}%
+where $E_{\eta ^{-a}}$ means we have integrated out over the unobservable
+firm specific probabilities and the implied number of entrants.
+
+\item Now say that $a$'s perceived probability that any one of the other
+entering firms will choose location $i$ is $p_{i}^{a}$ (the same for all $b$
+since the value function depends on firm characteristics only through $\eta $%
+), and that there are $\hat{N}$ firms that enter.
+
+\item Then the total number of competitors, excluding itself, that firm $a$
+expects to find in location $i$ is $E(n_{i}^{m})=\sum_{b\neq a}p_{i}^{a,b}=(%
+\hat{N}-1)p_{i}^{a}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Seim (2006), cntd.}
+\footnotesize
+\begin{itemize}
+\item Then firm $a$'s expected payoff in cell $i$ is: 
+\begin{eqnarray*}
+E_{\eta ^{-a}}v_{i}^{a} &=&\xi ^{m}+x_{m}^{i}\beta +[p_{i}^{a}(\hat{N}%
+-1)+1]\theta +\sum_{j\in d1i,j}x_{m}^{j}\beta _{1}+\sum_{j\in
+d2i,j}x_{m}^{j}\beta _{2}+ \\
+&&\sum_{j\in d1i,j}p_{j}^{a}(\hat{N}-1)\theta _{1}+\sum_{j\in
+d2i,j}p_{j}^{a}(\hat{N}-1)\theta _{2}+\eta _{i}^{a} \\
+&=&E_{\eta ^{-a}}\tilde{v}_{i}^{a}+\eta _{i}^{a}
+\end{eqnarray*}
+
+\item Now assume a symmetric equilibrium so that $p_{i}^{a}=p_{i}^{b}=p_{i}.$
+Substituting the above expression into the definition of $p_{i}^{a}$ gives
+us 
+\begin{equation*}
+p_{i}=\frac{\exp (\rho E_{\eta ^{-a}}\tilde{v}_{i}^{a})}{\sum_{k}\exp (\rho
+E_{\eta ^{-a}}\tilde{v}_{i}^{a})}
+\end{equation*}
+
+\item This gives us a fixed point for equilibrium conjectures on the $p_{i}$.
+
+\item Note that this fixed point does not depend on any of the market
+characteristics; that is choices among locations within the market depend
+only on location-specific variables (e.g. $\xi _{m}$ cancel out).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Seim (2006), cntd.}
+
+So there are 2 steps:
+\begin{itemize}
+\item Given $\hat{N}$, we can solve for equilibrium conjectures $p_{i}$ as a
+function of the parameters of the model.
+\begin{itemize}
+\item There are $p_{i}$'s on both sides of the equation ($p_{i}=f(\hat{N}%
+,x,\theta ,\beta ,p_{i})$; we iterate until the LHS\ equals the RHS.
+\item This is done using the method of \textquotedblleft successive
+approximations\textquotedblright . First pick values of $(\theta ,\beta )$.
+Start with conjectures for $p_{i},$ calculate their implications and then
+use those implications for the next iteration's conjectures. Repeat until we
+converge on a value for $p_{i}$ for this $(\theta ,\beta ).$
+\end{itemize}
+\item Iterate over $(\theta ,\beta )$ to fit these equilibrium conjectures
+to data on the shares of the entrants in each tract (M.L.E.). This provides
+estimates of all but the market specific parameters. See the paper for
+details on the latter.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Seim (2006):\ Notes}
+\begin{itemize}
+\item The model requires that $\hat{N}$ is not a function of $\eta _{-a}$ -
+we need this to do the integral for expected values.
+\begin{itemize}
+\item One possible assumption:\ firms pay an initial entry cost before they
+decide where they are going to enter and before they know their $\eta
+_{a}^{i}$.
+\end{itemize}
+\item Another issue: after choices are made there is ex post regret; i.e.
+firms will have made choices which ex post are not profitable.
+\begin{itemize}
+\item This would be OK\ in a dynamic framework
+\item But it's odd in a 2-stage game where firms can't correct their
+mistakes (e.g. through exit).
+\end{itemize}
+\item We have not considered existence or uniqueness. Existence follows from
+continuity. There is no proof of uniqueness, and there will not be one -- at
+least not without further special assumptions.
+\end{itemize}
+(Both of the last comments apply to all or many papers in this literature.)
+\end{frame}%
+
+\begin{frame}{Entry Models with Symmetric Information and Variable
+Continuation Values.}
+\begin{itemize}
+\item Mazzeo (2003, RAND) and Toivanen and Waterson(1999) extend the simple
+B \& R model to consider firm heterogeneity in continuation values keeping
+fixed costs constant.
+\item They assume symmetric information\ (unlike Seim).
+\item Both assume a small number of entry locations which are fixed
+exogeneously.
+\item They then consider entry into all locations.
+\item Again we work with a reduced form continuation value, but now it
+varies with the locations of all entrants, and depends on the number of
+entrants at each location.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Symmetric Information and Variable Continuation Values,
+cntd.}
+\begin{itemize}
+\item Toivanen and Waterson deal with fast food outlets in Britain,
+distinguishing between McDonalds and Burger King. \ Each chain decides how
+many of its outlets should enter.
+\item Mazzeo models independent motels choosing which interstate exits to
+enter and with which quality level (high, medium or low).
+\item Both assume that quality levels/types belong to a small discrete set
+(with 2 or 3 elements) and these are the only differences among firms.
+\item Continuation values for any firm choosing quality level $t=(1,...,T)$
+in market $m$ are assumed to be 
+\begin{equation*}
+V_{tm}=x_{m}\beta _{t}+g(N_{1},..N_{T},\theta _{t})+\varepsilon _{tm.}
+\end{equation*}
+\end{itemize}
+where $\bar{N}=N_{1},..N_{T}$ is the vector of the number of firms of each
+type.
+\end{frame}
+
+\begin{frame}{Symmetric Information and Variable Continuation Values,
+cntd.}
+\begin{itemize}
+\item The parameters (specific to each type) are $\beta _{t}$ on the market
+level variables and $\theta _{t}$ which parameterizes the effect of own-type
+and other-type competition.
+\item Both papers approximate $g$ with a set of dummy variables (since $\bar{%
+N}$ takes on discrete values, so does $g(.,\theta _{t})$).
+\item Note that the unobservables are constant across firms within quality
+type, so that the model is symmetric conditional on type.
+\item Unfortunately, even this simple type of heterogeneity in variable
+profits leads to both possible nonexistence, and possible non-uniqueness
+when equilibrium exists -- at least in a simultaneous move game.
+\item Both authors resolve this by assuming that choices are sequential.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Toivanen and Waterson}
+Assume Burger King moves first and the $\varepsilon $'s are draws from a
+known distribution.
+\begin{itemize}
+\item Take a set of $ns$ draws of $(\varepsilon _{b},\varepsilon _{m})$.
+Pick a $\theta $ to evaluate.
+\item Let $EV^{j}(b,m)$ be the total entry value of Burger King (if $j=b$)
+or McDonald's (if $j=m$) when there are $b$ Burger King outlets and $m$
+McDonald's outlets.
+\item Now solve the problem backwards, for BK moving first.
+\begin{itemize}
+\item If BK chooses $b$, predict McDonald's choice $m(b)$ to $%
+max_{m}EV^{m}(b,m)$.
+\item Given that response,\ BK chooses $b$ to $max_{b}EV^{b}(b,m(b))$.
+\end{itemize}
+\item This gives us $(b,m)$ for this $(\varepsilon ,\theta )$
+\item Repeat for every draw of $\varepsilon $ to generate an expected $(\hat{%
+b}(\theta ),\hat{m}(\theta ))$ given this $\theta $
+\item Iterate over $\theta $ to minimize $E[((\hat{b}(\theta ),\hat{m}%
+(\theta ))-(b,m))\ast f(x)]$ for exogenous entry determinants $x$.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Mazzeo}
+We simplify by assuming there are only two types, $L$ and $H$.
+\begin{itemize}
+\item Let $EV^{l}(l,h)$ be the entry value of next type $l$ firm when
+already $l$ low type and $h$ high type firms are active $(j=L,H)$.
+\item Assume that firms play sequentially and make irrevocable decisions
+about entry and product type before the next firm plays.
+\item Firms anticipate subsequent entry in the usual way.
+\item The last firm of each product type finds entry profitable and prefers
+the chosen type to the alternatives.
+\item Additional entry in either product type is not profitable.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Mazzeo, cntd.}
+Therefore a Nash equilibrium is an ordered pair $(l,h)$ for which the
+following inequalities hold 
+\begin{equation*}
+V_{l}(l-1,h)>0,\text{ }V_{l}(l,h)<0,\text{ }V_{l}(l-1,h)>V_{h}(l-1,h)
+\end{equation*}%
+and 
+\begin{equation*}
+V_{h}(l,h-1)>0,\text{ }V_{h}(l,h)<0,\text{ }V_{h}(l,h-1)>V_{l}(l,h-1)
+\end{equation*}
+\begin{itemize}
+\item Mazzeo also considers an equilibrium where firms sink their sunk costs
+without committing to whether they will be low or high quality.
+\item Product types are selected among the entrants simultaneously in the
+second stage.
+\item He shows that the two equilibria can be different.
+\item Mazzeo claims that both equilibria are unique, and he can simulate
+them and match them to data.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Results of these Papers}
+\begin{itemize}
+\item Mazzeo finds strong returns to differentiation -- all entry by rivals
+drives down profits but an incumbents profits fall by much more when the
+rival is offering the same quality type as the incumbent.
+\item Toivanen and Waterson find that McDonald's is much more likely to
+enter a location where there are only Burger King outlets then where there
+are McDonald's outlets.
+\item I.e. consistent with Seim, and probably not surprisingly, both papers
+find that differentiation matters for entry decisions, and hence probably
+for profits and CS calculations.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{General Issues in the Analysis of Entry Games.}
+\footnotesize
+
+\begin{itemize}
+\item \textit{We should be careful about doing either PS or CS\ calculations
+without allowing for sufficient product differentiation. }
+\item There is a real question of which equilibrium we pick out and why, and
+this issue just gets more worrisome when we increase the number of types.
+\begin{itemize}
+\item There are a couple of ways around the non-uniqueness problem.
+\item We could enumerate all possible equilibria and assign a probability to
+each (perhaps depending on a vector of parameters), and estimate those
+probabilities (or the extra parameter vector) along with the other
+parameters (Tamer, 2003, RESTUD).
+\item Or we could investigate whether the data can pick out the equilibrium
+for us (this requires alternative assumptions).
+\item Or we can get just bounds on probabilities (instead of probabilities
+themselves), and use the bounds for estimation. See next class notes.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{General Issues, cntd.}
+\footnotesize
+\begin{itemize}
+\item All reduced form value function models become harder as we increase
+the number of types, because the number of parameters we estimate increases
+at about the square of the number of types.
+\begin{itemize}
+\item One way around this is to define demand and cost functions directly on
+the underlying ``characteristic''  space,
+just as we did in static analysis, and then use those profit functions
+directly in the empirical analysis.
+\item The inequalities estimator we will cover next class is well suited to
+this approach.
+\end{itemize}
+\item Lack of True Dynamics.
+\begin{itemize}
+\item Introducing dynamics would solve the conceptual problems noted above
+\item And it would use the information in the sequential nature of most data.
+\item I.e., in many of these data sets we see when each firm entered, so we
+could condition that firm's entry decision on firms existing in the market
+at the time they enter.
+\item The problems here are a mix of computational and conceptual, and they
+will be covered next semester.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
