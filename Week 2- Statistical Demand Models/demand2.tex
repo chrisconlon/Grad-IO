@@ -9,7 +9,7 @@
 \usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
 \usepackage{amsmath,amssymb,setspace,centernot}
 \usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
 \usepackage{relsize}
 \usepackage{pdfpages}
 \usepackage[absolute,overlay]{textpos} 
@@ -583,11 +583,11 @@ How does it actually look?
  s_{ij|g}(\theta) &=& \frac{\exp [x_j \beta/(1-\lambda_g)]}{\sum_{k \in G} \exp [x_k \beta/(1-\lambda_g)]} \\
  s_{ig}(\theta) &=& \frac{\exp [IV_{ig}]^{1-\lambda_g}}{\sum_{h} \exp [IV_{ih}]^{1-\lambda_h}} 
 \end{eqnarray*}
-\begin{itemize}
-\item When $\lambda_g \rightarrow 0$ we get the IIA logit model (no correlation within nests)
-\item When $\lambda_g \rightarrow 1$ we get no across nest substitution.
-\item When $\lambda_g > 1$ we get something not necessarily consistent with utility maximization!
-\end{itemize}
+%\begin{itemize}
+%\item When $\lambda_g \rightarrow 0$ we get the IIA logit model (no correlation within nests)
+%\item When $\lambda_g \rightarrow 1$ we get no across nest substitution.
+%\item When $\lambda_g > 1$ we get something not necessarily consistent with utility maximization!
+%\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -605,6 +605,25 @@ How does it actually look?
 \item Esimation happens via MLE. This can be tricky because the model is non-convex. It helps to substitute $\tilde{\beta} = \beta/(1-\lambda_g)$
  \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Parametric Identification}
+
+Look at derivatives:
+\begin{eqnarray*}
+\frac{\partial\, s_{j|g}}{\partial X_j} &=& \beta_1 s_{j|g}(1-s_{j|g}) \\
+ \frac{\partial\, s_{g}}{\partial X} &=& (1-\lambda) \beta_1 s_{g}(1-s_{g}) \\
+  \frac{\partial\, s_{g}}{\partial J} &=& \frac{1-\lambda}{J} s_{g}(1-s_{g})
+\end{eqnarray*}
+\begin{itemize}
+\item We get $\beta$ by changing $x_j$ within group
+\item We get nesting parameter $\lambda$ by varying $X$
+\item We don't have any parameters left to explain changing number of products $J$.
+\end{itemize}
+
+\end{frame}
+
+
 
 \begin{frame}
 \frametitle{Nested Logit}
