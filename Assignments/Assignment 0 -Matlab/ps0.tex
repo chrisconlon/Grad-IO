@@ -39,7 +39,8 @@ P &=&
 \end{eqnarray*}
 We're interested in the ergodic distribution $\pi P = \pi$. This is similar to the transition matrix infinitely many periods into the future $P^{\infty}$. Write a function that computes the ergodic distribution of the matrix $P$ by examining the properly rescaled eigenvectors and compare your result to $P^{100}$.
 \section*{Part 2: Numerical Integration}
-In this part we will look to integrate the function $p =\int_{\infty}^{\infty} \frac{\exp(\beta_i X)}{1+ \exp(\beta_i X)} f(\beta_i | \theta)$. \\
+In this part we will look to calculation the logit choice probability $p(X,\theta)$ by numerical integration:\\
+ $p(X,\theta) =\int_{-\infty}^{\infty} \frac{\exp(\beta_i X)}{1+ \exp(\beta_i X)} f(\beta_i | \theta) \partial \beta_i$. \\
  Assume $f \sim N(0.5,2)$ and that $X = 0.5$
  
 \begin{enumerate}
@@ -105,7 +106,7 @@ SGI-KPN & 17 & -6.9355e-04\\
 \end{center}
 \end{table}%
 \end{comment}
-\item Now Construct a new function $\mathtt{binomiallogitmixture}$ that takes a vector for $X$ are returns a vector of binomial probabilities (appropriately integrated over $f(\beta_i | \theta)$ for the 1-D mixture). It should be obvious that Gauss-Hermite is the most efficient way to do this. \textit{Do NOT use loops}.
+\item Now Construct a new function $\mathtt{binomiallogitmixture}$ that takes a vector for $X$ and returns a vector of binomial probabilities (appropriately integrated over $f(\beta_i | \theta)$ for the 1-D mixture). It should be obvious that Gauss-Hermite is the most efficient way to do this. \textit{Do NOT use loops}.\footnote{This no loops advice only really applies to MATLAB users.}
 \end{enumerate}
 
 \section*{Part 3: Functional Approximation}

@@ -1,0 +1,118 @@
+\documentclass[12pt]{article}
+
+\addtolength{\topmargin}{-1in}
+\textwidth = 7.0 in
+\textheight = 9.0 in
+\oddsidemargin = -0.2 in
+\evensidemargin = 0.0 in
+
+\begin{document}
+
+\title{Empirical IO, Problem Set 1: \\
+Analytic Results}
+\author{Chris Conlon}
+\date{Due Date: Monday, October 16, 2017}
+\maketitle
+
+\section*{\normalsize Part I}
+Consider the following setup.\footnote{If you get stuck take a look at Quan and Williams (WP 2017)} Utility for good $j$ in market $l$ by consumer $i$ is given by:
+\begin{eqnarray*}
+u_{ijl} = \delta_j - \alpha p_j + \nu_{ijl}
+\end{eqnarray*}
+The motivation is that are potentially many geographic markets $L$ with different preferences for different goods (or categories of goods). For example, snow boots might be very popular in Alaska while flip flops are very popular in Florida.\footnote{Unfortunately the most unusually popular product in the New York-New Jersey metro area turns out to be Ugg Boots!}\\
+
+\noindent The main innovation is to introduce a random effect $\eta_{jl} \sim N(0,\sigma_g^2)$ into the nested logit model:
+\begin{eqnarray*}
+\nu_{ijl} = \eta_{jl}+ \underbrace{\zeta_{ig} + \varepsilon_{ijl}}_{GEV(\lambda)}
+\end{eqnarray*}
+The idea is to allow for different locations $l$ to obtain different utility from different products $j$. Assume (again) that the outside good exists alone in its own nest. We can write the share of product $j$ nationwide as $\pi_j = \sum_{l=1}^L \omega_l \pi_{lj}$ as the share of people $\omega_l$ who live in location $l$ and the choice probability of $j$ within $l$: $\pi_{jl}$. We can decompose $\pi_{jl} =  \pi_{lg} \cdot \pi_{lj|g}$ as the ``product of two logits''.\\
+
+Define the logit denominator as:
+\begin{eqnarray*}
+D_{lc} = \sum_{j \in c} \exp \left[\frac{\delta_j  -\alpha p_j+ \eta_{jl}}{1-\lambda}\right]
+\end{eqnarray*}
+
+\noindent 1) [Very Easy] Write the within group share of $\pi_{l, j | g}$ assuming that $\eta_{jl}$ is observed for a single market $l$. It will be a function of the usual numerator and the denominator function $D_{lc}$.\\
+
+\noindent 2) [Easy]  Write $\pi_{lc}$ and $\pi_{l0}$ as a function of only $D_{lc}$ for a single market $l$.  (ie: nothing product specific).\\
+
+\noindent 3) Now write $D_{lc}$ as a function of only $\pi_{lc}$ and $\pi_{l0}$ and the unknown parameters for a single market $l$. (ie: nothing product specific).\\
+
+\noindent 4) Now write $\pi_j = \sum \omega_l \cdot \pi_{lg} \cdot \pi_{lj|g}$ as an expression which depends only on: $\pi_j, \pi_{l0},\pi_{lc},\eta_{jl},\lambda$ and not on features of other products.\\
+
+\noindent 5) Now take logs of $\pi_j$ and solve for $\delta_j$ (this is the ``Berry (1994) inversion''). Show that your solution reduces to Berry (1994) inversion when $\eta_{jl} = 0$ for all $(j,l)$.\\
+
+\noindent Some trickery to avoid complicated proofs. Suppose that there are a lot of products per category so that you observe $\pi_{lg}, \pi_{l0}$ without any error. Moreover assume that any single product has a negligible effect on $\pi_{lc}$. The idea is that you can treat the observed values of $\pi_{lg}, \pi_{l0}$ and thus $D_{lc}$ as data that are unaffected by your parameters.\\
+
+\noindent 6) Find the closed form solution to the integral $\int \exp[\eta_{jl}/(1-\lambda)] f(\eta_{jl} | \sigma^2) d\, \eta_{jl}$.\\
+
+\noindent 7) Plug your solution to (16) into your solutions for (15) and (14). For this to be allowed this requires applying the law of iteration expectations and some technical conditions that we will ignore. \\
+
+
+\noindent 8) [Hard] Discuss how this relates to Ackerberg and Rysman (Rand 2005).
+
+
+\section*{\normalsize Part II}
+Now consider a very particular nested logit model:\footnote{If you get stuck look at Ackerberg and Rysman (Rand 2005) or Kroft, Laliberte, Leal-Vizcaino and Notowidigdo (WP 2017).}
+
+\begin{eqnarray*}
+u_{ij} = \delta_j - \alpha p_j + \epsilon_{ij}
+\end{eqnarray*}
+We assume that $\epsilon_{ij}$ is distributed GEV with some nesting parameter $\sigma$ like the Cardell (1997) paper or the Berry (1994) paper. Assume that all products are in the same nest, so that the outside good is the only product in the second nest.\\
+
+\noindent 9) [Easy] Derive a simplified form of the nested logit choice probabilities and the expected (ex-ante) consumer surplus in dollars.[Just write them from Berry (1994)].\\
+
+\noindent 10) [Easy] Now assume that all products are symmetric. That is they have the same $\delta_j = \delta$ and $p_j = p$. Derive the nested logit choice probabilities and the expected (ex-ante) consumer surplus in dollars. \\
+
+\noindent 11) Derive $Q(p,J)$ the total market demand for $J$ goods each with price $p$. The result for $Q(p,J)$ should not include any summations. Also derive the ex-ante consumer surplus expression without a summation.\\
+
+\noindent 12) Derive the inverse demand $P(Q,J)$ by solving $Q(p,J)$ for $p$ rather than $Q$. Does an increase in variety cause a parallel shift in the inverse demand curve or not?\\
+
+\noindent 13) Let's think about what happens when we add an additional product $J \rightarrow J+1$ in this market. One is that it affects the overall price index $p$ or $P$ and the other is that it causes a shift/rotation in the (inverse) demand curve. Show that $\frac{d\, CS}{d\, J} = -Q \frac{d\, p}{d\, j} +  c \cdot q_{j+1}$ where $c$ is a constant that depends on the parameters of the model and $q_{j+1}$ is the sales of the new product after introduction. [Hint: Recall that CS is the integral under the demand curve. You will probably want to apply the Leibniz Integral Rule and exchange differentiation and integration.]\\
+
+
+\noindent 14) What does this tell us about what is important to observe in order to measure the welfare impact of new product variety?
+
+
+
+
+
+\section*{\normalsize Part III: Option A}
+\textit{This part is optional. Either you learned these tools in first year micro or it is probably not worth attempting}.\\
+
+
+
+\noindent Consider a representative consumer facing a price vector $p$ endowed with wealth $Z$. $Z$ is denominated in units of the numeraire good $y$. To make life easy, you can assume that $u(x)$ is strictly quasi-concave.
+\begin{eqnarray*}
+\max_{x,y} u(x_1,\ldots,x_J) + y \quad \mbox{ s.t. } p \cdot x + t x_1 + y = Z
+\end{eqnarray*}
+There is also a representative firm which takes prices as given and chooses output
+\begin{eqnarray*}
+\max_x p \cdot x - c(x)
+\end{eqnarray*}
+The market clears so that $x^d(p) = x^s(p)$. We are interested in how a tax on $x_1$ might affect total surplus in this market. Recall that total surplus is the sum of the consumer and producer surplus. Also recall that total surplus is about \textit{allocation} and prices are just a transfer from buyers to sellers, so we can re-write this as the planner's problem. Assume that we add a tax $t$ on good 1 and return that tax to consumers.
+\begin{eqnarray*}
+W(t) &=& \max_x \left\{  u(x) + Z - t x_1 - p(t) \cdot x \right\}  + \max_x \left\{  p(t) \cdot x - c(x)\right\} + t x_1\\
+&=& \max_x \left\{  u(x) + Z - t x_1  - c(x)\right\} + t x_1
+\end{eqnarray*}
+\noindent 1.) Show that the \textit{total derivative} $\frac{d\, W}{d\, t} = t \frac{d\, x_1(t)}{d\, t}$. In other words, the part in the curly brackets cancels out.\footnote{If you get horribly stuck, consider Chetty (2009)'s Annual Review article.} This requires invoking the envelope theorem, and ignoring the possibility of oligopoly pricing. I have already cancelled out prices (a transfer) but you need to make substitution across other goods cancel.\\
+
+We can see the logit has this property in a more concrete way. If you don't get the first part -- you can start here ( this is a bit easier). Given $u_{ij} = v_{ij} + \varepsilon_{ij}$ where $\varepsilon_{ij}$ has a Type I EV (logit) distribution. We can derive individual purchase probabilities:
+
+\begin{eqnarray*}
+S_{ij} = \frac{\exp v_{ij}}{\sum_k \exp v_{ik}}
+\end{eqnarray*}
+To make life easier assume that $\frac{\partial v_{ij}}{\partial p_{pij}}=1$ for all $(i,j)$ or that utility is quasi-linear (and money-metric in price).\footnote{You can relax this but then you need to carry around $\frac{1}{\alpha_i}$ terms.}\\
+
+\noindent 2) Write the individual surplus function $S_i = E[\max_j u_{ij}]$ and the total welfare function $W(t)$ (for all consumers and the representative firm) where $\pi(p) = p \cdot S- c(S)$ (where $S$ is the stacked vector of $S_{j}$ and $S_j = \sum_i n_i S_{ij}$, the sum of individual demands).\\
+
+
+\noindent 3) Use the envelope theorem to show that $\frac{d W(t)}{d\, t} = t \frac{d\, S_1(t)}{d t_1}$. for a tax $t_1$ on good $1$ that is returned lump sum to consumers.\\
+
+\noindent 4) What does this tell us about the welfare effects of taxation in this model? What would we want to observe in the data? What is the most important feature of our model?
+
+\section*{\normalsize Part III: Option B}
+People often claim that in order to understand welfare in the mixed logit model, we only need to look at the share out of the outside good. Show me why this is (almost) true.
+
+
+\end{document} 
