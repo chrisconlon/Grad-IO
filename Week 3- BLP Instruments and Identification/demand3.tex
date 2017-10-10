@@ -58,7 +58,7 @@ s_{jt} &=& \int \frac{\exp[x_{jt} \beta_i  ]}{1+\sum_k \exp[x_{kt} \beta_i ]} f(
 \item How do we deal with it?
 \item We would like to instrument in this world but what is the error term exactly?
 \item An obvious choice might be $\eta_{jt} = (s_{jt}(\theta)-\tilde{s}_{jt} )$
-\item Can we find things that are orthogonal to the error between observed and predicted marketshares?
+\item Can we find things that are orthogonal to the error between observed and predicted market shares?
 \item Do we have the usual IV conditions (exogeneity, relevance, monotonicity, etc.)
 \end{itemize}
 \end{frame}
@@ -126,7 +126,7 @@ s_{jt} &=& \frac{\exp[x_{jt} \beta + \xi_{jt} ]}{1+\sum_k \exp[x_{kt} \beta + \x
 \begin{frame}
 \frametitle{Caveats}
 \begin{itemize}
-\item We do need a technical condition. This only works if the marketsize $N \rightarrow \infty$.
+\item We do need a technical condition. This only works if the market size $N \rightarrow \infty$.
 \item That is our data/shares we must believe we are observing without any sampling error.
 \item This is not necessary for the multinomial MLE where shares have some natural sampling variation.
 \item In our IV/GMM approach we cannot have this sampling error. (Why?).
@@ -292,7 +292,7 @@ From the outside, in:
 \item Advantages
 \begin{itemize}
 \item Problem scales better in $\dim(\Sigma)$.
-\item Because all constraints hold at the optimium only: less impact of numerical error in tolerance or integration.
+\item Because all constraints hold at the optimum only: less impact of numerical error in tolerance or integration.
 \item Derivatives are less complicated than $\frac{\partial \delta}{\partial \theta}$ (no IFT).
 \end{itemize}
 \item Disadvantages
