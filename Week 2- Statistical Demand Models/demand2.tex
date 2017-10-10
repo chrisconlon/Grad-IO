@@ -122,7 +122,7 @@ U_c &=& X_c \beta + k_c  + \varepsilon_c
 \end{eqnarray*}
 only $d = k_b - k_c$ is identified.
 \item This means that we can only include $J-1$ such $k$'s and need to normalize one to zero. (Much like fixed effects).
-\item We cannot have individual specific factors that enter the utility of all options such as income $\theta Y_i$. We can allow for interactions between individual and choice characterstics $\theta p_{j}/ Y_i$.
+\item We cannot have individual specific factors that enter the utility of all options such as income $\theta Y_i$. We can allow for interactions between individual and choice characteristics $\theta p_{j}/ Y_i$.
 \end{itemize}
 \end{frame}
 
@@ -289,7 +289,7 @@ s_{ij} = \frac{e^{V_{ij}/\sigma}}{\sum_k e^{V_{ik}/\sigma}} \approx \frac{e^{\be
 
 \begin{frame}{Taste Variation}
 \begin{itemize}
-\item Logit allows for taste variation across individuals if two conditions are met: \alert{individual level data} and \alert{interact observed characterstics} only.
+\item Logit allows for taste variation across individuals if two conditions are met: \alert{individual level data} and \alert{interact observed characteristics} only.
 \item We often want to allow for something like $U_{ij} = x_{j} \beta_i - \alpha_i p_j + \varepsilon_{ij}$. 
 \item We might want $\beta_i = \theta / y_i$ where $y_i$ is the income for individual $i$ or $\beta_i = \theta y_i$, etc.
 \item Can also have $z_{ij}$ such as the distance between $i$ and hospital $j$.
@@ -418,7 +418,7 @@ l(\mathbf{y} | \mathbf{x}, \theta) &\approx& \sum_{j=1}^J  y_{j}^{*} \log( s_{j}
 \end{frame}
 
 \begin{frame}
-\frametitle{Multinomial Logit: Elasticitiy}
+\frametitle{Multinomial Logit: Elasticity}
 An important output from a demand system are elasticities
 \begin{itemize}
 \item An important element in $\mathbf{x_i}$ are prices $[p_{1},\ldots,p_J]$
@@ -429,7 +429,7 @@ An important output from a demand system are elasticities
 \item This implies that $ \eta_{jj} = \frac{\partial q_j}{\partial p_j} \frac{p_j}{q_j}  = -\alpha p_j (1-s_j)$.
 \item The price elasticity is increasing in own price! (Why is this a bad idea?)
 \item  $ \eta_{jk} = \frac{\partial q_j}{\partial p_k} \frac{p_k}{q_j}  = -\alpha p_k s_k$.
-\item The cross price elasiticity doesn't depend on which product $j$ you are talking about!
+\item The cross price elasticity doesn't depend on which product $j$ you are talking about!
 \end{itemize}
 \end{frame}
 
@@ -602,7 +602,7 @@ How does it actually look?
 \item $\lambda_g$ and $\alpha$ govern the elasticities, which also have a block structure. % expand this later
 \item Sometimes people refer to this as the \alert{product of two logits}
 \item In the old days people used to estimate by fitting sequential IIA logit models -- this is consistent but inefficient -- you shouldn't do this today!
-\item Esimation happens via MLE. This can be tricky because the model is non-convex. It helps to substitute $\tilde{\beta} = \beta/(1-\lambda_g)$
+\item Estimation happens via MLE. This can be tricky because the model is non-convex. It helps to substitute $\tilde{\beta} = \beta/(1-\lambda_g)$
  \end{itemize}
 \end{frame}
 
