@@ -25,20 +25,20 @@ The motivation is that are potentially many geographic markets $L$ with differen
 \begin{eqnarray*}
 \nu_{ijl} = \eta_{jl}+ \underbrace{\zeta_{ig} + \varepsilon_{ijl}}_{GEV(\lambda)}
 \end{eqnarray*}
-The idea is to allow for different locations $l$ to obtain different utility from different products $j$. Assume (again) that the outside good exists alone in its own nest. We can write the share of product $j$ nationwide as $\pi_j = \sum_{l=1}^L \omega_l \pi_{lj}$ as the share of people $\omega_l$ who live in location $l$ and the choice probability of $j$ within $l$: $\pi_{jl}$. We can decompose $\pi_{jl} =  \pi_{lg} \cdot \pi_{lj|g}$ as the ``product of two logits''.\\
+The idea is to allow for different locations $l$ to obtain different utility from different products $j$. Assume (again) that the outside good exists alone in its own nest. We can write the share of product $j$ nationwide as $\pi_j = \sum_{l=1}^L \omega_l \pi_{jl}$ as the share of people $\omega_l$ who live in location $l$ and the choice probability of $j$ within $l$: $\pi_{jl}$. We can decompose $\pi_{jl} =  \pi_{lg} \cdot \pi_{jl|g}$ as the ``product of two logits''.\\
 
 Define the logit denominator as:
 \begin{eqnarray*}
 D_{lc} = \sum_{j \in c} \exp \left[\frac{\delta_j  -\alpha p_j+ \eta_{jl}}{1-\lambda}\right]
 \end{eqnarray*}
 
-\noindent 1) [Very Easy] Write the within group share of $\pi_{l, j | g}$ assuming that $\eta_{jl}$ is observed for a single market $l$. It will be a function of the usual numerator and the denominator function $D_{lc}$.\\
+\noindent 1) [Very Easy] Write the within group share of $\pi_{jl | g}$ assuming that $\eta_{jl}$ is observed for a single market $l$. It will be a function of the usual numerator and the denominator function $D_{lc}$.\\
 
 \noindent 2) [Easy]  Write $\pi_{lc}$ and $\pi_{l0}$ as a function of only $D_{lc}$ for a single market $l$.  (ie: nothing product specific).\\
 
 \noindent 3) Now write $D_{lc}$ as a function of only $\pi_{lc}$ and $\pi_{l0}$ and the unknown parameters for a single market $l$. (ie: nothing product specific).\\
 
-\noindent 4) Now write $\pi_j = \sum \omega_l \cdot \pi_{lg} \cdot \pi_{lj|g}$ as an expression which depends only on: $\pi_j, \pi_{l0},\pi_{lc},\eta_{jl},\lambda$ and not on features of other products.\\
+\noindent 4) Now write $\pi_j = \sum \omega_l \cdot \pi_{lg} \cdot \pi_{jl|g}$ as an expression which depends only on: $\pi_j, \pi_{l0},\pi_{lc},\eta_{jl},\lambda$ and not on features of other products.\\
 
 \noindent 5) Now take logs of $\pi_j$ and solve for $\delta_j$ (this is the ``Berry (1994) inversion''). Show that your solution reduces to Berry (1994) inversion when $\eta_{jl} = 0$ for all $(j,l)$.\\
 
