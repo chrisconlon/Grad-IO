@@ -474,6 +474,97 @@ Think about the \alert{Local Average Treatment Effect}:
 \end{center}
 \end{frame}
 
+\section{Conduct}
 
+\begin{frame}{Conduct Overview}
+\begin{itemize}
+\item A second set of important questions in IO is being able to use data to decide whether firms are \alert{competing} or \alert{colluding}.
+\item Absent additional restrictions, we cannot generally look at data on $(P,Q)$ and decide whether or not collusion is taking place.
+\item We can make progress in two ways: (1) parametric restrictions on marginal costs; (2) exclusion restrictions on supply.
+\begin{itemize}
+\item Most of the literature focuses on (1) by assuming something like: $\ln mc_{jt} = x_{jt} \gamma_1 + z_{jt} \gamma_2 + \omega_{jt}$.
+\item In principle (2) is possible if we have instruments that shift demand for products but not supply. (These are much easier to come up with than ``supply shifters'').
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Testing For Collusion: Challenges}
+\begin{itemize}
+\item Recall the $\Omega$ matrix which we can write as $\Omega=\tilde{\Omega}\, .* O$, where $(.*)$ is the element-wise or Hadamard product of two matrices. 
+\begin{itemize}
+\item $\tilde{\Omega}$ is the matrix of demand derivatives with $\Omega_{(j,k)} = \frac{\partial q_j}{\partial p_k}$ for all elements.
+\item $O_{(j,k)} =1$ if $(j,k)$ have the same owner and $0$ otherwise.
+\end{itemize}
+\item Mergers are about changing $0$'s to $1$'s in the $O$ matrix.
+\item Matrix form of FOC: $q(\mathbf{p}) = \Omega(\mathbf{p})\cdot(\mathbf{p}-\mathbf{mc})$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Testing For Collusion: Challenges}
+We derived those conditions from multi-product Bertrand FOCs:
+\begin{eqnarray*}
+\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &=& \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot q_j(\mathbf{p}) +  \alert{\theta_{fg} \sum_{j \in \mathcal{J}_g} (p_j - c_j) \cdot q_j(\mathbf{p})} \\
+\rightarrow 0&=& q_j(\mathbf{p}) + \sum_{k \in (\mathcal{J}_f,\mathcal{J}_g)} \alert{\theta_{jk}}\cdot (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p}) 
+\end{eqnarray*}
+\begin{itemize}
+\item Now we have generalized the $O$ matrix.
+\item Instead of $0$'s and $1$'s we now have $\theta_{fg} \in [0,1]$ representing how much firm $f$ cares about the profits of $g$.
+\begin{itemize}
+\item If $f$ and $g$ merge (or fully colluded) then $\theta_{fg} =1$
+\item Often in the real world firms cannot reach fully collusive profits and $\theta \in (0,1)$.
+\item Evidence that $\theta_{fg} > 0$ is not necessarily evidence of malfeasance, just a deviation from \alert{static Bertrand pricing}.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Reasons for Deviations from Static Bertrand}
+\small
+\begin{description}
+\item[Biased estimates of own and cross price derivatives:] For anything to work, you have correct estimates of $\tilde{\Omega}$. My prior is most papers \alert{underestimate} cross price elasticites.
+\item[Vertical Relationships:] Who sets supermarket prices? Just the retailer? Just the manufacturer? Some combination of both? Retailers tend to \alert{soften} downstream price competition.
+\item[Faulty Timing Assumptions:] Bertrand is a simultaneous move pricing game. Lots of alternatives (Stackelberg leader-follower, Edgeworth cycles, etc.).
+\item[Dynamics and Dynamic Pricing:] Forward looking firms or consumers might not set static Nash prices. [e.g. Temporary Sales, Switching Costs, Network Effects, etc.]
+\item[Unmodeled Supergame:] Maybe firms are legally tacitly colluding, higher prices might be about what firms believe will happen in a price war.
+\end{description}
+\end{frame}
+\begin{frame}
+
+\frametitle{Testing For Collusion: Bertrand Deviations}
+Algorithm \#1:
+\begin{itemize}
+\item Recover $\tilde{\Omega}$ from demand alone.
+\item Recover marginal costs $\widehat{\mathbf{mc}} = \mathbf{p} +(O.*\tilde{\Omega}(\mathbf{p}))^{-1} q(\mathbf{p})$.
+\end{itemize}
+Challenges:
+\begin{itemize}
+\item Given $[\mathbf{q},\mathbf{p},\tilde{\Omega},O]$ I can always produce a vector of marginal costs $\mathbf{c}$ that rationalizes what we observe. [ie: $J$ equations $J$ unknowns].
+\item Maybe some vectors of $\mathbf{c}$ look less ``reasonable'' than others.
+\begin{itemize}
+\item ie: I have a parametric model of MC in mind. 
+\item Can test that model with GMM objective of $c_{jt}$ on regressors.
+\item Maybe marginal costs cannot deviate too much within product from period to period.
+\item Marginal costs $\leq 0$ seem problematic. [Might just be that your estimates for demand are too inelastic...]
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Testing For Collusion: Simultaneous Supply and Demand}
+Algorithm \#2:
+\begin{itemize}
+\item Recover $\tilde{\Omega}$ from demand and parametric assumption on supply (GMM with both sets of moments).
+\item I can impose $c > 0$ by using $\ln mc_{jt} = x_{jt} \gamma_1 + z_{jt} \gamma_2 + \omega_{jt}$.
+\item The fit of my supply side will also inform my demand parameters, particularly $\alpha$ the price coefficient. [BLP 95 used this for additional power with lots of random coefficients and potentially weak instruments].
+\end{itemize}
+Challenges:
+\begin{itemize}
+\item Am I testing conduct? Or am I testing the linear functional form for my supply model?
+\item Will a missing $z_{jt}$ change whether or not I believe firms are colluding?
+\end{itemize}
+\end{frame}
+
+\section{Examples}
 
 \end{document}
