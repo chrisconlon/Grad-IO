@@ -14,10 +14,10 @@
 \title{Empirical IO, Problem Set 2:\\
  Logit, Nested Logit, and Random-Coefficient Logit}
 \author{Chris Conlon}
-\date{Due Date: 5.00pm, Friday, October 14, 2016}
+\date{Due Date: Friday, Nov 3, 2017}
 \maketitle
 
-\paragraph{Instructions} As in your first problem set: when asked to describe an estimation algorithm, please provide enough detail so that an RA who knows Python/Matlab but has never taken any IO could use your description to write the estimation program. Actual estimation can be done in groups if you prefer. Please provide individual write-ups of your work, and note the members of your group. Attach a printout of your programs to your solutions.
+\paragraph{Instructions} As in your first problem set: when asked to describe an estimation algorithm, please provide enough detail so that an RA who knows Python/Matlab/R but has never taken any IO could use your description to write the estimation program. Actual estimation can be done in groups if you prefer. Please provide individual write-ups of your work, and note the members of your group. Attach a printout of your programs to your solutions.
 
 \paragraph{Data} Download ``ps2\_data.txt'' from the course's web page. It is a simulated panel dataset that contains the following information:
 
@@ -38,7 +38,7 @@ Column & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\ \hline
 %%%%be fixed at its average across years. (This allows for substitution over time within the panel, in recognition of the durable nature of automobiles. More practically, this assumption will make your estimator better behaved in this application.)
 %\textbf{***Maybe we should give some intuition why we do it***}
 
-\paragraph{Normalization and instruments} Estimation procedures can have problems when they contain variables that differ by several orders of magnitude. To avoid problems you should normalize the covariates you use. You will also need to create instruments. For all estimation procedures in this problem set, create the instruments from the original values, and then normalize the continuous covariates before performing the regression. Do not normalize dummy variables, constants, the log of within group share (in the nested logit problem), the left-hand side variables (functions of deltas or shares), or the instruments that you create. In other words, you only need to normalize weight, horsepower, and price. Normalize by dividing each variable by its mean. \\
+\paragraph{Normalization and instruments} Estimation procedures can have problems when they contain variables that differ by several orders of magnitude. To avoid problems you should normalize the covariates you use. You will also need to create instruments. For all estimation procedures in this problem set, create the instruments from the original values, and then normalize the continuous covariates before performing the regression. Do not normalize dummy variables, constants, the log of within group share (in the nested logit problem), the left-hand side variables (functions of deltas or shares), or the instruments that you create. In other words, you only need to normalize weight, horsepower, and price. \\
 
 \noindent
 Now suppose that the model is a logit model. The difference between the vertical model and this logit model is that the utility error is now i.i.d. extreme value
@@ -100,9 +100,8 @@ Now assume that the model is a logit model but each individual has a different p
 \item
     \begin{enumerate}[(a)]
     \item \label{alg:simpleLogNormal} Suppose $\alpha _{i}=1/y_{i}$ and $y_{i}$ is distributed
-    lognormally. Can you now explain how you would do estimation (you don't
-    actually have to do this). Write out the moment conditions and estimation
-    algorithm you would use to estimate $\beta $ in this model.
+    lognormally. Write out the moment conditions and estimation
+    algorithm you would use to estimate this model.
 
     \item Now suppose $\alpha_{i} = \alpha_{1} + \alpha_{2}/y_{i}$ and $y_i$ is still distributed lognormally. How exactly would this change the estimation? Write out the moment conditions and
     estimation algorithm you would use to estimate $\beta $ in this model.
@@ -118,7 +117,8 @@ Now assume that the model is a logit model but each individual has a different p
     $\beta $ parameters under these assumptions. Continue to use the moment conditions involving the excluded instruments you used for plain logit.
     \item Are the own and cross price
     elasticities from this system more realistic than those in the plain and nested logit models,
-    and if so why?
+    and if so why? One way to evaluate this is to produce the $J$ matrix of diversion ratios, as well as reporting the median own price elasticity.
+    \item Harder: Can you estimate a model with $\alpha_i = \alpha_0 + \frac{\alpha_1}{y_i}  + \alpha_2 \nu_i$ where $\nu_i$ is standard normal? I recommend using a small number of quadrature points for $\nu_i$. 
     \end{enumerate}
 \end{enumerate}
 
