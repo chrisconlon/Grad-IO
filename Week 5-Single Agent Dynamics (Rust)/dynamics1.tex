@@ -341,6 +341,14 @@ T(\epsilon,\beta) = \frac{1}{| \log(\beta) | } \log \left (\frac{1}{(1-\beta)\ep
 \includegraphics[scale=.8]{./resources/RustF7.pdf}
 \end{center}
 \end{frame}
+
+\begin{frame}{MPEC}
+\begin{center}
+Cut to MPEC Slides Here
+\end{center}
+\end{frame}
+
+
 %
 %\begin{frame}
 %\frametitle{Generalization of Rust: Theorem 1}
@@ -677,15 +685,6 @@ of DDC models are identified and when they are not.
 \item We cheated a bit because we assumed that not only were actions discrete but so was the state space. This trick is often attributed to Pesendorfer and Schmidt-Dengler (ReStud 2008).
 \item If the state space is not discrete we need to do some forward-simulation [next slide]. (Hotz, Miller, Sanders, Smith ReStud 1994).
 \item Others have extended these ideas to \alert{dynamic games}. See Aguirragabiria and Mira (Ecma 2002/2008) and Bajari Benkard and Levin (Ecma 2007).
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Forward Simulation}
-\begin{itemize}
-\item Just like we can write the BLP (1995) problem as an \alert{MPEC}, we can do the same with Rust (1987). [See my MPEC notes].
-\item We cheated a bit because we assumed that not only were actions discrete but so was the state space. This trick is often attributed to Pesendorfer and Schmidt-Dengler (ReStud 2008).
-\item If the state space is not discrete we need to do some forward-simulation [next slide]. (Hotz, Miller, Sanders, Smith ReStud 1994).
-\item Others have extended these ideas to \alert{dynamic games}. See Aguirragabiria and Mira (Ecma 2002/2008) and Bajari Benkard and Levin (Ecma 2007).
 \item Srisuma and Linton (2009) [very hard] show how to use Friedholm integral equations of 2nd kind to extend to continuous case.
 \end{itemize}
 \end{frame}
@@ -781,6 +780,43 @@ $\bullet$ Given an estimate of $\tilde V (\cdot, d; \theta)$, you can get the \e
 \end{equation}
 and analogously for $\tilde p (d = 0 |x ; \theta)$. Note that the predicted choice probabilities are different from $\hat p (d|x)$, which are the actual choice probabilities computed from the actual data. The predicted choice probabilites depend on the parameters $\theta$, whereas $\hat p (d|x)$ depend solely on the data. 
 \end{frame}
+
+\begin{frame}{Hotz-Miller (1993) to Aguirregabiria and Mira (2002)}
+\begin{itemize}
+\item Choice probabilities conditional on any value of observed state variables are uniquely determined by the vector of normalized value functions
+\item HM show invertibility proposition (under some conditions).
+\item If mapping is one-to-one we can also express value function in terms of choice probabilities. 
+\begin{eqnarray*}
+V_{\theta}(x) &=& h(P(d | x,\theta),s,\theta)\\
+P(d | x,\theta) &=& g(V_{\theta}(x),s,\theta) \\
+\Rightarrow P(d | x,\theta) &=& g(h(P(d | x, \theta),s ,\theta),s,\theta)
+\end{eqnarray*}
+\item The above fixed point relation is used in Aguirregabiria and Mira (2002) in their NPL Estimation algorithm.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Hotz-Miller (1993) to Aguirregabiria and Mira (2002)}
+\begin{eqnarray*}
+P^{k+1}(d | x,\theta) &=& g(h(\hat{P^{k}}(d | x, \theta),s ,\theta),s,\theta)
+\end{eqnarray*}
+\vspace{-0.5cm}
+\begin{itemize}
+\item Key point here is that the functions $h(\cdot)$ and $g(\cdot)$ are quite easy to compute (compared to the inverse $f^{-1}$).
+\item We can substantially improve estimation speed by replacing $P$ with $\hat{P}$ the Hotz-Miller simulated analogue.
+\item The idea is to reformulate the problem from \alert{value space} to \alert{probability space}.
+\item When initializing the algorithm with consistent nonparametric estimates of CCP, successive iterations return a sequence of estimators of the structural parameters
+\item Call this the $K$ stage policy iteration (PI) estimator.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Hotz-Miller (1993) to Aguirregabiria and Mira (2002)}
+\begin{itemize}
+\item This algorithm nests Hotz Miller $(K=1)$ and Rust's NFXP $(K=\infty)$.
+\item Asymptotically everything has the same distribution, but finite sample performance may be increasing in $K$ (at least in Monte Carlo).
+\item The Nested Pseudo Likelihood (NPL) estimator of AM $(K=2)$ seems to have much of the gains.
+\end{itemize}
+\end{frame}
+
 
 
 \end{document}

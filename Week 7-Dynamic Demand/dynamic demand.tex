@@ -75,28 +75,30 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}{Dynamic Demand}
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=4in]{resources/conlon1.pdf}
-\label{conlon1}
-\end{center}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Dynamic Demand}
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=4in]{resources/conlon2.pdf}
-\label{conlon1}
-\end{center}
-\end{figure}
-\end{frame}
+%\begin{frame}{Dynamic Demand}
+%\begin{figure}[htbp]
+%\begin{center}
+%\includegraphics[width=4in]{resources/conlon1.pdf}
+%\label{conlon1}
+%\end{center}
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}{Dynamic Demand}
+%\begin{figure}[htbp]
+%\begin{center}
+%\includegraphics[width=4in]{resources/conlon2.pdf}
+%\label{conlon1}
+%\end{center}
+%\end{figure}
+%\end{frame}
 
 \begin{frame}{Dynamic Demand}
 \begin{itemize}
+\item Today a 55" 4K LCD TV is \$400. In 2006, you could buy a 32" 720P TV for $>\$10,000$.
 \item In December 2011 TV prices fell $17\%$ on an annual basis and other A/V equipment fell $11\%$, and computer equipment fell $14\%$.
-\item Conlon 2011 reports a 22\% annualized price decline in LCD TV's from 2006-2009.
+%\item Conlon 2016 reports a 22\% annualized price decline in LCD TV's from 2006-2009.
+\item From August 2005 to August 2015 prices declined by 87.2\%.
 \item We might also find that over time consumers buy better cameras or larger TV's
 \item The BLS tries to do \textit{chaining} and \textit{quality adjustments} but in high-tech products this can be very difficult.
 \item This has a potentially large impact on price indices (a small bias in the CPI can be billions of dollars in SSA/Medicare payments).
@@ -163,7 +165,7 @@ This Bellman has defined a \textit{Replacement Problem}.
 \item When you upgrade \alert{you throw away the old durable and get nothing in exchange}.
 \item After a purchase $j$  you receive flow utility $f_{i0t+1} = f_{ijt}$ each period if you don't make a new purchase.
 \item We could add in depreciation if we wanted to.
-\item Other studies of durables have focused on \textit{Secondary Markets}
+\item Other studies of durables have focused on \textit{Secondary Markets} or \textit{Perfect Rental Markets}.
 \item Resale: Important for cars, not relevant for high-tech.
 \end{itemize}
 \end{frame}
@@ -348,6 +350,19 @@ v_{it} &=& \log\left[ \exp( \alert{\beta v_{i,t+1}} )+ \exp(\delta_{it})  \right
 w_{i,t+1} &=& w_{i,t} \left(1-\sum_j s_{ijt} \right)\\
 \end{eqnarray*}
 Note: that this nests static demand $\alert{\beta} = 0$
+\end{frame}
+
+\begin{frame}{Alternative Perspective on Beliefs}
+Recall our objective:
+\begin{itemize}
+\item Plug in an unbiased estimate for the ``no-purchase'' utility.
+\item Under perfect foresight this is just the inclusive value of tomorrow's market $\delta_{i,t+1}$  appropriately discounted: $\sum_{k=1}^{T-k} \beta^{t+k} \delta_{i,t+k}$.
+\item Different ways to think about \alert{rational expectations}
+\begin{itemize}
+\item Expectational error of some or all of $\delta_{i,t+k}$'s.
+\item Expectational error in today's reservation utility.
+\end{itemize}
+\end{itemize}
 \end{frame}
 
 
