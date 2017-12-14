@@ -19,8 +19,8 @@
 \institute{Grad IO }
 \date{\today}
 \setbeamerfont{equation}{size=\tiny}
-\begin{document}
 
+\begin{document}
 \begin{frame}
 \titlepage
 \end{frame}
@@ -262,10 +262,10 @@ EV(x, i) \equiv E_{x', \varepsilon ' | x, i} V(x', \varepsilon ' ; \theta)
 This \alert{ex ante value function} can be derived from Bellman's equation:
 \begin{equation*}
 \begin{split}
-V(y, \varepsilon ;\theta) = & \max_{j \in 0,1} [ u(y, j ; \theta) + \varepsilon + \beta EV(y,j)] \\
+V(y, \varepsilon ;\theta) = & \max_{j \in 0,1} [ u(y, j ; \theta) + \varepsilon_j + \beta EV(y,j)] \\
 \Longrightarrow & E_{y, \varepsilon} [V(y, \varepsilon ; \theta) | x, i ] \equiv  EV(x, i ; \theta) \\
-= & E_{y, \varepsilon | x, i } \left \{ \max_{ j \in 0,1} [ u(y, j ; \theta) + \varepsilon + \beta EV(y,j)] \right \} \\
-= &  E_{y | x, i }  E_{\varepsilon | x, i } \left \{ \max_{ j \in 0,1} [ u(y, j ; \theta) + \varepsilon + \beta EV(y,j)] \right \} \\
+= & E_{y, \varepsilon | x, i } \left \{ \max_{ j \in 0,1} [ u(y, j ; \theta) + \varepsilon_j + \beta EV(y,j)] \right \} \\
+= &  E_{y | x, i }  E_{\varepsilon | x, i } \left \{ \max_{ j \in 0,1} [ u(y, j ; \theta) + \varepsilon_j + \beta EV(y,j)] \right \} \\
 = &  E_{y | x, i } \log \left \{ \sum_{j=0,1} \exp [ u(y, j ; \theta)  + \beta EV(y,j)] \right \} \\
 = & \int_y \log  \left \{ \sum_{j=0,1} \exp [ u(y, j ; \theta)  + \beta EV(y,j)] \right \} p(dy|x,i).
 \end{split}
@@ -410,7 +410,7 @@ Cut to MPEC Slides Here
 
 \begin{frame}{Motivation}
 \begin{itemize}
-	\item In Rust, we started with a guess of parameters $\theta$, iterated on the Bellman operator to get $V(x,i,\theta)$ and then constructed CCP's $P(i | x, \theta)$.
+	\item In Rust, we started with a guess of parameters $\theta$, iterated on the Bellman operator to get $EV_{\theta}(x,i)$ and then constructed CCP's $P(i | x, \theta)$.
 	\item A disadvantage of Rust's approach is that it can be computationally intensive
 	\begin{itemize}
 	
