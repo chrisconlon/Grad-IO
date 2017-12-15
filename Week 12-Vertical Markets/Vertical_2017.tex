@@ -339,9 +339,24 @@ The typical outline of vertical control is as follows:\\
 
 \frame[plain]{
 \small
-\frametitle{Villas Boas}
+\frametitle{Villas Boas (ReStud 2007)}
+Retail Price-Cost-Margins given by
+\begin{eqnarray*}
+p^r- p^w -c^r = -(T_r \odot \Delta_{r})^{-1} s(p)
+\end{eqnarray*}
 \begin{itemize}
-\item .
+\item $\Delta_r$ is matrix of (retail) demand derivatives $\frac{\partial s_j}{\partial p_k}$.
+\item $T_r$ retailer ownership matrix $(j,k)=1$ if both products sold by retailer.
+\end{itemize}
+
+
+Wholesale Price-Cost-Margins given by
+\begin{eqnarray*}
+p^w - c^w = -(T_w \odot \Delta_{w})^{-1} s(p)
+\end{eqnarray*}
+\begin{itemize}
+\item $T_w$ manufacturer ownership matrix $(j,k)=1$ if both products sold by same manufacturer.
+\item $\Delta_w= \Delta_{\rho}' \Delta_r$ where $\Delta_{\rho}$ is the pass-through matrix $\frac{\partial p_j^r}{\partial p_k^w}$.
 \end{itemize}
 }
 
