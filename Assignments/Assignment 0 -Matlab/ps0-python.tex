@@ -1,23 +1,28 @@
 \documentclass{article}
 \usepackage{verbatim}
 \usepackage{fullpage}
+\usepackage{hyperref}
 \providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
 \begin{document}
 
-\title{Empirical IO I: Problem Set 0}
+\title{Empirical IO I: Problem Set 0 (Python Users)} 
 \author{Chris Conlon}
-\date{Due: Sept 30, 2017}
+\date{Due: Sept 28, 2018}
 \maketitle
-This problem set is designed to make sure that your $\mathtt{MATLAB}$ skills are up to speed. For each question, the expectation is that you complete the task, provide the appropriate code, and fully read the documentation, and work the $\mathtt{MATLAB}$ provided examples on your own.  The tasks should be fairly easy.  The goal is to accomplish the tasks in the most straightforward manner with the least amount of code.  You may refer to Peter Acclam's \emph{MATLAB Array Manipulation Tips and Tricks (MTT)} when necessary.
+This problem set is designed to make sure that your $\mathtt{numpy}$ skills are up to speed. For each question, the expectation is that you complete the task, provide the appropriate code, and fully read the documentation, and work the $\mathtt{numpy}$ provided examples on your own.  The tasks should be fairly easy.  The goal is to accomplish the tasks in the most straightforward manner with the least amount of code.  
 
-In theory this can all be done in Python, though I haven't tried it. You will get full credit if you use Python instead of MATLAB.
-
+If you are new to $\mathtt{numpy}$ I suggest the following tutorials:
+\begin{itemize}
+\item \url{https://docs.scipy.org/doc/numpy/user/quickstart.html}
+\item  \url{https://docs.scipy.org/doc/numpy/user/numpy-for-matlab-users.html}
+\end{itemize}
 
 \section*{Part 0: Logit Inclusive Value}
 The logit inclusive value or $IV = \log \sum_{i=1}^N \exp[x_i]$.
 \begin{enumerate}
 \item Show that the this function is everywhere concave.
-\item A common problem in practice is that if one of the $x_i > 600$ that we have an ``overflow'' error on a computer. In this case $\exp[600] \approx 10^{260}$ which is too large to store with any real precision, especially if another $x$ has a different scale (say $x_2=10$). A common ``trick'' is to subtract off $m_i = \max_i x_i$ from all $x_i$.  Show how to implement the trick and get the correct value of $IV$.
+\item A common problem in practice is that if one of the $x_i > 600$ that we have an ``overflow'' error on a computer. In this case $\exp[600] \approx 10^{260}$ which is too large to store with any real precision, especially if another $x$ has a different scale (say $x_2=10$). A common ``trick'' is to subtract off $m_i = \max_i x_i$ from all $x_i$.  Show how to implement the trick and get the correct value of $IV$. If you get stuck take a look at Wikipedia.
+\item Compare your function to $\mathtt{scipy.misc.logsumexp}$. Does it appear to suffer from underflow/overflow? Does it use the $\max$ trick?
 \end{enumerate}
 
 
@@ -37,31 +42,16 @@ P &=&
     0.5&    0.1&    0.4\\
  \end{array} } \right]
 \end{eqnarray*}
-We're interested in the ergodic distribution $\pi P = \pi$. This is similar to the transition matrix infinitely many periods into the future $P^{\infty}$. Write a function that computes the ergodic distribution of the matrix $P$ by examining the properly rescaled eigenvectors and compare your result to $P^{100}$.
+We're interested in the ergodic distribution $\pi P = \pi$. This is similar to the transition matrix infinitely many periods into the future $P^{\infty}$. Write a function that computes the ergodic distribution of the matrix $P$ by examining the properly rescaled eigenvectors and compare your result to $P^{100}$. Here I recommend $\mathtt{numpy.linalg.matrix\_power}$ and $\mathtt{numpy.linalg.eig}$.
 \section*{Part 2: Numerical Integration}
 In this part we will look to calculation the logit choice probability $p(X,\theta)$ by numerical integration:\\
  $p(X,\theta) =\int_{-\infty}^{\infty} \frac{\exp(\beta_i X)}{1+ \exp(\beta_i X)} f(\beta_i | \theta) \partial \beta_i$. \\
  Assume $f \sim N(0.5,2)$ and that $X = 0.5$.
  
 \begin{enumerate}
-\item Create the function in an M-file in Matlab called $\mathtt{binomiallogit}$. You will want two versions, one that includes the PDF and one that does not. (It should take $\beta$ the item you integrate over as its argument).
-\begin{comment}
-\begin{verbatim}
-function f=binomiallogit(beta)
-     X=0.5; mu = 0.5; sigma =2;
-     beta = beta*sigma*sqrt(2)+mu;
-     f=exp(beta*X)./(1+exp(beta*X));
-end
+\item Create the function in an Python called $\mathtt{binomiallogit}$. (It should take $\beta$ the item you integrate over as its argument, it should take the PDF $\mathtt{scipy.stats.norm.pdf}$ as an optional argument).
 
-
-function f=binomiallogit(beta)
-     X=0.5; mu = 0.5; sigma =2;
-     f=exp(beta*X)./(1+exp(beta*X)) .* normpdf(beta,mu,sigma);
-end
-\end{verbatim}
-\end{comment}
-
-\item Integrate the function using Matlab's $\mathtt{quad}$ command and setting the tolerance to $1\e{-14}$.  Treat this a the ``true'' value.
+\item Integrate the function using Python's $\mathtt{scipy.integrate.quad}$ command and setting the tolerance to $1\e{-14}$.  Treat this a the ``true'' value.
 \begin{comment}
 \begin{verbatim}
 [Ftrue,nevals]=quad(@binomiallogit,-10,10,1e-14);
@@ -72,7 +62,7 @@ Fgh=binomiallogitnopdf(x)'*(w./sum(w));
 \end{comment}
 
 \item Integrate the function by taking 20 and 400 Monte Carlo draws from $f$ and computing the sample mean.
-\item Integrate the function using Gauss-Hermite quadrature for $k=4, 12$ (Try some odd ones too). Obtain the quadrature points and nodes from the internet. Gauss-Hermite quadrature assumes a weighting function of $\exp[-x^2]$, you will need a change of variables to integrate over a normal density. You also need to pay attention to the constant of integration.
+\item Integrate the function using Gauss-Hermite quadrature for $k=4, 12$ (Try some odd ones too). Obtain the quadrature points and nodes from the internet. Gauss-Hermite quadrature assumes a weighting function of $\exp[-x^2]$, you will need a change of variables to integrate over a normal density.[Wikipedia] You also need to pay attention to the constant of integration.
 \item Compare results to the Monte Carlo results. \textit{Make sure your quadrature weights sum to 1!}
 \begin{comment}
 \begin{table}[htdp]
@@ -106,7 +96,7 @@ SGI-KPN & 17 & -6.9355e-04\\
 \end{center}
 \end{table}%
 \end{comment}
-\item Now Construct a new function $\mathtt{binomiallogitmixture}$ that takes a vector for $X$ and returns a vector of binomial probabilities (appropriately integrated over $f(\beta_i | \theta)$ for the 1-D mixture). It should be obvious that Gauss-Hermite is the most efficient way to do this. \textit{Do NOT use loops}.\footnote{This no loops advice only really applies to MATLAB users.}
+\item Now Construct a new function $\mathtt{binomiallogitmixture}$ that takes a vector for $X$ and returns a vector of binomial probabilities (appropriately integrated over $f(\beta_i | \theta)$ for the 1-D mixture). It should be obvious that Gauss-Hermite is the most efficient way to do this. \textit{Do NOT use loops}
 \end{enumerate}
 
 \section*{Part 3: Functional Approximation}
@@ -126,7 +116,7 @@ We are going to use Chebyshev regression to construct a degree $n$ polynomial th
 \begin{eqnarray*}
 \hat{f}(x) = \sum_{i=0}^n a_i T_i \left( 2 \frac{x-a}{b-a} -1 \right)
 \end{eqnarray*}
-\item Compare your approximation to MATLABs built-in cubic spline interpoland $\mathtt{csapi}$ and see how it does. (Plot both approximations on $0.01$ spaced grid-points against the actual nodes).
+\item Compare your approximation to Python's built-in chebyshev polynomial fitting $\mathtt{numpy.polynomial.chebyshev.chebfit}$ as well as the built in cubic-spline interpolator $\mathtt{scipy.interpolate)}$ and see how it does. (Plot both approximations on $0.01$ spaced grid-points against the actual nodes).
 \item What happens to the approximations outside the domain? What happens as we vary $n$?
 
 \end{enumerate}
