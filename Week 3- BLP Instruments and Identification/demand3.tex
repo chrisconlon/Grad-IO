@@ -223,6 +223,7 @@ From the outside, in:
 \end{frame}
 
 
+
  \begin{frame}
 \frametitle{BLP Alternatives}
 \begin{itemize}
@@ -367,22 +368,6 @@ E[\xi_{jt} | x_{jt}, z_{jt}]=0 \rightarrow E[\xi'  [Z \, X]]=0
 \end{itemize}
 \end{frame}
 
-\begin{frame} \frametitle{Extensions: Supply Moments}
-\begin{itemize}
-\item We can also impose the Bertrand FOC as a set of additional moments.
-\item First parametrize marginal cost
-\begin{eqnarray*}
-\ln mc_{jt} = \gamma_1 x_{jt} + \gamma_2 w_{jt} + \omega_{jt}
-\end{eqnarray*}
-\item helpful to constrain MC to be positive always.
-\item Note that for any vector of prices $p$ and demand parameters $\theta$ we can recover a unique vector of marginal costs (by solving the system of linear equations).
-\item Imposing the supply side only helps if we have information about the marginal costs / production function that we would like to impose
-\item Imposing these restrictions is helpful in constraining markups (so that implied MC are always positive, etc.).
-\item Misspecified functional forms for costs can cause problems!
-\end{itemize}
-\end{frame}
-
-
 \begin{frame}
 \frametitle{Alternative: Vertical Model (Bresnahan 1987)}
 \begin{itemize}
@@ -449,6 +434,81 @@ u_{ij} = \delta_j + \sum_k \nu_{ik} x_{jk} + \xi_{j} + \underbrace{\sigma_i \eps
 \end{itemize}
 \end{frame}
 
+\section{Adding Supply}
+\begin{frame}{Supply}
+\begin{itemize}
+\item Economic theory gives us some additional powerful restrictions.
+\item We may want to impose $MR = MC$.
+\item Alternatively, we can ask -- what is a good instrument for demand? \alert{something from another equation} (ie: supply).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bertrand Nash Pricing}
+Consider the problem of firm $f$ which sets prices $p_j$ for products in the set $\mathcal{J}_f$:
+\begin{eqnarray*}
+\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &=& \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot q_j(\mathbf{p}) \\
+\rightarrow 0&=& q_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p})
+\end{eqnarray*}
+We can re-write the FOC in matrix form:
+\begin{eqnarray*}
+q(\mathbf{p}) = \Omega(\mathbf{p})\cdot(\mathbf{p}-\mathbf{mc})
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}{Bertrand Nash Pricing (cont)}
+It is helpful to define two $J_t \times J_t$ matrices. The first is an \textit{ownership matrix}:
+\begin{eqnarray*}
+O_{(j,k)} = \left\{\begin{array}{lr}
+          1 & \text{for }  (j,k) \in \mathcal{J}_f\\
+       	  0 & \text{for } (j,k) \notin \mathcal{J}_f
+        \end{array} \right\}
+\end{eqnarray*}
+And the second is the matrix of demand derivatives $\tilde{\Omega}(\mathbf{p})$ with entries $\tilde{\Omega}_{(j,k)}(\mathbf{p})=\frac{\partial q_{j}}{\partial p_k}(\mathbf{p})$. We are mainly interested in the Hadamard (element-wise) product of the two matrices $\Omega = O\bigodot\tilde{\Omega}$.
+\begin{eqnarray*}
+\Omega_{(j,k)}(\mathbf{p},\theta) = \left\{\begin{array}{lr}
+         - \frac{\partial q_{j}}{\partial p_k}(\mathbf{p},\theta) & \text{for }  (j,k) \in \mathcal{J}_f\\
+       	  \quad 0 & \text{for } (j,k) \notin \mathcal{J}_f
+        \end{array} \right\}
+\end{eqnarray*}
+\end{frame}
+
+
+\begin{frame}{Recovering Marginal Costs }
+Recover implied markups/ marginal costs, and assume a functional form for $mc_{jt}(x_{jt},w_{jt})$.
+\begin{eqnarray*}
+\widehat{\mathbf{mc}}(\theta)&=& \mathbf{p}- \Omega(\mathbf{p},\theta)^{-1} q(\mathbf{p},\theta)\\
+f(mc_{jt}) &=& x_{jt} \gamma_1 + w_{jt} \gamma_2 + \omega_{jt}
+\end{eqnarray*}
+Which we can solve for $\omega_{jt}$:
+\begin{eqnarray*}
+\omega_{jt} &=&  f(\mathbf{p}- \Omega(\mathbf{p},\theta)^{-1} q(\mathbf{p},\theta)) - x_{jt} \gamma_1 - w_{jt} \gamma_2
+\end{eqnarray*}
+\begin{itemize}
+\item $f(\cdot)$ is usually $\log(\cdot)$ or identity.
+\item I can use this to form additional moments: $E[\omega_{jt}' Z_{jt}^{s}]=0$.
+\item I can just stack these up with the demand moments $E[\xi_{jt}' Z_{jt}^d]=0$.
+\item Now I have $\dim(Z^d) + \dim(Z^s)$ moments altogether.
+\item This step is optional but can aid in identification (if you believe it).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Supply Side as Instruments }
+\begin{itemize}
+\item Instruments for demand depend on \alert{exclusion restrictions}
+\item Where do instruments come from? Something omitted that appears in another equation.
+\end{itemize}
+\begin{eqnarray*}
+p_{jt}  &=& c_{jt}(w_{jt},x_{jt}) +  \frac{s_{jt}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|}  +\sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\frac{ \partial s_{kt}}{\partial p_{jt}}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|}  
+\end{eqnarray*}
+\begin{enumerate}
+\item Exogenous regressors $x_{jt}$.
+\item Cost shifters: $w_{jt}$ (hard to find in practice), Hausman instruments.
+\item Markup shifters:  $ \frac{s_{jt}(\mathbf{p_t})}{\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}}$ \\(function of $(p_j,x_j,\xi_j, p_{-j},x_{-j},\xi_{-j})$).
+\end{enumerate}
+\end{frame}
+
+
 \section{Instruments and Identification}
 
 \begin{frame}{Instruments}
@@ -487,21 +547,20 @@ u_{ij} = \delta_j + \sum_k \nu_{ik} x_{jk} + \xi_{j} + \underbrace{\sigma_i \eps
 
 
 
-\begin{frame}{Supply Side / Instruments}
-Take FOC of Bertrand-Nash Pricing:\\
+\begin{frame} \frametitle{Extensions: Supply Moments}
+\begin{itemize}
+\item We can also impose the Bertrand FOC as a set of additional moments.
+\item First parametrize marginal cost
 \begin{eqnarray*}
-s_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial s_k(\mathbf{p_t})}{\partial p_j} &=& 0
+\ln mc_{jt} = \gamma_1 x_{jt} + \gamma_2 w_{jt} + \omega_{jt}
 \end{eqnarray*}
-\begin{eqnarray*}
-p_{jt} &=& c_{jt}(w_{jt},x_{jt}) +  \frac{s_{jt}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|}  +\sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\frac{ \partial s_{kt}}{\partial p_{jt}}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|}  
-\end{eqnarray*}
-Two sources of instruments:
-\begin{enumerate}
-\item Cost shifters: $w_{jt}$ (hard to find in practice), Hausman instruments.
-\item Markup shifters:  $ \frac{s_{jt}(\mathbf{p_t})}{\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}}$ \\(function of $(p_j,x_j,\xi_j, p_{-j},x_{-j},\xi_{-j})$).
-\end{enumerate}
+\item helpful to constrain MC to be positive always.
+\item Note that for any vector of prices $p$ and demand parameters $\theta$ we can recover a unique vector of marginal costs (by solving the system of linear equations).
+\item Imposing the supply side only helps if we have information about the marginal costs / production function that we would like to impose
+\item Imposing these restrictions is helpful in constraining markups (so that implied MC are always positive, etc.).
+\item Misspecified functional forms for costs can cause problems!
+\end{itemize}
 \end{frame}
-
 
 
 \begin{frame}{Instruments}
