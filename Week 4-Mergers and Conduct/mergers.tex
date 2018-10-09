@@ -1,5 +1,6 @@
 \documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-\usetheme{default}
+\usetheme{metropolis}
+
 %\usetheme{Darmstadt}
 %\usepackage{times}
 %\usefonttheme{structurebold}
@@ -337,23 +338,28 @@ J_F(x^k) s^k = - F(x^k)
 \end{frame}
 
 
-\section{Unilateral Effects}
 
-\begin{frame}{What are Unilateral Effects?}
-\begin{itemize}
-\item In 2010 the Horizontal Merger Guidelines were updated to reflect a movement away from HHI/concentration based measures and \alert{Cournot} competition towards measures more in line with \alert{Differentiated Bertrand} competition.
-\item Similar to partial merger analysis. Look at the incentives to raise prices for product $j$ before and after a merger, holding all other prices fixed.
-\item Two key measures \alert{Upward Pricing Pressure} (UPP) and the primary input into UPP the \alert{Diversion Ratio}.
-\item Intended for initial screening stage of merger evaluation, but sometimes substitute for full merger simulation.
-\end{itemize}
+\section{What are Diversion Ratios?} 
+
+
+\begin{frame}{Horizontal Merger Guidelines (2010 rev.)}
+\begin{quote}
+In some cases, the Agencies may seek to quantify the extent of direct competition between a product sold by one merging firm and a second product sold by the other merging firm by estimating the diversion ratio from the first product to the second product. The diversion ratio is the \alert{fraction of unit sales lost by the first product due to an increase in its price that would be diverted to the second product}. Diversion ratios between products sold by one merging firm and products sold by the other merging firm can be very informative for assessing unilateral price effects, with \alert{higher diversion ratios indicating a greater likelihood of such effects}. Diversion ratios between products sold by merging firms and those sold by \alert{non-merging firms have at most secondary predictive value.}
+\end{quote}
 \end{frame}
 
-\begin{frame}
-\frametitle{2010 Merger Guidelines}
-\begin{quotation}
-\textit{
-In some cases, the Agencies may seek to quantify the extent of direct competition between a product sold by one merging firm and a second product sold by the other merging firm by estimating the diversion ratio from the first product to the second product. \alert{The diversion ratio is the fraction of unit sales lost by the first product due to an increase in its price that would be diverted to the second product. }Diversion ratios between products sold by one merging firm and products sold by the other merging firm can be very informative for \alert{assessing unilateral price effects, with higher diversion ratios indicating a greater likelihood of such effects}. Diversion ratios between products sold by merging firms and those sold by non-merging firms have at most secondary predictive value.}
-\end{quotation}
+\begin{frame}{This time with equations}
+ Raise price of good $j$. People leave. What fraction of leavers switch to $k$?
+\begin{eqnarray*}
+D_{jk} = \frac{\frac{\partial q_k}{\partial p_j}}{\left|\frac{\partial q_j}{\partial p_j} \right|}
+\end{eqnarray*}
+It's one of the best ways economists have to characterize competition among sellers.
+\begin{itemize}
+\item High Diversion: Close Substitutes $\rightarrow$ Mergers more likely to increase prices.
+\item Very low diversion $\rightarrow$ products may not be in the same market.\\ (ie: Katz \& Shapiro). This is just hypothetical monopolist or SSNIP test.
+\item Demand Derivatives NOT elasticities.
+\item No equilibrium responses.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -369,39 +375,34 @@ In some cases, the Agencies may seek to quantify the extent of direct competitio
 \end{itemize} 
 \end{frame}
 
-\begin{frame}
-\frametitle{What is the Diversion Ratio?}
-\small
-Ignore all but two merging products
-\begin{block}{Pre-Merger}
-Firm maximizes $\pi_j$ choosing $p_j$:
+
+%\begin{frame}
+%\frametitle{Antitrust Policy -- Horizontal Mergers}
+%Antitrust authorities use diversion ratios, a la Bertrand, to understand the `unilateral effects' of proposed mergers.
+%\begin{itemize}
+%\item Unilateral effects: competition between products of the merged firm is reduced because the merged firm internalizes substitution between jointly-owned products.
+%\item Unilateral effects can lead to price increases.
+%\item Current U.S. merger guidelines:\\
+%\indent \textit{\footnotesize Diversion ratios between products [of the merging firms] can be very informative for assessing unilateral price effects.}
+%\item Higher diversion between merging products pre-merger $\rightarrow$ greater scope for potential price increases.
+%\end{itemize}
+%\end{frame}
+
+\section{Where do Diversion Ratios come from?\\ (Stolen from Conlon and Mortimer (2018)}
+\begin{frame}{In Theory}
+Consider Bertrand FOC's for single-product firm $j$, buys $k$:
 \begin{eqnarray*}
-q_j(\mathbf{p^{(0)}}) + (p_j^{(0)} - c_j) \frac{\partial q_j(\mathbf{p^{(0)}})}{\partial p_j} &=& 0 
+\arg \max_{p_j}&&\, (p_j-c_j) \cdot q_j(p_j,p_{-j}) + (p_k-c_k) \cdot q_k(p_j,p_{-j})\\
+0 &=&q_j+ (p_j-c_j) \cdot \frac{\partial q_j}{\partial p_j}+ (p_k-c_k) \cdot  \frac{\partial q_k}{\partial p_j}\\
+p_j &=&-q_j/\frac{\partial q_j}{\partial p_j}+ c_j + (p_k-c_k) \cdot  \underbrace{\frac{\partial q_k}{\partial p_j}/-\frac{\partial q_j}{\partial p_j}}_{D_{jk}}\\ \pause
+p_j &=& \underbrace{\frac{\epsilon_{jj}}{\epsilon_{jj}+1}}_{\text{Lerner Markup}} \left[  c_j -\overbrace{ \underbrace{c_j \cdot e_j}_{\text{efficiency}} + \underbrace{(p_k-c_k) \cdot  D_{jk} (p_j,p_{-j})}_{\text{opp cost}}}^{UPP} \right]\\
 \end{eqnarray*}
-\end{block}
-\small
-\begin{block}{Post-Merger}
-Firm maximizes $\pi_j+\pi_k$ choosing $p_j$ only (with efficiency $e_j$):
-\begin{eqnarray*}
-q_j(\mathbf{p^{(1)}}) + (p_j^{(1)} - (1-e_j)\cdot c_j) \frac{\partial q_j(\mathbf{p^{(1)}})}{\partial p_j}  + (p_k^{(1)} - c_k) \frac{\partial q_k(\mathbf{p^{(1)}})}{\partial p_j}  &=& 0 \\
-\end{eqnarray*}
-\end{block}
+Caveat: UPP, Partial Merger, Full Merger.
 \end{frame}
 
-\begin{frame}
-\frametitle{UPP Derivation}
-\begin{block}{Difference between pre- and post- merger prices:}
-Let $UPP_j \approx p_j^{1} -p_j^{0}$: 
-\begin{eqnarray*}
-UPP_j &\approx& (p_k -mc_k) \cdot \underbrace{\left[\frac{\partial q_j }{\partial p_j}\right]^{-1}  \left[\frac{\partial q_k }{\partial p_j} \right]}_{D_{jk}(\mathbf{p})} - E_j mc_j \\
-GUPPI_j &=& D_{jk}(\mathbf{p}) \cdot  \frac{p_k - mc_k}{p_j} \\
-\end{eqnarray*}
-\end{block}
-Leads some to state that diversion ratio $D_{jk}(\mathbf{p})$ is a sufficient statistic for unilateral merger effects.
-\end{frame}
 
 \begin{frame}
-\frametitle{UPP Derivation : Multiple Products}
+\frametitle{UPP Extensions}
 \begin{block}{Extension to multiple acquisitions:}
 Very easy if we have that $p_j - mc_j = p - mc$ are the same for several values of $j$.  Then
 \begin{eqnarray*}
@@ -409,49 +410,151 @@ UPP_j &\approx& (p - mc) \sum_k D_{jk}(\mathbf{p}) -  E_j mc_j \\
 \end{eqnarray*}
 \end{block}
 If several brands of acquisition have the same markup -- can consider firm-level diversion. (We can aggregate diversion across similar flavors)
-\end{frame}
-
-\begin{frame}
-\frametitle{Empirical Measures of Pricing Pressure}
-\begin{description}
-\item[Assumption] Proportional to market share?
-\item[Price Cost Margins] Hart-Scott-Rodino Act/ Discovery/ provided by merging parties.
-\item[Diversion as Data (Farrell Shapiro 2010)] \textit{The diversion ratio might be estimated using evidence generated in the merging firms' normal course of business. Firms often track diversion ratios in the form of who they are losing business to, or who they can win business from.}
-\item[Diversion Surveys (Farrell Shapiro 2010)] \textit{Customer surveys can also illuminate diversion ratios, as can information about customer switching patterns.}
-\item[Demand Estimation] If we can do this, can probably do full merger simulation. May depend on second-order information or parametric forms. Can also differentiate demand to get diversion.
-\end{description}
-\end{frame}
-
-\begin{frame}
-\frametitle{Experimental Interpretation (Conlon and Mortimer 2015)}
-\begin{description}
-\item[Population] All individuals who at current prices would buy $j$.
-\item[Treatment] Not buying $j$.
-\item[Outcome] Fraction who purchase $k$ instead.
-\item[Instrument] $p_j$ functions as the instrument (it monotonically increases probability of treatment).
-\item[Effect of Interest] treat only those individuals purchasing $j$ who are most price-sensitive. (ie: those who would leave  $j$ after a 5-10\% price increase).
-\end{description}
-\end{frame}
-
-\begin{frame}{Diversion Experiments}
-\begin{itemize}
-\item Consider an experiment designed to measure diversion, where everything else is held fixed and $p_j$ is increased by $\Delta p_j$ 
+\begin{block}{Ignoring Efficiencies}
 \begin{eqnarray*}
-\widehat{D_{jk}} &=& \left| \frac{\Delta Q_{k}}{\Delta Q_j} \right| =  \left| \frac{Q_{k}(\mathbf{p^{(1)}}) - Q_{k}(\mathbf{p^{(0)}})}{Q_{j}(\mathbf{p^{(1)}}) - Q_{j}(\mathbf{p^{(0)}})}   \right| = \frac{\int_{p_j^{0}}^{p_j^1}  \frac{\partial q_k(p_j,p_{-j})}{\partial p_j}\,\partial p_j }{\int_{p_j^{0}}^{p_j^1}   \frac{\partial q_j(p_j,p_{-j})}{\partial p_j} \, \partial p_j}
+GUPPI_j &\approx& \frac{(p_j - mc_j)}{p_j} D_{jk}(\mathbf{p}) \\
 \end{eqnarray*}
+\end{block}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Diversion: In Practice}
+\begin{enumerate}
+\item Calculated from an estimated demand system (ratio of estimated cross-price to own-price demand derivatives)
+\item Consumer surveys (what would you buy if not this?)
+\item Obtained in `course of business' (sales reps, internal reviews)
+\end{enumerate}
+Antitrust authorities may prefer different measures in different settings. Are they concerned about:
+\begin{itemize}
+\item Small but widespread price hikes?
+\item Product discontinuations or changes to availability?
+\end{itemize}
+Is it sufficient to rely on data from merging firms only?
+\begin{itemize}
+\item Do we need diversion to other products in the `market' or other functions of market-level data?
+\item Discrete-choice demand models imply that `aggregate diversion' (including to an outside good) sums to one.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Diversion: Finite Price Change}
-Think about the \alert{Local Average Treatment Effect}:
+
+
+\section*{A Simple Insight...}
+
+\begin{frame}
+\frametitle{Diversion has treatment effects interpretation}
+\begin{description}[labelwidth=\widthof{\bfseries Treated group}]
+\item[Treatment] ``not purchasing $j$"
+\item[Outcome] fraction of $j$ consumers who switch to product $k$
+\item[Treated group] consumers who would have purchased $j$ at pre-merger price, but do not purchase at a higher price
+\end{description}
+
+Heterogeneity: Individuals who leave $j$ after a \$0.01 price increase differ in their taste for $k$ from those who leave after \$1, \$100, \$10,000 price increases.
+\end{frame}
+
+
+%\begin{frame}
+%\frametitle{Experimental Interpretation}
+%  \setbeamertemplate{description item}[align left]
+%\begin{description}
+%\item[Population:] All individuals who, at current prices $(p_j^0,p_{-j})$, buy $j$.
+%\item[Treatment Group:] Individuals who buy $j$ at $(p_j^0,p_{-j})$, but would not buy at $(p_j^0+\Delta p_j,p_{-j})$ -- denoted $\Delta q_j$.
+%\item[Outcome:] Fraction of treatment group who purchase $k$ instead.
+%\item[Population of Interest:] Individuals purchasing $j$ who are most price-sensitive -- i.e., those who would leave $j$ after an infinitesimal price increase. 
+%In another context, we may care about all individuals who buy $j$ at $(p_j^0,p_{-j})$.
+%\item[Instrument:] $\Delta p_j$ functions as the instrument -- it monotonically increases probability of treatment. 
+%\end{description}
+%\end{frame}
+
+\begin{frame}{Start with the Wald Estimator}
+Consider an experiment designed to measure diversion, where everything else is held fixed and $p_j$ is exogenously increased by $\Delta p_j$:
 \begin{eqnarray*}
-\widehat{ED_{jk} }&=& \frac{1}{\Delta q_j} \int_{p_j^{0}}^{p_j^{0}+\Delta p_j} \underbrace{\frac{\partial q_k}{\partial q_j}}_{D_{jk}(\mathbf{p})} \left| \frac{\partial q_j}{\partial p_j} \right|\, \partial p_j
+\small
+D_{jk}(p_j,p_{-j}) &=&  \left| \frac{q_{k}(p_j+\Delta p_j,p_{-j}) - q_{k}(p_j,p_{-j})}{q_{j}(p_j+\Delta p_j,p_{-j}) - q_{j}(p_j,p_{-j})}   \right|  \\
+&=& 
+ \frac{\int_{p_j^{0}}^{p_j^0+\Delta p_j}  \frac{\partial q_k(p_j,p_{-j})}{\partial p_j}\,\partial p_j }{\Delta q_j}
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}{Re-write as Local Average Treatment Effect}
+\begin{eqnarray*}
+\widehat{D_{jk} }^{LATE}&=& \frac{1}{\Delta q_j} \int_{p_j^{0}}^{p_j^{0}+\Delta p_j} \underbrace{\frac{\partial q_k}{\partial q_j}}_{D_{jk}(p_j,p_{-j})} \left| \frac{\partial q_j (p_j,p_{-j})}{\partial p_j} \right|\, \partial p_j
 \end{eqnarray*}
 \begin{itemize}
-\item Our estimated diversion measure is a weighted average of diversion, where the weights are the fraction of lost sales of $j$:  $w(\mathbf{p}) = \frac{1}{\Delta q_j} \frac{\partial q_j}{\partial p_j} (\mathbf{p})$
-\item If demand declines quickly near the market price $ATE \approx D_{jk}(\mathbf{p})$ at $\mathbf{p}^{(0)}$.
+\item $\widehat{D_{jk}}^{LATE}$ is a Local Average Treatment Effect \alert{(LATE)}.
+\begin{itemize}
+\item Identified from finite price changes (simulated or actual).
+\item For any finite price increase, we measure a weighted average of the diversion function, where the weights are the lost sales of $j$:  $w(\mathbf{p}) = \frac{1}{\Delta q_j} \frac{\partial q_j(p_j,p_{-j})}{\partial p_j} $
+\end{itemize}
+\pause
+\item Let $\widehat{D_{jk}}^{ATE}$ denote Average Treatment Effect \alert{(ATE)} when everyone is treated.
+ \begin{itemize}
+\item $\Delta p_j$ increases to \alert{choke price}:  $Q_j(p_j^0 + \Delta p_j, p_{-j}) = 0$.
+\item Interpretation as second-choice data.
+\end{itemize}
 \end{itemize}
 \end{frame}
+
+
+
+\begin{frame}{The Nonparametric Object: MTE}
+Re-writing:
+\begin{eqnarray*}
+\widehat{D_{jk}}^{LATE}&=& \frac{1}{\Delta q_j} \int_{p_j^{0}}^{p_j^{0}+\Delta p_j} D_{jk}(p_j,p_{-j}) \left| \frac{\partial q_j (p_j,p_{-j})}{\partial p_j} \right|\, \partial p_j
+\end{eqnarray*}
+\begin{itemize}
+\item Diversion, $D_{jk}(p_j,p_{-j})$, is a Marginal Treatment Effect \alert{(MTE)}  in the language of Heckman and Vytlacil (1999).
+\item It is a \alert{function}. Actually a \alert{matrix valued function}.
+\item It is not identified non-parametrically from a single price increase.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Various Treatment Effects}
+\begin{itemize}
+\item Determine what different measures of diversion identify.
+\begin{itemize}
+\item Finite price increase $\rightarrow$ local average treatment effect (LATE)
+\item Product removal (treating everyone) $\rightarrow$ average treatment effect (ATE)
+\item A nonparametric function of $p_j$ $\rightarrow$ marginal treatment effect (MTE) 
+\item Constant diversion: three measures coincide (Theory/Empirics)
+\end{itemize}
+\end{itemize}
+ But... How do the weights work? An illustration.
+ \end{frame}
+
+%\begin{frame}
+%\frametitle{Experimental Interpretation (Conlon and Mortimer 2015)}
+%\begin{description}
+%\item[Population] All individuals who at current prices would buy $j$.
+%\item[Treatment] Not buying $j$.
+%\item[Outcome] Fraction who purchase $k$ instead.
+%\item[Instrument] $p_j$ functions as the instrument (it monotonically increases probability of treatment).
+%\item[Effect of Interest] treat only those individuals purchasing $j$ who are most price-sensitive. (ie: those who would leave  $j$ after a 5-10\% price increase).
+%\end{description}
+%\end{frame}
+
+%\begin{frame}{Diversion Experiments}
+%\begin{itemize}
+%\item Consider an experiment designed to measure diversion, where everything else is held fixed and $p_j$ is increased by $\Delta p_j$ 
+%\begin{eqnarray*}
+%\widehat{D_{jk}} &=& \left| \frac{\Delta Q_{k}}{\Delta Q_j} \right| =  \left| \frac{Q_{k}(\mathbf{p^{(1)}}) - Q_{k}(\mathbf{p^{(0)}})}{Q_{j}(\mathbf{p^{(1)}}) - Q_{j}(\mathbf{p^{(0)}})}   \right| = \frac{\int_{p_j^{0}}^{p_j^1}  \frac{\partial q_k(p_j,p_{-j})}{\partial p_j}\,\partial p_j }{\int_{p_j^{0}}^{p_j^1}   \frac{\partial q_j(p_j,p_{-j})}{\partial p_j} \, \partial p_j}
+%\end{eqnarray*}
+%\end{itemize}
+%\end{frame}
+
+%\begin{frame}{Diversion: Finite Price Change}
+%Think about the \alert{Local Average Treatment Effect}:
+%\begin{eqnarray*}
+%\widehat{ED_{jk} }&=& \frac{1}{\Delta q_j} \int_{p_j^{0}}^{p_j^{0}+\Delta p_j} \underbrace{\frac{\partial q_k}{\partial q_j}}_{D_{jk}(\mathbf{p})} \left| \frac{\partial q_j}{\partial p_j} \right|\, \partial p_j
+%\end{eqnarray*}
+%\begin{itemize}
+%\item Our estimated diversion measure is a weighted average of diversion, where the weights are the fraction of lost sales of $j$:  $w(\mathbf{p}) = \frac{1}{\Delta q_j} \frac{\partial q_j}{\partial p_j} (\mathbf{p})$
+%\item If demand declines quickly near the market price $ATE \approx D_{jk}(\mathbf{p})$ at $\mathbf{p}^{(0)}$.
+%\end{itemize}
+%\end{frame}
 
 \begin{frame}
 \frametitle{Thought Experiment -- Linear Demand for a Toyota Prius}
@@ -474,6 +577,50 @@ Think about the \alert{Local Average Treatment Effect}:
 \end{center}
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Bias of Estimator}
+\footnotesize
+How far apart are $D_{jk}(\mathbf{p^0})$ and $\widehat{D_{jk}}$ when we increase price by $\Delta p_j$? 
+\begin{eqnarray*}
+\nonumber q_k(\mathbf{p}+ \Delta p_j) &\approx& q_k(\mathbf{p}) + \frac{\partial q_k}{\partial p_j} \Delta p_j + \frac{\partial^2 q_k}{\partial p_j^2} (\Delta p_j)^2 + O((\Delta p_j)^3) \\
+\frac{ q_k(\mathbf{p}+ \Delta p_j)-q_k(\mathbf{p}) }{\Delta p_j} &\approx& \frac{\partial q_k}{\partial p_j}+ \frac{\partial^2 q_k}{\partial p_j^2} \Delta p_j + O(\Delta p_j)^2 \\
+Bias(\widehat{D_{jk}} -D_{jk}(\mathbf{p^0})) &\approx& -  \frac{D_{jk} \frac{\partial^2 q_j}{\partial p_j^2} +  \frac{\partial^2 q_k}{\partial p_j^2} }{\frac{\partial q_j}{\partial p_j} + \frac{\partial^2 q_j}{\partial p_j^2}\Delta p_j } \Delta p_j
+\end{eqnarray*}
+\begin{itemize}
+\item The downside of a large change $\Delta p_j$ is that the approximation of demand at $\mathbf{p^0}$ is less accurate and depends on the curvature of the demand function.
+\item There are two demand models for which $Bias \equiv 0$ \alert{(constant treatment effects)}: \pause linear demand and plain IIA logit.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Variance of Estimator}
+\footnotesize
+\begin{eqnarray*}
+Var(\widehat{D_{jk} })&\approx& Var\left( \frac{\Delta q_k}{|\Delta q_j|} \right)\approx \frac{D_{jk} (1-D_{jk})}{\Delta q_j} \approx \frac{D_{jk} (1-D_{jk})}{\left| \frac{\partial q_j}{\partial p_j} \right| \Delta p_j}
+\end{eqnarray*}
+\normalsize
+Variance is a problem when:
+\begin{itemize}
+\item  $\left| \frac{\partial q_j}{\partial p_j} \right| $ is small (inelastic demand $\rightarrow$ market power/ when we may be most worried about mergers).
+\item $\Delta p_j \approx 0 $ (when price change is small).
+\item Exacerbated by variation in $(q_j,q_k)$ unrelated to the exogenous price change (stochastic demand).
+\end{itemize}
+Bias-Variance tradeoff
+\begin{itemize}
+\item Precise measure of $\widehat{D_{jk}}^{ATE}$ or $\widehat{D_{jk}}^{LATE}$ for a large $\Delta p_j$ vs.
+\item Noisy measure of $D_{jk}(\mathbf{p^0})$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What's the point/Extensions}
+\begin{itemize}
+\item Calculating $D_{jk}$ or the matrix gives us the best idea about which products compete with each other.
+\item What is wrong with cross-price elasticities?
+\item Can we go from opportunity costs to prices?
+\end{itemize}
+\end{frame}
+
 \section{Conduct}
 
 \begin{frame}{Conduct Overview}
@@ -482,7 +629,7 @@ Think about the \alert{Local Average Treatment Effect}:
 \item Absent additional restrictions, we cannot generally look at data on $(P,Q)$ and decide whether or not collusion is taking place.
 \item We can make progress in two ways: (1) parametric restrictions on marginal costs; (2) exclusion restrictions on supply.
 \begin{itemize}
-\item Most of the literature focuses on (1) by assuming something like: $\ln mc_{jt} = x_{jt} \gamma_1 + z_{jt} \gamma_2 + \omega_{jt}$.
+\item Most of the literature focuses on (1) by assuming something like: $\ln mc_{jt} = x_{jt} \gamma_1 + w_{jt} \gamma_2 + \omega_{jt}$.
 \item In principle (2) is possible if we have instruments that shift demand for products but not supply. (These are much easier to come up with than ``supply shifters'').
 \end{itemize}
 \end{itemize}
@@ -490,7 +637,7 @@ Think about the \alert{Local Average Treatment Effect}:
 
 \begin{frame}{Testing For Collusion: Challenges}
 \begin{itemize}
-\item Recall the $\Omega$ matrix which we can write as $\Omega=\tilde{\Omega}\, .* O$, where $(.*)$ is the element-wise or Hadamard product of two matrices. 
+\item Recall the $\Omega$ matrix which we can write as $\Omega=\tilde{\Omega}\, \odot O$, where $\odot$ is the element-wise or Hadamard product of two matrices. 
 \begin{itemize}
 \item $\tilde{\Omega}$ is the matrix of demand derivatives with $\Omega_{(j,k)} = \frac{\partial q_j}{\partial p_k}$ for all elements.
 \item $O_{(j,k)} =1$ if $(j,k)$ have the same owner and $0$ otherwise.
@@ -504,16 +651,16 @@ Think about the \alert{Local Average Treatment Effect}:
 \frametitle{Testing For Collusion: Challenges}
 We derived those conditions from multi-product Bertrand FOCs:
 \begin{eqnarray*}
-\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &=& \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot q_j(\mathbf{p}) +  \alert{\theta_{fg} \sum_{j \in \mathcal{J}_g} (p_j - c_j) \cdot q_j(\mathbf{p})} \\
-\rightarrow 0&=& q_j(\mathbf{p}) + \sum_{k \in (\mathcal{J}_f,\mathcal{J}_g)} \alert{\theta_{jk}}\cdot (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p}) 
+\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &=& \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot q_j(\mathbf{p}) +  \alert{\kappa_{fg} \sum_{j \in \mathcal{J}_g} (p_j - c_j) \cdot q_j(\mathbf{p})} \\
+\rightarrow 0&=& q_j(\mathbf{p}) + \sum_{k \in (\mathcal{J}_f,\mathcal{J}_g)} \alert{\kappa_{fg}}\cdot (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p}) 
 \end{eqnarray*}
 \begin{itemize}
-\item Now we have generalized the $O$ matrix.
-\item Instead of $0$'s and $1$'s we now have $\theta_{fg} \in [0,1]$ representing how much firm $f$ cares about the profits of $g$.
+\item Now we have generalized the $O(\kappa)$ matrix.
+\item Instead of $0$'s and $1$'s we now have $\kappa_{fg} \in [0,1]$ representing how much firm $f$ cares about the profits of $g$.
 \begin{itemize}
-\item If $f$ and $g$ merge (or fully colluded) then $\theta_{fg} =1$
-\item Often in the real world firms cannot reach fully collusive profits and $\theta \in (0,1)$.
-\item Evidence that $\theta_{fg} > 0$ is not necessarily evidence of malfeasance, just a deviation from \alert{static Bertrand pricing}.
+\item If $f$ and $g$ merge (or fully colluded) then $\kappa_{fg} =1$
+\item Often in the real world firms cannot reach fully collusive profits and $\kappa_{fg} \in (0,1)$.
+\item Evidence that $\kappa_{fg} > 0$ is not necessarily evidence of malfeasance, just a deviation from \alert{static Bertrand pricing}.
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -531,8 +678,8 @@ We derived those conditions from multi-product Bertrand FOCs:
 \end{frame}
 \begin{frame}
 
-\frametitle{Testing For Collusion: Bertrand Deviations}
-Algorithm \#1:
+\frametitle{Algorithm \#1: Bertrand Deviations}
+
 \begin{itemize}
 \item Recover $\tilde{\Omega}$ from demand alone.
 \item Recover marginal costs $\widehat{\mathbf{mc}} = \mathbf{p} +(O.*\tilde{\Omega}(\mathbf{p}))^{-1} q(\mathbf{p})$.
@@ -551,11 +698,10 @@ Challenges:
 \end{frame}
 
 \begin{frame}
-\frametitle{Testing For Collusion: Simultaneous Supply and Demand}
-Algorithm \#2:
+\frametitle{Algorithm \#2: Simultaneous Supply and Demand}
 \begin{itemize}
 \item Recover $\tilde{\Omega}$ from demand and parametric assumption on supply (GMM with both sets of moments).
-\item I can impose $c > 0$ by using $\ln mc_{jt} = x_{jt} \gamma_1 + z_{jt} \gamma_2 + \omega_{jt}$.
+\item I can impose $c > 0$ by using $\ln mc_{jt} = x_{jt} \gamma_1 + w_{jt} \gamma_2 + \omega_{jt}$.
 \item The fit of my supply side will also inform my demand parameters, particularly $\alpha$ the price coefficient. [BLP 95 used this for additional power with lots of random coefficients and potentially weak instruments].
 \end{itemize}
 Challenges:
@@ -565,6 +711,25 @@ Challenges:
 \end{itemize}
 \end{frame}
 
-\section{Examples}
+
+
+\begin{frame}{\normalsize Algorithm \#3: Exclusion Restrictions}
+\small
+\begin{itemize}
+\item We provide a formal test for four alternative models of conduct based on the exclusion restriction test in Berry and Haile (2014) 
+\begin{eqnarray*}
+\widehat{mc_{jt}}(\kappa,\hat{\theta}) &=& \lambda_j +  \gamma_1 x_{jt} + \gamma_2 w_{jt} + \omega_{jt}\\
+\omega_{jt} &=& \widehat{mc_{jt}}(\kappa,\hat{\theta}) - \lambda_j -  \gamma_1 x_{jt} - \gamma_2 w_{jt} \\
+0 &=& E[ \omega_{jt} | \lambda_j, x_{jt}, w_{jt}, \alert{\eta_{jt}}]
+\end{eqnarray*}
+\item $w_{jt}$: cost shifters (price of corn for Corn Flakes, price of rice for Rice Krispies).
+\item $\eta_{jt}$: should \alert{not} shift marginal costs under the true model of conduct but could potentially shift marginal costs under the alternative. A good choice is \alert{markup shifters}.
+\begin{itemize}
+\item BLP instruments
+\item Cost shifters for other products (Price of Rice for Corn Flakes, Price of Corn for Rice Krispies).
+\item $\kappa$ parameters or $\kappa$ weighted diversion.
+\end{itemize}
+\end{itemize}
+\end{frame}
 
 \end{document}
