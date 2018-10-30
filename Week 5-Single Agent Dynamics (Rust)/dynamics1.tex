@@ -25,12 +25,72 @@
 \titlepage
 \end{frame}
 
+
+\frame{
+\frametitle{Why dynamic estimation? External validity}
+\begin{itemize}
+	\item<1-> Famous example: Hendel and Nevo's (2006) estimation of laundry detergent demand
+
+	\medskip
+	\item<2-> The long-run demand elasticity for laundry detergent might be zero (or very close)
+
+	\medskip
+	\item<3-> If detergent goes on sale periodically, we might see a nonzero short-run elasticity 
+	(perhaps even a large one) as customers might purchase during the sales and store
+	the detergent.
+
+	\medskip
+	\item<4-> Dynamic estimation typically involves estimating the primitives of decision makers' 
+	objective functions. We might estimate the model using short-run variation, but once we 
+	know the decision maker's objective function, we could simulate a response to long-run 
+	variation.
+
+\end{itemize}
+}
+
+
+
+\frame{
+\frametitle{Why are dynamics difficult?}
+\begin{itemize}
+	\item The computational burden of solving dynamic problems blows up 
+		as the state space gets large. With standard dynamic estimation techniques, 
+		this is especially problematic, 
+		for estimation may involve solving the dynamic problem many times. 
+		
+	\medskip
+	\item Serially correlated unobservables and unobserved heterogeneity
+	(easy to confuse with state dependence) 
+	\medskip
+	\item Modeling expectations
+	\medskip	
+	\item Solving for equilibria, multiplicity (dynamic games)
+\end{itemize}
+}
+
+
+\frame{
+\frametitle{Outline}
+\begin{itemize}
+	\item Introduction to dynamic estimation: Rust (1987)
+
+	\medskip
+	\item Conditional choice probabilities: Hotz and Miller (1993)
+
+	\medskip
+	\item Euler equation estimation: Scott (2014)
+
+\end{itemize}
+}
+
+
 \begin{frame}{Single-agent dynamic optimization models}
 Setup in Rust:
 \begin{itemize}
 \item Harold Zurcher manages a bus depot in Madison, WI
 \item Each week he must decide to continue with the current engine $i_t=0$ and pay $c(x_{t})$ or overhaul the engine $i_t=1$ and pay fixed cost $RC$.
 \item His goal is to minimize \alert{long run average cost} (discounted).
+\item Buses are all  \alert{independent} of one another.
 \end{itemize}
 \end{frame}
 
@@ -123,6 +183,7 @@ V_{\theta}(x_t,\varepsilon_t) &=& \max \left\{ \tilde V_{\theta} (x_t, \varepsil
 \end{itemize}
 \end{frame}
 
+
 \begin{frame}
 \frametitle{Assumptions}
 \begin{block}{First Order Markov}\end{block}\vspace{-0.5cm}
@@ -146,6 +207,8 @@ For now we will also assume that $ q\left(\varepsilon_{t+1}|x_{t+1},\theta_{2}\r
 \end{itemize}
 \end{frame}
 
+
+
 \begin{frame}{ Implications}
 Given the assumptions:
 \begin{eqnarray*}
@@ -163,6 +226,80 @@ Problem:
 \item In general without additional (parametric) restrictions we are under identified (especially w.r.t $\beta$).
 \end{itemize}
 \end{frame}
+
+
+
+\frame{
+\frametitle{Theorem 1 preview}
+\begin{itemize}
+	\item Assumption CI has two powerful implications:
+	\begin{itemize}
+		\medskip
+		\item We can write $ EV_{\theta}\left(x_{t},i_{t}\right)$ instead of $EV_{\theta}\left(x_{t},\varepsilon_{t},i_{t}\right)$,
+		\medskip
+		\item We can consider a Bellman equation for $ V_{\theta}\left(x_{t}\right)$, which is computationally simpler than
+		the Bellman equation for $V_{\theta}\left(x_{t},\varepsilon_{t}\right) $.
+
+	\end{itemize}
+\end{itemize}
+}
+
+\frame{
+\frametitle{Theorem 1}
+
+\begin{block}{Theorem 1}
+Given CI, \[
+	P\left(i|x,\theta\right) = \frac{\partial}{\partial \pi \left(x,i,\theta_{1}\right)} W\left( \pi \left(x,\theta_{1}\right) +\beta EV_{\theta}\left(x\right) |x,\theta_{2}\right)
+\]
+and  $EV_{\theta}$ is the unique fixed point of the contraction mapping: \[
+	EV_{\theta}\left(x,i\right) = \int_{y} W\left(\pi \left(y,\theta_{1}\right)+
+	\beta EV_{\theta}\left(y\right)|y,\theta_{2}\right)
+	p\left(dy|x,i,\theta_{3}\right)
+\]
+where
+\begin{itemize}
+	\item $P\left(i|x,\theta\right)$ is the probability of action $i$ conditional on state $x$
+	\item $W\left( \cdot |x,\theta_{2}\right)$ is the surplus function: \[
+	W\left(v |x,\theta_{2}\right) \equiv \int_{\varepsilon}  \max_{i} \left[v\left( i \right) +\varepsilon\left( i \right)\right] 
+	q\left(d\varepsilon|x,\theta_{2}\right)	
+	\]
+\end{itemize}
+\end{block}
+
+}
+
+
+\frame{
+\frametitle{Theorem 1 example: logit shocks}
+\begin{itemize}
+{\small
+	\item $v_{\theta}\left(x,i\right) \equiv \pi \left(x,i,\theta_{1}\right)+\beta EV_{\theta}\left(x,i\right)$ -- the \emph{conditional value function}.
+
+	\smallskip
+	\item Suppose that $\varepsilon\left(i\right)$ is distributed independenly
+	across $i$ with $Pr\left(\varepsilon\left(i\right)\le\varepsilon_{0}\right)=e^{-e^{-\varepsilon_{0}}}$ -- logit shocks.
+	Then,
+	\[
+	\begin{array}{ccl}
+	W\left(v\left(x\right)\right) & = & 
+	\int\max_{i}\left[v\left(x,i\right)+\varepsilon\left(i\right)\right]
+	\prod_{i}e^{-\varepsilon\left(i\right)}e^{-e^{-\varepsilon\left(i\right)}}d\varepsilon\\
+	\\
+	 & = & \ln\left(\sum_{i}\exp\left(v\left(x,i\right)\right)\right)+\gamma
+	\end{array}
+	\]
+	where $\gamma\approx .577216$ is Euler's gamma.
+
+	\smallskip
+	\item It is then easy to derive expressions for conditional choice probabilities:\[
+	P\left(i|x,\theta\right)= \frac{\exp\left(v_{\theta}\left(x,i\right)\right)}{\sum_{i'}\exp\left(v_{\theta}\left(x,i'\right)\right)}
+	\]
+	\smallskip
+	\item The conditional value function plays the same role as a static utility function
+	when computing choice probabilities.
+}
+\end{itemize}
+}
 
 
 \begin{frame}{Rust (1987)}
