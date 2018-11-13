@@ -1,4 +1,4 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif , aspectratio=169]{beamer}
 \usetheme{default}
 %\usetheme{Darmstadt}
 %\usepackage{times}
@@ -75,6 +75,17 @@
 \end{figure}
 \end{frame}
 
+\begin{frame}{Dynamic Demand (Gowrisankaran Rysman)}
+Imagine if we regressed $P$ on $Q$:
+\begin{itemize}
+\item In early periods $P$ falls and $Q$ rises.
+\item In later periods $P$ falls and $Q$ also falls (top of the $S$-curve).
+\item Depending on the time period we might find that demand slopes \alert{upwards} (lower prices lead to lower sales)
+\end{itemize}
+\end{frame}
+
+
+
 %\begin{frame}{Dynamic Demand}
 %\begin{figure}[htbp]
 %\begin{center}
@@ -102,7 +113,6 @@
 \item We might also find that over time consumers buy better cameras or larger TV's
 \item The BLS tries to do \textit{chaining} and \textit{quality adjustments} but in high-tech products this can be very difficult.
 \item This has a potentially large impact on price indices (a small bias in the CPI can be billions of dollars in SSA/Medicare payments).
-\item Depending on the time period we might find that demand slopes upwards (lower prices lead to lower sales)
 \end{itemize}
 \end{frame}
 
@@ -125,21 +135,29 @@ We can think about dynamic models as having time varying utility for the outside
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Dynamic Demand: Hypothetical}
+\begin{itemize}
+\item Suppose that I knew $f_{i0t}$ (falls from the sky).
+\item Now we are back in the static logit world.
+\item In fact, everything is consistent
+\end{itemize}
+\alert{Ad-Hoc approach:}
+\begin{itemize}
+\item  Just proxy with a time trend or sieve (Lou Prentice Ying 2012), (Eizenberg 2011) etc.  That is $f_{i0t} = \gamma_{0i} + \gamma_{1i} t + \gamma_{2i} t^2 + \ldots$
+\item We can get the elasticity correct.
+\item Not structural! Not helpful if we want to do counterfactuals! Can't get the elasticities under different conditions.
+\item Is $f_{i0t}$ about current durable value? or Equilibrium beliefs about the future? (both!)
+\end{itemize}
+\end{frame}
+
 \begin{frame}
 \frametitle{Outside Good}
-Goal is to endogenize the utility of the outside option $f_{i0t}$:
+Goal is to endogenize the utility of the outside option $f_{i0t}$ using the model itself:
 \begin{itemize}
 \item Previous choice(s): $f_{ij,t-1}$ (depreciated?)
 \item Consumer's best option from tomorrow's market
 \end{itemize}
 \vspace{0.5cm}
-\alert{Ad-Hoc approach:}
-\begin{itemize}
-\item  Just proxy with a time trend (Lou Prentice Ying 2012), (Eizenberg 2011) etc.  That is $f_{i0t} = \gamma_{0i} + \gamma_{1i} t + \gamma_{2i} t^2 + \ldots$
-\item We can get the elasticity correct.
-\item Not structural! Not helpful if we want to do counterfactuals! Can't get the elasticities under different conditions.
-\end{itemize}
-
 \end{frame}
 
 \begin{frame}
@@ -288,7 +306,6 @@ w_{i,t+1} &=&h(w_{i,t},s_{ijt})\\
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=4in]{resources/gandrtable1.pdf}
-\label{conlon1}
 \end{center}
 \end{figure}
 \end{frame}
@@ -297,7 +314,6 @@ w_{i,t+1} &=&h(w_{i,t},s_{ijt})\\
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=4in]{resources/gandrtable2.pdf}
-\label{conlon1}
 \end{center}
 \end{figure}
 \end{frame}
@@ -337,6 +353,11 @@ E_{\Omega'}[ EV_i (f_{i0}, \delta_{i,t+1}) |\delta_{i,t}] )] &=& EV_i (f_{i0}, \
 \begin{eqnarray*}
  v_{it} \equiv EV_i(f_{i0}, \delta_i) &=& \log\left[ \exp( \beta v_{i,t+1})+ \exp(\delta_i)  \right] + \eta \\
 \end{eqnarray*}
+But we can always add back in the rational expectations error $v_{it} + \alert{\epsilon_{i,t}}$.
+\begin{eqnarray*}
+s_{ijt} = \int \frac{\exp[x_{jt}\beta + \xi_{jt} ]}{\exp[v_{i,t} + \epsilon_{i,t}] + \sum_k \exp[x_{jt}\beta + \xi_{jt} ]} f(\epsilon_{i,t})
+\end{eqnarray*}
+
 \end{frame}
 
 \begin{frame}{The Estimation Problem}
