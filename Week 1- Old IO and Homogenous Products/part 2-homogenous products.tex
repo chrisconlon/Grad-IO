@@ -1,5 +1,5 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-\usetheme{default}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\usetheme{metropolis}
 %\usetheme{Darmstadt}
 %\usepackage{times}
 %\usefonttheme{structurebold}
@@ -22,7 +22,7 @@
 \title [Homogenous Products]{Homogenous Products}
 \author{C.Conlon}
 \institute{Grad IO }
-\date{Fall 2016}
+\date{Fall 2019}
 \setbeamerfont{equation}{size=\tiny}
 \begin{document}
 
@@ -65,10 +65,13 @@ Cov(P_t,V_t) =  \frac{Var(V_t)}{\alpha_1 -\beta_1}
 \end{frame}
 
 \begin{frame}{Working (1927)}
+\small
+\vspace{-0.2cm}
 \begin{eqnarray*}
 Cov(P_t, Q_t) &=& \alpha_1 Var P_t + Cov (P_t,U_t)\\
 Cov(P_t, Q_t) &=& \beta_1 Var P_t + Cov (P_t,V_t)
 \end{eqnarray*}
+\vspace{-1cm}
 \begin{itemize}
 \item Bias in OLS estimate (Demand) $Bias(\alpha_1) = \frac{Cov(P_t,U_t)}{Var P_t}$.
 \item Bias in OLS estimate (Supply) $Bias(\beta_1) = \frac{Cov(P_t,V_t)}{Var P_t}$.
@@ -106,7 +109,7 @@ Angrist, Imbens, and Graddy (ReStud 2000).
 
 \begin{frame}{Four Cases}
 Ranked in increasing complexity
-\small
+\footnotesize
 \begin{enumerate}
 \item Linear system with constant coefficients
 \begin{eqnarray*}
@@ -174,7 +177,7 @@ Focus on the simple case:
 \item Ignore $x$ (for now at least) or assume we condition on each value of $x$.
 \end{itemize}
 \begin{eqnarray*}
-\hat{\alpha}_{1,0}  \rightarrow^p \frac{E[q_t | z_t] - E[q_t | z_t=0]}{E[p_t | z_t=1] - E[p_t | z_t =0]} \equiv \alpha_{1,0}
+\hat{\alpha}_{1,0}  \rightarrow^p \frac{E[q_t | z_t=1] - E[q_t | z_t=0]}{E[p_t | z_t=1] - E[p_t | z_t =0]} \equiv \alpha_{1,0}
 \end{eqnarray*}
 \begin{itemize}
 \item If we are in case (1) then we are good. In fact, any IV gives us a consistent estimate of $\alpha_1$
@@ -241,6 +244,7 @@ E[q_t | z_t =1] - E[q_t | z_t = 0] = E_t \left[\int_{\tilde{p}(0,t)}^{\tilde{p}(
 \end{frame}
 
 \begin{frame}{AGI: Takeaways}
+\small
 What did we learn?
 \begin{itemize}
 \item $\alpha_{1,0}$ only provides information about demand curve in range of potential price variation induced by the instrument.
@@ -256,19 +260,22 @@ What did we learn?
 
 
 \begin{frame}{AGI: Nonlinear IV}
+\vspace{-0.25cm}
 \begin{eqnarray*}
 \alpha_{1,0} &=& \frac{E [ \int_{\tilde{p}(0,t)}^{\tilde{p}(1,t)} \frac{\partial q_t^d(s)}{\partial s} d\, s]}{E \tilde{p}(1,t)- E\tilde{p}(0,t)}\\
  &\rightarrow& \int_0^{\infty} E\left[ \frac{\partial q_t^d(s)}{\partial s} | s \in [\tilde{p}(0,t),\tilde{p}(1,t)]\right ] \omega(s) d  s
 \end{eqnarray*}
-
+\vspace{-1cm}
 \begin{itemize}
 \item given $t$ average the slope of $q_t^d$ from $\tilde{p}(0,t)$ to $\tilde{p}(1,t)$
 \item given price $s \in [\tilde{p}(0,t) ,\tilde{p}(1,t)]$ average $q_t^d(s)$ across $t$. (randomness is due to $\epsilon_t$).
 \item Weight $\omega(s)$ is not a function of $t$ but it is largest for prices most likely to fall between $\tilde{p}(0,t)$ and $\tilde{p}(1,t)$.
 \item Case (2): $q_t^d(p) = \alpha_{0t} + \alpha_{1t} p + \epsilon_t$.
+\vspace{-0.25cm}
 \begin{eqnarray*}
 \alpha_{1,0} = \frac{E[\alpha_{1t} (\tilde{p}(1,t) - \tilde{p}(0,t))]}{E \tilde{p}(1,t) - E \tilde{p}(0,t)} \neq E \alpha_{1,t}
 \end{eqnarray*}
+\vspace{-0.75cm}
 We need mean independence
 \end{itemize}
 \end{frame}

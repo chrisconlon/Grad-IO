@@ -1,5 +1,5 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-\usetheme{default}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\usetheme{metropolis}
 %\usetheme{Darmstadt}
 %\usepackage{times}
 %\usefonttheme{structurebold}
@@ -37,6 +37,15 @@
 \date{\today}
 
 \frame{\titlepage}
+
+\begin{frame}{Reading for Today}
+These notes are based on Ken Train's book \textit{Discrete Choice Methods with Simulation}
+
+\url{https://eml.berkeley.edu/books/choice2.html}\\
+
+That book summarizes about 20+ years of work by Daniel McFadden and other scholars.
+
+\end{frame}
 
 
 \section{Statistical Models of Product Differentiation}
@@ -329,6 +338,7 @@ s_{ij} = \frac{e^{V_{ij}/\sigma}}{\sum_k e^{V_{ik}/\sigma}} \approx \frac{e^{\be
 \end{frame}
 
 \begin{frame}{IIA Property}
+\small
 \begin{eqnarray*}
 \frac{\partial s_{ij}}{\partial z_{ij}} = s_{ij}(1- s_{ij}) \frac{\partial V_{ij}}{\partial z_{ij}}
 \end{eqnarray*}
@@ -607,7 +617,7 @@ How does it actually look?
 \end{frame}
 
 \begin{frame}
-\frametitle{Parametric Identification}
+\frametitle{Parametric Identification (Ackerberg and Rysman RJE)}
 
 Look at derivatives:
 \begin{eqnarray*}
