@@ -11,21 +11,18 @@
 \title{Empirical IO, Problem Set 1: \\
 Analytic Results}
 \author{Chris Conlon}
-\date{Due Date: Monday, October 16, 2017}
+\date{Due Date: Monday, October 1, 2019}
 \maketitle
 
 \section*{\normalsize Part I}
-Consider the following setup.\footnote{If you get stuck take a look at Quan and Williams (WP 2017)} Utility for good $j$ in market $l$ by consumer $i$ is given by:
+Consider the following setup.\footnote{If you get stuck take a look at Quan and Williams (Rand 2018)} Utility for good $j$ in market $l$ by consumer $i$ is given by:
 \begin{eqnarray*}
 u_{ijl} = \delta_j - \alpha p_j + \nu_{ijl}
 \end{eqnarray*}
 The motivation is that are potentially many geographic markets $L$ with different preferences for different goods (or categories of goods). For example, snow boots might be very popular in Alaska while flip flops are very popular in Florida.\footnote{Unfortunately the most unusually popular product in the New York-New Jersey metro area turns out to be Ugg Boots!}\\
 
-<<<<<<< HEAD
-\noindent The main innovation is to introduce a random effect $\eta_{jl} \sim N(0,\sigma_g^2)$ into the nested logit model:\footnote{IThis exchanges $\lambda \rightarrow 1-\lambda$ when compared to the expressions in the Train textbook. The lecture notes use both the $\lambda$ and $1-\lambda$ formulation of nested logit.}
-=======
-\noindent The main innovation is to introduce a random effect $\eta_{jl} \sim N(0,\sigma_c^2)$ into the nested logit model:
->>>>>>> origin/master
+\noindent The main innovation is to introduce a random effect $\eta_{jl} \sim N(0,\sigma_g^2)$ into the nested logit model:\footnote{This exchanges $\lambda \rightarrow 1-\lambda$ when compared to the expressions in the Train textbook. The lecture notes use both the $\lambda$ and $1-\lambda$ formulation of nested logit.}
+
 \begin{eqnarray*}
 \nu_{ijl} = \eta_{jl}+ \underbrace{\zeta_{ic} + \varepsilon_{ijl}}_{GEV(\lambda)}
 \end{eqnarray*}
@@ -42,11 +39,7 @@ D_{lc} = \sum_{j \in c} \exp \left[\frac{\delta_j  -\alpha p_j+ \eta_{jl}}{1-\la
 
 \noindent 3) Now write $D_{lc}$ as a function of only $\pi_{lc}$ and $\pi_{l0}$ and the unknown parameters for a single market $l$. (ie: nothing product specific).\\
 
-<<<<<<< HEAD
 \noindent 4) Now write $\pi_j = \sum \omega_l \cdot \pi_{lg} \cdot \pi_{lj|g}$ as an expression which depends only on: $\pi_j, \pi_{l0},\pi_{lc},\eta_{jl},\lambda$ and features of $j$ but not on features of other products.\\
-=======
-\noindent 4) Now write $\pi_j = \sum \omega_l \cdot \pi_{lc} \cdot \pi_{jl|c}$ as an expression which depends only on: $\pi_j, \pi_{l0},\pi_{lc},\eta_{jl},\lambda$ and not on features of other products.\\
->>>>>>> origin/master
 
 \noindent 5) Now take logs of $\pi_j$ and solve for $\delta_j$ (this is the ``Berry (1994) inversion''). Show that your solution reduces to Berry (1994) inversion when $\eta_{jl} = 0$ for all $(j,l)$.\\
 
