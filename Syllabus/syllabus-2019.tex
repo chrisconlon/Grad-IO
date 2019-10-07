@@ -1,0 +1,365 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in,headheight=3ex,headsep=3ex]{geometry}
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+
+\title{Empirical Industrial Organization\footnote{I have borrowed materials from courses I have taken from Steve Berry, Phil Haile, and Ariel Pakes. Some lectures are based on lectures generously made available by Matt Shum, Kate Ho, and Julie Mortimer.}}
+\author{Chris Conlon}
+\date{Fall 2019}
+
+\usepackage[sc]{mathpazo}
+\linespread{1.05}         % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\THURSDAY}\savebox{\THURSDAY}{Tue}% Mon
+
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\THURSDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+
+
+
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}   
+\lhead{}
+\chead{}
+\rhead{\footnotesize Empirical IO- Fall Fall 2019}
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=clemsonorange,urlcolor=clemsonorange,
+            anchorcolor=clemsonorange,citecolor=black}
+
+
+
+
+\begin{document}
+
+
+\maketitle
+
+\blankline
+
+\begin{tabular*}{.93\textwidth}{@{\extracolsep{\fill}}lr}
+
+
+  E-mail: \texttt{cconlon@stern.nyu.edu} & Web: \href{http://chrisconlon.org}{\tt\bf chrisconlon.org/gradIO}  \\
+
+ Office Hours: By Appointment &  Class Hours: Tuesday 6:00-9:00pm \\
+
+
+ Office: KMC 7-76  & Class Room: Backus Conference Room \\
+&  \\
+\hline
+\end{tabular*}
+
+\vspace{10 mm}
+
+\section*{Course Description}
+This is a first Ph.D course in empirical industrial organization. The focus is on bringing everyone up to speed with the modern toolkit developed by empirical IO scholars over the past thirty years. This toolkit has been tremendously influential in understanding more traditional IO questions (mergers, collusion, contracting, etc.) but has recently become influential in other disciplines (healthcare, environmental economics, and education). The underlying themes are: most real-world markets are neither perfectly competitive, nor strict monopolies, but rather involve strategic interactions among firms and consumers; and when we observe equilibrium outcomes of these markets in data they are often characterized by simultaneity or endogeneity.
+
+Because we have a limited amount of time, I will focus primarily on technique rather than questions.
+
+\section*{How to do IO?}
+Our goal is to bring you up to speed with the research frontier in Industrial Organization. This cannot be accomplished with less than thirty hours of lectures. Most of your work is going to take place outside the classroom
+
+\begin{description}
+\item[Seminars and Workshops:] My expectation is that you will all attend the IO seminar and the student workshops. Researchers do not immediately produce published papers, it is important to understand the \textit{process} as well. It is important to understand both what works and what does not.
+\item[Problem Sets:] The problem sets for this course are going to take some time. You cannot start them the night before they are due. There is no STATA command for understanding equilibrium interactions in imperfectly competitive markets. You can use whichever language you would like (R, Matlab, Python). For programming tasks it is usually valuable to work in pairs, so that you can help one another find mistakes, but you must produce your own work. 
+\item[Reading:] I read approximately one research paper every day. There is a large literature to catch up on. It is expected that you read all of the starred articles on the syllabus, but you should be reading papers (in varied levels of detail) all of the time. In the topics you are interested in, or are having trouble understanding, you should read additional artciles.
+\item[Other Courses:] Obviously you should take the rest of the IO sequence (Prof. Jovanovic's course focuses on analytic models, and Prof. Lazarev's course is more of a sequel to this course.) You should also take as much micro-theory and econometrics as you can (especially Prof. Vuong's course).
+\end{description}
+
+\section*{Books IO Economists Own}
+These are some books that most IO economists own. There is no official textbook for this course.
+\begin{itemize}
+\item Tirole (1988). \textit{Theory of Industrial Organization}. The book covers only theoretical work, and is over 30 years old so many newer results are missing. This is still the most important reference for the field.
+\item Cabral (2000). \textit{Introduction to Industrial Organization} and Shy (1996) \textit{Industrial Organization: Theory and Applications}. These are undergraduate books on IO theory. I will assume that you perfectly understand everything in these books, though this assumption is likely false (at least at the beginning of the semester).
+\item Whinston (2006). \textit{Lectures on Antitrust}. This is a short book of Ph.D lectures on antitrust topics. The chapter on vertical issues is especially relevant.
+\item Kwoka and White (2013). \textit{The Antitrust Revolution} Now in the 6th edition. This book provides a lot of descriptive information about the economic context of recent antirust cases.
+\item Davis and Garces (2009). \textit{Quantitative Techniques for Competition and Antitrust Analysis}. This is a ``cookbook'' style book that covers the practice of antirust.
+\item Anderson, de Palma, and Thisse (1992) \textit{Discrete Choice Theory of Product Differentiation}. This links the theory of product differentiation to statistical models of consumer choice. The first few chapters are especially relevant, and the last few chapters include some ideas that still haven't been fully incorporated into empirical work.
+\item Train (2009). \textit{Discrete Choice Methods with Simulation}. This book summarizes the earlier statistical discrete choice literature most associated with the work of McFadden in the 1970's and 1980s'. It does so in great detail with many clear examples. (The focus is primarily on cases where endogeneity is not a major concern).
+\item Judd (1988). \textit{Numerical Methods in Economics}. This is a classic text in computation for economics. Many of these techniques were developed with macroeonomics rather than industrial organization in mind, but this is still a valuable reference.
+\item Hayashi (2000) \textit{Econometrics} and Pagan and Ullah (1999) \textit{Nonparametric Econometrics} are good econometrics references and may be more applicable to IO examples than Wooldridge, etc.. 
+\end{itemize} 
+
+
+\section*{Course Policy}
+You are expected to attend every lecture and it is expected that you have done the reading BEFORE the class.
+\subsection*{Grading Policy}
+\begin{itemize}
+\item 50\% of your grade will be performance on homework.
+\item 20\% of your grade will be performance on a referee report.
+\item 20\% of your grade will be performance on your presentation.
+\item 10\% of your grade will be participation in class.
+\end{itemize}
+
+\subsection*{Academic Dishonesty Policy}
+Don't cheat. Most PhD IO courses give similar assignments. You may be able to find solutions online. Please don't do that. It is helpful to work with a partner on debugging code, but my expectation is that assignments are 100\% your own work (including computer code).
+
+\newpage
+
+\SetDate[27/08/2016]
+\week{Week 01} Introduction: Cournot and Bertrand. Historical Empirical IO: Structure-Conduct-Performance. Demand for homogenous goods and simultaneity.
+\begin{itemize}
+\item Historical Empirical IO / Structure-Conduct-Performance
+\begin{itemize}
+\item Bain (1951). \textit{Relation of Profit Rate to Industry Concentration: American Manufacturing, 1936-1940,}.
+\item *Schmalensee (1989). \textit{Inter-Industry Studies of Structure and Performance}.
+\end{itemize}
+\item Homogenous Products
+\begin{itemize}
+\item Graddy (1995). \textit{Testing for Imperfect Competition at the Fulton Fish Market}.
+\item *Angrist, Graddy, Imbens (ReStud, 2000). \textit{The Interpretation of Instrumental Variables Estimators in Simultaneous Equations Models with an Application to the Demand for Fish}.
+\end{itemize}
+\end{itemize}
+
+\week{Week 02} Statistical Models of Product Differentiation. Logit, Nested Logit, Random Coefficients Logit. Price Endogeneity.
+\begin{itemize}
+\item Pre-Endogeneity
+\begin{itemize}
+\item Train (2009). Chapters 2-6 \url{http://eml.berkeley.edu/books/choice2.html}.
+\item Deaton and Muellbauer (1980). \textit{The Almost Ideal Demand System}.
+\end{itemize}
+\item Endogeneity
+\begin{itemize}
+\item Berry (1994, Rand). \textit{Estimating Discrete Choice Models of Product Differentiation}. 
+\item Berry, Levinsohn, Pakes (1995). \textit{Automobile Prices in Market Equilibrium}.
+\end{itemize}
+\end{itemize}
+
+
+\week{Week 03} Estimation of Production and Productivity (Guest Lecture: Paul Scott)
+\begin{itemize}
+\item Estimating Production Functions
+\begin{itemize}
+\item *Olley, G. Steven and Ariel Pakes (1996). \textit{The Dynamics of Productivity in the Telecommunications Industry}.
+\item  *Ackerberg, Daniel A, Kevin Caves, and Garth Frazer (Ecma 2015). \textit{Identification properties of recent production function estimators}.
+\item Ulrich and Jordi Jaumandreu (RESTUD 2013). \textit{R\&D and productivity: Estimating endogenous productivity}
+\item Gandhi, Amit, Salvador Navarro, and David Rivers (WP 2016). \textit{On the Identifcation of Production Functions: How Heterogeneous is Productivity?}
+\item Marschak, Jacob and Jr. Andrews William H. (Ecma 1944). \textit{Random Simultaneous Equations and the Theory of Production}.
+\end{itemize}
+\item Implications of Production Functions
+\begin{itemize}
+\item Foster, Lucia, John Haltiwanger, and Chad Syverson (AER 2008). \textit{Reallocation, Firm Turnover, and Efficiency: Selection on Productivity or Profitability?}
+\item De Loecker, Jan and Frederic Warzynski (AER 2012). \textit{Markups and Firm-Level Export Status}.
+\item De Loecker, Jan (Ecma 2011). \textit{Product differentiation, multiproduct firms, and estimating the impact of trade liberalization on productivity}.
+\item De Loecker, Jan and Paul T. Scott (WP 2017). \textit{Estimating Market Power: Evidence from the US Brewing Industry}.
+\end{itemize}
+\end{itemize}
+
+\week{Week 04} Estimation, Identification, and Instruments.
+\begin{itemize}
+\item Theoretical Identification Results
+\begin{itemize}
+\item Berry and Haile (2015, Annual Review). \textit{Identification in Differentiated Products Markets}
+\item Berry and Haile (2014, Ecma). \textit{Identification in Differentiation Products Markets Using Market Level Data.}
+\item Berry, Gandhi, Haile (2013, Ecma). \textit{Connected Substitutes and the Invertibility of Demand}.
+\item Fox and Gandhi (2015) \textit{Nonparametric Identification and Estimation of Random Coefficients in Multinomial Choice Models}
+\end{itemize}
+\item Estimation and Instruments
+\begin{itemize}
+\item * Dube, Fox, Su (2013, Ecma). \textit{Improving the Numerical Performance of Static and Dynamic Aggregate Discrete Choice Random Coefficients Demand Estimation}
+\item Armstrong (2016, Ecma). \textit{Large Market Asymptotics for Differentiated Product Demand Estimators with Economic Models of Supply}.
+\item Reynaert and Verboven (2012, JoE). \textit{Improving the Performance of Random Coefficients Demand Models: the Role of Optimal Instruments}.
+\item Gandhi and Houde (2017, WP). \textit{Measuring Substitution Patterns in Differentiated Products Industries}
+\item * Conlon and Gortmaker (2019, WP). \textit{Best Practices for Demand Estimation with pyBLP}
+\end{itemize}
+\item Micro-Data
+\begin{itemize}
+\item * Petrin (2002). \textit{Quantifying the Benefits of New Products: The Case of the Minivan}.
+\item Berry, Levinsohn, and Pakes (2004). \textit{Differentiated Products Demand Systems from a Combination of Micro and Macro Data: The New Car Market}.
+\end{itemize}
+\item Welfare and Assortment
+\begin{itemize}
+\item * Ackerberg and Rysman (Rand, 2005) \textit{Unobserved product differentiation in discrete-choice models: estimating price elasticities and welfare effects}.
+\item Brynjolfsson, Hu, Smith (MS, 2003). \textit{Consumer Surplus in the Digital Economy: Estimating the Value of Increased Product Variety at Online Booksellers}.
+\item Quan and Williams (2015). \textit{Product Variety, Across-Market Demand Heterogeneity, and the Value of Online Retail}.
+\end{itemize}
+\item Apple-Cinnamon Cheerios War
+\begin{itemize}
+\item Hausman (1996). \textit{Valuation of New Goods under Perfect and Imperfect Competition} and Bresnahan's Comment.
+\item Hausman (1997). \textit{Reply to Bresnahan}. \url{https://web.stanford.edu/~tbres/Unpublished_Papers/reply%20to%20bresnahan.pdf}
+\item Bresnahan (1997). Recomment \url{https://web.stanford.edu/~tbres/Unpublished_Papers/hausman%20recomment.pdf}.
+\end{itemize}
+\end{itemize}
+
+\week{Week 05} Merger Analysis and Conduct 
+\begin{itemize}
+\item Mergers: Official Stuff
+\begin{itemize}
+\item 2010 Horizontal Merger Guidelines \url{https://www.ftc.gov/sites/default/files/attachments/merger-review/100819hmg.pdf}
+\item HSR Guidelines. \url{https://www.ftc.gov/enforcement/premerger-notification-program/hsr-resources}.
+\end{itemize}
+\item Structural Equilibrium Approaches
+\begin{itemize}
+\item Hausman, Leonard, Zona (1994). \textit{Competitive Analysis with Differentiated Products}.
+\item * Nevo (2001, Ecma). \textit{Measuring Market Power in the Ready-to-Eat Cereal Industry}.
+\item Miller and Weinberg (2016) \textit{The Market Power Effects of a Merger: Evidence from the U.S. Brewing Industry}
+\end{itemize}
+\item Unilateral Effects/ Dis-equilibrium merger analysis
+\begin{itemize}
+\item Werden (1996). \textit{A Robust Test for Consumer Welfare Enhancing
+Mergers Among Sellers of Differentiated Products}.
+\item * Farrel and Shapiro (2010). \textit{Antitrust Evaluation of Horizontal Mergers: An Economic Alternative to Market Definition,}
+\item Jaffe and Weyl (2013, AEJ) \textit{The First-Order Approach to Merger Analysis}.
+\item Miller, Remer, Ryan, Sheu. (2015, JIndEc). \textit{Pass-Through and the Prediction of Merger Price Effects}.
+\item Miller, Remer, Ryan, Sheu. (2016, WP). \textit{Upward Pricing Pressure as a Predictor of Merger Price Effects}.
+\item * Conlon and Mortimer (2015,WP). \textit{An Experimental Approach to Merger Analysis}.
+\end{itemize}
+\item Reduced form Merger Analysis
+\begin{itemize}
+\item Hastings (2004, AER). \textit{Vertical Relationships and Competition in Retail Gasoline Markets: Empirical Evidence from Contract Changes in Southern California}
+\item Taylor, Kreisle, and Zimmerman (2010, AER). \textit{Comment on Hastings}.
+\end{itemize}
+\item Conduct and Testing for Conduct
+\begin{itemize}
+\item Genesove and Mullin (1998). \textit{Testing Static Oligopoly Models: Conduct and Cost in the Sugar Industry, 1890-1914}.
+\item * Bresnahan (1982). \textit{The Oligpoly Solution Concept is Identified}.
+\item * Nevo (1998). \textit{Identification of the oligopoly solution concept in a differentiated-products industry}.
+\item * Bresnahan (1987). \textit{Competition and Collusion in the American Automobile Industry: The 1955 Price War}.
+\item Porter (1983). \textit{A Study of Cartel Stability: The Joint Executive Committee 1880-1886}.
+\item Villas-Boas (2007, ReStud). \textit{Vertical Relationships between Manufacturers and Retailers: Inference with Limited Data}.
+\end{itemize}
+\end{itemize}
+
+
+\week{Week 06} Single Agent Dynamics I: Rust (NFXP), CCPs.
+\begin{itemize}
+\item Markov Decision Problems
+\begin{itemize}
+\item Rust (1994) \textit{Structural Estimation of Markov Decision Processes}. Handbook of Econometrics.
+\item * Rust (1987, Ecma). \textit{An Empirical Model of Harold Zurcher}.
+\end{itemize}
+\item Sufficient Statistics and Identification
+\begin{itemize}
+\item Hotz and Miller (1993, ReStud). \textit{Conditional Choice Probabilities and the Estimation of Dynamic Models}.
+\item * Hotz, Miller, Sanders, and Smith (1994, ReStud). \textit{A simulation estimator for dynamic models of discrete choice}.
+\item * Magnac and Thesmar (2002, Ecma). \textit{Identifying Dynamic Discrete Decision Processes}.
+\item Aguirregabiria and Mira (2002/2007, Ecma). \textit{Swapping the Nested Fixed Point Algorithm}.
+\item Pesendorfer and Schmidt-Dengler (2007, ReStud). \textit{Asymptotic Least Squares Estimators for Dynamic Games}.
+\item Arcidiacono and Miller (2015, WP). \textit{Identifying Dynamic Discrete Choice Models
+off Short Panels}.
+\item Kalouptsidi, Scott, Souza-Rodrigues (2016,WP). \textit{Identification of Counterfactuals
+in Dynamic Discrete Choice Models}.
+\end{itemize}
+\end{itemize}
+
+\week{Week 07} Single Agent Dynamics II: Heterogeneity and Persistence. 
+\begin{itemize}
+\item Persistence
+\begin{itemize}
+\item Pakes (1986, Ecma). \textit{Patents as Options}.
+\item Arcidiacono and Miller (2016, WP). \textit{Nonstationary Dynamic Models with Finite Dependence.}
+\end{itemize}
+\item Heterogeneity
+\begin{itemize}
+\item Arcidiacono and Miller. (2011, Ecma). \textit{Conditional Choice Probability Estimation of Dynamic Discrete Choice Models with Unobserved Heterogeneity}
+\item Blevins (2011, JAE). \textit{Sequential Monte Carlo Methods for Estimating Dynamic Microeconomic Models}
+\item Arcidiacono, Bayer, Blevins, and Ellickson (ReStud, 2016) \textit{Estimation of Dynamic Discrete Choice Models in Continuous Time with an Application to Retail Competition.}
+\end{itemize}
+\end{itemize}
+
+\week{Week 08} Dynamic Demand: Durable and Storable Goods
+\begin{itemize}
+\item Durable Goods
+\begin{itemize}
+\item Melnikov (2001,WP). \textit{Demand for Differentiated Durable Products: The Case of the U.S. Computer Printer Market}.
+\item Carranza (2010, IJIO). \textit{Product innovation and adoption in market equilibrium: The case of digital cameras}.
+\item *Gowrisankaran and Rysman (2012, JPE). \textit{Dynamics of consumer demand for new durable goods}.
+\item Conlon (2014, WP). \textit{A Dynamic Model of Prices and Margins in the LCD TV Industry.}
+\end{itemize}
+\item Storable Goods
+\begin{itemize}
+\item *Erdem, Imai, Keane (2003, QME). \textit{Brand and quantity choice dynamics under price uncertainty.}
+\item Hendel and Nevo (2006, Rand). \textit{Sales and Consumer Inventory}
+\item *Hendel and Nevo (2006, Ecma). \textit{Measuring the Implications of Sales and Consumer Behavior.}
+\item Hendel and Nevo (2013, AER). \textit{Intertemporal Price Discrimination in Storable Goods Markets}.
+\end{itemize}
+\end{itemize}
+
+
+\week{Week 09} Dynamic Demand: Experience Goods and Learning.
+\begin{itemize}
+\item Learning and Experience Goods
+\begin{itemize}
+\item Erdem and Keane (1996, Marketing Sci.). \textit{Decision-making under uncertainty: Capturing dynamic brand choice processes in turbulent consumer goods markets}
+\item Ackerberg (2001). \textit{Empirically Distinguishing Informative and Prestige Effects of Advertising}
+\item * Crawford and Shum (2005) \textit{Uncertainty and Learning in Pharmaceutical Demand}.
+\item * Dickstein (2014) \textit{Efficient Provision of Experience Goods: Evidence from Antidepressant Choice}.
+\end{itemize}
+\end{itemize}
+
+
+\week{Week 10} Switching Costs and Network Effects
+\begin{itemize}
+\item State Dependence and Switching Costs
+\begin{itemize}
+\item *Dube, Hitsch, Rossi (2010). \textit{State Dependence and Alternative Explanations for Consumer Inertia}.
+\item Dube Hitsch, Rossi (2009). \textit{Do switching costs make markets less competitive}.
+\item *Handel (2013, AER). \textit{Adverse selection and inertia in health insurance markets: When Nudging Hurts}.
+\item Miravete and Huerta (2014, ReStat). \textit{Consumer Inertia, Choice Dependence and Learning from Experience in a Repeated Decision Problem}.
+\end{itemize}
+\item Network Effects
+\begin{itemize}
+\item Rysman (2004, ReStud) \textit{Competition Between Networks, A Study of the Market for Yellow Pages}.
+\item Fan (2013, AER). \textit{Ownership Consolidation and Product Characteristics: A Study of the US Daily Newspaper Market}.
+\item Lee (2013, AER). \textit{Vertical Integration and Exclusivity in Platform and Two-Sided Markets}.
+\end{itemize}
+\end{itemize}
+
+
+
+\week{Week 11} Two Period Models of Entry and Exit.
+\begin{itemize}
+\item Static Entry
+\begin{itemize}
+\item * Bresnahan and Reiss (1991,JPE). \textit{Entry and Competition in Concentrated Markets}
+\item * Berry and Tamer \textit{Identification in Models of Oligopoly Entry}
+\item Berry (1992, Ecma). \textit{Estimation of a Model of Entry in the Airline Industry}.
+\item Mazzeo (2002, Rand) \textit{Product Choice and Oligpoly Market Structure}.
+\item *Seim (2006, Rand) \textit{ An Empirical Model of Firm Entry with Endogeneous Product-Type Choices}.
+\end{itemize}
+\item Inequality Based Approaches
+\begin{itemize}
+\item Ciliberto and Tamer \textit{Market Structure and Multiple Equilibria in the Airline Markets}.
+\item Jia (2008, Ecma). \textit{What Happens When Wal-Mart Comes to Town: An Empirical Analysis of the Discount Retail Industry}.
+\item Holmes (2011, Ecma). \textit{The Diffusion of Wal-Mart at the Economics of Density}.
+\end{itemize}
+\end{itemize}
+
+\week{Week 12} Vertical Relationships: Efficiency, Foreclosure, Bargaining Models.
+\week{Week 13} \textbf{THANKSGIVING HOLIDAY - No Class}
+\week{Week 14} Health IO [Guest Lecture: Michael Dickstein].
+\week{Week 14} TBA
+
+
+
+
+\end{document}
