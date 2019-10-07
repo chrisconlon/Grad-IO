@@ -1,5 +1,5 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-\usetheme{default}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\usetheme{metropolis}
 %\usetheme{Darmstadt}
 %\usepackage{times}
 %\usefonttheme{structurebold}
@@ -79,7 +79,7 @@ It is helpful to consider $V(s)$ as the solution to the MDP.
 \begin{eqnarray*}
 V(s) = \max_{a \in A(s)} [ u(s,a) + \beta \int V(s') p(ds' | s,a)]
 \end{eqnarray*}
-This is a \textit{functional equation} and $V$ represents a \textit{fixed point} to the functional equation.\\
+This is a \alert{functional equation} and $V$ represents a \alert{fixed point} to the functional equation.\\
 \vspace{0.5cm}
 We are interested in existence/uniqueness of a solution to Bellman's Equation:
 \begin{enumerate}
@@ -90,7 +90,7 @@ We are interested in existence/uniqueness of a solution to Bellman's Equation:
 \end{frame}
 
 \begin{frame}{Bellman Operator}
-Helpful to rewrite Bellmans equation as an operator$V = \Gamma(V)$ where $\Gamma: \mathfrak{B}(S) \rightarrow \mathfrak{B}(S)$ (Measurable, bounded) \\
+Helpful to rewrite Bellmans equation as an operator $V = \Gamma(V)$ where $\Gamma: \mathfrak{B}(S) \rightarrow \mathfrak{B}(S)$ (Measurable, bounded) \\
 \vspace{0.5cm}
 The Bellman operator has the contraction mapping property which guarantees a unique fixed point point in $B$.
 \begin{eqnarray*}
@@ -127,11 +127,11 @@ Start by thinking about \textit{Discrete Decision Problems} with a \textit{Discr
 \begin{frame}{Value Function Iteration: Finite Horizon}
 Begin with the Bellman operator:
 \begin{eqnarray*}
-\Gamma(V^t)(s) = \max_{a \in A(s)} \left[ u(s,a) + \beta \int V^{t'}(s')p(ds' | s,a) \right]
+\Gamma(V^t)(s) = \max_{a \in A(s)} \left[ u(s,a) + \beta \int V^{t+1}(s')p(ds' | s,a) \right]
 \end{eqnarray*}
 Specify $V^T$ and apply the Bellman operator:
 \begin{eqnarray*}
-\Gamma(V^{t-1})(s) = \max_{a \in A(s)} \left[ u(s,a) + \beta \int V^{T}(s')p(ds' | s,a) \right]
+\Gamma(V^{T-1})(s) = \max_{a \in A(s)} \left[ u(s,a) + \beta \int V^{T}(s')p(ds' | s,a) \right]
 \end{eqnarray*}
 Iterate to first period:
 \begin{eqnarray*}
@@ -142,22 +142,19 @@ Iterate to first period:
 \begin{frame}{Value Function Iteration: Infinite Horizon}
 Begin with the Bellman operator:
 \begin{eqnarray*}
-\Gamma(V^t)(s) = \max_{a \in A(s)} \left[ u(s,a) + \beta \int V^{t'}(s')p(ds' | s,a) \right]
+\Gamma(V^k)(s) = \max_{a \in A(s)} \left[ u(s,a) + \beta \int V^{k+1}(s')p(ds' | s,a) \right]
 \end{eqnarray*}
 Specify $V^0$ and apply the Bellman operator:
 \begin{eqnarray*}
 V^{1}(s) = \max_{a \in A(s)} \left[ u(s,a) + \beta \int V^{0}(s')p(ds' | s,a) \right]
 \end{eqnarray*}
-Iterate until convergence  $ \sup_s \| \Gamma(V^t)(s) - V^t(s) \| \leq \epsilon $
-\begin{eqnarray*}
-V^{T}(s) = \max_{a \in A(s)} \left[ u(s,a) + \beta \int V^{T-1}(s')p(ds' | s,a) \right]
-\end{eqnarray*}
+Iterate until convergence  $ \sup_s \| \Gamma(V^k)(s) - V^k(s) \| \leq \epsilon $
 \end{frame}
 
 \begin{frame}{Value Function Iteration: Bounds}
 \begin{itemize}
-\item Suppose we set $V_0 =0$ then the value function iteration approach is just like solving the finite horizon problem by backward induction.
-\item The CMT guarantees consistency at a geometric rate or \textit{linear} convergence with modulus $\beta$
+\item Suppose we set $V^0 =0$ then the value function iteration approach is just like solving the finite horizon problem by backward induction.
+\item The CMT guarantees consistency at a geometric rate or \alert{linear} convergence with modulus $\beta$
 \item We can derive an expression for the number of steps we need to get an $\epsilon$-approximation.
 \begin{eqnarray*}
 T(\epsilon,\beta) = \frac{1}{| \log(\beta) | } \log \left (\frac{1}{(1-\beta)\epsilon} \right)
@@ -182,17 +179,18 @@ T(\epsilon,\beta) = \frac{1}{| \log(\beta) | } \log \left (\frac{1}{(1-\beta)\ep
 \end{itemize}
 \end{frame}
 
+
+
 \begin{frame}{Policy Iteration (Howard 1960)}
 An alternative to value function iteration is policy function iteration. 
 \begin{itemize}
-\item Make a guess for an initial policy, call it $a(s) = \arg \max_a U(a,s)$ that maps each state into an action
-\item Assume the guess is stationary compute the implied $V(a,s)$
-\item Improvement Step: improve on policy $a_0$ by solving 
+\item Make a guess for an initial policy, call it $a^k(s) = \arg \max_a U(a,s)$ that maps each state into an action
+\item Assume the guess is stationary;  compute the implied $V^{a^k}(a,s)$ (solve linear system)
+\item Improvement Step: improve on policy $a^k$:
 \begin{eqnarray*}
-a' = \arg \max_a U(a,s) + \beta \sum_{s'} V(a,s') p(s' | s,a)
+a^{k+1} = \arg \max_a U(a,s) + \beta \sum_{s'} V^{a^k}(a,s') p(s' | s,a)
 \end{eqnarray*}
-\item Helpful to define $p(\tilde{s}' | s)$ as transition probability under optimal choice $a(s)$.
-\item Determine if $\| a' -a\| < \epsilon$. If yes then we have found the optimal policy $a^* $ otherwise we need to go back to step 2.
+\item Determine if $\| a^k -a^{k-1}\| < \epsilon$. If yes then we have found the optimal policy $a^* $ otherwise we need to recompute $V^{a^k}(s)$.
 \end{itemize}
 \end{frame}
 
@@ -208,6 +206,7 @@ Now updating the value function is easy for $k$th iterate of PI
 V^k(s) &=& Eu(a^k(s),s) + \beta \tilde{P}^k V^k(s)\\
 \Rightarrow V^k(s) &=& [1 - \beta \tilde{P}^k]^{-1} Eu(a^k(s),s)
 \end{eqnarray*}
+\vspace{-1cm}
 \begin{itemize}
 \item Very fast when $\beta > 0.95$ and $s$ is relatively small. (Rust says 500 more like 5000).
 \item Inverting a large matrix is tricky
@@ -217,7 +216,7 @@ V^k(s) &=& Eu(a^k(s),s) + \beta \tilde{P}^k V^k(s)\\
 
 \begin{frame}{More Comments }
 \begin{itemize}
-\item In the DDP case convergence of PI easy to verify: $a^{t+1} = a^t$.
+\item In the DDP case convergence of PI easy to verify: $a^{k+1} = a^k$.
 \item It is helpful to exploit the monotonicity of policy or value function: (S-s Rules, bus replacement, etc.)
 \item Exploit Concavity of value and/or policy functions (decreasing return to R\&D investment, etc.) 
 \end{itemize}
@@ -227,8 +226,8 @@ V^k(s) &=& Eu(a^k(s),s) + \beta \tilde{P}^k V^k(s)\\
 \begin{frame}{Linear Programming}
 When everything is discrete (DDP, w/ discrete state space) we can write the dual instead
 \begin{eqnarray*}
-\min_{a,V} \sum_{s \in S} V(s) \mbox{ s.t. }&& \\
-V(s_i) &\geq& Eu(a,s_i,\epsilon_t)  + \beta \sum_j \tilde{p}_{ij}(a,s_i,) V_j \quad \forall s_i
+\min_{V} \sum_{s \in S} V(s) \mbox{ s.t. }&& \\
+V(s_i) &\geq& Eu(a,s_i,\epsilon_t)  + \beta \sum_j \tilde{p}_{ij}(a,s_i,) V_j \quad \forall s_i, a
 \end{eqnarray*}
 This problem is now linear in $V$ and can be solved with linear programming techniques (may be large since we need to find $a,V$).
 \end{frame}
@@ -429,7 +428,7 @@ Find $g(x)$ from $n$-dimensional family of functions to fit $n$ data points exac
 \begin{figure}[htbp]
 \begin{center}
 \caption{(from Judd)}
-\includegraphics[height=2.8in]{functionalapprox.pdf}
+\includegraphics[height=2.8in]{./resources/functionalapprox.pdf}
 \end{center}
 \end{figure}
 \end{frame}
@@ -584,7 +583,7 @@ We have $4n-2$ linear equations and $4n$ unknowns we need two side conditions to
 \begin{frame}{Shape Issues}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[height=2in]{spline.pdf}
+\includegraphics[height=2in]{./resources/spline.pdf}
 \label{default}
 \end{center}
 \end{figure}
@@ -620,7 +619,7 @@ We are interested in lots of problems that require computing difficult integrals
 Basic idea of quadrature is to approximate complicated functions with something easier to integrate, and then integrate that exactly.\\
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[height=1.75in]{quadrature.pdf}
+\includegraphics[height=1.75in]{./resources/quadrature.pdf}
 \end{center}
 \end{figure}
 \begin{itemize}
