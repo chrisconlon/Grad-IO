@@ -1,5 +1,5 @@
 \documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
-\usetheme{default}
+\usetheme{metropolis}
 %\usetheme{Darmstadt}
 %\usepackage{times}
 %\usefonttheme{structurebold}
@@ -32,38 +32,49 @@
 \end{frame}
 
 
-\begin{frame}
-From Shepard (2015 JMP):
+%\begin{frame}
+%From Shepard (2015 JMP):
+%\begin{itemize}
+%\item Wants to measure the impact of ``star hospitals''.
+%\item Previous wisdom was that in MA you needed to include Partners Healthcare in your insurer's network.
+%\item From 2010-2012 Harvard Pilgrim (\#2) insurer excluded Partners Hospital Network (MGH, Brigham Womens, Harvard-MIT teaching hospitals) from their plan
+%\begin{itemize}
+%\item Comparable procedures are around 40\% more expensive at Partners' Hospitals
+%\item Customers revolted! Employer sponsored left in droves, strikes, etc.
+%\item Can't run a network without them.
+%\end{itemize}
+%\item With the ACA it looks like nobody wants to have Partners in their network anymore.
+%\item Consumers face same prices for all hospitals
+%\item Idea: two dimensions of heterogeneity. 
+%\begin{itemize}
+%\item Some people like option of MGH in case they get really sick (rare cancer)
+%\item Others go to MGH because they have doctors there, have gone in the past, or enjoy amenities but could get comparable care elsewhere.
+%\end{itemize}
+%\end{itemize}
+%\end{frame}
+%
+%
+%
+%\begin{frame}{Persistence: Reduced form proxy}
+%From Shepard (2015 JMP):
+%\begin{center}
+%\includegraphics[width=4.5in]{resources/shepardsized}
+%\end{center}
+%\end{frame}
+
+
+\begin{frame}{Persistent Unobserved Heterogeneity}
+Suppose we think about a model with a friction such as a switching cost.
 \begin{itemize}
-\item Wants to measure the impact of ``star hospitals''.
-\item Previous wisdom was that in MA you needed to include Partners Healthcare in your insurer's network.
-\item From 2010-2012 Harvard Pilgrim (\#2) insurer excluded Partners Hospital Network (MGH, Brigham Womens, Harvard-MIT teaching hospitals) from their plan
-\begin{itemize}
-\item Comparable procedures are around 40\% more expensive at Partners' Hospitals
-\item Customers revolted! Employer sponsored left in droves, strikes, etc.
-\item Can't run a network without them.
-\end{itemize}
-\item With the ACA it looks like nobody wants to have Partners in their network anymore.
-\item Consumers face same prices for all hospitals
-\item Idea: two dimensions of heterogeneity. 
-\begin{itemize}
-\item Some people like option of MGH in case they get really sick (rare cancer)
-\item Others go to MGH because they have doctors there, have gone in the past, or enjoy amenities but could get comparable care elsewhere.
-\end{itemize}
+\item If $y_{it} \neq y_{i,t-1}$ you pay a switching cost $F_i$.
+\item How do we use data to tell apart large switching costs $F_i  \gg0$ from persistent tastes $Cov(\epsilon_{i,t},\epsilon_{i,t-1}) > 0$ ?
+\item The \alert{conditional independence assumption} tells us it has to be the switching cost not the autocorrelated unobservables.
+\item This is probably why people don't like this assumption.
 \end{itemize}
 \end{frame}
 
 
-
-\begin{frame}{Persistence: Reduced form proxy}
-From Shepard (2015 JMP):
-\begin{center}
-\includegraphics[width=4.5in]{resources/shepardsized}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{Unobserved State Variables}
+\begin{frame}{Discrete Unobserved Types}
 \begin{itemize}
 \item Up until now we consider models satisfying Rust's \alert{conditional independence} assumption on the $\varepsilon$'s. This rules out persistence in unobservables which are economically meaningful.
 \item Suppose there are two types of buses good $(s_i=g)$ and bad $(s_i=b)$.
@@ -75,51 +86,49 @@ From Shepard (2015 JMP):
 
 
 
-\begin{frame}{Unobserved State Variables}
+\begin{frame}{Unobserved State Variables: What happened?}
 \begin{eqnarray*}
-p(y | x) &=& \int p(y | x, s) p(s) \\
-Pr(d_{it} = 1|x_{it}) &=& Pr(s_i = 1)·Pr(d_{it} = 1|x_{it},s_i = 1) \\
-&+&Pr(s_i = 0)·Pr(d_{it} = 1|x_{it},s_i = 0)
-\end{eqnarray*}
-Note that the unobserved $s_i$ generates correlation in decisions over time for a given bus. Therefore, the likelihood of a sequence of decisions for a given bus must be integrated over $s$\begin{eqnarray*}
-\tiny
-Pr(d_{i1},\ldots,d_{iT} | x_{i1},\ldots,x_{iT} )&=& \sum_{s} Pr(d_{i1},\ldots,d_{iT} | x_{i1},\ldots,x_{iT} )  p(s_i) \\
 Pr(d_{i1},\ldots,d_{iT} | x_{i1},\ldots,x_{iT} ) &=& \sum_{s}  \prod_{t=1}^T Pr(d_{it} | x_{it} )  p(s_i) \\
 \end{eqnarray*}
-\alert{Conditional on $s_i$ replacement decisions are independent across $t$ given $x_{it}$}.
-
-\end{frame}
-
-
-\begin{frame}{Single-agent dynamics part 3}
-Up until now we consider models satisfying Rust's \textit{conditional independence} assumption on the $\varepsilon$'s. This rules out persistence in unobservables which are economically meaningful.\\
-\vspace{0.5cm}
-\textbf{Pakes (1986): Patents as Options}: How much are patents worth? Valuable for optimal patent length and design? Sufficient incentive for innovation?
 \begin{itemize}
-\item $Q_A$: value of patent at age $A$
-\item Goal of paper is to estimate $Q_A$ using data on their renewal. $Q_A$ is  inferred from patent renewal process via \textit{structural model} of patent renewal behavior.
-\item Treat renewal systems as exogenous (in Europe)
-\item For $a=1,\ldots,L$ a patent can be renewed by paying the fee $c_a$.
+\item \alert{Conditional on $s_i$ replacement decisions are independent across $t$ given $x_{it}$}.
+\item The resulting likelihood is just a \alert{finite mixture model}.
+\item These can be hard to solve when both $s_i$ and its distribution $p(s_i)$ are unknown.
+\item Arcidiacono and Miller (2011) provide theoretical results for these types of problems.
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Pakes (1986)}
+\begin{frame}{A much earlier application}
+\textbf{Pakes (1986): Patents as Options}\\
+ How much are patents worth? Valuable for optimal patent length and design? Sufficient incentive for innovation?
+\begin{itemize}
+\item $Q_A$: value of patent at age $A$
+\item Goal of paper is to estimate $Q_A$ using data on their renewal. $Q_A$ is  inferred from patent renewal process via \alert{revealed preference} for patent renewal behavior.
+\item Treat renewal systems as exogenous (in Europe)
+\end{itemize}
 Timing
 \begin{itemize}
+\item For $a=1,\ldots,L$ a patent can be renewed by paying the fee $c_a$.
 \item At age $a=1$ patent holder gets $r_1$ from patent
 \item Decide whether or not to renew (pay $c_1$ and go to $a_2$).
 \item At age $a=2$ get $r_2$ from patent
 \item and so on...
 \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Pakes (1986)}
 Gives us the value function
 \begin{eqnarray*}
 V&\equiv& \max_{t \in [a,L] }\sum_{a'=1}^{L-a} \beta^{a'} R(a+ a') \\
 R(a) &=& \begin{cases} r_a -c_a, & \mbox{if } t \geq a \mbox{ when you hold patent} \\0 & \mbox{if } t < a \mbox{ after patent expires} \end{cases}
 \end{eqnarray*}
-$t$ above denotes the age which allows the patent to expire and is the choice variable.  This is an \textit{optimal stopping} problem.\\
-
-$R(a)$ are the profits from year $a$.  This is a \textit{controlled} stochastic process.  It is random but affected by the actions of the agent.
+\begin{itemize}
+\item $t$ above denotes the age which allows the patent to expire and is the choice variable.  Another \alert{optimal stopping} problem.\\
+\item $R(a)$ are the profits from year $a$.  This is a \alert{controlled stochastic process}. It is random but affected by the actions of the agent.
+\end{itemize}
 \end{frame}
 
 
@@ -179,7 +188,7 @@ Serial correlation in $\epsilon$ means there is dependence among $i_{t}, i_{t-2}
 \begin{frame}{Simulation}
 \begin{itemize}
 \item It might seem like we were stuck since it no longer has a closed form.  However, we can simulate the ``outer loop'' of the nested fixed point routine given a guess  of $i^*_t(\epsilon,\theta)$.
-\item Because $\epsilon$ is serially correlated we need to start with an initial $\epsilon_0$ (or distribution) and assume that it is known.  This is the \textit{initial conditions problem} of finite MDPs.
+\item Because $\epsilon$ is serially correlated we need to start with an initial $\epsilon_0$ (or distribution) and assume that it is known.  This is the \alert{initial conditions problem} of finite MDPs.
 \item Note that simulation is part of the ``outer loop'' of nested fixed point estimation routine. So at the point when we simulate, we already know the policy functions $i_t^{*}(\epsilon,\theta)$ (How would you compute this?)
 \end{itemize}
 \end{frame}
@@ -196,6 +205,7 @@ Need to take probability over distribution of $(\epsilon_1,\ldots,\epsilon_T | \
 Simulate by drawing sequences of $(\epsilon_t)$.
 \end{frame}
 
+
 \begin{frame}{Naive Frequency Simulator (Don't do this...)}
 Simulate by drawing sequences of $(\epsilon_t)$ and for each draw $s=1,\ldots,S$ we take as initial values $(x_0,i_0,\epsilon_0)$ then
 \begin{itemize}
@@ -211,6 +221,10 @@ Simulate by drawing sequences of $(\epsilon_t)$ and for each draw $s=1,\ldots,S$
 	\end{enumerate}
 \item And so on, up to $(\epsilon_T^s,i_T^s)$.
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Naive Frequency Simulator (Don't do this...)}
 And for the case where $(i,x)$ are both discrete (Rust) we can approximate:
 \vspace{-0.5cm}
 \begin{eqnarray*}
@@ -219,11 +233,14 @@ l(i_t,\ldots,i_T | \epsilon_0,i_0;\theta) \approx \frac{1}{S} \sum_s \prod_{t=1}
 Frequency of simulated sequences which match observed sequence.  $T$ long or $S$ small you're in trouble (non-smooth).
 \end{frame}
 
+
+
 \begin{frame}{Importance Sampling: Particle Filtering}
 \begin{itemize}
 \item We can use importance sampling to simulate the likelihood function. 
 \item This is not straightforward given time dependence in $(i_t,\epsilon_t)$
 \item Consider particle filtering approach from Fernandez-Villaverde and Rubio-Ramirez (2007) or Flury and Shehard (2008) (non-Gaussian Kalman filtering).
+\item A more up to date take: Blevins (2016) : Sequential {Monte Carlo} Methods for Estimating Dynamic Microeconomic Models
 \end{itemize}
 \end{frame}
 
@@ -286,14 +303,15 @@ Note that this coincides with the likelihood contribution for period 1, evaluate
 \begin{frame}{Prediction Step}
 For the second term in the equation: we simply draw one $\epsilon_2^s$ from $f(\epsilon' | \epsilon^{1,s})$, for each draw $\epsilon^{1,s}$ from the filtering step. This is the \textbf{prediction} step.\\
 \vspace{0.25cm}
-By combining the draws from these two terms, we have $\{ \epsilon^{2|1,s}\}_{s=1}^S$.which is $S$ drawn sequences from $p(\epsilon^2 | y^1)$. Using these $S$ draws, we can evaluate the simulated likelihood for period 2.\\
+By combining the draws from these two terms, we have $\{ \epsilon^{2|1,s}\}_{s=1}^S$.which is $S$ drawn sequences from $p(\epsilon^2 | y^1)$. Using these $S$ draws, we can evaluate the simulated likelihood for period 2
+\end{frame}
 
-\vspace{0.25cm}
+\begin{frame}{Prediction Step (Continued)}
 \textbf{Third period, $t = 3$:} start again by factoring
 \begin{eqnarray*}
-p(\epsilon^3 | y^2) = p(\epsilon^2 | y^2) \cdot p(\epsilon_3 | \epsilon^2)
+p(\epsilon^3 | y^2) = p(\epsilon^2 | y^2) \cdot p(\epsilon^3 | \epsilon^2)
 \end{eqnarray*}
-As above, drawing from  requires filtering the draws $\{ \epsilon^{2|1,s}\}_{s=1}^S$, from the previous period $t = 2$, to obtain draws $\{ \epsilon^{2,s}\}_{s=1}^S$. Given these draws, draw $\epsilon_3^s \sim f(\epsilon' | \epsilon^{2,s})$ for each $s$.\\
+As above, drawing from  requires filtering the draws $\{ \epsilon^{2|1,s}\}_{s=1}^S$, from the previous period $t = 2$, to obtain draws $\{ \epsilon^{2,s}\}_{s=1}^S$. Given these draws, draw $\epsilon_3^s \sim f(\epsilon' | \epsilon^{2,s})$ for each $s$.
 
 And so on. By the last period $t = T$, you have
 \begin{eqnarray*}
@@ -323,7 +341,7 @@ $\{ \epsilon^{t | t-1,s} \}_{s=1}^S$.
 \end{enumerate}
 \item Set $t=t+1$ and go back to step 2.  Stop when $t=T+1$.
 \end{itemize}
-The difference is that the crude simulator draws $S$ sequences and puts zero weight on those which don't match the observed sequin. In each period $t$ we just keep sequences where predicted choices match observed choice of \textit{that period}. This is more accurate likelihood as long as $S$ is large enough that we don't have all the weight on a single sequence in period $t$.
+The difference is that the crude simulator draws $S$ sequences and puts zero weight on those which don't match the observed sequence. In each period $t$ we just keep sequences where predicted choices match observed choice of \textit{that period}. This is more accurate likelihood as long as $S$ is large enough that we don't have all the weight on a single sequence in period $t$.
 \end{frame}
 
 
