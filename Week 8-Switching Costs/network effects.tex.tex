@@ -1,5 +1,5 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-\usetheme{default}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\usetheme{metropolis}
 %\usetheme{Darmstadt}
 %\usepackage{times}
 %\usefonttheme{structurebold}
@@ -19,10 +19,10 @@
 \DeclareMathSizes{10}{10}{6}{6} 
 
 
-\title [Dynamic Oligopoly I]{Switching Costs and Network Effects}
+\title [Dynamic Oligopoly I]{Switching Costs}
 \author{C.Conlon }
 \institute{Grad IO }
-\date{Fall 2016}
+\date{Fall 2019}
 \setbeamerfont{equation}{size=\tiny}
 \begin{document}
 
@@ -35,19 +35,33 @@
 \begin{frame}{State Dependence}
 Think about a static model like BLP
 \begin{eqnarray*}
-u_{ijt} = \beta_i x_{jt} - \alpha_i p_{jt} + \xi_{jt} + \epsilon_{ijt}
+u_{ijt} = \beta_i x_{jt} - \alpha_i p_{jt} + \xi_{jt} + \varepsilon_{ijt}
 \end{eqnarray*}
 \begin{itemize}
 \item Suppose I have panel data on consumer $i$'s purchases and I observe that the consumer chooses different brands over time
-\item Why do you switch brands? 
+\item Why do you switch brands?  $\beta_i$ are persistent.
 \begin{enumerate}
-\item New $\epsilon \rightarrow$ not helpful!
+\item New $\varepsilon \rightarrow$ not helpful!
 \item Price responses $\rightarrow$ may wrongly attribute all effects to price.
 \item $\xi_{jt}$ not correlated across individuals but may include things like advertising, etc.
 \end{enumerate}
 \item Challenge is explaining both \alert{persistence} and \alert{switching} behavior.
 \end{itemize}
 \end{frame} 
+
+
+
+\begin{frame}{Terminology}
+Sometimes we call these models \alert{switching costs} and other times \alert{state dependence}
+\begin{eqnarray*}
+u_{ijt} = \beta_i x_{jt} - \alpha_i p_{jt} + \xi_{jt} + \alert{\gamma_i \cdot I[y_{i,t-1}=j]} + \varepsilon_{ijt} 
+\end{eqnarray*}
+\begin{itemize}
+\item The idea is purchases in period $t-1$ have a causal effect on utility in period $t$
+\item We can think of this as either increasing utility for $j$ if you previously purchased it or providing an additional cost if $y_{it} \neq y_{i,t-1}$.
+\end{itemize}
+\end{frame} 
+
 
 \begin{frame}{Why Do We Care?}
 \begin{itemize}
@@ -85,9 +99,11 @@ Consider dynamic optimization problem faced by firm $i$ with a vector of prices 
 V_i(\mathbf{x},\mathbf{p},s) = (p_i - c_i) \cdot q_i(\mathbf{x},\mathbf{p},s) + \beta \tilde{V}_i(\mathbf{x},\mathbf{p},s)
 \end{eqnarray*}
 with FOC
+\vspace{-.3cm}
 \begin{eqnarray*}
 q_i(\mathbf{x},\mathbf{p},s) +  (p_i - c_i) \cdot \underbrace{\frac{\partial q_i(\mathbf{x},\mathbf{p},s)}{\partial p_i}}_{q_i'} +  \beta  \underbrace{\frac{\partial \tilde{V}_i(\mathbf{x},\mathbf{p},s)}{\partial p_i}}_{\tilde{V}_i' \frac{\partial q_i}{\partial p_i}}
 \end{eqnarray*}
+\vspace{-.3cm}
 Define $\tilde{V}_i' \equiv \frac{\partial \tilde{V}_i}{\partial q_i}$ (note w.r.t. $q_i$ not $p_i$). So that:
 \begin{eqnarray*}
 p_i - c_i = \underbrace{\frac{q_i}{-q_i'}}_{\alert{\mbox{Harvesting}}} - \underbrace{\beta \tilde{V}_i'}_{\alert{\mbox{Investment}}}
@@ -98,6 +114,7 @@ p_i - c_i = \underbrace{\frac{q_i}{-q_i'}}_{\alert{\mbox{Harvesting}}} - \underb
 \begin{eqnarray*}
 p_i - c_i = \underbrace{\frac{q_i}{-q_i'}}_{\alert{\mbox{Harvesting}}} - \underbrace{\beta \tilde{V}_i'}_{\alert{\mbox{Investment}}}
 \end{eqnarray*}
+\vspace{-.3cm}
 \begin{itemize}
 \item Second term (dynamic benefit of increasing $q_i$ today) is ``investing'' in marketshare and leads to lower PCM.
 \item First term is additional market power from switching costs and leads to higher PCM.
@@ -114,7 +131,7 @@ p_i - c_i = \underbrace{\frac{q_i}{-q_i'}}_{\alert{\mbox{Harvesting}}} - \underb
 
 \begin{frame}{How do we model these?}
 \begin{eqnarray*}
-u_{ijt} = \beta_i x_{jt} - \alpha_i p_{jt} + \xi_{jt} + \alert{\gamma_i \cdot I[y_{i,t-1}=j]} = \epsilon_{ijt} 
+u_{ijt} = \beta_i x_{jt} - \alpha_i p_{jt} + \xi_{jt} + \alert{\gamma_i \cdot I[y_{i,t-1}=j]} + \varepsilon_{ijt} 
 \end{eqnarray*}
 \begin{itemize}
 \item We can include \alert{lagged choice} in utility of the agent. (First order Markov)
