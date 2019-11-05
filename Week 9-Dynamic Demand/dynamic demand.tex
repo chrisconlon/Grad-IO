@@ -31,6 +31,16 @@
 \titlepage
 \end{frame}
 
+\begin{frame}{Today's Readings}
+\begin{itemize}
+\item Melnikov (Yale PhD Thesis 2001)
+\item Gowrisankaran Rysman (JPE)
+\item Hendel and Nevo (Econometrica )
+
+\end{itemize}
+\end{frame}
+
+
 \begin{frame}{Dynamic Demand}
 \begin{itemize}
 \item Earlier this term we looked at \textit{static models of product differentiation} such as BLP (1995).
@@ -46,13 +56,14 @@
 \item We are often interested in the case where a firms' products compete not only against products of other firms, but also with their own products over time. (Coase 1972).
 \item Really this is a feature of any kind of durable (cars, washing machines, etc.).
 \item In high-tech products, we have `S'-shaped penetration curve. At some point we cut the prices of (computers, cameras, TV's) and the sales go down rather than up. Why?
+\item Static estimates imply demand is \alert{less elastic} than it really is.
 \end{itemize}
 \item Storable Goods
 \begin{itemize}
-\item Laundry detergent goes on discount: $\approx$ 1 week in every 4-5.
+\item Laundry detergent goes on discount: $\approx$ 1 week in every 4-8.
 \item A large fraction of overall quantity is sold during these discount weeks.
-\item This would imply highly elastic demand. (1) Laundry detergent business must be extremely competitive. (2) There would be a substantial response to a \alert{permanent} price change.
-\item Seems unlikely that (1) and (2) are true.
+\item This would imply highly elastic demand. (1) Laundry detergent business must be extremely competitive. (2) There would be a substantial response to a \alert{permanent} price change. Seems unlikely that (1) and (2) are true.
+\item Static estimates imply demand is \alert{more elastic} than it really is.
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -115,6 +126,137 @@ Imagine if we regressed $P$ on $Q$:
 \item This has a potentially large impact on price indices (a small bias in the CPI can be billions of dollars in SSA/Medicare payments).
 \end{itemize}
 \end{frame}
+
+
+
+\begin{frame}{Dynamic Demand: Stripped Down Version}
+Let's start with some very strong assumptions to get our intuition clear:
+\begin{enumerate}
+\item There are $t=1,2$ periods.
+\item Consumers can purchase at most one unit of an (infinitely) durable good
+\item After purchasing the durable good they leave the market forever.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Dynamic Demand: Naive Static Approach}
+\begin{align*}
+u_{ijt} &=   \alpha_i x_{jt}  +  \xi_{jt} + \varepsilon_{ijt}\\
+u_{i0t} &=  \varepsilon_{i0t} 
+\end{align*}
+\begin{itemize}
+\item Suppose  we estimate demand treating each period $t=1,2$ as a \alert{separate market}.
+\item ie: close our eyes and do BLP.
+\item What do we get wrong? \pause
+\begin{itemize}
+\item How does $\frac{\partial q_{j,t}}{\partial p_{k,s}}$ look? How should it look?
+\end{itemize}
+\item Two problems: 
+\begin{itemize}
+\item period $t=1$ and $t=2$ are \alert{substitutes}
+\item distribution of $f(\alpha_{it})$ is likely different in $t=1,2$.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Dynamic Demand: Complete Information}
+Suppose consumers have full information about all shocks $(x_{j1},x_{j2},\xi_{j1},\xi_{j2},\varepsilon_{ij1},\varepsilon_{ij2})$ in both periods. 
+\begin{align*}
+u_{ijt} &=   \alpha_i x_{jt}  +  \xi_{jt} + \varepsilon_{ijt}
+\end{align*}
+What would we do?
+\begin{itemize}
+\item Why not estimate static demand among $\bigcup_{t=1,2}  \mathcal{J}_t $ alternatives?
+\item Remaining issues:
+\begin{itemize}
+\item Buying in period 1 allows me an additional period of consumption
+\item Need to discount period 2 utility $\beta \times ( \alpha_i x_{jt}  +  \xi_{jt} + \varepsilon_{ijt})$ or $\beta \times ( \alpha_i x_{jt}  +  \xi_{jt} )+\varepsilon_{ijt}$
+\item A single outside good of not purchasing in either period $ u_{i0} =  \varepsilon_{i0} $
+\end{itemize}
+\item How bad is this model? Compared to the last one?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Dynamic Demand: Relaxing some assumptions}
+Problematic assumption was probably full information. Suppose instead that only $(\varepsilon_{ij2},\varepsilon_{i0})$ are \alert{unobserved} in $t=1$. 
+\begin{align*}
+v_{i0,t=1} \equiv E [\max_j u_{ij2}  | \Omega_{t=1}] = \log \left( \sum_j \exp [ \alpha_i x_{j2}  +  \xi_{j2} ] \right) + \eta
+\end{align*}
+\begin{itemize}
+\item $\Omega_{t=1}= \{x_{j1},x_{j2},\xi_{j1},\xi_{j2},\varepsilon_{ij1}\}$ (everything known at $t=1$) 
+\item $\eta$ is Euler's constant (per usual).
+\item What about outside good?
+\begin{itemize}
+\item Either just another good in $t=2$ with $\alpha_i x_{j2}+ \xi_{j2} = 0$
+\item Or we consider $v_{i0,t=1}=E [\max \{ \varepsilon_{i0}, \max_j u_{ij2} \}  | \Omega_{t=1}]$
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Dynamic Demand: Relaxing some assumptions}
+Now what?
+\begin{align*}
+u_{ij,t=1} &=   \alpha_i x_{j1}  +  \xi_{j1} + \varepsilon_{ij1}\\
+u_{i0,t=1} &=   \alert{\beta v_{i0,t=1}} + \varepsilon_{i01} \\
+u_{ij,t=2} &=   \alpha_i x_{j2}  +  \xi_{j2} + \varepsilon_{ij2}\\
+u_{ij,t=2} &=    \underbrace{\beta v_{i0,t=2} }_{=0}+ \varepsilon_{i02} 
+\end{align*}
+\begin{itemize}
+\item If $\beta v_{i0,t=1}$ is known we can estimate static demand with each $t$ as a separate ``market''.
+\item I pulled an extra $\varepsilon_{i01}$ out of my hat.
+\item What is the other dynamic linkage?
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Dynamic Demand: What about cream skimming?}
+Also need to account for the fact that $f(\alpha_{i,t=1})$ and $f(\alpha_{i,t=2})$  are not the same:
+\begin{itemize}
+\item If goods are perfectly durable, and consumers permanently exit the market...
+\item Assume that $f(\alpha_{i,t=1}) = w_{i,t=1}$ is a discrete distribution of ``types''
+\begin{itemize}
+\item Note: ``type'' does not include $\varepsilon$.
+\item then $w_{i,t=2} = w_{i,t=1} \cdot s_{i0,t=1}$
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Dynamic Demand: Can we go further?}
+Replacement / Upgrades:
+\begin{itemize}
+\item Suppose we allow the people who purchase in $t=1$ to remain in the market.
+\item Instead of comparing $u_{ij2}$ to $0$ they compare $u_{ij2}$ to their purchase in $t=1$.
+\begin{itemize}
+\item Now part of your ``type'' $\alpha_i$ includes your existing stock of the durable good.
+\item Essentially increase the value of outside good.
+\item The transitions become more complicated $w_{t=2} = f(w_{t=1},s_{ij,t=1})$.
+\end{itemize}
+\item You still throw the old durable into the trash when you are done.
+\begin{itemize}
+\item Could also allow for a scrap value.
+\end{itemize}
+\item Need to be a bit careful about NPV of expected stream of payments vs. ``flow utility'' now.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Dynamic Demand: What about Beliefs?}
+\begin{align*}
+v_{i0,t=1} \equiv E [\max_j u_{ij2}  | \Omega_{t=1}] = \log \left( \sum_j \exp [ \alpha_i x_{j2}  +  \xi_{j2} ] \right) + \eta
+\end{align*}
+
+\begin{itemize}
+\item This assumed that $x_{j2}$ and $\xi_{j2}$ were observed in $\Omega_{t=1}$.
+\item Maybe we want to make some component of $x_{j2}$ \alert{unobserved} (such as price or $\xi$).
+$$
+\log \left( \sum_j \exp [ \alpha_i x_{j2}  +  \xi_{j2} ] \right)  g(p_2) 
+$$
+\item What do rational expectations mean here? More on this later.
+\end{itemize}
+\end{frame}
+
+
+
 
 \begin{frame}{Dynamic Demand}
 Each consumer type is subscripted by $i$, and chooses a product $j$ in period $t$ to maximize utility:
