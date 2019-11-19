@@ -1,0 +1,129 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\usetheme{metropolis}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+
+\usepackage[english]{babel}
+%\usepackage[table]{xcolor}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+\usepackage{amsmath,amssymb,setspace}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+\usepackage[absolute,overlay]{textpos} 
+\newenvironment{reference}[2]{% 
+  \begin{textblock*}{\textwidth}(#1,#2) 
+      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+
+\DeclareMathSizes{10}{10}{6}{6} 
+
+
+\title [Healthcare and IO]{Willingness to Pay and Healthcare}
+\author{C.Conlon }
+\institute{Grad IO }
+\date{Fall 2019}
+\setbeamerfont{equation}{size=\tiny}
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}{Healthcare and IO}
+In recent years, IO has made inroads into questions related to healthcare:
+\begin{itemize}
+\item How do hospital (systems) and insurers interact?
+\item What is the value of adding a hospital to an insurer's network?
+\item What determines the market power of insurers? hospitals?
+\item Can steering incentives (in network/out of network) be effective in reducing costs?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Today's Reading:}
+In recent years, IO has made inroads into questions related to healthcare:
+\begin{itemize}
+\item Capps, Dranove, Satterthwaite (2003)
+\item Ho AER (2012)
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{CDS(2003): Motivation}
+The Government keeps losing hospital mergers (basically all of them):
+\begin{itemize}
+\item Some people travel enormous distances to get treatment at hospitals (Mayo Clinic, Cleveland Clinic, Johns Hopkins, Mass General, etc.)
+\item These cases are lost at the stage of \alert{market definition} under the \alert{hypothetical monopolist test}.
+\begin{itemize}
+\item Recall: SSNIP of 5\% price increase for all products. If this is not profitable -- include next closest substitute. Continue adding products to define relevant market.
+\item Resulting markets are so large (and unconcentrated) that mergers always lead to negligible changes in market power
+\end{itemize}
+\item What if we could measure relevant markets better?
+\end{itemize}
+\end{frame} 
+
+
+\begin{frame}{CDS(2003): Ex-Ante and Ex-Post WTP}
+What is the value that $i$ places on having hospital $j$ included in network $G$?
+\begin{align*}
+U_{i j} &=\alpha R_{j}+H_{j}^{\prime} \Gamma X_{i}+\tau_{1} T_{i j}+\tau_{2} T_{i j} \cdot X_{i}+\tau_{3} T_{i j} \cdot R_{j}-\gamma\left(Y_{i}, Z_{i}\right) P_{j}\left(Z_{i}\right)+\varepsilon_{i j} \\ &=U\left(H_{j}, X_{i}, \lambda_{i}\right)-\gamma\left(X_{i}\right) P_{j}\left(Z_{i}\right)+\varepsilon_{i j} 
+\end{align*}
+
+\begin{itemize}
+\item $H_{j}=\left[R_{j}, S_{j}\right]$ is partitioned into generic $R$ and diagnosis specific $S$ characteristics.
+\item $X_{i}=\left[Y_{i}, Z_{i}\right]$ is partitioned into demographic $Y$ and diagnosis specific $Z$ characteristics.
+\item $T_{i j}=T_{j}\left(\lambda_{i}\right)$ distance from $i$'s home to hospital $j$
+\item This paper: ignore $\gamma\left(X_{i}\right) P_{j}\left(Z_{i}\right)$ since $P_{j'}(Z_i) \approx P_j(z_i)$
+\end{itemize}
+\end{frame} 
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
