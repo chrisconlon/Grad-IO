@@ -22,7 +22,7 @@
 \title [``Old'' IO]{Before there was ``New'' Empirical IO}
 \author{C.Conlon}
 \institute{Grad IO }
-\date{Fall 2019}
+\date{Fall 2020}
 \setbeamerfont{equation}{size=\tiny}
 \begin{document}
 
@@ -44,6 +44,15 @@ This lecture is a bit different from all of the others
 \end{itemize}
 \end{frame}
 
+\begin{frame}{History of IO: Part 0}
+Early 20th century Agricultural Economics
+\begin{itemize}
+\item How can we estimate supply and demand from data?
+\item Mostly homogenous agricultural products.
+\item Early discussion of simultaneity/endogeneity econometrics
+\end{itemize}
+Complaint: everything still perfectly competitive.
+\end{frame}
 
 \begin{frame}{History of IO: Part I}
 Structure-Conduct-Performance (1940-1960) Harvard
@@ -98,7 +107,7 @@ Start with a quantity-setting monopolist facing a known inverse demand curve $P(
 \begin{eqnarray*}
 \pi(Q) = P(Q) \cdot Q - C(Q) -  F
 \end{eqnarray*}
-Take the FOC:
+Take the FOC and derive the \alert{Lerner Index}:
 \begin{eqnarray*}
 \pi'(Q) &=& 0  \\
  \underbrace{\overbrace{P'(Q) \cdot Q}^{\text{\alert{monopoly distortion}}}+ P(Q)}_{MR}  &=&  \underbrace{C'(Q)}_{MC} \\
@@ -117,15 +126,16 @@ P \left( 1+\frac{1}{\epsilon_d} \right) = MC
 \begin{itemize}
 \item This is helpful because it shows us the important result that the monopolist never produces in the inelastic portion of the demand curve. $\epsilon_d \in (-1,0]$.
 \item Why? MR is negative! Reduce Quantity!
-\item Often data report: $\frac{P-MC}{MC}= \frac{1}{\epsilon_d -1}$. But we usually work with the Lerner formula in IO.
+\item Often data report: $\frac{P}{MC}= \mu$. But we usually work with the Lerner formula in IO.
 \item For the monopolist firm level elasticity $\epsilon_d$ is the same as $\epsilon_D$ the market elasticity.
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Cournot Model (1838) / Nash in Quantities}
+\small
 \begin{itemize}
-\item I am going to assume constant marginal cost $c_i = c$ and $n$ equal sized firms to make life easy. 
+\item Assume constant marginal cost $c_i = c$ and $n$ equal sized firms to make life easy. 
 \item We let $Q=\sum_{i=1}^N q_i$ the total output of the industry.
 \end{itemize}
 We consider profits and FOC's:
@@ -218,7 +228,21 @@ HHI = \sum_{i=1}^N s_i^2 = \frac{1}{n^*} \rightarrow n^{*} = \frac{1}{HHI}.
 \begin{eqnarray*}
 \frac{P-MC}{P} = \frac{HHI}{\epsilon_D}
 \end{eqnarray*}
+\end{itemize}
+\end{frame}
 
+\begin{frame}{HHI and Welfare}
+Under Cournot (and only Cournot) with constant MC, we can relate $HHI$ to particular measures of welfare:
+\begin{itemize}
+\item Cowling Waterson (1976) relate $HHI$ to producer share of revenue:
+\begin{align*}
+HHI =  \epsilon_d \cdot \frac{PS}{R}
+\end{align*}
+\item Spiegel (2020) relates $HHI$ to producer share of surplus:
+\begin{align*}
+HHI &=  \frac{1}{\epsilon_d \left(Q^{*}\right)} \cdot \frac{PS}{CS}\\
+\frac{C S}{TS} &=\frac{1}{1+\epsilon_d \left(Q^{*}\right) \cdot HHI}
+\end{align*}
 \end{itemize}
 \end{frame}
 
@@ -234,7 +258,7 @@ HHI = \sum_{i=1}^N s_i^2 = \frac{1}{n^*} \rightarrow n^{*} = \frac{1}{HHI}.
 
 \begin{frame}{Complaints about HHI}
 \begin{itemize}
-\item HHI only measures market power under the Cournot assumptions
+\item HHI only relates to market power under the Cournot assumptions
 \begin{itemize}
 \item Holding competitor's output responses fixed so that $\frac{\partial Q}{\partial q_i} =1$.
 \item Competition is about setting quantity rather than price: strong restrictions on cross-price elasticities.
@@ -243,163 +267,7 @@ HHI = \sum_{i=1}^N s_i^2 = \frac{1}{n^*} \rightarrow n^{*} = \frac{1}{HHI}.
 \item Assumes that products are \alert{homogenous} so that all firms/products are equally good competitors.
 \item More concentrated markets have higher markups, but not always lower welfare (allocating production from low to high cost firms might improve welfare).
 \end{itemize}
-\end{frame}
-
-\begin{frame}{Conjectural Variations}
-\begin{itemize}
-\item If I change my quantity, why doesn't my rival?
-\item Biggest complaint about Cournot is that we hold quantities of competitors fixed
-\item Suppose we did not so that $\frac{\partial Q_i}{\partial q_i} = (1 + \frac{\partial Q_{-i}}{\partial q_i}).$
-\item FOC becomes:
-\begin{eqnarray*}
-P + P'(Q) \cdot q_i \cdot \underbrace{\left(1+ \frac{\partial Q_{-i}}{\partial q_i} \right)}_{\theta_i}
-\end{eqnarray*}
-\item $\frac{\partial Q_{-i}}{\partial q_i} =-1$  or $\theta_i =0$ corresponds to competition (aggregate quantity is unchanged). (also Bertrand)
-\item $\frac{\partial Q_{-i}}{\partial q_i} =0$ or $\theta_i = 1$ corresponds to the Cournot model.
-\item $\frac{\partial Q_{-i}}{\partial q_i} =N-1$ or $\theta_i = N$ corresponds to the joint profit maximization (collusion/monopoly).
-\item This was great for applied theory, now I can nest all of the key classical models (PC, monopoly, Cournot) with a single parameter.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Conjectural Variations: Issues}
-\begin{itemize}
-\item On one hand seems like more flexibility was a good thing.
-\item On the other hand with some $\theta_i$ we can justify nearly anything.
-\item Two questions
-\begin{enumerate}
-\item Can we expect to recover $\theta_i$ from data?
-\item What about \alert{consistent conjectures} (ie: suppose I require firms to actually want to respond in the way that I believe they will).
-\end{enumerate}
-\end{itemize}
-\end{frame}
-
-
-
-\begin{frame}{Consistent Conjectures}
-\begin{itemize}
-\item Bresnahan (1981) posed the consistent conjectures hypothesis (one unique conjecture that satisfied all FOCs simultaneously).
-\item Large theory literature that followed [see Daughety (1985) or Lind(1992)] show Cournot $\theta_i=0$ is the only consistent conjecture absent some knife-edge cases.
-\item This basically meant that CV approaches fell out of favor with game theorists by the late 1980s/early 1990s.
-\item Things are even more problematic for dynamic models.
-\item The approach persisted in empirical work until Corts (1999) [more on this later].
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Can/Should we try and recover $\theta_i$ from data?}
-\begin{figure}
-\begin{center}
-\includegraphics[width=4in]{resources/cortsfigure.png}
-\end{center}
-\end{figure}
-\end{frame}
-
-
-
-\begin{frame}{Testing S-C-P }
-Can we test for relationship between performance and market structure?
-\begin{itemize}
-\item Positive correlation between $HHI$ and market power.
-\begin{itemize}
-\item Usually easy to measure concentration (sort of)
-\item Measuring Profits is tough:
-\begin{itemize}
-\item Accounting profits: taxes and depreciation aren't really very close $P-MC$.
-\item Tobin's Q
-\item The Lerner index: $(P-MC)/P$
-\end{itemize}
-\item We don't usually get to observe $MC$ in data.
-
-\begin{itemize}
-\item Maybe we see something like total revenue or total variable cost and units sold.
-\item Have to use unit values $(P-AVC)/P$ which is okay if $AVC \approx MC$ and our firm sells only a single product at a single $P$.
-\item Trade data sometimes looks a bit like this today...
-\end{itemize}
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{S-C-P paradigm and empirical work}
-Bain (1951)
-\begin{itemize}
-\item Census data was across industries but not firm-level data.
-\item Prices are hard to compare across industries (for obvious reasons)
-\item Profits/Markups are easier to measure and compare across industries
-\item Firms make profits was an important stylized fact at the time.
-\end{itemize}
-Why do we care?
-\begin{itemize}
-\item The whole basis for modern antitrust and regulation is based on the relationship between concentration and market power.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{S-C-P regressions \#1}
-\begin{eqnarray*}
-y = \beta_0 + \beta_1 \cdot HHI + \gamma X +  \varepsilon
-\end{eqnarray*}
-
-\begin{itemize}
-\item Using $y$ as profit measure and each observation a different industry.
-\item Idea is that $\beta_1 > 0$ meant increased concentration meant higher profits (or prices).
-\item Lots of different $X$'s (controlling for returns to scale, R\&D, etc.): anything that shifts profits that isn't competition.
-\item We should probably worry that $E[\varepsilon | H, X ] = 0$ or that factors might be correlated with both profitability and concentration in unobservable ways.
-\begin{itemize}
-\item Is Google or Facebook or Apple highly profitable because of concentration?
-\end{itemize}
-\item Structure, Prices, and Profits are likely simultaneously determined.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{S-C-P regressions \#2}
-\begin{eqnarray*}
-y_{if} = \beta_0 + \beta_1 \cdot HHI_i + \beta_2 s_{if} +  \gamma X_{i} +  \varepsilon
-\end{eqnarray*}
-\begin{itemize}
-\item One critique (associated with Demsetz (1973) and the Chicago School) was the following
-\begin{itemize}
-\item With firm level data if we include share of the firm $s_{if}$ the coefficient on that $\beta_2$ was positive and significant but any effect on $\beta_1$ became insignificant.
-\item Even when it looked like concentration led to high prices, it meant that share was correlated with high prices
-\item Chicago School took this as vindication of idea that larger firms were more efficient, had lower costs, etc.
-\item Of course this is also what would be predicted from a standard Cournot model...
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{S-C-P: Schmalensee 1989}
-A huge handbook chapter summarizing the early literature that collected stylized facts.
-\footnotesize
-\begin{itemize}
-\item Correlations among accounting profit measures are high but correlations between accounting measures and price-cost margins are low and results depend on which type of measure is used.
-\item Cross industry accounting rates of return are too low to reconcile with standard monopoly models.
-\item Accounting profitability differences among large firms are highly persistent
-\item Industry characteristics account for only 10-25\% of cross sectional variation in accounting rates of return
-\item Recent revenue growth is positively correlated with profitability
-\item Relation between profitability and concentration is weak and effect is usually small. This relationship is not stable over item or industry and disappears with various controls.
-\item Measures of scale economies or capital requirements are positively correlation with industry-level accounting profits
-\item R\&D is positively related to profits but effect varies with $HHI$.
-\item Profitability of largest firms is correlated with industry $HHI$ not true for smaller firms.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{S-C-P: What Happened?}
-
-\begin{itemize}
-\item Hundreds of papers written looking at correlations between $HHI$ and $\pi$ or $PCM$.
-\item This literature has been dead for a while.
-\begin{itemize}
-\item We moved on from descriptive correlations to causes.
-\item We generally need more of a theory to ascertain causes.
-\item Data on individual industries and firms has gotten much better over time.
-\end{itemize}
-\item There are still lots of papers that try and infer causality from regressions like 
-\begin{eqnarray*}
-\pi_{it} = \alpha + \gamma HHI_{it} + \beta X_{it} + \epsilon_{it} 
-\end{eqnarray*}
-\item Mostly they will get rejected from journals if an IO economist sees it.
-\item Market structure is \alert{endogenous} and there is no instrument for $HHI$.
-\item Supply and demand are determined \alert{simultaneously} (so real problem is worse).
-\end{itemize}
+Also, how do we \alert{define markets} in the first place?
 \end{frame}
 
 
