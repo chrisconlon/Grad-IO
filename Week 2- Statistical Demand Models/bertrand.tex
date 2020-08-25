@@ -1,0 +1,168 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\usetheme{metropolis}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+
+\usepackage[english]{babel}
+%\usepackage[table]{xcolor}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+\usepackage{amsmath,amssymb,setspace}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+\usepackage[absolute,overlay]{textpos} 
+\newenvironment{reference}[2]{% 
+  \begin{textblock*}{\textwidth}(#1,#2) 
+      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+
+\DeclareMathSizes{10}{10}{6}{6} 
+
+
+\title{Differentiated Bertrand}
+\author{C.Conlon}
+\institute{Grad IO }
+\date{Fall 2020}
+\setbeamerfont{equation}{size=\tiny}
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Differentiated Products Bertrand}
+\small
+Consider the multi-product Bertrand problem where firms solve: $\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) = \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot q_j(\mathbf{p})$:
+\begin{align*}
+ 0&= q_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p}) \\
+\rightarrow p_j &=q_{j}(\mathbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\mathbf{p})\right]^{-1} + c_{j} + \sum_{k \in \mathcal{J}_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\mathbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\mathbf{p})\right]^{-1}}_{D_{jk}(\mathbf{p})}\\
+p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\mathbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p}) \right].
+\end{align*}
+We call $D_{jk}(\mathbf{p}) = \frac{\frac{\partial q_{k}}{\partial p_j}(\mathbf{p})}{\left| \frac{\partial q_{j}}{\partial p_j}(\mathbf{p}) \right|}$ the \alert{diversion ratio}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Differentiated Products Bertrand}
+We can also re-write the best-response in the Lerner Index form:
+\begin{align*}
+p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\mathbf{p})}}_{\text{Markup}} \left[c_j + \underbrace{\sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p}) }_{\text{opportunity cost}}\right]
+\end{align*}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Differentiated Products Bertrand}
+It is helpful to define the matrix $\Omega$ with entries:
+\begin{eqnarray*}
+\Omega_{(j,k)}(\mathbf{p}) = \left\{\begin{array}{lr}
+         - \frac{\partial q_{j}}{\partial p_k}(\mathbf{p}) & \text{for }  (j,k) \in \mathcal{J}_f\\
+       	  \quad 0 & \text{for } (j,k) \notin \mathcal{J}_f
+        \end{array} \right\}
+\end{eqnarray*}
+We can re-write the FOC in matrix form:
+\begin{eqnarray*}
+q(\mathbf{p}) = \Omega(\mathbf{p})\cdot(\mathbf{p}-\mathbf{mc})
+\end{eqnarray*}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{What do we want to learn from demand systems?}
+We can recover markups and marginal costs:
+\begin{eqnarray*}
+(\mathbf{p}-\mathbf{mc}) =  \Omega(\mathbf{p})^{-1} q(\mathbf{p})  \Rightarrow \mathbf{mc}= \mathbf{p} + \Omega(\mathbf{p})^{-1} q(\mathbf{p})
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}
+\frametitle{What do we want to learn from demand systems?}
+\begin{itemize}
+\item We need two objects from the demand system:
+\begin{itemize}
+\item The (vector of) \alert{predicted sales} at the (vector of) prices $\mathbf{q(p)}$.
+\item The \alert{derivatives} (or elasticities) of the demand function  $\frac{\partial q_k}{\partial p_j}(\mathbf{p})$ 
+\item Or the \alert{diversion ratios}: $D_{jk}(\mathbf{p})$.
+\item Welfare is often related to substitution to no purchase or ``outside goods''.
+\end{itemize}
+\item Ideally, these objects depend on the full vector of prices $\mathbf{p}$.
+\begin{itemize}
+\item We can impose restrictions on the demand curve, such as constant slope or constant elasticity.
+\end{itemize}
+\item With these in hand, we can:
+\begin{itemize}
+\item Recover estimates of marginal cost (remember these are proprietary firm information and accounting estimates are often unreliable).
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Overview}
+Multiproduct Demand system estimation is probably the most important contribution from the New Empirical IO literature
+\begin{itemize}
+\item Demand is an important primitive (think about Econ 101)
+\item Welfare Analysis, Pass through of taxation, Value of Advertising, Price Effects of Mergers all rely on demand estimates.
+\item Last 5-10 years has seen successful export to other fields: Trade, Healthcare, Education, Urban Economics, Marketing, Operations Research.
+\item Anywhere consumers face a number of options and ``prices'': doctors, hospitals, schools, mutual funds, potential dates, etc.
+\item There are many many more applications.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Two Major Issues}
+\begin{itemize}
+\item Endogeneity of Prices
+\begin{itemize}
+\item Prices are not randomly determined, but set strategically by firms who observe the demand curve
+\item The \alert{simultaneity} of supply and demand creates a problem. We see the market clearing $(P^*,Q^*)$ over several periods, but in general we do not know which curve shifted.
+\end{itemize}
+\item Multiple Products/Flexibility
+\begin{itemize}
+\item We want to allow for flexible (data driven) substitution across products but if we have $J$ products, then $\partial Q_j / \partial P_k$ might have $J^2$ elements.
+\item We may also think that $\partial Q_j / \partial P_k$ varies with $P$ and with other covariates $x$.
+\item We may also care about $\partial^2 Q_j / \partial P_k^2$, $\partial^3 Q_j / \partial P_k^3$ and so on.
+\end{itemize}
+\item We will address the issues separately and then see how to put them back together.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Taxonomy of Demand Systems}
+\begin{itemize}
+\item Representative Consumer vs. Heterogeneous Agents?
+\item Discrete Choices vs. Continuous Choices?
+\item Single Product vs. Many Products?
+\item Product Space vs. Characteristic Space?
+\begin{itemize}
+\item Do consumers choose products in product space or in characteristic space?
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Data Sources}
+\begin{itemize}
+\item We can either have \alert{aggregate data} (market level data on $(P_j,Q_j)$)
+\begin{itemize}
+\item Many supermarket ``scanner' datasets: Nielsen, IRI, Dominick's
+\item NPD: video games/computers/consumer electronics.
+\item Many proprietary single firm sources
+\end{itemize}
+\item or \alert{micro data} panel of data with same individuals over time.
+\begin{itemize}
+\item Best example is Nielsen Homescan Consumer Panel data.
+\item Visa/Mastercard datasets
+\item Medicare
+\end{itemize}
+\item Sometimes we have a combination of both
+\begin{itemize}
+\item Often we have aggregate purchase data plus some \alert{micro data} from a survey on a subpopulation.
+\item ie: asking people who purchased GM cars which other cars they were considering.
+\item Using scanner data for alcohol purchases and comparing to consumption surveys by income and education.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\end{document}
