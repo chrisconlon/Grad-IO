@@ -125,7 +125,7 @@ Within the same group $g$ we have IIA and proportional substitution
 
 But for different groups we do not:
 \begin{eqnarray*}
-s_{ij} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g -1}}{ e^{V_{ik}/\lambda_h} \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h -1}}
+\frac{s_{ij}}{s_{ik}} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g -1}}{ e^{V_{ik}/\lambda_h} \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h -1}}
 \end{eqnarray*}
 \end{frame}
 
@@ -163,7 +163,7 @@ Look at derivatives:
 \begin{align*}
 \frac{\partial\, s_{ij|g}}{\partial X_j} &= \beta_x \cdot s_{ij|g} \cdot (1-s_{ij|g}) \\
  \frac{\partial\, s_{ig}}{\partial X} &= (1-\lambda_g) \cdot \beta_x \cdot s_{ig}(1-s_{ig}) \\
-  \frac{\partial\, s_{ig}}{\partial J} &= \frac{1-\lambda_g}{J} s_{ig}(1-s_{ig})
+  \frac{\partial\, s_{ig}}{\partial J} &= \frac{1-\lambda_g}{J} \cdot s_{ig} \cdot (1-s_{ig})
 \end{align*}
 \begin{itemize}
 \item We get $\beta$ by changing $x_j$ within group
@@ -174,7 +174,7 @@ Look at derivatives:
 \end{frame}
 
 \begin{frame}{A Confusing Gotcha}
-An alternative version of the nested logit is popular in IO (Cardell 1991) $\sigma \approx \frac{1}{1-\lambda}$:
+An alternative version of the nested logit is popular in IO (Cardell 1991) $\sigma \approx 1-\lambda$:
 \begin{align*}
 s_{ij | g}&=\frac{e^{V_{ij}/(1-\sigma)}}{D_{ig}}  \quad &
 D_{ig}&= \log \left( \sum_{j \in \mathcal{G}} e^{V_{ij}/(1-\sigma)} \right)  \\
@@ -212,7 +212,7 @@ There are more potential generalizations though they are less frequently used:
 \begin{frame}{McFadden (1978) and GEV}
 In case you are wondering where these things come from...
 \begin{align*}
-s_{ij}(\mathcal{J})=\frac{y_{j}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G\left(y_{i1}, \ldots, y_{iJ}\right)}
+s_{ij}(\mathcal{J})=\frac{y_{ij}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G\left(y_{i1}, \ldots, y_{iJ}\right)}
 \end{align*}
 With conditions on the \alert{generator function} $G$:
 \begin{enumerate}
@@ -232,10 +232,10 @@ The objects are more mathematical than economic...
 \begin{frame}{McFadden (1978) and GEV}
 This is much easier with an example:
 \begin{align*}
-s_{ij}(\mathcal{J})=\frac{y_{j}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G_i\left(y_{i1}, \ldots, y_{iJ}\right)}
+s_{ij}(\mathcal{J})=\frac{y_{ij}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G_i\left(y_{i1}, \ldots, y_{iJ}\right)}
 \end{align*}
 \begin{itemize}
-\item If $y_j = e^{V_{ij}}$ and $G_i = \log \sum_{j \in \mathcal{J}} e^{V_{ij}}$ we get the IIA logit.
+\item If $y_j = e^{V_{ij}}$ and $G_i = \log \sum_{j \in \mathcal{J}} y_{ij} $ we get the IIA logit.
 \item If $y_j = e^{V_{ij}}$ and $G_i=\sum_{h=1}^{H}\left(\sum_{j \in B_{h}} Y_{ij}^{1 / \lambda_{h}}\right)^{\lambda_{h}}$ we get the nested logit.
 \item ... if $G_i=\sum_{h=1}^{H}\left(\sum_{j \in B_{h}}\left(\alpha_{j h} Y_{ij}\right)^{1 / \lambda_{k}}\right)^{\lambda_{k}}$ we get \alert{generalized nested logit} (GNL).
 \item ... if $G=\sum_{k=1}^{J-1} \Sigma_{l=k+1}^{J}\left(y_{i k}^{1 / \lambda_{k l}}+y_{i l}^{1 / \lambda_{k l}}\right)^{\lambda_{k l}}$ we get \alert{pairwise combinatorial logit} (PCL).
