@@ -126,7 +126,7 @@ Recall our desirable properties:
 \end{itemize}
 Begin by defining an expenditure function:
 \begin{eqnarray*}
-\log e(u,p) = (1- u) \log \underbrace{a(\mathbf{p})}_{\text{ subsistence }} + u \cdot \log \underbrace{b(\mathbf{p})}_{\text{ bliss }}
+\log e(u,\mathbf{p}) = (1- u) \log \underbrace{a(\mathbf{p})}_{\text{ subsistence }} + u \cdot \log \underbrace{b(\mathbf{p})}_{\text{ bliss }}
 \end{eqnarray*}
 We assume a particular functional form for $a(\mathbf{p}),b(\mathbf{p})$ that is second-order flexible.
 \end{frame}
@@ -136,7 +136,7 @@ We assume a particular functional form for $a(\mathbf{p}),b(\mathbf{p})$ that is
 \small
 Here is the form of the expenditure function:
 \begin{eqnarray*}
-\log e(u,p) =  \alpha_0 + \sum_k \alpha_k \log p_k + \frac{1}{2} \sum_k \sum_j \gamma_{kj}^{*} \log p_k \log p_j + u \beta_0 \prod_k p_k^{\beta_k}
+\log e(u,\mathbf{p}) =  \alpha_0 + \sum_k \alpha_k \log p_k + \frac{1}{2} \sum_k \sum_j \gamma_{kj}^{*} \log p_k \log p_j + u \beta_0 \prod_k p_k^{\beta_k}
 \end{eqnarray*}
 \begin{itemize}
 \item Estimate $(\alpha_i, \beta_i, \gamma_{ij}^*)$ from data.
@@ -282,7 +282,7 @@ Three stages:
 \item What is the value of a new good? How should we adjust CPI?
 \item Potentially HUGE issue. Why? 
 \item Weekly cereal data.. 7 cities, 137 weeks. Three segments (adults, kids, family) with max 9 brands.
-\item Calculate $e(p_{-n},p_n^*,u) / e(p,u)$. Find a \alert{virtual price} $p^{*}$ (or choke price) that leaves consumers as well off as a world without Apple-Cinnamon Cheerios.
+\item Calculate $e(p_{-n},p_n^*,u) / e(\mathbf{p},u)$. Find a \alert{virtual price} $p^{*}$ (or choke price) that leaves consumers as well off as a world without Apple-Cinnamon Cheerios.
 \item Virtual price is about $2 \times$ actual price. CPI may be overstated by as much as 25\% for all cereal brands (tons of new products).
 \end{itemize}
 \end{frame} 
