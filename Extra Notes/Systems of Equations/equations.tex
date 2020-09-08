@@ -105,9 +105,9 @@ x_1 &= x_0-\frac{f(x_0)}{f'(x_0)}
 \end{align*}
 This gives us an \alert{iterative} scheme to find $x^{*}$:
 \begin{enumerate}
-\item Start with some $x_k$. Calculate $f(x_k),f'(x_k)$
-\item Update using $x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)} $
-\item Stop when $|x_{k+1}-x_{k}| < \epsilon_{tol}$.
+\item Start with some $x_n$. Calculate $f(x_n),f'(x_n)$
+\item Update using $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)} $
+\item Stop when $|x_{n+1}-x_{n}| < \epsilon_{tol}$.
 \end{enumerate}
 \end{frame}
 
@@ -172,9 +172,9 @@ Consider a set $D \subset \mathbb{R}^{n}$ and a function $f: D \rightarrow \math
 \end{enumerate}
 \begin{enumerate}
 \item There exists a unique  $x^{*} \in D$ with $f\left(x^{*}\right)=x^{*}$
-\item For any $x^{(0)} \in D$ the fixed point iterates given by $x^{(k+1)}:=f\left(x^{(k)}\right)$ converge to $x^{*}$ as $k \rightarrow \infty$
-\item $x^{(k)}$ satisfies the \alert{a-priori error} estimate $\left\|x^{(k)}-x^{*}\right\| \leq \frac{q^{k}}{1-q}\left\|x^{(1)}-x^{(0)}\right\|$
-\item $x^{(k)}$ satisfies the \alert{a-posteriori error} estimate $\left\|x^{(k)}-x^{*}\right\| \leq \frac{q}{1-q}\left\|x^{(k)}-x^{(k-1)}\right\|$
+\item For any $x^{(0)} \in D$ the fixed point iterates given by $x^{(k+1)}:=f\left(x^{(n)}\right)$ converge to $x^{*}$ as $n \rightarrow \infty$
+\item $x^{(n)}$ satisfies the \alert{a-priori error} estimate $\left\|x^{(n)}-x^{*}\right\| \leq \frac{q^{n}}{1-q}\left\|x^{(1)}-x^{(0)}\right\|$
+\item $x^{(n)}$ satisfies the \alert{a-posteriori error} estimate $\left\|x^{(n)}-x^{*}\right\| \leq \frac{q}{1-q}\left\|x^{(n)}-x^{(n-1)}\right\|$
 \end{enumerate}
 \end{frame}
 
@@ -210,7 +210,7 @@ x_{n}&=x_{n-1}-f\left(x_{n-1}\right) \frac{x_{n-1}-x_{n-2}}{f\left(x_{n-1}\right
 Define the residual $r(x_n) = f(x_n) - x_n$. Find weights on previous $k$ residuals:
 \begin{align*}
 \widehat{\alpha^{n}} &= \arg \min_{\alpha} \left\|\sum_{k=0}^{m} \alpha_{k}^{n} \cdot r_{n-k}\right\| \text { subject to } \sum_{k=0}^{m} \alpha_{k}^{n}=1\\
-x_{n+1}&=\left(1-\lambda\right) \sum_{j=0}^{m} \widehat{\alpha_{k}^{n}}\cdot x_{n-k}+\lambda \sum_{j=0}^{m}\widehat{\alpha_{k}^{n}}\cdot f\left(x_{n-k}\right)
+x_{n+1}&=\left(1-\lambda\right) \sum_{k=0}^{m} \widehat{\alpha_{k}^{n}}\cdot x_{n-k}+\lambda \sum_{k=0}^{m}\widehat{\alpha_{k}^{n}}\cdot f\left(x_{n-k}\right)
 \end{align*}
 \begin{itemize}
 \item Convex combination of weighted average of: lagged $x_{n-k}$ and lagged $f(x_{n-k})$.
@@ -238,12 +238,12 @@ Idea: use two iterations to construct something more like the quadratic/Halley m
 \begin{frame}{\texttt{NumPy}}
 \includegraphics[height=0.9\textheight]{./resources/scipy_roots1.png}
 \end{frame}
-\section{The end}
+
 
 \section{In higher dimensions...}
 
 \begin{frame}{Multiple Equations}
-Solving $f(x) = 0$ for scalars is fine, but we often are interested in $F(\mathbf{x}) = 0$ or $k$ nonlinear equations and $m$ unknowns $\mathbf{x} = (x_1,\ldots, x_n) \in \mathbb{R}^k$.
+Solving $f(x) = 0$ for scalars is fine, but we often are interested in $F(\mathbf{x}) = 0$ or $m$ nonlinear equations and $k$ unknowns $\mathbf{x} = (x_1,\ldots, x_K) \in \mathbb{R}^k$.
 \begin{itemize}
 \item If we have $k>m$ we say the system is \alert{undetermined}
 \item If we have $k<m$ we say the system is \alert{overdetermined}
