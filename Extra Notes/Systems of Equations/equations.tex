@@ -50,6 +50,47 @@ Often we are interested in solving a problem like this:
 These problems are related because we find the minimum by setting: $f'(x)=0$
 \end{frame}
 
+
+\section{Linear Systems}
+\begin{frame}{Linear Systems}
+Many problems of the form: $A \mathbf{x} = b$.
+\begin{itemize}
+\item In general these are much easy to solve: $A^{-1} b = \mathbf{x}$.
+\item In practice the computer doesn't do this:
+\begin{enumerate}
+\item Factorize into triangular matrices: $QR$, $LU$, or Cholesky (Positive Definite).
+\item Solve the transformed system of equations.
+\end{enumerate}
+\item This is what \texttt{backslash} in MATLAB does \texttt{A\textbackslash  b}.
+\item Or \texttt{np.linalg.solve(A,b)}.
+\item Takeaway: For stability and speed these are almost always preferred to $A^{-1}b$.
+\item If you need to solve many times for different $b$, saving the decomposition rather than $A^{-1}$ is still usually a better idea.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Linear Systems: Iterative Methods}
+If $A$ is really big you may not be able to invert it directly. Can still do it iteratively (less memory). Decompose matrix into three parts
+\begin{itemize}
+\item $A = D + L + U$ where $D$ is diagonal and $L,U$ are lower/upper triangles.
+\item Gauss Jacobi Iteration:
+\begin{align*}
+\mathbf{x}^{(n+1)}=D^{-1}\left(\mathbf{b}-(L+U) \mathbf{x}^{(n)}\right)
+\end{align*}
+\item Gauss-Seidel Iteration
+\begin{align*}
+\mathbf{x}^{(n+1)}=(L+D)^{-1}\left(\mathbf{b}-U \mathbf{x}^{(n)}\right)
+\end{align*}
+\item Richardson Iteration (with $\lambda < 1$):
+\begin{align*}
+x^{(n+1)}=x^{(n)}+\lambda \left(b-A x^{(n)}\right)
+\end{align*}
+\end{itemize}
+\end{frame}
+
+
+
+
+
 \section{Root Finding} 
 
 \begin{frame}{Newton's Method for Root Finding}
@@ -100,6 +141,7 @@ How many iterations do we need? This is a tough question to answer.
 \item $d=2$ (Newton's Method) \alert{quadratic convergence}  (we need $f'(x)$)
 \item $d=3$ (Halley's Method) \alert{cubic convergence} (but we need $f''(x)$)
 \end{itemize}
+\item Many implementations will benefit from damping at some rate $\lambda <1$. $x_1 = x_0-\lambda \frac{f(x_0)}{f'(x_0)} $ so that $\lambda=1$ is a \alert{full Newton step}.
 \end{itemize}
 \end{frame}
 
@@ -338,20 +380,14 @@ Instead of solving $F(\mathbf{x})=0$, we could recast the problem as a least squ
 \begin{itemize}
 \item Ex: \alert{Levenberg-Marquardt}
 \item This works surprisingly well (including for overdetermined systems).
+\item It takes a convex combination of \alert{gradient steps} and \alert{Newton steps}.
 \item We will discus more of this when we talk about \alert{nonlinear optimization}.
 \end{itemize}
 \end{frame} 
 
 
+\section{The end}
 
-\section{Linear Systems}
-\begin{frame}{Linear Systems}
-Many problems of the form: $A \mathbf{x} = b$.
-\begin{itemize}
-\item In general these are much easier to solve
-\end{itemize}
-
-\end{frame}
 
 
 
