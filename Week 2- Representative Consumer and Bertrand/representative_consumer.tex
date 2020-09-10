@@ -11,12 +11,12 @@
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{relsize}
-\usepackage[absolute,overlay]{textpos} 
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+\usepackage[absolute,overlay]{textpos}
+\newenvironment{reference}[2]{%
+  \begin{textblock*}{\textwidth}(#1,#2)
+      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}}
 
-\DeclareMathSizes{10}{10}{6}{6} 
+\DeclareMathSizes{10}{10}{6}{6}
 
 
 \title{Representative Consumer Models}
@@ -30,7 +30,7 @@
 \begin{frame}{A Benchmark}
 Let's start with the following as a benchmark:
 \begin{itemize}
-\item A \alert{representative agent} demand system. 
+\item A \alert{representative agent} demand system.
 \item The consumer chooses an \alert{expenditure} level for each good and consumes at least a little of all goods.
 \item Which desirable properties?:
 \begin{itemize}
@@ -120,7 +120,7 @@ Recall our desirable properties:
 \item Would satisfy axioms of consumer theory (WARP, Slutsky Symmetry, etc.).
 \item Key ideas: \alert{separable preferences} and \alert{multi-stage budgeting}.
 \begin{itemize}
-\item Allocating expenditures within a group: Index can be calculated without knowing what you choose within the group. 
+\item Allocating expenditures within a group: Index can be calculated without knowing what you choose within the group.
 \item Other products respond only to the \textit{index price} not to individual prices!
 \end{itemize}
 \end{itemize}
@@ -140,14 +140,14 @@ Here is the form of the expenditure function:
 \end{eqnarray*}
 \begin{itemize}
 \item Estimate $(\alpha_i, \beta_i, \gamma_{ij}^*)$ from data.
-\item We usually require $\sum_i \alpha_i =1$, $\sum_k \gamma_{jk}^* = \sum_j  \beta_j = 0$ so that demand is linearly homogenous in $\mathbf{p}$. 
+\item We usually require $\sum_i \alpha_i =1$, $\sum_k \gamma_{jk}^* = \sum_j  \beta_j = 0$ so that demand is linearly homogenous in $\mathbf{p}$.
 \item Also often impose that $\gamma_{jk}^* = \gamma_{kj}^*$.
 \begin{itemize}
 \item Sometimes we impose this \textit{ex-ante}, other times we test for it \textit{ex post}.
 \end{itemize}
 \item We can also see that we have at least one parameter for each of the first two own and cross price derivatives of $e(\cdot)$.
 \end{itemize}
-\end{frame} 
+\end{frame}
 
 \begin{frame}
 \frametitle{Almost Ideal Demand System: Deaton \& Muellbauer (1980)}
@@ -166,7 +166,7 @@ w_i &=&\alpha_i + \sum_j \gamma_{ij} \log p_j + \beta_i u \beta_0 \prod_k p_k^{\
 \log P &=& \sum_k w_k \log p_k
 \end{eqnarray*}
 \end{itemize}
-\end{frame} 
+\end{frame}
 
 \begin{frame}
 \frametitle{Notes on AIDS}
@@ -184,7 +184,7 @@ w_i &=&\alpha_i + \sum_j \gamma_{ij} \log p_j + \beta_i u \beta_0 \prod_k p_k^{\
 \item Massive data requirements: $J=45$ in a vending machine means we need over 2000 observations.
 \end{itemize}
 \end{itemize}
-\end{frame} 
+\end{frame}
 
 \begin{frame}
 \frametitle{Beer Example: Hausman, Leonard, Zona (1994)}
@@ -209,7 +209,7 @@ Three stages:
 \log e_t = \beta_0 + \beta_1 \underbrace{\log y_t}_{\text{income}} + \beta_2 \underbrace{\log P_b}_{\text{ beer price idx}} + Z_t \delta + \varepsilon_3
 \end{eqnarray*}
 \end{enumerate}
-\end{frame} 
+\end{frame}
 
 \begin{frame}
 \frametitle{Identification: Hausman, et.al (1994)}
@@ -221,7 +221,7 @@ Three stages:
 \begin{eqnarray*}
 \log p_{jnt} = \delta_j \log c_{jt} + \alpha_{jn} + \omega_{jnt}
 \end{eqnarray*}
-\item Instruments tend to be \alert{strong} but \alert{relevance} can be questionable.
+\item Instruments tend to be \alert{strong} but \alert{exclusion} can be questionable.
 \item Key is that $\omega_{jnt}$ are independent of each other (is this believable?).
 \begin{itemize}
 \item People mostly complain about national ad campaigns (this is beer after all!)
@@ -229,7 +229,7 @@ Three stages:
 \item What about other instruments? (Input prices, taxes, etc.).
 \item Specification Test: brand price in other segments should not have an effect controlling for the price index of other segments.
 \end{itemize}
-\end{frame} 
+\end{frame}
 
 
 \begin{frame}
@@ -237,28 +237,28 @@ Three stages:
 \begin{center}
 \includegraphics[width=3in]{resources/beer1.png}
 \end{center}
-\end{frame} 
+\end{frame}
 
 \begin{frame}
 \frametitle{Hausman, et.al (1994)}
 \begin{center}
 \includegraphics[width=3in]{resources/beer2.png}
 \end{center}
-\end{frame} 
+\end{frame}
 
 \begin{frame}
 \frametitle{Hausman, et.al (1994)}
 \begin{center}
 \includegraphics[width=3in]{resources/beer3.png}
 \end{center}
-\end{frame} 
+\end{frame}
 
 \begin{frame}
 \frametitle{Hausman, et.al (1994)}
 \begin{center}
 \includegraphics[width=2.5in]{resources/beer5.png}
 \end{center}
-\end{frame} 
+\end{frame}
 
 \begin{frame}
 \frametitle{Hausman, et.al (1994): Results}
@@ -273,19 +273,19 @@ Three stages:
 \item  Merger of Coors and Labatt's: Coors Markup 19.9\% $\rightarrow$ 23.2\% (small).
 \item Claim is that presence of other competitors constraints potential to raise prices. How? Why?
 \end{itemize}
-\end{frame} 
+\end{frame}
 
 \begin{frame}
 \frametitle{Other AIDS examples}
  Hausman (1997) aka \textit{The Apple Cinnamon Cheerios War}.
 \begin{itemize}
 \item What is the value of a new good? How should we adjust CPI?
-\item Potentially HUGE issue. Why? 
+\item Potentially HUGE issue. Why?
 \item Weekly cereal data.. 7 cities, 137 weeks. Three segments (adults, kids, family) with max 9 brands.
 \item Calculate $e(p_{-n},p_n^*,u) / e(\mathbf{p},u)$. Find a \alert{virtual price} $p^{*}$ (or choke price) that leaves consumers as well off as a world without Apple-Cinnamon Cheerios.
 \item Virtual price is about $2 \times$ actual price. CPI may be overstated by as much as 25\% for all cereal brands (tons of new products).
 \end{itemize}
-\end{frame} 
+\end{frame}
 
 \begin{frame}
 \frametitle{Other AIDS examples}
@@ -296,7 +296,7 @@ Three stages:
 \item Monthly sales data (SKU level) for 4 regions in India (Market Research firm).
 \item What would prices and quantities look like if intellectual property rights were enforced and unlicensed producers were shut down?
 \end{itemize}
-\end{frame} 
+\end{frame}
 
 \begin{frame}
 \frametitle{Chaudhuri, Goldberg, Jia (AER 2006)}
@@ -317,7 +317,7 @@ Results
 \item Calculate the \alert{virtual price} or ``choke price'' that makes expenditures zero on unlicensed products.
 \item Get changes in consumer surplus (integrated demand curve) and producer profits without unlicensed firms.
 \end{itemize}
-\end{frame} 
+\end{frame}
 
 
 \end{document}
