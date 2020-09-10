@@ -30,7 +30,7 @@
 \newcommand{\fp}{\frame[plain]}
 
 
-\title{Bonus Lecture: Solving Systems of Equations}
+\title{Bonus Lecture: Nonlinear Optimization}
 \author{Chris Conlon  }
 \institute{Grad IO}
 \date{\today }
@@ -50,151 +50,8 @@ Often we are interested in solving a problem like this:
 These problems are related because we find the minimum by setting: $f'(x)=0$
 \end{frame}
 
-\section{Root Finding} 
 
-\begin{frame}{Newton's Method for Root Finding}
-Consider the Taylor series for $f(x)$ approximated around $f(x_0)$:
-\begin{align*}
-f(x) \approx f(x_0) + f'(x_0) \cdot (x-x_0) + f''(x_0) \cdot (x-x_0)^2 + o_p(3)
-\end{align*}
-Suppose we wanted to find a \alert{root} of the equation where $f(x^{*})=0$ and solve for $x$:
-\begin{align*}
-0 &= f(x_0) + f'(x_0) \cdot (x-x_0) \\
-x_1 &= x_0-\frac{f(x_0)}{f'(x_0)} 
-\end{align*}
-This gives us an \alert{iterative} scheme to find $x^{*}$:
-\begin{enumerate}
-\item Start with some $x_k$. Calculate $f(x_k),f'(x_k)$
-\item Update using $x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)} $
-\item Stop when $|x_{k+1}-x_{k}| < \epsilon_{tol}$.
-\end{enumerate}
-\end{frame}
-
-\begin{frame}{Halley's Method for Root Finding}
-Consider the Taylor series for $f(x)$ approximated around $f(x_0)$:
-\begin{align*}
-f(x) \approx f(x_0) + f'(x_0) \cdot (x-x_0) + f''(x_0) \cdot (x-x_0)^2 + o_p(3)
-\end{align*}
-Now let's consider the second-order approximation:
-\begin{align*}
-x_{n+1}
-&=x_{n}-\frac{2 f\left(x_{n}\right) f^{\prime}\left(x_{n}\right)}{2\left[f^{\prime}\left(x_{n}\right)\right]^{2}-f\left(x_{n}\right) f^{\prime \prime}\left(x_{n}\right)}
-=x_{n}-\frac{f\left(x_{n}\right)}{f^{\prime}\left(x_{n}\right)-\frac{f\left(x_{n}\right)}{f^{\prime}\left(x_{n}\right)} \frac{f^{\prime \prime}\left(x_{n}\right)}{2}}\\
-&=x_{n}-\frac{f\left(x_{n}\right)}{f^{\prime}\left(x_{n}\right)}\left[1-\frac{f\left(x_{n}\right)}{f^{\prime}\left(x_{n}\right)} \cdot \frac{f^{\prime \prime}\left(x_{n}\right)}{2 f^{\prime}\left(x_{n}\right)}\right]^{-1}
-\end{align*}
-\vspace{-.4cm}
-\begin{itemize}
-\item Last equation is useful because we only need to know $f(x_n)/f'(x_n)$ and $f''(x_n)/f'(x_n)$
-\item If we are lucky $f''(x_n)/f'(x_n)$ is easy to compute or $\approx 0$ (Newton's method).
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Root Finding: Convergence}
-How many iterations do we need? This is a tough question to answer.
-\begin{itemize}
-\item However we can consider convergence where $f(a) =0$:
-\begin{align*}
-\left|x_{n+1}-a\right| \leq K_d *\left|x_{n}-a\right|^{d}
-\end{align*}
-\begin{itemize}
-\item $d=2$ (Newton's Method) \alert{quadratic convergence}  (we need $f'(x)$)
-\item $d=3$ (Halley's Method) \alert{cubic convergence} (but we need $f''(x)$)
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Root Finding: Fixed Points}
-Some (not all) equations can be written as $f(x) = x$ or $g(x)=0: f(x)-x =0$.
-\begin{itemize}
-\item In this case we can iterate on the \alert{fixed point} directly
-\begin{align*}
-x_{n+1} = f(x_n)
-\end{align*}
-\item Advantage: we only need to calculate $f(x)$.
-\item There need not be a unique solution to $f(x) = x$.
-\item But... this may or may not actually work.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Contraction Mapping Theorem/ Banach Fixed Point}
-\small
-Consider a set $D \subset \mathbb{R}^{n}$ and a function $f: D \rightarrow \mathbb{R}^{n} .$ Assume
-\begin{enumerate}
-\item $D$ is closed (i.e., it contains all limit points of sequences in $D$ )
-\item $x \in D \Longrightarrow f(x) \in D$
-\item The mapping $g$ is a contraction on $D:$ There exists $q<1$ such that
-\begin{align*}
-\forall x, y \in D: \quad\|f(x)-f(y)\| \leq q\|x-y\|
-\end{align*}
-\noindent Then \vspace{-.3cm}
-\end{enumerate}
-\begin{enumerate}
-\item There exists a unique  $x^{*} \in D$ with $f\left(x^{*}\right)=x^{*}$
-\item For any $x^{(0)} \in D$ the fixed point iterates given by $x^{(k+1)}:=f\left(x^{(k)}\right)$ converge to $x^{*}$ as $k \rightarrow \infty$
-\item $x^{(k)}$ satisfies the \alert{a-priori error} estimate $\left\|x^{(k)}-x^{*}\right\| \leq \frac{q^{k}}{1-q}\left\|x^{(1)}-x^{(0)}\right\|$
-\item $x^{(k)}$ satisfies the \alert{a-posteriori error} estimate $\left\|x^{(k)}-x^{*}\right\| \leq \frac{q}{1-q}\left\|x^{(k)}-x^{(k-1)}\right\|$
-\end{enumerate}
-\end{frame}
-
-
-
-\begin{frame}{Some notes}
-\begin{itemize}
-\item Not every fixed point relationship is a contraction.
-\item Iterating on $x_{n+1} = f(x_n)$ will not always lead to $f(x) = x$ or $g(x) =0$.
-\item Convergence rate of fixed point iteration is \alert{slow} or $q-$linear.
-\item When $q$ is small this will be faster.
-\item $q$ is sometimes called \alert{modulus} of contraction mapping.
-\item A key example of a contraction: \alert{value function iteration}!
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Accelerated Fixed Points: Secant Method}
-Start with Newton's method and use the finite difference approximation
-\begin{align*}
-f^{\prime}\left(x_{n-1}\right)  &\approx \frac{f\left(x_{n-1}\right)-f\left(x_{n-2}\right)}{x_{n-1}-x_{n-2}} \\
-x_{n}&=x_{n-1}-f\left(x_{n-1}\right) \frac{x_{n-1}-x_{n-2}}{f\left(x_{n-1}\right)-f\left(x_{n-2}\right)}
-\end{align*}
-\begin{itemize}
-\item This doesn't have the actual $f'(x_n)$ so it isn't quadratically convergent
-\item Instead is is superlinear with rate $q = \frac{1 + \sqrt{5}}{2}=1.618 < 2$ (Golden Ratio)
-\item Faster than fixed-point iteration but doesn't require computing $f'(x_n)$.
-\item Idea: can use past iterations to approximate derivatives and accelerate fixed points.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Accelerated Fixed Points: Anderson (1965) Mixing}
-Define the residual $r(x_n) = f(x_n) - x_n$. Find weights on previous $k$ residuals:
-\begin{align*}
-\widehat{\alpha^{n}} &= \arg \min_{\alpha} \left\|\sum_{k=0}^{m} \alpha_{k}^{n} \cdot r_{n-k}\right\| \text { subject to } \sum_{k=0}^{m} \alpha_{k}^{n}=1\\
-x_{n+1}&=\left(1-\lambda\right) \sum_{j=0}^{m} \widehat{\alpha_{k}^{n}}\cdot x_{n-k}+\lambda \sum_{j=0}^{m}\widehat{\alpha_{k}^{n}}\cdot f\left(x_{n-k}\right)
-\end{align*}
-\begin{itemize}
-\item Convex combination of weighted average of: lagged $x_{n-k}$ and lagged $f(x_{n-k})$.
-\item Variants on this are known as \alert{Anderson Mixing} or \alert{Anderson Acceleration}.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Accelerated Fixed Points: SQUAREM (Varadhan and Roland 2008)}
-Define the residual $r(x_n) = f(x_n) - x_n$ and $v(x_n)=f \circ f \left(x_{n}\right)-f\left(x_{n}\right)$.
-\begin{align*}
-x_{n+1}=& x_{n}&-&2 s\left[f\left(x_{n}\right)-x_{n}\right] &+&s^{2}\left[f \circ f\left(x_{n}\right)-2 f\left(x_{n}\right)+x_{n}\right] \\
-=& x_{n}&-&2 s r &+&s^{2}(v-r)
-\end{align*}
-Three versions of stepsize:
-\begin{align*}
-s_1 =\frac{r^{t} r}{r^{t}(v-r)}, \quad
-s_2 =\frac{r^{t}(v-r)}{(v-r)^{t}(v-r)}, \quad
-s_3 =-\sqrt{\frac{r^{t} r}{(v-r)^{t}(v-r)}}
-\end{align*}
-Idea: use two iterations to construct something more like the quadratic/Halley method.\\
-\alert{Note: I am hand-waving, don't try to derive this.}
-\end{frame}
-
-
-
-
-
+\section{Nonlinear Optimization}
 
 \begin{frame}{Newton-Raphson for Minimization}
 We can re-write \alert{optimization} as \alert{root finding};
@@ -257,79 +114,7 @@ A _ { k }
 \end{itemize}
 \end{frame}
 
-\section{Extended Example: Binary Choice}
-\begin{frame}
-\frametitle{Binary Choice: Overview}
-Many problems we are interested in look at discrete rather than continuous outcomes:
-\begin{itemize}
-\item Entering a Market/Opening a Store
-\item Working or a not
-\item Being married or not
-\item Exporting to another country or not
-\item Going to college or not
-\item Smoking or not
-\item etc.
-\end{itemize}
-\end{frame}
 
-\begin{frame}
-\frametitle{Simplest Example: Flipping a Coin}
-Suppose we flip a coin which is yields heads ($Y=1$) and tails ($Y=0$). We want to estimate the probability $p$ of heads:
-\begin{eqnarray*}
-Y_i =
-\begin{cases}
-1 \mbox{ with probability } p \\
-0 \mbox{ with probability } 1-p
-\end{cases}
-\end{eqnarray*}
-We see some data $Y_1,\ldots,Y_N$ which are (i.i.d.)\\
-\vspace{0.2cm}
-We know that $Y_i \sim Bernoulli(p)$.
-\end{frame}
-
-
-\begin{frame}{Simplest Example: Flipping a Coin}
-We can write the likelihood of $N$ Bernoulli trials as 
-$$Pr(Y_1 = y_1, Y_2=y_2,\ldots,Y _N=y_N )  =  f(y_1,y_2,\ldots,y_N | p ) $$
-\begin{eqnarray*}
-&=& \prod_{i=1}^N p^{y_i} (1-p)^{1-y_i}\\
-&=& p^{\sum_{i=1}^N y_i} (1-p)^{N-\sum{i=1}^N y_i}
-\end{eqnarray*}
-And then take logs to get the \alert{log likelihood}:
-\begin{eqnarray*}
-\ln  f(y_1,y_2,\ldots,y_N | p )  &=& \left( \sum_{i=1}^N y_i \right)  \ln p  + \left(N-\sum_{i=1}^N y_i \right)  (1-p)
-\end{eqnarray*}
-\end{frame}
-
-\begin{frame}{Simplest Example: Flipping a Coin}
-Differentiate the log-likelihood to find the maximum:
-\begin{eqnarray*}
-\ln  f(y_1,y_2,\ldots,y_N | p )  &=& \left( \sum_{i=1}^N y_i \right)  \ln p  + \left(N-\sum_{i=1}^N y_i \right)  \ln(1-p)\\
-\rightarrow 0&=& \frac{1}{\hat{p}}  \left( \sum_{i=1}^N y_i \right) + \frac{-1}{1-\hat{p}}   \left(N-\sum_{i=1}^N y_i \right) \\
- \frac{\hat{p}}{1-\hat{p}} &=& \frac{\sum_{i=1}^N y_i }{N- \sum_{i=1}^N y_i } = \frac{\overline{Y}}{1-\overline{Y}} \\
-\hat{p}^{MLE} &=& \overline{Y}
-\end{eqnarray*}
-That was a lot of work to get the obvious answer: \alert{fraction of heads}.
-\end{frame}
-
-\begin{frame}{More Complicated Example: Adding Covariates}
-We probably are interested in more complicated cases where $p$ is not the same for all observations but rather $p(X)$ depends on some covariates. Here is an example from the Boston HMDA Dataset:
-\begin{itemize}
-\item 2380 observations from 1990 in the greater Boston area.
-\item Data on: individual Characteristics, Property Characteristics, Loan Denial/Acceptance (1/0).
-\item Mortgage Application process circa 1990-1991:
-\begin{itemize}
-\item Go to bank
-\item Fill out an application (personal+financial info)
-\item Meet with loan officer
-\item Loan officer makes decision
-\begin{itemize}
-\item Legally in race blind way (discrimination is illegal but rampant)
-\item Wants to maximize profits (ie: loan to people who don't end up defeaulting!)
-\end{itemize}
-\end{itemize}
-\end{itemize}
-\end{frame}
 
 \end{document}
 

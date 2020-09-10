@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}
+\usepackage{amsmath}
 
 \addtolength{\topmargin}{-1in}
 \textwidth = 7.0 in
@@ -8,10 +9,10 @@
 
 \begin{document}
 
-\title{Empirical IO, Problem Set 1: \\
+\title{Empirical IO, Problem Set 2: \\
 Analytic Results}
 \author{Chris Conlon}
-\date{Due Date: Monday, October 1, 2019}
+\date{Due Date: Friday, October 2, 2020}
 \maketitle
 
 \section*{\normalsize Part I}
@@ -75,11 +76,24 @@ We assume that $\epsilon_{ij}$ is distributed GEV with some nesting parameter $\
 \noindent 14) What does this tell us about what is important to observe in order to measure the welfare impact of new product variety?
 
 
+\section*{\normalsize Part III}
+People often claim that in order to understand welfare in the mixed logit model, we only need to look at the share out of the outside good. Show me why this is (almost) true and how it relates to the wilingness-to-pay (WTP) measure of:
+
+\begin{quote}
+Town, Robert and Gregory Vistnes, ``Hospital competition in HMO networks,'' Journal of
+Health Economics, 2001, 20 (5), 733-753.\\
+
+Capps, Cory, David Dranove, and Mark Satterthwaite, ``Competition and Market Power in Option Demand Markets,'' 
+RAND Journal of Economics, September 2003, 34 (4), 737-763
+\end{quote}
+
+\begin{align*}
+WTP_i(j) = E[ \max_{k \in \mathcal{J}} u_{ij}] - E[ \max_{k \in \mathcal{J} \setminus j} u_{ik}]
+\end{align*}
 
 
-
-\section*{\normalsize Part III: Option A}
-\textit{This part is optional. Either you learned these tools in first year micro or it is probably not worth attempting}.\\
+\section*{\normalsize Part IV}
+\textit{This part is optional. If you are not an economics student, you can skip this part (probably because you didn't cover the envelope theorem in first year)}.\\
 
 
 
@@ -112,8 +126,6 @@ To make life easier assume that $\frac{\partial v_{ij}}{\partial p_{pij}}=1$ for
 
 \noindent 4) What does this tell us about the welfare effects of taxation in this model? What would we want to observe in the data? What is the most important feature of our model?
 
-\section*{\normalsize Part III: Option B}
-People often claim that in order to understand welfare in the mixed logit model, we only need to look at the share out of the outside good. Show me why this is (almost) true.
 
 
 \end{document} 
