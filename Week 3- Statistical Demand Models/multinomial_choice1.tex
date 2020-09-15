@@ -2,7 +2,7 @@
 \usetheme{default}
 \usetheme{metropolis}
 \usepackage{mathtools}
-\setbeamersize{text margin left=.3in,text margin right=.3in} 
+\setbeamersize{text margin left=.3in,text margin right=.3in}
 
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
@@ -15,14 +15,14 @@
 \usepackage[T1]{fontenc}
 \usepackage{relsize}
 \usepackage{pdfpages}
-\usepackage[absolute,overlay]{textpos} 
+\usepackage[absolute,overlay]{textpos}
 
 
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+\newenvironment{reference}[2]{%
+  \begin{textblock*}{\textwidth}(#1,#2)
+      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}}
 
-\DeclareMathSizes{10}{10}{6}{6} 
+\DeclareMathSizes{10}{10}{6}{6}
 
 \begin{document}
 \title{Multinomial Discrete Choice: IIA Logit}
@@ -82,7 +82,7 @@ s_{ij} &=& Prob( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \fora
 \frametitle{Nonparametric Setup}
 In order to compute the choice probabilities, we must perform a $J$ dimensional integral over $f(\varepsilon_i)$.
 \begin{eqnarray*}
-s_{ij} &=&  \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f( \varepsilon_i) \partial \varepsilon_i 
+s_{ij} &=&  \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f( \varepsilon_i) \partial \varepsilon_i
 \end{eqnarray*}
 There are some choices that make our life easier
 \begin{itemize}
@@ -239,7 +239,7 @@ What is actually identified here?
 \begin{itemize}
 \item Helpful to look at the ratio of two choice probabilities
 \begin{align*}
-\log \frac{s_{ij}(\theta)}{s_{ik}(\theta)}  = \frac{e^{V_ij}}{e^{V_{ik}}} = e^{V_{ij} - V_{ik}}
+\frac{s_{ij}(\theta)}{s_{ik}(\theta)}  = \frac{e^{V_ij}}{e^{V_{ik}}} = e^{V_{ij} - V_{ik}}
 \end{align*}
 \item We only identify the \alert{difference in indirect utilities} not the levels.
 \item The ratio of choice probabilities for $j$ and $k$ depends only on $j$ and $k$ and not on any alternative $l$, this is known as \alert{independence of irrelevant alternatives}.
@@ -252,10 +252,10 @@ What is actually identified here?
 \frametitle{Multinomial Logit: Identification}
 As another idea suppose we add a constant $C$ to each $\beta_j$.
 \begin{eqnarray*}
-s_{ij} = \frac{\exp[\mathbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\mathbf{x_i} (\beta_k+C) ]} =  \frac{\exp[\mathbf{x_i} C] \exp[\mathbf{x_i} \beta_j ]}{\exp[\mathbf{x_i} C] \sum_k \exp[\mathbf{x_i} \beta_k ]} 
+s_{ij} = \frac{\exp[\mathbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\mathbf{x_i} (\beta_k+C) ]} =  \frac{\exp[\mathbf{x_i} C] \exp[\mathbf{x_i} \beta_j ]}{\exp[\mathbf{x_i} C] \sum_k \exp[\mathbf{x_i} \beta_k ]}
 \end{eqnarray*}
 This has no effect.  That means we need to fix a normalization $C$.\\
- The most convenient is generally that $C = - \beta_K$. 
+ The most convenient is generally that $C = - \beta_K$.
 \begin{itemize}
 \item We normalize one of the choices to provide a utility of zero.
 \item We actually already made another normalization. Does anyone know which?
@@ -267,7 +267,7 @@ This has no effect.  That means we need to fix a normalization $C$.\\
 \frametitle{Multinomial Logit: Identification}
 The most sensible normalization in demand settings is to allow for an \alert{outside option} which produces no utility in expectation so that $e^{V_{i0}} = e^{0}=1$:
 \begin{eqnarray*}
-s_{ij} = \frac{e^{V_{ij} }}{1+\sum_k e^{V_{ik} }} 
+s_{ij} = \frac{e^{V_{ij} }}{1+\sum_k e^{V_{ik} }}
 \end{eqnarray*}
 \begin{itemize}
 \item Hopefully the choice of outside option is well defined: not buying a yogurt, buying some other used car, etc.
@@ -283,7 +283,7 @@ s_{ij} = \frac{e^{V_{ij} }}{1+\sum_k e^{V_{ik} }}
 \begin{eqnarray*}
 s_{ij} = \frac{e^{V_{ij}/\sigma}}{\sum_k e^{V_{ik}/\sigma}} \approx \frac{e^{\beta^{*}/\sigma \cdot x_{ij}}}{\sum_k e^{\beta^{*}/\sigma \cdot x_{ik}}}
 \end{eqnarray*}
-\item Every coefficient $\beta$ is rescaled by $\sigma$. This implies that only the ratio $\beta^{*}/\sigma$ is identified. 
+\item Every coefficient $\beta$ is rescaled by $\sigma$. This implies that only the ratio $\beta^{*}/\sigma$ is identified.
 \item Coefficients are relative to variance of unobserved factors. More unobserved variance $\longrightarrow$ smaller $\beta$.
 \item Ratio $\beta_1/\beta_2$ is invariant to the scale parameter $\sigma$. (\alert{marginal rate of substitution}).
 \end{itemize}
@@ -365,7 +365,7 @@ Cross elasticity doesn't really depend on $j$.
 \begin{frame}{Diversion Ratios}
 Recall the diversion ratio:
 \begin{align*}
-D_{jk} =\frac{\frac{\partial s_{ik}}{\partial p_{ij}}}{\left |\frac{\partial s_{ij}}{\partial p_{ij}} \right|} = \frac{- \beta_p s_{ik} s_{ij}}{\beta_p s_{ij} (1-s_{ij})} = \frac{s_{ik}}{1-s_{ij}} 
+D_{jk} =\frac{\frac{\partial s_{ik}}{\partial p_{ij}}}{\left |\frac{\partial s_{ij}}{\partial p_{ij}} \right|} = \frac{- \beta_p s_{ik} s_{ij}}{\beta_p s_{ij} (1-s_{ij})} = \frac{s_{ik}}{1-s_{ij}}
 \end{align*}
 \begin{itemize}
 \item Again proportional substitution. As price of $j$ goes up we proportionally inflate choice probabilities of substitutes.
@@ -382,7 +382,7 @@ D_{jk} =\frac{\frac{\partial s_{ik}}{\partial p_{ij}}}{\left |\frac{\partial s_{
 %\begin{frame}{Taste Variation}
 %\begin{itemize}
 %\item Logit allows for taste variation across individuals if two conditions are met: \alert{individual level data} and \alert{interact observed characteristics} only.
-%\item We often want to allow for something like $U_{ij} = x_{j} \beta_i - \alpha_i p_j + \varepsilon_{ij}$. 
+%\item We often want to allow for something like $U_{ij} = x_{j} \beta_i - \alpha_i p_j + \varepsilon_{ij}$.
 %\item We might want $\beta_i = \theta / y_i$ where $y_i$ is the income for individual $i$ or $\beta_i = \theta y_i$, etc.
 %\item Can also have $z_{ij}$ such as the distance between $i$ and hospital $j$.
 %\item Cannot have unobserved heterogeneity or heteroskedasticity in $\varepsilon_{ij}$.
