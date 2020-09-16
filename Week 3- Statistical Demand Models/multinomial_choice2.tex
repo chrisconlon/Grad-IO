@@ -2,7 +2,7 @@
 \usetheme{default}
 \usetheme{metropolis}
 \usepackage{mathtools}
-\setbeamersize{text margin left=.3in,text margin right=.3in} 
+\setbeamersize{text margin left=.3in,text margin right=.3in}
 
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
@@ -15,14 +15,14 @@
 \usepackage[T1]{fontenc}
 \usepackage{relsize}
 \usepackage{pdfpages}
-\usepackage[absolute,overlay]{textpos} 
+\usepackage[absolute,overlay]{textpos}
 
 
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+\newenvironment{reference}[2]{%
+  \begin{textblock*}{\textwidth}(#1,#2)
+      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}}
 
-\DeclareMathSizes{10}{10}{6}{6} 
+\DeclareMathSizes{10}{10}{6}{6}
 
 \begin{document}
 \title{Multinomial Discrete Choice: Nested Logit and GEV}
@@ -75,7 +75,7 @@ u_{ij} =   V_{ij}  + \varepsilon_{ij}
 \item One approach is to allow for a block structure on $\varepsilon_{ij}$ (and consequently on the elasticities).
 \item We assign products into groups $g$ and add a group specific error term
 \begin{eqnarray*}
-u_{ij} =V_{ij}  + \eta_{g} + \varepsilon_{ij}
+u_{ij} =V_{ij}  + \eta_{ig} + \varepsilon_{ij}
 \end{eqnarray*}
 \item The trick putting a distribution on $\eta_{ig} + \varepsilon_{ij}$ so that the integrals still work out.
 \item Do not try this at home: it turns out the required distribution is a special case of \alert{GEV} (more on this later) and the resulting model is known as the \alert{nested logit}.
@@ -118,7 +118,7 @@ The nested logit choice probabilities are:
 \begin{eqnarray*}
 s_{ij} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g -1}}{\sum_{h=1}^G \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h}}
 \end{eqnarray*}
-Within the same group $g$ we have IIA and proportional substitution 
+Within the same group $g$ we have IIA and proportional substitution
 \begin{eqnarray*}
 \frac{s_{ij}}{s_{ik}} = \frac{ e^{V_{ij}/\lambda_g}}{ e^{V_{ik}/\lambda_g}}
 \end{eqnarray*}
@@ -131,7 +131,7 @@ But for different groups we do not:
 
 
 \begin{frame}{Nested Logit}
-We can take the probabilities and re-write them slightly with the substitution that 
+We can take the probabilities and re-write them slightly with the substitution that
 $\log \left(\sum_{k \in J_g} e^{V_{ik}} \right)\equiv IV_{ig}=E_{\varepsilon}[\max_{j \in G} u_{ij}]$:
 \begin{eqnarray*}
 s_{ij} &=& \frac{ e^{V_{ij}/\lambda_g}}{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)}
