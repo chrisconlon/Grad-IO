@@ -5,11 +5,11 @@
 \providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
 \begin{document}
 
-\title{Empirical IO I: Problem Set 0 (Python Users)} 
+\title{Empirical IO I: Problem Set 0} 
 \author{Chris Conlon}
-\date{Due: Sept 24, 2019}
+\date{Due: Sept 18, 2020}
 \maketitle
-This problem set is designed to make sure that your $\mathtt{numpy}$ skills are up to speed. For each question, the expectation is that you complete the task, provide the appropriate code, and fully read the documentation, and work the $\mathtt{numpy}$ provided examples on your own.  The tasks should be fairly easy.  The goal is to accomplish the tasks in the most straightforward manner with the least amount of code.  
+This problem set is designed to make sure that your $\mathtt{numpy}$ or \texttt{R} skills are up to speed. For each question, the expectation is that you complete the task, provide the appropriate code, and fully read the documentation, and work the $\mathtt{numpy}$ provided examples on your own.  The tasks should be fairly easy.  The goal is to accomplish the tasks in the most straightforward manner with the least amount of code.  
 
 If you are new to $\mathtt{numpy}$ I suggest the following tutorials:
 \begin{itemize}
@@ -18,9 +18,9 @@ If you are new to $\mathtt{numpy}$ I suggest the following tutorials:
 \end{itemize}
 
 \section*{Part 0: Logit Inclusive Value}
-The logit inclusive value or $IV = \log \sum_{i=1}^N \exp[x_i]$.
+The logit inclusive value or $IV = \log \sum_{i=0}^N \exp[x_i]$.
 \begin{enumerate}
-\item Show that the this function is everywhere concave.
+\item Show that the this function is everywhere convex if $x_0=0$.
 \item A common problem in practice is that if one of the $x_i > 600$ that we have an ``overflow'' error on a computer. In this case $\exp[600] \approx 10^{260}$ which is too large to store with any real precision, especially if another $x$ has a different scale (say $x_2=10$). A common ``trick'' is to subtract off $m_i = \max_i x_i$ from all $x_i$.  Show how to implement the trick and get the correct value of $IV$. If you get stuck take a look at Wikipedia.
 \item Compare your function to $\mathtt{scipy.misc.logsumexp}$. Does it appear to suffer from underflow/overflow? Does it use the $\max$ trick?
 \end{enumerate}
@@ -62,7 +62,7 @@ Fgh=binomiallogitnopdf(x)'*(w./sum(w));
 \end{comment}
 
 \item Integrate the function by taking 20 and 400 Monte Carlo draws from $f$ and computing the sample mean.
-\item Integrate the function using Gauss-Hermite quadrature for $k=4, 12$ (Try some odd ones too). Obtain the quadrature points and nodes from the internet. Gauss-Hermite quadrature assumes a weighting function of $\exp[-x^2]$, you will need a change of variables to integrate over a normal density.[Wikipedia] You also need to pay attention to the constant of integration.
+\item Integrate the function using Gauss-Hermite quadrature for $k=4, 12$ (Try some odd ones too). Obtain the quadrature points and nodes from the internet. Gauss-Hermite quadrature assumes a weighting function of $\exp[-x^2]$, you will need a change of variables to integrate over a normal density.[See my notes] You also need to pay attention to the constant of integration.
 \item Compare results to the Monte Carlo results. \textit{Make sure your quadrature weights sum to 1!}
 \begin{comment}
 \begin{table}[htdp]
@@ -99,27 +99,28 @@ SGI-KPN & 17 & -6.9355e-04\\
 \item Now Construct a new function $\mathtt{binomiallogitmixture}$ that takes a vector for $X$ and returns a vector of binomial probabilities (appropriately integrated over $f(\beta_i | \theta)$ for the 1-D mixture). It should be obvious that Gauss-Hermite is the most efficient way to do this. \textit{Do NOT use loops}
 \end{enumerate}
 
-\section*{Part 3: Functional Approximation}
-What is interpolation? Suppose you have a collection of $n$ points in $R^2$ and $D=\{(x_1,y_1),\ldots,(x_n,y_n)\}$  where $y_i = g(x_i)$, $x_i \neq x_j$  $\forall i \neq j$ and you want to construct a function that closely fits these data points. Interpolation offers a variety of different techniques that perform this task in a more or less smooth manner.\\
-
-
-We are interested in interpolating your $\mathtt{binomiallogitmixture}(x)$ from the previous part at 20 evenly spaced data points $(\mathtt{linspace})$ from $[-4,4]$. (You may want to work with an easier function such as $\mathtt{sin(x)}$ first.\\
-
-We are going to use Chebyshev regression to construct a degree $n$ polynomial that approximates a function $f$ for $x \in [a,b]$ using $m > n $ points. The implementation requires the following steps, which you should include in your function $\mathtt{chebfit(fname,a,b,n)}$.
-\begin{enumerate}
-\item Compute the $m$ Chebyshev interpolation nodes on $[-1,1]$, $z_k = - \cos\left(\frac{2k-1}{2m} \pi \right)$ for $k=1,\ldots, m$.
-\item Adjust the nodes to the $[a,b]$ interval $x_k = (1+z_k) \left(\frac{b-a}{2} \right) + a$, for $k=1,\ldots,m$.
-\item Evaluate the function $f$ at the approximation nodes $y_k = f(x_k)$  for $k=1,\ldots,m$
-\item Compute the Chebyshev polynomial coefficients via $a_i = \frac{\sum_{k=1}^m y_k T_i(z_k)}{\sum_{k=1}^m  T_i(z_k)^2}$ where the polynomials\\ $T_0(x) = 1, T_1(x) = x, T_{i+1}(x) = 2xT_i(x) - T_{i-1}(x)$. 
-\item Your function should return the nodes $z_k$ and the coefficients $c$.
-\item Write a new function that takes the coefficients $c$ and computes a (vectorized) approximation to your function
-\begin{eqnarray*}
-\hat{f}(x) = \sum_{i=0}^n a_i T_i \left( 2 \frac{x-a}{b-a} -1 \right)
-\end{eqnarray*}
-\item Compare your approximation to Python's built-in chebyshev polynomial fitting $\mathtt{numpy.polynomial.chebyshev.chebfit}$ as well as the built in cubic-spline interpolator $\mathtt{scipy.interpolate)}$ and see how it does. (Plot both approximations on $0.01$ spaced grid-points against the actual nodes).
-\item What happens to the approximations outside the domain? What happens as we vary $n$?
-
-\end{enumerate}
+%
+%\section*{Part 3: Functional Approximation}
+%What is interpolation? Suppose you have a collection of $n$ points in $R^2$ and $D=\{(x_1,y_1),\ldots,(x_n,y_n)\}$  where $y_i = g(x_i)$, $x_i \neq x_j$  $\forall i \neq j$ and you want to construct a function that closely fits these data points. Interpolation offers a variety of different techniques that perform this task in a more or less smooth manner.\\
+%
+%
+%We are interested in interpolating your $\mathtt{binomiallogitmixture}(x)$ from the previous part at 20 evenly spaced data points $(\mathtt{linspace})$ from $[-4,4]$. (You may want to work with an easier function such as $\mathtt{sin(x)}$ first.\\
+%
+%We are going to use Chebyshev regression to construct a degree $n$ polynomial that approximates a function $f$ for $x \in [a,b]$ using $m > n $ points. The implementation requires the following steps, which you should include in your function $\mathtt{chebfit(fname,a,b,n)}$.
+%\begin{enumerate}
+%\item Compute the $m$ Chebyshev interpolation nodes on $[-1,1]$, $z_k = - \cos\left(\frac{2k-1}{2m} \pi \right)$ for $k=1,\ldots, m$.
+%\item Adjust the nodes to the $[a,b]$ interval $x_k = (1+z_k) \left(\frac{b-a}{2} \right) + a$, for $k=1,\ldots,m$.
+%\item Evaluate the function $f$ at the approximation nodes $y_k = f(x_k)$  for $k=1,\ldots,m$
+%\item Compute the Chebyshev polynomial coefficients via $a_i = \frac{\sum_{k=1}^m y_k T_i(z_k)}{\sum_{k=1}^m  T_i(z_k)^2}$ where the polynomials\\ $T_0(x) = 1, T_1(x) = x, T_{i+1}(x) = 2xT_i(x) - T_{i-1}(x)$. 
+%\item Your function should return the nodes $z_k$ and the coefficients $c$.
+%\item Write a new function that takes the coefficients $c$ and computes a (vectorized) approximation to your function
+%\begin{eqnarray*}
+%\hat{f}(x) = \sum_{i=0}^n a_i T_i \left( 2 \frac{x-a}{b-a} -1 \right)
+%\end{eqnarray*}
+%\item Compare your approximation to Python's built-in chebyshev polynomial fitting $\mathtt{numpy.polynomial.chebyshev.chebfit}$ as well as the built in cubic-spline interpolator $\mathtt{scipy.interpolate)}$ and see how it does. (Plot both approximations on $0.01$ spaced grid-points against the actual nodes).
+%\item What happens to the approximations outside the domain? What happens as we vary $n$?
+%
+%\end{enumerate}
 
 \end{document}
 

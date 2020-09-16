@@ -1,0 +1,121 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\usetheme{metropolis}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+
+\usepackage[english]{babel}
+%\usepackage[table]{xcolor}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+\usepackage{amsmath,amssymb,setspace,outline}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+\DeclareMathSizes{10}{10}{6}{6} 
+
+
+
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\ol}{\overline}
+%\newcommand{\ul}{\underline}
+\newcommand{\pp}{{\prime \prime}}
+\newcommand{\ppp}{{\prime \prime \prime}}
+\newcommand{\policy}{\gamma}
+
+
+\newcommand{\fp}{\frame[plain]}
+
+
+\title{Bonus Lecture: Nonlinear Optimization}
+\author{Chris Conlon  }
+\institute{Grad IO}
+\date{\today }
+\setbeamerfont{equation}{size=\tiny}
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Basic Setup}
+Often we are interested in solving a problem like this:
+\begin{description}
+\item[Root Finding] $f(x) = 0 $
+\item[Optimization] $\arg \min_x f(x)$.
+\end{description}
+These problems are related because we find the minimum by setting: $f'(x)=0$
+\end{frame}
+
+
+\section{Nonlinear Optimization}
+
+\begin{frame}{Newton-Raphson for Minimization}
+We can re-write \alert{optimization} as \alert{root finding};
+\begin{itemize}
+\item We want to know $\hat{\theta} = \arg \max_{\theta} \ell(\theta)$.
+\item Construct the FOCs $\frac{\partial \ell}{\partial \theta}=0 \rightarrow$  and find the zeros.
+\item How? using Newton's method! Set $f(\theta) = \frac{\partial \ell}{\partial \theta}$
+\end{itemize}
+\begin{align*}
+\theta_{k+1} &= \theta_k -  \left[ \frac{\partial^2 \ell}{\partial \theta^2}(\theta_k) \right]^{-1} \cdot \frac{\partial \ell}{\partial \theta}(\theta_k)
+\end{align*}
+The SOC is that $ \frac{\partial^2 \ell}{\partial \theta^2} >0$. Ideally at all $\theta_k$.\\
+This is all for a \alert{single variable} but the \alert{multivariate} version is basically the same.
+\end{frame}
+
+
+\begin{frame}{Newton's Method: Multivariate}
+Start with the objective $Q(\theta) = - l(\theta)$:
+\begin{itemize}
+\item Approximate $Q(\theta)$ around some initial guess $\theta_0$ with a quadratic function
+\item Minimize the quadratic function (because that is easy) call that $\theta_1$
+\item Update the approximation and repeat.
+\begin{align*}
+\theta_{k+1} = \theta_k - \left[ \frac{\partial^2 Q}{\partial \theta \partial \theta'} \right]^{-1}\frac{\partial Q}{\partial \theta}(\theta_k)
+\end{align*}
+\item The equivalent SOC is that the {Hessian Matrix} is \alert{positive semi-definite}  (ideally at all $\theta$).
+\item In that case the problem is \alert{globally convex} and has a \alert{unique maximum} that is easy to find.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Newton's Method}
+We can generalize to Quasi-Newton methods:
+\begin{align*}
+\theta_{k+1} = \theta_k -  \lambda_k \underbrace{\left[ \frac{\partial^2 Q}{\partial \theta \partial \theta'} \right]^{-1}}_{A_k} \frac{\partial Q}{\partial \theta}(\theta_k)
+\end{align*}
+Two Choices:
+\begin{itemize}
+\item Step length $\lambda_k$
+\item Step direction $d_k=A_k \frac{\partial Q}{\partial \theta}(\theta_k)$
+\item Often rescale the direction to be unit length $\frac{d_k}{\norm{d_k}}$.
+\item If we use $A_k$ as the true Hessian and $\lambda_k=1$ this is a \alert{full Newton step}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Newton's Method: Alternatives}
+Choices for $A_k$
+\begin{itemize}
+\item $A_k= I_{k}$ (Identity) is known as \alert{gradient descent} or \alert{steepest descent}
+\item BHHH. Specific to MLE. Exploits the \alert{Fisher Information}.
+\begin{align*}
+A _ { k } 
+&= \left[ \frac { 1 } { N } \sum _ { i = 1 } ^ { N } \frac { \partial \ln f } { \partial \theta } \left( \theta _ { k } \right) \frac { \partial \ln f } { \partial \theta ^ { \prime } } \left( \theta _ { k } \right) \right] ^ { - 1 }\\
+&=- \mathbb { E } \left[ \frac { \partial ^ { 2 } \ln f } { \partial \theta \partial \theta ^ { \prime } } \left( Z , \theta ^ { * } \right) \right] 
+= \mathbb { E } \left[ \frac { \partial \ln f } { \partial \theta } \left( Z , \theta ^ { * } \right) \frac { \partial \ln f } { \partial \theta ^ { \prime } } \left( Z , \theta ^ { * } \right) \right]
+\end{align*}
+\item Alternatives \alert{SR1} and \alert{DFP} rely on an initial estimate of the Hessian matrix and then approximate an update to $A_k$.
+\item Usually updating the Hessian is the costly step.
+\item Non invertible Hessians are bad news.
+\end{itemize}
+\end{frame}
+
+
+
+\end{document}
+
+
