@@ -86,7 +86,7 @@ y_{i1},\ldots, y_{iJ}, y_{i0}
 \prod_{i=1}^M s_{i1}(\mathbf{x_i},\theta)^{y_{i1}}\cdots s_{iJ}(\mathbf{x_i},\theta)^{y_{iJ}}  s_{i0}(\mathbf{x_i},\theta)^{y_{i0}}\\
 \rightarrow \ell(\theta) &= \sum_{i=1}^M \sum_{j \in \mathcal{J}} y_{ij} \log s_{ij}(\mathbf{x_i},\theta) + \log C(\mathbf{y})
 \end{align*}
-If all individuals face the same $(\mathbf{x_i},\theta)$ and $\mathcal{J}$ they will have the same $s_{ij}(\mathbf{x_i},\theta)$ and we can aggregate outcomes into \alert{sufficient statistics}.
+If all individuals face the same $(\mathbf{x_i})$ and $\mathcal{J}$ they will have the same $s_{ij}(\mathbf{x_i},\theta)$ and we can aggregate outcomes into \alert{sufficient statistics}.
 \begin{align*}
 \rightarrow \ell(\theta) &=  \sum_{j \in \mathcal{J}} y_{ij}^{*} \log s_{ij}(\theta)
 \end{align*}
@@ -98,7 +98,7 @@ If all individuals face the same $(\mathbf{x_i},\theta)$ and $\mathcal{J}$ they 
 \begin{itemize}
 \item Instead of individual data, or a single group we might have multiple groups: if prices only change once per week, we can aggregate all of the week's sales into one ``observation''.
 \item Likewise if we only observe that an individual is within one of five income buckets -- there is no loss from aggregating our data into these five buckets.
-\item All of this depends on the precise form of $ s_{ij}(z_i,\mathbf{x},\theta)$. When it doesn't change across observations: we can aggregate.
+\item All of this depends on the precise form of $ s_{ij}(\mathbf{x_i},\theta)$. When it doesn't change across observations: we can aggregate.
 \item Notice I didn't need anything to follow a logit/probit.
 \end{itemize}
 \end{frame}
@@ -196,7 +196,7 @@ Was it magic?
 Did we need to do change of variables? Imagine we work with:
 \begin{align*}
 s_{jt} &= \frac{\exp[x_{jt} \beta -\alpha p_{jt} ]}{1+\sum_k \exp[x_{kt} \beta -\alpha p_{kt}  ]}\\
-\eta &\equiv (s_{jt}(\theta) - \mathfrak{s}_{jt}) 
+\eta_{jt} &\equiv (s_{jt}(\theta) - \mathfrak{s}_{jt}) 
 \end{align*}
 \begin{itemize}
 \item Each share depends on all prices $(p_{1t},\ldots,p_{Jt})$ and characteristics $\mathbf{x_t}$.
@@ -227,10 +227,14 @@ This takes a bit more algebra but not much
 \frametitle{BLP 1995/1999 and Berry Haile (2014)}
 Think about a \alert{generalized inverse}
 \begin{align*}
-D_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)&= x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
+D_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt},v_{jt},\theta_1)   + \xi_{jt}\\
+ D_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)&\approx x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
 \end{align*}
  \begin{itemize}
 \item After some transformation of data (shares $\mathcal{S}_{\cdot t}$) we get \alert{mean utilities} $\delta_{jt}$.
+\begin{itemize}
+\item We assume $\delta_{jt}=h(x_{jt},v_{jt},\theta_1) -\alpha p_{jt} + \xi_{jt}$ follows some parametric form (often linear).
+ \end{itemize}
 \item Same IV-GMM approach after transformation
 \item Examples:
 \begin{itemize}
@@ -259,7 +263,7 @@ s_{jt}(\boldsymbol{\delta_{t}},\widetilde{\theta}_2) &= \int \frac{\exp[\delta_{
 \frametitle{Contraction: BLP}
 BLP actually propose an easy solution to find $\boldsymbol{\delta_t}$. Fix $\widetilde{\theta_2}$ and solve for $\boldsymbol{\delta_t}$. Think about doing this one market at a time:
 \begin{align*}
-\boldsymbol{\delta_t}^{(k)}(\widetilde{\theta}_2) = \boldsymbol{\delta_t}^{(k-1)}(\widetilde{\theta}_2) + \log(\boldsymbol{\mathfrak{s}}_{j}) - \log(\boldsymbol{s}_{j}(\boldsymbol{\delta_t}^{(k-1)}, \widetilde{\theta}_2)
+\boldsymbol{\delta_t}^{(k)}(\widetilde{\theta}_2) = \boldsymbol{\delta_t}^{(k-1)}(\widetilde{\theta}_2) + \left[ \log(\boldsymbol{\mathfrak{s}}_{j}) - \log(\boldsymbol{s}_{j}(\boldsymbol{\delta_t}^{(k-1)}, \widetilde{\theta}_2) \right]
 \end{align*}
  \begin{itemize}
  \item They prove (not easy) that this is a \alert{contraction mapping}.
@@ -298,10 +302,10 @@ From the outside, in:
 
 \begin{frame}{Coming Up}
 \begin{itemize}
-\item Implementation Details
 \item Extensions and Variants
 \item Supply Side Restrictions
 \item Instruments
+\item Implementation Details
 \end{itemize}
 
 \end{frame}

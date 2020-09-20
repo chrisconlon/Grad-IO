@@ -84,7 +84,7 @@
 
 \begin{frame}
 \frametitle{Extensions: Micro Data (Petrin 2002), (microBLP 2004)}
-Suppose we had additional data on behavior of individuals (in addition to aggregate market).
+Suppose we had additional data on behavior of individuals (in addition to aggregate market shares).
 \begin{itemize}
 \item Examples:
 \begin{itemize}
@@ -95,22 +95,38 @@ Suppose we had additional data on behavior of individuals (in addition to aggreg
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Extensions: Micro Data: Nielsen Panelists}
+Nielsen data surveys panelists on everything they buy with a UPC code including what store they purchased from.
+\begin{itemize}
+\item Also tracks household characteristics (Race, Income, Education, HH Size, etc.)
+\item Can calculate covariance of characteristics (such as price) with demographics (income, education, etc.) \alert{conditional on purchase}
+\item Can calculate purchase probability conditional on demographics: Did you buy any yogurt this trip, week, month, year?
+\end{itemize}
+Should we use these as individual data? Or Aggregate data from scanner data with additional moments?
+\end{frame}
+
 \begin{frame} \frametitle{Extensions: Micro Data (Petrin 2002), (microBLP 2004)}
 \begin{itemize}
 \item Previously we had moment conditions from orthogonality of structural error $(\xi)$ and $(X,Z)$ in order to form our GMM objective.
 \begin{eqnarray*}
-E[\xi_{jt} | x_{jt}, z_{jt}]=0 \rightarrow E[\xi'  [Z \, X]]=0
+E[\xi_{jt} | z_{jt}]=0 \rightarrow E[\xi_{jt}' Z_{jt}]=0
 \end{eqnarray*}
 \item We can incorporate additional information using ``micro-moments'' or additional moment conditions to match the micro data.
 \begin{itemize}
-\item $Pr(\mbox{ i buys j } | y_i \in [0,\$20K])= c_1$
-\item $Cov(d_i, s_{ijt}) = c_2$
+\item $Pr(\mbox{ i buys j } | y_i \in [0,\$20K])= c_1$ or  $Cov(d_i, s_{ijt}) = c_2$
 \item Construct an additional error term $\zeta_1,\zeta_2$ and interact that with instruments to form additional moment conditions.
-\item Econometrics get tricky when we have a different number of observations for $E[\zeta' [X Z]]=0$ and $E[\xi' [X Z]]=0$.
+\item Econometrics get tricky when we have a different number of observations for $E[\zeta'  Z_m]=0$ and  $E[\xi'  Z_d]=0$.
+\begin{itemize}
 \item May not be able to get covariance of moments taken over different sets of observations!
+\item People often assume optimal weight matrices are block diagonal.
+\end{itemize}
 \end{itemize}
 \end{itemize}
 \end{frame}
+
+
+
 
 \begin{frame}
 \frametitle{Alternative: Vertical Model (Bresnahan 1987)}
