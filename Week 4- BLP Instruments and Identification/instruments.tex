@@ -42,160 +42,21 @@
 \newcommand{\del}{\partial}
 
 \begin{document}
-\title{Supply }
+\title{Instruments and Identification }
 \author{Chris Conlon}
 \institute{Grad IO}
 \date{\today}
 
 \frame{\titlepage}
 
-\begin{frame}{Supply}
-\begin{itemize}
-\item Economic theory gives us some additional powerful restrictions.
-\item We may want to impose $MR = MC$.
-\begin{itemize}
-\item Not always a good idea
-\item Do we know what conduct is? Collusion? Bertrand? Cournot?
-\end{itemize}
-
-\item Alternatively, we can ask -- what is a good instrument for demand? \alert{something from another equation} (ie: supply).
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Some setup}
-We can break up the parameter space into three parts:
-\begin{itemize}
-\item $\theta_1$: linear exogenous demand parameters, 
- \item $\theta_2$: parameters including price and random coefficients (endogenous / nonlinear)
- \begin{itemize}
- \item $\theta_2 = [\alpha, \widetilde{\theta}_2]$
-\end{itemize}
- \item $\theta_3$: linear exogenous supply parameters.
-\end{itemize}
-\end{frame}
-
-
-
-\begin{frame}[plain]
-\frametitle{Supply Side}
-Consider the multi-product Bertrand FOCs:
-\footnotesize
-{\begin{eqnarray*}
-\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &=& \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot s_j(\mathbf{p}) +  \kappa_{fg}\sum_{k \in \mathcal{J}_g} (p_k - c_k) \cdot s_k(\mathbf{p}) \\
-0&=& s_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial s_{k}}{\partial p_j}(\mathbf{p}) 
-\end{eqnarray*}
-}
-It is helpful to define the \alert{ownership matrix} $\Omega_{(j,k)}(\mathbf{p})  = - \frac{\partial s_{j}}{\partial p_k}(\mathbf{p})$:
-\begin{eqnarray*}
-A(\kappa)_{(j,k)} = \left\{\begin{array}{lr}
-          1 & \text{for }  (j,k) \in \mathcal{J}_f \text{ for any } f \\ 
-	  0 & \text{o.w}\\
-        \end{array} \right\}
-\end{eqnarray*}
-We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product (element-wise):
-\begin{eqnarray*}
-        s(\mathbf{p}) &= (A \odot \Omega(\mathbf{p})) \cdot (\mathbf{p} - \mathbf{mc}), \\
-       \mathbf{mc} &=  \mathbf{p} - \underbrace{(A \odot \Omega(\mathbf{p}))^{-1} s(\mathbf{p})}_{\eta(\mathbf{p},\mathbf{s},\theta_2)}.
-\end{eqnarray*}
-\end{frame}
-
-
-
-\begin{frame}{Recovering Marginal Costs }
-Recover implied markups/ marginal costs, and assume a functional form for $mc_{jt}(x_{jt},w_{jt})$.
-\begin{eqnarray*}
-\widehat{\mathbf{mc}}(\theta_2)&=& \mathbf{p}- \Omega(\mathbf{p},\theta_2)^{-1} q(\mathbf{p},\theta_2)\\
-f(mc_{jt}) &=& h_s(x_{jt} , w_{jt},\theta_3)+ \omega_{jt}
-\end{eqnarray*}
-Which we can solve for $\omega_{jt}$:
-\begin{eqnarray*}
-\omega_{jt} &=&  f(\mathbf{p}- \Omega(\mathbf{p},\theta_2)^{-1} q(\mathbf{p},\theta_2)) - h_s(x_{jt},w_{jt},\theta_3)
-\end{eqnarray*}
-\begin{itemize}
-\item $f(\cdot)$ is usually $\log(\cdot)$ or identity.
-\item $h_s(x_{jt},w_{jt},\theta_3) = [x_{jt}, \, w_{jt}] \gamma$ is usually linear
-\item I can use this to form additional moments: $E[\omega_{jt}' Z_{jt}^{s}]=0$.
-%\item I can just stack these up with the demand moments $E[\xi_{jt}' Z_{jt}^d]=0$.
-%\item Now I have $\dim(Z^d) + \dim(Z^s)$ moments altogether.
-\i%tem This step is optional but can aid in identification (if you believe it).
-\end{itemize}
-\end{frame}
-
-
-
-\begin{frame}{Simultaneous Supply and Demand}
-\tiny
-\begin{enumerate}[(a)]
-\item For each market $t$: solve $\mathcal{S}_{jt} = s_{jt}(\delta_{\cdot t},\theta_2)$ for $\widehat{\delta}_{\cdot t}(\theta_2)$.
-\item For each market $t$: use $\widehat{\delta}_{\cdot t}(\theta_2)$ to construct $\eta_{\cdot 
-t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
-\item For each market $t$: Recover $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2) = p_{jt} - \eta_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
-\item Stack up $\widehat{\delta}_{\cdot t}(\theta_2)$ and $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$ and use linear IV-GMM to recover $[\widehat{\theta}_1(\theta_2), \widehat{\theta}_3(\theta_2) ]$ following the recipe in Appendix
-\item Construct the residuals:
-\begin{align*}
-\nonumber    \widehat{\xi}_{jt}(\theta_2) &= \widehat{\delta}_{jt}(\theta_2) -  x_{jt} \widehat{\beta}(\theta_2) + \alpha p_{jt}\\
-    \widehat{\omega}_{jt}(\theta_2) &= \widehat{mc}_{jt}(\theta_2) -  [x_{jt}\, w_{jt}]\, \widehat{\gamma}(\theta_2)
-\end{align*}
-\item Construct sample moments
-\begin{align*}
-\nonumber g_n^D(\theta_2)=\frac{1}{N} \sum_{jt} Z_{jt}^{D\prime} \widehat{\xi}_{jt}(\theta_2)\\
- g_n^S(\theta_2)=\frac{1}{N} \sum_{jt} Z_{jt}^{S \prime} \widehat{\omega}_{jt}(\theta_2)
-\end{align*}
-\item Construct GMM objective $Q_n(\theta_2)= \left[ {\begin{array}{c} g_n^d(\theta_2) \\ g_n^s(\theta_2) \end{array} } \right]' W  \left[ {\begin{array}{c} g_n^d(\theta_2) \\ g_n^s(\theta_2) \end{array} } \right] $
-\end{enumerate}
-\end{frame}
-
-\begin{frame}{Additional Details}
-Some different definitions:
-\begin{alignat}{3}
-\label{eq:stacked}
-\nonumber y_{jt}^D &:= \widehat \delta_{jt}(\theta_2) + \alpha p_{jt} &=(x_{jt} \-\ v_{jt})' \beta + \xi_t &=: x_{jt}^{D\prime}\beta + \xi_{jt} \\ 
-y_{jt}^S &:= \widehat{mc}_{jt}(\theta_2) &= (x_{jt} \-\ w_{jt})'\gamma + \omega_t &=: x_{jt}^{S\prime} \gamma + \omega_{jt} 
-\end{alignat}
-Stacking the system across observations yields:\footnote{Note: we cannot perform independent regressions unless we are willing to assume that $Cov(\xi_{jt},\omega_{jt})=0$.}
-\begin{align}
-\underbrace{\begin{bmatrix} y_D \\ y_S \end{bmatrix}}_{2N\times1} = 
-\underbrace{\begin{bmatrix}
-X_D & 0 \\
-0 & X_S 
-\end{bmatrix}}_{2N\times(K_1+K_3)}
-\underbrace{\begin{bmatrix}
-\beta \\ \gamma %\Gamma_D \\ \Gamma_S
-\end{bmatrix}}_{(K_1+K_3)\times1} + 
-\underbrace{\begin{bmatrix}
-\xi \\ \omega % \varepsilon_D \\ \varepsilon_S
-\end{bmatrix}}_{2N\times 1}
-\end{align}
-\end{frame}
-
-%
-%
-%
-%\begin{frame}{Supply Side as Instruments }
-%\begin{itemize}
-%\item Instruments for demand depend on \alert{exclusion restrictions}
-%\item Where do instruments come from? Something omitted that appears in another equation.
-%\end{itemize}
-%\begin{eqnarray*}
-%p_{jt}  &=& c_{jt}(w_{jt},x_{jt}) +  \frac{s_{jt}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|}  +\sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\frac{ \partial s_{kt}}{\partial p_{jt}}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|}  
-%\end{eqnarray*}
-%\begin{enumerate}
-%\item Exogenous regressors $x_{jt}$.
-%\item Cost shifters: $w_{jt}$ (hard to find in practice), Hausman instruments.
-%\item Markup shifters:  $ \frac{s_{jt}(\mathbf{p_t})}{\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}}$ \\(function of $(p_j,x_j,\xi_j, p_{-j},x_{-j},\xi_{-j})$).
-%\end{enumerate}
-%\end{frame}
-%
-
-\section{Instruments and Identification}
 \begin{frame}{Parametric Identifcation}
 \begin{itemize}
-\item Once we have $\delta_{jt}(\theta)$ identification of linear parameters is pretty straightforward
+\item Once we have $\delta_{jt}(\theta_2)$ identification of linear parameters is pretty straightforward
 \begin{eqnarray*}
-\delta_{jt}(\theta) = x_{jt} \beta - \alpha p_{jt} + \xi_j + \xi_t + \Delta \xi_{jt}
+\delta_{jt}(\theta_2) = x_{jt} \beta - \alpha p_{jt} + \xi_j + \xi_t + \Delta \xi_{jt}
 \end{eqnarray*}
 \item This is either basic linear IV or panel linear IV.
-\item How are $\sigma$ taste parameters identified?
+\item How are $\theta_2$ taste parameters identified?
 \begin{itemize}
 \item Consider increasing the price of $j$ and measuring substitution to other products $k,k'$ etc.
 \item If sales of $k$ increase with $p_j$ and $(x_j^{(1)},x_k^{(1)})$ are similar then we increase the $\sigma$ that corresponds to $x^{(1)}$.
@@ -215,12 +76,12 @@ X_D & 0 \\
 \item \alert{Price}: this is the familiar one!
 \item \alert{Nonlinear characteristics} $\sigma$ this is the other one.
 \end{itemize}
-\item We are doing nonlinear GMM: Start with $E[\xi_{jt} | x_{jt}, z_{jt}]=0$ use $E[\xi' [Z X]]=0$.
+\item We are doing nonlinear GMM: Start with $E[\xi_{jt} | x_{jt}, w_{jt}]=0$ use $E[\xi_{jt}' Z_{jt}^D]=0$ with $Z_{jt}^D=[x_{jt}\,  z_{jt}]$.
 \begin{itemize}
-\item In practice this means that for valid instruments $(x,z)$ any function $f(x,z)$ is also a valid instrument $E[ \xi_{jt} f(x_{jt},z_{jt})]=0$.
-\item We can use $x, x^2, x^3,\ldots$ or interactions $x \cdot z, x^2 \cdot z^2, \ldots$.
+\item In practice this means that for valid instruments $(x,w)$ any function $f(x,w)$ is also a valid instrument $E[ \xi_{jt} f(x_{jt},w_{jt})]=0$.
+\item We can use $x, x^2, x^3,\ldots$ or interactions $x \cdot w, x^2 \cdot w^2, \ldots$.
 \item What is a reasonable choice of $f(\cdot)$?
-\item Where does $z$ come from?
+\item Where does $w$ come from?
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -246,9 +107,9 @@ The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p
 \begin{itemize}
 \item It is literally \alert{endogenous} (depends on error terms)!
 \item But lots of potential instruments beyond \alert{excluded} $v_t$ or $w_t$.
-\item Also $v_{-j}$ and $w_{-j}$ and $x_{-j}$.
-\item Not $p_{-j}$ or $\xi_{-j}$, etc.
-\item The idea is that these instruments shift the \alert{marginal revenue curve}.
+\item Also $v_{-j}$ and $w_{-j}$ and $x_{-j}$ (these don't depend on $\xi_{jt},\omega_{jt}$)
+\item Not $p_{-j}$ or $\xi_{-j}$, (these depend on $\xi_{jt},\omega_{jt}$).
+\item The idea is that these instruments shift or rotate the \alert{marginal revenue curve}.
 \item What is a good choice of $f(x_{-j})$? etc.
 \end{itemize}
 \end{frame}
@@ -292,35 +153,72 @@ Consider the limit as $J \rightarrow \infty$
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Differentiation Instruments: Gandhi Houde (2017)}
+\begin{frame}{Differentiation Instruments: Gandhi Houde (2019)}
+\small
 \begin{itemize}
-\item Also need instruments for the $\Sigma$ or $\sigma$ random coefficient parameters.
+\item Also need instruments for the random coefficient parameters $\widetilde{\theta}_2$.
 \item Instead of average of other characteristics $f(x) = \frac{1}{J-1} \sum_{k \neq j} x_k$, can transform as distance to $x_j$.
 \begin{eqnarray*}
-d_{jt} ^k=  x_k - x_j  
+d_{jkt} =  x_{kt} - x_{jt}  
 \end{eqnarray*}
 \item And use this transformed to construct two kinds of IV (Squared distance, and count of local competitors)
 \begin{eqnarray*}
-DIV_1 =& \sum_{j \in F}  d_{jt}^2,  \quad &\sum_{j \notin F}  d_{jt}^2 \\
-DIV_2 =& \sum_{j \in F}  I[d_{jt} < c]   \quad &\sum_{j \notin F}   I[d_{jt} < c]
+z_{jt}^{\text{quad}} =& \sum_{k  \in F}  d_{jkt}^2,  \quad &\sum_{k \notin F}  d_{jkt}^2 \\
+z_{jt}^{\text{local}} =& \sum_{k \in F}  I[d_{jkt} < c]   \quad &\sum_{k \notin F}   I[d_{jkt} < c]
 \end{eqnarray*}
 \item They choose $c$ to correspond to one standard deviation of $x$ across markets.
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Optimal Instruments (Chamberlain 1987)}
+Chamberlain (1987) asks how can we choose $f(z_i)$ to obtain the semi-parametric efficiency bound with conditional moment restrictions:
+\begin{align*}
+E[g(z_i,\theta) | z_i]=0 \Rightarrow E[g(z_i,\theta) \cdot f(z_i) ]=0 
+\end{align*}
+The answer is to choose instruments related to the Jacobian of moment conditions w.r.t $\theta$:
+\begin{align*}
+E\left[\frac{\partial g(z_i,\theta)}{\partial \theta} | z_i \right]
+\end{align*}
+Dominguez and Lobatto (2004) point out we can get unlucky and choose an $f(z_i)$ such that $\theta$ is no longer identified(!)
+\end{frame}
 
-\begin{frame}{Optimal Instruments}
+
+\begin{frame}{Optimal Instruments (Chamberlain 1987)}
+Consider the simplest IV problem:
+\begin{align*}
+y_i &= \beta x_i + \gamma v_i + u_i \quad \text{ with } \quad E[u_i | v_i, z_i] =0 \\
+u_i &= \left(y_i - \beta x_i - \gamma v_i \right) \\
+g(x_i,v_i,z_i) &= \left(y_i - \beta x_i - \gamma v_i \right) \cdot [v_i,\, z_i]
+ \end{align*}
+ Which gives:
+\begin{align*}
+E\left[\frac{\partial g(x_i,v_i, z_i,\theta)}{\partial \gamma} \mid v_i, z_i \right] &= v_i\\
+E\left[\frac{\partial g(x_i,v_i, z_i,\theta)}{\partial \beta} \mid v_i, z_i \right] &=E\left[x_i \mid v_i, z_i \right]
+\end{align*}
+We can't just use $x_i$ (bc endogenous!), but you can also see where 2SLS comes from...
+\end{frame}
+
+
+\begin{frame}{Optimal Instruments (Newey 1990)}
+From previous slide, nothing says that $E\left[x_i \mid v_i, z_i \right]$ needs to be \alert{linear}!
 \begin{itemize}
 \item Since any $f(x,z)$ satisfies our orthogonality condition, we can try to choose $f(x,z)$ as a \alert{basis} to approximate optimal instruments.
+\item Why? Well affine tranformations of instruments are still valid, and we span the same vector space!
+\item We are essentially relying on a non-parametric regression that we never run (but could!)
+\begin{itemize}
 \item This is challenging in practice -- and in fact suffers from a curse of dimensionality.
 \item This is frequently given as a rationale behind higher order $x$'s.
 \item When the dimension of $x$ is low -- this may still be feasible. ($K \leq 3)$.
+\item But recent improvements in sieves, LASSO, non-parametric regression are encouraging.
+\end{itemize}
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Optimal Instruments}
-\noindent Chamberlain (1987) tells us the optimal instruments for this supply-demand system of $G\Omega^{-1}$ where for a given observation $n$, 
+
+
+\begin{frame}{Optimal Instruments (see Conlon Gortmaker 2020)}
+\noindent BLP 1999 tells us the (Chamberlain 1987) optimal instruments for this supply-demand system of $G\Omega^{-1}$ where for a given observation $n$, we need to compute $E[\frac{\partial \xi_{jt}}{\partial \theta} | x, v, w]$ and $E[\frac{\partial \omega_{jt}}{\partial \theta} | x, v, w]$
 
 \begin{align*}
 G_n &:= \underbrace{\begin{bmatrix}
@@ -345,7 +243,7 @@ v_{\xi \omega} & v_\omega^2
 \end{frame}
 
 
-\begin{frame}{\#4: Optimal Instruments}
+\begin{frame}{Optimal Instruments: (see Conlon Gortmaker 2020) }
 \begin{align*}
 G_n\Omega^{-1} = \frac{1}{v_\xi^2 v_\omega^2 - (v_{\xi \omega})^2}\times \begin{bmatrix}
 -v_\omega^2 x & \alert{v_{\xi \omega}x} \\
@@ -446,90 +344,90 @@ E\left[ \frac{\partial \xi_{jt} }{\partial \sigma} | z_t \right] &=&E\left[ \fra
 \end{frame}
 
 
-
-
- \begin{frame}
-\frametitle{BLP Alternatives}
-\begin{itemize}
- \item BLP give us both a statistical \alert{estimator} and an \alert{algorithm} to obtain estimates.
-\item Plenty of other algorithms exist
-\begin{itemize}
-\item We could solve for $\delta$ using the contraction mapping, using \texttt{fsolve} / Newton's Method / Guess and Check (not a good idea!).
-\item We could try and consider a non-nested estimator for the BLP problem instead of solving for $\delta(\theta),\xi(\theta)$ we could let $\delta,\xi,\alpha,\beta$ be free parameters.
- \end{itemize}
-\item We could think about different statistical estimators such as $K$-step GMM, Continuously Updating GMM, etc.
- \end{itemize}
-\end{frame}
-
-
- \begin{frame}\frametitle{Dube Fox Su (2012)}
-\footnotesize
-\begin{eqnarray}
-\label{blpnfxp}
-\nonumber \arg \min_{\theta_2} && \psi' \Omega^{-1} \psi \quad \mbox{ s.t. } \\
-\nonumber \psi &=& \xi(\theta_2)' Z\\
-\xi_{jt}(\theta) &=& \delta_{jt}(\theta_2) - x_{jt} \beta - \alpha p_{jt} \\
-\nonumber \log(S_{jt})  &=& \log(s_{jt}(\delta,\theta_2))
-\end{eqnarray}
-
-\begin{eqnarray}
-\label{blpmpec}
-\nonumber \arg \min_{\theta_2,\alpha,\beta, \xi,\psi} && \psi' \Omega^{-1}  \psi \quad \mbox{ s.t. } \\
- \psi &=& \xi' Z\\
-\nonumber \xi_{jt} &=& \delta_{jt} - x_{jt} \beta - \alpha p_{jt} \\
-\nonumber \log(S_{jt})  &=& \log(s_{jt}(\theta_2, \delta))
-\end{eqnarray}
-\end{frame}
-
-\begin{frame}
-\frametitle{Comparing Approaches}
-\begin{itemize}
-\item The original BLP paper and the DFS paper define different \alert{algorithms} to produce the same statistical \alert{estimator}.
-\begin{itemize}
-\item The BLP algorithm is a \alert{nested fixed point} (NFP) algorithm. 
-\item The DFS algorithm is a \alert{mathematical program with equilibrium constraints} (MPEC).
-\item The unknown parameters satisfy the same set of first-order conditions. (Not only asymptotically, but in finite sample).
-\item $\hat{\theta}_{NFP} \approx \hat{\theta}_{MPEC}$ but for numerical differences in the optimization routine.
-\end{itemize}
-\item Our choice of algorithm should mostly be about computational convenience.
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{BLP: NFP Advantages/Disadvantages}
-\begin{itemize}
-\item Advantages
-\begin{itemize}
-\item Concentrate out all of the linear in utility parameters $(\xi,\delta,\beta)$ so that we only search over $\Sigma$. When $\dim(\Sigma)=K$ is small (few dimensions of unobserved heterogeneity) this is a big advantage. For $K \leq 3$ this is my preferred approach.
-\item When $T$ (number of markets/periods) is large then you can exploit solving in parallel for $\delta$ market by market.
-\end{itemize}
-\item Disadvantages
-\begin{itemize}
-\item Small numerical errors in contraction can be amplified in the outer loop, $\rightarrow$ tolerance needs to be very tight.
-\item Errors in numerical integration can also be amplified in the outer loop $\rightarrow$ must use a large number of draws/nodes.
-\item Hardest part is working out the Jacobian via IFT.
-\includegraphics[width=2.8in]{resources/implicit_function.png}\\
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{BLP: MPEC Advantages/Disadvantages}
-\begin{itemize}
-\item Advantages
-\begin{itemize}
-\item Problem scales better in $\dim(\Sigma)$.
-\item Because all constraints hold at the optimum only: less impact of numerical error in tolerance or integration.
-\item Derivatives are less complicated than $\frac{\partial \delta}{\partial \theta}$ (no IFT).
-\end{itemize}
-\item Disadvantages
-\begin{itemize}
-\item We are no longer concentrating out parameters, so there are a lot more of them! Storing the (Hessian) matrix of second derivatives can be difficult on memory.
-\item We have to find the derivatives of the shares with respect to all of the parameters $\beta,\xi,\theta$. (The other derivatives are pretty easy).
-\item Parallelizing the derivatives is trickier than NFP case.
-\end{itemize}
-\end{itemize}
-\end{frame}
+%
+%
+% \begin{frame}
+%\frametitle{BLP Alternatives}
+%\begin{itemize}
+% \item BLP give us both a statistical \alert{estimator} and an \alert{algorithm} to obtain estimates.
+%\item Plenty of other algorithms exist
+%\begin{itemize}
+%\item We could solve for $\delta$ using the contraction mapping, using \texttt{fsolve} / Newton's Method / Guess and Check (not a good idea!).
+%\item We could try and consider a non-nested estimator for the BLP problem instead of solving for $\delta(\theta),\xi(\theta)$ we could let $\delta,\xi,\alpha,\beta$ be free parameters.
+% \end{itemize}
+%\item We could think about different statistical estimators such as $K$-step GMM, Continuously Updating GMM, etc.
+% \end{itemize}
+%\end{frame}
+%
+%
+% \begin{frame}\frametitle{Dube Fox Su (2012)}
+%\footnotesize
+%\begin{eqnarray}
+%\label{blpnfxp}
+%\nonumber \arg \min_{\theta_2} && \psi' \Omega^{-1} \psi \quad \mbox{ s.t. } \\
+%\nonumber \psi &=& \xi(\theta_2)' Z\\
+%\xi_{jt}(\theta) &=& \delta_{jt}(\theta_2) - x_{jt} \beta - \alpha p_{jt} \\
+%\nonumber \log(S_{jt})  &=& \log(s_{jt}(\delta,\theta_2))
+%\end{eqnarray}
+%
+%\begin{eqnarray}
+%\label{blpmpec}
+%\nonumber \arg \min_{\theta_2,\alpha,\beta, \xi,\psi} && \psi' \Omega^{-1}  \psi \quad \mbox{ s.t. } \\
+% \psi &=& \xi' Z\\
+%\nonumber \xi_{jt} &=& \delta_{jt} - x_{jt} \beta - \alpha p_{jt} \\
+%\nonumber \log(S_{jt})  &=& \log(s_{jt}(\theta_2, \delta))
+%\end{eqnarray}
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Comparing Approaches}
+%\begin{itemize}
+%\item The original BLP paper and the DFS paper define different \alert{algorithms} to produce the same statistical \alert{estimator}.
+%\begin{itemize}
+%\item The BLP algorithm is a \alert{nested fixed point} (NFP) algorithm. 
+%\item The DFS algorithm is a \alert{mathematical program with equilibrium constraints} (MPEC).
+%\item The unknown parameters satisfy the same set of first-order conditions. (Not only asymptotically, but in finite sample).
+%\item $\hat{\theta}_{NFP} \approx \hat{\theta}_{MPEC}$ but for numerical differences in the optimization routine.
+%\end{itemize}
+%\item Our choice of algorithm should mostly be about computational convenience.
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{BLP: NFP Advantages/Disadvantages}
+%\begin{itemize}
+%\item Advantages
+%\begin{itemize}
+%\item Concentrate out all of the linear in utility parameters $(\xi,\delta,\beta)$ so that we only search over $\Sigma$. When $\dim(\Sigma)=K$ is small (few dimensions of unobserved heterogeneity) this is a big advantage. For $K \leq 3$ this is my preferred approach.
+%\item When $T$ (number of markets/periods) is large then you can exploit solving in parallel for $\delta$ market by market.
+%\end{itemize}
+%\item Disadvantages
+%\begin{itemize}
+%\item Small numerical errors in contraction can be amplified in the outer loop, $\rightarrow$ tolerance needs to be very tight.
+%\item Errors in numerical integration can also be amplified in the outer loop $\rightarrow$ must use a large number of draws/nodes.
+%\item Hardest part is working out the Jacobian via IFT.
+%\includegraphics[width=2.8in]{resources/implicit_function.png}\\
+%\end{itemize}
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{BLP: MPEC Advantages/Disadvantages}
+%\begin{itemize}
+%\item Advantages
+%\begin{itemize}
+%\item Problem scales better in $\dim(\Sigma)$.
+%\item Because all constraints hold at the optimum only: less impact of numerical error in tolerance or integration.
+%\item Derivatives are less complicated than $\frac{\partial \delta}{\partial \theta}$ (no IFT).
+%\end{itemize}
+%\item Disadvantages
+%\begin{itemize}
+%\item We are no longer concentrating out parameters, so there are a lot more of them! Storing the (Hessian) matrix of second derivatives can be difficult on memory.
+%\item We have to find the derivatives of the shares with respect to all of the parameters $\beta,\xi,\theta$. (The other derivatives are pretty easy).
+%\item Parallelizing the derivatives is trickier than NFP case.
+%\end{itemize}
+%\end{itemize}
+%\end{frame}
 
 
 %

@@ -79,6 +79,9 @@
 \item What would $\xi_t$ mean in this context?
 \item $\Delta \xi_{jt}$ is now the structural error term, this changes our identification strategy a little.
 \item We need instruments that change \alert{within product and across market}.
+\begin{itemize}
+\item ie: $z_{jt} - \overline{z}_{\cdot t} - \overline{z}_{j \cdot } = \Delta z_{jt}$ has to have some variation left!
+\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -175,7 +178,7 @@ Estimation
 \begin{frame} \frametitle{Pure Characteristics Model: Berry Pakes (2001/2007)}
 \footnotesize
 \begin{eqnarray*}
-u_{ij} = \delta_j + \sum_k \nu_{ik} x_{jk} + \xi_{j} + \underbrace{\sigma_i \varepsilon_{ij}}_{\rightarrow 0}
+u_{ij} = \delta_j + \beta_i x_{jt} + \xi_{jt} + \underbrace{\sigma_e }_{\rightarrow 0} \cdot \varepsilon_{ijt}
 \end{eqnarray*}
 \begin{itemize}
 \item Can think of this like random coefficients model where we take the variance of $\epsilon$ to zero.
