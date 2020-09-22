@@ -187,7 +187,8 @@ D_{jk,i}(x) = \frac{\frac{\partial s_{ik}}{\partial p_j}}{\left| \frac{\partial 
 \end{align*}
 But at the aggregate level, we mix over heterogeneous individuals:
 \begin{align*}
-D_{jk}(x) = \int D_{jk,i}(x) w_i(z_j,z_j') d F_i
+D_{jk}(x) = \int D_{jk,i}(x) w_i(z_j,z_j',x) d F_i \quad  \text{ where }
+\quad w_i(z_j,z_j',x) = \frac{q_{ij}(z_j',x)-q_{ij}(z_j,x)}{q_{j}(z_j',x)-q_{j}(z_j,x)}
 \end{align*}
 Different interventions (price changes, product removals, quality changes, etc.) give different weighting schemes.
 \end{frame}
