@@ -1,0 +1,182 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\usetheme{metropolis}
+
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+
+\usepackage[english]{babel}
+%\usepackage[table]{xcolor}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+\usepackage{amsmath,amssymb,setspace,centernot}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+\usepackage{stmaryrd}
+\usepackage{pdfpages}
+\usepackage{booktabs}
+\usepackage[absolute,overlay]{textpos} 
+
+
+\newenvironment{reference}[2]{% 
+  \begin{textblock*}{\textwidth}(#1,#2) 
+      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+
+\DeclareMathSizes{10}{10}{6}{6} 
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+\begin{document}
+\title{Mergers and Counterfactual Prices}
+\author{Chris Conlon}
+\institute{Grad IO}
+\date{\today}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Merger Simulation: Two Options}
+ \begin{itemize}
+\item Partial Merger Simulation
+ \begin{itemize}
+\item Simulate a new price for $p_j$ after acquiring good $k$ holding the prices of all other goods $(p_k,p_{-j})$ fixed.
+\item Repeat for $p_k$ and all other products involved in the merger.
+\item Compare price increases to \alert{synergies} or cost savings.
+ \end{itemize}
+ \item Full Merger Simulation
+ \begin{itemize}
+\item Write down the full system of post-merger FOC.
+\item Adjust post-merger marginal costs for potential synergies.
+\item Solve for all prices at the new (post-merger) equilibrium $(p_j,p_k,p_{-j})$.
+ \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Differentiated Products Bertrand}
+\small
+Recall the multi-product Bertrand FOCs:
+\begin{align*}
+\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &= \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot q_j(\mathbf{p}) \\
+\rightarrow 0&= q_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p})
+\end{align*}
+It is helpful to define the matrix $\Delta$ with entries:
+\begin{align*}
+\Delta_{(j,k)}(\mathbf{p}) = \left\{\begin{array}{lr}
+         - \frac{\partial q_{j}}{\partial p_k}(\mathbf{p}) & \text{for }  (j,k) \in \mathcal{J}_f\\
+       	  \quad 0 & \text{for } (j,k) \notin \mathcal{J}_f
+        \end{array} \right\}
+\end{align*}
+We can re-write the FOC in matrix form:
+\begin{align*}
+q(\mathbf{p}) = \Delta(\mathbf{p})\cdot(\mathbf{p}-\mathbf{mc})
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Merger Simulation}
+What does a merger do? \alert{change the ownership matrix}.
+\begin{itemize}
+
+\item Step 1: Recover marginal costs $\widehat{\mathbf{mc}} = \mathbf{p} +\Delta(\mathbf{p})^{-1}q(\mathbf{p})$.
+\item Step 1a: (Possibly) adjust marginal cost $\widehat{\mathbf{mc}}\cdot (1-e)$ with some cost efficiency $e$.
+\item Step 2: Change the ownership matrix $\Delta^{pre}(\mathbf{p}) \rightarrow \Delta^{post}(\mathbf{p})$.
+\item Step 3: Solve for $\mathbf{p}^{post}$ via: $\mathbf{p} = \widehat{\mathbf{mc}} - \Delta(\mathbf{p})^{-1}q(\mathbf{p})$.
+\end{itemize}
+\pause
+\vspace{0.5cm}
+\begin{itemize}
+\item The first step is easy (just a matrix inverse).
+\item The second step is trivial.
+\item The third step is tricky because we have to solve an implicit system of equations. $\mathbf{p}$ is on both sides.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Partial Merger Analysis}
+\begin{itemize}
+\item Hold all other prices $p_{-j}$ fixed at \alert{pre-merger} prices.
+\item Adjust the marginal costs for potential efficiencies.
+\item Consider only the FOC for product $j$
+\begin{eqnarray*}
+0&=& q_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p})
+\end{eqnarray*}
+\item Solve for the new $p_j$ given the change in the products controlled by firm $f$: $\mathcal{J}_f \rightarrow \mathcal{J}_f'$
+\item This is a single Gauss-Jacobi step (only products involved in merger).
+\end{itemize}
+\end{frame} 
+
+\begin{frame}{Partial Merger Analysis: Why bother?}
+\begin{itemize}
+\item We only need own and cross elasticities for products involved in the merger.
+\item Tends to show smaller price increases than full equilibrium merger analysis.
+\item Only solving a single equation rather than a system of $J$ nonlinear equations.
+\end{itemize}
+\end{frame} 
+
+
+
+\begin{frame}{Solution Methods}
+How do we solve: $\mathbf{p} = \widehat{\mathbf{mc}} - \Delta(\mathbf{p})^{-1}q(\mathbf{p})$?
+\begin{enumerate}
+\item Gauss Jacobi: Simultaneous Best Reply  $p_j^{k+1}(\mathbf{p_{-j}^k})$.
+\item Gauss Seidel: Iterated Best Response  $p_j^{k+1}(\mathbf{p_{<j}^{k+1}},\mathbf{p_{>j}^{k}})$.
+\item Newton's Method: Set $\mathbf{p} - \widehat{\mathbf{mc}} + \Delta(\mathbf{p})^{-1}q(\mathbf{p})=0$\\ but requires derivatives of $\Delta(\mathbf{p})^{-1}q(\mathbf{p})$
+\item Fixed point iteration: $\mathbf{p} \mapsfrom \widehat{\mathbf{mc}} - \Delta(\mathbf{p})^{-1}q(\mathbf{p})$
+\begin{itemize}
+\item Turns out this is \alert{not a contraction}.
+\item But you can get lucky... $\mathbf{p} - \widehat{\mathbf{mc}} + \Delta(\mathbf{p})^{-1}q(\mathbf{p})=0$ means you have satisfied FOC's
+\end{itemize}
+\item Alternative fixed point.
+\end{enumerate}
+\end{frame} 
+
+\begin{frame}{Exploit the logit formula}
+For the logit the $\Delta$ matrix (for a single market) looks like:
+\begin{align*}
+\Delta_{(j,k)}(\mathbf{p}) = \left\{\begin{array}{lr}
+       \int \alpha_i \cdot s_{ij}\cdot (1-s_{ij}) \, \partial F_i& \text{ if } j=k \\
+       	  \quad -\int \alpha_i \cdot s_{ij} \cdot s_{ik} \, \partial F_i &  \text{ if }  j\neq k 
+        \end{array} \right\}
+\end{align*}
+Which we can factor into two parts (for plain logit):
+\begin{align*}
+\Delta(\mathbf{p}) =  \underbrace{\text{ Diag}\left[ \alpha \, \mathbf{s}(\mathbf{p}) \, \right]}_{\Lambda(\mathbf{p})} -  \underbrace{\alpha \cdot \mathbf{s}(\mathbf{p}) \mathbf{s}(\mathbf{p})'}_{\Gamma(\mathbf{p})}
+\end{align*}
+$\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\Lambda(\mathbf{p})$ is diagonal and $(j,k)$ is nonzero in $\Gamma(\mathbf{p})$ only if $(j,k)$ share an owner.
+\end{frame}
+
+
+\begin{frame}{Morrow Skerlos (2010) Fixed Point}
+\begin{itemize}
+\item After factoring we can rescale by $\Lambda^{-1} (\mathbf{p})$
+\begin{align*}
+(\mathbf{p}-\mathbf{mc} ) \mapsfrom \Lambda^{-1}(\mathbf{p}) \cdot \Gamma(\mathbf{p})\cdot(\mathbf{p}- \mathbf{mc}) - \Lambda^{-1}(\mathbf{p})\cdot s(\mathbf{p})
+\end{align*}
+\item This alternative fixed point is in fact a contraction.
+\item Moreover the rate of convergence is generally fast and stable (much more than Gauss-Seidel or Gauss-Jacobi).
+\item Honestly, this is the best way to solve large pricing games. It nearly always wins and doesn't require derivatives.
+\item Coincidentally, this is what \texttt{PyBLP} defaults to.
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
