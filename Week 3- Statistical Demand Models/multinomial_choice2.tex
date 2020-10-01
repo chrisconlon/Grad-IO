@@ -177,7 +177,7 @@ Look at derivatives:
 An alternative version of the nested logit is popular in IO (Cardell 1991) $\sigma \approx 1-\lambda$:
 \begin{align*}
 s_{ij | g}&=\frac{e^{V_{ij}/(1-\sigma)}}{D_{ig}}  \quad &
-D_{ig}&= \log \left( \sum_{j \in \mathcal{G}} e^{V_{ij}/(1-\sigma)} \right)  \\
+D_{ig}&= \sum_{j \in \mathcal{G}} e^{V_{ij}/(1-\sigma)}   \\
 s_{ig}&=\frac{D_{ig}^{(1-\sigma)}}{\sum_{g} D_{ig}^{(1-\sigma)}} \quad &
 s_{ij}=  s_{ij | g}\cdot s_{ig } &=\frac{\exp \left(\frac{V_{ij}}{1-\sigma}\right)}{D_{g}^{\sigma}\left[\sum_{g} D_{g}^{(1-\sigma)}\right]}
 \end{align*}
