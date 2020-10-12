@@ -52,16 +52,16 @@ p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\mathbf{p})}}_{\text{Marku
 
 \begin{frame}
 \frametitle{Differentiated Products Bertrand}
-It is helpful to define the matrix $\Omega$ with entries:
+It is helpful to define the matrix $\Delta$ with entries:
 \begin{eqnarray*}
-\Omega_{(j,k)}(\mathbf{p}) = \left\{\begin{array}{lr}
+\Delta_{(j,k)}(\mathbf{p}) = \left\{\begin{array}{lr}
          - \frac{\partial q_{j}}{\partial p_k}(\mathbf{p}) & \text{for }  (j,k) \in \mathcal{J}_f\\
        	  \quad 0 & \text{for } (j,k) \notin \mathcal{J}_f
         \end{array} \right\}
 \end{eqnarray*}
 We can re-write the FOC in matrix form:
 \begin{eqnarray*}
-q(\mathbf{p}) = \Omega(\mathbf{p})\cdot(\mathbf{p}-\mathbf{mc})
+q(\mathbf{p}) = \Delta(\mathbf{p})\cdot(\mathbf{p}-\mathbf{mc})
 \end{eqnarray*}
 \end{frame}
 
@@ -70,7 +70,7 @@ q(\mathbf{p}) = \Omega(\mathbf{p})\cdot(\mathbf{p}-\mathbf{mc})
 \frametitle{What do we want to learn from demand systems?}
 We can recover markups and marginal costs:
 \begin{eqnarray*}
-(\mathbf{p}-\mathbf{mc}) =  \Omega(\mathbf{p})^{-1} q(\mathbf{p})  \Rightarrow \mathbf{mc}= \mathbf{p} - \Omega(\mathbf{p})^{-1} q(\mathbf{p})
+(\mathbf{p}-\mathbf{mc}) =  \Delta(\mathbf{p})^{-1} q(\mathbf{p})  \Rightarrow \mathbf{mc}= \mathbf{p} - \Delta(\mathbf{p})^{-1} q(\mathbf{p})
 \end{eqnarray*}
 \end{frame}
 
