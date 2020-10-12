@@ -271,4 +271,56 @@ Many of these are built-in routines in Python, R, Matlab, etc.
 
 
 
+\begin{frame}{Correlated Normals}
+How do we draw from a correlated normal?
+\begin{align*}
+\begin{pmatrix}
+y_{1}\\
+y_{2}\\
+y_{3}
+\end{pmatrix} & \sim 
+N\left[\left(\begin{array}{c}
+\mu_1 \\
+\mu_2\\
+\mu_3
+\end{array}\right),\left(\begin{array}{ccc}
+\sigma_{11}^2 & \sigma_{12}^2& \sigma_{13}^2\\
+\sigma_{21}^2 & \sigma_{22}^2 & \sigma_{23}^2\\
+\sigma_{31}^2 & \sigma_{32}^2 & \sigma_{33}^2
+\end{array}\right)\right]
+\end{align*}
+Or as a vector:
+\begin{align*}
+\mathbf{Y} \sim N(\boldsymbol{\mu},\Sigma)
+\end{align*}
+\end{frame}
+
+\begin{frame}{Correlated Normals}
+\begin{enumerate}
+\item Find the \alert{Cholesky Root} of $L \cdot L' =\Sigma$ where $\Sigma$ is $D \times D$ covariance matrix\\ (\texttt{scipy.linalg.cholesky}, \texttt{chol} in R and Matlab).
+\item Draw a $n \times D$ dimensional standard normal $\mathbf{Z}$ (either at random or via quadrature nodes/ weights).
+\item $L \cdot \mathbf{Z} \sim N(0,\Sigma)$, now we have $n$ correlated normals of dimension $D$.
+\item Add back in the mean $\mathbf{Y}=\boldsymbol{\mu} + L \cdot \mathbf{Z} \sim N(0,\Sigma)$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Correlated Normals: Why do we do this?}
+\begin{itemize}
+\item $L$ is a $D \times D$ \alert{lower triangular matrix}\\
+\item Cholesky root has nice properties that guarantees $\Sigma$ is positive semi-definite.
+\item We can get correlated normals just be pre-multiplying by some $L$ matrix.
+\begin{itemize}
+\item Allows me to draw $\mathbf{Z}$ once
+\item  re-evaluate at difference covariance matrices $\Sigma$ using different $L$.
+\end{itemize}
+\item In most cases, \alert{optimize over $L$} not $\Sigma$.
+\begin{itemize}
+\item Use delta method to get standard errors for: $L \times L' = \Sigma$
+\item In BLP $\mu_{ijt}(\Sigma) = (L \, Z_i) \cdot x_{jt} $ where $(\cdot)$ gives \alert{inner product}.
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
 \end{document}
