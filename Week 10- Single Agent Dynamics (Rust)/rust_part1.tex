@@ -1,0 +1,320 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\usetheme{metropolis}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+
+\usepackage[english]{babel}
+%\usepackage[table]{xcolor}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+\usepackage{amsmath,amssymb,setspace,outline}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+\DeclareMathSizes{10}{10}{6}{6} 
+
+
+\title [Single-agent dynamic optimization models]{Single-agent dynamic optimization models}
+\author{C.Conlon - help from M. Shum and Paul Scott}
+\institute{Grad IO }
+\date{}
+\setbeamerfont{equation}{size=\tiny}
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\frame{
+\frametitle{Why dynamic estimation? External validity}
+\begin{itemize}
+	\item<1-> Famous example: Hendel and Nevo's (2006) estimation of laundry detergent demand
+
+	\medskip
+	\item<2-> The long-run demand elasticity for laundry detergent might be zero (or very close)
+
+	\medskip
+	\item<3-> If detergent goes on sale periodically, we might see a nonzero short-run elasticity 
+	(perhaps even a large one) as customers might purchase during the sales and store
+	the detergent.
+
+	\medskip
+	\item<4-> Dynamic estimation typically involves estimating the primitives of decision makers' 
+	objective functions. We might estimate the model using short-run variation, but once we 
+	know the decision maker's objective function, we could simulate a response to long-run 
+	variation.
+
+\end{itemize}
+}
+
+
+
+\frame{
+\frametitle{Why are dynamics difficult?}
+\begin{itemize}
+	\item The computational burden of solving dynamic problems blows up 
+		as the state space gets large. With standard dynamic estimation techniques, 
+		this is especially problematic, 
+		for estimation may involve solving the dynamic problem many times. 
+		
+	\medskip
+	\item Serially correlated unobservables and unobserved heterogeneity
+	(easy to confuse with state dependence) 
+	\medskip
+	\item Modeling expectations
+	\medskip	
+	\item Solving for equilibria, multiplicity (dynamic games)
+\end{itemize}
+}
+
+
+\frame{
+\frametitle{Outline}
+\begin{itemize}
+	\item Introduction to dynamic estimation: Rust (1987)
+	\item MPEC: an alternative algorithm (Su and Judd 2012)
+
+	\medskip
+	\item Conditional choice probabilities: Hotz and Miller (1993)
+
+	\medskip
+	\item Euler equation estimation: Scott (2014)
+
+\end{itemize}
+}
+
+
+\section{Rust: Theory of Dynamic Discrete Choice (DDC)}
+
+\begin{frame}{Single-agent dynamic optimization models}
+Setup in Rust:
+\begin{itemize}
+\item Harold Zurcher manages a bus depot in Madison, WI
+\item Each week he must decide to continue with the current engine $i_t=0$ and pay $c(x_{t})$ or overhaul the engine $i_t=1$ and pay fixed cost $RC$.
+\item His goal is to minimize \alert{long run average cost} (discounted).
+\item Buses are all  \alert{independent} of one another.
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Rust (1987)}
+The agent makes a series of decisions $i_t,i_{t+1},\ldots \in \{0,1\}$.
+\begin{eqnarray*}
+\max_{\{i_1, i_2, i_3, \cdots, i_t, i_{t+1}, \cdots \}} E \sum^{\infty}_{t=1} \beta^{t-1} \pi (x_t)\\
+\pi \left(i_{t},x_{t} \right)=
+		\begin{cases}
+		-c\left(x_{t} \right)  & \mbox{ if }i_{t}=0\\		
+		 -c\left(0\right) -RC& \mbox{ if }i_{t}=1
+		\end{cases}
+\end{eqnarray*}
+\begin{itemize}
+\item When costs are increasing in mileage $(x_{it})$ then this is an \alert{optimal stopping problem}.
+\item We know from Stokey Lucas Prescott (1989) that solutions to optimal stopping problems are characterized by \alert{critical value} or \alert{cutoff rule} which we call $x^*$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Rust (1987)}
+\begin{itemize}
+\item For those who took first year macro, this problem is trivial. 
+\item But Rust had a different goal in mind
+\begin{itemize}
+\item Can we use the observed decisions of the agent to identify the primitives of $\pi(i_t,x_t)$?
+\item Instead of just optimizing Bellman's equation, can we actually \alert{estimate parameters}?
+\end{itemize}
+\item Need to make two modifications: 
+\begin{itemize}
+\item Parameters for $c(x_t,\theta_1)$ and $RC$
+\item Full support errors $\varepsilon_{t}$, otherwise can't justify why $i(x)=1$ and $i(x')=0$ if $x'>x$ at some point in the data.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model: Modified Payoff Function}
+\begin{itemize}
+	\item per-period profit function:\[
+		\pi \left(i_{t},x_{t},\theta_{1}\right)=
+		\begin{cases}
+		-c\left(x_{t},\theta_{1}\right)+\varepsilon_{t}\left(0\right) & \mbox{ if }i_{t}=0\\		
+		-\left(RC-c\left(0,\theta_{1}\right)\right)+\varepsilon_{t}\left(1\right) & \mbox{ if }i_{t}=1
+		\end{cases}
+		\]
+	where \\
+	\begin{itemize}
+		\item $c\left(x_{t},\theta_{1}\right) $ -  regular maintenance costs (including expected breakdown costs),
+		\item $RC$ - the net costs of replacing an engine,
+		\item $\varepsilon$ - payoff shocks.
+	\end{itemize}
+	
+	\item $x_{t}$ is the \alert{observed state variable} known to both agent and econometrician
+	\item $\varepsilon$ is the \alert{unobserved state variable} known only to agent
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model: Bellman}
+ Can define value function using Bellman equation:
+ \begin{align*}
+		V_{\theta}\left(x_{t},\varepsilon_{t}\right) &= \max_{i} \left[ \pi \left(i,x_{t},\theta_1 \right) +
+		\beta EV_{\theta}\left(x_{t},\varepsilon_{t},i \right) \right]\\
+	 EV_{\theta}\left(x_{t},\varepsilon_{t},i_{t}\right) &=\int V_{\theta}\left(x_{t+1},\varepsilon_{t+1}\right) p\left(x_{t+1}, \varepsilon_{t+1} |x_{t},\varepsilon_{t},i_{t},\theta_{2},\theta_{3}\right)
+\end{align*}
+$EV_{\theta}$ is the \alert{ex-ante value function} (before we know which state we arrive to in $t+1$).
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Model: Bellman}
+It is helpful to define the \alert{choice-specific value function}:
+\begin{align*}
+\tilde V_{\theta} (x_t, \varepsilon_t, i_t) &= \left \{ 
+\begin{array}{lr}
+\tilde u(x_t, 1;\theta_1) + \beta EV(0, \varepsilon ') + \varepsilon_{t}(1) & \text{ if } i_t = 1 \\
+\tilde u(x_t , 0; \theta_1) + \beta E_{x', \varepsilon ' | x_t, \varepsilon_t, i_t} V(x', \varepsilon ')  + \varepsilon_{t}(0)  & \text{ if } i_t = 0
+\end{array}
+\right .\\
+V_{\theta}(x_t,\varepsilon_t) &= \max \left\{ \tilde V_{\theta} (x_t, \varepsilon_t, 1) + \varepsilon_{t}(1) ,\tilde V_{\theta} (x_t, \varepsilon_t, 0) + \varepsilon_{t}(0) \right\}
+\end{align*}
+\begin{itemize}
+	\item $\theta_{1}$ - parameters of cost function
+	\item $\theta_{2}$ - parameters of distribution of $\varepsilon$ (these will be assumed/normalized away)
+	\item $\theta_{3}$ - parameters of $x$-state transition function
+	\item $RC$ - replacement cost
+	\item discount factor $\beta$ will be imputed (more on this later)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Assumptions}
+\footnotesize
+\begin{block}{First Order Markov}\end{block}\vspace{-0.5cm}
+\begin{block}{Conditional Independence Assumption}
+The transition density of the controlled process $\left\{x_{t},\varepsilon_{t}\right\}$ factors as:\[
+p\left(x_{t+1},\varepsilon_{t+1}|x_{t},\varepsilon_{t},i_{t},\theta_{2},\theta_{3}\right)
+= q\left(\varepsilon_{t+1}|x_{t+1},\theta_{2}\right)p\left(x_{t+1}|x_{t},i_{t},\theta_{3}\right)
+\]
+\end{block}
+
+\begin{itemize}
+	\item CI assumption is very powerful: it means we don't have to treat $\varepsilon_{t}$ as
+	a state variable, which would be very difficult since it's unobserved.
+\end{itemize}
+\begin{block}{IID Type I EV Assumption}
+For now we will also assume that $ q\left(\varepsilon_{t+1}|x_{t+1},\theta_{2}\right) =  q\left(\varepsilon_{t+1}\right)$ and $q$ is an IID Type I Extreme Value (logit) distribution.
+\end{block}
+\begin{itemize}
+\item This is not required for identification but commonly employed to simplify estimation.
+\item Rust assumes that mean is $0$ and variance is $\pi^2/6$.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{ Implications}
+Given the assumptions:
+\begin{align*}
+V_{\theta}(x_t,\varepsilon_t) &= \max \left\{ \tilde V_{\theta} (x_t, \varepsilon_t, 1) + \varepsilon_{t}(1) ,\tilde V_{\theta} (x_t, \varepsilon_t, 0) + \varepsilon_{t}(0) \right\}\\
+Pr(i_t=1 | x_t,\varepsilon_t,\theta) &= Pr\left(\varepsilon_{t}(1) - \varepsilon_{t}(0) \geq \tilde V_{\theta} (x_t, \varepsilon_t, 0) - \tilde V_{\theta} (x_t, \varepsilon_t, 1) \right) \\
+&= \frac {\exp[\tilde V_{\theta} (x_t, \varepsilon_t, 1)]  }{\exp[\tilde V_{\theta} (x_t, \varepsilon_t, 0)] + \exp[\tilde V_{\theta} (x_t, \varepsilon_t, 1)]} 
+\end{align*}
+This expression is logit-like. Recall the static logit:
+\begin{align*}
+Pr(i_t=1 | x_t,\varepsilon_t,\theta) &= \frac {\exp[u_{\theta} (x_t, 1)]  }{\exp[u_{\theta} (x_t, 0)] + \exp[u_{\theta} (x_t, 1)]} 
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Theorem 1 preview}
+\begin{itemize}
+	\item Assumption CI has two powerful implications:
+	\begin{itemize}
+		\medskip
+		\item We can write $ EV_{\theta}\left(x_{t},i_{t}\right)$ instead of $EV_{\theta}\left(x_{t},\varepsilon_{t},i_{t}\right)$,
+		\medskip
+		\item We can consider a Bellman equation for $ V_{\theta}\left(x_{t}\right)$, which is computationally simpler than
+		the Bellman equation for $V_{\theta}\left(x_{t},\varepsilon_{t}\right) $.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Theorem 1}
+\footnotesize
+\begin{block}{Theorem 1}
+Given CI,
+\begin{align*}
+	P\left(i|x,\theta\right) = \frac{\partial}{\partial \pi \left(x,i,\theta_{1}\right)} W\left( \pi \left(x,\theta_{1}\right) +\beta EV_{\theta}\left(x\right) |x,\theta_{2}\right)
+\end{align*}
+and  $EV_{\theta}$ is the unique fixed point of the contraction mapping:
+\begin{align*} 
+	EV_{\theta}\left(x,i\right) = \int_{y} W\left(\pi \left(y,\theta_{1}\right)+
+	\beta EV_{\theta}\left(y\right)|y,\theta_{2}\right)
+	p\left(dy|x,i,\theta_{3}\right)
+\end{align*}
+\begin{itemize}
+	\item $P\left(i|x,\theta\right)$ is the probability of action $i$ conditional on state $x$
+	\item $W\left( \cdot |x,\theta_{2}\right)$ is the (ex-ante) surplus function: 
+	\begin{align*}
+	W\left(v |x,\theta_{2}\right) \equiv \int_{\varepsilon}  \max_{i} \left[v\left( i \right) +\varepsilon\left( i \right)\right] 
+	q\left(d\varepsilon|x,\theta_{2}\right)	
+	\end{align*}
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Theorem 1 example: logit shocks}
+\footnotesize
+\begin{itemize}
+	\item $v_{\theta}\left(x,i\right) \equiv \pi \left(x,i,\theta_{1}\right)+\beta EV_{\theta}\left(x,i\right)$ -- the \alert{choice-specific value function}.
+
+	\smallskip
+	\item Suppose that $\varepsilon\left(i\right)$ is distributed independenly
+	across $i$ with $Pr\left(\varepsilon\left(i\right)\le\varepsilon_{0}\right)=e^{-e^{-\varepsilon_{0}}}$ -- logit shocks.
+	Then,
+	\begin{align*}
+	\begin{array}{ccl}
+	W\left(v\left(x\right)\right) & =  
+	\int\max_{i}\left[v\left(x,i\right)+\varepsilon\left(i\right)\right]
+	\prod_{i}e^{-\varepsilon\left(i\right)}e^{-e^{-\varepsilon\left(i\right)}}d\varepsilon\\
+	\\
+	 & =  \ln\left(\sum_{i}\exp\left(v\left(x,i\right)\right)\right)+\gamma
+	\end{array}
+	\end{align*}
+	where $\gamma\approx .577216$ is Euler's gamma.
+
+	\smallskip
+	\item It is then easy to derive expressions for conditional choice probabilities:
+	\begin{align*}
+	P\left(i|x,\theta\right)= \frac{\exp\left(v_{\theta}\left(x,i\right)\right)}{\sum_{i'}\exp\left(v_{\theta}\left(x,i'\right)\right)}
+	\end{align*}
+	\smallskip
+	\item The conditional value function plays the same role as a static utility function
+	when computing choice probabilities.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Is this testable?}
+Problem: How do we do know true model is dynamic and not static logit?
+\begin{itemize}
+\item The general problem is that we can often write an observationally equivalent \alert{myopic model}
+\item In general without additional (parametric) restrictions we are under identified (especially w.r.t $\beta$).
+\item May be able to determine ``reasonableness'' of parameters (how much could it cost to replace a bus engine?)
+\item Magnac Thesmar (Ecma 2002): we need \alert{exclusion restrictions}:
+\begin{itemize}
+\item Variables that move $u_{\theta}(x)$ but not $EV_{\theta}(x,i)$.
+\item Variables that move $EV_{\theta}(x,i)$ but not $u_{\theta}(x)$.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+\end{document}
