@@ -168,8 +168,8 @@ It is helpful to define the \alert{choice-specific value function}:
 \begin{eqnarray*}
 \tilde V_{\theta} (x_t, \varepsilon_t, i_t) &=& \left \{ 
 \begin{array}{lr}
-\tilde u(x_t, 1;\theta_1) + \beta EV(0, \varepsilon ') + \varepsilon_{t}(1) & \text{ if } i_t = 1 \\
-\tilde u(x_t , 0; \theta_1) + \beta E_{x', \varepsilon ' | x_t, \varepsilon_t, i_t} V(x', \varepsilon ')  + \varepsilon_{t}(0)  & \text{ if } i_t = 0
+\tilde u(x_t, 1;\theta_1) + \beta EV(0, \varepsilon ')  & \text{ if } i_t = 1 \\
+\tilde u(x_t , 0; \theta_1) + \beta E_{x', \varepsilon ' | x_t, \varepsilon_t, i_t} V(x', \varepsilon ')   & \text{ if } i_t = 0
 \end{array}
 \right .\\
 V_{\theta}(x_t,\varepsilon_t) &=& \max \left\{ \tilde V_{\theta} (x_t, \varepsilon_t, 1) + \varepsilon_{t}(1) ,\tilde V_{\theta} (x_t, \varepsilon_t, 0) + \varepsilon_{t}(0) \right\}
