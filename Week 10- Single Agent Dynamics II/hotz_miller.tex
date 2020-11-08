@@ -1,0 +1,434 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\usetheme{metropolis}
+%\usetheme{Darmstadt}
+%\usepackage{times}
+%\usefonttheme{structurebold}
+
+\usepackage[english]{babel}
+%\usepackage[table]{xcolor}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+\usepackage{amsmath,amssymb,setspace,outline}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+\DeclareMathSizes{10}{10}{6}{6} 
+
+
+\title{CCPs and Sufficient Statistics: Hotz-Miller (1993)}
+\author{C.Conlon - help from M. Shum and Paul Scott}
+\institute{Grad IO }
+\date{}
+\setbeamerfont{equation}{size=\tiny}
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\section{Before we get started...}
+
+\begin{frame}{From NDP Notes: Policy Iteration (Howard 1960)}
+An alternative to value function iteration is policy function iteration. 
+\begin{itemize}
+\item Make a guess for an initial policy, call it $a(x) = \arg \max_a U(a,x)$ that maps each state into an action
+\item Assume the guess is stationary compute the implied $V(a,x)$
+\item Improvement Step: improve on policy $a_0$ by solving 
+\begin{eqnarray*}
+a' = \arg \max_a U(a,x) + \beta \sum_{x'} V(a,x') f (x' | x,a)
+\end{eqnarray*}
+\item Helpful to define $\tilde{f}(x' | x)$ as transition probability under optimal choice $a(x)$ \alert{post-decision transition rule}.
+\item Determine if $\| a' -a\| < \epsilon$. If yes then we have found the optimal policy $a^* $ otherwise we need to go back to step 2.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{From NDP Notes:  Policy Iteration (Howard 1960)}
+\footnotesize
+Policy Iteration is even easier if choices AND states are discrete.
+\begin{itemize}
+\item For Markov transition matrix $\sum_j f_{ij} =1$ ,we want $\pi \, \mathbf{F} = \pi$
+\item $\lim_{t \rightarrow \infty} \mathbf{F}^t = \pi$ where the $j$th element of $\pi$ represents the long run probability of state $j$.
+\item We want the eigenvalue for which $\lambda = 1$.
+\end{itemize}
+Now updating the value function is easy for $k$th iterate of PI
+\begin{align*}
+V^k(x) &= Eu(a^k(x),x) + \beta \, \mathbf{\tilde{F}}^k \, V^k(x)\\
+\Rightarrow V^k(x) &= [1 - \beta \, \mathbf{\tilde{F}}^k]^{-1}\, Eu(a^k(x),x)
+\end{align*}
+\vspace{-.5cm}
+\begin{itemize}
+\item Very fast when $\beta > 0.95$ and $s$ is relatively small. (Rust says 500 more like 5000).
+\item Inverting a large matrix is tricky
+\item \alert{This trick is implicit in the HM/AM formulation}.
+\end{itemize}
+\end{frame}
+
+
+\section*{Now for real}
+
+
+\begin{frame}{Motivation}
+\begin{itemize}
+	\item In Rust, we started with a guess of parameters $\theta$, iterated on the Bellman operator to get $EV_{\theta}(x,j)$ and then constructed CCP's $Pr(a(x) = j | x,\theta) \equiv p(j | x,\theta)$.
+	\item A disadvantage of Rust's approach is that it can be computationally intensive
+	\begin{itemize}
+		\item With a richer state space, solving value function (inner fixed point) 
+		can take a very long time,
+		which means estimation will take a very, very long time.
+	\end{itemize}
+	\item Hotz and Miller's idea is to use observable data to form an estimate 
+	of (differences in) the value function from conditional choice probabilities (CCP's)
+\begin{itemize}
+\item We observe $\hat{p}(j | x)$ directly in the data!
+\end{itemize}
+	\item The central challenge of dynamic estimation is computing continuation values. 
+	In Rust, they are computed by solving the dynamic problem.
+	With Hotz-Miller (or the CCP approach more broadly), we ``measure'' continuation
+	values using a function of CCP's.
+	
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Rust's Theorem 1: Values to CCP's}
+\begin{itemize}
+	\item In Rust (1987), CCPs can be derived from the value function:
+	\begin{align*}
+		p_{j}\left( x\right) = \frac{\partial}{\partial \pi_{j} \left(x \right)} W\left( \pi\left( x \right) 
+		+\beta E\left[V\left(x' \right)|x,j\right]\right)
+	\end{align*}
+	where  
+	$W\left(u\right) = \int \max_{j} \left\{ u_{j} +\varepsilon_{j}\right\}dG\left( \varepsilon\right)$
+	is the surplus function.
+	\medskip
+	\item For the logit case:
+	\begin{align*}
+	p_{j}\left(x\right) = \frac{\exp\left(v_{j}\left(x\right)\right)}{\sum_{j'\in J}\exp\left(v_{j'}\left(x\right)\right)}
+	\end{align*}
+	where the choice specific value function for action $j$ in state $x$ is 
+	\begin{align*}
+	v_{j}\left(x\right) \equiv \pi_{j}\left(x\right)+\beta E\left[V\left(x' \right)|x,j\right]
+	\end{align*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{HM's Proposition 1: CCP's to Values}
+\begin{itemize}
+	\item Notice that CCP's are unchanged by subtracting some constant from every conditional (choice-specific) value function. Thus, consider
+	\begin{align*}
+	D_{j,0} v\left(x\right) \equiv v_{j}\left(x\right) - v_{0}\left(x\right)
+	\end{align*}
+	where $0$ denotes some reference action.	
+	\medskip
+	\item Let $Q:\, \mathbb{R}^{\left| \mathbf{J}\right|-1} \rightarrow \Delta^{\left| \mathbf{J}\right|}$ be the mapping
+	from the \alert{differences in conditional (choice-specific) values to CCP's}.
+	\medskip
+	\item Note: we're taking for granted that the distribution of $\varepsilon$ is identical across states, otherwise
+	$Q$ would be different for different $x$.
+	\begin{block}{Hotz-Miller Inversion Theorem}
+	$Q$ is invertible.
+	\end{block}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{HM inversion with logit errors}
+\small
+\begin{itemize}
+	\item Again, let's consider the case of where $\varepsilon$ is i.i.d type I EV.
+	\smallskip
+	\item Expression for CCP's: 
+	\begin{align*}
+	p_{j}\left(x\right) = \frac{\exp\left(v_{j}\left(x\right)\right)}{\sum_{j'\in \mathbf{J}}\exp\left(v_{j}\left(x\right)\right)}.
+	\end{align*}
+	\item The HM inversion follows by taking logs and differencing across actions: 
+	\begin{align*}
+		\ln p_{j}\left(x\right) - \ln p_{0}\left(x\right) = v_{j}\left(x\right) - v_{0}\left(x\right)
+	\end{align*}
+	\item Thus, in the logit case (this looks a lot like Berry (1994)):
+	\begin{align*}
+	Q_{j}^{-1} \left(\mathbf{p} \right) = \ln p_{j} - \ln p_{0}
+	\end{align*}
+	\item From now on, I will use $\phi(\mathbf{p})$ to denote $Q^{-1}(\mathbf{p})$.
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Arcidiacono and Miller's Lemma}
+An equivalent result to the HM inversion was introduced by Arcidiacono and Miller (2011). 
+It's worth introducing here because it makes everything from now on much simpler
+and more elegant.
+\begin{block}{Arcidiacono Miller Lemma: Statement}
+For any action-state pair $\left(a,x\right)$, there exists a function
+$\psi$ such that 
+\begin{align*}
+V\left(x\right)=v_{a}\left(x\right)+\psi_{a}\left(\mathbf{p}\left(x\right)\right)
+\end{align*}
+\end{block}
+\end{frame}
+
+\begin{frame}{Arcidiacono Miller Lemma: Proof}
+\begin{align*}
+V\left(x\right) &=  \int\max_{j}\left\{ v_{j}\left(x\right)+\varepsilon_{j}\right\} dG\left(\varepsilon_{j}\right)\\
+ &= \int\max_{j}\left\{ v_{j}\left(x\right)-v_{a}\left(x\right)+\varepsilon_{j}\right\} dG\left(\varepsilon_{j}\right)-v_{a}\left(x\right)\\
+ &=  \int\max_{j}\left\{ \phi_{ja}\left(\mathbf{p}\left(x\right)\right)+\varepsilon_{j}\right\} dG\left(\varepsilon_{j}\right)-v_{a}\left(x\right)
+\end{align*}
+Letting $\psi_{a}\left(\mathbf{p}\left(x\right)\right)=\int\max_{j}\left\{ \phi_{ja}\left(\mathbf{p}\left(x\right)\right)+\varepsilon_{j}\right\} dG\left(\varepsilon_{j}\right)$ completes the proof
+\end{frame}
+
+\begin{frame}{Important relationships}
+\small
+\begin{itemize}
+\item The Hotz-Miller Inversion allows us to map from CCP's to differences
+in conditional (choice-specific) value functions:
+\begin{align*}
+\phi_{ja}\left(\mathbf{p}\left(x\right)\right)=v_{j}\left(x\right)-v_{a}\left(x\right)
+\end{align*}
+\item The Arcidiacono and Miller Lemma allows us to relate ex ante and conditional (choice specific)
+value functions: 
+\begin{align*}
+V\left(x\right)=v_{j}\left(x\right)+\psi_{j}\left(\mathbf{p}\left(x\right)\right)
+\end{align*}
+\item For the logit case:
+\begin{align*}
+\phi_{ja}\left(\mathbf{p}\left(x\right)\right) & = \ln\left(p_{j}\left(x\right)\right)-\ln\left(p_{a}\left(x\right)\right)\\
+\psi_{j}\left(\mathbf{p}\left(x\right)\right) & =  -\ln\left(p_{j}\left(x\right)\right)+\gamma
+\end{align*}
+where $\gamma$ is Euler's gamma.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Estimation example: finite state space I}
+\begin{itemize}
+\item Let's suppose that $X$ is a finite state space. Furthermore, let's ``normalize'' the
+	payoffs for 
+	 a reference action $\pi_{0}\left(x\right)=0$ for all $x$. (is this really a ``normalization''?)
+	\item Using vector notation (standard font, matrices bold) recall the definition of the choice-specific value function
+	for the reference action:
+\begin{align*}
+v_{0} & = \underbrace{\pi_{0}}_{=0}+ \beta\, \mathbf{F_{0}}\, V = \beta \mathbf{F_{0}}\, V
+\end{align*}
+\item Using the Arcidiacono-Miller Lemma:
+\medskip
+\begin{align*}
+V-\psi_{0}\left(p\right) & =  \beta\, \mathbf{ F_{0}} \, V\\
+\Rightarrow  V & =  \left(\mathbf{I}-\beta\, \mathbf{F_{0}} \right)^{-1} \psi_{0} \left(p\right)
+\end{align*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Estimation example: finite state space II}
+\begin{itemize}
+	\item Now we have an expression for the ex ante value function
+	that only depends on objects we can estimate in a first stage:
+\begin{align*}
+V  =  \left(\mathbf{I}-\beta\, \mathbf{F_{0}}\right)^{-1}\psi_{0}\left(p\right)
+\end{align*}
+\item To estimate the utility function for the other actions, 	
+\begin{align*}
+v_{j} & =  \pi_{j}+\beta\, \mathbf{F_{j}} \, V\\
+V-\psi_{j}\left(p\right) & =  \pi_{j}+\beta\,  \mathbf{F_{j}} \, V\\
+\pi_{j} & =  -\psi_{j}\left(p\right)+\left(\mathbf{I}-\beta\,  \mathbf{F_{j}} \right)\,V\\
+\pi_{j} & =  -\psi_{j}\left(p\right)+\left(\mathbf{I}-\beta\,   \mathbf{F_{j}} \right)\, \left(\mathbf{I}-\beta\,  \mathbf{F_{0}} \right)^{-1} \,\psi_{0}\left(p\right)
+\end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Identification of Models I}
+\begin{itemize}
+	\item If we  run through the above argument with $\pi_{0}$ fixed to 
+	an arbitrary vector $\widetilde{\pi}_{0}$ rather than 0, we will arrive at the
+	following:
+	\begin{align*}
+		\pi_{j} = \mathbf{A_{j}} \, \widetilde{\pi}_{0} + b_{j} 
+	\end{align*}
+	where $ A_{j} $ and $b_{j} $ depend only on things we can estimate in a first
+	stage: 
+	\begin{align*}
+	\mathbf{A_{j}} & = \left(1-\beta\, \mathbf{F_{j}}\right) \, \left(1-\beta\,  \mathbf{F_{0}}\right)^{-1}\\
+	b_{j} & = \mathbf{A_{j}}\, \psi_{0}\left(p\right)-\psi_{j}\left(p\right)
+	\end{align*}
+	\item We can plug in any value for $\widetilde{\pi}_{0}$, and each value
+	will lead to a different utility function (different values for $\pi_{j}$). Each
+	of those utility functions will be perfectly consistent with the CCP's we observe.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification of Models II}
+Another way to see that the utility function is under-identified:
+\begin{itemize}
+\item If there are $\left|X\right|$ states and $\left|J\right|$ actions,
+the utility function has $\left|X\right|\left|J\right|$ parameters.
+\item There are only $\left|X\right|\left(\left|J\right|-1\right)$
+linearly independent choice probabilities in the data, so we have
+to restrict the utility function for identification. 
+\item Magnac and Thesmar (2002) make this point as part of their broader
+characterization of identification of DDC models:
+\begin{itemize}
+\item Specify a vector of utilities for the reference action
+$\widetilde{\pi}$, a distribution for the idiosycratic shocks $G$,
+and a discount factor, and we will be able to find a model rationalizing
+the CCPs that features $\left(\widetilde{\pi},\beta,G\right)$.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification of Counterfactuals}
+Imposing a restriction like $\forall x:\pi_{0}\left(x\right)=0$
+is NOT a normalization: 
+\begin{itemize}
+\item If we were talking
+about a static normalization, each $x$ would represent a different
+utility function, and $\pi_{0}\left(x\right)=0$ would simply be a
+level normalization. However, in a dynamic model, the payoffs in one
+state affect the incentives in other states, so this is a \alert{substantive
+restriction.}
+\end{itemize}
+But do these restrictions affect counterfactuals?
+\begin{itemize}
+\item It turns out that some (but not all!) counterfactuals ARE identified, in spite of the
+under-identification of the utility function. 
+\item Whatever value
+$\widetilde{\pi}_{0}$ we impose for the reference action, the model will not only
+rationalize the observed CCP's but also predict \alert{the same counterfactual CCP's}.
+\item Kalouptsidi, Scott, and Souza-Rodrigues (2016) sort out when counterfactuals
+of DDC models are identified and when they are not.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Extensions}
+\begin{itemize}
+\item We cheated a bit because we assumed that not only were actions discrete but so was the state space. This trick is often attributed to Pesendorfer and Schmidt-Dengler (ReStud 2008).
+\item If the state space is not discrete we need to do some forward-simulation [next slide]. (Hotz, Miller, Sanders, Smith ReStud 1994).
+\item Others have extended these ideas to \alert{dynamic games}. See Aguirragabiria and Mira (Ecma 2002/2008) and Bajari Benkard and Levin (Ecma 2007).
+\item Srisuma and Linton (2009) [very hard] show how to use Friedholm integral equations of 2nd kind to extend to continuous case.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Continuous State Space}
+When state space is continuous instead of discrete:\\
+Exact Problem
+\begin{align*}
+V(x) = \max_{a \in A(x)} \left[ (1-\beta)\, u(x,a) + \beta \, \int V(x')\, f(dx' | x,a) \right]
+\end{align*}
+Approximation to the problem:
+\begin{align*}
+\hat{V}(x) = \max_{a \in \hat{A}(x)} \left[ (1-\beta) \, u(x,a) + \beta \, \sum_{k=1}^N \hat{V}(x') \, f (x_k' | x,a) \right]
+\end{align*}
+\begin{itemize}
+\item Now we need to do actual numerical integration instead of just summation.
+\item We cannot use the $[I- \beta \, \mathbf{F}]^{-1}$ to get the ergodic distribution.
+\item Usually requires interpolating between grid points to evaluate $EV(\cdot)$.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Forward Simulation}
+In practice, "truncate" the infinite sum at some period $T$: 
+\begin{align*} 
+& \tilde V(x, d=1;\theta) =\\
+& u(x, d=1; \theta) + \beta E_{x'|x, d=1} E_{d'|x'} E_{\epsilon''|d', x'} [u(x', d';\theta) + \epsilon' \\
+& + \beta E_{x''|x', d''} E_{d''|x''} E_{\epsilon'|d'', x''} [u(x'', d'';\theta) + \epsilon'' + \cdots \\
+& \beta E_{x^T|x^{T-1}, d^{T-1}} E_{d^T|x^T} E_{\epsilon^T|d^T, x^T} [u(x^T, d^T;\theta) + \epsilon^T ]]]
+\end{align*}
+Also, the expectation $E_{\epsilon|d, x}$ denotes the expectation of the $\epsilon$ conditional choice $d$ being taken, and current mileage $x$. For the logit case, there is a closed form:
+$$ E[\epsilon | d, x] = \gamma - \log(Pr(d|x))$$
+where $\gamma$ is Euler's constant ($0.577\cdots$) and $Pr(d|x)$ is the choice probability of action $d$ at state $x$. \\
+\vspace{2mm}
+Both of the other expectations in the above expressions are observed directly from the data. 
+\end{frame}
+
+\begin{frame}{Forward Simulation}
+Choice-specific value functions can be simulated by (for $d=1,2$): 
+\begin{align*}
+\tilde V (x, d; \theta) \approx & \frac 1 S \sum_s [ u(x, d;\theta) + \beta [ u(x'^s, d'^s;\theta) + \gamma - \log(\hat P(d'^s|x'^s)) \\
+& +\beta [ u(x''^s, d''^s;\theta) + \gamma - \log (\hat P (d''^s |x''^s)) + \beta \cdots ]]]
+\end{align*}
+\vspace{-.4cm}
+\begin{itemize}
+\item $x'^s \sim \hat G(\cdot | x, d)$ and  $d'^s \sim \hat p(\cdot | x'^s)$ and $x''^s \sim \hat G(\cdot | x'^s, d'^s)$, etc.
+\item In short, you simulate $\tilde V (x, d;\theta)$ by drawing $S$ \alert{sequences} of $(d_t, x_t)$ with a initial value of $(d, x)$, and compute the present-discounted utility correspond to each sequence.
+\item Then the simulation estimate of $\tilde V (x, d;\theta)$ is obtained as the sample average. 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Forward Simulation}
+Given an estimate of $\tilde V (\cdot, d; \theta)$, you can get the \alert{predicted choice probabilities}: 
+\begin{equation}
+\tilde p (d =1 |x ; \theta) \equiv \frac {\text{exp} \left ( \tilde V (x, d=1; \theta) \right )}{\text{exp} \left ( \tilde V (x, d=1 ;\theta) \right ) + \text{exp} \left ( \tilde V (x, d= 0 ;\theta ) \right )}
+\end{equation}
+and analogously for $\tilde p (d = 0 |x ; \theta)$. 
+\begin{itemize}
+\item Note that the predicted choice probabilities are different from $\hat p (d|x)$, which are the \alert{actual choice probabilities} computed from the actual data.
+\item The predicted choice probabilites depend on the parameters $\theta$, whereas $\hat p (d|x)$ depend solely on the data.
+\end{itemize}
+\medskip
+An obvious estimator minimizes $\arg \min_{\theta} \|  \tilde{p} (d |x ; \theta) -\hat{p} (d |x) \|$
+\end{frame}
+
+\begin{frame}{Rust and Hotz-Miller Comparison}
+Rust's NFXP Algorithm
+\begin{align*}
+V_{\theta}(x) &= f(V_{\theta}(x),x,\theta) \Rightarrow  f^{-1}(x,\theta)  \\
+P(d | x,\theta) &= g(V_{\theta}(x),x,\theta) \\
+P(d | x,\theta) &= g(f^{-1}(x,\theta)) 
+\end{align*}
+\begin{itemize}
+\item At every guess of $\theta$ we solve the fixed point inverse
+\item Plug that in to get choice probabilities
+\item Evaluate the likelihood
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Hotz-Miller (1993) to Aguirregabiria and Mira (2002)}
+\begin{itemize}
+\item Choice probabilities conditional on any value of observed state variables are uniquely determined by the vector of normalized value functions
+\item HM show invertibility proposition (under some conditions).
+\item If mapping is one-to-one we can also express value function in terms of choice probabilities. 
+\begin{eqnarray*}
+V_{\theta}(x) &=& h(P(d | x,\theta),x,\theta)\\
+P(d | x,\theta) &=& g(V_{\theta}(x),x,\theta) \\
+\Rightarrow P(d | x,\theta) &=& g(h(P(d | x, \theta),x ,\theta),x,\theta)
+\end{eqnarray*}
+\item The above fixed point relation is used in Aguirregabiria and Mira (2002) in their NPL Estimation algorithm.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Hotz-Miller (1993) to Aguirregabiria and Mira (2002)}
+\begin{eqnarray*}
+P^{k+1}(d | x,\theta) &=& g(h(\hat{P^{k}}(d | x, \theta),s ,\theta),s,\theta)
+\end{eqnarray*}
+\vspace{-0.5cm}
+\begin{itemize}
+\item Key point here is that the functions $h(\cdot)$ and $g(\cdot)$ are quite easy to compute (compared to the inverse $f^{-1}$).
+\item We can substantially improve estimation speed by replacing $P$ with $\hat{P}$ the Hotz-Miller simulated analogue.
+\item The idea is to reformulate the problem from \alert{value space} to \alert{probability space}.
+\item When initializing the algorithm with consistent nonparametric estimates of CCP, successive iterations return a sequence of estimators of the structural parameters
+\item Call this the $K$ stage policy iteration (PI) estimator.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Hotz-Miller (1993) to Aguirregabiria and Mira (2002)}
+\begin{itemize}
+\item This algorithm nests Hotz Miller $(K=1)$ and Rust's NFXP $(K=\infty)$.
+\item Asymptotically everything has the same distribution, but finite sample performance may be increasing in $K$ (at least in Monte Carlo).
+\item The Nested Pseudo Likelihood (NPL) estimator of AM $(K=2)$ seems to have much of the gains.
+\item For games things are more complicated. Pesendorfer and Scmidt-Dengler describe some problems with AM2007.
+\item For a modern treatment see Blevins and Dearing (2020).
+\end{itemize}
+\end{frame}
+
+
+
+\end{document}
