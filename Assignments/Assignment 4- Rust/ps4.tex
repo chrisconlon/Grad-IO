@@ -5,30 +5,42 @@
 \title{Empirical IO: Problem Set 4}
 \begin{document}
 \small
-\date{Due date: Nov 13, 2020}
+\date{Due date: Nov 30, 2020}
 \maketitle
-Your answers should be produced in \LaTeX, and should include all relevant graph and code.  Code should be in the appropriate verbatim environment and properly documented.
-\section*{Part 1: Computing the HZ Model}
-\begin{itemize}
-\item Find (or write!) a underflow safe function that handles $\log sum \exp (\cdot)$ called \textbf{logsumexp}. A useful approximation is that $\log (\sum_i e^{x_i}) \approx \log (\sum_i e^{x_i -A}) +A$. A good choice for A is the maximum value $\max_i x_i = A$.
-\item Calculate (analytically) the gradient of the log-likelihood function in Rust with respect to the parameters of the model and write down the analytic results.
-\end{itemize}
+Your answers should be produced in \LaTeX, or Jupyter, and should include all relevant graphs and code.  Code should be in the appropriate verbatim environment and properly documented. My python code is in the GitHub folder and should be more than enough if you are stuck.\\
 
-\section*{Part 2: Estimation MLE and MPEC}
-\begin{itemize}
-\item Estimate the model using the NFXP approach of Rust. You will want to use the gradient.
+The data are \texttt{rust\_data\_2020.csv}. The fields are \texttt{bus\_id}, \texttt{period\_id},  \texttt{y\_it} (replacement decision) and  \texttt{x\_it} (mileage state).\\
+
+Part 0 shouldn't take more than 5 minutes. Part 3 is the second easiest. Part 1 and 2 are challenging.
+
+\section*{Part 0: Pre-Estimation}
 \begin{enumerate}
-\item Compute the transition probabilities in a separate first stage -- you should have 5 of them.
-\item Compute $EV(x, \theta)$ for a given guess of the parameters via the fixed point.
-\item Construct the CCP given your $EV(x, \theta)$
-\item Construct the likelihood and its gradient with respect to $\theta$
+\item Compute $P(x' | x,y=0) = Pr(\Delta x_{it} | y_{it} = 0)$ in a separate first stage -- \textbf{you should have 5 of them}.
+\item Populate a transition probability matrix with states of $x_{it} \in \{0,\ldots,200\}$.\\
+ (Adjust your matrix so that rows sum to one!)
 \end{enumerate}
-\item Estimate the model using the MPEC method of Su and Judd.
+
+\section*{Part 1: Estimation MLE}
+Estimate the model using the NFXP approach of Rust. Computers are fast enough you can probably get away with a finite differences for the gradient, but analytic gradients will be more reliable in addition to faster. If you are feeling ambitious \texttt{Jax} can do the gradient for you.
+\begin{enumerate}
+\item Compute $EV(x, \theta)$ for a given guess of the parameters via the fixed point.
+\item Construct the CCP given your $EV(x, \theta)$ for every possible mileage state.
+\item Construct the likelihood and its gradient contribution with respect to $\theta$ for every possible mileage state.
+\item Finally, apply your likelihood and gradient contributions to observed data.
+\end{enumerate}
+
+
+\section*{Part 2: Estimation MPEC}
+Estimate the model using the MPEC method of Su and Judd. If you are feeling ambitious, you can try a modeling language like \texttt{pyMC} or \texttt{JuMP} or \texttt{AMPL} or \texttt{GAMS}. (I've solved this in \texttt{AMPL} but have no idea if other approaches work).
+\begin{enumerate}
+\item You will probably want to work out the analytic Jacobian where $EV_{\theta}$ is a free parameter.
 \item Compare the results in a table, including the nonparametric answers below and discuss the results.
 \item Plot the $EV(\cdot)$ you have obtained for both estimators.
-\end{itemize}
+\end{enumerate}
 
 
+
+\newpage
 \section*{Part 3: The Stata Estimator}
 This is taken from Han Hong's problem set at Stanford, the idea is that we can use the arguments in Hotz-Miller (1993), or Pesendorfer Schmidt-Dengler (2008) to construct an optimization free method to recover the utility parameters in the Rust problem.\\
 
@@ -39,7 +51,7 @@ v(x,d) &=& u(x,d) + \beta \int \log \left ( \sum_{d' \in D} \exp ( v (x',d') - v
 \end{eqnarray*}
 \begin{enumerate}
 \item Estimate $p(x' | x,d)$ non parametrically or parametrically (for example as a set of  multinomial with $n$ outcomes or an exponential distribution).  Call your estimate $\hat{p}(x' | x,d)$.
-\item Estimate $p(d | x)$ (the CCP) non-parametrically. You can use the binomial logit model with a basis function (increasing number of terms) or you can use a kernel such as $\mathbf{ksdensity}$ or $\mathbf{ecdf}$.
+\item Estimate $p(d | x)$ (the CCP) non-parametrically. You can use the binomial logit model with a basis function (increasing number of terms) or you can use a kernel. (Extra Credit: Impose monotonicty on CCP's).
 \item Now use the Hotz-Miller inversion to estimate:  $\hat{v}(x,d) - \hat{v}(x,1) = \log \hat{p}(d|x) - \log \hat{p}(1|x)$
 \item Normalize $u(x,1) = 0$ and so for $=1$  we have that 
 \begin{eqnarray*}
