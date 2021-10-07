@@ -49,50 +49,98 @@
 
 \frame{\titlepage}
 
+
+\begin{frame}{Setup}
+Utility for consumer $i$ with demographics $y_i$ for choice $j$ are given by:
+\begin{align*}
+\label{eq:utility}
+u_{ijt}(\delta_{jt},\widetilde{\theta}_2) =  \delta_{jt}(\theta_1)  + \mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2) + \varepsilon_{ijt}.
+\end{align*}
+When $\varepsilon_{ijt}$ is IID extreme value, tesulting marketshare are given by $s_{ijt} = Pr(u_{ijt}> u_{ikt})$ for all $k\neq j$ (including the ``outside option'' $k=0$)
+\begin{align*}
+\sigma_j(\boldsymbol{\delta_t},y_t;\theta_2)=\int \frac{\exp[\delta_{jt}+\mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2)]}{1+\sum_{j'} \exp[\delta_{j't}+\mu_{ij't}(\textrm{x}_{j't}, y_i; \widetilde{\theta}_2)]}f(\mu_{ijt} | \widetilde{\theta}_2)
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Setup}
+By matching observed marketshares $\mathcal{S}_t$ to predicted marketshares $\sigma_j(\boldsymbol{\delta_t},y_t;\theta_2)$ for each market $t$, we define a system of $\mathcal{J}_t$ equations and $\mathcal{J}_t$ unknowns (where $\delta_{0t}=0$):
+\begin{align*}
+\sigma_j(\boldsymbol{\delta_t},y_t;\widetilde{\theta}_2))=\int \frac{\exp[\delta_{jt}+\mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2)]}{1+\sum_{j'} \exp[\delta_{j't}+\mu_{ij't}(\textrm{x}_{j't}, y_i; \widetilde{\theta}_2)]}f(\mu_{ijt} | \widetilde{\theta}_2)
+\end{align*}
+If the solution is unique then we can define the \alert{inverse share function}
+\begin{align*}
+\sigma_j^{-1}(\mathcal{S}_t,y_t;\widetilde{\theta}_2)=\delta_{jt}
+\end{align*}
+Common examples Logit: $\sigma_j^{-1}(\mathcal{S}_t,y_t)=\log s_{jt}- \log s_{0t}$\\
+Nested Logit: $\sigma_j^{-1}(\mathcal{S}_t,y_t, \rho)=\log s_{jt}- \log s_{0t}- \rho \log s_{j |g, t}$
+\end{frame}
+
+
+
+
 \begin{frame}{Parametric Identifcation}
 \begin{itemize}
-\item Once we have $D_{jt}^{-1}(\mathcal{S}_t,\widetilde{\theta}_2)\equiv \delta_{jt}(\theta_2)$ identification of linear parameters is pretty straightforward
+\item Once we have $\sigma_j^{-1}(\mathcal{S}_t,y_t;\widetilde{\theta}_2) = \delta_{jt}(\mathcal{S}_t,y_t;\widetilde{\theta}_2)$ identification of remaining parameters is pretty straightforward
 \begin{eqnarray*}
-D_{jt}^{-1}(\mathcal{S}_t,\widetilde{\theta}_2) = x_{jt} \beta -  \alpha \cdot \alert{ p_{jt}} + \xi_j + \xi_t + \Delta \xi_{jt}
+\delta_{jt}(\mathcal{S}_t,y_t;\widetilde{\theta}_2)=  h_d(\mathrm{x}_{jt};\theta_1)-  \alpha \cdot \alert{ p_{jt}} + \xi_{jt}
 \end{eqnarray*}
 \item This is either basic linear IV or panel linear IV and we need instruments for $p_{jt}$
 \item The $\widetilde{\theta}_2$ parameters governing the change of variables require \alert{nonlinear IV}
-\item Remember $\theta_2 =  [\widetilde{\theta}_2, \alpha]$.
+\item Define $\theta_2 =  [\widetilde{\theta}_2, \alpha]$, each parameter requires at least one IV.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Exclusion Restrictions}
 \begin{eqnarray*}
-    \delta_{jt}(\mathcal{S}_t,\widetilde{\theta}_2) &=&  h_d\left(x_{jt}, \alert{v_{jt}}; \theta_1 \right)  - \alpha p_{jt} + \xi_{jt}\\
-    f(p_{jt} - \eta_{jt}(\theta_2,\mathbf{p},\mathbf{s})) &=&   h_d\left(x_{jt},\alert{w_{jt}};\theta_3 \right)+\omega_{jt}
+    \sigma_j^{-1}(\mathcal{S}_t,y_t;\widetilde{\theta}_2) &=&  h_d\left(\mathrm{x}_{jt}, \alert{\mathrm{v}_{jt}}; \theta_1 \right)  - \alpha p_{jt} + \xi_{jt}\\
+    p_{jt} - \eta_{jt}(\theta_2,\mathbf{p_t},\mathbf{s_t}) &=&   h_s\left(\mathrm{x}_{jt},\alert{\mathrm{w}_{jt}};\theta_3 \right)+\omega_{jt}
 \end{eqnarray*}
 The first place to look for exclusion restrictions/instruments:
 \begin{itemize}
 \item Something in another equation!
-\item $v_j$ shifts demand but not supply
-\item $w_j$ shifts supply but not demand
+\item $\mathrm{v}_j$ shifts demand but not supply
+\item $\mathrm{w}_j$ shifts supply but not demand
 \item If it doesn't shift either is it really relevant?
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Markup Shifters}
-The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p},\mathbf{s},\xi_t,\omega_t,x_{t},w_{t},v_t,\theta_2)$:
+
+\begin{frame}{BLP Instruments}
+\begin{eqnarray*}
+    \sigma_j^{-1}(\mathcal{S}_t,y_t;\widetilde{\theta}_2) &=&  h_d\left(\mathrm{x}_{jt}, \mathrm{v}_{jt}; \theta_1 \right)  - \alpha p_{jt} + \xi_{jt}\\
+    p_{jt} - \eta_{jt}(\theta_2,\mathbf{p_t},\mathbf{s_t}) &=&   h_s\left(\mathrm{x}_{jt},\mathrm{w}_{jt};\theta_3 \right)+\omega_{jt}
+\end{eqnarray*}
+The second place to look are characteristics of other goods
 \begin{itemize}
-\item It is literally \alert{endogenous} (depends on error terms)!
-\item But lots of potential instruments beyond \alert{excluded} $v_t$ or $w_t$.
-\item Also $v_{-j}$ and $w_{-j}$ and $x_{-j}$ (these don't depend on $\xi_{jt},\omega_{jt}$)
-\item Not $p_{-j}$ or $\xi_{-j}$, (these depend on $\xi_{jt},\omega_{jt}$).
-\item The idea is that these instruments shift or rotate the \alert{marginal revenue curve}.
-\item What is a good choice of $f(x_{-j})$? etc.
+\item $\chi_t = (\mathbf{x}_{t},\mathbf{v}_{t},\mathbf{w}_{t})$ characteristics of other products affect both $\sigma_{j}^{-1}(\cdot)$ and $\eta_{jt}(\cdot)$.
+\item But which functions $f(\chi_t)$ to use?
+\begin{itemize}
+\item Sums of competing products? Averages of own and competing products? Counts?
+\end{itemize}
+\item One motivation: these shift or rotate the \alert{marginal revenue curve}.
 \end{itemize}
 \end{frame}
+
+
+
+% \begin{frame}{Markup Shifters}
+% The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p},\mathbf{s},\xi_t,\omega_t,x_{t},w_{t},v_t,\theta_2)$:
+% \begin{itemize}
+% \item It is literally \alert{endogenous} (depends on error terms)!
+% \item But lots of potential instruments beyond \alert{excluded} $v_t$ or $w_t$.
+% \item Also $v_{-j}$ and $w_{-j}$ and $x_{-j}$ (these don't depend on $\xi_{jt},\omega_{jt}$)
+% \item Not $p_{-j}$ or $\xi_{-j}$, (these depend on $\xi_{jt},\omega_{jt}$).
+% \item What is a good choice of $f(x_{-j})$? etc.
+% \end{itemize}
+% \end{frame}
 
 \begin{frame}{What are we instrumenting for?}
 \begin{itemize}
 \item Recall the nested logit, where there are two separate endogeneity problems
 \begin{itemize}
 \item Endogenous \alert{markups} $\eta_{jt}$ (link S+D)
-\item \alert{Nonlinear characteristics} $\sigma$ on $\ln s_{j|gt}$ this is the other one.
+\item \alert{Nonlinear characteristics} $\widetilde{\theta_2}=\rho$ on $\ln s_{j|gt}$ this is the other one.
 \end{itemize}
 \item Nonlinear parameters $\widetilde{\theta_2}$.
 \begin{itemize}
@@ -111,12 +159,12 @@ The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p
 
 \begin{frame}{Instruments}
 \begin{itemize}
-\item We are doing nonlinear GMM: Start with $E[\xi_{jt} | x_{jt}, w_{jt}]=0$ use $E[\xi_{jt}' Z_{jt}^D]=0$ with $Z_{jt}^D=[x_{jt},\,  z_{jt}]$.
+\item We are doing nonlinear GMM: Start with $E[\xi_{jt} | \mathrm{x}_{jt}, \mathrm{w}_{jt},\mathrm{z}_{jt}^d]=0$
 \begin{itemize}
-\item In practice this means that for valid instruments $(x,w)$ any function $f(x,w)$ is also a valid instrument $E[ \xi_{jt} f(x_{jt},w_{jt})]=0$.
-\item We can use $x, x^2, x^3,\ldots$ or interactions $x \cdot w, x^2 \cdot w^2, \ldots$.
-\item What is a reasonable choice of $f(\cdot)$?
+\item In practice this means that for valid instruments $(\mathrm{x},\mathrm{w})$ any function $f(\mathrm{x}_t,\mathrm{w}_t)$ is also a valid instrument $E[ \xi_{jt} f(\mathrm{x}_{jt},\mathrm{w}_{jt})]=0$.
+\item We can use $x, x^2, x^3,\ldots$ or interactions $x \cdot \mathrm{w}, x^2 \cdot \mathrm{w}^2, \ldots$.
 \item Where does $w$ come from?
+\item What is a good choice of $f(\cdot)$?
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -202,8 +250,8 @@ g(x_i,v_i,z_i) &= \left(y_i - \beta x_i - \gamma v_i \right) \cdot [v_i,\, z_i]
  \end{align*}
  Which gives:
 \begin{align*}
-E\left[\frac{\partial g(x_i,v_i, z_i,\theta)}{\partial \gamma} \mid v_i, z_i \right] &= v_i\\
-E\left[\frac{\partial g(x_i,v_i, z_i,\theta)}{\partial \beta} \mid v_i, z_i \right] &=E\left[x_i \mid v_i, z_i \right]
+E\left[\frac{\partial g(x_i,v_i, z_i,\theta)}{\partial \gamma} \mid v_i, z_i \right] &\propto v_i\\
+E\left[\frac{\partial g(x_i,v_i, z_i,\theta)}{\partial \beta} \mid v_i, z_i \right] &\propto E\left[x_i \mid v_i, z_i \right]
 \end{align*}
 We can't just use $x_i$ (bc endogenous!), but you can also see where 2SLS comes from...
 \end{frame}
