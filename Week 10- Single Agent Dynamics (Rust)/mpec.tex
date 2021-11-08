@@ -17,16 +17,11 @@
 \DeclareMathSizes{10}{10}{6}{6} 
 
 
-\title [Single-agent dynamic optimization models]{Single-agent dynamic optimization models}
-\author{C.Conlon - help from M. Shum and Paul Scott}
-\institute{Grad IO }
-\date{}
-\setbeamercolor{figure}{bg=white}
 
 \begin{document}
 \title{MPEC notes}
 \author{Chris Conlon\\
- thanks to Che-Lin Su}
+ thanks to the late, great Che-Lin Su}
 \institute{Grad IO}
 \date{\today}
 \footnotesize
@@ -43,14 +38,14 @@ Many economic problems contain constraints, such as: market clearing (supply equ
 \begin{frame}{Constrained Problems}
 \begin{block}{MPEC}
 \begin{align*}
-\hat{\theta} = \arg \max_{\theta,P} Q_n(\theta,P), \quad  \mbox{ s .t. } \quad \Psi(P,\theta) =0,  \quad \theta \in \Theta
+\hat{\theta} = \arg \max_{\alert{\theta},\textcolor{blue}{P}} Q_n(\alert{\theta},\textcolor{blue}{P}), \quad  \mbox{ s .t. } \quad \Psi(\textcolor{blue}{P},\alert{\theta}) =0,  \quad \alert{\theta} \in \Theta
 \end{align*} 
 \end{block}
 \pause
 \begin{block}{Fixed Point / Implicit Solution}
 In much of the literature the tradition has been to express the solutions $\Psi(P,\theta) =0$ implicitly as $P(\theta)$:
 \begin{align*}
-\hat{\theta} = \arg \max_{\theta} Q_n(\theta,P(\theta)),  \quad \theta \in \Theta
+\hat{\theta} = \arg \max_{\theta} Q_n(\alert{\theta},\textcolor{blue}{P}(\alert{\theta})),  \quad \alert{\theta} \in \Theta
 \end{align*}
 \end{block}
 \end{frame}
@@ -294,11 +289,11 @@ The idea is that $\delta(\alert{\theta_2})$ is an implicit function of the nonli
 The estimator solves the following mathematical program:
 \begin{align*}
 \label{blpmpec}
-\min_{\alert{\sigma,\alpha,\beta, \xi}}  & g(\alert{\xi})' W g(\alert{\xi}) \quad \mbox{ s.t. } \\
+\min_{\alert{\Sigma,\alpha,\beta, \xi}}  & g(\alert{\xi})' W g(\alert{\xi}) \quad \mbox{ s.t. } \\
 g(\alert{\xi}) &= \frac{1}{N} \sum_{\forall j,t} \alert{\xi_{jt}'} z_{jt} \\
-s_{jt}(\alert{\sigma,\alpha,\beta, \xi}) &=  \sum_i w_i \frac{\exp[x_{jt} \alert{\beta} + \alert{\xi_{jt}} - \alert{\alpha} p_{jt} + \sum_l \nu_{il} x_{jt}^l \alert{\sigma_l} ] }
-{1+ \sum_k \exp[x_{kt} \alert{\beta} + \alert{\xi_{kt}} - \alert{\alpha} p_{kt} + \sum_l \nu_{il} x_{kt}^l \alert{\sigma_l} ]} \\
-\log(S_{jt})  &= \log s_{jt}(\alert{\sigma,\alpha,\beta, \xi}) \quad \forall j,t
+s_{jt}(\alert{\Sigma,\alpha,\beta, \xi}) &=  \sum_i w_i \frac{\exp[x_{jt} \alert{\beta} + \alert{\xi_{jt}} - \alert{\alpha} p_{jt} +  \left(\alert{\Sigma} \cdot \nu_{il}\right) x_{jt} ] }
+{1+ \sum_k \exp[x_{kt} \alert{\beta} + \alert{\xi_{kt}} - \alert{\alpha} p_{kt} + \left(\alert{\Sigma} \cdot \nu_{il}\right) x_{jt} ]} \\
+\log(S_{jt})  &= \log s_{jt}(\alert{\Sigma,\alpha,\beta, \xi}) \quad \forall j,t
 \end{align*}
 \end{exampleblock}
 \begin{itemize}
@@ -334,7 +329,54 @@ Time & 28 s & 12s & 19s  \\
 \end{center}
 }
 
+\begin{frame}{Another Example: Empirical Likelihood}
+Consider the GMM moment condition $\mathbb{E}[g(Z_i,\theta)]=0$
+\begin{itemize}
+\item A common example is $E[z_i' (y_i-x_i \beta)]=0$
+\item Now consider re-weighting the data with $\rho_i$ so that $\sum_i \rho_i g(Z_i,\theta)=0$
+\begin{itemize}
+\item We also need that $\sum_i \rho_i =1$ and $\rho_i \in (0,1)$ (ie: $\rho$ is a valid probability measure)
+\item Idea: penalize distance between $\rho_i$ and $\frac{1}{n}$ with $f(\rho)$
+\end{itemize}
+\item Idea: your moments always hold (because economic theory)
+\item How much would you have to re-sample data?
+\end{itemize}
+\end{frame}
 
+
+
+\begin{frame}{Another Example: Empirical Likelihood}
+\begin{align*}
+\min_{\alert{\theta}, \textcolor{blue}{\rho} }\sum_i f(\textcolor{blue}{\rho_i}) \quad &\text{ s.t } \sum_i \textcolor{blue}{\rho_i} \cdot g(Z_i,\alert{\theta})= 0\\
+& \sum_i \textcolor{blue}{\rho_i} =1 \quad \textcolor{blue}{\rho_i} \geq 0
+\end{align*}
+Choices of $f(\rho_i)$:
+\begin{itemize}
+\item Empirical Likelihood: $f(\rho_i) = - \log \rho_i$ [This is NPMLE]
+\item Continuously Updating GMM (CUE): $f(\rho_i) = \rho_i^2$ [Derivation is \alert{not} obvious]
+\item Exponential Tilt: $f(\rho_i) = \rho_i \log \rho_i $ [has some ``robustness'' properties]
+\item See Kitamura's Handbook Chapter for more details (and convex analysis) or Newey Smith (2004) for asymptotic bias.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Empirical Likelihood: NFXP Solution}
+Start with the Lagrangian:
+\begin{align*}
+\mathcal{L} &=\sum_{i=1}^{n} \log \rho_{i}+\lambda\left(1-\sum_{i=1}^{n} \rho_{i}\right)-n \gamma^{\prime} \sum_{i=1}^{n} \rho_{i}\cdot g\left(Z_{i}, \theta\right)
+\end{align*}
+Take derivatives with respect to \textcolor{blue}{$\rho$} and $\alert{\theta}$ and Lagrange multipliers to get $\textcolor{blue}{\gamma}$ and concentrate out $\textcolor{blue}{\rho_i}(\alert{\theta})$
+\begin{align*}
+\textcolor{blue}{\hat{\gamma}}(\alert{\theta}) &=\arg \min _{\textcolor{blue}{\gamma} \in \mathbb{R}^{q}}-
+\sum_{i=1}^{n} \log \left(1+\textcolor{blue}{\gamma}^{\prime} g\left(Z_{i}, \alert{\theta}\right)\right) \\
+\textcolor{blue}{\hat{\rho}}_{i}(\alert{\theta}) &=\frac{1}{n\left(1+\textcolor{blue}{\hat{\gamma}}(\alert{\theta})^{\prime} g\left(Z_{i}, \alert{\theta}\right)\right)}, \quad \hat{\lambda}=n
+\end{align*}
+The resulting dual is a saddle-point problem:
+\begin{align*}
+\hat{\theta}_{E L}=\arg \max _{\alert{\theta} \in \Theta} l_{N P}(\alert{\theta})=\arg \max _{\alert{\theta} \in \Theta} \min _{\textcolor{blue}{\gamma} \in \mathbb{R}^{q}}-\sum_{i=1}^{n} \log \left(1+\textcolor{blue}{\gamma}^{\prime} g\left(Z_{i}, \alert{\theta}\right)\right)
+\end{align*}
+But the primal (MPEC) problem is much easier... unless $g(Z_i,\theta)$ is trivial.
+\end{frame}
 
 \end{document}
 
