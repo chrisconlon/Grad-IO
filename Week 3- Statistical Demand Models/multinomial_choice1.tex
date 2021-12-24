@@ -58,7 +58,7 @@ We consider a \alert{multinomial discrete choice}:
  \end{itemize}\pause
 Consider the simple example $(t=1)$:
 \begin{eqnarray*}
-s_{ij} = Prob( U_{ij} > U_{ik} \quad \forall j \neq k)
+s_{ij} = Prob( U_{ij} > U_{ik} \quad \forall k \neq j)
 \end{eqnarray*}
 \end{frame}
 
@@ -66,14 +66,14 @@ s_{ij} = Prob( U_{ij} > U_{ik} \quad \forall j \neq k)
 \frametitle{Nonparametric Setup}
 Now consider separating the utility into the \alert{observed} $V_{ij}$ and \alert{unobserved} components $\varepsilon_{ij}$.
 \begin{eqnarray*}
-s_{ij} &=& Prob( U_{ij} > U_{ik} \quad \forall j \neq k)\\
- &=& Prob( V_{ij} + \varepsilon_{ij} > V_{ik} + \varepsilon_{ik} \quad \forall j \neq k)\\
- &=& Prob( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall j \neq k)
+s_{ij} &=& Prob( U_{ij} > U_{ik} \quad \forall k \neq j)\\
+ &=& Prob( V_{ij} + \varepsilon_{ij} > V_{ik} + \varepsilon_{ik} \quad \forall k \neq j)\\
+ &=& Prob( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall k \neq j)
 \end{eqnarray*}
 \pause
 It is helpful to define $f(\varepsilon_{i})$ as the $J$ vector of individual $i$'s unobserved utility.
 \begin{eqnarray*}
-s_{ij} &=& Prob( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall j \neq k)\\
+s_{ij} &=& Prob( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall k \neq j)\\
 &=& \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f( \varepsilon_i) \partial \varepsilon_i \\
 \end{eqnarray*}
 \end{frame}
@@ -109,7 +109,7 @@ Allowing for full support $(-\infty, \infty)$ errors provide two key features:
 \frametitle{Basic Identification}
 \small
 \begin{itemize}
-\item Only differences in utility matter: $Prob( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall j \neq k)$
+\item Only differences in utility matter: $Prob( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall k \neq j)$
 \item Adding constants is irrelevant: if $U_{ij} > U_{ik}$ then $U_{ij} + a > U_{ik} + a$.
 \item Only differences in alternative specific constants can be identified
 \begin{eqnarray*}
