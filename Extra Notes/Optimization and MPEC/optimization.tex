@@ -52,6 +52,23 @@ These problems are related because we find the minimum by setting: $f'(x)=0$
 
 
 \section{Nonlinear Optimization}
+\begin{frame}{Newton's Method for Root Finding}
+Consider the Taylor series for $f(x)$ approximated around $f(x_0)$:
+\begin{align*}
+f(x) \approx f(x_0) + f'(x_0) \cdot (x-x_0) + f''(x_0) \cdot (x-x_0)^2 + o_p(3)
+\end{align*}
+Suppose we wanted to find a \alert{root} of the equation where $f(x^{*})=0$ and solve for $x$:
+\begin{align*}
+0 &= f(x_0) + f'(x_0) \cdot (x-x_0) \\
+x_1 &= x_0-\frac{f(x_0)}{f'(x_0)} 
+\end{align*}
+This gives us an \alert{iterative} scheme to find $x^{*}$:
+\begin{enumerate}
+\item Start with some $x_k$. Calculate $f(x_k),f'(x_k)$
+\item Update using $x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)} $
+\item Stop when $|x_{k+1}-x_{k}| < \epsilon_{tol}$.
+\end{enumerate}
+\end{frame}
 
 \begin{frame}{Newton-Raphson for Minimization}
 We can re-write \alert{optimization} as \alert{root finding};
