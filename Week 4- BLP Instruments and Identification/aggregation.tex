@@ -61,17 +61,17 @@
 
 \begin{frame}
 \frametitle{Multinomial:  Aggregation Property}
-Each individual's choice $y_{ij} \in\{0,1\}$ and $\sum_{j \in \mathcal{J}} y_{ij} =1$.\\
+Each individual's choice $y_{ij} \in\{0,1\}$ and $\sum_{j \in \mathcal{J}} d_{ij} =1$.\\
 
 Choices follow a Multinomial distribution with $m=1$:
 \begin{align*}
-(y_{i1},\ldots,y_{iJ},y_{i0}) \sim \text{Mult} (1,s_{i1},\ldots,s_{iJ},s_{i0} ) 
+(d_{i1},\ldots,d_{iJ},d_{i0}) \sim \text{Mult} (1,s_{i1},\ldots,s_{iJ},s_{i0} ) 
 \end{align*}
-If each individual faces the same $s_{ij}$ the the sum of Multinomials is itself Multinomial:
+If each individual faces the same $s_{ij}=s_j$ the the sum of Multinomials is itself Multinomial:
 \begin{align*}
-(y_{i1}^{*},\ldots,y_{iJ}^{*},y_{i0}^{*}) \sim \text{Mult} (M, s_{i1},\ldots,s_{iJ},s_{i0} ) 
+(q_{1}^{*},\ldots,q_{J}^{*},q_{0}^{*}) \sim \text{Mult} (M, s_{1},\ldots,s_{J},s_{0} ) 
 \end{align*}
-where $y_{ij}^{*}=\sum_{i=1}^M y_{ij}$ is a \alert{sufficient statistic}.
+where $q_{j}^{*}=\sum_{i=1}^M d_{ij}$ is a \alert{sufficient statistic}.
 \end{frame}
 
 \begin{frame}
@@ -81,14 +81,14 @@ We can write the likelihood as $L\left((y_{i1},\ldots,y_{iJ},y_{i0})  \mid \math
 &=
 \left(\begin{array}{c}
 M \\
-y_{i1},\ldots, y_{iJ}, y_{i0}
+q_{i1},\ldots, q_{iJ}, q_{i0}
 \end{array}\right)
-\prod_{i=1}^M s_{i1}(\mathbf{x_i},\theta)^{y_{i1}}\cdots s_{iJ}(\mathbf{x_i},\theta)^{y_{iJ}}  s_{i0}(\mathbf{x_i},\theta)^{y_{i0}}\\
-\rightarrow \ell(\theta) &= \sum_{i=1}^M \sum_{j \in \mathcal{J}} y_{ij} \log s_{ij}(\mathbf{x_i},\theta) + \log C(\mathbf{y})
+\prod_{i=1}^M s_{i1}(\mathbf{x_i},\theta)^{d_{i1}}\cdots s_{iJ}(\mathbf{x_i},\theta)^{d_{iJ}}  s_{i0}(\mathbf{x_i},\theta)^{d_{i0}}\\
+\rightarrow \ell(\mathbf{x_i},\theta)&= \sum_{i=1}^M \sum_{j \in \mathcal{J}} d_{ij} \log s_{ij}(\mathbf{x_i},\theta) + \log C(\mathbf{q})
 \end{align*}
 If all individuals face the same $(\mathbf{x_i})$ and $\mathcal{J}$ they will have the same $s_{ij}(\mathbf{x_i},\theta)$ and we can aggregate outcomes into \alert{sufficient statistics}.
 \begin{align*}
-\rightarrow \ell(\theta) &=  \sum_{j \in \mathcal{J}} y_{ij}^{*} \log s_{ij}(\theta)
+\rightarrow \ell(\theta) &=  \sum_{j \in \mathcal{J}} q_{j}^{*} \log s_{j}(\theta)
 \end{align*}
 \end{frame}
 
@@ -173,7 +173,7 @@ Exploit the fact that:
 \end{frame}
 
 \begin{frame}
-\frametitle{IV Logit Estimation}
+\frametitle{IV Logit Estimation (Berry 1994)}
 \begin{enumerate}
 \item Transform the data: $\ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$. 
 \item IV Regression of: $\ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$ on $x_{jt} \beta -\alpha p_{jt} +  \xi_{jt}$ with IV $z_{jt}$.
@@ -209,15 +209,17 @@ s_{jt} &= \frac{\exp[x_{jt} \beta -\alpha p_{jt} ]}{1+\sum_k \exp[x_{kt} \beta -
 \frametitle{Inversion: Nested Logit (Berry 1994 / Cardell 1991)}
 This takes a bit more algebra but not much
 \begin{align*}
-\underbrace{\ln s_{jt}- \ln s_{0t}  - \sigma \log(s_{j|gt}) }_{\text{data!}}&= x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} \\
-\ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} &= x_{jt} \beta -\alpha p_{jt} +  \sigma \log(\mathfrak{s}_{j|gt})  +  \xi_{jt}
+\underbrace{\ln s_{jt}- \ln s_{0t}  - \rho \log(s_{j|gt}) }_{\text{data!}}&= x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} \\
+\ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} &= x_{jt} \beta -\alpha p_{jt} +  \rho \log(\mathfrak{s}_{j|gt})  +  \xi_{jt}
 \end{align*}
  \begin{itemize}
 \item Same as logit plus an extra term $\log(s_{j|g})$ the \alert{within group share}.
-\item We now have a second endogenous parameter.
+\begin{itemize}
+\item We now have a second endogenous regressor.
 \item If you don't see it -- realize we are regressing $Y$ on a function of $Y$. This should always make you nervous.
-\item If you forget to instrument for $\sigma$ you will get $\sigma \rightarrow 1$ because of \alert{attenuation bias}.
-\item A common instrument for $\sigma$ is the number of products within the nest. Why?
+ \end{itemize}
+\item If you forget to instrument for $\rho$ you will get $\rho \rightarrow 1$ because of \alert{attenuation bias}.
+\item A common instrument for $\rho$ is the number of products within the nest. Why?
  \end{itemize}
 \end{frame}
 
@@ -225,10 +227,10 @@ This takes a bit more algebra but not much
 
 \begin{frame}
 \frametitle{BLP 1995/1999 and Berry Haile (2014)}
-Think about a \alert{generalized inverse}
+Think about a \alert{generalized inverse} for $\sigma_{j}(\mathbf{x}_t,\theta_2) = \mathfrak{s}_{jt}$ so that 
 \begin{align*}
-D_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt},v_{jt},\theta_1)   + \xi_{jt}\\
- D_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)&\approx x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
+%\sigma_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt},v_{jt},\theta_1)   + \xi_{jt}\\
+ \sigma_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)&= x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
 \end{align*}
  \begin{itemize}
 \item After some transformation of data (shares $\mathcal{S}_{\cdot t}$) we get \alert{mean utilities} $\delta_{jt}$.
@@ -238,8 +240,8 @@ D_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt}
 \item Same IV-GMM approach after transformation
 \item Examples:
 \begin{itemize}
-\item Plain Logit: $D_{jt}^{-1}(\mathcal{S}_{\cdot t}) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$
-\item Nested Logit: $D_{jt}^{-1}(\mathcal{S}_{\cdot t},\sigma) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} + \sigma  \ln \mathfrak{s}_{j|gt}$
+\item Plain Logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t}) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$
+\item Nested Logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} + \rho  \ln \mathfrak{s}_{j|gt}$
  \end{itemize}
  \end{itemize}
 \end{frame}
@@ -249,7 +251,7 @@ D_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt}
 \frametitle{Inversion: BLP (Random Coefficients)}
 We can't solve for $\delta_{jt}$ directly this time.
 \begin{align*}
-s_{jt}(\boldsymbol{\delta_{t}},\widetilde{\theta}_2) &= \int \frac{\exp[\delta_{jt} + \mu_{ijt} ]}{1+\sum_k \exp[\delta_{kt} +  \mu_{ikt}  ]} f(\boldsymbol{\mu_{it}} | \widetilde{\theta}_2)
+\sigma_{j}(\boldsymbol{\delta_{t}},\widetilde{\theta}_2) &= \int \frac{\exp[\delta_{jt} + \mu_{ijt} ]}{1+\sum_k \exp[\delta_{kt} +  \mu_{ikt}  ]} f(\boldsymbol{\mu_{it}} | \widetilde{\theta}_2)
 \end{align*}
  \begin{itemize}
  \item This is a $J \times J$ system of equations for each $t$.
@@ -286,7 +288,7 @@ From the outside, in:
  \item Inner Loop:
  \begin{itemize}
 \item Fix a guess of $\widetilde{\theta}_2$.
-\item Solve for $\boldsymbol{\delta_t}(\mathcal{S}_t,\widetilde{\theta}_2)$ which satisfies $s_{jt}(\boldsymbol{\delta_t},\widetilde{\theta}_2) = \mathfrak{s}_{jt}$.
+\item Solve for $\boldsymbol{\delta_t}(\mathcal{S}_t,\widetilde{\theta}_2)$ which satisfies $\sigma_{jt}(\boldsymbol{\delta_t},\widetilde{\theta}_2) = \mathfrak{s}_{jt}$.
 \begin{itemize}
 \item Computing $s_{jt}(\boldsymbol{\delta_t},\widetilde{\theta}_2)$ requires numerical integration (quadrature or monte carlo).
 \end{itemize}

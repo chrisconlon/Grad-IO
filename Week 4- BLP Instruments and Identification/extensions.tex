@@ -51,7 +51,7 @@
 
 \subsection*{Micro-Moments and Demographics}
 \begin{frame}
-\frametitle{BLP Extensions: Demographics}
+\frametitle{BLP Extensions: Demographics (Nevo 2000)}
 \begin{itemize}
 \item It is helpful to allow for interactions with consumer demographics (such as income).
 \item A few ways to do this:
@@ -60,16 +60,16 @@
 \item Better: Divide up your data into additional ``markets'' by demographics: do you observe $\mathfrak{s}_{jt}$ at this level? [May not be possible!]
 \item Better: Draw $y_{it}$ from a geographic specific income distribution. Draw $\nu_i$ from a general distribution of unobserved heterogeneity.
 \end{itemize}
-\item Ex: Nevo (2000) Cereal demand sampled individual level $D_i$ from geographic specific CPS data
+\item Ex: Nevo (2000) Cereal demand sampled individual level $y_{it}$ from geographic specific CPS data
 \item Joint distribution of income, income-squared, age, child at home.
 \begin{align*}
-\beta_i = \overline{\beta} + \Pi D_i + \sigma \nu_i
+\beta_i = \overline{\beta} + \Pi y_i + \Sigma \nu_i
 \end{align*}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{BLP Extensions: Panel Data}
+\frametitle{BLP Extensions: Panel Data (Nevo 2000)}
 \begin{itemize}
 \item with enough observations on the same product it is possible to include fixed effects
 \begin{eqnarray*}
@@ -114,13 +114,13 @@ Should we use these as individual data? Or Aggregate data from scanner data with
 \begin{itemize}
 \item Previously we had moment conditions from orthogonality of structural error $(\xi)$ and $(X,Z)$ in order to form our GMM objective.
 \begin{eqnarray*}
-E[\xi_{jt} | z_{jt}]=0 \rightarrow E[\xi_{jt}' Z_{jt}]=0
+\mathbb{E}[\xi_{jt} | z_{jt}]=0 \rightarrow \mathbb{E}[\xi_{jt}' Z_{jt}]=0
 \end{eqnarray*}
 \item We can incorporate additional information using ``micro-moments'' or additional moment conditions to match the micro data.
 \begin{itemize}
 \item $Pr(\mbox{ i buys j } | y_i \in [0,\$20K])= c_1$ or  $Cov(d_i, s_{ijt}) = c_2$
 \item Construct an additional error term $\zeta_1,\zeta_2$ and interact that with instruments to form additional moment conditions.
-\item Econometrics get tricky when we have a different number of observations for $E[\zeta'  Z_m]=0$ and  $E[\xi'  Z_d]=0$.
+\item Econometrics get tricky when we have a different number of observations for $\mathbb{E}[\zeta'  Z_m]=0$ and  $\mathbb{E}[\xi'  Z_d]=0$.
 \begin{itemize}
 \item May not be able to get covariance of moments taken over different sets of observations!
 \item People often assume optimal weight matrices are block diagonal.
@@ -128,6 +128,47 @@ E[\xi_{jt} | z_{jt}]=0 \rightarrow E[\xi_{jt}' Z_{jt}]=0
 \end{itemize}
 \end{itemize}
 \end{frame}
+
+
+
+\begin{frame} \frametitle{Extensions: Complete Micro Data (Grieco, Murry, Pinkse, Sagl 2022)}
+\footnotesize
+\begin{align*}
+(\hat{\beta}, \hat{\theta_2}, \hat{\delta})=\underset{\beta, \theta_2, \delta}{\arg \min }(\underbrace{-\log \hat{L}(\theta_2, \delta)+\hat{\Pi}(\beta, \delta)}_{\hat{\Omega}(\beta, \theta_2, \delta)})
+\end{align*}
+\begin{itemize}
+\item $\log \hat{L}(\theta_2, \delta)$ is individual log-likelihood where $\delta_{jm}$ are free parameters and $\theta_2$ are nonlinear parameters.
+\item $\hat{\Pi}(\beta,\delta)$ is derived from the moments: $\mathbb{E}[\left(\delta_{jm}-\beta x_{jm} - \alpha p_{jm}\right)\, z_{jm}]=0$
+\item We don't impose $s_{jt} = \mathfrak{s}_{jt}$
+\end{itemize}
+Efficiency requires correcting micro-data to avoid double-counting:
+\begin{align*}
+\log \hat{L}(\theta, \delta)=\underbrace{\sum_{m=1}^M \sum_{j=0}^{J_m} \sum_{i=1}^{N_m} w_{i m} d_{i j m} \log s_{j m}(y_{i m})}_{\text {micro }}+\underbrace{\sum_{m=1}^M \sum_{j=0}^{J_m}\left(N_m s_{j m}-\sum_{i=1}^{N_m} w_{i m} d_{i j m}\right) \log s_{j m}}_{\text {macro }}
+\end{align*}
+\end{frame}
+
+\begin{frame} \frametitle{Extensions: Second Choices (Conlon, Mortimer, Sarkis 2022)}
+\small
+We need to see at least some $\mathcal{D}_{jk}$
+\begin{align*}
+\min_{s_{ij}, \pi_i}\sum_{(k,j) \in \text{OBS}} \left( \mathcal{D}_{kj} - D_{kj}\right)^2+ & \lambda_1 \cdot  \sum_j \left(\mathcal{S}_j - \sum_i \pi_i \cdot s_{ij} \right)^2\\ %+ \lambda_2 \norm{\pi_i}^2 \\
+\text{subject to} \quad 
+%\nonumber    s_j &= \sum_{i=1}^I \pi_i \cdot s_{ij}\\
+\nonumber    D_{kj} &= \sum_{i=1}^I \pi_i \cdot \frac{s_{ij}}{1-s_{ik}} \cdot \frac{s_{ik}}{s_{k}}\\
+\nonumber    \mathcal{S}_j &= \frac{\mathcal{Q}_j }{\overline{q}_0 +\sum_{k \in \mathcal{J}_t} \mathcal{Q}_k}  \\
+\nonumber   0\leq s_{ij}, \pi_i, s_j, D_{kj} \leq 1,& \quad
+   \sum_{i=1}^I \pi_i = 1,\quad
+   \sum_j s_{ij} = 1 
+\end{align*}
+\vspace{-.25cm}
+\begin{itemize} 
+  \item Semi-parametric (finite-mixture) if we let $I$ grow
+\item Use cross validation to select \# of types $I$.
+%\item With $\lambda_2 >0$ we penalize $HHI$ of $w_i$ and becomes \alert{elastic net} 
+\end{itemize}
+\end{frame}
+
+
 
 
 \subsection*{Models without $\varepsilon$}
@@ -242,7 +283,7 @@ s_{ij} &=& \int \frac{\exp[x_{j} \beta_i  ]}{1+\sum_k \exp[x_{k} \beta_i  ]} f(\
 \frametitle{Fully Nonparametric Demand (Compiani 2019)}
 Takes identification arguments in Berry Haile (2014) to the data. Looks at a sieve approximation to
 \begin{align*}
-D_{jt}^{-1}(\mathcal{S}_t,\widetilde{\theta}_2)
+\sigma_{j}^{-1}(\mathcal{S}_t,\widetilde{\theta}_2)
 \end{align*}
 Using the \alert{Bernstein Polynomials}
 \begin{itemize}

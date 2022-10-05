@@ -105,7 +105,7 @@ f(mc_{jt}) &= h_s(x_{jt} , w_{jt},\theta_3)+ \omega_{jt}
 \end{align*}
 Which we can solve for $\omega_{jt}$:
 \begin{align*}
-\omega_{jt} &=  f(\mathbf{p_t}- \boldsymbol{\eta_t}(\mathbf{p},\mathbf{s},\theta_2)) - h_s(x_{jt},w_{jt},\theta_3)
+\omega_{jt} &=  f^{-1}(\mathbf{p_t}- \boldsymbol{\eta_t}(\mathbf{p},\mathbf{s},\theta_2)) - h_s(x_{jt},w_{jt},\theta_3)
 \end{align*}
 \vspace{-0.4cm}
 \begin{itemize}
@@ -120,8 +120,8 @@ Which we can solve for $\omega_{jt}$:
 If everything is linear:
 \begin{alignat*}{3}
 \label{eq:stacked}
-\nonumber y_{jt}^D &:= \widehat \delta_{jt}(\theta_2) + \alpha p_{jt} &=(x_{jt} \-\ v_{jt})' \beta + \xi_t &=: x_{jt}^{D\prime}\beta + \xi_{jt} \\ 
-y_{jt}^S &:= f(\widehat{mc}_{jt}(\theta_2)) &= (x_{jt} \-\ w_{jt})'\gamma + \omega_t &=: x_{jt}^{S\prime} \gamma + \omega_{jt} 
+\nonumber y_{jt}^D &:= \widehat \delta_{jt}(\theta_2) + \alpha p_{jt} &=(\textrm{x}_{jt} \-\ \textrm{v}_{jt})' \beta + \xi_t &=: x_{jt}^{D\prime}\beta + \xi_{jt} \\ 
+y_{jt}^S &:= f(\widehat{mc}_{jt}(\theta_2)) &= (\textrm{x}_{jt} \-\ \textrm{w}_{jt})'\gamma + \omega_t &=: x_{jt}^{S\prime} \gamma + \omega_{jt} 
 \end{alignat*}
 Stacking the system across observations yields:
 \begin{align*}
