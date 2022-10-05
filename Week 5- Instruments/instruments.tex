@@ -58,7 +58,7 @@ u_{ijt}(\delta_{jt},\widetilde{\theta}_2) =  \delta_{jt}(\theta_1)  + \mu_{ijt}(
 \end{align*}
 When $\varepsilon_{ijt}$ is IID extreme value, tesulting marketshare are given by $s_{ijt} = Pr(u_{ijt}> u_{ikt})$ for all $k\neq j$ (including the ``outside option'' $k=0$)
 \begin{align*}
-\sigma_j(\boldsymbol{\delta_t},y_t;\theta_2)=\int \frac{\exp[\delta_{jt}+\mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2)]}{1+\sum_{j'} \exp[\delta_{j't}+\mu_{ij't}(\textrm{x}_{j't}, y_i; \widetilde{\theta}_2)]}f(\mu_{ijt} | \widetilde{\theta}_2)
+\sigma_j(\boldsymbol{\delta_t},y_t;\theta_2)=\int \frac{\exp[\delta_{jt}+\mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2)]}{1+\sum_{j'} \exp[\delta_{j't}+\mu_{ij't}(\textrm{x}_{j't}, y_i; \widetilde{\theta}_2)]}f(\boldsymbol{\mu_{it}}| \widetilde{\theta}_2) \partial \boldsymbol{\mu_{it}}
 \end{align*}
 \end{frame}
 
@@ -66,7 +66,7 @@ When $\varepsilon_{ijt}$ is IID extreme value, tesulting marketshare are given b
 \begin{frame}{Setup}
 By matching observed marketshares $\mathcal{S}_t$ to predicted marketshares $\sigma_j(\boldsymbol{\delta_t},y_t;\theta_2)$ for each market $t$, we define a system of $\mathcal{J}_t$ equations and $\mathcal{J}_t$ unknowns (where $\delta_{0t}=0$):
 \begin{align*}
-\sigma_j(\boldsymbol{\delta_t},y_t;\widetilde{\theta}_2))=\int \frac{\exp[\delta_{jt}+\mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2)]}{1+\sum_{j'} \exp[\delta_{j't}+\mu_{ij't}(\textrm{x}_{j't}, y_i; \widetilde{\theta}_2)]}f(\mu_{ijt} | \widetilde{\theta}_2)
+\sigma_j(\boldsymbol{\delta_t},y_t;\widetilde{\theta}_2))=\int \frac{\exp[\delta_{jt}+\mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2)]}{1+\sum_{j'} \exp[\delta_{j't}+\mu_{ij't}(\textrm{x}_{j't}, y_i; \widetilde{\theta}_2)]}f(\boldsymbol{\mu_{it}} | \widetilde{\theta}_2) \partial \boldsymbol{\mu_{it}}
 \end{align*}
 If the solution is unique then we can define the \alert{inverse share function}
 \begin{align*}
@@ -229,13 +229,13 @@ z_{jt}^{\text{local}} =& \sum_{k \in F}  I[d_{jkt} < c]   \quad &\sum_{k \notin 
 \begin{frame}{Optimal Instruments (Chamberlain 1987)}
 Chamberlain (1987) asks how can we choose $f(z_i)$ to obtain the semi-parametric efficiency bound with conditional moment restrictions:
 \begin{align*}
-E[g(z_i,\theta) | z_i]=0 \Rightarrow E[g(z_i,\theta) \cdot f(z_i) ]=0 
+\mathbb{E}[g(z_i,\theta) | z_i]=0 \Rightarrow \mathbb{E}[g(z_i,\theta) \cdot f(z_i) ]=0 
 \end{align*}
 Recall that the asymptotic GMM variance depends on $(D'\, \Omega^{-1} D\,)$
 
 The answer is to choose instruments related to the (expected) Jacobian of moment conditions w.r.t $\theta$. The true Jacobian at $\theta_0$ is \alert{infeasible}:
 \begin{align*}
-D=E\left[\frac{\partial g(z_i,\theta)}{\partial \theta} | z_i \right]
+D=\mathbb{E}\left[\frac{\partial g(z_i,\theta)}{\partial \theta} | z_i, \theta_0 \right]
 \end{align*}
 %Dominguez and Lobato (2004) point out we can get unlucky and choose an $f(z_i)$ such that $\theta$ is no longer identified(!)
 \end{frame}
@@ -244,14 +244,15 @@ D=E\left[\frac{\partial g(z_i,\theta)}{\partial \theta} | z_i \right]
 \begin{frame}{Optimal Instruments (Chamberlain 1987)}
 Consider the simplest IV problem:
 \begin{align*}
-y_i &= \beta x_i + \gamma v_i + u_i \quad \text{ with } \quad E[u_i | v_i, z_i] =0 \\
+y_i &= \beta x_i + \gamma v_i + u_i \quad \text{ with } \quad \mathbb{E}[u_i | v_i, z_i] =0 \\
 u_i &= \left(y_i - \beta x_i - \gamma v_i \right) \\
 g(x_i,v_i,z_i) &= \left(y_i - \beta x_i - \gamma v_i \right) \cdot [v_i,\, z_i]
  \end{align*}
  Which gives:
 \begin{align*}
-E\left[\frac{\partial g(x_i,v_i, z_i,\theta)}{\partial \gamma} \mid v_i, z_i \right] &\propto v_i\\
-E\left[\frac{\partial g(x_i,v_i, z_i,\theta)}{\partial \beta} \mid v_i, z_i \right] &\propto E\left[x_i \mid v_i, z_i \right]
+\mathbb{E}\left[\frac{\partial g(x_i,v_i, z_i,\theta)}{\partial \gamma} \mid v_i, z_i \right] &\propto v_i\\
+\mathbb{E}\left[\frac{\partial g(x_i,v_i, z_i,\theta)}{\partial \beta} \mid v_i, z_i \right] &
+\propto \mathbb{E}\left[x_i \mid v_i, z_i \right]
 \end{align*}
 We can't just use $x_i$ (bc endogenous!), but you can also see where 2SLS comes from...
 \end{frame}
@@ -259,13 +260,13 @@ We can't just use $x_i$ (bc endogenous!), but you can also see where 2SLS comes 
 
 
 \begin{frame}{Optimal IV: BLP}
-Recall the GMM moment conditions are given by $E[\xi_{jt} | Z_{jt}^D]=0$ and $E[\omega_{jt} | Z_{jt}^S]=0$ and the asymptotic GMM variance depends on $(D'\, \Omega^{-1} D\,)$ where the expressions are given below:
+Recall the GMM moment conditions are given by $\mathbb{E}[\xi_{jt} | Z_{jt}^D]=0$ and $\mathbb{E}[\omega_{jt} | Z_{jt}^S]=0$ and the asymptotic GMM variance depends on $(D'\, \Omega^{-1} D\,)$ where the expressions are given below:
 \begin{align*}
-    D=E\left[
+    D=\mathbb{E}\left[
     \left(\frac{\partial \xi_{jt}}{\partial \theta}, \,
     \frac{\partial \omega_{jt}}{\partial \theta} \right)
 | \mathbf{Z_t} \right], \quad 
-\Omega = E\left[
+\Omega = \mathbb{E}\left[
 \begin{pmatrix}
     \xi_{jt} \\
     \omega_{jt}
@@ -276,11 +277,11 @@ Recall the GMM moment conditions are given by $E[\xi_{jt} | Z_{jt}^D]=0$ and $E[
 \end{pmatrix}
 | \mathbf{Z_t} \right].
 \end{align*}
-Chamberlain (1987) showed that the approximation to the optimal instruments are given by the expected Jacobian contribution for each observation $(j,t)$: $E[D_{jt}(\mathbf{Z_t}) \Omega_{jt}^{-1} | \mathbf{Z_t}]$.
+Chamberlain (1987) showed that the approximation to the optimal instruments are given by the expected Jacobian contribution for each observation $(j,t)$: $\mathbb{E}[D_{jt}(\mathbf{Z_t}) \Omega_{jt}^{-1} | \mathbf{Z_t}]$.
 \end{frame}
 
 \begin{frame}{Optimal Instruments (Newey 1990)}
-From previous slide, nothing says that $E\left[x_i \mid v_i, z_i \right]$ needs to be \alert{linear}!
+From previous slide, nothing says that $\mathbb{E}\left[x_i \mid v_i, z_i \right]$ needs to be \alert{linear}!
 \begin{itemize}
 \item Since any $f(x,z)$ satisfies our orthogonality condition, we can try to choose $f(x,z)$ as a \alert{basis} to approximate optimal instruments.
 \item Why? Well affine tranformations of instruments are still valid, and we span the same vector space!
@@ -298,7 +299,7 @@ From previous slide, nothing says that $E\left[x_i \mid v_i, z_i \right]$ needs 
 
 
 \begin{frame}{Optimal Instruments (see Conlon Gortmaker 2020)}
-\noindent BLP 1999 tells us the (Chamberlain 1987) optimal instruments for this supply-demand system of $G\Omega^{-1}$ where for a given observation $n$, we need to compute $E[\frac{\partial \xi_{jt}}{\partial \theta} | x, v, w]$ and $E[\frac{\partial \omega_{jt}}{\partial \theta} | x, v, w]$
+\noindent BLP 1999 tells us the (Chamberlain 1987) optimal instruments for this supply-demand system of $G\Omega^{-1}$ where for a given observation $n$, we need to compute $\mathbb{E}[\frac{\partial \xi_{jt}}{\partial \theta} | \chi_t]$ and $\mathbb{E}[\frac{\partial \omega_{jt}}{\partial \theta} | \chi_t]$
 
 \begin{align*}
     D_{jt} \equiv \underbrace{
@@ -315,14 +316,14 @@ From previous slide, nothing says that $E\left[x_i \mid v_i, z_i \right]$ needs 
     }_{(K_1 + K_2 + K_3)\times 2}
     = 
     \begin{bmatrix}
-        -x_{jt} & 0 \\
-        -v_{jt} & 0 \\
+        -\mathrm{x}_{jt} & 0 \\
+        -\mathrm{v}_{jt} & 0 \\
         \frac{\partial \xi_{jt}}{\partial \alpha}  
         &  \frac{\partial \omega_{jt}}{\partial \alpha}\\
         \frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} 
         & \frac{\partial \omega_{jt}}{\partial \widetilde{\theta}_2} \\
-        0 & -x_{jt} \\
-        0 & -w_{jt}
+        0 & -\mathrm{x}_{jt} \\
+        0 & -\mathrm{w}_{jt}
     \end{bmatrix}
     , \quad \Omega_t \equiv 
     \underbrace{
@@ -357,7 +358,7 @@ From previous slide, nothing says that $E\left[x_i \mid v_i, z_i \right]$ needs 
 \end{align*}
 \noindent Now we can partition our instrument set by column into ``demand'' and ``supply'': 
 \begin{align*}
-    Z_{jt}^{\textit{Opt},D} \equiv \underbrace{E[(D_{jt}(Z_t) \Omega_t^{-1} \odot \Theta)_{\cdot 1} | Z_t]}_{K_1 + K_2 + (K_3 - K_x)}, \quad Z_{jt}^{\textit{Opt},S} \equiv \underbrace{E[(D_{jt}(Z_t)\Omega_t^{-1} \odot \Theta)_{\cdot 2} | Z_t]}_{K_2 + K_3+ (K_1 - K_x)}.
+    Z_{jt}^{\textit{Opt},D} \equiv \underbrace{E[(D_{jt}(Z_t) \Omega_t^{-1} \odot \Theta)_{\cdot 1} | \chi_t]}_{K_1 + K_2 + (K_3 - K_x)}, \quad Z_{jt}^{\textit{Opt},S} \equiv \underbrace{E[(D_{jt}(Z_t)\Omega_t^{-1} \odot \Theta)_{\cdot 2} | \chi_t]}_{K_2 + K_3+ (K_1 - K_x)}.
 \end{align*}
 \end{frame}
 
@@ -387,13 +388,13 @@ From previous slide, nothing says that $E\left[x_i \mid v_i, z_i \right]$ needs 
 \begin{frame}{Optimal Instruments}
 How to construct optimal instruments in form of Chamberlain (1987). Start with initial instruments $Z_{jt}=A\left(\mathbf{X_t},\mathbf{W_t},\mathbf{V_t}\right)$
 \begin{eqnarray*}
-E\left[\frac{\partial \xi_{jt}}{\partial \theta} | Z_{jt} \right] = \left[\beta, E\left[\frac{\partial \xi_{jt}}{\partial \alpha} | Z_{jt} \right] ,
- E\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} | Z_{jt} \right] \right]
+\mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \theta} | \chi_{t} \right] = \left[\beta, E\left[\frac{\partial \xi_{jt}}{\partial \alpha} | \chi_{t} \right] ,
+ \mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} | \chi_{t} \right] \right]
 \end{eqnarray*}
 Some challenges:
 \begin{enumerate}
 \item $p_{jt}$ or $\eta_{jt}$ depends on $(\omega_{j},\xi_{t})$ in a highly nonlinear way (no explicit solution!).
-\item $E\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} \mid X_t, w_{t} \right] =E\left[\left[\frac{\partial \mathbf{s_t}}{\partial \mathbf{\delta_t}}\right]^{-1} 
+\item $\mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} \mid X_t, w_{t} \right] =\mathbb{E}\left[\left[\frac{\partial \mathbf{s_t}}{\partial \mathbf{\delta_t}}\right]^{-1} 
 \left[\frac{\partial \mathbf{s_t}}{\partial \widetilde{\theta}_2}\right] \mid Z_{jt}^D \right]$  (not conditioned on endogenous $p$!)
 \end{enumerate}
 Things are \alert{infeasible} because we don't know $\theta_0$!
