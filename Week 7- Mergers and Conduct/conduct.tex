@@ -1,21 +1,28 @@
 \documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
 \usetheme{metropolis}
 
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
+\usepackage{fancybox}
+\usepackage{booktabs} 
+\usepackage{dsfont}
+\usepackage{stackengine}
+\usepackage{tabularx}
+\usepackage{dcolumn}
+\usepackage{soul}
+\usepackage{dsfont}
+\usepackage{ulem}
 
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,centernot}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage{stmaryrd}
-\usepackage{pdfpages}
-\usepackage{booktabs}
-\usepackage[absolute,overlay]{textpos} 
+
+\usepackage{chronosys}
+\usepackage{verbatim}
+\pagenumbering{arabic}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\usepackage{mathtools}
+
+
+\usepackage{multirow,multicol,dcolumn}
+\usepackage{amsfonts,amsthm, amsmath, graphics, graphicx, mathtools}
+
 
 
 \newenvironment{reference}[2]{% 
@@ -33,6 +40,7 @@
   \vfill
   \end{frame}
 }
+
 \begin{document}
 \title{Conduct}
 \author{Chris Conlon}
@@ -41,9 +49,23 @@
 
 \frame{\titlepage}
 
-\begin{frame}{Conduct Overview}
+
+\begin{frame}[plain]{Conduct Testing in Industrial Organization}
+Foundational Empirical IO Question: How do we observe data on price and quantity and infer which model of firm behavior generated those outcomes?
+\pause
 \begin{itemize}
-\item A second set of important questions in IO is being able to use data to decide whether firms are \alert{competing} or \alert{colluding}.
+\item Early work: Porter (1983), Bresnahan (1982,1987)
+\item Subsequent work defined the ``menu" approach: Nevo (1998, 2001), Villas-Boas (2007) 
+\item Recent revival of ``internalization'' parameters: Miller and Weinberg (2017), Crawford, Lee, Whinston, and Yurukoglu (2017), Pakes (2017)
+\item Parallel work by: Duarte, Magnolfi, Sølvsten, Sullivan (2022) which test is best (RV). Magnolfi, Quint, Sullivan, Waldfogel (2022) Should we test or estimate?
+\item Applications of our test: Starc and Wollman (2022), Scuderi (2022), others?
+\end{itemize}
+Is conduct testable? Berry and Haile (2014): yes.
+\end{frame}
+
+
+\begin{frame}{Conduct Testing in Industrial Organization}
+\begin{itemize}
 \item Absent additional restrictions, we cannot generally look at data on $(P,Q)$ and decide whether or not collusion is taking place.
 \begin{itemize}
 \item You say we started colluding at date $t$, I say we received a correlated shock to $mc$.
@@ -56,6 +78,8 @@
 \end{itemize}
 \end{frame}
 
+
+
 \begin{frame}{A famous plot (Bresnahan 87)}
 \includegraphics[width = 6.6cm]{./resources/bres_plot1.png}
 \includegraphics[width = 6.9cm]{./resources/bres_plot2.png}\\
@@ -63,8 +87,32 @@ Bresnahan (1980/1982) recognized this problem: we need ``rotations of demand''.
 \end{frame}
 
 
+\begin{frame}[plain]{Conduct Testing in Pictures (Berry Haile 2014)}
+\begin{center}
+\includegraphics[width = 6.5cm]{resources/berryhaile1.png}
+\includegraphics[width = 6.5cm]{resources/berryhaile2.png}
+\end{center}
+\small{Figure 2(ab) from Berry and Haile (2014), Example 1.}
+\end{frame}
+
+
+
+
+\begin{frame}{Setup: Notation and Utility}
+We begin with a relatively standard BLP-style differentiated products setup.\\
+
+\begin{itemize}
+    \item Markets $t$
+    \item Products $j$
+    \item Data $\chi_t = \{(\textrm{x}_{jt},\textrm{v}_{jt},\textrm{w}_{jt})$ for all $j \in \mathcal{J}_t\}$.
+    \item Market Shares $\mathcal{S}_t = [s_{1t}, \ldots, s_{Jt}, s_{0t}]$.
+    \item Prices $\mathbf{p}_t = [p_{1t}, \ldots, p_{Jt}]$.
+    \item Consumers $i$ with demographics $y_{it}$ (income, presence of kids)
+\end{itemize}
+\end{frame}
+
 \begin{frame}
-\frametitle{Testing For Collusion: Challenges}
+\frametitle{Testing Conduct: Setup}
 \small
 We generalize the $\mathcal{H}(\kappa)$ and derive multi-product Bertrand FOCs:
 \begin{align*}
@@ -74,7 +122,7 @@ We generalize the $\mathcal{H}(\kappa)$ and derive multi-product Bertrand FOCs:
 \begin{itemize}
 \item Instead of $0$'s and $1$'s we now have $\kappa_{fg} \in [0,1]$ representing how much firm $f$ cares about the profits of $g$.
 \begin{itemize}
-\item If $f$ and $g$ merge (or fully colluded) then $\kappa_{fg} =1$
+\item If $f$ and $g$ merge (or fully coordinated) then $\kappa_{fg} =1$
 \item Often in the real world firms cannot reach fully collusive profits and $\kappa_{fg} \in (0,1)$.
 \item Evidence that $\kappa_{fg} > 0$ is not necessarily evidence of malfeasance, just a deviation from \alert{static Bertrand pricing}
 \end{itemize}
@@ -82,7 +130,7 @@ We generalize the $\mathcal{H}(\kappa)$ and derive multi-product Bertrand FOCs:
 \end{frame}
 
 
-\begin{frame}{Testing For Conduct: Challenges}
+\begin{frame}{Testing Conduct: Setup}
 \begin{itemize}
 \item Recall the $\Delta$ matrix which we can write as $\Delta=\tilde{\Delta}\, \odot \mathcal{H}(\kappa)$, where $\odot$ is the element-wise or Hadamard product of two matrices. 
 \begin{itemize}
@@ -112,28 +160,30 @@ where $\eta_{jt}$ is the markup.
 \begin{frame}{Simultaneous Problem}
 Assume additivity, and write in terms of structural errors:
 \begin{align*}
-\delta_{jt}(\mathcal{S}_t,\widetilde{\theta}_2) + \alpha p_{jt} &= h_d(x_{jt}, \, \alert{v_{jt}},\theta_1)  + \xi_{jt} \\
- f \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\theta_2,\kappa) \right) &= h_s(x_{jt}, \alert{w_{jt}},\theta_3) + \omega_{jt}
+\delta_{jt}(\mathcal{S}_t,\widetilde{\theta}_2) + \alpha p_{jt} &= h_d(\textrm{x}_{jt}, \, \alert{\textrm{v}_{jt}},\theta_1)  + \xi_{jt} \\
+ f \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\theta_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \omega_{jt}
 \end{align*}
 \vspace{-.4cm}
 \begin{itemize}
-\item To simplify slides we let $f(x)=x$ (often $f(x) =\log(x))$.
-\item $h(\cdot)$ are often just linear relationships $\theta_1 [x_{jt}, v_{jt}]$.
-\item $(\theta_2, \kappa)$ parameters are what determine markups
-\item so does $(\xi,\omega)$ through 
+ \item To simplify slides we let $f(x)=x$ (often $f(x) =\log(x))$ but we can put that in $h_s(\cdot)$.
+\item $h(\cdot)$ are often just linear relationships like: $\theta_1 [\textrm{x}_{jt}, \textrm{v}_{jt}]$.
+\item Endogeneity Problem: $p_{jt}$ and $\eta_{jt}$ are functions of $(\boldsymbol{\xi},\boldsymbol{\omega})$.
+\item $(\theta_2, \kappa)$ parameters that determine markups
 \end{itemize}
 \end{frame}
-
 
 \begin{frame}
 \frametitle{Approach \#1: Demand Side}
 1. Estimate $\theta_2$ from demand alone.
 \begin{align*}
-\delta_{jt}(\mathcal{S}_t,\widetilde{\theta}_2) + \alpha p_{jt} &= h_d(x_{jt}, \, \alert{v_{jt}},\theta_1)  + \xi_{jt} \\
-E[\xi_{jt} | x_{t}, v_{t}, w_{t}] &=0
+\delta_{jt}(\mathcal{S}_t,\widetilde{\theta}_2) + \alpha p_{jt} &= h_d(\textrm{x}_{jt}, \, \alert{\textrm{v}_{jt}},\theta_1)  + \xi_{jt} \\
+E[\xi_{jt} | \textrm{x}_{t}, \textrm{v}_{t}, \textrm{w}_{t}] &=0
 \end{align*}
-2. Recover marginal costs $\widehat{\mathbf{mc}} = \mathbf{p} +(\mathcal{H}(\kappa).*\tilde{\Delta}(\mathbf{p},\theta_2)^{-1} q(\mathbf{p}))$.\\
-\vspace{0.2cm}
+2. Recover marginal costs $\widehat{\mathbf{mc}} = \mathbf{p} + \boldsymbol{\eta}$
+\begin{align*}
+\boldsymbol{\eta}(\mathbf{p},\mathbf{s},\theta_2,\kappa) \equiv \left(\mathcal{H}(\kappa).*\tilde{\Delta}(\mathbf{p},\theta_2) \right)^{-1} q(\mathbf{p})
+\end{align*}
+\vspace{-0.2cm}
 Challenges:
 \begin{itemize}
 \item Given $[\mathbf{q},\mathbf{p},\tilde{\Delta},\mathcal{H}(\kappa)]$ I can always produce a vector of marginal costs $\mathbf{mc}$ that rationalizes what we observe. [ie: $J$ equations $J$ unknowns].
@@ -141,14 +191,17 @@ Challenges:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{What do people do?}
+
+
+\begin{frame}\frametitle{What do people do?}
 Maybe some vectors of $\mathbf{mc}$ look less ``reasonable'' than others.
 \begin{itemize}
-\item Marginal costs $\leq 0$ seem problematic. [Might just be that your estimates for demand are too inelastic...]
+\item Marginal costs $\leq 0$ seem problematic.
+[Might just be that your estimates for demand are too inelastic...]
 \item or I have a parametric model of MC in mind. 
 \begin{align*}
- f \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\theta_2,\kappa) \right) &= h_s(x_{jt}, \alert{w_{jt}},\theta_3) + \omega_{jt}\\
- E[\omega_{jt} | x_{t}, w_{t}, \alert{v_{t}}]&=0
+ f \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\theta_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \textrm{w}_{jt},\theta_3) + \omega_{jt}\\
+ E[\omega_{jt} | \textrm{x}_{t}, \textrm{w}_{t}, \alert{\textrm{v}_{t}}]&=0
 \end{align*}
 \item Can test that model with GMM objective of $mc_{jt}$ on regressors.
 \item Maybe marginal costs cannot deviate too much within product from period to period. (We can write these as moment restrictions too).
@@ -159,8 +212,8 @@ Maybe some vectors of $\mathbf{mc}$ look less ``reasonable'' than others.
 \frametitle{Approach \#2: Simultaneous Supply and Demand}
 Estimate $\theta_2$ using both supply and demand. The fit of my supply side will also inform my demand parameters, particularly $\alpha$ the price coefficient. [BLP 95 used this for additional power with lots of random coefficients and potentially weak instruments].
 \begin{align*}
-\delta_{jt}(\mathcal{S}_t,\widetilde{\theta}_2) + \alpha p_{jt} &= h_d(x_{jt}, \, \alert{v_{jt}},\theta_1)  + \xi_{jt} \\
- f \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\theta_2,\kappa) \right) &= h_s(x_{jt}, \alert{w_{jt}},\theta_3) + \omega_{jt}
+\delta_{jt}(\mathcal{S}_t,\widetilde{\theta}_2) + \alpha p_{jt} &= h_d(\textrm{x}_{jt}, \, \alert{\textrm{v}_{jt}},\theta_1)  + \xi_{jt} \\
+ f \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\theta_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \omega_{jt}
 \end{align*}
 Challenges:
 \begin{itemize}
@@ -170,42 +223,42 @@ Challenges:
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{What is Excluded?}
-Berry and Haile (2014) discuss \alert{non-parametric} identification of conduct via exclusion restrictions:
-\begin{itemize}
-\item We used exlcuded cost shifters $\alert{w_{jt}}$ as IV for demand. We can use excluded demand shifters $\alert{v_{jt}}$ as IV for supply.
-\begin{itemize}
-\item Probably easier to find these. Rich people are less price sensitive but not more costly to sell to (demographics, seasonality, etc.).
-\item Well-documented geographic persistence in preferences unrelated to costs.
-\end{itemize}
-\end{itemize}
- If we take the structural interpretation seriously any $\alert{v_{jt}}$ should show up in the utility equation to be \alert{relevant} (!).
-\end{frame}
+% \begin{frame}
+% \frametitle{What is Excluded?}
+% Berry and Haile (2014) discuss \alert{non-parametric} identification of conduct via exclusion restrictions:
+% \begin{itemize}
+% \item We used exlcuded cost shifters $\alert{w_{jt}}$ as IV for demand. We can use excluded demand shifters $\alert{v_{jt}}$ as IV for supply.
+% \begin{itemize}
+% \item Probably easier to find these. Rich people are less price sensitive but not more costly to sell to (demographics, seasonality, etc.).
+% \item Well-documented geographic persistence in preferences unrelated to costs.
+% \end{itemize}
+% \end{itemize}
+%  If we take the structural interpretation seriously any $\alert{v_{jt}}$ should show up in the utility equation to be \alert{relevant} (!).
+% \end{frame}
 
-\begin{frame}
-\frametitle{What else is Excluded?}
-BLP style instruments (characteristics of other goods)
-\begin{itemize}
-\item $f(x_{-j})$: BLP or GH style instruments (how many similar cars to me?).
-\item $w_{-j}$ Cost shifters for other products (Price of Rice for Corn Flakes, Price of Corn for Rice Krispies).
-\item $v_{-j}$ Demand shocks for similar products (Advertising? Product Recalls?)
-\item $\kappa$ parameters or $\kappa$ weighted diversion ?
-\end{itemize}
-An ideal restriction should \alert{not} shift marginal costs under the true model of conduct $\kappa$ but could potentially shift marginal costs under the alternative $\kappa$ (this is relevance).
-\end{frame}
+% \begin{frame}
+% \frametitle{What else is Excluded?}
+% BLP style instruments (characteristics of other goods)
+% \begin{itemize}
+% \item $f(x_{-j})$: BLP or GH style instruments (how many similar cars to me?).
+% \item $w_{-j}$ Cost shifters for other products (Price of Rice for Corn Flakes, Price of Corn for Rice Krispies).
+% \item $v_{-j}$ Demand shocks for similar products (Advertising? Product Recalls?)
+% \item $\kappa$ parameters or $\kappa$ weighted diversion ?
+% \end{itemize}
+% An ideal restriction should \alert{not} shift marginal costs under the true model of conduct $\kappa$ but could potentially shift marginal costs under the alternative $\kappa$ (this is relevance).
+% \end{frame}
 
 
-\begin{frame}{Things that don't work}
-\begin{itemize}
-\item $\xi_{jt}$ only makes sense if you believe $Cov(\xi_{jt},\omega_{jt})=0$.
-\begin{itemize}
-  \item MacKay Miller exploit this to estimate demand without IV? Is this a good idea(?)
-\end{itemize}
-\item $p_{j,t,-s}$ (Hausman instruments) same good in other markets: pick up cost shocks (but could pick up changes in conduct!). 
-\item If it isn't in one of our equations: does it have anything to do with demand or supply?
-\end{itemize}
-\end{frame}
+% \begin{frame}{Things that don't work}
+% \begin{itemize}
+% \item $\xi_{jt}$ only makes sense if you believe $Cov(\xi_{jt},\omega_{jt})=0$.
+% \begin{itemize}
+%   \item MacKay Miller exploit this to estimate demand without IV? Is this a good idea(?)
+% \end{itemize}
+% \item $p_{j,t,-s}$ (Hausman instruments) same good in other markets: pick up cost shocks (but could pick up changes in conduct!). 
+% \item If it isn't in one of our equations: does it have anything to do with demand or supply?
+% \end{itemize}
+% \end{frame}
 
 
 \begin{frame}{Estimation vs. Menus}
@@ -222,6 +275,7 @@ There are two ways to think about conduct:
 \item Bresnahan (1987)
 \item Compare some goodness-of-fit critieria across assumed values of $\kappa$ (Bertrand vs. Collusion)
   \end{itemize}
+\item Rejecting (or failing to reject) a single model.
   \end{enumerate}
 \end{frame}
 
@@ -229,17 +283,18 @@ There are two ways to think about conduct:
 \begin{frame}{Testing a single model of $\kappa$}
 Put the $\eta_{jt}$ on the RHS and test whether $\lambda=1$:
 \begin{align*}
- p_{jt} &= h_s(x_{jt}, \alert{w_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\mathbf{p},\mathbf{s},\theta_2,\kappa \right)+  \omega_{jt}\\
- E[\omega_{jt} | x_{t},w_{t},z_{t}]&=0
+ p_{jt} = h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\mathbf{p},\mathbf{s},\theta_2,\kappa \right)+  \omega_{jt} \text{ with }
+ E[\omega_{jt} | \textrm{x}_{t},\textrm{w}_{t},\textrm{z}_{t}]=0s
 \end{align*}
+\vspace{-0.25cm}
 \begin{itemize}
 \item We are basically running 2SLS with IV for the endogenous $\eta_{jt}$
-\item ``Informal'' test of Villas Boas (2007): $E[\omega_{jt} | x_{jt},\alert{w_{jt}},\alert{\eta_{jt}}]=0$.
+\item ``Informal'' test of Villas Boas (2007): $\mathbb{E}[\omega_{jt} | \textrm{x}_{jt},\alert{\textrm{w}_{jt}},\alert{\eta_{jt}}]=0$.
 \begin{itemize}
 \item Considers different forms of $f(\cdot)$: linear, exponential, logarithmic.
 \item Not sure the published paper includes these results (?) WP does?
   \end{itemize}
-\item Pakes (2017) uses Wollman (2018) data and BLP IV $E[\omega_{jt} | x_{jt},w_{jt},f(x_{-j})]=0$.
+\item Pakes (2017) uses Wollman (2018) data and BLP IV $\mathbb{E}[\omega_{jt} | x_{jt},w_{jt},f(x_{-j})]=0$.
 \item $\lambda \neq 0$ is hard to interpret.
 \end{itemize}
 \end{frame}
@@ -278,119 +333,424 @@ Another idea (Bonnet and Dubois, Rand 2010) runs the following regression:
 \small
 So far three approaches to exploit $ E[\omega_{jt} | x_{t},w_{t},z_{t}]=0$
 \begin{enumerate}
-\item Put the markup on RHS and instrument for it to test $\lambda=1$
+\item Put the markup on RHS and instrument for it to test $\lambda=1$ (Wald)
 \begin{align*}
  p_{jt} &= h_s(x_{jt}, \alert{w_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\mathbf{p},\mathbf{s},\widehat{\theta_2},\kappa \right)+  \omega_{jt}
 \end{align*}
-\item Put the markup on LHS assuming $\lambda=1$ and test goodness of fit of supply equation
+\item Put the markup on LHS assuming $\lambda=1$ and test goodness of fit of supply equation (Anderson Rubin)
 \begin{align*}
  p_{jt} -\eta_{jt}\left(\mathbf{p},\mathbf{s},\widehat{\theta_2},\kappa \right)&= h_s(x_{jt}, \alert{w_{jt}},\theta_3) +  \omega_{jt}
 \end{align*}
-\item Estimate supply and demand simultaneously $[\theta_1,\theta_2,\theta_3]$ and compare goodness of fit for different $\kappa$.
+\item Estimate supply and demand simultaneously $[\theta_1,\theta_2,\theta_3]$ and compare goodness of fit for different $\kappa$. (Likelihood Ratio)
 \end{enumerate}
 
 \end{frame}
 
-\begin{frame}{Simultaneous Problem: Menu Approach}
-Assume two models of conduct (correct: $\kappa_0$) (incorrect: $\kappa_1$)
+% \begin{frame}{Simultaneous Problem: Menu Approach}
+% Assume two models of conduct (correct: $\kappa_0$) (incorrect: $\kappa_1$)
+% \begin{align*}
+% %\label{eq:both_mc}
+% f(p_{jt} -\eta_{jt}(\kappa_0))= h(\textrm{x}_{jt},\textrm{w}_{jt};\theta_3^0)+\omega_{jt}^{0},\\
+% f(p_{jt} -\eta_{jt}(\kappa_1))= h(\textrm{x}_{jt},\textrm{w}_{jt};\theta_3^1)+\omega_{jt}^{1}.
+% \end{align*}
+% Write things in terms of the markup difference:
+% \begin{align*}
+% p_{jt} -\eta_{jt}(\kappa_1)= h(x_{jt},w_{jt};\theta_3)+ \overbrace{\lambda \cdot  \Delta \eta_{jt}(\mathbf{p},\mathbf{s},\theta,\kappa_0,\kappa_1) +   \omega_{jt}}^{\widetilde{\omega_{jt}}}
+% \end{align*}
+% Tempting idea: run the above regression and test if $\lambda=0$.
+% \begin{itemize}
+% \item True model $\lambda=0$, alternate model $\lambda \neq 0$.
+% \item True model will satisfy $E[\widetilde{\omega}_{jt} | x_{t}, \alert{w_{t}}, \alert{v_{t}}]=0$
+% \item $\eta_{jt}$ is \alert{endogenous}: it depends on everything including $(\xi,\omega)$.
+% \end{itemize}
+% \end{frame}
+
+
+% \begin{frame}{A subtle solution}
+% \begin{itemize}
+% \item Berry Haile 2014 tell us we need \alert{marginal revenue shifters} to act as \alert{exclusion restrictions}.
+% \item Needs to be uncorrelated with $p_{jt}-\eta_{jt}(\kappa_0)$ but correlated with $p_{jt}-\eta_{jt}(\kappa_1)$
+% \begin{itemize}
+% \item If my marginal cost is correlated with marginal costs of other products or ``closeness of competitors'', I've got the wrong conduct assumption!
+% \end{itemize}
+% \item We need an instrument for $\Delta \eta_{jt}(\mathbf{p},\mathbf{s},\theta,\kappa_0,\kappa_1)$
+% \begin{itemize}
+% \item Maybe not so hard since it is basically a function of everything.
+% \item Cannot have a direct effect on $mc_{jt}$ (exclusion restriction).
+% \end{itemize}
+% \end{itemize}
+% \end{frame}
+
+
+
+% \begin{frame}{Backus, Conlon, Sinkinson (2020)}
+% What would a really good instrument look like?
+% \begin{itemize}
+% \item Chamberlain (1987) style optimal IV for $\kappa_{fg}$ would be $E\left[\frac{\partial \eta_{jt}(\theta_2,\mathbf{s},\mathbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$
+% \begin{itemize}
+% \item But infeasible without knowledge of $(\kappa,\xi,\omega)$!
+% \item We could try to recover the infeasible estimate and project it onto $(x_t,w_t,v_t)$ (note: lack of $j$ subscripts!)
+% \end{itemize}
+% \item Menu approach: could look at discrete analogue: $E\left[\Delta \eta_{jt}(\kappa_1,\kappa_0,\theta_2,\mathbf{s},\mathbf{p}) | x_{t}, w_{t}, v_{t}\right]$
+% \begin{itemize}
+% \item I would need to know $\kappa_1,\kappa_0$.
+% \item Still infeasible but could run a first-stage regression
+% \end{itemize}
+% \end{itemize}
+% \end{frame}
+
+
+
+% \begin{frame}{Backus, Conlon, Sinkinson (2020)}
+% What would a really good instrument look like?
+% \begin{itemize}
+% \item Chamberlain (1987) style optimal IV for $\kappa_{fg}$ would be $E\left[\frac{\partial \eta_{jt}(\theta_2,\mathbf{s},\mathbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$
+% \begin{itemize}
+% \item But infeasible without knowledge of $(\kappa,\xi,\omega)$ so we take expectation over exogenous variables.
+% \item We could try to recover the infeasible estimate and project it onto $(x_t,w_t,v_t)$ (note: lack of $j$ subscripts!)
+% \end{itemize}
+% \item Menu approach: could look at discrete analogue: $E\left[\Delta \eta_{jt}(\kappa_1,\kappa_0,\theta_2,\mathbf{s},\mathbf{p}) | x_{t}, w_{t}, v_{t}\right]$
+% \begin{itemize}
+% \item I would need to know $\kappa_1,\kappa_0$.
+% \item Still infeasible but could run a first-stage regression
+% \end{itemize}
+% \end{itemize}
+% \end{frame}
+
+
+% \begin{frame}{Backus, Conlon, Sinkinson (2020)}
+% \footnotesize
+% Our procedure ((1)+(2) can be done separately)
+% \begin{enumerate}
+% \item Run OLS to obtain $\widehat{\omega}_1,\widehat{\omega}_2$ for $(\kappa_1,\kappa_2)$
+% \begin{align*}
+% \log \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\widehat{\theta}_2,\kappa) \right) = h_s(x_{jt}, w_{jt},\theta_3) + \omega_{jt}
+% \end{align*}
+% \item Recover $\Delta \widehat{\eta}_{jt}(\kappa_1,\kappa_2)$ via nonparametric regression/machine-learning
+% \begin{align*}
+% \Delta \widehat{\eta_{jt}}(\kappa_1,\kappa_2) = E \left[\Delta \eta_{jt}(\kappa_1,\kappa_2) | z_{t},w_{t},x_{t} \right]
+% \end{align*}
+% \item Compute the violations of the moment condition
+% $Q\left(\kappa^{m}\right)=\left(n^{-1} \sum_{j, t} \hat{\omega}_{j t}^{m} \cdot \widehat{\Delta \eta}_{j t}\right)^{2}$
+% \item Compute the test statistic: $T=\frac{\sqrt{n}\left(Q\left(\kappa^{1}\right)-Q\left(\kappa^{2}\right)\right)}{\hat{\sigma}}$ and bootstrap the standard error.
+% \end{enumerate}
+% Techincally we should \alert{sample split} and estimate the the regressions on \alert{independent} samples.
+% \end{frame}
+
+
+% \begin{frame}{Backus, Conlon, Sinkinson (2020) [Alternative]}
+% \begin{align*}
+%  p_{jt} -\eta_{jt}\left(\mathbf{p},\mathbf{s},\widehat{\theta_2},\kappa \right)&= h_s(x_{jt}, \alert{w_{jt}},\theta_3) +  \omega_{jt}
+% \end{align*}
+% \begin{itemize}
+% \item We can also directly test violations of $E[\omega_{jt} | x_t, v_t, w_t]$ by comparing resulting CUE or GEL (or GMM) objective values.
+% \item Probably want to include approximate optimal IV $E\left[\frac{\partial \eta_{jt}(\theta_2,\mathbf{s},\mathbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$ in instrument set.
+% \end{itemize}
+% \end{frame}
+
+
+
+
+
+
+
+
+
+\section{Backus Conlon Sinkinson (2022)}
+
+
+
+
+\begin{frame}{Basic Setup}
+We start with marginal revenue and marginal cost (unobserved $\omega$, observed $h(\cdot)$)
 \begin{align*}
-%\label{eq:both_mc}
-f(p_{jt} -\eta_{jt}(\kappa_0))= h(x_{jt},w_{jt};\theta_3^0)+\omega_{jt}^{0},\\
-f(p_{jt} -\eta_{jt}(\kappa_1))= h(x_{jt},w_{jt};\theta_3^1)+\omega_{jt}^{1}.
+\psi_{jt}^{m} &= mc_{jt} \\
+p_{jt} -\eta_{jt}^m &= h_s(\textrm{x}_{jt},\textrm{w}_{jt})  + \omega_{jt}^m
 \end{align*}
-Write things in terms of the markup difference:
+\begin{itemize}
+\item Let's be vague/flexible with $h_s(\cdot)$ for now, but I don't know the production function.
+\item Assume: Demand and hence $\eta_{jt}^{m}$ are \alert{known (given conduct)}.\\
+\item Idea $(\eta^{A},\eta^{B})$ are monopoly/perfect competition or Cournot/Bertrand.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{The Question}
+Two competing markups $(\eta_{jt}^A, \eta_{jt}^B)$: which fits the data better?\\
+(both may be misspecified)
 \begin{align*}
-p_{jt} -\eta_{jt}(\kappa_1)= h(x_{jt},w_{jt};\theta_3)+ \overbrace{\lambda \cdot  \Delta \eta_{jt}(\mathbf{p},\mathbf{s},\theta,\kappa_0,\kappa_1) +   \omega_{jt}}^{\widetilde{\omega_{jt}}}
+p_{jt} = h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \tau\, \eta_{jt}^A + (1-\tau)\,\eta_{jt}^B + \omega_{jt}
 \end{align*}
-Tempting idea: run the above regression and test if $\lambda=0$.
+Model is defined by a conditional moment restriction $\mathbb{E}[\omega_{jt}  | z_{jt}^s]=0$
 \begin{itemize}
-\item True model $\lambda=0$, alternate model $\lambda \neq 0$.
-\item True model will satisfy $E[\widetilde{\omega}_{jt} | x_{t}, \alert{w_{t}}, \alert{v_{t}}]=0$
-\item $\eta_{jt}$ is \alert{endogenous}: it depends on everything including $(\xi,\omega)$.
+\item $H_0: \tau =1 \text{ vs } H_a: \tau = 0$
+\item This is a \alert{model selection} problem or a \alert{non nested testing} problem.
+\begin{itemize}
+\item We might want to compare more than two alternatives (too bad).
+\end{itemize}
+\item Obvious endogeneity problem with $\eta_{jt}$!
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{A subtle solution}
+\begin{frame}{Testing Environment}
+Compare violations of unconditional moments under $(\eta_{jt}^A, \eta_{jt}^B)$ and $A(z_{jt}^s)$:
+\begin{align*}
+p_{jt} -  \eta_{jt}^A = h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega_{jt}^{A}\\
+p_{jt} -  \eta_{jt}^B = h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega_{jt}^{B}
+\end{align*}
+\pause
+Which gives us
+\begin{align*}
+g_A = \frac{1}{N} \sum_{jt} \omega_{jt}^{A}\, A(z_{jt}^s), &\quad
+g_B =\frac{1}{N} \sum_{jt}  \omega_{jt}^{B}\, A(z_{jt}^s)\\
+Q_m &= g_m'\, W_m\, g_m
+\end{align*}
+Now consider a \alert{Rivers Vuong (2002)} type test $T_{RV} = \sqrt{n} \left(\frac{Q_A - Q_B}{\sigma_{Q_A - Q_B}}\right) \sim N(0,1)$
+$H_0: Q_A - Q_B=0$ vs. $H_A: Q_A > Q_B$ or $Q_A < Q_B$.\\
+Getting the SD of the difference is hard $\rightarrow$ bootstrap 
+\end{frame}
+
+
+
+\begin{frame}{Comparison to Literature}
 \begin{itemize}
-\item Berry Haile 2014 tell us we need \alert{marginal revenue shifters} to act as \alert{exclusion restrictions}.
-\item Needs to be uncorrelated with $p_{jt}-\eta_{jt}(\kappa_0)$ but correlated with $p_{jt}-\eta_{jt}(\kappa_1)$
+\item Bresnahan (1987): Did LR test to determine collusion vs. competition in 1955 automobile price war
 \begin{itemize}
-\item If my marginal cost is correlated with marginal costs of other products or ``closeness of competitors'', I've got the wrong conduct assumption!
+\item No IV, errors were measurement in $P,Q$.
 \end{itemize}
-\item We need an instrument for $\Delta \eta_{jt}(\mathbf{p},\mathbf{s},\theta,\kappa_0,\kappa_1)$
+\item Bonnet and Dubois (2010): RV test
 \begin{itemize}
-\item Maybe not so hard since it is basically a function of everything.
-\item Cannot have a direct effect on $mc_{jt}$ (exclusion restriction).
+\item But no IV -- maximum likelihood with normally distirbuted $\omega_{jt}$'s.
 \end{itemize}
+\item Villas Boas (2007): Cox test to determine double marginalization or not in yogurt
+\begin{itemize}
+\item GMM objective, unclear what if any IV are used.
+\item Need to ``know'' the true model.
+\end{itemize}
+\item Duarte, Magnolfi, Solvsten, Sullivan (2022): RV beats Cox pretty badly in Monte Carlo.
 \end{itemize}
 \end{frame}
 
 
 
-\begin{frame}{Backus, Conlon, Sinkinson (2020)}
-What would a really good instrument look like?
+
+\begin{frame}[plain,label=mainresults]{Main Results: These are $N(0,1)$}
+\begin{center}
+\scalebox{0.55}{\input{resources/8_23_testing.tex}}
+\end{center}
+\end{frame}
+% \hyperlink{morepanels}{\beamerskipbutton{additional specifications}}\hyperlink{mcregs}{\beamerskipbutton{marginal cost regressions}}
+%\hyperlink{step2regs}{\beamerskipbutton{step 2 regressions}} \hyperlink{pwregs}{\beamerskipbutton{Pakes-Wollmann regressions}}
+
+\begin{frame}[plain]{An Internalization Parameter}
+Let $\kappa$ represent the weight a firm places on competitors and $\tau$ the internalization of those weights.
+ \begin{equation*}
+ arg\max_{p_j \,:\, j \in \mathcal{J}_f} \sum_{j \in \mathcal{J}_f} (p_j - mc_j) \cdot s_j(\mathbf{p})+
+ \sum_{g\neq f} \alert{\tau} \kappa_{fg} \sum_{j \in \mathcal{J}_g} (p_k - mc_k) \cdot s_k(\mathbf{p})
+ \end{equation*}
+Now, 
 \begin{itemize}
-\item Chamberlain (1987) style optimal IV for $\kappa_{fg}$ would be $E\left[\frac{\partial \eta_{jt}(\theta_2,\mathbf{s},\mathbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$
-\begin{itemize}
-\item But infeasible without knowledge of $(\kappa,\xi,\omega)$!
-\item We could try to recover the infeasible estimate and project it onto $(x_t,w_t,v_t)$ (note: lack of $j$ subscripts!)
+\item $\tau = 0$ implies own-profit maximization
+\item $\tau = 1$ implies common ownership pricing
+\item $\tau$ in between is..? Agency?
 \end{itemize}
-\item Menu approach: could look at discrete analogue: $E\left[\Delta \eta_{jt}(\kappa_1,\kappa_0,\theta_2,\mathbf{s},\mathbf{p}) | x_{t}, w_{t}, v_{t}\right]$
-\begin{itemize}
-\item I would need to know $\kappa_1,\kappa_0$.
-\item Still infeasible but could run a first-stage regression
-\end{itemize}
-\end{itemize}
+We test $\tau \in (0.1, \ldots, 0.9)$ against own-profit maximization.
+\end{frame}
+
+\begin{frame}[plain]{Internalization Parameter Results}
+\begin{center}
+\includegraphics[width=10cm]{resources/tau_figure2.pdf}
+\end{center}
 \end{frame}
 
 
+% \begin{frame}{Setup: Demand (BLP95, BLP99, Nevo 2000, ...)}
+% Consumer $i$ makes discrete choice in market $t$ and receives utility for choice $j$:
+% \begin{align*}
+% u_{ijt} &=  h_d(\textrm{x}_{jt}, \textrm{v}_{jt}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt}) + \xi_{jt}  + \mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2) + \varepsilon_{ijt}
+% \end{align*}
+% \pause
+% Following Berry, Levinsohn, Pakes, we fix $\theta_2=[\widetilde \theta_2,\alpha, \lambda]$ and invert system of equations for $\mathcal{S}_t$ to get mean utilities:
+% \begin{align*}
+% \sigma_{j}^{-1}(\mathcal{S}_t, \chi_t, \mathbf{p_t},\mathrm{y_t}; \widetilde{\theta}_2) + \alpha\, p_{jt} - \lambda \, \log(\text{ad}_{jt}) &= h_d(\textrm{x}_{jt}, \textrm{v}_{jt}; \theta_1) + \xi_{jt} 
+% \end{align*}
+% Can estimate $[\widehat{\theta_1}, \widehat{\theta_2}]$ using the CMR $\mathbb{E}[\xi_{jt} | z_{jt}^d]=0$.
+% \end{frame}
 
-\begin{frame}{Backus, Conlon, Sinkinson (2020)}
-What would a really good instrument look like?
-\begin{itemize}
-\item Chamberlain (1987) style optimal IV for $\kappa_{fg}$ would be $E\left[\frac{\partial \eta_{jt}(\theta_2,\mathbf{s},\mathbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$
-\begin{itemize}
-\item But infeasible without knowledge of $(\kappa,\xi,\omega)$ so we take expectation over exogenous variables.
-\item We could try to recover the infeasible estimate and project it onto $(x_t,w_t,v_t)$ (note: lack of $j$ subscripts!)
-\end{itemize}
-\item Menu approach: could look at discrete analogue: $E\left[\Delta \eta_{jt}(\kappa_1,\kappa_0,\theta_2,\mathbf{s},\mathbf{p}) | x_{t}, w_{t}, v_{t}\right]$
-\begin{itemize}
-\item I would need to know $\kappa_1,\kappa_0$.
-\item Still infeasible but could run a first-stage regression
-\end{itemize}
-\end{itemize}
-\end{frame}
+% \begin{frame}{Setup: Supply and Conduct}
+% Assume that we know $\widehat{\theta_2}$ from demand:
+% \begin{align*}
+% p_{jt} - \eta_{jt}(\mathcal{S}_t, \chi_t, \mathbf{p_t},\mathrm{y_t}; \widehat{\theta}_2) = h_s(\mathrm{x}_{jt}, \mathrm{w}_{jt}, q_{jt}; \theta_3) + \omega_{jt} \quad &\text{ with } \mathbb{E}[\omega_{jt} | z_{jt}^s]=0
+% \end{align*}
+% \begin{itemize}
+% \item The model is defined by \alert{conditional moment restrictions}.
+% \item Testing conduct is typically about detecting violations of the CMR for supply.
+% \item We follow the \alert{sequential approach} and estimate $[\widehat \theta_1,\widehat \theta_2]$ from demand and then test supply separately.
+% \item The $\theta_3$ parameters are \alert{nuisance parameters}, we don't care what they are, we just want to measure violations of moments.
+% \end{itemize}
+% \end{frame}
 
 
-\begin{frame}{Backus, Conlon, Sinkinson (2020)}
-\footnotesize
-Our procedure ((1)+(2) can be done separately)
+\begin{frame}{Setup: Challenges}
+The true model for markups (conduct) will satisfy the CMR: $\mathbb{E}[\omega_{jt} | z_{jt}^s]=0$
+\begin{align*}p_{jt} - \eta_{jt}^{(m)} &= h_s(\textrm{x}_{jt}, \textrm{w}_{jt}; \theta_3) + \omega_{jt}
+\end{align*}
+Goal is test two competing markups $\eta_{jt}^{(A)},\eta_{jt}^{(B)}$, but there are challenges:
+\pause
 \begin{enumerate}
-\item Run OLS to obtain $\widehat{\omega}_1,\widehat{\omega}_2$ for $(\kappa_1,\kappa_2)$
-\begin{align*}
-\log \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\widehat{\theta}_2,\kappa) \right) = h_s(x_{jt}, w_{jt},\theta_3) + \omega_{jt}
-\end{align*}
-\item Recover $\Delta \widehat{\eta}_{jt}(\kappa_1,\kappa_2)$ via nonparametric regression/machine-learning
-\begin{align*}
-\Delta \widehat{\eta_{jt}}(\kappa_1,\kappa_2) = E \left[\Delta \eta_{jt}(\kappa_1,\kappa_2) | z_{t},w_{t},x_{t} \right]
-\end{align*}
-\item Compute the violations of the moment condition
-$Q\left(\kappa^{m}\right)=\left(n^{-1} \sum_{j, t} \hat{\omega}_{j t}^{m} \cdot \widehat{\Delta \eta}_{j t}\right)^{2}$
-\item Compute the test statistic: $T=\frac{\sqrt{n}\left(Q\left(\kappa^{1}\right)-Q\left(\kappa^{2}\right)\right)}{\hat{\sigma}}$ and bootstrap the standard error.
+\item Test will depend on how we choose \alert{unconditional moment restrictions} $\mathbb{E}[\omega_{jt} \cdot \, A(z_{jt}^s)]=0$
+\pause
+\item Test may depend on how we specify $h_s(\cdot)$
+\begin{itemize}
+\item All tests are basically joint tests of the specification for \alert{observed marginal costs} and the  \alert{exclusion restriction}.
+\item Villas Boas (2007) tries log, linear, exponential in $x \beta $
+\end{itemize}
+\pause
+\item Choice of $\eta_{jt}^{(m)}$ will affect our choice of \alert{weighting matrix} and thus the test. (Hall Pelletier (2011))
 \end{enumerate}
-Techincally we should \alert{sample split} and estimate the the regressions on \alert{independent} samples.
 \end{frame}
 
 
-\begin{frame}{Backus, Conlon, Sinkinson (2020) [Alternative]}
-\begin{align*}
- p_{jt} -\eta_{jt}\left(\mathbf{p},\mathbf{s},\widehat{\theta_2},\kappa \right)&= h_s(x_{jt}, \alert{w_{jt}},\theta_3) +  \omega_{jt}
-\end{align*}
+\begin{frame}[plain,label=chamberlain]{A Brief Aside: Chamberlain (1987) in a Slide}
+What contains as much information as the CMR $\mathbb{E}[\omega|z_{jt}^s]$ and moments of the form $ \mathbb{E}[\omega_{jt}\cdot A(z_{jt}^s)]. $
 \begin{itemize}
-\item We can also directly test violations of $E[\omega_{jt} | x_t, v_t, w_t]$ by comparing resulting CUE or GEL (or GMM) objective values.
-\item Probably want to include approximate optimal IV $E\left[\frac{\partial \eta_{jt}(\theta_2,\mathbf{s},\mathbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$ in instrument set.
+\item For linear models $A(z_{jt}^s) = z_{jt}^s$ is generally without loss.
+\item For nonlinear models, Chamberlain (1987) shows that the efficient estimator uses
+$$A(z_{jt}^s) = \mathbb{E}\left[\frac{\partial \omega_{jt}}{\partial \theta}|z_{jt}^s\right]$$
+\item That is not too helpful (its a function of the unknown $\theta$).
+\item Much of the follow-up work has been about feasible approximations to this ``optimal instrument" (e.g., Newey 1990)
 \end{itemize}
+For us a similar concern arises, but it is about \alert{power} to distinguish conduct models rather than \alert{efficiency} of estimation.
+%\hyperlink{label=cmrbasics}{\beamerskipbutton{back}} 
+\end{frame}
+
+
+
+\begin{frame}[plain,label=innovation]{Our Idea: Motivation \#1 (Optimal IV)}
+The model is given by
+\begin{align*}
+p_{jt} &= h_s(\textrm{x}_{jt},\textrm{w}_{jt},\theta_3) + \tau \cdot \eta^A_{jt} + (1-\tau) \cdot \eta^B_{jt} + \omega^m_{jt}\\
+& \text{  where  }  H_0: \tau=1 \text{ and } H_a: \tau = 0
+\end{align*}
+
+\begin{itemize}
+\item The optimal IV in the Chamberlain (1987) sense is given by $\mathbb{E}\left[\frac{\partial \omega_{jt}}{\partial \tau}|z_{t} \right]= \mathbb{E}\left[\eta^A_{jt}-\eta_{jt}^B|z_{t}\right]$.
+\item In words: The IV need to predict the \alert{difference in markups}\\ (beyond observed $h_s(\textrm{x}_{jt},\textrm{w}_{jt},\theta_3)$).
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}[plain,label=misspecification]{Our Idea: Motivation \#2 (Misspecification)}
+Index the \alert{true} model by $0$. Then,
+$$ p_{jt} -\eta^0_{jt}= h_s(x_{jt},w_{jt}) + \omega^0_{jt}.$$
+To motivate a useful test, we ask what happens when we estimate supply with the \alert{wrong} conduct model (1):
+\pause
+$$p_{jt} -\eta_{jt}^1 = h_s(x_{jt},w_{jt}) + \underbrace{\underbrace{\eta^0_{jt} - \eta^1_{jt}}_{\equiv \Delta \eta_{jt}^{0,1}} +  \omega_{jt}^{0}}_{\omega_{jt}^{1}}.$$
+\begin{itemize}
+\item Misspecifying conduct introduces an omitted variable: the difference in markups.
+\item Our test is premised on detection of this omitted variable.
+\end{itemize}
+% \hyperlink{advantages}{\beamerskipbutton{back}} 
+\end{frame}
+
+
+\begin{frame}[plain,label=innovation]{Our Innovation: How does this help?}
+\begin{small}
+The model is given by
+$$p_{jt} - \eta^m_{jt} = h_s(\cdot) +  \omega^m_{jt} \text{,   and  } \mathbb{E}[\omega_{jt}^{(m)}\cdot A(z_t)] = 0.$$
+
+We suggest $A(z_t) = \mathbb{E}[\eta^1_{jt}-\eta_{jt}^2|z_{t}]$; several advantages:
+\pause
+\begin{itemize}
+% \item What is the point of instruments for testing? To explain the \alert{difference in markups}
+\item Reduces potentially many moments ($\mathbb{E}[\omega_{jt}' z_t]=0$) to a single, scalar moment. No need for a weighting matrix, or associated problems.
+\item Testing is reduced to two prediction exercises: $\mathbb{E}[\eta^1_{jt}-\eta_{jt}^2|z_{t}]$ and $\widehat \omega_{jt}^{(m)}$.
+\item Show in the paper that this leads to the most powerful test (maximizes distance between two GMM objective functions conditional on weight matrix).
+\item Downside: Our choice of instrument is \alert{model specific}! UMP is not going to happen.
+\end{itemize}
+\end{small}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Possible Exclusion Restrictions}
+We are looking for variables which affect \alert{demand but not supply}:
+\begin{align*}
+\sigma_{j}^{-1}(\mathcal{S}_t, \mathbf{p_t},\alert{\mathrm{y_t}}, \mathrm{x}_t,  \mathrm{v}_t, \widetilde{\theta}_2) 
+&= h_d(\mathrm{x}_{jt},\alert{ \mathrm{v}_{jt}}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt})+ \xi_{jt} \\
+p_{jt} - \eta_{jt}(\mathcal{S}_t, \mathbf{p_t}; \theta_2, \mathcal{H}_t(\kappa))
+&= h_s(\textrm{x}_{jt}, \alert{\mathrm{w}_{jt}}; \theta_3) + \omega_{jt} 
+\end{align*}
+Things we use:
+\begin{itemize}
+    \item Obvious choice: $\mathrm{v}_{jt}$ (things like product recalls are relatively weak)
+    \item Demographics (enter nonlinearly): $\mathrm{y}_t$ (chain-level income works well)
+    \item Characteristics of other goods: $f(\mathrm{x}_{-j,t})$ (BLP instruments).
+    \item Characteristics of other goods: $\mathrm{w}_{-j,t}$ (commodity price of oats for Rice Krispies)
+\end{itemize}
+\pause
+Things we don't use:
+\begin{itemize}
+    \item Unobserved demand shocks $\xi_{jt}$ (see MacKay Miller 2020 for $Cov(\xi_j,\omega_j)=0$).
+    \item Observable $\kappa$ conduct shifters (financial mergers/events, see Miller Weinberg (2018))
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[shrink=25,plain]{Algorithm}
+\begin{enumerate}[(1)]
+\item Split the sample by markets $t$ into 70\% \textit{test} and 30\% \textit{train}.
+\item On the \textit{training sample}:
+\begin{enumerate}[(a)]
+\item Approximate the optimal instruments $a(z_{jt}^s) = \mathbb{E}[\Delta \eta_{jt}^{(1,2)} \mid z_{jt}^s]$ as the fitted values from:
+\begin{align*}
+    \Delta\eta_{jt}^{1,2} = g(z_{jt}^s) + \zeta_{jt}.
+\end{align*}
+\item Estimate the marginal cost function, under models 1 and 2 to obtain residuals $\widehat{\omega_{jt}^{1}}$ and $\widehat{\omega_{jt}^{2}}$:
+ \begin{align*}
+ p_{jt} -\eta^m_{jt}= h_s(\textrm{x}_{jt},\mathrm{w}_{jt}; \theta_3) + \omega^m_{jt}.
+ \end{align*}
+\end{enumerate}
+\item On the \textit{test sample}:
+\begin{enumerate}[(a)]
+\item For each candidate model, compute the value of the scalar moment:\footnotemark
+\begin{align*}
+ Q(\eta^m) =\left(\sum_{j,t} \hat\omega_{jt}^m\cdot \hat{g}(\mathbf{z_t}) \right)^2.
+\end{align*}
+\item Repeat the previous step on bootstrapped samples and estimate $\hat\sigma/\sqrt{n}$ the standard error of the difference $\tilde Q(\eta^1) - \tilde Q(\eta^2)$.
+\item Compute the test statistic
+\begin{align*}
+T = \frac{\sqrt{n} \left(Q(\eta^1) -  Q(\eta^2) \right)}{\widehat{\sigma}} \sim \mathcal{N}(0,1).
+\end{align*}
+\textit{Note: Steps 2(a) and 2(b) can be done in any order via non-parametric regression.}
+\end{enumerate}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[plain]{Limitations}
+Not everything is testable:
+\begin{itemize}
+\item If $\Delta \eta_{jt}$ cannot be explained by $z_{jt}^s$ beyond contents of $(\mathrm{x}_j,\mathrm{w}_j)$ we have nothing
+%\item Compare perfect competition to a fixed markup $p_j = a \cdot mc_j + b$
+\item Flexible demand models are required to generate cross sectional variation in markups
+%\begin{itemize}
+%\item Discuss plain logit
+%\end{itemize}
+\item Beware of ``accidental'' exclusion restrictions.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain,label=advantages]{Alternate Justifications}
+\begin{enumerate}
+\item Model Misspecification: if one of the two models is correct, $\eta^1_{jt}-\eta_{jt}^2$ exactly corresponds to the misspecification error when using the other. \hyperlink{misspecification}{\beamerskipbutton{detail}}. 
+\item Difference in Test Statistics: We can also show it maximizes the difference in GMM objectives $(Q_1 - Q_2)$. (Which is almost power for fixed $\sigma$). Also we need that either $h_s(\cdot)$ doesn't depend on $\eta^{(m)}$ or that it is linear so we can residualize on $(\textrm{x},\text{w})$.
+\end{enumerate}
 \end{frame}
 
 
