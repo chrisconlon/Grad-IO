@@ -82,6 +82,7 @@ It's one of the best ways economists have to characterize competition among sell
 \end{frame}
 
 
+
 \begin{frame}{Advantages of Diversion}
 \begin{itemize}
 \item When you were taught elasticities you were taught they were a \alert{unit free} comparison across products, markets, etc.
@@ -95,6 +96,45 @@ It's one of the best ways economists have to characterize competition among sell
 \item Whenever you are tempted to report \alert{cross elasticities} report \alert{diversion ratio} instead.
 \end{itemize}
 \end{frame}
+
+
+\begin{frame}[plain]
+\begin{center}
+\scalebox{0.65}{
+\begin{tabular}{lrrrrrrr}
+\toprule
+{} &  Cheerios &  Special K &  Corn Flakes &  Reese's Puffs &  Capt Crunch &  Froot Loops &  Shares \\
+\midrule
+HN Cheerios         &      5.07 &       4.27 &         3.75 &           5.33 &         3.58 &         3.48 &    2.69 \\
+Frosted Flakes      &      2.46 &       2.54 &         4.54 &           4.00 &         5.35 &         7.24 &    2.65 \\
+Cheerios            &     -2.46 &       5.91 &         3.13 &           3.19 &         1.36 &         1.77 &    2.10 \\
+Honey Bunches       &      2.47 &       2.51 &         2.21 &           2.08 &         1.94 &         1.99 &    1.47 \\
+Cinn Toast Crunch   &      3.43 &       2.10 &         1.69 &           3.00 &         1.78 &         1.84 &    1.43 \\
+Froot Loops         &      1.26 &       1.19 &         1.64 &           1.69 &         1.82 &        -2.71 &    1.18 \\
+Lucky Charms        &      2.18 &       1.64 &         1.57 &           2.99 &         1.59 &         1.58 &    1.14 \\
+Frosted Mini-Wheats &      0.36 &       0.50 &         0.74 &           0.68 &         0.87 &         1.27 &    1.01 \\
+Corn Flakes         &      2.01 &       2.18 &        -2.64 &           1.31 &         1.24 &         1.52 &    0.98 \\
+Rice Krispies       &      1.50 &       1.72 &         1.56 &           0.89 &         0.68 &         1.25 &    0.96 \\
+Apple Jacks         &      0.91 &       0.80 &         1.24 &           1.27 &         1.42 &         2.45 &    0.85 \\
+Raisin Bran (KEL)   &      0.46 &       0.47 &         0.63 &           0.78 &         0.82 &         1.24 &    0.79 \\
+Special K Red Berry &      0.96 &       1.45 &         0.95 &           0.78 &         0.68 &         0.90 &    0.75 \\
+Special K           &      2.06 &      -2.66 &         1.18 &           0.71 &         0.44 &         0.58 &    0.74 \\
+MG Cheerios         &      1.11 &       0.99 &         0.75 &           0.89 &         0.54 &         0.66 &    0.71 \\
+Reese's Puffs       &      1.36 &       0.86 &         0.87 &          -2.70 &         1.08 &         1.01 &    0.69 \\
+Life                &      1.15 &       1.12 &         1.05 &           1.02 &         1.72 &         0.89 &    0.68 \\
+Cocoa Puffs         &      1.18 &       0.92 &         0.95 &           1.47 &         1.05 &         0.97 &    0.67 \\
+Capt Crunch         &      0.63 &       0.58 &         0.88 &           1.21 &        -2.68 &         1.19 &    0.62 \\
+Capt Crunch Berry   &      0.68 &       0.61 &         0.83 &           1.15 &         3.29 &         1.00 &    0.58 \\
+Corn Pops           &      0.43 &       0.43 &         0.71 &           0.66 &         0.75 &         1.45 &    0.56 \\
+Cinn Life           &      0.76 &       0.75 &         0.83 &           0.84 &         1.59 &         0.78 &    0.54 \\
+Fruity Pebbles      &      0.61 &       0.59 &         0.71 &           0.71 &         0.75 &         0.77 &    0.44 \\
+\bottomrule
+\end{tabular}
+
+}
+\end{center}
+\end{frame}
+
 
 
 
@@ -189,7 +229,7 @@ Under the following conditions:\\
 \noindent
 then the Wald estimator:
 \begin{align*}
- \frac{q_k(p_j',x) - q_k(p_j,x)}{-\left(q_j(p_j',x) - q_j(p_j,x)\right)}=E[D_{jk,i}(x) | d_{ij}(p_j,x) > d_{ij}(p_j',x)]
+ \frac{q_k(p_j',x) - q_k(p_j,x)}{-\left(q_j(p_j',x) - q_j(p_j,x)\right)}=\mathbb{E}[D_{jk,i}(x) | d_{ij}(p_j,x) > d_{ij}(p_j',x)]
 \end{align*}
 \end{theorem}
 \end{frame}
@@ -234,7 +274,7 @@ For plain logit $D_{jk,i} = \frac{s_{k}}{1-s_{j}}$ for all $i$ and weights don't
 \begin{frame}{Welfare and WTP}
 As we learned on HW2, welfare and willingness to pay are mostly about \alert{diversion to outside good}
 \begin{align*}
-WTP_i(j) = E[\max_{k \in \mathcal{J}} u_{ik}]  - E[\max_{k' \in \mathcal{J}\setminus j} u_{ik'} ] =  \log \left( \sum_{k \in \mathcal{J}} \exp[V_{ik}] \right)-  \log \left(\sum_{k \in \mathcal{J} \setminus j} \exp[V_{ik}]\right)
+WTP_i(j) = \mathbb{E}[\max_{k \in \mathcal{J}} u_{ik}]  - \mathbb{E}[\max_{k' \in \mathcal{J}\setminus j} u_{ik'} ] =  \log \left( \sum_{k \in \mathcal{J}} \exp[V_{ik}] \right)-  \log \left(\sum_{k \in \mathcal{J} \setminus j} \exp[V_{ik}]\right)
 \end{align*}
 Exploit the following:
 \begin{enumerate}
