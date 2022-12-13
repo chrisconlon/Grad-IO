@@ -1,58 +1,6 @@
-\documentclass[aspectratio=169]{beamer}
-\usetheme{focus}
-%\usecolortheme[named=Apricot]{structure} 
-%\usetheme[height=7mm]{Darmstadt} 
-%\usetheme{Darmstadt}
-\usepackage{amsmath}
-\usepackage{pdfpages}
-\usepackage{xcolor}
-\usepackage{graphicx}
-\usepackage{color, colortbl}
-\usepackage{setspace}
-\usepackage[first=0,last=9]{lcg}
-\newcommand{\ra}{\rand0.\arabic{rand}}
-\definecolor{LightCyan}{rgb}{0.88,1,1}
-\definecolor{LightRed}{rgb}{1,.7,.7}
-\definecolor{LightYellow}{rgb}{1,1,.7}
-  
-
-%\setbeamertemplate{items}[ball] 
-%\setbeamertemplate{blocks}[rounded][shadow=true] 
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{sections/subsections in toc}[ball]
-
-\newcommand{\Lang}[1]{\operatorname{\text{\textsc{#1}}}}
-
-\newcommand{\Class}[1]{\operatorname{\mathchoice
-  {\text{\sf \small #1}}
-  {\text{\sf \small #1}}
-  {\text{\sf #1}}
-  {\text{\sf #1}}}}
- 
-\newcommand{\NumSAT}      {\text{\small\#SAT}}
-\newcommand{\NumA}        {\#_{\!A}}
-
-\newcommand{\barA}        {\,\bar{\!A}}
-
-\newcommand{\Nat}{\mathbb{N}}
-\newcommand{\Set}[1]{\{#1\}}
-
-\pgfdeclaremask{tu}{beamer-tu-logo-mask}
-\pgfdeclaremask{computer}{beamer-computer-mask}
-\pgfdeclareimage[interpolate=true,mask=computer,height=2cm]{computerimage}{beamer-computer}
-\pgfdeclareimage[interpolate=true,mask=computer,height=2cm]{computerworkingimage}{beamer-computerred}
-\pgfdeclareimage[mask=tu,height=.5cm]{logo}{beamer-tu-logo}
+\input{preamble}
 
 \begin{document}
-\title{Efficiency and Foreclosure Effects of \\ Vertical Rebates: Empirical Evidence}
-\author{Christopher T. Conlon and Julie Holland Mortimer}
-\institute{New York University and Boston College/NBER}
-\date{September, 2018}
-
-\frame{\titlepage}{
-}
-
-
 \section{Theory Review: Whinston Chapter}
 
 \begin{frame}{Main Question}
@@ -90,6 +38,7 @@ If we see an exclusive arrangement as a competitive \alert{equilibrium}, it must
 
 
 \begin{frame}{Naked Exclusion}
+\small
 It turns out this result is quite fragile and there are lots of ways to break it:
 \begin{itemize}
 \item Bernheim Whinston (1987): Use exclusivity in market $A$ to prevent entry into market $B$. (Externalities across markets).
@@ -346,31 +295,33 @@ Nestle& Raisinets &$>$45 &N/R &N/R& 78& 8.9\\
 
 \begin{frame}{Response to Threshold: Assortment}
 \small
-\begin{tabular}{|l | rrr | rrr|} \hline
- & Index  & Total & Mars  & &  &  \\ 
-Quarter & \% & Vends & Share & Mars & Hershey & Nestle \\ \hline \hline
+\begin{center}
+\begin{tabular}{|l | rrr | rrr|} \toprule
+ & & Total & Mars  & &  &  \\ 
+Quarter &   Index \% & Vends & Share & Mars & Hershey & Nestle \\ \midrule
 2007q1 & 109.16 & 1,000.00 & 20.20 & 6.61 & 1.13 & 1.58 \\
 2007q2 & 106.29 & 1,087.45 & 19.77 & 6.24 & 1.44 & 1.17 \\
 2007q3 & 100.81 & 1,008.57 & 20.94 & 6.21 & 1.63 & 1.08 \\
-2007q4 & 105.23 & 1,092.49 & 19.97 & 6.26 & 1.73 & 1.03 \\
-2008q1 & 106.27 & 1,103.42 & 19.45 & 5.98 & 2.08 & 0.97 \\  \arrayrulecolor{red} \hline
-\arrayrulecolor{black}
+2007q4 & 105.23 & 1,092.49 & 19.97 & 6.26 & 1.73 & 1.03 \\ \midrule
+2008q1 & 106.27 & 1,103.42 & 19.45 & 5.98 & 2.08 & 0.97 \\   \midrule
 2008q2 & 97.20 & 1,057.32 & 19.77 & 5.57 & 2.29 & 0.93 \\ 
 2008q3 & 91.88 & 1,014.13 & 19.14 & 5.37 & 2.29 & 0.91 \\
 2008q4 & 87.02 & 1,048.26 & 18.11 & 5.48 & 2.19 & 0.89 \\
-2009q1 & 87.03 & 1,058.54 & 17.65 & 5.32 & 1.99 & 0.83 \\ \hline
+2009q1 & 87.03 & 1,058.54 & 17.65 & 5.32 & 1.99 & 0.83 \\ 
+\bottomrule
 \end{tabular}
+\end{center}
 
 Right three columns report facings per machine by manufacturer.
 \end{frame}
 
 \begin{frame}{Assortment Detail: Facings Per Machine}
-\small
+\footnotesize
 \begin{center}
-\begin{tabular}{|c | r r r r|} \hline
+\begin{tabular}{|c | r r r r|}\midrule
 &\multicolumn{2}{c}{Mars products:}&\multicolumn{2}{c|}{Hershey products:}\\
 Quarter &  Milkyway &  3 Musketeer & Reese's PB & Payday \\
-\hline\hline
+\toprule
 2006q1 & 0.26 & 0.50 & 0.19 & 0.08 \\
 2006q2 & 0.26 & 0.49 & 0.15 & 0.03 \\
 2006q3 & 0.29 & 0.56 & 0.03 & 0.01 \\
@@ -378,13 +329,12 @@ Quarter &  Milkyway &  3 Musketeer & Reese's PB & Payday \\
 2007q1 & 0.32 & 0.56 & 0.00 & 0.08 \\
 2007q2 & 0.31 & 0.53 & 0.00 & 0.18 \\
 2007q3 & 0.29 & 0.54 & 0.01 & 0.21 \\
-2007q4 & 0.30 & 0.51 & 0.15 & 0.20 \\
-2008q1 & 0.38 & 0.29 & 0.51 & 0.19 \\ \arrayrulecolor{red} \hline
-\arrayrulecolor{black}
+2007q4 & 0.30 & 0.51 & 0.15 & 0.20 \\ \midrule
+2008q1 & 0.38 & 0.29 & 0.51 & 0.19 \\  \midrule
 2008q2 & 0.43 & 0.03 & 0.66 & 0.21 \\ 
 2008q3 & 0.41 & 0.00 & 0.63 & 0.23 \\
 2008q4 & 0.40 & 0.01 & 0.62 & 0.24 \\
-2009q1 & 0.37 & 0.01 & 0.62 & 0.23 \\ \hline
+2009q1 & 0.37 & 0.01 & 0.62 & 0.23 \\ \bottomrule
 \end{tabular}
 \end{center}
 \end{frame}
@@ -1241,6 +1191,7 @@ Rival can outbid.
 
 \begin{frame}
 \frametitle{Equilibrium Foreclosure}
+\small
 %\begin{itemize}
 Suppose that (A1)-(C3) hold. 
 \begin{itemize}
