@@ -1,0 +1,22 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                    &Mean               & Geometric Mean \\\cmidrule(lr){2-2}\cmidrule(lr){3-3}
+                    &\multicolumn{1}{c}{(1)}       &\multicolumn{1}{c}{(2)}        \\
+\hline
+Market Share        &     -0.0026\sym{*}&     -0.0026\sym{*}\\
+                    &    (0.0001)       &    (0.0001)       \\
+[1em]
+$\kappa$           &     -0.0771\sym{*}&                  \\
+                    &    (0.0115)       &                  \\
+[1em]
+$\kappa$           &                   & -0.0951\sym{*} \\
+                    &                   &    (0.0120)   \\
+\hline
+Retailer, Parent, DMA FE&  \checkmark       &  \checkmark         \\
+Quadratic Time Trend&  \checkmark       &  \checkmark       \\
+N                   &        5173       &        5173         \\
+\hline\hline
+\end{tabular}
+}

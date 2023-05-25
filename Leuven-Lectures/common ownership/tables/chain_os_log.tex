@@ -1,0 +1,26 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}   &\multicolumn{1}{c}{(2)}   &\multicolumn{1}{c}{(3)}   &\multicolumn{1}{c}{(4)}   &\multicolumn{1}{c}{(5)}   &\multicolumn{1}{c}{(6)}   \\
+                    &  Log(Price)   &  Log(Price)   &  Log(Price)   &  Log(Price)   &  Log(Price)   &  Log(Price)   \\
+                    &        b/se   &        b/se   &        b/se   &        b/se   &        b/se   &        b/se   \\
+\hline
+hhi\_servings        &      0.0495***&      0.0857***&     -0.0105   &      0.0181***&      0.0578***&      0.0559***\\
+                    &    (0.0068)   &    (0.0074)   &    (0.0066)   &    (0.0064)   &    (0.0057)   &    (0.0060)   \\
+mhhid\_os\_servings   &     -0.1216***&     -0.1204***&     -0.1523***&     -0.1097***&     -0.0833***&     -0.0892***\\
+                    &    (0.0079)   &    (0.0081)   &    (0.0065)   &    (0.0064)   &    (0.0056)   &    (0.0059)   \\
+share\_servings      &               &               &               &               &     -0.0116***&     -0.0117***\\
+                    &               &               &               &               &    (0.0003)   &    (0.0003)   \\
+DMA FEs             &          No   &         Yes   &          No   &         Yes   &         Yes   &         Yes   \\
+Retailer FEs        &          No   &          No   &         Yes   &         Yes   &         Yes   &         Yes   \\
+Quadratic Time Trend &         Yes   &         Yes   &         Yes   &         Yes   &         Yes   &         Yes   \\
+Parent FEs          &         Yes   &         Yes   &         Yes   &         Yes   &         Yes   &         Yes   \\
+Cubic HHI           &          No   &          No   &          No   &          No   &          No   &         Yes   \\
+\hline
+r2\_a                &       0.267   &       0.312   &       0.722   &       0.754   &       0.814   &       0.814   \\
+N                   &        5173   &        5173   &        5173   &        5173   &        5173   &        5173   \\
+\hline\hline
+\multicolumn{7}{l}{\footnotesize * p<0.10, ** p<0.05, *** p<0.01}\\
+\end{tabular}
+}

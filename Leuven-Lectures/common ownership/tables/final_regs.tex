@@ -1,0 +1,28 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}       &\multicolumn{1}{c}{(2)}       &\multicolumn{1}{c}{(3)}       &\multicolumn{1}{c}{(4)}       \\
+\hline
+Retail Share        &      0.8581\sym{*}&      0.7188\sym{*}&      0.6300\sym{*}&      0.6307\sym{*}\\
+                    &    (0.0005)       &    (0.0005)       &    (0.0006)       &    (0.0006)       \\
+Log(Market Cap)     &      0.0356\sym{*}&      0.0335\sym{*}&      0.0293\sym{*}&      0.0290\sym{*}\\
+                    &    (0.0001)       &    (0.0001)       &    (0.0001)       &    (0.0001)       \\
+Big Three Holdings  &      0.1473\sym{*}&                   &     -0.9138\sym{*}&                   \\
+                    &    (0.0019)       &                   &    (0.0021)       &                   \\
+Investor Indexing   &                   &      1.0098\sym{*}&      1.2850\sym{*}&      1.2672\sym{*}\\
+                    &                   &    (0.0011)       &    (0.0013)       &    (0.0013)       \\
+Blackrock Holdings  &                   &                   &                   &     -0.3433\sym{*}\\
+                    &                   &                   &                   &    (0.0033)       \\
+Vanguard Holdings   &                   &                   &                   &     -1.3216\sym{*}\\
+                    &                   &                   &                   &    (0.0051)       \\
+State Street Holdings&                   &                   &                   &     -1.3478\sym{*}\\
+                    &                   &                   &                   &    (0.0034)       \\
+\hline
+$R^2$                  &      0.5358       &      0.5598       &      0.5653       &      0.5668       \\
+Quarter FE          &  \checkmark       &  \checkmark       &  \checkmark       &  \checkmark       \\
+Pair FE             &  \checkmark       &  \checkmark       &  \checkmark       &  \checkmark       \\
+N                   &    14852026       &    14852026       &    14852026       &    14852026       \\
+\hline\hline
+\end{tabular}
+}
