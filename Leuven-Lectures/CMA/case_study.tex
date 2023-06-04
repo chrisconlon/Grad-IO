@@ -1,0 +1,338 @@
+\input{preamble.tex}
+
+\usepackage{lipsum}
+\usepackage{amsmath} 
+\usepackage{amsthm} 
+\usepackage{amssymb} 
+\usepackage{mathtools}
+%\usepackage{natbib}
+\usepackage{dutchcal}
+
+
+\newcommand{\vect}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\pd}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\expect}[2]{\mathbb{E}_{#1}\left[{#2}\right]}
+\newcommand{\expectsmall}[2]{\mathbb{E}_{#1}{#2}}
+\newcommand{\expectsuper}[3]{\mathbb{E}_{#1}^{#2}\left[{#3}\right]}
+\newcommand{\ind}[1]{\mathbbm{1}\left\{{#1}\right\}}
+\newcommand{\prob}[1]{\mathbb{P}\left\{{#1}\right\}}
+\newcommand{\derivative}[2]{\frac{d{#2}}{d{#1}}}
+\newcommand{\cat}[1]{\citeasnoun{#1}}
+
+% title page
+\title{Case Studies}
+\author{Chris Conlon}
+\institute{NYU Stern and NBER}
+
+\date{Summer 2023}
+
+
+
+
+\begin{document}
+
+
+
+%--------------
+% TITLE PAGE
+\begin{frame}[plain] %
+\titlepage
+\end{frame}
+
+
+
+\section*{Conlon and Rao (2014/2023) on Distilled Spirits}
+
+
+
+\begin{frame}{Why does supply matter? (Conlon Rao 2014/2023)}
+\begin{itemize}
+\item Looked at a wholesale price posting law challenged under the Sherman Act
+\begin{itemize}
+\item Post your prices
+\item Look at competitors prices
+\item Can meet but not beat them.
+\item \textrightarrow Everyone sets monopoly price and then matches
+\end{itemize}
+\item We can calculate $\eta_{jt}$ markups using game theory
+\item We observe $\mathbf{p^w}$ (wholesale) and $\mathbf{p^m}$ (manufacturer) and $\tau_{jt}$ (taxes).
+\begin{itemize}
+\item We basically know $MC$!
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Why does supply matter? (Conlon Rao 2014/2023)}
+Consumer $i$ chooses product $j$ (brand-size-flavor) in quarter $t$:
+\begin{align*}
+u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[1750mL]_j + \gamma_j + \gamma_t+ \varepsilon_{ijt}(\rho)\\
+\begin{pmatrix}
+\ln \alpha_i\\
+\beta_i
+\end{pmatrix} &=
+\begin{pmatrix}
+\overline{\alpha}\\
+\theta_1
+\end{pmatrix} + \Sigma \cdot \nu_i + \sum_{k} \Pi_k \cdot \mathbb{I}\{LB_k \leq \text{Income}_i < UB_k\} 
+\end{align*}
+\begin{itemize}
+\item Nesting Parameter $\rho$: Substitution within category (Vodka, Gin, etc.) %(Vodka/Tequila/Rum/Gin/Whiskey)
+\item Consumers of different income levels have different mean values for coefficients
+\item Conditional on income, normally distributed unobserved heterogeneity for:
+\begin{itemize}
+\item Price $\alpha_i$
+\item Constant $\beta_{i}^0$ (Overall demand for spirits)
+\item Package Size: $\beta_{i}^{1750}$ (Large vs. small bottles)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Wholesale Margins Under Post and Hold}
+\begin{columns}[T]
+\begin{column}{.5\textwidth}
+\begin{center}
+\includegraphics[height=0.88\textheight]{../demand/resources/figure4_manuf_wholesale_price.pdf}
+\end{center}
+\end{column}
+\hfill
+\begin{column}{.5\textwidth}
+  \begin{itemize}
+  \item Price Cost Margins (and Lerner Markups) are higher on premium products
+  \item Markups on least expensive products (plastic bottle vodka) are very low.
+  \item Smirnoff (1.75L) is best seller\\ (high markup / outlier).
+  \item A planner seeking to minimize ethanol consumption would flatten these markups!
+  \item Matching this pattern is kind of the whole ballgame !
+  \item Plain logit gives $\epsilon_{jj} = \alpha \cdot p_j  \cdot (1-s_j)$.
+  \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Demand Estimates (from \texttt{PyBLP}, Conlon Gortmaker (2020, 2023))}
+\begin{columns}[T]
+ \hspace{-1.5cm}
+ \begin{column}{.68\textwidth}
+\vspace{-0.3cm}
+    \begin{center}
+    \scalebox{0.55}{
+     \input{../demand/resources/table3_slides.tex}
+    }
+    \end{center}
+  \end{column}
+  \hfill
+ \hspace{-2.2cm}
+\begin{column}{.55\textwidth}
+  \begin{itemize}
+    \item Demographic Interactions w/ 5 income bins \\ (matched to micro-moments)
+    \item Correlated Normal Tastes: (Constant, Large Size, Price)
+    \item Supply moments exploit observed upstream prices and tax change (ie: match observed markups).
+    \vspace{-0.2cm}
+    \begin{align*}
+    \mathbb{E}[\omega_{jt}]=0, \text{ with }\omega_{jt} = \left(p^w_{jt}  - p^m_{jt}-\tau_{jt} \right) -\eta_{jt}\left(\theta_2\right).
+    \end{align*}
+   \vspace{-0.8cm}
+    \item Match estimate of aggregate elasticity from tax change $\varepsilon=-0.4$.
+    \item Pass-through consistent with estimates from our AEJ:Policy paper.
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Elasticities and Diversion Ratios}
+\begin{center}
+    \includegraphics[height=0.95\textheight]{../demand/resources/figure6_outside_diversion_elas_v2.pdf}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Diversion Ratios}
+\begin{center}
+\scalebox{0.6}{
+ \input{../demand/resources/table4_diversion_results_main_new.tex}
+}
+\end{center}
+\end{frame}
+
+
+\section*{Backus, Conlon, Sinkinson (2021): RTE Cereal}
+
+\begin{frame}{Implementation: Demand Specification}
+\begin{gather*}
+u_{ijt} =  h_d(\textrm{x}_{jt}^{(1)}, \textrm{v}_{jt}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt})  + \left(\Sigma \, \nu_i + \Pi\, y_i \right) \cdot x_{jt}^{(2)}+ \xi_{jt} + \varepsilon_{ijt}\\
+\end{gather*}
+\vspace{-0.75cm}
+\begin{itemize}
+\item $y_i$ demographics: estimated at the $\texttt{dma-chain-year}$ level (from panelists)
+\item $y_i$ is joint distribution of $(income, kids)$
+\begin{enumerate}
+\item Fit a lognormal for income to households w/ and w/o kids.
+\end{enumerate}
+\item $\nu_i$ are random (normal) draws; price is lognormal.
+\item Lots of FE in $h_d(\cdot)$ (product, chain-dma, year, week of year)
+\item IV: Cost shifters, GH/Optimal IV $f(x_{-j})$, lagged advertising.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+\begin{center}
+\includegraphics[height = \textheight ]{../common ownership/figures/pca_coeff.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[plain]
+\begin{center}
+\includegraphics[height = \textheight ]{../common ownership/figures/pca_nests.pdf}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}[plain,label=maindemand]{Demand Estimation}
+\begin{itemize}
+\item We estimate demand system using \texttt{PyBLP} (Conlon Gortmaker RJE 2020)
+\item Highlights:
+\begin{itemize}
+\item We estimate market size from milk and egg purchases.
+\item Observable demographic preference shocks (income and children).
+\item Random coefficients on: (constant, price, branded, servings per box, 3 PC's)
+\end{itemize}
+\item Moments:
+\begin{itemize}
+\item Own input costs and local demographic variables.
+\item ``Local'' Gandhi-Houde differentiation instruments
+\item We convert these into 21 ``optimal instruments"
+\item 520 micro-moments to get $\Pi$ and $\Sigma$.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Implementation: Micro Moments}
+Also have 520 ``micro-moments'' grouped by \texttt{DMA-Code/Retail Chain}
+\begin{align*}
+\mathbb{E} \left[x_{jt} \times y_{it} \mid \text{purchase } \right] 
+- \mathbb{E}\left[x_{jt} \times y_{it}  \times \frac{s_{ijt}(\theta_1,\theta_2)}{1-s_{i0t}(\theta_1,\theta_2)}  \right] = 0.
+\end{align*}
+\begin{itemize}
+\item Match observed interactions of characteristics (constant, price, branded, servings per box, PC) \& demographics from the model and the data.
+\item Conditional on purchase.
+\item We calculate these from Nielsen Panelist data by \texttt{chain-dma-year}.
+\item We carefully track \# of observations to get variance calculations.
+\item We bootstrap the covariance from the sample (but not model).
+\end{itemize}
+See Conlon Gortmaker (Micro 2023) for details.
+\end{frame}
+
+\begin{frame}{Parameters}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\scalebox{0.33}{
+\input{../common ownership/resources/parameter_table_full}
+}
+\end{column}
+\begin{column}{0.6\textwidth}
+\includegraphics[width=0.9\textwidth]{../common ownership/resources/2d_density_plot.pdf}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Diversion Ratios}
+\begin{align*}
+D_{jk} = \frac{\partial q_j}{\partial p_k}/\left|\frac{\partial q_j}{\partial p_j}\right| = \frac{e_{jk}}{e_{jj}} \cdot \frac{q_j}{q_k}
+\end{align*}
+\begin{itemize}
+  \item Easier to interpret than cross elasticity
+  \item Higher diversion implies closer competition
+  \item See Conlon Mortimer (RJE 2021) for all kinds of tricks.
+\end{itemize}
+\end{frame}
+\begin{frame}[plain]
+\begin{center}
+\scalebox{0.6}{
+\begin{tabular}{lrrrrrrr}
+\toprule
+{} &  Cheerios &  Special K &  Corn Flakes &  Reese's Puffs &  Capt Crunch &  Froot Loops &  Shares \\
+\midrule
+HN Cheerios         &      5.07 &       4.27 &         3.75 &           5.33 &         3.58 &         3.48 &    2.69 \\
+Frosted Flakes      &      2.46 &       2.54 &         4.54 &           4.00 &         5.35 &         7.24 &    2.65 \\
+Cheerios            &     - &       5.91 &         3.13 &           3.19 &         1.36 &         1.77 &    2.10 \\
+Honey Bunches       &      2.47 &       2.51 &         2.21 &           2.08 &         1.94 &         1.99 &    1.47 \\
+Cinn Toast Crunch   &      3.43 &       2.10 &         1.69 &           3.00 &         1.78 &         1.84 &    1.43 \\
+Froot Loops         &      1.26 &       1.19 &         1.64 &           1.69 &         1.82 &        - &    1.18 \\
+Lucky Charms        &      2.18 &       1.64 &         1.57 &           2.99 &         1.59 &         1.58 &    1.14 \\
+Frosted Mini-Wheats &      0.36 &       0.50 &         0.74 &           0.68 &         0.87 &         1.27 &    1.01 \\
+Corn Flakes         &      2.01 &       2.18 &        - &           1.31 &         1.24 &         1.52 &    0.98 \\
+Rice Krispies       &      1.50 &       1.72 &         1.56 &           0.89 &         0.68 &         1.25 &    0.96 \\
+Apple Jacks         &      0.91 &       0.80 &         1.24 &           1.27 &         1.42 &         2.45 &    0.85 \\
+Raisin Bran (KEL)   &      0.46 &       0.47 &         0.63 &           0.78 &         0.82 &         1.24 &    0.79 \\
+Special K Red Berry &      0.96 &       1.45 &         0.95 &           0.78 &         0.68 &         0.90 &    0.75 \\
+Special K           &      2.06 &      - &         1.18 &           0.71 &         0.44 &         0.58 &    0.74 \\
+MG Cheerios         &      1.11 &       0.99 &         0.75 &           0.89 &         0.54 &         0.66 &    0.71 \\
+Reese's Puffs       &      1.36 &       0.86 &         0.87 &          - &         1.08 &         1.01 &    0.69 \\
+Life                &      1.15 &       1.12 &         1.05 &           1.02 &         1.72 &         0.89 &    0.68 \\
+Cocoa Puffs         &      1.18 &       0.92 &         0.95 &           1.47 &         1.05 &         0.97 &    0.67 \\
+Capt Crunch         &      0.63 &       0.58 &         0.88 &           1.21 &        - &         1.19 &    0.62 \\
+Capt Crunch Berry   &      0.68 &       0.61 &         0.83 &           1.15 &         3.29 &         1.00 &    0.58 \\
+Corn Pops           &      0.43 &       0.43 &         0.71 &           0.66 &         0.75 &         1.45 &    0.56 \\
+Cinn Life           &      0.76 &       0.75 &         0.83 &           0.84 &         1.59 &         0.78 &    0.54 \\
+Fruity Pebbles      &      0.61 &       0.59 &         0.71 &           0.71 &         0.75 &         0.77 &    0.44 \\
+\midrule
+Own Elas            &      -2.46&       -2.66 &       -2.64 &           -2.70 &        -2.68 &       -2.71 &  - \\
+\bottomrule
+\end{tabular}
+}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[plain]{Single Product: Implied Marginal Costs}
+\begin{center}
+\includegraphics[height =0.8\textheight]{../common ownership/figures/mu_all_bertrand_real.pdf}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}[plain]{Predicted Markups (Q4 2016)}
+\begin{center}
+\includegraphics[width = 6.5cm]{../common ownership/figures/mu_gm_real.pdf}
+\includegraphics[width = 6.5cm]{../common ownership/figures/mu_kel_real.pdf}\\
+\includegraphics[width = 6.5cm]{../common ownership/figures/mu_qkr_real.pdf}
+\includegraphics[width = 6.5cm]{../common ownership/figures/mu_post_real.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[plain, label=merger]{Counterfactual Price Increases}
+\begin{center}
+\scalebox{0.75}{
+\input{../common ownership/tables/merger_last}
+}
+\end{center}
+\vspace{1cm}
+NB: Computed using marginal costs as predicted by own-profit maximization.\\
+Greater than pairwise mergers, 48\% of way to monopoly.\\
+Private label provides a LOT of discipline.\\
+Strategic substitutes: Negative correlation of $(\beta_{i0}, \alpha_{i})$
+\end{frame}
+
+\appendix
+
+\begin{frame}[plain,allowframebreaks,noframenumbering]{References}
+    \bibliography{references}
+\end{frame}
+
+
+\end{document}
