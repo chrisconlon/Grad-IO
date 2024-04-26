@@ -662,6 +662,30 @@ Not everything is testable:
 \end{frame}
 
 
+\begin{frame}{Possible Exclusion Restrictions}
+We are looking for variables which affect \alert{demand but not supply}:
+\begin{align*}
+\sigma_{j}^{-1}(\mathcal{S}_t, \mathbf{p_t},\alert{\mathrm{y_t}}, \mathrm{x}_t,  \mathrm{v}_t, \widetilde{\theta}_2) 
+&= h_d(\mathrm{x}_{jt},\alert{ \mathrm{v}_{jt}}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt})+ \xi_{jt} \\
+p_{jt} - \eta_{jt}(\mathcal{S}_t, \mathbf{p_t}; \theta_2, \mathcal{H}_t(\kappa))
+&= h_s(\textrm{x}_{jt}, \alert{\mathrm{w}_{jt}}; \theta_3) + \omega_{jt} 
+\end{align*}
+Things we use:
+\begin{itemize}
+    \item Obvious choice: $\mathrm{v}_{jt}$ (things like product recalls are relatively weak)
+    \item Demographics (enter nonlinearly): $\mathrm{y}_t$ (chain-level income works well)
+    \item Characteristics of other goods: $f(\mathrm{x}_{-j,t})$ (BLP instruments).
+    \item Characteristics of other goods: $\mathrm{w}_{-j,t}$ (commodity price of oats for Rice Krispies)
+\end{itemize}
+
+Things we don't use:
+\begin{itemize}
+    \item Unobserved demand shocks $\xi_{jt}$ (see MacKay Miller 2020 for $Cov(\xi_j,\omega_j)=0$).
+    \item Observable $\kappa$ conduct shifters (financial mergers/events, see Miller Weinberg (2018))
+\end{itemize}
+\end{frame}
+
+
 \section{Examples}
 
 
@@ -834,28 +858,6 @@ We test $\tau \in (0.1, \ldots, 0.9)$ against own-profit maximization.
 
 
 
-\begin{frame}{Possible Exclusion Restrictions}
-We are looking for variables which affect \alert{demand but not supply}:
-\begin{align*}
-\sigma_{j}^{-1}(\mathcal{S}_t, \mathbf{p_t},\alert{\mathrm{y_t}}, \mathrm{x}_t,  \mathrm{v}_t, \widetilde{\theta}_2) 
-&= h_d(\mathrm{x}_{jt},\alert{ \mathrm{v}_{jt}}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt})+ \xi_{jt} \\
-p_{jt} - \eta_{jt}(\mathcal{S}_t, \mathbf{p_t}; \theta_2, \mathcal{H}_t(\kappa))
-&= h_s(\textrm{x}_{jt}, \alert{\mathrm{w}_{jt}}; \theta_3) + \omega_{jt} 
-\end{align*}
-Things we use:
-\begin{itemize}
-    \item Obvious choice: $\mathrm{v}_{jt}$ (things like product recalls are relatively weak)
-    \item Demographics (enter nonlinearly): $\mathrm{y}_t$ (chain-level income works well)
-    \item Characteristics of other goods: $f(\mathrm{x}_{-j,t})$ (BLP instruments).
-    \item Characteristics of other goods: $\mathrm{w}_{-j,t}$ (commodity price of oats for Rice Krispies)
-\end{itemize}
-
-Things we don't use:
-\begin{itemize}
-    \item Unobserved demand shocks $\xi_{jt}$ (see MacKay Miller 2020 for $Cov(\xi_j,\omega_j)=0$).
-    \item Observable $\kappa$ conduct shifters (financial mergers/events, see Miller Weinberg (2018))
-\end{itemize}
-\end{frame}
 
 
 

@@ -36,11 +36,11 @@ Pass-through is the simplest thing in economics that nobody understands
 \begin{itemize}
 \item Often we are talking about different things
 \begin{itemize}
-\item IO: mostly $\rho = \frac{\partial p_j}{\partial mc_j}$ or the matrix $\frac{\partial \mathbf{p}}{\partial \mathbf{mc}}$
+\item IO: mostly $\rho = \frac{\partial p_j}{\partial mc_j}$ or the matrix $\frac{\partial\, \mathbf{p}}{\partial\, \mathbf{mc}}$
 \item Macro/Trade: mostly $\frac{\partial \log p_j}{\partial \log mc_j}$
 \end{itemize}
 \item One thing we know for sure: constant marginal costs, perfect competition: \\
- $$p = mc \rightarrow \frac{\partial \mathbf{p}}{\partial \mathbf{mc}} = 1$$
+ $$p = mc \rightarrow \frac{\partial p}{\partial mc} = 1$$
  \item Everything else depends on:
 \begin{itemize}
 \item Curvature of demand
@@ -106,7 +106,7 @@ UPP_j = \Delta c_j + \sum_{k \in \mathcal{J}_{g}}  (p_k-c_k) \cdot  D_{jk} (\mat
 \begin{itemize}
 \item If we knew the \alert{pass-through rate} $\rho = \frac{\partial p_j}{\partial mc_j}$ we could convert $\Delta mc_j$ to $\Delta p_j$.
 \item But we would have to know the \alert{matrix} $\frac{\partial \mathbf{p}}{\partial \mathbf{mc}}$, which is fine except it is $J \times J$ parameters (again).
-\item We can place restrictions on this matrix (maybe diagonal, or maybe just  $\frac{\partial \mathbf{p}}{\partial \mathbf{mc}}=0.8$, etc.).
+\item We can place restrictions on this matrix (maybe diagonal, or maybe just  $\frac{\partial \mathbf{p}}{\partial \mathbf{mc}}=0.8 \cdot \mathbb{I}_J$, etc.).
 \item Miller, Ryan, Remer Sheu (2012/2016) did just that: simulate some mergers
 \begin{itemize}
     \item Calculate UPP
