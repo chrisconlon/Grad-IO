@@ -42,8 +42,12 @@ P &=&
     0.5&    0.1&    0.4\\
  \end{array} } \right]
 \end{eqnarray*}
-We're interested in the ergodic distribution $\pi P = \pi$. This is similar to the transition matrix infinitely many periods into the future $P^{\infty}$. Write a function that computes the ergodic distribution of the matrix $P$ by examining the properly rescaled eigenvectors and compare your result to $P^{100}$. Here I recommend $\mathtt{numpy.linalg.matrix\_power}$ and $\mathtt{numpy.linalg.eig}$.
+We're interested in the ergodic distribution $\pi P = \pi$. This is similar to the transition matrix infinitely many periods into the future $P^{\infty}$. Write a function that computes the ergodic distribution of the matrix $P$ by examining the properly rescaled eigenvectors and compare your result to $P^{100}$. Here I recommend $\mathtt{numpy.linalg.matrix\_power}$ and $\mathtt{numpy.linalg.eig}$. (A common mistake is element-wise exponentiation of the matrix).
+
+
 \section*{Part 2: Numerical Integration}
+\textit{Note: The \texttt{scipy} quadrature routines may return a set of nodes/weights that correspond to integrating $e^{-x^2}$ over $(\infty,\infty)$, while the nodes/weights available at \url{http://www.sparse-grids.de} may not. It is always important to make sure you understand what your nodes/weights correspond to. One way to do this is to integrate some simple functions $f(x)=1,f(x)=x,f(x)=x^2$ where you know the analytic result and see what the quadrature routine gives as the answer.}\\
+
 In this part we will look to calculation the logit choice probability $p(X,\theta)$ by numerical integration:\\
  $p(X,\theta) =\int_{-\infty}^{\infty} \frac{\exp(\beta_i X)}{1+ \exp(\beta_i X)} f(\beta_i | \theta) \partial \beta_i$. \\
  Assume $f \sim N(0.5,2)$ and that $X = 0.5$.
