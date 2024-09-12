@@ -1,4 +1,4 @@
-\input{preamble}
+\input{../resources/preamble}
 
 % \usepackage{tabularx}
 % \usepackage{dcolumn}
@@ -164,7 +164,7 @@ Focus on the simple case:
 \item Ignore $x$ (for now at least) or assume we condition on each value of $x$.
 \end{itemize}
 \begin{eqnarray*}
-\hat{\alpha}_{1,0}  \rightarrow^p \frac{E[q_t | z_t=1] - E[q_t | z_t=0]}{E[p_t | z_t=1] - E[p_t | z_t =0]} \equiv \alpha_{1,0}
+\hat{\alpha}_{1,0}  \rightarrow^p \frac{\E[q_t | z_t=1] - \E[q_t | z_t=0]}{\E[p_t | z_t=1] - \E[p_t | z_t =0]} \equiv \alpha_{1,0}
 \end{eqnarray*}
 \begin{itemize}
 \item If we are in case (1) then we are good. In fact, any IV gives us a consistent estimate of $\alpha_1$
@@ -213,7 +213,7 @@ $E[p_t | z_t=1] \neq E[p_t | z_t = 0]$.
 \begin{frame}{AGI: Lemma 1}
 The key result establishes that the numerator of $\alpha_{1,0}$:
 \begin{eqnarray*}
-E[q_t | z_t =1] - E[q_t | z_t = 0] = E_t \left[\int_{\tilde{p}(0,t)}^{\tilde{p}(1,t)} \frac{\partial q_t^d(s)}{\partial s}{d\, s} \right]
+\E[q_t | z_t =1] - \E[q_t | z_t = 0] = \E_t \left[\int_{\tilde{p}(0,t)}^{\tilde{p}(1,t)} \frac{\partial q_t^d(s)}{\partial s}{d\, s} \right]
 \end{eqnarray*}
 \begin{itemize}
 \item For each $t$ we average over the slope of demand curve among the two potential prices: $\int_{\tilde{p}(0,t)}^{\tilde{p}(1,t)} \frac{\partial q_t^d(s)}{\partial s}{d\, s}$ 
@@ -249,7 +249,7 @@ What did we learn?
 \begin{frame}{AGI: Nonlinear IV}
 \vspace{-0.25cm}
 \begin{eqnarray*}
-\alpha_{1,0} &=& \frac{E [ \int_{\tilde{p}(0,t)}^{\tilde{p}(1,t)} \frac{\partial q_t^d(s)}{\partial s} d\, s]}{E \tilde{p}(1,t)- E\tilde{p}(0,t)}\\
+\alpha_{1,0} &=& \frac{\E [ \int_{\tilde{p}(0,t)}^{\tilde{p}(1,t)} \frac{\partial q_t^d(s)}{\partial s} d\, s]}{\E \tilde{p}(1,t)- \E\tilde{p}(0,t)}\\
  &\rightarrow& \int_0^{\infty} E\left[ \frac{\partial q_t^d(s)}{\partial s} | s \in [\tilde{p}(0,t),\tilde{p}(1,t)]\right ] \omega(s) d  s
 \end{eqnarray*}
 \vspace{-1cm}
@@ -260,7 +260,7 @@ What did we learn?
 \item Case (2): $q_t^d(p) = \alpha_{0t} + \alpha_{1t} p + \epsilon_t$.
 \vspace{-0.25cm}
 \begin{eqnarray*}
-\alpha_{1,0} = \frac{E[\alpha_{1t} (\tilde{p}(1,t) - \tilde{p}(0,t))]}{E \tilde{p}(1,t) - E \tilde{p}(0,t)} \neq E \alpha_{1,t}
+\alpha_{1,0} = \frac{\E[\alpha_{1t} (\tilde{p}(1,t) - \tilde{p}(0,t))]}{\E \tilde{p}(1,t) - \E \tilde{p}(0,t)} \neq \E \alpha_{1,t}
 \end{eqnarray*}
 \vspace{-0.75cm}
 We need mean independence
@@ -272,7 +272,7 @@ We need mean independence
 \begin{itemize}
 \item Suppose we had a continuous $z$ instead, now we can do a full nonparametric IV estimator.
 \begin{eqnarray*}
-a(z) = \lim_{\nu \rightarrow 0} \frac{E(q_t | z) - E(q_t | z-\nu)}{E(p_t | z) - E(p_t | z- \nu)}
+a(z) = \lim_{\nu \rightarrow 0} \frac{\E(q_t | z) - \E(q_t | z-\nu)}{\E(p_t | z) - \E(p_t | z- \nu)}
 \end{eqnarray*}
 \item Use a kernel to estimate $\hat{q}|z$ and $\hat{p}|z$
 \begin{eqnarray*}

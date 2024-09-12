@@ -1,5 +1,4 @@
 \documentclass[10pt,aspectratio=169]{beamer}
-% \documentclass[10pt,aspectratio=169,handout]{beamer}
 
 % silence some Metropolis warnings
 \usepackage{silence}
@@ -8,10 +7,12 @@
 \WarningFilter{latexfont}{Some font}
 
 % define custom colors
+\usepackage{xcolor}
 \definecolor{dark gray}{HTML}{444444}
 \definecolor{light gray}{HTML}{777777}
 \definecolor{dark red}{HTML}{BB0000}
 \definecolor{dark green}{HTML}{00BB00}
+\definecolor{RoyalBlue}{cmyk}{1, 0.50, 0, 0}
 
 % configure metropolis
 \usetheme[numbering=fraction]{metropolis}
@@ -35,8 +36,6 @@
 \setbeamertemplate{itemize subsubitem}{\color{dark red}$\blacktriangleright$}
 \newcommand{\custombullet}{{\color{dark red}$\blacktriangleright$}\hspace{0.5em}}
 
-% use classic font for math
-\usefonttheme[onlymath]{serif}
 
 % imports
 \usepackage[english]{babel}
@@ -58,6 +57,16 @@
 \usepackage{pifont}
 \newcommand{\cmark}{{\color{dark green}\ding{51}}\hspace{0.3em}}
 \newcommand{\xmark}{{\color{dark red}\ding{55}}\hspace{0.5em}}
+
+
+% use classic font for math
+\usepackage[T1]{fontenc} % Needed for Type1 Concrete \usepackage{concmath}
+\usefonttheme{serif}
+\usefonttheme{professionalfonts}
+\usepackage{concmath}
+\setbeamerfont{equation}{size=\tiny}
+
+
 
 % diagrams
 \usepackage{tikz}
@@ -161,4 +170,4 @@
 \newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
 
 % fix pauses with graphics
-\usepackage{fixpauseincludegraphics}
+\usepackage{../resources/fixpauseincludegraphics}
