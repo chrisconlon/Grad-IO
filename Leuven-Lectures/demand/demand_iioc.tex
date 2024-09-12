@@ -7,6 +7,7 @@
 \usepackage{mathtools}
 %\usepackage{natbib}
 \usepackage{dutchcal}
+\usepackage{stackengine}
 
 
 \newcommand{\vect}[1]{\boldsymbol{\mathbf{#1}}}
@@ -18,6 +19,27 @@
 \newcommand{\prob}[1]{\mathbb{P}\left\{{#1}\right\}}
 \newcommand{\derivative}[2]{\frac{d{#2}}{d{#1}}}
 \newcommand{\cat}[1]{\citeasnoun{#1}}
+
+\stackMath
+\newlength\matfield
+\newlength\tmplength
+\def\matscale{1.}
+\newcommand\dimbox[3]{%
+  \setlength\matfield{\matscale\baselineskip}%
+  \setbox0=\hbox{\vphantom{X}\smash{#3}}%
+  \setlength{\tmplength}{#1\matfield-\ht0-\dp0}%
+  \fboxrule=1pt\fboxsep=-\fboxrule\relax%
+  \fbox{\makebox[#2\matfield]{\addstackgap[.5\tmplength]{\box0}}}%
+}
+\newcommand\raiserows[2]{%
+   \setlength\matfield{\matscale\baselineskip}%
+   \raisebox{#1\matfield}{#2}%
+}
+\newcommand\matbox[5]{
+  \stackunder{\dimbox{#1}{#2}{$\mathbf{#5}$}}{\scriptstyle(#3\times #4)}%
+}
+
+
 
 % title page
 \title{30 Years of BLP...}
@@ -41,9 +63,9 @@
 
 
 
-\begin{frame}{Thank Organizers+Steve}
+\begin{frame}{}
+Thank Organizers and Steve!
 \end{frame}
-% \section{First: Some Revie
 
 
 \begin{frame}{Thank Coauthors}
@@ -73,11 +95,6 @@
         \item \textit{Best Practices for Demand Estimation with pyBLP}
         \item \textit{Incorporating Micro Data into Differentiated Products Demand Estimation with PyBLP}
     \end{itemize}
-
-    \begin{itemize}
-        \item \textit{Common Ownership and Competition in the Ready-To-Eat Cereal Industry}
-    \end{itemize}
-
 
 \end{itemize}
 \end{frame}
@@ -238,18 +255,18 @@
 \end{frame}
 
 
-\section*{The``Classics'': Thing \#1 Supply Side}
+\section*{The``Classics'' \#1: Supply Side}
 
 \begin{frame}
 \frametitle{Supply Side}
-\footnotesize
+\small
 Consider the multi-product Bertrand FOCs where $\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p})$:
 {\begin{align*}
-\pi_f (\mathbf{p}) &\equiv \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot s_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_g} (p_k - c_k) \cdot s_k(\mathbf{p}) \\
-\rightarrow 0&= s_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial s_{k}}{\partial p_j}(\mathbf{p}) 
+\pi_f (\mathbf{p}) &\equiv \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot \sigma_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_g} (p_k - c_k) \cdot \sigma_k(\mathbf{p}) \\
+\rightarrow 0&= \sigma_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial \sigma_{k}}{\partial p_j}(\mathbf{p}) 
 \end{align*}
 }
-It is helpful to define the \alert{cross derviative matrix} $\Delta_{(j,k)}(\mathbf{p})  = - \frac{\partial s_{j}}{\partial p_k}(\mathbf{p})$, and the \alert{ownership matrix}:
+It is helpful to define the \alert{cross derviative matrix} $\Delta_{(j,k)}(\mathbf{p})  = - \frac{\partial \sigma_{j}}{\partial p_k}(\mathbf{p})$, and the \alert{ownership matrix}:
 \begin{align*}
 \mathcal{H}_{(j,k)} = \left\{\begin{array}{lr}
           1 & \text{for }  (j,k) \in \mathcal{J}_f \text{ for any } f \\ 
@@ -258,8 +275,8 @@ It is helpful to define the \alert{cross derviative matrix} $\Delta_{(j,k)}(\mat
 \end{align*}
 We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product (element-wise):
 \begin{align*}
-        s(\mathbf{p}) &= (\mathcal{H} \odot \Delta(\mathbf{p})) \cdot (\mathbf{p} - \mathbf{mc}), \\
-       \mathbf{p}-\mathbf{mc} &=  \underbrace{(\mathcal{H} \odot \Delta(\mathbf{p}))^{-1} s(\mathbf{p})}_{\eta(\mathbf{p},\mathbf{s},\theta_2)}.
+        \boldsymbol{\sigma}(\mathbf{p}) &= (\mathcal{H} \odot \Delta(\mathbf{p})) \cdot (\mathbf{p} - \mathbf{mc}), \\
+       \mathbf{p}-\mathbf{mc} &=  \underbrace{(\mathcal{H} \odot \Delta(\mathbf{p}))^{-1} \boldsymbol{\sigma}(\mathbf{p})}_{\eta(\mathbf{p},\boldsymbol{\sigma},\theta_2)}.
 \end{align*}
 \end{frame}
 
@@ -273,7 +290,7 @@ Demand systems have two main deliverables:
 \item Own-price elasticities $\epsilon_{jj}(\mathbf{p})$
 \item Substitution patterns
 \begin{itemize}
-\item Cross elasticities: $\epsilon_{jk}(\mathbf{p}) = \frac{\partial q_k}{\partial p_j}$
+\item Cross elasticities: $\epsilon_{jk}(\mathbf{p}) = \frac{p_j}{q_k} \cdot \frac{\partial q_k}{\partial p_j}$
 \item Diversion Ratios: $D_{jk}(\mathbf{p}) = \frac{\partial q_k}{\partial p_j}/|\frac{\partial q_j}{\partial p_j}|$
 \end{itemize}
 \item Other checks: $D_{j0}(\mathbf{p})$ diversion to outside good; $\epsilon^{agg}$ category elasticity to 1\% tax.
@@ -284,19 +301,6 @@ We did Nash-in-Prices because it is popular but we could have done something els
 
 
 
-\begin{frame}{What keeps me up at night?}
-\begin{itemize}
-\item The unrestricted matrix of of $D_{jk}(\mathbf{p})$'s (or elasticities) is $J \times J$ and probably not feasible to estimate directly. $\rightarrow$ need some \alert{dimension reduction}.
-\item Logit simply assumes proportional substitution ${D}_{jk}=\frac{s_k}{1-s_{j}}$ so that $\mathbf{D}(\mathbf{p})$ is of rank one!
-\item The BLP solution is to project $\mathbf{D}(\mathbf{p})$ onto a lower-dimensional basis of $x_{j}$ characteristics.
-\begin{itemize}
-\item Ultimately the basis will be only as good as the characteristics $x_{jt}$ with heterogeneous coefficients.
-\item Distributional assumptions on $f(\beta_i)$ (ie: independent normal) further restrict the basis.
-\end{itemize}
-\item The hardest thing to match is typically \alert{substitution to closest substitutes}.
-\item I worry that most BLP models (one RC, etc.) look too much like the plain logit.
-\end{itemize}
-\end{frame}
 
 
 
@@ -306,7 +310,7 @@ We did Nash-in-Prices because it is popular but we could have done something els
 If we are willing to impose $MR = MC$ (as in the original BLP papers) we can recover implied markups/ marginal costs:
 \begin{align*}
 \mathbf{mc}(\theta_2)&\equiv \mathbf{p}- \boldsymbol{\eta}(\mathcal{S}_t,\mathbf{p}_t,\chi_t, y_t, ;\theta_2) \\
-f\left(\mathbf{p}- \boldsymbol{\eta}(\mathcal{S}_t,\mathbf{p}_t,\chi_t, y_t, ;\theta_2)  \right) &= [\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 + \alert{g(s_{jt})} +  \omega_{jt}
+f\left(\mathbf{p}- \boldsymbol{\eta}(\mathcal{S}_t,\mathbf{p}_t,\chi_t, y_t, ;\theta_2)  \right) &= [\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 + \alert{g(q_{jt})} +  \omega_{jt}
 \end{align*}
 % Which we can solve for $\omega_{jt}$:
 % \begin{align*}
@@ -314,7 +318,7 @@ f\left(\mathbf{p}- \boldsymbol{\eta}(\mathcal{S}_t,\mathbf{p}_t,\chi_t, y_t, ;\t
 % \end{align*}
 \begin{itemize}
 \item $f(\cdot)$ is usually $\log(\cdot)$ or identity; it is actually a \alert{production function}
-\item $g(s_{jt})$ captures \alert{returns to scale} and requires an additional \alert{instrument}
+\item $g(q_{jt})$ captures \alert{returns to scale} and requires an additional \alert{instrument}
 % \item We can just stack these up with the demand moments $E[\xi_{jt}' Z_{jt}^d]=0$.
 %\item Now I have $\dim(Z^d) + \dim(Z^s)$ moments altogether.
 % \item This step is optional but can aid in identification (if you believe it).
@@ -337,7 +341,7 @@ We can now form two sets of moments: $\E[\omega_{jt} \mid  z_{jt}^{s}]=0$ and $\
 \end{frame}
 
 
-\section*{The``Classics'': Thing \#2 Optimal Instruments}
+\section*{The``Classics''\#2: Optimal IV}
 
 \begin{frame}{Optimal Instruments (Chamberlain 1987)}
 Chamberlain (1987) asks how can we choose $f(z_i)$ to obtain the semi-parametric efficiency bound with conditional moment restrictions:
@@ -372,15 +376,15 @@ Chamberlain (1987) showed that the approximation to the optimal instruments are 
 \end{pmatrix}
 | \mathbf{Z_t} \right] \\
 \xi_{jt} &= \sigma_j^{-1}(\cdot, \theta_2) - [\mathrm{x}_{jt} \,,  \mathrm{v}_{jt}]\, \theta_1 + \alpha p_{jt}\\
-\omega_{jt} &= f\left(p_{jt}- \eta_{jt}(\cdot, \theta_2)  \right) -[\mathrm{x}_{jt} \,, \mathrm{w}_{jt}]\, \theta_3 +  \omega_{jt}
+\omega_{jt} &= f\left(p_{jt}- \eta_{jt}(\cdot, \theta_2)  \right) -[\mathrm{x}_{jt} \,, \mathrm{w}_{jt}]\, \theta_3 
 \end{align*}
 For the exogenous variables: $\E\left[\frac{\partial \xi_{jt}}{\partial \theta_1} \mid  z_{jt}^{d} \right]=[\mathrm{x}_{jt} \,,  \mathrm{v}_{jt}]$ and
 $\E\left[\frac{\partial \omega_{jt}}{\partial \theta_3} \mid  z_{jt}^{s} \right]=[\mathrm{x}_{jt} \,,  \mathrm{w}_{jt}]$.\\
 For the endogenous prices: $\E\left[\frac{\partial \xi_{jt}}{\partial \alpha} \mid  z_{jt}^{d} \right]=\E[p_{jt} \mid z_{jt}^d]$ and
 $\E\left[\frac{\partial \omega_{jt}}{\partial \alpha} \mid  z_{jt}^{s} \right]=\E[f'(\cdot) (p_{jt} - \frac{\partial \eta_{jt}}{\partial \alpha}) \mid z_{jt}^s]$.
-For the endogenous $\theta_2$: $\mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \theta_2} \mid z_{jt}^d \right] 
-=\mathbb{E}\left[\left[\frac{\partial \sigma_{jt}}{\partial \xi_{jt}}\right]^{-1} 
-\left[\frac{\partial \sigma_{jt}}{\partial \theta_2}\right] \mid z_{jt}^d \right]$ and $\mathbb{E}\left[\frac{\partial \omega_{jt}}{\partial \theta_2} \mid z_{jt}^s \right]$\\ (but you can't condition on $p_{jt}$)
+For the endogenous $\theta_2$: $\mathbb{E}\left[\frac{\partial \boldsymbol{\xi}_{t}}{\partial \theta_2} \mid \mathbf{z_{t}^d} \right] 
+=\mathbb{E}\left[\left[\frac{\partial \boldsymbol{\sigma}_{t}}{\partial \boldsymbol{\xi}_t}\right]^{-1} 
+\left[\frac{\partial \boldsymbol{\sigma}_{t}}{\partial \theta_2}\right] \mid \mathbf{z_{t}^d} \right]$ and $\mathbb{E}\left[\frac{\partial \omega_{jt}}{\partial \theta_2} \mid \mathbf{z_{t}^s} \right]$\\ (but you can't condition on $p_{jt}$)
 \end{frame}
 
 
@@ -481,7 +485,7 @@ In simulation the ``lazy'' approach does just as well.\\
 \end{frame}
 
 
-\begin{frame}{Cost Shifters Really Matter (from Conlon Gortmaker RJE)}
+\begin{frame}{Cost Shifters Really Matter Conlon Gortmaker (2020)}
 \begin{center}
     \includegraphics[height=0.95\textheight]{./resources/strength_blp_approximate_bias_alpha_plot.pdf}
 \end{center}
@@ -496,7 +500,7 @@ The key to the test is to realize that optimal IV: $\E\left[\frac{\partial \omeg
 \begin{itemize}
     \item Instruments \alert{predict the difference in markups}!
     \item Can run one non-parametric regression for  $\E\left[\eta_{jt}^{(a)} -\eta_{jt}^{(b)} \mid z_{jt}^s \right]$ and another for the nuisance function (observed markup shifters) $h(\cdot)$.
-    \item This is an easy way to do Berry Haile (2014). Duarte, Lorenzo Magnolfi, Mikkel Sølvsten, Christopher Sullivan (2024) get a similar expression with a different approach.
+    \item This is an easy way to do Berry Haile (2014). Duarte, Magnolfi, Sølvsten, Sullivan (2024) get a similar expression with a different approach.
 \end{itemize}
 \end{frame}
 
@@ -513,456 +517,191 @@ What does this mean:
 \end{frame}
 
 
+\section{BLP Today}
 
 
-% \begin{frame}{Optimal IV: BLP}
-% Recall the GMM moment conditions are given by $\mathbb{E}[\xi_{jt} | Z_{jt}^D]=0$ and $\mathbb{E}[\omega_{jt} | Z_{jt}^S]=0$ and the asymptotic GMM variance depends on $(G'\, \Omega^{-1} G\,)$ where the expressions are given below:
-% \begin{align*}
-%     G=\mathbb{E}\left[
-%     \left(\frac{\partial \xi_{jt}}{\partial \theta}, \,
-%     \frac{\partial \omega_{jt}}{\partial \theta} \right)
-% | \mathbf{Z_t} \right], \quad 
-% \Omega = \mathbb{E}\left[
-% \begin{pmatrix}
-%     \xi_{jt} \\
-%     \omega_{jt}
-% \end{pmatrix}
-% \begin{pmatrix}
-%     \xi_{jt}\, \,
-%     \omega_{jt}
-% \end{pmatrix}
-% | \mathbf{Z_t} \right].
-% \end{align*}
-% Chamberlain (1987) showed that the approximation to the optimal instruments are given by the expected Jacobian contribution for each observation $(j,t)$: $\mathbb{E}[G_{jt}(\mathbf{Z_t})\, \Omega_{jt}^{-1} | \mathbf{Z_t}]$.\\
-% \end{frame}
+\begin{frame}{The Good News}
+BLP today mostly works
+\begin{itemize}
+    \item There was some concern (see Knittel Metaxoglou 2014) that BLP estimation was a bit ``fragile''
+    \item \texttt{PyBLP} knows how to take derivatives, and we spent a lot of time tuning default options: solving for shares, integration rules, optimization, etc.
+    \item Most problems people have today are: \alert{too many parameters, not enough instruments} (or really bad ones).
+    \item Cross-market variation in number of products, or characteristics of products would also help.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Bad News: Substitution}
+Your BLP model probably isn't as flexible as you think (Sorry!)
+\begin{itemize}
+\item The unrestricted matrix of of $D_{jk}(\mathbf{p})$'s (or elasticities) is $J \times J$ and probably not feasible to estimate directly. $\rightarrow$ need some \alert{dimension reduction}.
+\item Logit simply assumes proportional substitution ${D}_{jk}=\frac{s_k}{1-s_{j}}$ so that $\mathbf{D}(\mathbf{p})$ is of rank one!
+\item The BLP solution is to project $\mathbf{D}(\mathbf{p})$ onto a lower-dimensional basis of $x_{j}$ characteristics.
+\begin{itemize}
+\item Ultimately the basis will be only as good as the characteristics $x_{jt}$ with heterogeneous coefficients.
+\item Distributional assumptions on $f(\beta_i)$ (ie: independent normal) further restrict the basis.
+\end{itemize}
+\item The hardest thing to match is typically \alert{substitution to closest substitutes}.
+\begin{itemize}
+\item I worry that most BLP models (one RC, etc.) look too much like the plain logit.
+\end{itemize}
+\item People often assume \alert{HUGE outside good shares} and then have $D_{j0}>0.9$.
+\begin{itemize}
+    \item We make fun of macro/trade for \alert{monopolistic competition} but easy to estimate something close.
+\end{itemize}
+\end{itemize}
+
+\end{frame}
 
 
+\begin{frame}{The Bad News: Elasticities}
+If you aren't careful, can still get some weird economics...
+\begin{itemize}
+\item Plain logit assumes in \alert{elasticities increasing in $p_j$} and \alert{markups that are decreasing}.\\
+\begin{itemize}
+\item One RC or putting all products in one nest probably isn't going to fix that
+\end{itemize}
+\item Simple versions tend to lead to \alert{high income} / \alert{price insensitive} consumers buying all the cars, yogurt, etc.
+\begin{itemize}
+\item $\rightarrow$ Probably everyone should have a \alert{correlated} RC on Price and Constant terms.
+\end{itemize}
 
+\item How $f(y_i - \alpha_i p_j)$ looks as it may determine \alert{pass-through}
+\\
+Griffith, Nesheim O'Connell (2018), Birchall Verboven (2022), Miravete, Seim, Thurk (2023)
+\begin{itemize}
+\item $\rightarrow$ Lognormal $\alpha_i$ is probably a good idea
+\item $\rightarrow$ bins for $\alpha(y_i)$ by income also good (break distributional relationship between $p_{jt}$ and $y_{it}$).
+\end{itemize}
 
-
-
-% \section{Adding Supply}
-% \begin{frame}{Supply}
-% \begin{itemize}
-% \item Economic theory gives us some additional powerful restrictions.
-% \item We may want to impose $MR = MC$.
-% \item Alternatively, we can ask -- what is a good instrument for demand? \alert{something from another equation} (ie: supply).
-% \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Some setup}
-% We can break up the parameter space into three parts:
-% \begin{itemize}
-% \item $\theta_1$: linear exogenous demand parameters, 
-%  \item $\theta_2$: parameters including price and random coefficients (endogenous / nonlinear)
-%  \item $\theta_3$: linear exogenous supply parameters.
-% \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}[plain]
-% \frametitle{Supply Side}
-% Consider the multi-product Bertrand FOCs:
-% \footnotesize
-% {\begin{align*}
-% \arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &= \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot s_j(\mathbf{p}) +  \kappa_{fg}\sum_{k \in \mathcal{J}_g} (p_k - c_k) \cdot s_k(\mathbf{p}) \\
-% 0&= s_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial s_{k}}{\partial p_j}(\mathbf{p}) 
-% \end{align*}
-% }
-% It is helpful to define the \alert{ownership matrix} $\Omega_{(j,k)}(\mathbf{p})  = - \frac{\partial s_{j}}{\partial p_k}(\mathbf{p})$:
-% \begin{align*}
-% \mathcal{H}(\kappa)_{(j,k)} = \left\{\begin{array}{lr}
-%           1 & \text{for }  (j,k) \in \mathcal{J}_f \text{ for any } f \\ 
-%       0 & \text{o.w}\\
-%         \end{array} \right\}
-% \end{align*}
-% We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product (element-wise):
-% \begin{align*}
-%         s(\mathbf{p}) &= (\mathcal{H} \odot \Omega(\mathbf{p})) \cdot (\mathbf{p} - \mathbf{mc}), \\
-%        \mathbf{mc} &=  \mathbf{p} - \underbrace{(A \odot \Omega(\mathbf{p}))^{-1} s(\mathbf{p})}_{\eta(\mathbf{p},\mathbf{s},\theta_2)}.
-% \end{align*}
-% \end{frame}
-
-
-
-% \begin{frame}{Recovering Marginal Costs }
-% Recover implied markups/ marginal costs, and assume a functional form for $mc_{jt}(x_{jt},w_{jt})$.
-% \begin{align*}
-% \mathbf{mc}(\theta)&= \mathbf{p}- \boldsymbol{\eta}(\mathbf{p},\mathbf{s},\theta_2)\\
-% f(mc_{jt}) &= [\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 + \omega_{jt}
-% \end{align*}
-% Which we can solve for $\omega_{jt}$:
-% \begin{align*}
-% \omega_{jt} &=  f(\mathbf{p}- \boldsymbol{\eta}(\mathbf{p},\mathbf{s},\theta_2) ) -[\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 
-% \end{align*}
-% \begin{itemize}
-% \item $f(\cdot)$ is usually $\log(\cdot)$ or identity.
-% \item We can use this to form additional moments: $\E[\omega_{jt} \mid  z_{jt}^{s}]=0$.
-% \item We can just stack these up with the demand moments $E[\xi_{jt}' Z_{jt}^d]=0$.
-% %\item Now I have $\dim(Z^d) + \dim(Z^s)$ moments altogether.
-% \item This step is optional but can aid in identification (if you believe it).
-% \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Additional Details}
-% Some different definitions:
-% \begin{alignat}{3}
-% \label{eq:stacked}
-% \nonumber y_{jt}^D &:= \widehat \delta_{jt}(\theta_2) + \alpha p_{jt} &=(\textrm{x}_{jt} \-\ \textrm{v}_{jt})' \beta + \xi_t &=: x_{jt}^{D\prime}\beta + \xi_{jt} \\ 
-% y_{jt}^S &:= \widehat{mc}_{jt}(\theta_2) &= (\textrm{x}_{jt} \-\ \textrm{w}_{jt})'\gamma + \omega_t &=: x_{jt}^{S\prime} \gamma + \omega_{jt} 
-% \end{alignat}
-% Stacking the system across observations yields:
-% \begin{align}
-% \underbrace{\begin{bmatrix} y_D \\ y_S \end{bmatrix}}_{2N\times1} = 
-% \underbrace{\begin{bmatrix}
-% X_D & 0 \\
-% 0 & X_S 
-% \end{bmatrix}}_{2N\times(K_1+K_3)}
-% \underbrace{\begin{bmatrix}
-% \beta \\ \gamma %\Gamma_D \\ \Gamma_S
-% \end{bmatrix}}_{(K_1+K_3)\times1} + 
-% \underbrace{\begin{bmatrix}
-% \xi \\ \omega % \varepsilon_D \\ \varepsilon_S
-% \end{bmatrix}}_{2N\times 1}
-% \end{align}
-% \end{frame}
-
-
-
-% \begin{frame}
-% \frametitle{Inversion: IIA Logit}
-% Add unobservable error for each $\mathfrak{s}_{jt}$ labeled $\alert{\xi_{jt}}$.
-% \begin{align*}
-% u_{ijt} = \underbrace{x_{jt} \beta -\alpha p_{jt} + \alert{\xi_{jt}}}_{\delta_{jt}} +  \varepsilon_{ijt} , \quad 
-% \sigma_j(\boldsymbol{\delta_{t}}) = \frac{e^{\delta_{jt}} }{1+\sum_k e^{\delta_{kt}} } 
-% \end{align*}
-% \vspace{-0.5cm}
-% \begin{itemize}
-% \item The idea is that $\alert{\xi_{jt}}$ is observed to the firm when prices are set, but not to us the econometricians.
-% \item Potentially correlated with price $\text{Corr}(\xi_{jt},p_{jt}) \neq 0$
-% \item But not characteristics $\mathbb{E}[\xi_{jt} \mid  x_{jt}]=0$.
-% \begin{itemize}
-% \item This allows for products $j$ to better than some other product in a way that is not fully explained by differences in $x_j$ and $x_k$.
-% \item Something about a BMW makes it better than a Peugeot but is not fully captured by characteristics that leads higher sales and/or higher prices.
-% \item Consumers agree on its value  (\alert{vertical component}).
-% \end{itemize}
-% \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}
-% \frametitle{Inversion: BLP}
-% We can't solve for $\delta_{jt}$ directly this time. We often exploit a trick when $\beta_i,\nu_i$ is normally distributed:
-% \begin{eqnarray*}
-% \sigma_j(\boldsymbol{\delta_t}; \mathbf{x_t}; \theta_2) &=& \int \frac{\exp[\delta_{jt} +  \mu_{ij} ]}{1+\sum_k \exp[\delta_{kt} + \mu_{ik} ]} f(\boldsymbol{\mu_i}| \theta_2)
-% \end{eqnarray*}
-%  \begin{itemize}
-%     \item We typically parametrize $\mu_{ijt} = x_{jt} \cdot [\Pi \, y_i + \Sigma \, \nu_{i}]$ where $y_i$ are demographics and $\nu_i$ are unobserved heterogeneity (typically multivariate normal).
-%     \item Label $\theta_2 = [\Pi, \Sigma, \alpha]$
-%  \item This is a $J \times J$ system of equations for each $t$.
-%  \item It is diagonally dominant.
-%  \item There is a unique vector $\xi_t$ that solves it for each market $t$.
-%  \end{itemize}
-% \end{frame}
-
-% \begin{frame}
-% \frametitle{Lots of ways to solve equations (Conlon Gortmaker 2020)}
-%  \begin{itemize}
-%      \item If you can work out $\frac{\partial \sigma_{jt}}{\partial \delta_{kt}}$ (easy) you can solve this using Newton's Method. 
-%  \item BLP prove (not easy) that this is a \alert{contraction mapping}.
-% \begin{eqnarray*}
-%     \boldsymbol{\delta^{(k)}}(\theta) = \boldsymbol{\delta^{(k-1)}}(\theta) + \log(\mathcal{S}_{j}) - \log(\sigma_{j}(\boldsymbol{\delta_t}^{(k-1)}, \theta)
-% \end{eqnarray*}
-
-% \begin{itemize} 
-%   \item Practical tip: $\epsilon_{tol}$ needs to be as small as possible. ($\approx 10^{-13}$).
-%  \item Practical tip: Contraction isn't as easy as it looks:  $ \log(\sigma_{j}(\delta_t^{(k-1)}, \theta)$ requires computing the numerical integral each time (either via quadrature or monte carlo).
-% \end{itemize}
-% \item We can use \alert{accelerated fixed point} techniques (SQUAREM) (see Reynaerts, Varadhan, and Nash 2012). [PyBLP default].
-%   \end{itemize}
-%  \end{frame}
-
-
-%  \begin{frame}
-% \frametitle{BLP Pseudocode}
-% \footnotesize
-% From the outside, in:
-% \begin{itemize}
-% \item Outer loop: search over nonlinear parameters $\theta$ to minimize GMM objective:
-%  \begin{eqnarray*}
-%  \widehat{\theta_{BLP}} = \arg \max_{\theta} (Z' \hat{\xi}(\theta)) W  (Z' \hat{\xi}(\theta))'
-%  \end{eqnarray*}
-%  \item Inner Loop:
-%  \begin{itemize}
-% % \item Fix $\theta$.
-% \item Solve for $\delta$ so that $s_{jt}(\delta,\theta) = \tilde{s}_{jt}$.
-% \begin{itemize}
-% \item Computing $s_{jt}(\delta,\theta)$ requires numerical integration (quadrature or monte carlo).
-% \end{itemize}
-%  \item We can do IV-GMM to recover $\hat{\alpha}(\theta),\hat{\beta}(\theta),\hat{\xi}(\theta)$.
-%   \begin{eqnarray*}
-% \delta_{jt}= x_{jt} \beta -\alpha p_{jt}+  \xi_{jt}
-%  \end{eqnarray*}
-%   \item Use $\hat{\xi}(\theta)$ to construct moment conditions.
-%  \end{itemize}
-%  \item When we have found $\hat{\theta}_{BLP}$ we can use this to update $W \rightarrow W(\hat{\theta}_{BLP})$ and do 2-stage GMM.
-%  \end{itemize}
-% \end{frame}
-
-
-
-
-%  \begin{frame}
-% \frametitle{BLP Estimation}
-% The model is still defined by CMR $\mathbb{E}[\xi_{jt} \mid  z_{jt}^D]=0$
-% \begin{itemize}
-%  \item Now that you have done change of variables to get:
-%  \begin{eqnarray*}
-% \delta_{jt}= x_{jt} \beta -\alpha p_{jt}+  \xi_{jt}
-%  \end{eqnarray*}
-%  \item We can do IV-GMM to recover $\hat{\alpha}(\theta_2),\widehat{\beta}(\theta_2),\widehat{\xi}(\theta_2)$.
-%  \item Outer Loop update guess $\theta$, solve for $\delta$ and repeat.
-%  \begin{eqnarray*}
-%  \widehat{\theta_{BLP}} = \arg \max_{\theta} (Z' \widehat{\xi}(\theta_2)) W  (Z' \widehat{\xi}(\theta_2))'
-%  \end{eqnarray*}
-%  \item When we have found $\widehat{\theta_2}_{BLP}$ we can use this to update $W \rightarrow W(\widehat{\theta_2}_{BLP})$ and do 2-stage GMM.
-%  \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}
-% \frametitle{BLP Extensions: Panel Data}
-% \begin{itemize}
-% \item with enough observations on the same product it is possible to include fixed effects
-% \begin{eqnarray*}
-% \delta_{jt}(\theta_2) = x_{jt} \beta - \alpha p_{jt} + \underbrace{\xi_{jt}}_{\xi_{j} + \xi_t + \Delta \xi_{jt}}
-% \end{eqnarray*}
-% \item What does $\xi_{j}$ mean in this context?
-% \item What would $\xi_t$ mean in this context?
-% \item $\Delta \xi_{jt}$ is now the structural error term, this changes our identification strategy a little. 
-% \begin{itemize}
-% \item Good: endogeneity problem less severe.
-% \item Bad: less variation in IV.
-% \end{itemize}
-% \end{itemize}
-% \end{frame}
-
-
-%  \begin{frame}
-% \frametitle{BLP Alternatives}
-% \begin{itemize}
-%  \item BLP give us both a statistical \alert{estimator} and an \alert{algorithm} to obtain estimates.
-% \item Plenty of other algorithms exist
-% \begin{itemize}
-% \item We could solve for $\delta$ using the contraction mapping, using \texttt{fsolve} / Newton's Method / Guess and Check (not a good idea!).
-% \item We could try and consider a non-nested estimator for the BLP problem instead of solving for $\delta(\theta_2),\xi(\theta_2)$ we could let $\delta,\xi,\alpha,\beta$ be free parameters.
-%  \end{itemize}
-% \item We could think about different statistical estimators such as $K$-step GMM, Continuously Updating GMM, etc.
-%  \end{itemize}
-% \end{frame}
-
-
-%  \begin{frame}\frametitle{Dube Fox Su (2012)}
-% \footnotesize
-% \begin{eqnarray}
-% \label{blpnfxp}
-% \nonumber \arg \min_{\theta_2} && \psi' \Omega^{-1} \psi \quad \mbox{ s.t. } \\
-% \nonumber \psi &=& \xi(\theta_2)' Z\\
-% \xi_{jt}(\theta_2) &=& \delta_{jt}(\theta_2) - x_{jt} \beta - \alpha p_{jt} \\
-% \nonumber \log(\mathcal{S}_{jt})  &=& \log(\sigma_{jt}(\delta,\theta_2))
-% \end{eqnarray}
-
-% \begin{eqnarray}
-% \label{blpmpec}
-% \nonumber \arg \min_{\theta_2,\alpha,\beta, \xi,\psi} && \psi' \Omega^{-1}  \psi \quad \mbox{ s.t. } \\
-%  \psi &=& \xi' Z\\
-% \nonumber \xi_{jt} &=& \delta_{jt} - x_{jt} \beta - \alpha p_{jt} \\
-% \nonumber \log(\mathcal{S}_{jt})  &=& \log(\sigma_{jt}(\theta_2, \delta))
-% \end{eqnarray}
-% \end{frame}
-
-% \begin{frame}
-% \frametitle{Comparing Approaches}
-% \begin{itemize}
-% \item The original BLP paper and the DFS paper define different \alert{algorithms} to produce the same statistical \alert{estimator}.
-% \begin{itemize}
-% \item The BLP algorithm is a \alert{nested fixed point} (NFP) algorithm. 
-% \item The DFS algorithm is a \alert{mathematical program with equilibrium constraints} (MPEC).
-% \item The unknown parameters satisfy the same set of first-order conditions. (Not only asymptotically, but in finite sample).
-% \item $\hat{\theta}_{NFP} \approx \hat{\theta}_{MPEC}$ but for numerical differences in the optimization routine.
-% \end{itemize}
-% \item Our choice of algorithm should mostly be about computational convenience.
-% \end{itemize}
-% \end{frame}
-
-% \begin{frame}
-% \frametitle{BLP: NFP Advantages/Disadvantages}
-% \begin{itemize}
-% \item Advantages
-% \begin{itemize}
-% \item Concentrate out all of the linear in utility parameters $(\xi,\delta,\beta)$ so that we only search over $\theta_2$. When $\dim(\Sigma)=\theta_2$ is small (few dimensions of unobserved heterogeneity) this is a big advantage. For $K \leq 5$ this is my preferred approach.
-% \item When $T$ (number of markets/periods) is large then you can exploit solving in parallel for $\delta$ market by market.
-% \end{itemize}
-% \item Disadvantages
-% \begin{itemize}
-% \item Small numerical errors in contraction can be amplified in the outer loop, $\rightarrow$ tolerance needs to be very tight.
-% \item Errors in numerical integration can also be amplified in the outer loop $\rightarrow$ must use a large number of draws/nodes.
-% \item Hardest part is working out the Jacobian via IFT.
-% %\includegraphics[width=2.8in]{resources/implicit_function.png}\\
-% \end{itemize}
-% \end{itemize}
-% \end{frame}
-
-% \begin{frame}
-% \frametitle{BLP: MPEC Advantages/Disadvantages}
-% \begin{itemize}
-% \item Advantages
-% \begin{itemize}
-% \item Problem scales better in $\dim(\theta_2)$.
-% \item Because all constraints hold at the optimum only: less impact of numerical error in tolerance or integration.
-% \item Derivatives are less complicated than $\frac{\partial \delta}{\partial \theta_2}$ (no IFT).
-% \end{itemize}
-% \item Disadvantages
-% \begin{itemize}
-% \item We are no longer concentrating out parameters, so there are a lot more of them! Storing the (Hessian) matrix of second derivatives can be difficult on memory $\rightarrow$ Fixed effects are harder
-% \item We have to find the derivatives of the shares with respect to all of the parameters $\beta,\xi,\theta_2$. (The other derivatives are pretty easy).
-% \item Parallelizing the derivatives is trickier than NFP case.
-% \end{itemize}
-% \end{itemize}
-% \end{frame}
-
-
-
-% \section{Adding Supply}
-% \begin{frame}{Supply}
-% \begin{itemize}
-% \item Economic theory gives us some additional powerful restrictions.
-% \item We may want to impose $MR = MC$.
-% \item Alternatively, we can ask -- what is a good instrument for demand? \alert{something from another equation} (ie: supply).
-% \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Some setup}
-% We can break up the parameter space into three parts:
-% \begin{itemize}
-% \item $\theta_1$: linear exogenous demand parameters, 
-%  \item $\theta_2$: parameters including price and random coefficients (endogenous / nonlinear)
-%  \item $\theta_3$: linear exogenous supply parameters.
-% \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}[plain]
-% \frametitle{Supply Side}
-% Consider the multi-product Bertrand FOCs:
-% \footnotesize
-% {\begin{align*}
-% \arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &= \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot s_j(\mathbf{p}) +  \kappa_{fg}\sum_{k \in \mathcal{J}_g} (p_k - c_k) \cdot s_k(\mathbf{p}) \\
-% 0&= s_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial s_{k}}{\partial p_j}(\mathbf{p}) 
-% \end{align*}
-% }
-% It is helpful to define the \alert{ownership matrix} $\Omega_{(j,k)}(\mathbf{p})  = - \frac{\partial s_{j}}{\partial p_k}(\mathbf{p})$:
-% \begin{align*}
-% \mathcal{H}(\kappa)_{(j,k)} = \left\{\begin{array}{lr}
-%           1 & \text{for }  (j,k) \in \mathcal{J}_f \text{ for any } f \\ 
-%       0 & \text{o.w}\\
-%         \end{array} \right\}
-% \end{align*}
-% We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product (element-wise):
-% \begin{align*}
-%         s(\mathbf{p}) &= (\mathcal{H} \odot \Omega(\mathbf{p})) \cdot (\mathbf{p} - \mathbf{mc}), \\
-%        \mathbf{mc} &=  \mathbf{p} - \underbrace{(A \odot \Omega(\mathbf{p}))^{-1} s(\mathbf{p})}_{\eta(\mathbf{p},\mathbf{s},\theta_2)}.
-% \end{align*}
-% \end{frame}
-
-
-
-% \begin{frame}{Recovering Marginal Costs }
-% Recover implied markups/ marginal costs, and assume a functional form for $mc_{jt}(x_{jt},w_{jt})$.
-% \begin{align*}
-% \mathbf{mc}(\theta)&= \mathbf{p}- \boldsymbol{\eta}(\mathbf{p},\mathbf{s},\theta_2)\\
-% f(mc_{jt}) &= [\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 + \omega_{jt}
-% \end{align*}
-% Which we can solve for $\omega_{jt}$:
-% \begin{align*}
-% \omega_{jt} &=  f(\mathbf{p}- \boldsymbol{\eta}(\mathbf{p},\mathbf{s},\theta_2) ) -[\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 
-% \end{align*}
-% \begin{itemize}
-% \item $f(\cdot)$ is usually $\log(\cdot)$ or identity.
-% \item We can use this to form additional moments: $\E[\omega_{jt} \mid  z_{jt}^{s}]=0$.
-% \item We can just stack these up with the demand moments $E[\xi_{jt}' Z_{jt}^d]=0$.
-% %\item Now I have $\dim(Z^d) + \dim(Z^s)$ moments altogether.
-% \item This step is optional but can aid in identification (if you believe it).
-% \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Additional Details}
-% Some different definitions:
-% \begin{alignat}{3}
-% \label{eq:stacked}
-% \nonumber y_{jt}^D &:= \widehat \delta_{jt}(\theta_2) + \alpha p_{jt} &=(\textrm{x}_{jt} \-\ \textrm{v}_{jt})' \beta + \xi_t &=: x_{jt}^{D\prime}\beta + \xi_{jt} \\ 
-% y_{jt}^S &:= \widehat{mc}_{jt}(\theta_2) &= (\textrm{x}_{jt} \-\ \textrm{w}_{jt})'\gamma + \omega_t &=: x_{jt}^{S\prime} \gamma + \omega_{jt} 
-% \end{alignat}
-% Stacking the system across observations yields:
-% \begin{align}
-% \underbrace{\begin{bmatrix} y_D \\ y_S \end{bmatrix}}_{2N\times1} = 
-% \underbrace{\begin{bmatrix}
-% X_D & 0 \\
-% 0 & X_S 
-% \end{bmatrix}}_{2N\times(K_1+K_3)}
-% \underbrace{\begin{bmatrix}
-% \beta \\ \gamma %\Gamma_D \\ \Gamma_S
-% \end{bmatrix}}_{(K_1+K_3)\times1} + 
-% \underbrace{\begin{bmatrix}
-% \xi \\ \omega % \varepsilon_D \\ \varepsilon_S
-% \end{bmatrix}}_{2N\times 1}
-% \end{align}
-% \end{frame}
-
-
-
-% \begin{frame}{Simultaneous Supply and Demand: in details}
-% \footnotesize
-% \begin{enumerate}[(a)]
-% \item For each market $t$: solve $\mathcal{S}_{jt} = \sigma_{jt}(\delta_{\cdot t},\theta_2)$ for $\widehat{\delta}_{\cdot t}(\theta_2)$.
-% \item For each market $t$: use $\widehat{\delta}_{\cdot t}(\theta_2)$ to construct $\eta_{\cdot 
-% t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
-% \item For each market $t$: Recover $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2) = p_{jt} - \eta_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
-% \item Stack up $\widehat{\delta}_{\cdot t}(\theta_2)$ and $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$ and use linear IV-GMM to recover $[\widehat{\theta}_1(\theta_2), \widehat{\theta}_3(\theta_2) ]$ following the recipe in Appendix of Conlon Gortmaker (2020)
-% \item Construct the residuals:
-% \begin{align*}
-% \nonumber    \widehat{\xi}_{jt}(\theta_2) &= \widehat{\delta}_{jt}(\theta_2) -  x_{jt} \widehat{\beta}(\theta_2) + \alpha p_{jt}\\
-%     \widehat{\omega}_{jt}(\theta_2) &= \widehat{mc}_{jt}(\theta_2) -  [x_{jt}\, w_{jt}]\, \widehat{\gamma}(\theta_2)
-% \end{align*}
-% \item Construct sample moments
-% \begin{align*}
-% \nonumber g_n^D(\theta_2)=\frac{1}{N} \sum_{jt} Z_{jt}^{D\prime} \widehat{\xi}_{jt}(\theta_2)\\
-%  g_n^S(\theta_2)=\frac{1}{N} \sum_{jt} Z_{jt}^{S \prime} \widehat{\omega}_{jt}(\theta_2)
-% \end{align*}
-% \item Construct GMM objective $Q_n(\theta_2)= \left[ {\begin{array}{c} g_n^d(\theta_2) \\ g_n^s(\theta_2) \end{array} } \right]' W  \left[ {\begin{array}{c} g_n^d(\theta_2) \\ g_n^s(\theta_2) \end{array} } \right] $
-% \end{enumerate}
-% \end{frame}
-
+\end{itemize}
+\end{frame}
 
 \section*{Adding Micro Data}
 
-\begin{frame}{Explain Micro Data Here}
-These slides are broken
+
+\begin{frame}{Micro BLP is used a lot: Probably you should use it to.}
+    \begin{wideitemize}
+        \item Take advantage of much better data available in 2023!
+        \item Stack product-level or ``\alert{aggregated}'' moments with ``\alert{micro}'' moments from surveys
+        \begin{itemize}
+            % \item Impose the \cite{berry1995automobile} share constraint (unlike {\color{light gray}Grieco et al.\ 2023}) \nocite{grieco2023conformant}
+            \item Much easier to learn about interactions between demographics and characteristics.
+            \item Enables credible \alert{distributional analysis} of policies.
+        \end{itemize}
+        \item For demographic interactions $\Pi$, you want moments like $Cov(x_j, y_i) = \mathbb{E}[x_j \cdot y_i] -\mathbb{E}[x_j] \cdot \mathbb{E}[y_i]$
+        \begin{itemize}
+            \item Often easier to construct $\mathbb{E}[x_j \mid y_i]$ or $\mathbb{E}[y_i \mid x_j]$ (often conditional on purchase $j \neq 0$)
+        \end{itemize}
+        \item For normally distributed $\Sigma$, you want \alert{data on second choices}.
+        \begin{itemize}
+            \item Original MicroBLP used: $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$
+        \end{itemize}
+        \item The tricky bit is typically working out covariances and weighting matrix\\ $\rightarrow$ this is what Conlon Gortmaker (2023) does! (with help from Myojo \& Kanazawa (2012)).
+    \end{wideitemize}
 \end{frame}
 
-\begin{frame}{Micro Data Gotchas}
+
+\begin{frame}{Conlon Gormaker (2023): ``Micro'' \texttt{PyBLP}}
+    \vspace{0.5em}
+    \scriptsize
+    \begin{tabular}{@{\hspace{-1.2em}}r@{\hspace{0.6em}}l@{\hspace{-1.2em}}r@{\hspace{0.6em}}l@{\hspace{-1.2em}}}
+        Paper & Micro moments shorthand & Paper & Micro moments shorthand \\
+        \midrule
+        \cite{petrin2002quantifying} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{barwick2017local} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ \\
+        {\color{light gray}Berry et al.\ (2004)} & $\Cov(x_j, y_i \,|\, j \neq 0)$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ & \cite{murry2017advertising} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
+        \cite{thomadsen2005effect} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{wollmann2018trucks} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
+        \cite{goeree2008limited} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{li2018better} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ \\
+        \cite{ciliberto2010public} & $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{li2018empirical} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ \\
+        \cite{nakamura2010accounting} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{backus2021common} & $\E[y_i \,|\, j \in \mathcal{J}]$, $\Cov(x_j, y_i \,|\, j \neq 0)$ \\
+        \cite{beresteanu2011gasoline} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{grieco2021evolution} & $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ \\
+        \cite{li2012traffic} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{neilson2021targeted} & $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
+        \cite{copeland2014intertemporal} & $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{armitage2022regulatory} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
+        \cite{starc2014insurer} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ & \cite{dopper2022rising} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
+        \cite{ching2015quantifying} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{bodere2023dynamic} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
+        \cite{li2015price} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{montag2023mergers} & $\Cov(x_j, y_i \,|\, j \neq 0)$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ \\
+        \cite{nurski2016exclusive} & $\E[y_i \,|\, j \in \mathcal{J}]$, $\Cov(x_j, y_i \,|\, j \neq 0)$ & \cite{conlon2023market} & $\E[y_i \,|\, j \in \mathcal{J}]$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
+        %$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$
+    \end{tabular}
+    \normalsize
+    \vspace{0.5em}
+    \begin{wideitemize}
+        \item Framework supports most cases we've seen
+        \begin{itemize}
+            \item Demographic/choice-based sampling, conditioning, covariances, \alert{second choices} $k \neq j$ too!
+        \end{itemize}
+    \end{wideitemize}
 \end{frame}
 
-\begin{frame}{Alternative: GRMPS}
+
+
+\begin{frame}{Some words of caution}
+    
+    \begin{wideitemize}
+    \item There are \alert{optimal micro moments} which approximate scores\\ (see Conlon Gortmaker 2023).
+        \begin{itemize}
+            \item There are no efficiency guarantees for \alert{inconsistent} pilot estimates $\hat{\theta}$
+            \item For first step, can use standard moments or score at informed guess of $\theta_0$
+        \end{itemize}
+        
+        \item Most pairs of datasets have at least some  \alert{incompatibilities} in timing, variables, etc.
+        \begin{itemize}
+            \item Optimal micro moments will only work well if incompatibilities are small
+            \item If large, match moments you expect to be compatible, e.g.\ correlations if scales are different
+            \item Problem exists for ``typical moments'' in Alcohol:\\
+             $\E[Purch \mid  y_{it}]$ vs. $\E[y_{it} \mid Purch]$ when $\E[Purch]$ is \alert{incompatible}.
+        \end{itemize}
+    
+        \item Quadrature behaves poorly with \alert{discontinuities} in moments like ``$\E[x_{jt} \mid y_{it} < \overline{y}, \, j \neq 0]$''
+        \begin{itemize}
+            \item Instead, use Monte Carlo methods or moments continuous in $y_{it}$ like ``$\Cov(x_{jt}, y_{it} \mid j \neq 0)$''
+        \end{itemize}
+    \end{wideitemize}
 \end{frame}
 
 
-\section*{Quick Case Study: Supply and Micro Data}
+
+\begin{frame}{Complete Micro Data: Grieco Murry Pinkse Sagl (2023)}
+Like a one-step version of Goolsbee Petrin (2004)
+        \begin{align*}
+            (\hat{\beta},\hat{\theta}_2,\hat{\delta}) = \arg\min_{\beta,\theta_2,\delta} -\log\hat{L}(\theta_2,\delta)+\hat{\Pi}(\beta,\delta)
+        \end{align*}
+        \begin{enumerate}
+            \item the Mixed Data Likelihood Estimator:
+                \begin{align*}
+                    \log\hat{L}(\theta,\delta) =\sum_{m=1}^M\sum_{j=0}^{J_m}\sum_{i=1}^{N_m} d_{ijm}(D_{im} \underbrace{\log \pi_{jm}^{y_{im}}(\theta_2,\delta)}_{\text{individual choices}} + (1-D_{im}) \underbrace{\log\pi_{jm}(\theta_2,\delta)}_{\text{aggregate share}})%\\
+                     %=\sum_{m=1}^M\sum_{j=0}^{J_m}\sum_{i=1}^{N_m} D_{im} d_{ijm} \log\frac{\pi_{jm}^{y_{im}}}{\pi_{jm}} + \sum_{m=1}^M N_m\sum_{j=0}^{J_m}s_{jm}\log\pi_{jm}
+                \end{align*}
+        \item including the BLP moment conditions
+        \begin{align*}
+            \hat{\Pi}(\beta,\delta) = \frac{1}{2}\hat{g}^\intercal(\beta,\delta)\cdot \hat{\mathcal{W}}\cdot\hat{g}(\beta,\delta)
+        \end{align*}
+        where $\hat{\mathcal{g}}^\intercal(\beta,\delta) = \sum_{m=1}^M \sum_{j=1}^{J_m} z_{jm}(\delta_{jm}-\beta^\intercal x_{jm})$.\\
+    \end{enumerate}
+    Trick in the paper: getting $\hat{\mathcal{W}}$ correct.
+\end{frame}
+
+
+
+\section*{Quick Case Studies: Micro Data, Second Choices, Supply}
+
+
+\begin{frame}\frametitle{Grieco, Murry, Yurukoglu (QJE 2024)}
+\begin{columns}
+\begin{column}{0.66\textwidth}
+     \includegraphics[width=\textwidth]{resources/gmy1}      
+\end{column}
+\begin{column}{0.33\textwidth}
+Best MicroBLP application?
+\begin{wideitemize}
+\item  Average characteristics by income, age, family size:\\
+$\E[x_j \,|\, i \in I, j \neq 0]$
+\item Covariance of characteristics for 1st and 2nd choices:\\ $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$
+\item I would make Price lognormal and put RC on constant...
+\end{wideitemize}
+\end{column}
+\end{columns}
+\end{frame}
+
 
 \begin{frame}{Supply and Micro Data: (Conlon Rao 2023)}
 Consumer $i$ chooses product $j$ (brand-size-flavor) in quarter $t$:
@@ -982,7 +721,7 @@ u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[
 \item Consumers of different income levels have different mean values for coefficients
 \item Conditional on income, normally distributed unobserved heterogeneity for:
 \begin{itemize}
-\item Price $\alpha_i$
+\item Price $\alpha_i$: \alert{Lognormal}
 \item Constant $\beta_{i}^0$ (Overall demand for spirits)
 \item Package Size: $\beta_{i}^{1750}$ (Large vs. small bottles)
 \end{itemize}
@@ -990,26 +729,26 @@ u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[
 \end{frame}
 
 
-\begin{frame}{Wholesale Margins Under Post and Hold}
-\begin{columns}[T]
-\begin{column}{.5\textwidth}
-\begin{center}
-\includegraphics[height=0.88\textheight]{resources/figure4_manuf_wholesale_price.pdf}
-\end{center}
-\end{column}
-\hfill
-\begin{column}{.5\textwidth}
-  \begin{itemize}
-  \item Price Cost Margins (and Lerner Markups) are higher on premium products
-  \item Markups on least expensive products (plastic bottle vodka) are very low.
-  \item Smirnoff (1.75L) is best seller\\ (high markup / outlier).
-  \item A planner seeking to minimize ethanol consumption would flatten these markups!
-  \item Matching this pattern is kind of the whole ballgame !
-  \item Plain logit gives $\epsilon_{jj} = \alpha \cdot p_j  \cdot (1-s_j)$.
-  \end{itemize}
-  \end{column}
-\end{columns}
-\end{frame}
+% \begin{frame}{Wholesale Margins Under Post and Hold}
+% \begin{columns}[T]
+% \begin{column}{.5\textwidth}
+% \begin{center}
+% \includegraphics[height=0.88\textheight]{resources/figure4_manuf_wholesale_price.pdf}
+% \end{center}
+% \end{column}
+% \hfill
+% \begin{column}{.5\textwidth}
+%   \begin{itemize}
+%   \item Price Cost Margins (and Lerner Markups) are higher on premium products
+%   \item Markups on least expensive products (plastic bottle vodka) are very low.
+%   \item Smirnoff (1.75L) is best seller\\ (high markup / outlier).
+%   \item A planner seeking to minimize ethanol consumption would flatten these markups!
+%   \item Matching this pattern is kind of the whole ballgame !
+%   \item Plain logit gives $\epsilon_{jj} = \alpha \cdot p_j  \cdot (1-s_j)$.
+%   \end{itemize}
+%   \end{column}
+% \end{columns}
+% \end{frame}
 
 
 
@@ -1036,7 +775,7 @@ u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[
     \mathbb{E}[\omega_{jt}]=0, \text{ with }\omega_{jt} = \left(p^w_{jt}  - p^m_{jt}-\tau_{jt} \right) -\eta_{jt}\left(\theta_2\right).
     \end{align*}
    \vspace{-0.8cm}
-    \item Match estimate of aggregate elasticity from tax change $\varepsilon=-0.4$.
+    \item Match repeat purchase share within (Vodka, Gin, Rum, etc.) as in Atalay, Frost, Sorensen, Sullivan, and Zhu (2023)
     \item Pass-through consistent with estimates from our AEJ:Policy paper.
   \end{itemize}
 \end{column}
@@ -1065,170 +804,47 @@ u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[
 \end{frame}
 
 
-% \section{Instruments and Identification}
+\section{Approximating the Problem}
 
-% \begin{frame}{Parametric Identifcation}
+
+
+
+\begin{frame}
+\frametitle{BLP 1995/1999 and Berry Haile (2014)}
+Think about a \alert{generalized inverse} for $\sigma_{j}(\boldsymbol{\delta_{t}}, \mathbf{x}_t,\theta_2) = \mathfrak{s}_{jt}$ so that 
+\begin{align*}
+%\sigma_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt},v_{jt},\theta_1)   + \xi_{jt}\\
+ \sigma_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)&= \delta_{jt} \equiv x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
+\end{align*}
+ \begin{itemize}
+\item After some transformation of data (shares $\mathcal{S}_{\cdot t}$) we get \alert{mean utilities} $\delta_{jt}$.
 % \begin{itemize}
-% \item Once we have $\delta_{jt}(\theta)$ identification of linear parameters $\theta_1=[\beta,\xi_j, \xi_t]$ is pretty straightforward
-% \begin{eqnarray*}
-% \delta_{jt}(\theta) = x_{jt} \beta - \alpha p_{jt} + \xi_j + \xi_t + \Delta \xi_{jt}
-% \end{eqnarray*}
-% \item This is either basic linear IV or panel linear IV.
-% \item Intuition: How are $\theta_2$ taste parameters identified?
-% \begin{itemize}
-% \item Consider increasing the price of $j$ and measuring substitution to other products $k,k'$ etc.
-% \item If sales of $k$ increase with $p_j$ and $(x_j^{(1)},x_k^{(1)})$ are similar then we increase the $\theta_2$ that corresponds to $x^{(1)}$.
-% \item Price is the most obvious to vary, but sometimes this works for other characteristics (like distance).
-% \item Alternative: vary the set of products available to consumers by adding or removing an option.
-% \end{itemize}
-% \end{itemize}
-% \end{frame}
-
-
-
-
-% \begin{frame}{Instruments}
-% \begin{itemize}
-% \item Recall the nested logit, where there are two separate endogeneity problems
-% \begin{itemize}
-% \item \alert{Price}: this is the familiar one!
-% \item \alert{Nonlinear characteristics/Shares} $\theta_2$ this is the other one.
-% \end{itemize}
-% \item We are doing nonlinear GMM: Start with $\E[\xi_{jt} | x_{jt}, z_{jt}]=0$ use $\E[\xi' [Z X]]=0$.
-% \begin{itemize}
-% \item In practice this means that for valid instruments $(x,z)$ any function $f(x,z)$ is also a valid instrument $\E[ \xi_{jt} f(x_{jt},z_{jt})]=0$.
-% \item We can use $x, x^2, x^3,\ldots$ or interactions $x \cdot z, x^2 \cdot z^2, \ldots$.
-% \item What is a reasonable choice of $f(\cdot)$?
-% \item Where does $z$ come from?
-% \end{itemize}
-% \end{itemize}
-% \end{frame}
-
-
-
-\begin{frame}{Unused: Exclusion Restrictions (see Berry Haile 2014)}
-\begin{eqnarray*}
-    \delta_{jt}(\mathcal{S}_t,\alert{\textrm{y}_t}, \widetilde{\theta}_2) &=&  [\textrm{x}_{jt}, \alert{\textrm{v}_{jt}}]  \beta  - \alpha p_{jt} + \xi_{jt}\\
-    f(p_{jt} - \eta_{jt}(\theta_2,\mathbf{p},\mathbf{s})) &=&   h(\textrm{x}_{jt},\alert{\textrm{w}_{jt}};\theta_3)+\omega_{jt}
-\end{eqnarray*}
-The first place to look for exclusion restrictions/instruments:
+% \item We assume $\delta_{jt}=h(x_{jt},v_{jt},\theta_1) -\alpha p_{jt} + \xi_{jt}$ follows some parametric form (often linear).
+%  \end{itemize}
+\item Same IV-GMM approach after transformation
+\item Examples:
 \begin{itemize}
-\item Something in another equation!
-\item $\textrm{v}_j$ shifts demand but not supply
-\item $\textrm{w}_j$ shifts supply but not demand
-\item $\textrm{y}_t$ is a sneaky demand shifter
-\item If it doesn't shift either is it really relevant?
-\end{itemize}
-Alternative: MacKay Miller (2022) propose $Cov(\xi_{jt},  \omega_{jt})=0$ as an alternative.
+\item Plain Logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t}) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$
+\item Nested Logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} - \rho  \ln \mathfrak{s}_{j|gt}$
+\item Three level nested logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} -\sum_{d=1}^2 \rho_d \ln \left(\frac{\mathfrak{s}_{jt}}{\mathfrak{s}_{d(j), t}}\right)$ (Verboven 1996)
+\item IPDL: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}-\mathbf{x}_{j t} \boldsymbol{\beta}-\alpha p_{j t}-\sum_{d=1}^D \rho_d \ln \left(\frac{\mathfrak{s}_{jt}}{\mathfrak{s}_{d(j), t}}\right)+\xi_{j t}$\\ (Fosgerau, Monardo, De Palma (2022))
+ \end{itemize}
+ \item Anything with a share requires an IV (otherwise $\rho \rightarrow 1$).
+ \end{itemize}
 \end{frame}
 
 
 
-
-% \begin{frame}{What about Hausman Instruments?}
-% AKA contemporaneous prices of same product in a different market.
-% \begin{itemize}
-%     \item Idea is to pick up common cost shocks:
-%      $$p_{jmt} = c_{jmt} + \eta_{jmt}$$
-%      \item But this places strong assumptions on nature of demand shocks (and markups $ \eta_{jmt}$)
-%      \item Even with FE: $\xi_{jmt} = \xi_j + \xi_t + \underbrace{\Delta \xi_{jt}}_{=0} + \Delta \xi_{jmt}$
-%      \item A common complaint: national advertising might increase demand for a product in multiple geographic markets.
-% \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}{Markup Shifters}
-% The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p},\mathbf{s},\xi_t,\omega_t,\textrm{x}_{t},\textrm{w}_{t},\textrm{v}_t,\textrm{y}_t,\theta_2)$:
-% \begin{itemize}
-% \item It is obviously \alert{endogenous} (depends on error terms)!
-% \item But lots of potential instruments beyond \alert{excluded} $\textrm{v}_t$ or $\textrm{w}_t$.
-% \item Idea: cross-market variation in number or strength of competitors
-% \begin{itemize}
-% \item Also $\textrm{v}_{-j}$ and $w_{-j}$ and $x_{-j}$.
-% \item Not $p_{-j}$ or $\xi_{-j}$, etc.
-% \item The idea is that these instruments shift the \alert{marginal revenue curve}.
-% \item What is a good choice of $f(x_{-j})$? etc.
-% \end{itemize}
-% \end{itemize}
-% \end{frame}
-
-
-
-
-% \begin{frame}{BLP Instruments}
-% \begin{itemize}
-% \item Common choices are average characteristics of other products in the same market $f(x_{-j,t})$. \alert{BLP instruments}
-% \begin{itemize}
-% \item Same firm $z_{1jt} = \overline{x}_{-j_f,t} = \frac{1}{\left\vert{F_j}\right\vert}  \sum_{k \in \mathcal{F}_j} x_{kt} - \frac{1}{\left\vert{F_j}\right\vert} x_{jt}$.
-% \item Other firms $z_{2jt}=\overline{x}_{\cdot t} - \overline{x}_{-j_f,t} - \frac{1}{J} x_{jt}$.
-% \item Plus regressors $(1, x_{jt})$.
-% \item Plus higher order interactions 
-% \end{itemize}
-% \item Technically linearly independent for large (finite) $J$, but becoming highly correlated.
-% \begin{itemize}
-% \item Can still exploit variation in number of products per market or number of products per firm.
-% \end{itemize}
-% \item Correlated moments $\rightarrow$ ``many instruments''.
-% \begin{itemize}
-% \item May be inclined to ``fix'' correlation in instrument matrix directly.
-% \end{itemize}
-% \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Armstrong (2016): Weak Instruments?}
-% Consider the limit as $J \rightarrow \infty$
-% \begin{eqnarray*}
-% \frac{s_{jt}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|} = \frac{1}{\alpha} \frac{1}{1-s_{jt}} \rightarrow \frac{1}{\alpha}
-% \end{eqnarray*}
-% \begin{itemize}
-% \item Hard to use markup shifting instruments to instrument for a constant.
-% \item How close to the constant do we get in practice?
-% \item Average of $x_{-j}$ seems like an especially poor choice. Why?
-% \item Shows there may still be some power in: products per market, products per firm.
-% \item Convergence to constant extends to mixed logits (see Gabaix and Laibson 2004).
-% \item Suggests that you really need cost shifters.
-% \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Differentiation Instruments: Gandhi Houde (2019)}
-% \begin{itemize}
-% \item Also need instruments for the $\Sigma$ or $\sigma$ random coefficient parameters.
-% \item Instead of average of other characteristics $f(x) = \frac{1}{J-1} \sum_{k \neq j} x_k$, can transform as distance to $x_j$.
-% \begin{align*}
-% d_{jt} ^k=  |x_k - x_j |
-% \end{align*}
-% \item And use this transformed to construct two kinds of IV (Squared distance, and count of local competitors)
-% \begin{align*}
-% DIV_1 &= \sum_{j \in F}  d_{jt}^2,  \quad  \sum_{j \notin F}  d_{jt}^2 \\
-% DIV_2 &= \sum_{j \in F}  \mathbb{I}[d_{jt} < c]   \quad \sum_{j \notin F}   \mathbb{I}[d_{jt} < c]
-% \end{align*}
-% \item They choose $c$ to correspond to one standard deviation of $x$ across markets.
-% \item Monotonicity?
-% \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Differentiation Instruments: Gandhi Houde (2019)}
-% \begin{center}
-% \includegraphics[height=0.9\textheight]{resources/d_iv1.png}
-% \end{center}
-% \end{frame}
-
-
 \begin{frame}{Intuition from Linear IV (FRAC: Salanie and Wolak)}
 Simple case where $\theta_0 = (\beta_0, \pi_0, \sigma_0)'$. A second-order Taylor expansion around $\pi_0 = \sigma_0 = 0$ gives the following linear model with four regressors:
-\begin{equation}
-    \label{eq:frac}
-    \log\frac{\mathcal{S}_{jt}}{\mathcal{S}_{0t}} \approx \beta_0 x_{jt} + \sigma_0^2 a_{jt} + \pi_0 m_t^y x_{jt} + \pi_0^2 v_t^y a_{jt} + \xi_{jt}, \quad a_{jt} = \Big(\frac{x_{jt}}{2} - \sum_{k \in \mathcal{J}_t} \mathcal{S}_{kt} \cdot x_{kt}\Big) \cdot x_{jt}
-\end{equation}
+\begin{align*}
+    \log\frac{\mathcal{S}_{jt}}{\mathcal{S}_{0t}} \approx \beta_0 x_{jt} + \pi_0 m_t^y x_{jt} + \left(\sigma_0^2+  \pi_0^2 v_t^y \right) a_{jt} + \xi_{jt}, \quad a_{jt} = \Big(\frac{x_{jt}}{2} - \sum_{k \in \mathcal{J}_t} \alert{\mathcal{S}_{kt}} \cdot x_{kt}\Big) \cdot x_{jt}
+\end{align*}
 \begin{itemize}
     \item $m_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot y_{it}$ is the within-market demographic mean
     \item $v_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot (y_{it} - m_t^y)^2$ is its variance
     \item $a_{jt}$ is an ``artificial regressor'' that reflects within-market differentiation of the product characteristic $x_{jt}$.\\
-    \item Linear but we still need an IV for $a_{jt}$.
+    \item Linear but we still need an IV for $a_{jt}$ (\alert{endogenous shares!})
 \end{itemize}
 Implemented in Julia by Jimbo Brand  \url{https://github.com/jamesbrandecon/FRAC.jl}
 % where $m_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot y_{it}$ is the within-market demographic mean, $v_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot (y_{it} - m_t^y)^2$ is its variance, and $a_{jt}$ is an ``artificial regressor'' that reflects within-market differentiation of the product characteristic $x_{jt}$.\footnote{\cite{salanie2019fast} give additional intuition for the functional form of $a_{jt}$. A quadratic form is unsurprising because $x_{jt}$ multiplied $\nu_{it}$. The $\frac{1}{2}$ comes from the symmetric shape of the logistic distribution.} If $\pi_0 = \sigma_0 = 0$, the approximation is exact, and collapses to a simple logit regression: $\log(\mathcal{S}_{jt} / \mathcal{S}_{0t}) = \delta_{jt} = \beta_0 x_{jt} + \xi_{jt}$.
@@ -1238,11 +854,11 @@ Implemented in Julia by Jimbo Brand  \url{https://github.com/jamesbrandecon/FRAC
 \begin{frame}{Connection or when do GH IV work well?}
 Recall the GH IV are:
 \begin{align*}
-J \cdot x_{jt}^2 + \underbrace{\sum_k x_{kt}^2}_{\text{ constant for } t } - 2 \sum_k x_{jt} \cdot x_{kt}
+x_{jt}^2 + \underbrace{\frac{1}{J} \cdot \sum_k x_{kt}^2}_{\text{ constant for } t } - \alert{2 x_{jt}  \cdot \sum_k  \frac{1}{J} \cdot x_{kt}}
 \end{align*}
 and the artificial regressor is
 \begin{align*}
-\frac{1}{2} x_{jt}^2 - 2 x_{jt} \cdot \sum_k \mathcal{S}_{kt}  \cdot x_{kt}
+\frac{1}{2} x_{jt}^2 - \alert{2 x_{jt} \cdot \sum_k \mathcal{S}_{kt}  \cdot x_{kt}}
 \end{align*}
 \begin{itemize}
 \item We should be \alert{share weighting} the interaction term, but GH assume equal weighting.\\
@@ -1400,67 +1016,125 @@ and the artificial regressor is
 
 
 
+\section{The nonparametric/machine learning future...?}
 
-% \begin{frame}
-% \frametitle{BLP 1995/1999 and Berry Haile (2014)}
-% Think about a \alert{generalized inverse} for $\sigma_{j}(\boldsymbol{\delta_{t}}, \mathbf{x}_t,\theta_2) = \mathfrak{s}_{jt}$ so that 
-% \begin{align*}
-% %\sigma_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt},v_{jt},\theta_1)   + \xi_{jt}\\
-%  \sigma_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)&= \delta_{jt} \equiv x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
-% \end{align*}
-%  \begin{itemize}
-% \item After some transformation of data (shares $\mathcal{S}_{\cdot t}$) we get \alert{mean utilities} $\delta_{jt}$.
-% % \begin{itemize}
-% % \item We assume $\delta_{jt}=h(x_{jt},v_{jt},\theta_1) -\alpha p_{jt} + \xi_{jt}$ follows some parametric form (often linear).
-% %  \end{itemize}
-% \item Same IV-GMM approach after transformation
-% \item Examples:
-% \begin{itemize}
-% \item Plain Logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t}) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$
-% \item Nested Logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} + \rho  \ln \mathfrak{s}_{j|gt}$
-% \item Three level nested logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} +\sum_{d=1}^2 \rho_d \ln \left(\frac{s_{j t}}{s_{d(j), t}}\right)$ (Verboven 1996)
-%  \end{itemize}
-%  \item Anything with a share requires an IV (otherwise $\rho \rightarrow 1$).
-%  \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}
-% \frametitle{Aside: Other Analytic Inverses?}
-% Fosgerau, Monardo, De Palma (2022) propose the IPDL
-% \begin{align*}
-% \ln \left(\frac{s_{j t}}{s_{0 t}}\right)=\mathbf{x}_{j t} \boldsymbol{\beta}-\alpha p_{j t}+\sum_{d=1}^D \rho_d \ln \left(\frac{s_{j t}}{s_{d(j), t}}\right)+\xi_{j t}
-% \end{align*}
-%  \begin{itemize}
-% \item Can accomodate multiple (partially) overlapping nests
-% \item The naive idea (include share within group on RHS with IV) actually works like you would want (!)
-% \item We need that $\rho > 0$ for this to be RUM.
-% \item This can allow for mild complementarities as well.
-%  \end{itemize}
-% \end{frame}
-
-
-\section{Future Stuff}
-\begin{frame}{Embeddings: Magnolfi Maclure Sorensen 1}
+\begin{frame}{What do you mean by non-parametric?}
+Mostly we mean putting a flexible distribution on $f(\beta_i,\alpha_i \mid \theta)$ (and keeping logit error on $\varepsilon_{ij}$)
+\begin{align*}
+u_{ij} = \beta_i x_j - \alpha_i p_j + \xi_j + \varepsilon_{ij} \text{ with } f(\beta_i,\alpha_i \mid \theta)
+\end{align*}
+\begin{itemize}
+%    \item Fixed Grids (Fox, Kim, Ryan, Bajari 2011, Heiss, Hetzenecker, Osterhaus 2022, Nevo Turner Williams 2016): draw from ``prior'' of $\beta_i$, compute $\sigma_{ij}(\beta_i)$ and choose weights on each $i$, $\pi_i$.
+    \item Compiani (QE 2022): approximate $\sigma_{j}^{-1}(\mathcal{S}_t,\mathbf{x}_t^{(2)})$ directly with Bernstein Polynomials (ditches $\varepsilon \rightarrow$ very hard)
+    \item Ao Wang (JE 2022): use polynomial sieves: $\mathbb{E}\left[\left(\sigma_j^{-1}\left(s_t ; \mathbf{x}_t^{(2)}, \alert{F}\right)-X_t^{(1)} \beta^{(1)}\right) \phi_k\left(Z_{j t}\right)\right]=0$
+    \item Lu, Shi, Tao (JE 2023): use partially linear model: $\log \left(s_{j t} / s_{0 t}\right)=X_{1, j t}^{\prime} \beta^0+\alert{\psi^0\left(X_{2, j t} ; S_{J, t}\right)}+\xi_{j t}$ where        $\psi^0\left(x_{2, j t} ; IV_{J, t}\right)=\log \left[\frac{\int \frac{\exp \left(x_{2, j t}^{\prime} v\right)}{\exp \left(IV_{J, t}(v)\right)} f^0(v) d v}{\int \frac{1}{\exp \left(IV_{J, t}(v)\right)} f^0(v) d v}\right]$.
+\end{itemize}
+But these are still \alert{only as good as characteristics}.
 \end{frame}
 
-\begin{frame}{Embeddings: Magnolfi Maclure Sorensen 2}
+\begin{frame}{Low Rank Matrix Factorization: aka Netflix Prize}
+%\renewcommand\matscale{.6}
+\begin{align*}
+\matbox{7}{7}{I}{J}{Ratings} = 
+\matbox{7}{5}{I}{M}{Individuals} \raiserows{2.5}{\matbox{2}{7}{M}{J}{Movies}}
+\end{align*}
+\begin{wideitemize}
+    \item Even if Ratings are \alert{sparse}, we fit the observed cells and predict the rest!
+    \item Idea: Approximate with a low rank $(M)$ factor model.
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Unobserved Characteristics: Magnolfi Maclure Sorensen (2023)}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+     \includegraphics[width=\textwidth]{resources/embeddings_1}      
+\end{column}
+\begin{column}{0.5\textwidth}
+What if we could first estimate \alert{unobserved characteristics}?
+\begin{itemize}
+    \item Is $j$ more similar to $k$ or $l$?
+    \item Use \alert{embedding} procedure to calculate what amounts to a likelihood
+\begin{align*}
+\max_{\mathbf{X} \in \mathbb{R}^{m \times J}} \ln \left(\frac{f(||x_l - x_j|| ,\alpha)}{f(||x_l - x_j|| ,\alpha)+{f(||x_k - x_j|| ,\alpha)}}\right)
+\end{align*}
+\item Get a $m \times J$ matrix with $m$ factors (embeddings).
+\item Idea: $m$ is small (like 3-4).
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Unobserved Characteristics: Magnolfi Maclure Sorensen (2023)}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+     \includegraphics[width=\textwidth]{resources/embeddings_2}      
+\end{column}
+\begin{column}{0.5\textwidth}
+     \includegraphics[width=\textwidth]{resources/pca_01}      
+\end{column}
+\end{columns}
 \end{frame}
 
 
 
-\begin{frame}{Conlon Mortimer Sarkis 1}
+
+
+\begin{frame}{Conlon, Mortimer, Sarkis (2024): Structural Low Rank Approximations}
+\small
+Fix $\textrm{rank}(\mathbf{D}(\mathbf{S},\pi))=I$, and for each choice of $I$ solve:
+\begin{align*}
+\min _{(\mathbf{S}, \pi) \geq 0} \left\|\mathcal{P}_{\Omega}(\mathcal{D}-\mathbf{D}(\mathbf{S},\pi))\right\|_{\ell_2}  &+ \lambda \left\|\mathcal{S}- \mathbf{S}\,\pi \right\|_{\ell_2} \text { with } \left\|\pi  \right\|_{\ell_1} \leq 1, \quad   \left\|\mathbf{s_i}  \right\|_{\ell_1} \leq 1.
+\end{align*}
+\vspace{-.25cm}
+\begin{itemize}
+\item Goal: estimate $\mathbf{s_i}$ (choice probabilities) and corresponding weights $\pi_i$ (Finite Mixture) in \alert{product space}
+\begin{itemize}
+\item Consistent with $U_{ij} = V_{ij} + \varepsilon_{ij}$ and logit error.
+\end{itemize}
+\item Constraints: Choice probabilities $s_{ij}$ sum to one, type weights $\pi_i$ sum to one.
+\begin{itemize}
+\item $\ell_1$ constraints lead to \alert{sparsity}.
+\end{itemize}
+\item Idea: \alert{Control the rank by limiting $I$ directly}
+\begin{itemize}
+\item Use cross validation to select \# of types $I$ and Lagrange multiplier $\lambda$.
+\end{itemize}
+\item Matrix completion: We can construct estimates of $\mathbf{D}(\mathbf{S},\pi)$ including elements of $\mathcal{P}_{\overline{\Omega}}$.
+% \item Weights $\widetilde c_j$ and $c_j$ are proportional to $\ln q_j$
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Conlon Mortimer Sarkis 2}
+\begin{frame}{In-Sample Performance}
+\label{in_sample}
+%\hyperlink{cross_valid}{\beamerbutton{Cross Validation}}
+\centering
+\includegraphics[height=\textheight,width=\textwidth, keepaspectratio]{resources/insample-comparison-all.pdf}\\
 \end{frame}
 
-\begin{frame}{Conlon Mortimer Sarkis 3}
+
+\begin{frame}{Profiles of Types (Rank 15)}
+\centering
+\includegraphics[height=0.95\textheight]{resources/hpc_rank_15_profiles}
 \end{frame}
 
-\begin{frame}{Other nonparametrics?}
+ \begin{frame}{Top Substitutes: Ford F-Series}
+    \centering
+    \input{resources/comparison-cars-ford f series-top10_v2.tex}\\
+ \end{frame}
+
+
+\begin{frame}{}
+  \centering \Large
+  \emph{Thanks!}\\
+
+  Reach me at cconlon@stern.nyu.edu\\
+
+  Slides at \url{bit.ly/conlon\_IIOC}
 \end{frame}
 
-\section{Thanks!}
+
+\begin{frame}[plain,allowframebreaks,noframenumbering]{References}
+    \bibliography{references}
+\end{frame}
 
 \end{document}
