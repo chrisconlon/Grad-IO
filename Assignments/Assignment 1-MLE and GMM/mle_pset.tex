@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[shortlabels]{enumitem}
+
+\title{Problem Set 1}
+\begin{document}
+\small
+\date{}
+\author{Prof. Conlon}
+\maketitle
+Your answers should be produced in \LaTeX, and should include all relevant graph and code.  Code should be in the appropriate verbatim environment and properly documented. You are allowed to work in groups but you must turn in your own writeup. Submit your assignment via Brightspace.
+
+You may want to consult my bonus notes on nonlinear optimization and/or GMM.\\
+
+Consider the following utility model for parents choosing schools
+\begin{align*}
+u_{ij} = \beta_1 \cdot \text{test scores}_j  +\beta_2 \cdot \text{sports}_j+ \xi_j - \alpha \cdot d_{ij} +  \varepsilon_{ij}
+\end{align*}
+We define the terms below:
+\begin{itemize}
+	\item Test Scores $[0-100]\%$: the average percentile of the students at the school on a standardized test
+	\item Sports $[0-5]$: how good the school is at sports
+	\item Distance $d_{ij} \in [0,\inf)$ how far away the school is in miles from household $i$
+	\item $\xi_j$: unobservable school ``quality''
+\end{itemize}
+The parameters of the model are $\theta = [\beta_1,\beta_2, \xi_1,\ldots,\xi_5, \alpha]$
+
+\section*{\normalsize Questions}
+For parameter estimates, also report: the (negative) log-likelihood, the diversion ratio from school 1 to school 2, the average own elasticitity with respect to distance for the chosen school.
+\begin{enumerate}
+	\item Look at the data and plot the distribution of distance to all schools, and the distribution of distance to the chosen school.
+	\item Write down the market share and log-likelihood for a plain logit model.
+	\item Write down the score and the gradient of your log-likelihood.
+	\item Estimate the plain logit model by maximimum likelihood. 
+	\item Estimate a restricted model with only $\xi_j$ parameters. Add that to your table. 
+	\item Now allow for parents to have different preferences for $ \text{test scores}_j$ so that $\beta_{1i}\sim N(\beta_1,\sigma_b)$. Write down the (simulated) market share and gradient expressions.
+
+	\item Estimate this expanded model via maximum likelihood:
+	\begin{enumerate}
+		\item Using 100 Monte Carlo Draws from an apporpriately transformed standard normal.
+		\item Using a Gauss Hermite quadrature rule.
+	\end{enumerate}
+	\item Read Chapter 10 in Train and write down the MSM estimator for the expanded model. What are your ``instruments''?
+	\item Calculate the Jacobian of the MSM estimator.
+	\item Estimate the Parameters of the MSM estimator.
+	\item Bonus: Using your initial MSM estimates as a starting point, explain how to construct an ``efficient'' MSM estimator, and produce ``efficient'' estimates.
+\end{enumerate}
+
+\end{document}
+
