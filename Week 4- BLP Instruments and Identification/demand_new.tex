@@ -501,17 +501,17 @@ Consider the multi-product Bertrand FOCs:
 0&= s_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial s_{k}}{\partial p_j}(\mathbf{p}) 
 \end{align*}
 }
-It is helpful to define the \alert{ownership matrix} $\Omega_{(j,k)}(\mathbf{p})  = - \frac{\partial s_{j}}{\partial p_k}(\mathbf{p})$:
+It is helpful to define the \alert{ownership matrix}:
 \begin{align*}
 \mathcal{H}(\kappa)_{(j,k)} = \left\{\begin{array}{lr}
           1 & \text{for }  (j,k) \in \mathcal{J}_f \text{ for any } f \\ 
       0 & \text{o.w}\\
         \end{array} \right\}
 \end{align*}
-We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product (element-wise):
+We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product (element-wise) and  $\Delta_{(j,k)}(\mathbf{p})  = - \frac{\partial s_{j}}{\partial p_k}(\mathbf{p})$ is the demand derivatives matrix:
 \begin{align*}
-        s(\mathbf{p}) &= (\mathcal{H} \odot \Omega(\mathbf{p})) \cdot (\mathbf{p} - \mathbf{mc}), \\
-       \mathbf{mc} &=  \mathbf{p} - \underbrace{(A \odot \Omega(\mathbf{p}))^{-1} s(\mathbf{p})}_{\eta(\mathbf{p},\mathbf{s},\theta_2)}.
+        s(\mathbf{p}) &= (\mathcal{H} \odot \Delta(\mathbf{p})) \cdot (\mathbf{p} - \mathbf{mc}), \\
+       \mathbf{mc} &=  \mathbf{p} - \underbrace{(\mathcal{H} \odot \Delta(\mathbf{p}))^{-1} s(\mathbf{p})}_{\eta(\mathbf{p},\mathbf{s},\theta_2)}.
 \end{align*}
 \end{frame}
 
@@ -611,17 +611,21 @@ t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 
 \begin{frame}{What's the point?}
 \begin{align*}
-p_j &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\mathbf{p})}}_{\text{Markup}} \left[c_j + \underbrace{\sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p}) }_{\text{opportunity cost}}\right]
+       \mathbf{mc} &=  \mathbf{p} - \eta(\mathbf{p},\mathbf{s},\theta_2).
 \end{align*}
 Demand systems have two main deliverables:
 \begin{itemize}
-\item Own-price elasticities $\epsilon_{jj}(\mathbf{p})$
-\item Substitution patterns
+\item Own-price elasticities $\epsilon_{jj}(\mathbf{p},\theta_2)$
+\item Substitution patterns (all transforms of same object)
 \begin{itemize}
+\item Demand Derivatives: $\Delta(\mathbf{p},\theta_2)$
 \item Cross elasticities: $\epsilon_{jk}(\mathbf{p}) = \frac{\partial q_k}{\partial p_j}$
 \item Diversion Ratios: $D_{jk}(\mathbf{p}) = \frac{\partial q_k}{\partial p_j}/|\frac{\partial q_j}{\partial p_j}|$
 \end{itemize}
 \item Other checks: $D_{j0}(\mathbf{p})$ diversion to outside good; $\epsilon^{agg}$ category elasticity to 1\% tax.
+\begin{itemize}
+    \item Tend to give insight into the economics of the problem.
+\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -699,7 +703,7 @@ u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[
     \mathbb{E}[\omega_{jt}]=0, \text{ with }\omega_{jt} = \left(p^w_{jt}  - p^m_{jt}-\tau_{jt} \right) -\eta_{jt}\left(\theta_2\right).
     \end{align*}
    \vspace{-0.8cm}
-    \item Match estimate of aggregate elasticity from tax change $\varepsilon=-0.4$.
+   \item Match re-purchase rate of $Vodka \rightarrow Vodka$ for each category.
     \item Pass-through consistent with estimates from our AEJ:Policy paper.
   \end{itemize}
 \end{column}
