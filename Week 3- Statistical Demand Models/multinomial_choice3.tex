@@ -174,7 +174,7 @@ Different interventions (price changes, product removals, quality changes, etc.)
 \frametitle{Estimation Details: MSL/MSLE}
 How do we estimate these models? (Derived from multinomial log-likelihood):
 \begin{align*}
-\theta_{MLE} = \arg \min_{\theta} - \sum_{i=1}^N y_{ij} \ln \widehat{s}_{ij}(\theta)
+\theta_{MLE} = \arg \min_{\theta} - \sum_{i=1}^N \sum_{j=1}^J y_{ij} \ln \widehat{s}_{ij}(\theta)
 \end{align*}
 
 \begin{itemize}
