@@ -1,22 +1,24 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
+\input{../resources/preamble.tex}
 
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage[absolute,overlay]{textpos} 
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+% \documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+% \usetheme{metropolis}
+% %\usetheme{Darmstadt}
+% %\usepackage{times}
+% %\usefonttheme{structurebold}
 
-\DeclareMathSizes{10}{10}{6}{6} 
+% \usepackage[english]{babel}
+% %\usepackage[table]{xcolor}
+% \usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+% \usepackage{amsmath,amssymb,setspace}
+% \usepackage[latin1]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage{relsize}
+% \usepackage[absolute,overlay]{textpos} 
+% \newenvironment{reference}[2]{% 
+%   \begin{textblock*}{\textwidth}(#1,#2) 
+%       \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+
+% \DeclareMathSizes{10}{10}{6}{6} 
 
 
 \title [Single-agent dynamic optimization models]{Persistent Unobservables}
@@ -88,7 +90,7 @@ Suppose we think about a model with a friction such as a switching cost.
 
 \begin{frame}{Unobserved State Variables: What happened?}
 \begin{eqnarray*}
-Pr(d_{i1},\ldots,d_{iT} | x_{i1},\ldots,x_{iT} ) &=& \sum_{s}  \prod_{t=1}^T Pr(d_{it} | x_{it} )  p(s_i) \\
+\Pr(d_{i1},\ldots,d_{iT} | x_{i1},\ldots,x_{iT} ) &=& \sum_{s}  \prod_{t=1}^T \Pr(d_{it} | x_{it} )  p(s_i) \\
 \end{eqnarray*}
 \begin{itemize}
 \item \alert{Conditional on $s_i$ replacement decisions are independent across $t$ given $x_{it}$}.
@@ -180,7 +182,7 @@ Instead of using Pakes' notation $r_t$ for the patent revenue. We will use the g
 \end{itemize}
 Likelihood function is 
 \begin{eqnarray*}
-l(i_1,\ldots,i_T | \epsilon_0,i_0,\theta) = \prod_{t=1}^T Prob(i_t | i_0, \ldots,  x_{t-1}, i_{t-1} ; \epsilon_0, \theta)
+\ell(i_1,\ldots,i_T | \epsilon_0,i_0,\theta) = \prod_{t=1}^T \Pr(i_t | i_0, \ldots,  x_{t-1}, i_{t-1} ; \epsilon_0, \theta)
 \end{eqnarray*}
 Serial correlation in $\epsilon$ means there is dependence among $i_{t}, i_{t-2}$ even after conditioning on $x_{t-1},i_{t-1}$. 
 \end{frame}
@@ -195,13 +197,13 @@ Serial correlation in $\epsilon$ means there is dependence among $i_{t}, i_{t-2}
 
 \begin{frame}{Naive Frequency Simulator (Don't do this...)}
 Go back to the full likelihood function (condition on initial $\epsilon_0$ for serial correlation):
-\begin{eqnarray*}
-l(i_1,\ldots,i_T | i_0, \epsilon_0, \theta) = Pr(i_t^{*} (\epsilon_t,\theta) = i_t, \forall t =1,\ldots,T)
-\end{eqnarray*}
+\begin{align*}
+\ell(i_1,\ldots,i_T | i_0, \epsilon_0, \theta) = \Pr(i_t^{*} (\epsilon_t,\theta) = i_t, \quad \forall t =1,\ldots,T)
+\end{align*}
 Need to take probability over distribution of $(\epsilon_1,\ldots,\epsilon_T | \epsilon_0)$.  Let $F(\epsilon_{t+1} | \epsilon_t,\theta)$ then the above probability can be expressed as the integral:
-\begin{eqnarray*}
+\begin{align*}
 \int \cdots \int \prod_t \mathbf{1}(i_t^{*}(\epsilon_t,\theta) = i_t) \prod_t d F(\epsilon_t | \epsilon_{t-1}; \theta)
-\end{eqnarray*}
+\end{align*}
 Simulate by drawing sequences of $(\epsilon_t)$.
 \end{frame}
 
@@ -228,7 +230,7 @@ Simulate by drawing sequences of $(\epsilon_t)$ and for each draw $s=1,\ldots,S$
 And for the case where $(i,x)$ are both discrete (Rust) we can approximate:
 \vspace{-0.5cm}
 \begin{eqnarray*}
-l(i_t,\ldots,i_T | \epsilon_0,i_0;\theta) \approx \frac{1}{S} \sum_s \prod_{t=1}^T \mathbf{1}(i_t^s = i_t)
+\ell(i_t,\ldots,i_T | \epsilon_0,i_0;\theta) \approx \frac{1}{S} \sum_s \prod_{t=1}^T \mathbf{1}(i_t^s = i_t)
 \end{eqnarray*}
 Frequency of simulated sequences which match observed sequence.  $T$ long or $S$ small you're in trouble (non-smooth).
 \end{frame}
@@ -253,8 +255,8 @@ Frequency of simulated sequences which match observed sequence.  $T$ long or $S$
 \end{itemize}
 Go back to the factorized likelihood
 \begin{eqnarray*}
-l(y^T | y_0,\epsilon_0 ) &=& \prod_{t=1}^T l (y_t | y^{t-1},y_0,\epsilon_0) = \prod_{t=1} \int l (y_t |\epsilon^t, y^{t-1}) p(\epsilon^t | y^{t-1} )d \epsilon^t  \\
-&\approx& \frac{1}{S} \sum_s l(y_t | \epsilon^{t | t-1,s},y^{t-1})
+\ell(y^T | y_0,\epsilon_0 ) &=& \prod_{t=1}^T \ell (y_t | y^{t-1},y_0,\epsilon_0) = \prod_{t=1} \int \ell (y_t |\epsilon^t, y^{t-1}) p(\epsilon^t | y^{t-1} )d \epsilon^t  \\
+&\approx& \frac{1}{S} \sum_s \ell(y_t | \epsilon^{t | t-1,s},y^{t-1})
 \end{eqnarray*}
 We omit conditioning on $(\epsilon_0, y_0)$ for convenience, and $\epsilon^{t | t-1,s}$ is a simulated draw of $\epsilon^t \sim p(\epsilon^t | y^{t-1})$.
 \end{frame}
@@ -264,9 +266,9 @@ We omit conditioning on $(\epsilon_0, y_0)$ for convenience, and $\epsilon^{t | 
 \begin{frame}{Importance Sampling: Particle Filtering}
 Let's look more closely at the last line:
 \begin{itemize}
-\item first term: $l(y_t, | \epsilon^t,y^{t-1})$ we can calculate for a value of $\epsilon_t$
+\item first term: $\ell(y_t, | \epsilon^t,y^{t-1})$ we can calculate for a value of $\epsilon_t$
 \begin{eqnarray*}
-l(y_t | \epsilon^t , y^{t-1}) = p(i_t | \epsilon^t, y^{t-1}) = p(i_t | \epsilon_t) = \mathbf{1}(i(\epsilon_t) = i_t)
+\ell(y_t | \epsilon^t , y^{t-1}) = p(i_t | \epsilon^t, y^{t-1}) = p(i_t | \epsilon_t) = \mathbf{1}(i(\epsilon_t) = i_t)
 \end{eqnarray*}
 \item the second term $p(\epsilon^t | y^{t-1})$ is generally not obtainable in closed form. So numerical integration is not feasible. Particle filtering let's us draw $\epsilon^t$ from this distribution for every period $t$.
 \end{itemize}
@@ -322,11 +324,11 @@ And so on. By the last period $t = T$, you have
 \begin{frame}{Prediction Step (continued)}
 Hence the factorized likelihood can be approximated by simulation as:
 \begin{eqnarray*}
-\prod_t \frac{1}{S} \sum_s l (y_t | \epsilon^{t|t-1,s},y^{t-1})
+\prod_t \frac{1}{S} \sum_s \ell (y_t | \epsilon^{t|t-1,s},y^{t-1})
 \end{eqnarray*}
-As noted above, the likelihood term $l(y_t | \epsilon^{t | t-1,s},y^{t-1})$ coincides with the simulation weight $\tau_t^s$. Hence the simulated likelihood can also be constructed as:
+As noted above, the likelihood term $\ell(y_t | \epsilon^{t | t-1,s},y^{t-1})$ coincides with the simulation weight $\tau_t^s$. Hence the simulated likelihood can also be constructed as:
 \begin{eqnarray*}
-\log l (y^T | y_0, \epsilon_0) = \sum_t \log \left\{ \frac{1}{S} \sum_s \tau_t^s \right\}
+\log \ell (y^T | y_0, \epsilon_0) = \sum_t \log \left\{ \frac{1}{S} \sum_s \tau_t^s \right\}
 \end{eqnarray*}
 \end{frame}
 
