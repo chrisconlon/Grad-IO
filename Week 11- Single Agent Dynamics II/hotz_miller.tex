@@ -1,17 +1,18 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
+\input{../resources/preamble.tex}
+% \documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+% \usetheme{metropolis}
+% %\usetheme{Darmstadt}
+% %\usepackage{times}
+% %\usefonttheme{structurebold}
 
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,outline}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\DeclareMathSizes{10}{10}{6}{6} 
+% \usepackage[english]{babel}
+% %\usepackage[table]{xcolor}
+% \usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+% \usepackage{amsmath,amssymb,setspace,outline}
+% \usepackage[latin1]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage{relsize}
+% \DeclareMathSizes{10}{10}{6}{6} 
 
 
 \title{CCPs and Sufficient Statistics: Hotz-Miller (1993)}
@@ -31,14 +32,14 @@
 \begin{frame}{From NDP Notes: Policy Iteration (Howard 1960)}
 An alternative to value function iteration is policy function iteration. 
 \begin{itemize}
-\item Make a guess for an initial policy, call it $a(x) = \arg \max_a U(a,x)$ that maps each state into an action
-\item Assume the guess is stationary compute the implied $V(a,x)$
-\item Improvement Step: improve on policy $a_0$ by solving 
+\item Make a guess for an initial policy, call it $d(x) = \arg \max_d U(d,x)$ that maps each state into an action
+\item Assume the guess is stationary compute the implied $V(d,x)$
+\item Improvement Step: improve on policy $d_0$ by solving 
 \begin{eqnarray*}
-a' = \arg \max_a U(a,x) + \beta \sum_{x'} V(a,x') f (x' | x,a)
+d' = \arg \max_d U(d,x) + \beta \sum_{x'} V(d,x') f (x' | x,d)
 \end{eqnarray*}
-\item Helpful to define $\tilde{f}(x' | x)$ as transition probability under optimal choice $a(x)$ \alert{post-decision transition rule}.
-\item Determine if $\| a' -a\| < \epsilon$. If yes then we have found the optimal policy $a^* $ otherwise we need to go back to step 2.
+\item Helpful to define $\tilde{f}(x' | x)$ as transition probability under optimal choice $d(x)$ \alert{post-decision transition rule}.
+\item Determine if $\| d' -d\| < \epsilon$. If yes then we have found the optimal policy $d^* $ otherwise we need to go back to step 2.
 \end{itemize}
 \end{frame}
 
@@ -49,11 +50,12 @@ Policy Iteration is even easier if choices AND states are discrete.
 \item For Markov transition matrix $\sum_j f_{ij} =1$ ,we want $\pi \, \mathbf{F} = \pi$
 \item $\lim_{t \rightarrow \infty} \mathbf{F}^t = \pi$ where the $j$th element of $\pi$ represents the long run probability of state $j$.
 \item We want the eigenvalue for which $\lambda = 1$.
+\item $\mathbf{\tilde{F}}^k$ is \alert{post-decision transition rule} it depends on \alert{policy function} $d^k(x)$.
 \end{itemize}
 Now updating the value function is easy for $k$th iterate of PI
 \begin{align*}
-V^k(x) &= Eu(a^k(x),x) + \beta \, \mathbf{\tilde{F}}^k \, V^k(x)\\
-\Rightarrow V^k(x) &= [1 - \beta \, \mathbf{\tilde{F}}^k]^{-1}\, Eu(a^k(x),x)
+V^k(x) &= \E u(d^k(x),x) + \beta \, \mathbf{\tilde{F}}^k \, V^k(x)\\
+\Rightarrow V^k(x) &= [1 - \beta \, \mathbf{\tilde{F}}^k]^{-1}\, \E u(d^k(x),x)
 \end{align*}
 \vspace{-.5cm}
 \begin{itemize}
@@ -95,7 +97,7 @@ V^k(x) &= Eu(a^k(x),x) + \beta \, \mathbf{\tilde{F}}^k \, V^k(x)\\
 	\item In Rust (1987), CCPs can be derived from the value function:
 	\begin{align*}
 		p_{j}\left( x\right) = \frac{\partial}{\partial \pi_{j} \left(x \right)} W\left( \pi\left( x \right) 
-		+\beta E\left[V\left(x' \right)|x,j\right]\right)
+		+\beta \E\left[V\left(x' \right)|x,j\right]\right)
 	\end{align*}
 	where  
 	$W\left(u\right) = \int \max_{j} \left\{ u_{j} +\varepsilon_{j}\right\}dG\left( \varepsilon\right)$
@@ -107,7 +109,7 @@ V^k(x) &= Eu(a^k(x),x) + \beta \, \mathbf{\tilde{F}}^k \, V^k(x)\\
 	\end{align*}
 	where the choice specific value function for action $j$ in state $x$ is 
 	\begin{align*}
-	v_{j}\left(x\right) \equiv \pi_{j}\left(x\right)+\beta E\left[V\left(x' \right)|x,j\right]
+	v_{j}\left(x\right) \equiv \pi_{j}\left(x\right)+\beta \E\left[V\left(x' \right)|x,j\right]
 	\end{align*}
 \end{itemize}
 \end{frame}
@@ -340,8 +342,8 @@ In practice, "truncate" the infinite sum at some period $T$:
 & \beta E_{x^T|x^{T-1}, d^{T-1}} E_{d^T|x^T} E_{\epsilon^T|d^T, x^T} [u(x^T, d^T;\theta) + \epsilon^T ]]]
 \end{align*}
 Also, the expectation $E_{\epsilon|d, x}$ denotes the expectation of the $\epsilon$ conditional choice $d$ being taken, and current mileage $x$. For the logit case, there is a closed form:
-$$ E[\epsilon | d, x] = \gamma - \log(Pr(d|x))$$
-where $\gamma$ is Euler's constant ($0.577\cdots$) and $Pr(d|x)$ is the choice probability of action $d$ at state $x$. \\
+$$ E[\epsilon | d, x] = \gamma - \log(P(d|x))$$
+where $\gamma$ is Euler's constant ($0.577\cdots$) and $P(d|x)$ is the choice probability of action $d$ at state $x$. \\
 \vspace{2mm}
 Both of the other expectations in the above expressions are observed directly from the data. 
 \end{frame}
