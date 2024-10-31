@@ -322,12 +322,12 @@ Approximation to the problem:
 In practice, "truncate" the infinite sum at some period $T$: 
 \begin{align*} 
 & \tilde V(x, d=1;\theta) =\\
-& u(x, d=1; \theta) + \beta E_{x'|x, d=1} E_{d'|x'} E_{\epsilon''|d', x'} [u(x', d';\theta) + \epsilon' \\
-& + \beta E_{x''|x', d''} E_{d''|x''} E_{\epsilon'|d'', x''} [u(x'', d'';\theta) + \epsilon'' + \cdots \\
-& \beta E_{x^T|x^{T-1}, d^{T-1}} E_{d^T|x^T} E_{\epsilon^T|d^T, x^T} [u(x^T, d^T;\theta) + \epsilon^T ]]]
+& u(x, d=1; \theta) + \beta \E_{x'|x, d=1} \E_{d'|x'} \E_{\epsilon''|d', x'} [u(x', d';\theta) + \epsilon' \\
+& + \beta \E_{x''|x', d''} \E_{d''|x''} \E_{\epsilon'|d'', x''} [u(x'', d'';\theta) + \epsilon'' + \cdots \\
+& \beta \E_{x^T|x^{T-1}, d^{T-1}} \E_{d^T|x^T} \E_{\epsilon^T|d^T, x^T} [u(x^T, d^T;\theta) + \epsilon^T ]]]
 \end{align*}
 Also, the expectation $E_{\epsilon|d, x}$ denotes the expectation of the $\epsilon$ conditional choice $d$ being taken, and current mileage $x$. For the logit case, there is a closed form:
-$$ E[\epsilon | d, x] = \gamma - \log(P(d|x))$$
+$$ \E[\epsilon | d, x] = \gamma - \log(P(d|x))$$
 where $\gamma$ is Euler's constant ($0.577\cdots$) and $P(d|x)$ is the choice probability of action $d$ at state $x$. \\
 \vspace{2mm}
 Both of the other expectations in the above expressions are observed directly from the data. 
