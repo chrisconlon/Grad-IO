@@ -69,7 +69,7 @@ Suppose we think about a model with a friction such as a switching cost.
 
 \begin{frame}{Unobserved State Variables: What happened?}
 \begin{align*}
-\Pr(d_{i1},\ldots,d_{iT} | x_{i1},\ldots,x_{iT} ) &=& \sum_{s}  \prod_{t=1}^T \Pr(d_{it} | x_{it} ) \, p(s_i) \\
+\Pr(d_{i1},\ldots,d_{iT} | x_{i1},\ldots,x_{iT} ) &= \sum_{s}  \prod_{t=1}^T \Pr(d_{it} | x_{it} ) \, p(s_i) \\
 \end{align*}
 \begin{itemize}
 \item \alert{Conditional on $s_i$ replacement decisions are independent across $t$ given $x_{it}$}.
@@ -169,7 +169,7 @@ Serial correlation in $\varepsilon$ means there is dependence among $i_{t}, i_{t
 \begin{frame}{Simulation}
 \begin{itemize}
 \item It might seem like we were stuck since it no longer has a closed form.  However, we can simulate the ``outer loop'' of the nested fixed point routine given a guess  of $i^*_t(\varepsilon,\theta)$.
-\item Because $\varepsilon$ is serially correlated we need to start with an initial $\varpsilon_0$ (or distribution) and assume that it is known.  This is the \alert{initial conditions problem} of finite MDPs.
+\item Because $\varepsilon$ is serially correlated we need to start with an initial $\varepsilon_0$ (or distribution) and assume that it is known.  This is the \alert{initial conditions problem} of finite MDPs.
 \item Note that simulation is part of the ``outer loop'' of nested fixed point estimation routine. So at the point when we simulate, we already know the policy functions $i_t^{*}(\varepsilon,\theta)$ (How would you compute this?)
 \end{itemize}
 \end{frame}
@@ -288,26 +288,26 @@ By combining the draws from these two terms, we have $\{ \epsilon^{2|1,s}\}_{s=1
 
 \begin{frame}{Prediction Step (Continued)}
 \textbf{Third period, $t = 3$:} start again by factoring
-\begin{eqnarray*}
+\begin{align*}
 p(\epsilon^3 | y^2) = p(\epsilon^2 | y^2) \cdot p(\epsilon^3 | \epsilon^2)
-\end{eqnarray*}
+\end{align*}
 As above, drawing from  requires filtering the draws $\{ \epsilon^{2|1,s}\}_{s=1}^S$, from the previous period $t = 2$, to obtain draws $\{ \epsilon^{2,s}\}_{s=1}^S$. Given these draws, draw $\epsilon_3^s \sim f(\epsilon' | \epsilon^{2,s})$ for each $s$.
 
 And so on. By the last period $t = T$, you have
-\begin{eqnarray*}
+\begin{align*}
 \left\{ \{ \epsilon^{t|t-1,s}\}_{s=1}^S \right\}_{t=1}^T
-\end{eqnarray*}
+\end{align*}
 \end{frame}
 
 \begin{frame}{Prediction Step (continued)}
 Hence the factorized likelihood can be approximated by simulation as:
-\begin{eqnarray*}
+\begin{align*}
 \prod_t \frac{1}{S} \sum_s l (y_t | \epsilon^{t|t-1,s},y^{t-1})
-\end{eqnarray*}
-As noted above, the likelihood term $l(y_t | \epsilon^{t | t-1,s},y^{t-1})$ coincides with the simulation weight $\tau_t^s$. Hence the simulated likelihood can also be constructed as:
-\begin{eqnarray*}
-\log l (y^T | y_0, \epsilon_0) = \sum_t \log \left\{ \frac{1}{S} \sum_s \tau_t^s \right\}
-\end{eqnarray*}
+\end{align*}
+As noted above, the likelihood term $\ell(y_t | \epsilon^{t | t-1,s},y^{t-1})$ coincides with the simulation weight $\tau_t^s$. Hence the simulated likelihood can also be constructed as:
+\begin{align*}
+\ell (y^T | y_0, \epsilon_0) = \sum_t \log \left\{ \frac{1}{S} \sum_s \tau_t^s \right\}
+\end{align*}
 \end{frame}
 
 \begin{frame}{Particle Filtering (Summary)}
