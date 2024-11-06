@@ -1,23 +1,4 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage[absolute,overlay]{textpos} 
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
-
-\DeclareMathSizes{10}{10}{6}{6} 
-
+\input{../resources/preamble}
 
 \title [Single-agent dynamic optimization models]{Persistent Unobservables}
 \author{C.Conlon - Adapted from M. Shum}
@@ -67,7 +48,7 @@
 Suppose we think about a model with a friction such as a switching cost.
 \begin{itemize}
 \item If $y_{it} \neq y_{i,t-1}$ you pay a switching cost $F_i$.
-\item How do we use data to tell apart large switching costs $F_i  \gg0$ from persistent tastes $Cov(\epsilon_{i,t},\epsilon_{i,t-1}) > 0$ ?
+\item How do we use data to tell apart large switching costs $F_i  \gg0$ from persistent tastes $Cov(\varepsilon_{i,t},\varepsilon_{i,t-1}) > 0$ ?
 \item The \alert{conditional independence assumption} tells us it has to be the switching cost not the autocorrelated unobservables.
 \item This is probably why people don't like this assumption.
 \end{itemize}
@@ -87,9 +68,9 @@ Suppose we think about a model with a friction such as a switching cost.
 
 
 \begin{frame}{Unobserved State Variables: What happened?}
-\begin{eqnarray*}
-Pr(d_{i1},\ldots,d_{iT} | x_{i1},\ldots,x_{iT} ) &=& \sum_{s}  \prod_{t=1}^T Pr(d_{it} | x_{it} )  p(s_i) \\
-\end{eqnarray*}
+\begin{align*}
+\Pr(d_{i1},\ldots,d_{iT} | x_{i1},\ldots,x_{iT} ) &=& \sum_{s}  \prod_{t=1}^T \Pr(d_{it} | x_{it} ) \, p(s_i) \\
+\end{align*}
 \begin{itemize}
 \item \alert{Conditional on $s_i$ replacement decisions are independent across $t$ given $x_{it}$}.
 \item The resulting likelihood is just a \alert{finite mixture model}.
@@ -121,10 +102,10 @@ Timing
 
 \begin{frame}{Pakes (1986)}
 Gives us the value function
-\begin{eqnarray*}
+\begin{align*}
 V&\equiv& \max_{t \in [a,L] }\sum_{a'=1}^{L-a} \beta^{a'} R(a+ a') \\
 R(a) &=& \begin{cases} r_a -c_a, & \mbox{if } t \geq a \mbox{ when you hold patent} \\0 & \mbox{if } t < a \mbox{ after patent expires} \end{cases}
-\end{eqnarray*}
+\end{align*}
 \begin{itemize}
 \item $t$ above denotes the age which allows the patent to expire and is the choice variable.  Another \alert{optimal stopping} problem.\\
 \item $R(a)$ are the profits from year $a$.  This is a \alert{controlled stochastic process}. It is random but affected by the actions of the agent.
@@ -138,18 +119,18 @@ R(a) &=& \begin{cases} r_a -c_a, & \mbox{if } t \geq a \mbox{ when you hold pate
 \item The single period revenue $r_a$ is the state variable.
 \item We can solve the problem with \textit{backward recursion}.
 \end{itemize}
-\begin{eqnarray*}
-V_a(r_a) = \max  \left\{0, Q_a \equiv r_a + \beta E[V_{a+1} (r_{a+1} ) | \Omega_a] - c_a  \right\}
-\end{eqnarray*}
+\begin{align*}
+V_a(r_a) = \max  \left\{0, Q_a \equiv r_a + \beta\, \E[V_{a+1} (r_{a+1} ) | \Omega_a] - c_a  \right\}
+\end{align*}
 \vspace{-0.75cm}
 \begin{itemize}
 \item Renew iff $Q_a - c_a > 0$.
 \item $\Omega_a$: history up to age $a = \{r_1,r_2,\ldots,r_a\}$.
 \item Expectation is over $r_{a+1} | \Omega_{a}$. The sequence of conditional distributions $G_a \equiv F(r_{a+1} | \Omega_a)$, $a=1,2,\ldots$ is an important component of model specification.
-\begin{eqnarray*}
+\begin{align*}
 r_{a+1} = \begin{cases} 0  & \mbox{w. prob } \exp(-\theta r_a) \\
 \max(\delta r_a,z) & \mbox{w. prob } 1-\exp(-\theta r_a) \end{cases}
-\end{eqnarray*}
+\end{align*}
 \end{itemize}
 \end{frame}
 
@@ -175,61 +156,60 @@ Implications
 Instead of using Pakes' notation $r_t$ for the patent revenue. We will use the generic Rust notation of $\epsilon_t$ the unobserved state variable, and $i_t$ to denote the choice (renewal).
 \begin{itemize}
 \item For a single patent $\tilde{T}$ denotes the age at which it is allowed to expire. Let $T = \min(L-1,\tilde{T})$ denote the period sins which the agent makes a renewal decision where we model the agent's choice.
-\item $\epsilon$ follows a first-order Markov process $F(\epsilon' | \epsilon)$
-\item Age-specific policy function by $i^*_t(\epsilon)$.
+\item $\varepsilon$ follows a first-order Markov process $F(\varepsilon' | \varepsilon)$
+\item Age-specific policy function by $i^*_t(\varepsilon)$.
 \end{itemize}
 Likelihood function is 
-\begin{eqnarray*}
-l(i_1,\ldots,i_T | \epsilon_0,i_0,\theta) = \prod_{t=1}^T Prob(i_t | i_0, \ldots,  x_{t-1}, i_{t-1} ; \epsilon_0, \theta)
-\end{eqnarray*}
-Serial correlation in $\epsilon$ means there is dependence among $i_{t}, i_{t-2}$ even after conditioning on $x_{t-1},i_{t-1}$. 
+\begin{align*}
+\ell(i_1,\ldots,i_T | \varepsilon_0,i_0,\theta) = \prod_{t=1}^T \Pr(i_t | i_0, \ldots,  x_{t-1}, i_{t-1} ; \varepsilon_0, \theta)
+\end{align*}
+Serial correlation in $\varepsilon$ means there is dependence among $i_{t}, i_{t-2}$ even after conditioning on $x_{t-1},i_{t-1}$. 
 \end{frame}
 
 \begin{frame}{Simulation}
 \begin{itemize}
-\item It might seem like we were stuck since it no longer has a closed form.  However, we can simulate the ``outer loop'' of the nested fixed point routine given a guess  of $i^*_t(\epsilon,\theta)$.
-\item Because $\epsilon$ is serially correlated we need to start with an initial $\epsilon_0$ (or distribution) and assume that it is known.  This is the \alert{initial conditions problem} of finite MDPs.
-\item Note that simulation is part of the ``outer loop'' of nested fixed point estimation routine. So at the point when we simulate, we already know the policy functions $i_t^{*}(\epsilon,\theta)$ (How would you compute this?)
+\item It might seem like we were stuck since it no longer has a closed form.  However, we can simulate the ``outer loop'' of the nested fixed point routine given a guess  of $i^*_t(\varepsilon,\theta)$.
+\item Because $\varepsilon$ is serially correlated we need to start with an initial $\varpsilon_0$ (or distribution) and assume that it is known.  This is the \alert{initial conditions problem} of finite MDPs.
+\item Note that simulation is part of the ``outer loop'' of nested fixed point estimation routine. So at the point when we simulate, we already know the policy functions $i_t^{*}(\varepsilon,\theta)$ (How would you compute this?)
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Naive Frequency Simulator (Don't do this...)}
-Go back to the full likelihood function (condition on initial $\epsilon_0$ for serial correlation):
-\begin{eqnarray*}
-l(i_1,\ldots,i_T | i_0, \epsilon_0, \theta) = Pr(i_t^{*} (\epsilon_t,\theta) = i_t, \forall t =1,\ldots,T)
-\end{eqnarray*}
-Need to take probability over distribution of $(\epsilon_1,\ldots,\epsilon_T | \epsilon_0)$.  Let $F(\epsilon_{t+1} | \epsilon_t,\theta)$ then the above probability can be expressed as the integral:
-\begin{eqnarray*}
-\int \cdots \int \prod_t \mathbf{1}(i_t^{*}(\epsilon_t,\theta) = i_t) \prod_t d F(\epsilon_t | \epsilon_{t-1}; \theta)
-\end{eqnarray*}
-Simulate by drawing sequences of $(\epsilon_t)$.
+Go back to the full likelihood function (condition on initial $\varepsilon_0$ for serial correlation):
+\begin{align*}
+\ell(i_1,\ldots,i_T | i_0, \varepsilon_0, \theta) = \Pr(i_t^{*} (\varepsilon_t,\theta) = i_t, \forall t =1,\ldots,T)
+\end{align*}
+Need to take probability over distribution of $(\varepsilon_1,\ldots,\varepsilon_T | \varepsilon_0)$.  Let $F(\varepsilon_{t+1} | \varepsilon_t,\theta)$ then the above probability can be expressed as the integral:
+\begin{align*}
+\int \cdots \int \prod_t \mathbf{1}(i_t^{*} \left(\varepsilon_t,\theta) = i_t\right) \prod_t d F(\varepsilon_t | \varepsilon_{t-1}; \theta)
+\end{align*}
+Simulate by drawing sequences of $(\varepsilon_t)$.
 \end{frame}
 
 
 \begin{frame}{Naive Frequency Simulator (Don't do this...)}
-Simulate by drawing sequences of $(\epsilon_t)$ and for each draw $s=1,\ldots,S$ we take as initial values $(x_0,i_0,\epsilon_0)$ then
+Simulate by drawing sequences of $(\varepsilon_t)$ and for each draw $s=1,\ldots,S$ we take as initial values $(x_0,i_0,\varepsilon_0)$ then
 \begin{itemize}
-\item Generate $(\epsilon_1^s, i_1^s)$
+\item Generate $(\varepsilon_1^s, i_1^s)$
 	\begin{enumerate}
-	\item Generate $\epsilon_1^s \sim F(\epsilon_1 | \epsilon_0)$ 
-	\item Compute $i_1^s = i_1^{*}(\epsilon_1^s; \theta)$
+	\item Generate $\varepsilon_1^s \sim F(\varepsilon_1 | \varepsilon_0)$ 
+	\item Compute $i_1^s = i_1^{*}(\varepsilon_1^s; \theta)$
 	\end{enumerate}
-\item Generate $(\epsilon_2^s, i_2^s)$
+\item Generate $(\varepsilon_2^s, i_2^s)$
 	\begin{enumerate}
-	\item Generate $\epsilon_2^s \sim F(\epsilon_2 | \epsilon_1^s)$ 
-	\item Subsequently compute $i_2^s = i_2^{*}(\epsilon_2^s; \theta)$
+	\item Generate $\varepsilon_2^s \sim F(\varepsilon_2 | \varepsilon_1^s)$ 
+	\item Subsequently compute $i_2^s = i_2^{*}(\varepsilon_2^s; \theta)$
 	\end{enumerate}
-\item And so on, up to $(\epsilon_T^s,i_T^s)$.
+\item And so on, up to $(\varepsilon_T^s,i_T^s)$.
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Naive Frequency Simulator (Don't do this...)}
 And for the case where $(i,x)$ are both discrete (Rust) we can approximate:
-\vspace{-0.5cm}
-\begin{eqnarray*}
-l(i_t,\ldots,i_T | \epsilon_0,i_0;\theta) \approx \frac{1}{S} \sum_s \prod_{t=1}^T \mathbf{1}(i_t^s = i_t)
-\end{eqnarray*}
+\begin{align*}
+\ell(i_t,\ldots,i_T | \varepsilon_0,i_0;\theta) \approx \frac{1}{S} \sum_s \prod_{t=1}^T \mathbf{1}(i_t^s = i_t)
+\end{align*}
 Frequency of simulated sequences which match observed sequence.  $T$ long or $S$ small you're in trouble (non-smooth).
 \end{frame}
 
