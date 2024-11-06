@@ -1,17 +1,5 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
+\input{../resources/preamble.tex}
 
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,outline}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\DeclareMathSizes{10}{10}{6}{6} 
 
 
 \title [Single-agent dynamic optimization models]{Single-agent dynamic optimization models}
@@ -207,7 +195,7 @@ This is the period $t$ expectation of the $t+1$ period continuation value.
 \begin{frame}
 \frametitle{Assumptions}
 \footnotesize
-\begin{block}{First Order Markov}\end{block}\vspace{-0.5cm}
+\begin{block}{First Order Markov}\end{block}
 \begin{block}{Conditional Independence Assumption}
 The transition density of the controlled process $\left\{x_{t},\varepsilon_{t}\right\}$ factors as:\[
 p\left(x_{t+1},\varepsilon_{t+1}|x_{t},\varepsilon_{t},i_{t},\theta_{2},\theta_{3}\right)
@@ -234,12 +222,12 @@ For now we will also assume that $ q\left(\varepsilon_{t+1}|x_{t+1},\theta_{2}\r
 Given the assumptions:
 \begin{align*}
 V_{\theta}(x_t,\varepsilon_t) &= \max \left\{ \tilde V_{\theta} (x_t, \varepsilon_t, 1) + \varepsilon_{t}(1) ,\tilde V_{\theta} (x_t, \varepsilon_t, 0) + \varepsilon_{t}(0) \right\}\\
-Pr(i_t=1 | x_t,\varepsilon_t,\theta) &= Pr\left(\varepsilon_{t}(1) - \varepsilon_{t}(0) \geq \tilde V_{\theta} (x_t, \varepsilon_t, 0) - \tilde V_{\theta} (x_t, \varepsilon_t, 1) \right) \\
+\Pr(i_t=1 | x_t,\varepsilon_t,\theta) &= \Pr\left(\varepsilon_{t}(1) - \varepsilon_{t}(0) \geq \tilde V_{\theta} (x_t, \varepsilon_t, 0) - \tilde V_{\theta} (x_t, \varepsilon_t, 1) \right) \\
 &= \frac {\exp[\tilde V_{\theta} (x_t, \varepsilon_t, 1)]  }{\exp[\tilde V_{\theta} (x_t, \varepsilon_t, 0)] + \exp[\tilde V_{\theta} (x_t, \varepsilon_t, 1)]} 
 \end{align*}
 This expression is logit-like. Recall the static logit:
 \begin{align*}
-Pr(i_t=1 | x_t,\varepsilon_t,\theta) &= \frac {\exp[u_{\theta} (x_t, 1)]  }{\exp[u_{\theta} (x_t, 0)] + \exp[u_{\theta} (x_t, 1)]} 
+\Pr(i_t=1 | x_t,\varepsilon_t,\theta) &= \frac {\exp[u_{\theta} (x_t, 1)]  }{\exp[u_{\theta} (x_t, 0)] + \exp[u_{\theta} (x_t, 1)]} 
 \end{align*}
 \end{frame}
 
@@ -262,7 +250,7 @@ Pr(i_t=1 | x_t,\varepsilon_t,\theta) &= \frac {\exp[u_{\theta} (x_t, 1)]  }{\exp
 \begin{block}{Theorem 1}
 Given CI,
 \begin{align*}
-	P\left(i|x,\theta\right) = \frac{\partial}{\partial \pi \left(x,i,\theta_{1}\right)} W\left( \pi \left(x,\theta_{1}\right) +\beta EV_{\theta}\left(x\right) |x,\theta_{2}\right)
+	\Pr\left(i|x,\theta\right) = \frac{\partial}{\partial \pi \left(x,i,\theta_{1}\right)} W\left( \pi \left(x,\theta_{1}\right) +\beta EV_{\theta}\left(x\right) |x,\theta_{2}\right)
 \end{align*}
 and  $EV_{\theta}$ is the unique fixed point of the contraction mapping:
 \begin{align*} 
@@ -271,7 +259,7 @@ and  $EV_{\theta}$ is the unique fixed point of the contraction mapping:
 	p\left(dy|x,i,\theta_{3}\right)
 \end{align*}
 \begin{itemize}
-	\item $P\left(i|x,\theta\right)$ is the probability of action $i$ conditional on state $x$
+	\item $\Pr\left(i|x,\theta\right)$ is the probability of action $i$ conditional on state $x$
 	\item $W\left( \cdot |x,\theta_{2}\right)$ is the (ex-ante) surplus function: 
 	\begin{align*}
 	W\left(v |x,\theta_{2}\right) \equiv \int_{\varepsilon}  \max_{i} \left[v\left( i \right) +\varepsilon\left( i \right)\right] 
@@ -305,7 +293,7 @@ and  $EV_{\theta}$ is the unique fixed point of the contraction mapping:
 	\smallskip
 	\item It is then easy to derive expressions for conditional choice probabilities:
 	\begin{align*}
-	P\left(i|x,\theta\right)= \frac{\exp\left(v_{\theta}\left(x,i\right)\right)}{\sum_{i'}\exp\left(v_{\theta}\left(x,i'\right)\right)}
+	\Pr\left(i|x,\theta\right)= \frac{\exp\left(v_{\theta}\left(x,i\right)\right)}{\sum_{i'}\exp\left(v_{\theta}\left(x,i'\right)\right)}
 	\end{align*}
 	\smallskip
 	\item The conditional value function plays the same role as a static utility function

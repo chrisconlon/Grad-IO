@@ -1,18 +1,4 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,outline}
-\usepackage{hyperref,url}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\DeclareMathSizes{10}{10}{6}{6} 
+\input{../resources/preamble.tex}
 
 
 \title [Single-agent dynamic optimization models]{Single-agent dynamic optimization models}
@@ -33,9 +19,9 @@ Likelihood function for a single bus:
 \begin{equation*}
 \begin{split}
 & l (x_1, \cdots , x_T, i_t, \cdots , i_T | x_0, i_0 ; \theta) \\
-= & \prod^T_{t=1} Prob (i_t, x_t | x_0, i_0, \cdots , x_{t-1}, i_{t-1} ; \theta) \\
-= & \prod^T_{t=1} Prob (i_t, x_t |  x_{t-1}, i_{t-1} ; \theta) \\
-= & \prod^T_{t=1} Prob (i_t | x_t; \theta) \cdot \prod^T_{t=1} Prob (x_t | x_{t-1}, i_{t-1} ; \theta_3) .
+= & \prod^T_{t=1} \Pr(i_t, x_t | x_0, i_0, \cdots , x_{t-1}, i_{t-1} ; \theta) \\
+= & \prod^T_{t=1} \Pr(i_t, x_t |  x_{t-1}, i_{t-1} ; \theta) \\
+= & \prod^T_{t=1} \Pr(i_t | x_t; \theta) \cdot \prod^T_{t=1} \Pr (x_t | x_{t-1}, i_{t-1} ; \theta_3) .
 \end{split}
 \end{equation*}
 The third line arises from the Markovian feature of the problem, and the last equality arises due to the conditional independence assumption. 
@@ -44,7 +30,7 @@ The third line arises from the Markovian feature of the problem, and the last eq
 \begin{frame}{Rust (1987)}
 Log likelihood is additively separable in the two components:
 \begin{equation*}
-\text{log } l(\theta) = \sum^T_{t=1} \text{log } Prob (i_t | x_t ; \theta_1) + \sum^T_{t=1} \text{log } Prob (x_t | x_{t-1}, i_{t-1}; \theta_3).
+\text{log } l(\theta) = \sum^T_{t=1} \text{log } \Pr (i_t | x_t ; \theta_1) + \sum^T_{t=1} \text{log } \Pr (x_t | x_{t-1}, i_{t-1}; \theta_3).
 \end{equation*}
 Give the factorization of the likelihood function above, we can estimate in two steps... \\
 \vspace{3mm}
@@ -83,11 +69,11 @@ Start by treating $(\beta, \hat \theta_3)$ as given:
 \item Iterate on the Bellman Operator for $(\beta,\theta_1,\theta_3,RC)$ using \alert{Value Function Iteration} to get $V^*(x,\varepsilon)$ or $\tilde V^*(x,\varepsilon)$.
 \item Calculate \alert{conditional choice probabilities} (CCPs):
 \begin{align*}
-Pr(i_t=1 | x_t,\varepsilon_t,\theta) &=  \frac {\exp[ \tilde V_{\theta} (x_t, \varepsilon_t, 1)]  }{\exp[\tilde  V_{\theta} (x_t, \varepsilon_t, 0)] + \exp[ \tilde  V_{\theta} (x_t, \varepsilon_t, 1)]} 
+\Pr(i_t=1 | x_t,\varepsilon_t,\theta) &=  \frac {\exp[ \tilde V_{\theta} (x_t, \varepsilon_t, 1)]  }{\exp[\tilde  V_{\theta} (x_t, \varepsilon_t, 0)] + \exp[ \tilde  V_{\theta} (x_t, \varepsilon_t, 1)]} 
 \end{align*} 
 \item Evaluate the log-likelihood:
 \begin{align*}
-\log l(\theta) = \sum^T_{t=1} \log \text{Pr} (i_t | x_t ; \theta_1,RC) + \underbrace{\sum^T_{t=1} \log \text{Pr} (x_t | x_{t-1}, i_{t-1}; \hat{\theta}_3)}_{\text{Can Ignore! Why?}}
+\ell(\theta) = \sum^T_{t=1} \log \Pr (i_t | x_t ; \theta_1,RC) + \underbrace{\sum^T_{t=1} \log \Pr (x_t | x_{t-1}, i_{t-1}; \hat{\theta}_3)}_{\text{Can Ignore! Why?}}
 \end{align*}
 \end{enumerate}
 Solve via MLE. This is the \alert{Nested Fixed Point} algorithm.
@@ -112,12 +98,12 @@ That looked easy, except that I never really showed you how to recover $\tilde{V
 \begin{itemize}
 \item Rust has a nice trick that let's us work with a new function $EV_{\theta}(x,i)$ instead of $V_{\theta}(x,i,\varepsilon)$ we call this the \alert{ex ante} or \alert{expected value function}.
 \begin{eqnarray*}
-EV(x, i) \equiv E_{x', \varepsilon ' | x, i} V(x', \varepsilon ' ; \theta)
+EV(x, i) \equiv \E_{x', \varepsilon ' | x, i} V(x', \varepsilon ' ; \theta)
 \end{eqnarray*}
 \item In words $EV_{\theta}(x,i)$ says at time $t-1$ what is the expected value of $V_{\theta}(x_t,\varepsilon_t)$ [eq 4.14].
-\begin{eqnarray*}
-\resizebox{.9\hsize}{!}{$EV(x,i) = \int_y \log \left \{ \sum_{j \in C(y)} \exp [ u(y,j; \theta) + \beta EV(y, j)] \right \} p(dy|x,i) $}
-\end{eqnarray*}
+\begin{align*}
+EV(x,i) = \int_y \log \left \{ \sum_{j \in C(y)} \exp [ u(y,j; \theta) + \beta EV(y, j)] \right \} p(dy|x,i)
+\end{align*}
 \item Here $x, i$ denotes the \emph{previous} period's mileage and replacement choice, and $y, j$ denote the \emph{current} period's mileage and choice. 
 \end{itemize}
 \end{frame}
@@ -128,10 +114,10 @@ This \alert{ex ante value function} can be derived from Bellman's equation:
 \begin{align*}
 \begin{split}
 V(y, \varepsilon ;\theta) = & \max_{j \in 0,1} [ u(y, j ; \theta) + \varepsilon_j + \beta EV(y,j)] \\
-\Longrightarrow & E_{y, \varepsilon} [V(y, \varepsilon ; \theta) | x, i ] \equiv  EV(x, i ; \theta) \\
-= & E_{y, \varepsilon | x, i } \left \{ \max_{ j \in 0,1} [ u(y, j ; \theta) + \varepsilon_j + \beta EV(y,j)] \right \} \\
-= &  E_{y | x, i }  E_{\varepsilon | x, i } \left \{ \max_{ j \in 0,1} [ u(y, j ; \theta) + \varepsilon_j + \beta EV(y,j)] \right \} \\
-= &  E_{y | x, i } \log \left \{ \sum_{j=0,1} \exp [ u(y, j ; \theta)  + \beta EV(y,j)] \right \} \\
+\Longrightarrow & \E_{y, \varepsilon} [V(y, \varepsilon ; \theta) | x, i ] \equiv  EV(x, i ; \theta) \\
+= & \E_{y, \varepsilon | x, i } \left \{ \max_{ j \in 0,1} [ u(y, j ; \theta) + \varepsilon_j + \beta EV(y,j)] \right \} \\
+= &  \E_{y | x, i }  \E_{\varepsilon | x, i } \left \{ \max_{ j \in 0,1} [ u(y, j ; \theta) + \varepsilon_j + \beta EV(y,j)] \right \} \\
+= &  \E_{y | x, i } \log \left \{ \sum_{j=0,1} \exp [ u(y, j ; \theta)  + \beta EV(y,j)] \right \} \\
 = & \int_y \log  \left \{ \sum_{j=0,1} \exp [ u(y, j ; \theta)  + \beta EV(y,j)] \right \} p(dy|x,i).
 \end{split}
 \end{align*}

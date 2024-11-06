@@ -1,31 +1,20 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
-\usetheme{metropolis}
-%\usepackage{times}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,outline}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-
-\newcommand{\abs}[1]{\lvert#1\rvert}
-\newcommand{\norm}[1]{\lVert#1\rVert}
-
-%\usepackage{transparent}
-\DeclareMathSizes{10}{10}{6}{6} 
+\input{../resources/preamble.tex}
 
 
+
+
+\title [MPEC]{MPEC Approach}
+\author{C.Conlon - thanks to late great Che-Lin Su}
+\institute{Grad IO }
+\date{}
+\setbeamerfont{equation}{size=\tiny}
 
 \begin{document}
-\title{MPEC notes}
-\author{Chris Conlon\\
- thanks to the late, great Che-Lin Su}
-\institute{Grad IO}
-\date{\today}
-\footnotesize
-\frame{\titlepage}
+\begin{frame}
+\titlepage
+\end{frame}
+
+
 
 \frame{\frametitle{Extremum Estimators}
 Often faced with extremum estimator problems in econometrics (ML, GMM, MD, etc.)  that look like:
@@ -116,7 +105,7 @@ V_{\alert{\theta}} (x_t) = \sum_{f_t,f_{t+1},\ldots} E \left\{  \sum_{j=t}^{\inf
 \begin{itemize}
 \item Outer Loop: Solve Likelihood
 \begin{align*}
-\max_{\alert{\theta} \geq 0} \mathcal{L}(\theta) &= \prod_{t=2}^T P(d_t | x_t, \alert{\theta^c}, \alert{RC}) p(x_t | x_{t-1}, d_{t-1},\alert{\theta^p})\\
+\max_{\alert{\theta} \geq 0} \mathcal{L}(\theta) &= \prod_{t=2}^T \Pr(d_t | x_t, \alert{\theta^c}, \alert{RC}) p(x_t | x_{t-1}, d_{t-1},\alert{\theta^p})\\
 \end{align*}
 \item Convergence test: $\norm{\nabla_{\theta} \mathcal{L}(\alert{\theta})} \leq \alert{\epsilon_{out}}$
 \item Inner Loop: Compute expected value function $ \textcolor{blue}{EV}_{\alert{\theta}}$ for a given $\alert{\theta}$
@@ -124,7 +113,7 @@ V_{\alert{\theta}} (x_t) = \sum_{f_t,f_{t+1},\ldots} E \left\{  \sum_{j=t}^{\inf
 \begin{align*}
  \textcolor{blue}{EV}_{\alert{\theta}} = T_{\alert{\theta}}( \textcolor{blue}{EV}_{\alert{\theta}})
 \end{align*}
-\item Convergence test: $\norm{ \textcolor{blue}{EV}^{(k+1)}_{\alert{\theta}} - \textcolor{blue}{EV}^{(k)}_{\alert{\theta}} } \leq \alert{\epsilon_{in}}$
+\item Convergence test: $\norm{ EV^{(k+1)}_{\alert{\theta}} - EV^{(k)}_{\alert{\theta}} } \leq \alert{\epsilon_{in}}$
 \item Start with contraction iterations and polish with Newton Steps
 \end{itemize}
 \end{frame}
