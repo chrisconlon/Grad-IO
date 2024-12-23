@@ -1,23 +1,7 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,centernot}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage{pdfpages}
-\usepackage[absolute,overlay]{textpos} 
-
-\DeclareMathSizes{10}{10}{6}{6} 
+\input{../resources/preamble.tex}
 
 
-\title [Dynamic Demand I]{Dynamic Demand I:\\
+\title [Dynamic Demand II]{Dynamic Demand II:
  Durable Goods }
 \author{C.Conlon}
 \institute{Grad IO}
@@ -42,8 +26,8 @@
 \frametitle{G+R: Assumptions}
  We can formally write down a dynamic programming problem that consumers solve:
 \begin{eqnarray*}
-V_i(f_{i0t},\varepsilon_{i t}, \Omega_t) &=& \max \{ f_{i0t} + \beta E_{\Omega}[ E_{\varepsilon} V_i (f_{i0t}, \varepsilon_{it}, \Omega_{t+1}) |\Omega_{t} ] ,\\
-&& \max_j f_{ijt}  -\alpha_i p_{jt} + \beta E_{\Omega}[ E_{\varepsilon} V_i (f_{ijt}, \varepsilon_{it}, \Omega_{t+1}) |\Omega_{t} ]  \}
+V_i(f_{i0t},\varepsilon_{i t}, \Omega_t) &=& \max \{ f_{i0t} + \beta \E_{\Omega}[ \E_{\varepsilon} V_i (f_{i0t}, \varepsilon_{it}, \Omega_{t+1}) |\Omega_{t} ] ,\\
+&& \max_j f_{ijt}  -\alpha_i p_{jt} + \beta \E_{\Omega}[ \E_{\varepsilon} V_i (f_{ijt}, \varepsilon_{it}, \Omega_{t+1}) |\Omega_{t} ]  \}
 \end{eqnarray*}
 For a dynamic model to make sense we may want to place some restrictions:
 \begin{itemize}
@@ -73,20 +57,20 @@ This Bellman has defined a \textit{Replacement Problem}.
 \frametitle{Inclusive Value}
  Helpful to write: $EV_i(\Omega_t)= \int V_i(\varepsilon_{it},  \Omega_t)f(\varepsilon)$ \alert{Rust's Trick}
 \begin{eqnarray*}
-V_i(f_{i0t},\varepsilon_{i t}, \Omega_t) &=& \max \{ f_{i0t} + \beta E_{\Omega}[ EV_i (f_{i0t}, \Omega_{t+1}) |\Omega_{t} ] + \varepsilon_{i0t},\\
-&& \max_j f_{ijt}  -\alpha_i p_{jt} + \beta E_{\Omega}[ E V_i (f_{ijt}, \Omega_{t+1}) |\Omega_{t}] + \varepsilon_{ijt}  \}
+V_i(f_{i0t},\varepsilon_{i t}, \Omega_t) &=& \max \{ f_{i0t} + \beta \E_{\Omega}[ EV_i (f_{i0t}, \Omega_{t+1}) |\Omega_{t} ] + \varepsilon_{i0t},\\
+&& \max_j f_{ijt}  -\alpha_i p_{jt} + \beta \E_{\Omega}[ E V_i (f_{ijt}, \Omega_{t+1}) |\Omega_{t}] + \varepsilon_{ijt}  \}
 \end{eqnarray*}
 We can write the \alert{ex-ante} expected utility of purchasing in period $t$ without having to condition on which good you purchase:
 \begin{eqnarray*} 
-\delta_{i}(\Omega_t) &=& E_{\varepsilon} [ \max_j f_{ijt}  -\alpha_i p_{jt} + \beta E_{\Omega}[ E V_i (f_{ijt}, \Omega_{t+1}) |\Omega_{t}] + \varepsilon_{ijt}]  \\
-&=& \log \left( \sum_j \exp[ f_{ijt}  -\alpha_i p_{jt} + \beta E_{\Omega}[ E V_i (f_{ijt}, \Omega_{t+1}) |\Omega_{t}] ]  \right)
+\delta_{i}(\Omega_t) &=& \E_{\varepsilon} [ \max_j f_{ijt}  -\alpha_i p_{jt} + \beta \E_{\Omega}[ E V_i (f_{ijt}, \Omega_{t+1}) |\Omega_{t}] + \varepsilon_{ijt}]  \\
+&=& \log \left( \sum_j \exp[ f_{ijt}  -\alpha_i p_{jt} + \beta \E_{\Omega}[ E V_i (f_{ijt}, \Omega_{t+1}) |\Omega_{t}] ]  \right)
 \end{eqnarray*}
 \end{frame}
 
 \begin{frame}
 \frametitle{Inclusive Value Sufficiency}
 \begin{eqnarray*}
-\small EV_i(f_{i0}, \Omega) = \log\left( \exp[ f_{i0} + \beta E_{\Omega'}[ EV_i (f_{i0}, \Omega') |\Omega]] + \exp(\delta_i(\Omega))  \right) + \eta
+\small EV_i(f_{i0}, \Omega) = \log\left( \exp[ f_{i0} + \beta \E_{\Omega'}[ EV_i (f_{i0}, \Omega') |\Omega]] + \exp(\delta_i(\Omega))  \right) + \eta
 \end{eqnarray*}
 \footnotesize 
 \alert{where $\eta = 0.577215665$ (Euler's Constant).}\\
@@ -105,8 +89,8 @@ If $\delta_i(\Omega) = \delta_i(\tilde{\Omega})$ then $g(\delta_i(\Omega') | \Om
 \frametitle{Inclusive Value Sufficiency}
 Under IVS the problem reduces to
 \begin{eqnarray*}
-EV_i(f_{i0}, \alert{\delta_i}) &=& \log\left[ \exp( f_{i0} + \beta E_{\Omega'}[ EV_i (f_{i0}, \alert{\delta_i'}) |\alert{\delta_i}] )+ \exp(\alert{\delta_i})  \right]\\
-\alert{\delta_{i}} &=& \log \left( \sum_j \exp[ f_{ijt}  -\alpha_i p_{jt} + \beta E_{\alert{\delta'}}[ E V_i (f_{ijt}, \alert{\delta_i'}) |\alert{\delta_i} ]  \right)
+EV_i(f_{i0}, \alert{\delta_i}) &=& \log\left[ \exp( f_{i0} + \beta \E_{\Omega'}[ EV_i (f_{i0}, \alert{\delta_i'}) |\alert{\delta_i}] )+ \exp(\alert{\delta_i})  \right]\\
+\alert{\delta_{i}} &=& \log \left( \sum_j \exp[ f_{ijt}  -\alpha_i p_{jt} + \beta \E_{\alert{\delta'}}[ E V_i (f_{ijt}, \alert{\delta_i'}) |\alert{\delta_i} ]  \right)
 \end{eqnarray*}
 The idea is that the inclusive value $\delta_{it}$ IS the state space, along with his current holding of the durable $f_{i0t}$.
 \end{frame}
@@ -116,7 +100,7 @@ The idea is that the inclusive value $\delta_{it}$ IS the state space, along wit
 \frametitle{Rational Expectations}
 We still have the expectation to deal with: 
 \begin{eqnarray*}
-E_{\alert{\delta'}}[ E V_i (f_{ijt}, \alert{\delta_i'}) |\alert{\delta_i} ]
+\E_{\alert{\delta'}}[ E V_i (f_{ijt}, \alert{\delta_i'}) |\alert{\delta_i} ]
 \end{eqnarray*}
 We need to take a stand on $g_i(\delta_i' | \delta_i)$ the anticipated law of motion for $\delta_i$.  G\&R assume it follows an $AR(1)$ process.
 \begin{eqnarray*}
@@ -130,7 +114,7 @@ If we see $\delta_{it}$ we could just run the $AR(1)$ regression to get consumer
 \frametitle{Rational Expectations-Interpolation}
 I still haven't told you how to compute
 \begin{eqnarray*}
-E_{\delta'}[ E V_i (f_{ijt}, \delta_i') |\delta_i ,\gamma]= \int EV_i(f_{ijt},\delta_{i}') g(\delta' | \delta,\gamma)
+\E_{\delta'}[ E V_i (f_{ijt}, \delta_i') |\delta_i ,\gamma]= \int EV_i(f_{ijt},\delta_{i}') g(\delta' | \delta,\gamma)
 \end{eqnarray*}
 \vspace{-0.5cm}
 \begin{enumerate}
@@ -146,7 +130,7 @@ E_{\delta'}[ E V_i (f_{ijt}, \delta_i') |\delta_i ,\gamma]= \int EV_i(f_{ijt},\d
 \frametitle{Rational Expectations-Alternative}
 There is an alternative method that is likely to be less accurate
 \begin{eqnarray*}
-E_{\delta'}[ E V_i (f_{ijt}, \delta_i') |\delta_i, \gamma ]= \int EV_i(f_{ijt},\delta_{i}') g(\delta' | \delta, \gamma)
+\E_{\delta'}[ E V_i (f_{ijt}, \delta_i') |\delta_i, \gamma ]= \int EV_i(f_{ijt},\delta_{i}') g(\delta' | \delta, \gamma)
 \end{eqnarray*}
 \begin{enumerate}
 \item We need to integrate $EV(f_{ijt},\delta_i)$ (a function) over a normal density but we only see it at the grid points of our state space.
@@ -161,10 +145,10 @@ We need to solve $\forall i, t $:
 \begin{eqnarray*}
 S_{jt} &=& \sum_i w_i s_{ijt}(f_{i0t},\delta_{it})\\
 f_{ijt} &=& \overline{\alpha} x_{jt} + \xi_{jt} + \sum_l \sigma_l x_{jl} \nu_{il} \\
-s_{ijt}(f_{i0t},\delta_{it}) &=& \frac{\exp[f_{ijt} - \alpha_i p_{jt} + \beta E_{\Omega'}[ EV_i (f_{ijt}, \delta_i') |\delta_i] }{\exp [EV_i(f_{i0t},\delta_{it}) ]}\\
-EV_i(f_{i0}, \delta_i) &=& \log\left[ \exp( f_{i0} + \beta E_{\Omega'}[ EV_i (f_{i0}, \delta_i') |\delta_i] )+ \exp(\delta_i)  \right]\\
-\delta_{i}(EV_i) &=& \log \left( \sum_j \exp[ f_{ijt}  -\alpha_i p_{jt} + \beta E_{\delta'}[ E V_i (f_{ijt}, \delta_i') |\delta_i ]  \right)\\
-E[\delta_{it+1} | \delta_{it}] &=& \gamma_0 + \gamma_1 \delta_{it}\\
+s_{ijt}(f_{i0t},\delta_{it}) &=& \frac{\exp[f_{ijt} - \alpha_i p_{jt} + \beta \E_{\Omega'}[ EV_i (f_{ijt}, \delta_i') |\delta_i] }{\exp [EV_i(f_{i0t},\delta_{it}) ]}\\
+EV_i(f_{i0}, \delta_i) &=& \log\left[ \exp( f_{i0} + \beta \E_{\Omega'}[ EV_i (f_{i0}, \delta_i') |\delta_i] )+ \exp(\delta_i)  \right]\\
+\delta_{i}(EV_i) &=& \log \left( \sum_j \exp[ f_{ijt}  -\alpha_i p_{jt} + \beta \E_{\delta'}[ E V_i (f_{ijt}, \delta_i') |\delta_i ]  \right)\\
+\E[\delta_{it+1} | \delta_{it}] &=& \gamma_0 + \gamma_1 \delta_{it}\\
 w_{i,t+1} &=&h(w_{i,t},s_{ijt})\\
 \end{eqnarray*}
 \end{frame}
@@ -210,7 +194,7 @@ w_{i,t+1} &=&h(w_{i,t},s_{ijt})\\
 \begin{frame}{Perfect Foresight}
 G\&R Report similar elasticities in the perfect foresight case. We make the following simplification
 \begin{eqnarray*}
-E_{\Omega'}[ EV_i (f_{i0}, \delta_{i,t+1}) |\delta_{i,t}] )] = EV_i (f_{i0}, \delta_{i,t+1})
+\E_{\Omega'}[ EV_i (f_{i0}, \delta_{i,t+1}) |\delta_{i,t}] )] = EV_i (f_{i0}, \delta_{i,t+1})
 \end{eqnarray*}
 This saves us a lot of headaches:
 \begin{itemize}

@@ -1,28 +1,13 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
+\input{../resources/preamble.tex}
 
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,centernot}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage{pdfpages}
-\usepackage[absolute,overlay]{textpos} 
-
-\DeclareMathSizes{10}{10}{6}{6} 
-
-
-\title [Dynamic Demand I]{Dynamic Demand I:\\
- Overview}
+\title [Dynamic Demand II]{Dynamic Demand I: Overview }
 \author{C.Conlon}
-\institute{Grad IO}
-\date{\today}
+\institute{Grad IO }
+\date{}
 \setbeamerfont{equation}{size=\tiny}
+
+
+
 \begin{document}
 
 \begin{frame}
@@ -293,7 +278,7 @@ What would we do?
 \begin{frame}{Dynamic Demand: Relaxing some assumptions}
 Problematic assumption was probably full information. Suppose instead that only $(\varepsilon_{ij2},\varepsilon_{i0})$ are \alert{unobserved} in $t=1$. 
 \begin{align*}
-v_{i0,t=1} \equiv E_{\varepsilon} [\max_j u_{ij2} | \Omega_{t=1} ] = \log \left( \sum_j \exp [ \alpha_i x_{j2}  +  \xi_{j2} ] \right) + \eta
+v_{i0,t=1} \equiv \E_{\varepsilon} [\max_j u_{ij2} | \Omega_{t=1} ] = \log \left( \sum_j \exp [ \alpha_i x_{j2}  +  \xi_{j2} ] \right) + \eta
 \end{align*}
 \begin{itemize}
 \item $\Omega_{t=1}= \{x_{j1},x_{j2},\xi_{j1},\xi_{j2},\varepsilon_{ij1}\}$ (everything known at $t=1$) 
@@ -301,7 +286,7 @@ v_{i0,t=1} \equiv E_{\varepsilon} [\max_j u_{ij2} | \Omega_{t=1} ] = \log \left(
 \item What about outside good?
 \begin{itemize}
 \item Either just another good in $t=2$ with $\alpha_i x_{j2}+ \xi_{j2} = 0$
-\item Or we consider $v_{i0,t=2}=E [\max \{ \varepsilon_{i0}, \max_j u_{ij2} \}  | \Omega_{t=1}]$
+\item Or we consider $v_{i0,t=2}=\E [\max \{ \varepsilon_{i0}, \max_j u_{ij2} \}  | \Omega_{t=1}]$
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -311,7 +296,7 @@ v_{i0,t=1} \equiv E_{\varepsilon} [\max_j u_{ij2} | \Omega_{t=1} ] = \log \left(
 \item This assumed that $x_{j2}$ and $\xi_{j2}$ were observed in $\Omega_{t=1}$.
 \item Maybe we want to make some component of $x_{j2}$ \alert{unobserved} (such as price or $\xi$).
 $$
-E_t\left[ \log \left( \sum_j \exp [ \alpha_i p_{j2}  +  \xi_{j2} ] \right)\big| \Omega_t\right]= 
+\E_t\left[ \log \left( \sum_j \exp [ \alpha_i p_{j2}  +  \xi_{j2} ] \right)\big| \Omega_t\right]= 
 \int \log \left( \sum_j \exp [ \alpha_i p_{j2}  +  \xi_{j2} ] \right)  g(\mathbf{p_2} | \Omega_t) 
 $$
 \end{itemize}
@@ -320,12 +305,12 @@ Integrate out over the unknown (distribution depends on information $\Omega_t$)
 
 \begin{frame}{Dynamic Demand: Rational Expectations}
 $$
-E_t\left[ \log \left( \sum_j \exp [ \alpha_i x_{j2}  +  \xi_{j2} ] \right)\big| \Omega_t\right]= 
+\E_t\left[ \log \left( \sum_j \exp [ \alpha_i x_{j2}  +  \xi_{j2} ] \right)\big| \Omega_t\right]= 
 \log \left( \sum_j \exp [ \alpha_i x_{j2}  +  \xi_{j2} ] \right)  + \eta+  \zeta_{it}
 $$
 Rational expectations implies that expectational error $\zeta_{it}$ is orthogonal to everything known at $\Omega_t$
 \begin{itemize}
-\item Can't use anything in $\Omega_t$ to predict $\zeta_{it}$ so $E_t[\zeta_{it} \times A(\Omega_t)]=0$
+\item Can't use anything in $\Omega_t$ to predict $\zeta_{it}$ so $\E_t[\zeta_{it} \times A(\Omega_t)]=0$
 \end{itemize}
 \end{frame}
 
@@ -387,11 +372,11 @@ Replacement / Upgrades:
 \item Same idea:
 \begin{align*}
 u_{ijt} &=   \alpha_i x_{jt}  +  \xi_{jt} + \varepsilon_{ijt}\\
-u_{i0t} &=  \alert{\overline{u}_{i0t}} + E[\max_j u_{ij,t+1}| \Omega_t] + \varepsilon_{i0t} 
+u_{i0t} &=  \alert{\overline{u}_{i0t}} + \E[\max_j u_{ij,t+1}| \Omega_t] + \varepsilon_{i0t} 
 \end{align*}
 \item My type $\overline{u}_{i0t}$: how much laundry detergent I have left.
 
-\item My beliefs $E[\max_j u_{ij,t+1}| \Omega_t]$: is my preferred brand likely to be on discount in the near future?
+\item My beliefs $\E[\max_j u_{ij,t+1}| \Omega_t]$: is my preferred brand likely to be on discount in the near future?
 \item Bias from $u_{i0t} = \varepsilon_{i0t}$. Sales are high during discounts and low following discounts. We think this implies demand is \alert{too elastic} relative to a permanent price change.
 \item Durables $Corr(u_{i0t},p_{jt}) <0$ (time trend).\\
  Storables: $Corr(u_{i0t},p_{jt}) > 0 $ (sale in adjacent period).

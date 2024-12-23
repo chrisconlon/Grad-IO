@@ -107,7 +107,7 @@ But for different groups we do not:
 
 \begin{frame}{Nested Logit}
 We can take the probabilities and re-write them slightly with the substitution that
-$\log \left(\sum_{k \in J_g} e^{V_{ik}} \right)\equiv IV_{ig}=E_{\varepsilon}[\max_{j \in G} u_{ij}]$:
+$\log \left(\sum_{k \in J_g} e^{V_{ik}/ \lambda_g} \right)\equiv IV_{ig}=E_{\varepsilon}[\max_{j \in G} u_{ij}]$:
 \begin{eqnarray*}
 s_{ij} &=& \frac{ e^{V_{ij}/\lambda_g}}{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)}
 \cdot
