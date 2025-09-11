@@ -30,7 +30,7 @@ One of the earliest exercises in econometrics is the estimation of supply and de
 Supply and Demand For Coffee, everything is linear
 \begin{eqnarray*}
 Q_t^d &=& \alpha_0 + \alpha_1 P_t + U_t\\
-Q_t^d &=& \beta_0 + \beta_1 P_t + V_t\\
+Q_t^s &=& \beta_0 + \beta_1 P_t + V_t\\
 Q_t^d &=& Q_t^s
 \end{eqnarray*}
 Solving for $P_t,Q_t$:
@@ -56,8 +56,8 @@ Cov(P_t,V_t) =  \frac{Var(V_t)}{\alpha_1 -\beta_1}
 \small
 \vspace{-0.2cm}
 \begin{eqnarray*}
-Cov(P_t, Q_t) &=& \alpha_1 Var P_t + Cov (P_t,U_t)\\
-Cov(P_t, Q_t) &=& \beta_1 Var P_t + Cov (P_t,V_t)
+Cov(P_t, Q_t^d) &=& \alpha_1 Var P_t + Cov (P_t,U_t)\\
+Cov(P_t, Q_t^s) &=& \beta_1 Var P_t + Cov (P_t,V_t)
 \end{eqnarray*}
 \vspace{-1cm}
 \begin{itemize}
