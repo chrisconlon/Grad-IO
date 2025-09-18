@@ -51,7 +51,7 @@ U_{ij} = \beta x_{ij} + \underbrace{\nu_i z_{ij} + \varepsilon_{ij}}_{\tilde{\va
 \begin{itemize}
 \item $x_{ij}$ are observed per usual and $\varepsilon_{ij}$ is IID Type I EV.
 \item The key is that $\nu_i$ is unobserved and mean zero (often normally distributed).
-\item This allows for a heteroskedastic structure on $\varepsilon_{i}$, but only one which we can project down onto the space of $x$.
+\item This allows for a heteroskedastic structure on $\boldsymbol{\varepsilon_{i}}$, but only one which we can project down onto the space of $x$.
 \end{itemize}
 
 \end{frame}
@@ -63,15 +63,15 @@ We relax the IIA property by mixing over various logits:
 \begin{align*}
 u_{ijt} &= x_j \beta_i + \varepsilon_{ij}  
 &=&  x_j \beta  + \mu_{ij}+ \varepsilon_{ij}   \\
-s_{ij}(\theta) &= \int \frac{\exp[x_{j} \beta_i ]}{1+\sum_k \exp[x_{k} \beta_i ]} f(\boldsymbol{\beta_i} | \theta) 
+s_{ij}(\theta) &= \int \frac{\exp[x_{j} \beta_i ]}{1+\sum_k \exp[x_{k} \beta_i ]} f(\beta_i | \theta) 
 &=& \int \frac{\exp[x_{j} \beta + \mu_{ij} ]}{1+\sum_k \exp[x_{k} \beta+ \mu_{ik} ]} f(\boldsymbol{\mu_i} | \theta)
 \end{align*}
  \begin{itemize}
- \item Each individual draws a vector $\beta_i/\mu_i$ (separately from $\varepsilon_i$).
- \item Conditional on $\beta_i/\mu_i$ each person follows an IIA logit model.
+ \item Each individual draws a vector $\beta_i\boldsymbol{/\mu_i}$ (separately from $\boldsymbol{\varepsilon_i}$).
+ \item Conditional on $\beta_i\boldsymbol{/\mu_i}$ each person follows an IIA logit model.
  \item However we integrate (or mix) over many such individuals giving us a \alert{mixed logit} or \alert{heirarchical model} (if you are a statistician)
  \item In practice these are not that different from linear \alert{random effects models} you have learned about in econometrics.
- \item It helps to think about fixing $\beta_i/\mu_i$ first and then integrating out over $\varepsilon_i$
+ \item It helps to think about fixing $\beta_i\boldsymbol{/\mu_i}$ first and then integrating out over $\varepsilon_i$
  \end{itemize}
 \end{frame}
 
@@ -127,9 +127,9 @@ s_{ij}(\theta) &= \int \frac{\exp[x_{j} \beta_i ]}{1+\sum_k \exp[x_{k} \beta_i ]
 \frametitle{Mixed Logit}
 How does it work?
  \begin{itemize}
-\item Well we are mixing over individuals who conditional on $\beta_i$ or $\mu_i$ follow logit substitution patterns, however they may differ wildly in their $s_{ij}$ and hence their substitution patterns.
+\item Well we are mixing over individuals who conditional on $\beta_i$ or $\boldsymbol{\mu_i}$ follow logit substitution patterns, however they may differ wildly in their $s_{ij}$ and hence their substitution patterns.
 \item For example if we are buying cameras: I may care a lot about price, you may care a lot about megapixels, and someone else may care mostly about zoom.
-\item The basic idea is that we need to explain the heteroskedasticity of $Cov(\varepsilon_i, \varepsilon_j)$ what random coefficients do is let us use a basis from our $X$'s.
+\item The basic idea is that we need to explain the heteroskedasticity of $Cov(\boldsymbol{\varepsilon_i}, \boldsymbol{\varepsilon_{\ell}},)$ what random coefficients do is let us use a basis from our $X$'s.
 \item If our $X$'s are able to span the space effectively, then an RC logit model can approximate any arbitrary RUM (such as probit) (McFadden and Train 2002). 
 \item Of course if you have 1000 products and two random coefficients, you are asking for a lot.
  \end{itemize}

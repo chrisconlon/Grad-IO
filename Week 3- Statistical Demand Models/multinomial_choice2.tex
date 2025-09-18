@@ -22,7 +22,7 @@ The multinomial logit is frequently criticized for producing unrealistic substit
 \frametitle{Can we do better?}
 Multinomial Probit?
 \begin{itemize}
-\item The probit has $\varepsilon_i \sim N(0,\Sigma)$.
+\item The probit has $\boldsymbol{\varepsilon_i} \sim N(0,\Sigma)$.
 \item If $\Sigma$ is unrestricted, then this can produce relatively flexible substitution patterns.
 \item Flexible is relative: still have normal tails, only pairwise correlations, etc.
 \item It might be that $\rho_{12}$ is large if $1,2$ are similar products.
@@ -43,15 +43,15 @@ Downside
 \begin{frame}
 \frametitle{Relaxing IIA}
 Let's make $\varepsilon_{ij}$ more flexible than IID. Hopefully still have our integrals work out.
-\begin{eqnarray*}
+\begin{align*}
 u_{ij} =   V_{ij}  + \varepsilon_{ij}
-\end{eqnarray*}
+\end{align*}
 \begin{itemize}
 \item One approach is to allow for a block structure on $\varepsilon_{ij}$ (and consequently on the elasticities).
 \item We assign products into groups $g$ and add a group specific error term
-\begin{eqnarray*}
+\begin{align*}
 u_{ij} =V_{ij}  + \eta_{ig} + \varepsilon_{ij}
-\end{eqnarray*}
+\end{align*}
 \item The trick putting a distribution on $\eta_{ig} + \varepsilon_{ij}$ so that the integrals still work out.
 \item Do not try this at home: it turns out the required distribution is a special case of \alert{GEV} (more on this later) and the resulting model is known as the \alert{nested logit}.
 \end{itemize}
@@ -81,7 +81,7 @@ U_{ij} = V_{ij} + \underbrace{\eta_{ig} + \widetilde{\varepsilon_{ij}}}_{\vareps
 \end{eqnarray*}
 \begin{itemize}
 \item We add a new term that depends on the group $g$ but not the product $j$ and think about it as varying unobservably over individuals $i$ just like $\varepsilon_{ij}$.
-\item Now $\varepsilon_i \sim F(\varepsilon)$ where $F(\varepsilon) = \exp[-\sum_{g=G}^G \left(\sum_{j \in J_g} \exp[-\varepsilon_{ij}/\lambda_g]\right)^{\lambda_g}$. This is no longer Type I EV but a special kind of GEV.
+\item Now $\boldsymbol{\varepsilon_i} \sim F(\varepsilon)$ where $F(\varepsilon) = \exp[-\sum_{g=G}^G \left(\sum_{j \in J_g} \exp[-\varepsilon_{ij}/\lambda_g]\right)^{\lambda_g}$. This is no longer Type I EV but a special kind of GEV.
 \item The key is the addition of the $\lambda_g$ parameters which govern (roughly) the within group correlation.
 \item This distribution is a bit cooked up to get a closed form result, but for $\lambda_g \in [0,1]$ for all $g$ it is consistent with random utility maximization.
 \end{itemize}

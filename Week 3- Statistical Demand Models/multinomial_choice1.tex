@@ -27,8 +27,8 @@ We consider a \alert{multinomial discrete choice}:
 \item in period $t$
 \item with $\mathcal{J}_t$ alternatives.
 \item subscript individual agents by $i$.
-\item agents choose $j \in J_t$ with probability $S_{ijt}$.
-\item Agent $i$ receives utility $U_{ij}$ for choosing $j$.
+\item agents choose $j \in J_t$ with probability $s_{ijt}$.
+\item Agent $i$ receives utility $U_{ijt}$ for choosing $j$.
 \item Choice is exhaustive and mutually exclusive.
  \end{itemize}\pause
 Consider the simple example $(t=1)$:
@@ -46,23 +46,23 @@ s_{ij} &=& \Pr( U_{ij} > U_{ik} \quad \forall k \neq j)\\
  &=& \Pr( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall k \neq j)
 \end{eqnarray*}
 \pause
-It is helpful to define $f(\varepsilon_{i})$ as the $J$ vector of individual $i$'s unobserved utility.
+It is helpful to define $f(\boldsymbol{\varepsilon_{i}})$ as the $J$ vector of individual $i$'s unobserved utility.
 \begin{eqnarray*}
 s_{ij} &=& \Pr( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall k \neq j)\\
-&=& \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f( \varepsilon_i) \partial \varepsilon_i \\
+&=& \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f( \boldsymbol{\varepsilon_i}) \partial \boldsymbol{\varepsilon_i} \\
 \end{eqnarray*}
 \end{frame}
 
 \begin{frame}
 \frametitle{Nonparametric Setup}
-In order to compute the choice probabilities, we must perform a $J$ dimensional integral over $f(\varepsilon_i)$.
+In order to compute the choice probabilities, we must perform a $J$ dimensional integral over $f(\boldsymbol{\varepsilon_i})$.
 \begin{align*}
 s_{ij} =  \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f( \varepsilon_i) \partial \varepsilon_i
 \end{align*}
 There are some choices that make our life easier
 \begin{itemize}
-\item Multivariate normal: $\varepsilon_i  \sim N(0,\Omega)$. $\longrightarrow$ \alert{ multinomial probit}.
-\item Gumbel/Type 1 EV: $f(\varepsilon_i) = e^{-\varepsilon_{ij}}  e^{-e^{-\varepsilon_{ij}}}  $ and $F(\varepsilon_i) = 1- e^{-e^{-\varepsilon_{ij}}}$ $\longrightarrow$ \alert{multinomial logit}
+\item Multivariate normal: $\boldsymbol{\varepsilon_i} \sim N(0,\Omega)$. $\longrightarrow$ \alert{ multinomial probit}.
+\item Gumbel/Type 1 EV: $f(\boldsymbol{\varepsilon_i}) = e^{-\varepsilon_{ij}}  e^{-e^{-\varepsilon_{ij}}}  $ and $F(\boldsymbol{\varepsilon_i}) = 1- e^{-e^{-\varepsilon_{ij}}}$ $\longrightarrow$ \alert{multinomial logit}
 \item There are also heteroskedastic variants of the Type I EV/ Logit framework.
 \end{itemize}
 \end{frame}
@@ -105,9 +105,9 @@ U_c &= v_{c} + \theta y_i  + \varepsilon_c
 \begin{frame}
 \frametitle{Basic Identification: Location}
 \begin{itemize}
-\item Technically we can't really fully specify $f(\varepsilon_i)$ since we can always re-normalize: $\widetilde{\varepsilon_{ijk}} = \varepsilon_{ij} - \varepsilon_{ik}$ and write $g(\widetilde{\varepsilon_{ik}})$. Thus any $g(\widetilde{\varepsilon_{ik}})$ is consistent with infinitely many $f(\varepsilon_i)$.
-\item Logit pins down $f(\varepsilon_i)$ sufficiently with parametric restrictions.
-\item Probit does not. We must generally normalize one dimension of $f(\varepsilon_i)$ in the probit model. Usually a diagonal term of $\Omega$ so that $\omega_{11} =1$ for example. (Actually we need to do more!).
+\item Technically we can't really fully specify $f(\boldsymbol{\varepsilon_i})$ since we can always re-normalize: $\widetilde{\varepsilon_{ijk}} = \varepsilon_{ij} - \varepsilon_{ik}$ and write $g(\widetilde{\boldsymbol{\varepsilon_{ik}}})$. Thus any $g(\widetilde{\boldsymbol{\varepsilon_{ik}}})$ is consistent with infinitely many $f(\boldsymbol{\varepsilon_i}))$.
+\item Logit pins down $f(\boldsymbol{\varepsilon_i})$ sufficiently with parametric restrictions.
+\item Probit does not. We must generally normalize one dimension of $f(\boldsymbol{\varepsilon_i})$ in the probit model. Usually a diagonal term of $\Omega$ so that $\omega_{11} =1$ for example. (Actually we need to do more!).
 \end{itemize}
 \end{frame}
 
@@ -147,7 +147,7 @@ U_{ic} &=& v_{ic}+ \varepsilon_{ic}
 \frametitle{Deeper Identification Results}
 Different ways to look at identification
 \begin{itemize}
-\item Are we interested in non-parametric identification of $V_{ij}$, specifying $f(\varepsilon_i)$?
+\item Are we interested in non-parametric identification of $V_{ij}$, specifying $f(\boldsymbol{\varepsilon_i})$?
 \item Or are we interested in non-parametric identification of $U_{ij}$. (Generally hard).
 \begin{itemize}
 \item Generally we require a large support (special-regressor) or ``completeness'' condition.
@@ -177,7 +177,7 @@ s_{ij} = \frac{e^{V_{ij}}}{\sum_k e^{V_{ik}}}
 \end{eqnarray*}
 Logit Inclusive Value is helpful for several reasons
 \begin{itemize}
-\item Expected utility of best option (without knowledge of $\varepsilon_i$) does not depend on $\epsilon_{ij}$.
+\item Expected utility of best option (without knowledge of $\boldsymbol{\varepsilon_i}$) does not depend on $\epsilon_{ij}$.
 \item This is a globally concave function in $V_{ij}$ (more on that later).
 \item Allows simple computation of $\Delta CS$ for consumer welfare (but not $CS$ itself).
 \end{itemize}
@@ -345,7 +345,7 @@ Cross elasticity doesn't really depend on $j$.
 \begin{frame}{Diversion Ratios}
 Recall the diversion ratio:
 \begin{align*}
-D_{jk} =\frac{\frac{\partial s_{ik}}{\partial p_{ij}}}{\left |\frac{\partial s_{ij}}{\partial p_{ij}} \right|} = \frac{\beta_p s_{ik} s_{ij}}{\beta_p s_{ij} (1-s_{ij})} = \frac{s_{ik}}{1-s_{ij}}
+D_{jk} =\frac{\frac{\partial s_{ik}}{\partial p_{j}}}{\left |\frac{\partial s_{ij}}{\partial p_{j}} \right|} = \frac{\beta_p s_{ik} s_{ij}}{\beta_p s_{ij} (1-s_{ij})} = \frac{s_{ik}}{1-s_{ij}}
 \end{align*}
 \begin{itemize}
 \item Again proportional substitution. As price of $j$ goes up we proportionally inflate choice probabilities of substitutes.
