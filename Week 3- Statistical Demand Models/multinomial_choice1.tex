@@ -177,7 +177,7 @@ s_{ij} = \frac{e^{V_{ij}}}{\sum_k e^{V_{ik}}}
 \end{eqnarray*}
 Logit Inclusive Value is helpful for several reasons
 \begin{itemize}
-\item Expected utility of best option (without knowledge of $\boldsymbol{\varepsilon_i}$) does not depend on $\epsilon_{ij}$.
+\item Expected utility of best option (without knowledge of $\boldsymbol{\varepsilon_i}$) does not depend on $\varepsilon_{ij}$.
 \item This is a globally concave function in $V_{ij}$ (more on that later).
 \item Allows simple computation of $\Delta CS$ for consumer welfare (but not $CS$ itself).
 \end{itemize}
@@ -219,7 +219,7 @@ What is actually identified here?
 \begin{itemize}
 \item Helpful to look at the ratio of two choice probabilities
 \begin{align*}
-\frac{s_{ij}(\theta)}{s_{ik}(\theta)}  = \frac{e^{V_ij}}{e^{V_{ik}}} = e^{V_{ij} - V_{ik}}
+\frac{s_{ij}(\theta)}{s_{ik}(\theta)}  = \frac{e^{V_{ij}}}{e^{V_{ik}}} = e^{V_{ij} - V_{ik}}
 \end{align*}
 \item We only identify the \alert{difference in indirect utilities} not the levels.
 \item The ratio of choice probabilities for $j$ and $k$ depends only on $j$ and $k$ and not on any alternative $l$, this is known as \alert{independence of irrelevant alternatives}.
