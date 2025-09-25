@@ -1,4 +1,4 @@
-\input{../resources/preamble.tex}
+\input{../resources/preamble2.tex}
 
 \begin{document}
 \title{Multinomial Discrete Choice: Mixed Logit}
@@ -45,11 +45,11 @@ U_{ij} = \beta_i x_{j} +  \varepsilon_{ij}, \quad \beta_i \sim f( \beta_i | \the
 
 As an alternative, we could have specified an error components structure on $\varepsilon_i$.
 \begin{align*}
-U_{ij} = \beta x_{ij} + \underbrace{\nu_i z_{ij} + \varepsilon_{ij}}_{\tilde{\varepsilon}_{ij}}
+U_{ij} = \beta \, x_{j} \, \textrm{y}_i + \underbrace{x_{j} \, \nu_i  + \varepsilon_{ij}}_{\tilde{\varepsilon}_{ij}}
 \end{align*}
 \vspace{-0.8cm}
 \begin{itemize}
-\item $x_{ij}$ are observed per usual and $\varepsilon_{ij}$ is IID Type I EV.
+\item $x_{j}$ are observed per usual, $\textrm{y}_i$ are individual demographics/features, and $\varepsilon_{ij}$ is IID Type I EV.
 \item The key is that $\nu_i$ is unobserved and mean zero (often normally distributed).
 \item This allows for a heteroskedastic structure on $\boldsymbol{\varepsilon_{i}}$, but only one which we can project down onto the space of $x$.
 \end{itemize}
@@ -61,6 +61,8 @@ U_{ij} = \beta x_{ij} + \underbrace{\nu_i z_{ij} + \varepsilon_{ij}}_{\tilde{\va
 \frametitle{Mixed Logit}
 We relax the IIA property by mixing over various logits:
 \begin{align*}
+\beta_i &= \overline{\beta} + \Pi \, \textrm{y}_i  + \Sigma \, \nu_i   
+&\mu_{ij}=&   x_{j} \cdot \left(  \Pi \, \textrm{y}_i + \Sigma \, \nu_{i} \right) \\
 u_{ijt} &= x_j \beta_i + \varepsilon_{ij}  
 &=&  x_j \beta  + \mu_{ij}+ \varepsilon_{ij}   \\
 s_{ij}(\theta) &= \int \frac{\exp[x_{j} \beta_i ]}{1+\sum_k \exp[x_{k} \beta_i ]} f(\beta_i | \theta) 

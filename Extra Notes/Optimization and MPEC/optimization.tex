@@ -1,31 +1,4 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,outline}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\DeclareMathSizes{10}{10}{6}{6} 
-
-
-
-
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\V}{\mathbb{V}}
-\newcommand{\ol}{\overline}
-%\newcommand{\ul}{\underline}
-\newcommand{\pp}{{\prime \prime}}
-\newcommand{\ppp}{{\prime \prime \prime}}
-\newcommand{\policy}{\gamma}
-
+\input{../../resources/preamble.tex}
 
 \newcommand{\fp}{\frame[plain]}
 
@@ -128,7 +101,87 @@ A _ { k }
 \item Alternatives \alert{SR1} and \alert{DFP} rely on an initial estimate of the Hessian matrix and then approximate an update to $A_k$.
 \item Usually updating the Hessian is the costly step.
 \item Non invertible Hessians are bad news.
+\item Optimizers Differ in: (1) Hessian update; (2) Step-size calculation; (3) Handling of Constraints (which I ignored!)
 \end{itemize}
+\end{frame}
+
+\section{What about ML Models?}
+
+\begin{frame}{How do people fit ML models?}
+\begin{itemize}
+	\item Inverting the Hessian for models with large numbers of parameters becomes infeasible.
+	\item Many ML models (not all) can be highly \alert{non-convex} meaning that Hessian may be not invertible, and there may be many potential \alert{local minima}.
+	\item Most models do some form of \alert{gradient descent} (setting Hessian $A_k=\mathbb{I}$)
+	\item Many models use \alert{early stopping}, terminating at a point before we reach the minimum (!)
+\end{itemize}
+\begin{align*}
+\theta_{k+1} = \theta_k - \lambda_k \cdot \frac{\partial Q}{\partial \theta}(\theta_k)
+\end{align*}
+With key modificiations:
+\begin{itemize}
+	\item Set the \alert{learning rate / step size} to a small value $\lambda_k < .001$.
+	\item Use \alert{batched gradients} to approximate the gradient on a random subset of observations.
+	\begin{align*}
+	g_k=\frac{1}{\left|\mathcal{B}_t\right|} \sum_{i \in \mathcal{B}_k} \nabla_\theta \ell_i\left(\theta_t\right) .
+	\end{align*}
+\end{itemize}
+This typically means many more iterations than quasi-Newton but often cheaper ones.
+\end{frame}
+
+\begin{frame}{AdamW: Objective and Moment Estimates}
+We aim to minimize the loss function $\ell(\theta), \quad \theta \in \mathbb{R}^d$.
+
+Gradient and moment estimates (using a batched gradient):
+\begin{align}
+    g_k &= \nabla_\theta \ell(\theta_k), \\
+    m_k &= \beta_1 m_{k-1} + (1 - \beta_1) g_k \quad &\text{(momentum)}, \\
+    v_k &= \beta_2 v_{k-1} + (1 - \beta_2) g_k^2 \quad &\text{(adaptive scaling)}.
+\end{align}
+
+Bias correction:
+\begin{align}
+    \hat{m}_k &= \frac{m_k}{1 - \beta_1^k}, \\
+    \hat{v}_k &= \frac{v_k}{1 - \beta_2^k}.
+\end{align}
+
+\end{frame}
+
+\begin{frame}{AdamW: Update Rule and Properties}
+Parameter update:
+\begin{align}
+    \theta_{k+1} 
+    &= \theta_k 
+    - \eta \frac{\hat{k}_k}{\sqrt{\hat{v}_k} + \epsilon}
+    - \eta \lambda \theta_k.
+\end{align}
+
+Key features:
+\begin{itemize}
+    \item \textbf{Momentum:} $\hat{m}_t$ accumulates past gradients, accelerating learning.
+    \item \textbf{Parameter-specific learning rates:} $\hat{v}_t$ rescales each coordinate of $\theta$.
+    \begin{itemize}
+    	\item This captures how $g_t,g_t^2$ changes from the moving average $m_{k-1},v_{k-1}$ which gives us some estimate of curvature that is parameter specific without trying to approximate $A_k$
+    \end{itemize}
+    \item \textbf{Decoupled weight decay:} $-\eta \lambda \theta_k$ is applied separately from gradient update.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Applications of AdamW}
+\texttt{AdamW} is now the standard optimizer in many deep learning frameworks (\texttt{PyTorch}, \texttt{TensorFlow}) and implementations exist for others like Google's \texttt{Jax}. It is often used on very large models
+\begin{itemize}
+    \item \textbf{Deep learning:} training deep neural networks with millions or billions of parameters.
+    \item \textbf{Transformer models:} BERT, GPT, and other large language models often use AdamW by default.
+\end{itemize}
+But it has some disadvantages
+\begin{itemize}
+	\item Even on simple problems it may take tens of thousands of iterations. (Quasi-Newton approaches might take a dozen or fewer on convex MLE problems).
+	\item The idea is that with \alert{Automatic Differentiation} and \alert{batched gradients} those iterations might be much cheaper.
+\end{itemize}
+
+
+
+\vspace{0.3cm}
+\centering
 \end{frame}
 
 
