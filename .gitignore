@@ -221,3 +221,20 @@ TSWLatexianTemp*
 *.xdv
 
 .DS_Store
+
+# Additional LaTeX build artifacts and temporary files
+# xdv (XeLaTeX intermediate), synctex and other common temporary/backups
+*.xdv
+*.synctex
+*.synctex.gz
+*.synctex(busy)
+*.synctex.gz(busy)
+*.fdb_latexmk
+*.fls
+
+# Editor/backup temporary files
+*~
+*.bak
+*.orig
+*.tmp
+
