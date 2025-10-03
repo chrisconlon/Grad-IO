@@ -1,5 +1,5 @@
 \documentclass[aspectratio=169,11pt]{beamer}
-\usepackage{gradio-preamble}
+\usepackage{teaching_slides}
 
 \begin{document}
 \title{Multinomial Discrete Choice: IIA Logit}
@@ -107,7 +107,7 @@ U_c &= v_{c} + \theta y_i  + \varepsilon_c
 \begin{frame}
 \frametitle{Basic Identification: Location}
 \begin{itemize}
-\item Technically we can't really fully specify $f(\boldsymbol{\varepsilon_i})$ since we can always re-normalize: $\widetilde{\varepsilon_{ijk}} = \varepsilon_{ij} - \varepsilon_{ik}$ and write $g(\widetilde{\boldsymbol{\varepsilon_{ik}}})$. Thus any $g(\widetilde{\boldsymbol{\varepsilon_{ik}}})$ is consistent with infinitely many $f(\boldsymbol{\varepsilon_i}))$.
+\item Technically we can't really fully specify $f(\boldsymbol{\varepsilon_i})$ since we can always re-normalize: $\widetilde{\varepsilon_{ijk}} = \varepsilon_{ij} - \varepsilon_{ik}$ and write $g(\widetilde{\boldsymbol{\varepsilon_{ik}}})$. Thus any $g(\widetilde{\boldsymbol{\varepsilon_{ik}}})$ is consistent with infinitely many $f(\boldsymbol{\varepsilon_i})$.
 \item Logit pins down $f(\boldsymbol{\varepsilon_i})$ sufficiently with parametric restrictions.
 \item Probit does not. We must generally normalize one dimension of $f(\boldsymbol{\varepsilon_i})$ in the probit model. Usually a diagonal term of $\Omega$ so that $\omega_{11} =1$ for example. (Actually we need to do more!).
 \end{itemize}
