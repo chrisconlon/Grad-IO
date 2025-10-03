@@ -82,15 +82,42 @@
 \IfFileExists{microtype.sty}{\RequirePackage{microtype}}{}
 
 % If compiling with XeLaTeX or LuaLaTeX enable fontspec and optional unicode-math
+% Guard font selections so slides won't fail on machines missing a specific font.
 \IfFileExists{fontspec.sty}{%
     \RequirePackage{fontspec}
     \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-    % Prefer TeX Gyre fonts when available; fall back silently otherwise.
-    \IfFileExists{TeXGyreTermes-Regular.otf}{%
-        \setmainfont{TeX Gyre Termes}%
-        \setsansfont{TeX Gyre Heros}%
-        \setmonofont{TeX Gyre Cursor}%
-    }{}
+
+    % Main/sans/mono font selection with fallbacks. Prefer Fira families if present,
+    % then TeX Gyre, then a common system fallback. Use \IfFontExistsTF provided by fontspec.
+    \IfFontExistsTF{Fira Sans}{%
+        \setmainfont{Fira Sans}%
+        \setsansfont{Fira Sans}%
+    }{%
+        % If Fira isn't installed, prefer TeX Gyre if the file is available, otherwise use Latin Modern / system sans.
+        \IfFileExists{TeXGyreTermes-Regular.otf}{%
+            \setmainfont{TeX Gyre Termes}%
+            \setsansfont{TeX Gyre Heros}%
+        }{%
+            \setmainfont{Latin Modern Roman}%
+            \setsansfont{TeX Gyre Heros}%
+        }
+    }
+
+    % Monospaced: prefer Fira Mono (or Fira Code), then TeX Gyre Cursor, then Courier New.
+    \IfFontExistsTF{Fira Mono}{%
+        \setmonofont{Fira Mono}%
+    }{%
+        \IfFontExistsTF{Fira Code}{%
+            \setmonofont{Fira Code}%
+        }{%
+            \IfFileExists{TeXGyreCursor-Regular.otf}{%
+                \setmonofont{TeX Gyre Cursor}%
+            }{%
+                \setmonofont{Courier New}%
+            }
+        }
+    }
+
     % Optional better unicode math support when present (Xe/Lua only)
     \IfFileExists{unicode-math.sty}{\RequirePackage{unicode-math}}{}
 }{}
