@@ -1,4 +1,5 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\def\beamerclassoptions{[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]}
+\input{../resources/preamble.tex}
 \usetheme{metropolis}
 %\usetheme{Darmstadt}
 %\usepackage{times}
@@ -815,8 +816,8 @@ This is a \alert{Smooth Approximation} approach
 %\begin{itemize}
 %\item It is now impossible for $\overline{u}_{i0t}$ to change over time except through $\varepsilon_{i0t}$.
 %\item And since $\tilde{u}_{ijt}$ is all paid at once we might as well normalize $\overline{u}_{i0t} = 0$.
-%\item[¥]
-%¥ Helpful to write: $EV_i(\Omega_t)= \int V_i(\varepsilon_{it},  \Omega_t)f(\varepsilon)$ \alert{Rust's Trick}
+%\item[ï¿½]
+%ï¿½ Helpful to write: $EV_i(\Omega_t)= \int V_i(\varepsilon_{it},  \Omega_t)f(\varepsilon)$ \alert{Rust's Trick}
 %\end{itemize}
 %\begin{eqnarray*}
 %V_i(u_{i0t},\varepsilon_{i t}, \Omega_t) &=& \max \{ u_{i0t} + \beta E[ E_{\varepsilon} V_i (u_{i0t}, \varepsilon_{it}, \Omega_{t+1}) |\Omega_{t} ] , \max_j \alert{\tilde{u}_{ijt}} \}

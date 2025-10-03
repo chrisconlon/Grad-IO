@@ -1,4 +1,5 @@
-\documentclass[10pt,aspectratio=169]{beamer}
+\def\beamerclassoptions{[10pt,aspectratio=169]}
+\input{../../resources/preamble.tex}
 % \documentclass[10pt,aspectratio=169,handout]{beamer}
 
 % silence some Metropolis warnings
@@ -29,11 +30,7 @@
 \setlength{\metropolis@progressonsectionpage@linewidth}{1pt}
 \makeatother
 
-% custom bullet points
-\setbeamertemplate{itemize item}{\color{dark red}$\blacktriangleright$}
-\setbeamertemplate{itemize subitem}{\color{dark red}$\blacktriangleright$}
-\setbeamertemplate{itemize subsubitem}{\color{dark red}$\blacktriangleright$}
-\newcommand{\custombullet}{{\color{dark red}$\blacktriangleright$}\hspace{0.5em}}
+% custom bullet points are provided by the canonical preamble
 
 % use classic font for math
 \usefonttheme[onlymath]{serif}
@@ -53,10 +50,7 @@
 \usepackage{xfrac}
 \usepackage{appendixnumberbeamer}
 
-% check and x marks
-\usepackage{pifont}
-\newcommand{\cmark}{{\color{dark green}\ding{51}}\hspace{0.3em}}
-\newcommand{\xmark}{{\color{dark red}\ding{55}}\hspace{0.5em}}
+% check and x marks are provided by the canonical preamble
 
 % diagrams
 \usepackage{tikz}
@@ -82,34 +76,9 @@
 \def\NAT@posfmt#1{\NAT@orig@nmfmt{#1's}}
 \makeatother
 
-% spaced-out lists
-\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
-\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+% wideitemize/wideenumerate are provided by the canonical preamble
 
-% replace footnotes with buttons
-\usepackage[absolute,overlay]{textpos}
-\newcounter{beamerpausessave}
-\newcommand{\always}[1]{
-    \setcounter{beamerpausessave}{\value{beamerpauses}}
-    \setcounter{beamerpauses}{0}
-    \pause
-    #1 
-    \setcounter{beamerpauses}{\value{beamerpausessave}}
-    \addtocounter{beamerpauses}{-1}
-    \pause
-}
-\newcommand{\buttons}[1]{\always{
-    \begin{textblock*}{\paperwidth}(0.015\textwidth, 1.022\textheight)
-        \scriptsize
-        #1
-    \end{textblock*}
-}}
-\newcommand{\appendixbuttons}[1]{\always{
-    \begin{textblock*}{\paperwidth}(0.015\textwidth, 1.043\textheight)
-        \scriptsize
-        #1
-    \end{textblock*}
-}}
+% buttons/always/appendixbuttons are provided by the canonical preamble
 \newcommand{\goto}[2]{\hyperlink{#1}{{\color{dark red}$\smalltriangleright$} #2}\hspace{0.5em}}
 \newcommand{\goback}[2]{\hyperlink{#1}{{\color{dark red}$\smalltriangleleft$} #2}\hspace{0.5em}}
 
@@ -139,14 +108,8 @@
 \newcommand*\citetaliasaux[2]{{\color{light gray}\oldcitetalias#1{#2}}}
 \newcommand*\citepaliasaux[2]{{\color{light gray}\oldcitepalias#1{#2}}}
 
-% custom math commands
-\DeclareMathOperator*{\argmax}{argmax}
-\DeclareMathOperator*{\argmin}{argmin}
-\renewcommand{\Pr}{\mathbb{P}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\Var}{\mathbb{V}}
-\newcommand{\Cov}{\mathbb{C}}
-\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+% custom math commands such as \Pr, \E, \Var, \Cov, \overbar are provided by
+% the canonical preamble (guarded).
 
 % tables
 \usepackage{booktabs}

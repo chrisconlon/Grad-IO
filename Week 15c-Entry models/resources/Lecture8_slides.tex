@@ -1,31 +1,15 @@
 %2multibyte Version: 5.50.0.2953 CodePage: 65001
 
-\documentclass[notes=show]{beamer}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{mathpazo}
-\usepackage{hyperref}
-\usepackage{multimedia}
-\usepackage{scalefnt}
+% Use the shared preamble (preserve per-file beamer options)
+\def\beamerclassoptions{[notes=show]}
+\input{../../resources/preamble.tex}
 
-\setcounter{MaxMatrixCols}{10}
-%TCIDATA{OutputFilter=LATEX.DLL}
-%TCIDATA{Version=5.50.0.2953}
-%TCIDATA{Codepage=65001}
-%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
-%TCIDATA{BibliographyScheme=Manual}
-%TCIDATA{Created=Thursday, September 13, 2007 09:52:56}
-%TCIDATA{LastRevised=Friday, November 15, 2013 11:14:09}
-%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
-%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
-%TCIDATA{CSTFile=beamer.cst}
-
+% Local slide helpers (kept here if used in this file)
 \newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
 \newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
 \newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
 \newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
-\usetheme{Madrid}
+%\usetheme{Madrid}
 %\input{tcilatex}
 \begin{document}
 

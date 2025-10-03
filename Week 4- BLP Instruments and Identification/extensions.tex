@@ -1,45 +1,5 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
-\usetheme{metropolis}
+\input{../resources/preamble.tex}
 
-\usepackage[english]{babel}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,centernot}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage{pdfpages}
-\usepackage[absolute,overlay]{textpos} 
-
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
-
-\DeclareMathSizes{10}{10}{6}{6} 
-\AtBeginSection[]{
-  \begin{frame}
-  \vfill
-  \centering
-  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
-    \usebeamerfont{title}\insertsectionhead\par%
-  \end{beamercolorbox}
-  \vfill
-  \end{frame}
-}
-
-
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
-
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
-\newcommand{\X}{\mathtt{X}}
-\newcommand{\Y}{\mathtt{Y}}
-
-%\newcommand{\R}{\mathbb{R}}
-%\newcommand{\E}{\mathbb{E}}
-%\newcommand{\V}{\mathbb{V}}
-\newcommand{\p}{\mathbb{P}}
-\newcommand*\df{\mathop{}\!\mathrm{d}}
-\newcommand{\del}{\partial}
 
 \begin{document}
 \title{Extensions and Variants}

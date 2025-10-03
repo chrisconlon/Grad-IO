@@ -1,53 +1,27 @@
-%\documentclass[handout]{beamer}
+% Use shared preamble package/wrapper instead of local \documentclass.
+% Set any beamer class options here and then input the central wrapper.
+% This file should NOT contain a \documentclass line.
+\def\beamerclassoptions{[pdf]}
+\input{../../resources/preamble.tex}
 
-\documentclass[pdf]{beamer}
-\usetheme{Warsaw}
-%List of themes{Warsav Malmoe Antibes Boadilla Frankfurt Juanlespins Montpellier Singapore Bergen Copenhagen Goettingen Madrid Paloalto Berkeley Darmstadt Hannover Malmoe Pittsburgh Berlin Dresden Ilmenau Marburg Rochester}
-%\usecolortheme{seagull}
-%List of colours{albatross	crane	beetle	dove fly	seagull wolverine beaver}
-\usepackage{beamerthemesplit}
-\usepackage{graphicx}
-\usepackage{epstopdf}
-\usepackage{latexsym}
-\usepackage{amsmath}
-\usepackage{ulem}
-%\xdefinecolor{lavendar}{rgb}{0.8, 0.6, 1}http://www.software995.com/
-%\setbeamercolor{frametitle}{fg=black, bg=lavendar}
-\usepackage{verbatim}
-\usepackage{hyperref}
-\usepackage{helvet}
-
-
-
-\title{Moment Inequalities\thanks{%
+	itle{Moment Inequalities\thanks{%
 These notes are adapted from Ariel Pakes' lecture notes from previous years'
 graduate classes at Harvard, and from Kate Ho's subsequent adaptations.}}
 \author{Julie Holland Mortimer}
 \date{Economics 853}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 % outline at the beginning of each section
-%\AtBeginSection[]
-%{
-%\begin{frame}[plain]
-% \frametitle{Outline}
-% \tableofcontents[currentsection] 
-% \normalsize
-%\end{frame}
-%}
-
 \frame[plain]{\titlepage}
 
 \section[Outline]{}
 \frame[plain]{
 \frametitle{Outline}
-\tableofcontents}
+	ableofcontents}
 
 \section{Overview}
-
 \frame[plain]
 {
 \frametitle{Overview}
@@ -64,44 +38,6 @@ interval, so we can get inequalities on income; or
 we have topcoded income)
 \end{itemize}
 }
-
-\frame[plain]
-{
-The assumptions required in the latter case to ensure that moment
-inequalities estimators have desirable properties are quite straightforward.\\
-\vspace{0.2in}
-The assumptions required in the former case are more subtle. \\
-\vspace{0.2in}
-Once we investigate these assumptions, we may start questioning the assumptions underlying the estimators of more traditional behavioral problems (particularly those that
-require discrete actions in a game). 
-
-\frametitle{Overview}
-}
-
-\frame[plain]
-{
-\frametitle{Overview}
-The appeal of using moment inequalities to analyze a behavioral model is
-that the set up for the econometric problem is often the same as the set up for a
-theoretical model. \\
-\vspace{0.2in}
-This similarity makes it easy to interpret the results in a way that
-is consistent with the theory. \\
-\vspace{0.2in}
-However, dealing with unobservables can be tricky in this context. 
-
-
-}
-\section{Economic Model}
-\frame[plain]
-{
-\frametitle{Economic Model}
-
-\begin{itemize}
-\item The econometrician observes a set of choices made by various agents.
-\vspace{0.1in}
-
-\item Assume agents expect the choices they made to lead to returns that are
 higher than the returns they would have earned had they made an
 alternative feasible choice.
 \vspace{0.1in}

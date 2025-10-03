@@ -1,32 +1,18 @@
 %2multibyte Version: 5.50.0.2960 CodePage: 65001
 
-\documentclass[notes=show]{beamer}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{graphicx}
-\usepackage{mathpazo}
-\usepackage{hyperref}
-\usepackage{multimedia}
+% Use shared preamble and preserve class options
+\def\beamerclassoptions{[notes=show]}
+\input{../../resources/preamble.tex}
 
-%TCIDATA{OutputFilter=LATEX.DLL}
-%TCIDATA{Version=5.50.0.2960}
-%TCIDATA{Codepage=65001}
-%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
-%TCIDATA{BibliographyScheme=Manual}
-%TCIDATA{Created=Sunday, September 13, 2009 21:00:46}
-%TCIDATA{LastRevised=Monday, October 18, 2010 12:43:12}
-%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
-%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
-%TCIDATA{CSTFile=beamer.cst}
-
+% Local slide helpers
 \newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
 \newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
 \newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
 \newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
 %\usetheme{Madrid}
-\usetheme{Warsaw}
 %\input{tcilatex}
 \begin{document}
-\title[Entry II, Discrete Games]{Entry II, Discrete Games}
+	itle[Entry II, Discrete Games]{Entry II, Discrete Games}
 \subtitle{}
 \author[]{Julie Holland Mortimer}
 %\institute[]{Ec 853}
@@ -578,7 +564,7 @@ The early entry models are the kind of entry models that had been used extensive
 \begin{itemize}
 \item When used in the empirical literature they organize data on the determinants of cross-sectional differences in market structure.
 \item The rationale for this is in an environment that has been stable for a very long time, and the only thing that changes over time is idiosyncratic incumbent and potential entrant specific, entry costs and selloff values. 
-\item Thus we expect the observed cross-sectional distribution conditional on covariates to converge to some constant ÒinvariantÓ distribution. 
+\item Thus we expect the observed cross-sectional distribution conditional on covariates to converge to some constant ï¿½invariantï¿½ distribution. 
 \item Differences across markets are expected to depend on the size and other characteristics of the market. Moreover different theories of competition suggest different effects of the number of competitors (think of Cournot vs Bertrand), so in a best-case scenario we might learn something about the nature of post-entry competition.
 \end{itemize}
 
