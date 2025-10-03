@@ -34,10 +34,10 @@
 \makeatother
 
 % custom bullet points (safe to include multiple times)
-\setbeamertemplate{itemize item}{\color{dark red}$\blacktriangleright$}
-\setbeamertemplate{itemize subitem}{\color{dark red}$\blacktriangleright$}
-\setbeamertemplate{itemize subsubitem}{\color{dark red}$\blacktriangleright$}
-\providecommand{\custombullet}{{\color{dark red}$\blacktriangleright$}\hspace{0.5em}}
+\setbeamertemplate{itemize item}{\color{darkred}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{darkred}$\blacktriangleright$}
+\setbeamertemplate{itemize subsubitem}{\color{darkred}$\blacktriangleright$}
+\providecommand{\custombullet}{{\color{darkred}$\blacktriangleright$}\hspace{0.5em}}
 
 
 % imports
@@ -179,13 +179,13 @@
 \def\citetalias#1#{\citetaliasaux{#1}}
 \def\citepalias#1#{\citepaliasaux{#1}}
 \def\url#1#{\urlaux{#1}}
-\@ifundefined{citeaux}{\newcommand*\citeaux[2]{{\color{light gray}\oldcite#1{#2}}}}{}
-\@ifundefined{citetaux}{\newcommand*\citetaux[2]{{\color{light gray}\oldcitet#1{#2}}}}{}
-\@ifundefined{citepaux}{\newcommand*\citepaux[2]{{\color{light gray}\oldcitep#1{#2}}}}{}
-\@ifundefined{urlaux}{\newcommand*\urlaux[2]{{\color{light gray}\oldurl#1{#2}}}}{}
-\@ifundefined{citeposaux}{\newcommand*\citeposaux[2]{{\color{light gray}\oldcitepos#1{#2}}}}{}
-\@ifundefined{citetaliasaux}{\newcommand*\citetaliasaux[2]{{\color{light gray}\oldcitetalias#1{#2}}}}{}
-\@ifundefined{citepaliasaux}{\newcommand*\citepaliasaux[2]{{\color{light gray}\oldcitepalias#1{#2}}}}{}
+\@ifundefined{citeaux}{\newcommand*\citeaux[2]{{\color{lightgray}\oldcite#1{#2}}}}{}
+\@ifundefined{citetaux}{\newcommand*\citetaux[2]{{\color{lightgray}\oldcitet#1{#2}}}}{}
+\@ifundefined{citepaux}{\newcommand*\citepaux[2]{{\color{lightgray}\oldcitep#1{#2}}}}{}
+\@ifundefined{urlaux}{\newcommand*\urlaux[2]{{\color{lightgray}\oldurl#1{#2}}}}{}
+\@ifundefined{citeposaux}{\newcommand*\citeposaux[2]{{\color{lightgray}\oldcitepos#1{#2}}}}{}
+\@ifundefined{citetaliasaux}{\newcommand*\citetaliasaux[2]{{\color{lightgray}\oldcitetalias#1{#2}}}}{}
+\@ifundefined{citepaliasaux}{\newcommand*\citepaliasaux[2]{{\color{lightgray}\oldcitepalias#1{#2}}}}{}
 \makeatother
 
 % custom math commands (guard declarations)
@@ -207,7 +207,7 @@
 \RequirePackage{colortbl}
 \RequirePackage{multirow}
 \RequirePackage{makecell}
-\arrayrulecolor{dark red}
+\arrayrulecolor{darkred}
 
 % custom date
 \RequirePackage{datetime}
