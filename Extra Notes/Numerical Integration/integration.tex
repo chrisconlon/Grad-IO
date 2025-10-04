@@ -177,8 +177,8 @@ Formulas look like:
 \end{eqnarray*}
 for some quadrature nodes $x_s \in [a,b]$ and weights $w_s$.
 \begin{itemize}
-\item Let $\mathcal{F}_k$ be the space of degree $k$ polynomials
-\item Quadrature formulas are exact of degree $k$ if it correctly integrates each function in $\mathcal{F}_k$
+\item Let $\calF_k$ be the space of degree $k$ polynomials
+\item Quadrature formulas are exact of degree $k$ if it correctly integrates each function in $\calF_k$
 \item Gaussian quadrature formulas use $S$ points and are exact of degree $2s-1$.
 \end{itemize}
 Approximation Error
@@ -258,7 +258,7 @@ Many of these are built-in routines in Python, R, Matlab, etc.
 
 \begin{frame}{Higher Dimensional Integration}
 \begin{itemize}
-\item In higher dimension we can use product rules of 1-D integrals. $\mathbf{x_s^{(1)}} \times \mathbf{x_s^{(2)}}$ and $\mathbf{w_s^{(1)}} \times \mathbf{w_s^{(2)}}$
+\item In higher dimension we can use product rules of 1-D integrals. $\symbf{x_s^{(1)}} \times \symbf{x_s^{(2)}}$ and $\symbf{w_s^{(1)}} \times \symbf{w_s^{(2)}}$
 \item This grows exponentially in dimension $D$ (Curse of Dimensionality)
 \begin{itemize}
 \item 10 points in dimension one, means 10{,}000 points in dimension 4.
@@ -292,16 +292,16 @@ N\left[\left(\begin{array}{c}
 \end{align*}
 Or as a vector:
 \begin{align*}
-\mathbf{Y} \sim N(\boldsymbol{\mu},\Sigma)
+\symbf{Y} \sim N(\symbf{\mu},\Sigma)
 \end{align*}
 \end{frame}
 
 \begin{frame}{Correlated Normals}
 \begin{enumerate}
 \item Find the \alert{Cholesky Root} of $L \cdot L' =\Sigma$ where $\Sigma$ is $D \times D$ covariance matrix\\ (\texttt{scipy.linalg.cholesky}, \texttt{chol} in R and Matlab).
-\item Draw a $n \times D$ dimensional standard normal $\mathbf{Z}$ (either at random or via quadrature nodes/ weights).
-\item $L \cdot \mathbf{Z} \sim N(0,\Sigma)$, now we have $n$ correlated normals of dimension $D$.
-\item Add back in the mean $\mathbf{Y}=\boldsymbol{\mu} + L \cdot \mathbf{Z} \sim N(0,\Sigma)$
+\item Draw a $n \times D$ dimensional standard normal $\symbf{Z}$ (either at random or via quadrature nodes/ weights).
+\item $L \cdot \symbf{Z} \sim N(0,\Sigma)$, now we have $n$ correlated normals of dimension $D$.
+\item Add back in the mean $\symbf{Y}=\symbf{\mu} + L \cdot \symbf{Z} \sim N(0,\Sigma)$
 \end{enumerate}
 \end{frame}
 
@@ -311,7 +311,7 @@ Or as a vector:
 \item Cholesky root has nice properties that guarantees $\Sigma$ is positive semi-definite.
 \item We can get correlated normals just be pre-multiplying by some $L$ matrix.
 \begin{itemize}
-\item Allows me to draw $\mathbf{Z}$ once
+\item Allows me to draw $\symbf{Z}$ once
 \item  re-evaluate at difference covariance matrices $\Sigma$ using different $L$.
 \end{itemize}
 \item In most cases, \alert{optimize over $L$} not $\Sigma$.

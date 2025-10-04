@@ -8,9 +8,9 @@ Recall the first two conditions that are relevant to discrete games.  We covered
 \begin{enumerate}
 \item \textbf{Nash Condition\ (C1)}
 \begin{equation*}
-\sup_{d\in D_{i},d\neq d_{i}}\mathit{\varepsilon }\left[ \pi (d,\mathbf{d}_{-i},%
-\mathbf{y}_{i},\theta _{0})|\mathit{I}_{i}\right] \leq \mathit{\varepsilon }%
-\left[ \pi (d_{i},\mathbf{d}_{-i},\mathbf{y}_{i},\theta _{0})|\mathit{I}_{i}%
+\sup_{d\in D_{i},d\neq d_{i}}\mathit{\varepsilon }\left[ \pi (d,\symbf{d}_{-i},%
+\symbf{y}_{i},\theta _{0})|\mathit{I}_{i}\right] \leq \mathit{\varepsilon }%
+\left[ \pi (d_{i},\symbf{d}_{-i},\symbf{y}_{i},\theta _{0})|\mathit{I}_{i}%
 \right] 
 \end{equation*}
 where $D_{i}\subset D$, for $i=1,...,n$.\\
@@ -18,10 +18,10 @@ where $D_{i}\subset D$, for $i=1,...,n$.\\
 \item \textbf{Counterfactual Condition\ (C2)}
 
 \begin{equation*}
-\mathbf{d}_{-i}=d^{-i}(\mathbf{d}_{i},\mathbf{z}_{i}),\text{ \ }\mathbf{y}%
-_{i}=y(\mathbf{z}_{i},\mathbf{d}_{i},\mathbf{d}_{-i}),\text{ }and
+\symbf{d}_{-i}=d^{-i}(\symbf{d}_{i},\symbf{z}_{i}),\text{ \ }\symbf{y}%
+_{i}=y(\symbf{z}_{i},\symbf{d}_{i},\symbf{d}_{-i}),\text{ }and
 \end{equation*}
-the distribution of $\mathbf{z}_{i}$ conditional on $\mathit{I}_{i}$ does
+the distribution of $\symbf{z}_{i}$ conditional on $\mathit{I}_{i}$ does
 not depend on $d_{i}$.
 
 \end{enumerate}
@@ -36,8 +36,8 @@ If $d^{\prime }\in D_{i}$ and
 \end{equation*}
 then%
 \begin{equation*}
-\mathit{\varepsilon }\left[ \Delta \pi (d_{i},d^{\prime },\mathbf{d}_{-i},%
-\mathbf{z}_{i})|\mathit{I}_{i}\right] \geq 0.
+\mathit{\varepsilon }\left[ \Delta \pi (d_{i},d^{\prime },\symbf{d}_{-i},%
+\symbf{z}_{i})|\mathit{I}_{i}\right] \geq 0.
 \end{equation*}
 
 To use this inequality directly as a basis for an estimation algorithm, we need the
@@ -66,8 +66,8 @@ Specification Error}
 \setcounter{enumi}{2}
   \item \textbf{ Expectational Condition (FC3)}
 \begin{equation*}
-\pi (d,d_{-i},z_{i},\theta _{0})=\mathit{\varepsilon }\left[ \pi (d,\mathbf{d}%
-_{-i},\mathbf{z}_{i},\theta _{0})|\mathit{I}_{i}\right] 
+\pi (d,d_{-i},z_{i},\theta _{0})=\mathit{\varepsilon }\left[ \pi (d,\symbf{d}%
+_{-i},\symbf{z}_{i},\theta _{0})|\mathit{I}_{i}\right] 
 \end{equation*}
 \begin{equation*}
 \forall d\in D_{i}.
@@ -476,7 +476,7 @@ _{0})=r^{I}(d,d_{-i},z_{i}^{o},\theta _{0})-\pi (d,d_{-i},z_{i}).
 Then by definition:%
 \begin{equation*}
 r^{I}(d,d_{-i},z_{i}^{o},\theta _{0})=\mathit{\varepsilon }\left[ \pi (d_{i},%
-\mathbf{d}_{-i},\mathbf{z}_{i})|\mathit{I}_{i}\right] +\upsilon
+\symbf{d}_{-i},\symbf{z}_{i})|\mathit{I}_{i}\right] +\upsilon
 _{2,i,d}^{I}+\upsilon _{1,i,d}^{I},
 \end{equation*}
 
@@ -537,9 +537,9 @@ and
 
 The expectational error is caused by:
 \begin{enumerate}[i]
-\item uncertainty in $\mathbf{z}_{i}$,
+\item uncertainty in $\symbf{z}_{i}$,
 and/or 
-\item asymmetric information which is uncertainty in $\mathbf{d}_{-i}$%. 
+\item asymmetric information which is uncertainty in $\symbf{d}_{-i}$%. 
 \end{enumerate}
 \vspace{0.1in}
 
@@ -696,16 +696,16 @@ E\left[ \frac{1}{N}\sum_{i}\left[ \Delta \pi (d_{i},d^{\prime
 \begin{itemize}
 \item Standard condition - each agent knows:
 \begin{enumerate}[i]
-\item the other agents' strategies ($\mathbf{d}_{-i}(\mathit{I}_{-i})$), and 
+\item the other agents' strategies ($\symbf{d}_{-i}(\mathit{I}_{-i})$), and 
 \item the joint distribution of other agents' information sets and the primitive sources of
-uncertainty (of $(\mathit{I}_{-i},\mathbf{z}_{-i})$) conditional on $\mathit{%
+uncertainty (of $(\mathit{I}_{-i},\symbf{z}_{-i})$) conditional on $\mathit{%
 I}_{i}$, and regularity conditions.
 \end{enumerate}
 \vspace{0.2in}
 \item Weaker condition:\ agents' conditional expectations of the profit
 difference are correct. 
 \begin{itemize} \item This does not require knowledge of other agents'
-strategies, or the distribution of $(\mathbf{d}_{-i},\mathbf{z}_{i})$
+strategies, or the distribution of $(\symbf{d}_{-i},\symbf{z}_{i})$
 conditional on $\mathit{I}_{i}$. 
 \item Agent uncertainty is permitted and
 we do not need to fully specify how the agent forms its expectations.

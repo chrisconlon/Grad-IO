@@ -9,7 +9,7 @@
 \usepackage{dutchcal}
 
 
-\newcommand{\vect}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\vect}[1]{\symbf{\symbf{#1}}}
 \newcommand{\pd}[2]{\frac{\partial{#1}}{\partial{#2}}}
 \newcommand{\expect}[2]{\mathbb{E}_{#1}\left[{#2}\right]}
 \newcommand{\expectsmall}[2]{\mathbb{E}_{#1}{#2}}
@@ -347,7 +347,7 @@ A nice extension/application of this approach
         
         \item Aggregate data generated market-by-market $t$
         \begin{itemize}
-            \item \alert{Products} $j \in \mathcal{J}_t$ have observed characteristics $x_{jt}$, unobserved quality $\xi_{jt}$
+            \item \alert{Products} $j \in \calJ_t$ have observed characteristics $x_{jt}$, unobserved quality $\xi_{jt}$
             \item \alert{Consumer types} $i \in \mathcal{I}_t$ have observed demographics $y_{it}$, unobserved preferences $\nu_{it}$
             \item \alert{Market shares} $s_{jt} = \sum_i w_{it} s_{ijt}$ integrate over consumer mass, each type has known weight $w_{it}$
         \end{itemize}
@@ -407,19 +407,19 @@ A nice extension/application of this approach
     \begin{tabular}{@{\hspace{-1.2em}}r@{\hspace{0.6em}}l@{\hspace{-1.2em}}r@{\hspace{0.6em}}l@{\hspace{-1.2em}}}
         Paper & Micro moments shorthand & Paper & Micro moments shorthand \\
         \midrule
-        \cite{petrin2002quantifying} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{barwick2017local} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ \\
-        {\color{light gray}Berry et al.\ (2004)} & $\Cov(x_j, y_i \,|\, j \neq 0)$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ & \cite{murry2017advertising} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
-        \cite{thomadsen2005effect} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{wollmann2018trucks} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
-        \cite{goeree2008limited} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{li2018better} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ \\
-        \cite{ciliberto2010public} & $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{li2018empirical} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ \\
-        \cite{nakamura2010accounting} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{backus2021common} & $\E[y_i \,|\, j \in \mathcal{J}]$, $\Cov(x_j, y_i \,|\, j \neq 0)$ \\
-        \cite{beresteanu2011gasoline} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{grieco2021evolution} & $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ \\
-        \cite{li2012traffic} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{neilson2021targeted} & $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
-        \cite{copeland2014intertemporal} & $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{armitage2022regulatory} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
-        \cite{starc2014insurer} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ & \cite{dopper2022rising} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
-        \cite{ching2015quantifying} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{bodere2023dynamic} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
-        \cite{li2015price} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{montag2023mergers} & $\Cov(x_j, y_i \,|\, j \neq 0)$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ \\
-        \cite{nurski2016exclusive} & $\E[y_i \,|\, j \in \mathcal{J}]$, $\Cov(x_j, y_i \,|\, j \neq 0)$ & \cite{conlon2023market} & $\E[y_i \,|\, j \in \mathcal{J}]$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
+        \cite{petrin2002quantifying} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$, $\E[y_i \,|\, j \in \calJ]$ & \cite{barwick2017local} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ \\
+        {\color{light gray}Berry et al.\ (2004)} & $\Cov(x_j, y_i \,|\, j \neq 0)$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ & \cite{murry2017advertising} & $\E[y_i \,|\, j \in \calJ]$ \\
+        \cite{thomadsen2005effect} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{wollmann2018trucks} & $\E[y_i \,|\, j \in \calJ]$ \\
+        \cite{goeree2008limited} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{li2018better} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ \\
+        \cite{ciliberto2010public} & $\E[y_i \,|\, j \in \calJ]$ & \cite{li2018empirical} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ \\
+        \cite{nakamura2010accounting} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{backus2021common} & $\E[y_i \,|\, j \in \calJ]$, $\Cov(x_j, y_i \,|\, j \neq 0)$ \\
+        \cite{beresteanu2011gasoline} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{grieco2021evolution} & $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ \\
+        \cite{li2012traffic} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$, $\E[y_i \,|\, j \in \calJ]$ & \cite{neilson2021targeted} & $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
+        \cite{copeland2014intertemporal} & $\E[y_i \,|\, j \in \calJ]$ & \cite{armitage2022regulatory} & $\E[y_i \,|\, j \in \calJ]$ \\
+        \cite{starc2014insurer} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ & \cite{dopper2022rising} & $\E[y_i \,|\, j \in \calJ]$ \\
+        \cite{ching2015quantifying} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{bodere2023dynamic} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
+        \cite{li2015price} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{montag2023mergers} & $\Cov(x_j, y_i \,|\, j \neq 0)$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ \\
+        \cite{nurski2016exclusive} & $\E[y_i \,|\, j \in \calJ]$, $\Cov(x_j, y_i \,|\, j \neq 0)$ & \cite{conlon2023market} & $\E[y_i \,|\, j \in \calJ]$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
         $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$
     \end{tabular}
     \normalsize

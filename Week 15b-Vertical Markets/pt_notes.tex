@@ -21,29 +21,29 @@
 \begin{frame}{Villas Boas (ReStud 2007)}
 Retailer and Wholesaler FOC given by:
 \begin{align*}
-\mathbf{p^r} &= \underbrace{\mathbf{p^w} +\mathbf{c^r}}_{\mathbf{mc^r}} -(\mathcal{H}_r \odot \Delta_{r}(\mathbf{p^r}))^{-1} \mathbf{s}(\mathbf{p^r})\\
-\mathbf{p^w}  &= \mathbf{mc^w} + \left(\mathcal{H}_{w} \odot \left( \frac{\partial \mathbf{p^r}}{\partial \mathbf{p^w}} \cdot  \Delta_r(\mathbf{p^r} ) \right) \right)^{-1} \mathbf{s}(\mathbf{p^r})
+\symbf{p^r} &= \underbrace{\symbf{p^w} +\symbf{c^r}}_{\symbf{mc^r}} -(\mathcal{H}_r \odot \Delta_{r}(\symbf{p^r}))^{-1} \symbf{s}(\symbf{p^r})\\
+\symbf{p^w}  &= \symbf{mc^w} + \left(\mathcal{H}_{w} \odot \left( \frac{\partial \symbf{p^r}}{\partial \symbf{p^w}} \cdot  \Delta_r(\symbf{p^r} ) \right) \right)^{-1} \symbf{s}(\symbf{p^r})
 \end{align*}
 \begin{itemize}
-  \item $\Delta_r$ is matrix of (retail) demand derivatives $\frac{\partial\, \mathbf{s}}{\partial\, \mathbf{p}}$.
+  \item $\Delta_r$ is matrix of (retail) demand derivatives $\frac{\partial\, \symbf{s}}{\partial\, \symbf{p}}$.
 \item $\mathcal{H}_r,\mathcal{H}_w$  ownership matrix $(j,k)=1$ if both products sold by same retailer/wholesaler.
-\item $\frac{\partial\, \mathbf{p^r}}{\partial\, \mathbf{p^w}}$ is the \alert{pass-through matrix} (NEW!)
+\item $\frac{\partial\, \symbf{p^r}}{\partial\, \symbf{p^w}}$ is the \alert{pass-through matrix} (NEW!)
 \end{itemize}
-Challenge: We want $\mathbf{p^r}(\mathbf{p^w})$ and $\mathbf{mc^w}$ but we only have implicit solution for retailer FOC.
+Challenge: We want $\symbf{p^r}(\symbf{p^w})$ and $\symbf{mc^w}$ but we only have implicit solution for retailer FOC.
 \end{frame}
 
 \begin{frame}{How do we get pass-through?}
-The \alert{pass-through matrix} $\frac{\partial \mathbf{p^r}}{\partial \mathbf{p^w}}$ can be obtained in one of two ways:
+The \alert{pass-through matrix} $\frac{\partial \symbf{p^r}}{\partial \symbf{p^w}}$ can be obtained in one of two ways:
 \begin{enumerate}
 \item Numerically: perturbing the retailer's marginal costs for each possible choice of $k$ and solving
 \begin{align*}
-\mathbf{p^r} &=\mathbf{mc^r} + e_k -(\mathcal{H}_r \odot \Delta_{r}(\mathbf{p^r}))^{-1} \mathbf{s}(\mathbf{p^r})\\
+\symbf{p^r} &=\symbf{mc^r} + e_k -(\mathcal{H}_r \odot \Delta_{r}(\symbf{p^r}))^{-1} \symbf{s}(\symbf{p^r})\\
 \end{align*}
 (Use Morrow Skerlos (2011) formulation and solve for every $(j,k)$ pair).
 \item Analytic: Use the retailer's FOC and apply the implicit function theorem.
 \begin{align}
 \tag{retailer FOC}
- f(\mathbf{p^r},\mathbf{mc^r}) &\equiv \mathbf{p^r}  - \mathbf{mc^r}-  \left(\mathcal{H}_{r} \odot \Delta(\mathbf{p^r}) \right)^{-1} \mathbf{s}(\mathbf{p^r})=0 
+ f(\symbf{p^r},\symbf{mc^r}) &\equiv \symbf{p^r}  - \symbf{mc^r}-  \left(\mathcal{H}_{r} \odot \Delta(\symbf{p^r}) \right)^{-1} \symbf{s}(\symbf{p^r})=0 
 \end{align}
 See Jaffe Weyl (AEJM 2013) or Miller Weinberg (2017 Appendix E) or Conlon Rao (2022).\\
 \alert{This is what PyBLP does}.
@@ -54,13 +54,13 @@ See Jaffe Weyl (AEJM 2013) or Miller Weinberg (2017 Appendix E) or Conlon Rao (2
 \begin{frame}{Multivariate IFT: Easy Part}
 The multivariate IFT says that for some system of $J$ nonlinear equations 
 \begin{align*}
-f(\mathbf{p^r},\mathbf{p^w}) \equiv [F_1(\mathbf{p^r},\mathbf{p^w}), \ldots, F_J(\mathbf{p^r},\mathbf{p^w})]=[0,\ldots,0]
+f(\symbf{p^r},\symbf{p^w}) \equiv [F_1(\symbf{p^r},\symbf{p^w}), \ldots, F_J(\symbf{p^r},\symbf{p^w})]=[0,\ldots,0]
 \end{align*}
-with $J$ endogenous variables $\mathbf{p^r}$ and $J$ exogenous parameters $\mathbf{p^w}$.
+with $J$ endogenous variables $\symbf{p^r}$ and $J$ exogenous parameters $\symbf{p^w}$.
 \begin{align}
 \label{eq:ptr_matrix}
 \tag{PTR}
-\frac{\partial \mathbf{p^r}}{\partial \mathbf{p^w}}
+\frac{\partial \symbf{p^r}}{\partial \symbf{p^w}}
 =-\left(\begin{array}{ccc}
 \frac{\partial F_{1}}{\partial p_{1}^r} & \ldots & \frac{\partial F_{1}}{\partial p_{J}^r} \\
 \ldots & \ldots & \ldots \\
@@ -71,19 +71,19 @@ with $J$ endogenous variables $\mathbf{p^r}$ and $J$ exogenous parameters $\math
 \frac{\partial F_{J}}{\partial p_{k}^w}
 \end{array}\right)}_{= -\mathbb{I}_J}
 \end{align}
-Because the system of equations is additive in $\mathbf{mc^r} = \mathbf{c^r} + \mathbf{p^w}$ this simplifies dramatically.
+Because the system of equations is additive in $\symbf{mc^r} = \symbf{c^r} + \symbf{p^w}$ this simplifies dramatically.
 \end{frame}
 
 
 \begin{frame}{Multivariate IFT: Hard Part}
-Use the substitution $\Omega(\mathbf{p^r}) \equiv \mathcal{H}_r \odot \Delta_{r}(\mathbf{p^r})$, and differentiate the wholesalers' system of FOC's with respect to $p_l$, to get the $J \times J$ matrix with columns $l$ given by:
+Use the substitution $\Omega(\symbf{p^r}) \equiv \mathcal{H}_r \odot \Delta_{r}(\symbf{p^r})$, and differentiate the wholesalers' system of FOC's with respect to $p_l$, to get the $J \times J$ matrix with columns $l$ given by:
 \begin{align}
-\frac{\partial f(\mathbf{p^r},\mathbf{p^w})}{\partial p_l^r} \equiv e_l - \Omega^{-1}(\mathbf{p^r})
-\left[  \mathcal{H}_{r} \odot \frac{\partial\, \Delta(\mathbf{p^r})}{\partial\, p_l^r} \right]
-\Omega^{-1}(\mathbf{p^r})\,
-\mathbf{s}(\mathbf{p^r}) -\Omega^{-1}(\mathbf{p^r})\, \frac{\partial \mathbf{s}(\mathbf{p^r})}{\partial p_l^r}.
+\frac{\partial f(\symbf{p^r},\symbf{p^w})}{\partial p_l^r} \equiv e_l - \Omega^{-1}(\symbf{p^r})
+\left[  \mathcal{H}_{r} \odot \frac{\partial\, \Delta(\symbf{p^r})}{\partial\, p_l^r} \right]
+\Omega^{-1}(\symbf{p^r})\,
+\symbf{s}(\symbf{p^r}) -\Omega^{-1}(\symbf{p^r})\, \frac{\partial \symbf{s}(\symbf{p^r})}{\partial p_l^r}.
 \end{align}
-The complicated piece is the demand Hessian: a $J \times J \times J$ tensor with elements $(j,k,l)$, $\frac{\partial^2 s_j}{\partial p_k^r \partial p_l^r} = \frac{\partial^2 \mathbf{s}}{\partial \mathbf{p^r} \partial p_l^r}=\frac{\partial\, \Delta(\mathbf{p^r})}{\partial\, p_l^r}$.\\
+The complicated piece is the demand Hessian: a $J \times J \times J$ tensor with elements $(j,k,l)$, $\frac{\partial^2 s_j}{\partial p_k^r \partial p_l^r} = \frac{\partial^2 \symbf{s}}{\partial \symbf{p^r} \partial p_l^r}=\frac{\partial\, \Delta(\symbf{p^r})}{\partial\, p_l^r}$.\\
 
 This also shows a key relationship between \alert{pass through} and \alert{demand curvature} (2nd derivatives).
 \end{frame}
@@ -94,21 +94,21 @@ This also shows a key relationship between \alert{pass through} and \alert{deman
 \footnotesize
 How do we solve for $p^w$ under a counterfactual pass-through matrix?
 \begin{itemize}
-\item Idea: pass-through only augments the matrix $\Delta_r(\mathbf{p^r})$.
-\item Example: a constant sales tax rate $P \equiv \frac{\partial \mathbf{p^r}}{\partial \mathbf{p^w}} = \text{diag}(1+\tau_r)$
+\item Idea: pass-through only augments the matrix $\Delta_r(\symbf{p^r})$.
+\item Example: a constant sales tax rate $P \equiv \frac{\partial \symbf{p^r}}{\partial \symbf{p^w}} = \text{diag}(1+\tau_r)$
 \end{itemize}
 \begin{align*}
-\mathbf{p^w}  &= \mathbf{mc^w} + \left(\mathcal{H}_{w} \odot \left( \frac{\partial \mathbf{p^r}}{\partial \mathbf{p^w}} \cdot  \Delta_r(\mathbf{p^r} ) \right) \right)^{-1} \mathbf{s}(\mathbf{p^r})
+\symbf{p^w}  &= \symbf{mc^w} + \left(\mathcal{H}_{w} \odot \left( \frac{\partial \symbf{p^r}}{\partial \symbf{p^w}} \cdot  \Delta_r(\symbf{p^r} ) \right) \right)^{-1} \symbf{s}(\symbf{p^r})
 \end{align*}
 
-Adapt the Morrow Skerlos $\zeta$ fixed point where $P \Delta(\boldsymbol{p}_t) = P \Lambda_t\left(\boldsymbol{p}_t\right)- P \Gamma_t\left(\boldsymbol{p}_t\right)$
+Adapt the Morrow Skerlos $\zeta$ fixed point where $P \Delta(\symbf{p}_t) = P \Lambda_t\left(\symbf{p}_t\right)- P \Gamma_t\left(\symbf{p}_t\right)$
 \begin{align*}
-\boldsymbol{p}_t &\leftrightarrow \boldsymbol{c}_t+\boldsymbol{\zeta}_t\left(\boldsymbol{p}_t\right) \quad \text { where }\\
- \boldsymbol{\zeta}_t\left(\boldsymbol{p}_t\right)&=\Lambda_t\left(\boldsymbol{p}_t\right)^{-1} \alert{P^{-1}}\left[\mathcal{H}_t^* \odot \alert{P}\, \Gamma_t\left(\boldsymbol{p}_t\right)\right]\left(\boldsymbol{p}_t-\boldsymbol{c}_t\right)-\Lambda_t\left(\boldsymbol{p}_t\right)^{-1} \alert{P^{-1}} \boldsymbol{s}_t\left(\boldsymbol{p}_t\right)
+\symbf{p}_t &\leftrightarrow \symbf{c}_t+\symbf{\zeta}_t\left(\symbf{p}_t\right) \quad \text { where }\\
+ \symbf{\zeta}_t\left(\symbf{p}_t\right)&=\Lambda_t\left(\symbf{p}_t\right)^{-1} \alert{P^{-1}}\left[\mathcal{H}_t^* \odot \alert{P}\, \Gamma_t\left(\symbf{p}_t\right)\right]\left(\symbf{p}_t-\symbf{c}_t\right)-\Lambda_t\left(\symbf{p}_t\right)^{-1} \alert{P^{-1}} \symbf{s}_t\left(\symbf{p}_t\right)
 \end{align*}
 For diagonal $P$ (not sure about general case with Hadamard product):
 \begin{align*}
- \boldsymbol{\zeta}_t\left(\boldsymbol{p}_t\right)=\Lambda_t\left(\boldsymbol{p}_t\right)^{-1}\left[\mathcal{H}_t^* \odot  \Gamma_t\left(\boldsymbol{p}_t\right)\right]\left(\boldsymbol{p}_t-\boldsymbol{c}_t\right)-\Lambda_t\left(\boldsymbol{p}_t\right)^{-1} \alert{P^{-1}} \boldsymbol{s}_t\left(\boldsymbol{p}_t\right)
+ \symbf{\zeta}_t\left(\symbf{p}_t\right)=\Lambda_t\left(\symbf{p}_t\right)^{-1}\left[\mathcal{H}_t^* \odot  \Gamma_t\left(\symbf{p}_t\right)\right]\left(\symbf{p}_t-\symbf{c}_t\right)-\Lambda_t\left(\symbf{p}_t\right)^{-1} \alert{P^{-1}} \symbf{s}_t\left(\symbf{p}_t\right)
 \end{align*}
  
 \end{frame}

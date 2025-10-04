@@ -43,7 +43,7 @@ Column & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\ \hline
 \noindent
 Now suppose that the model is a logit model. The difference between the vertical model and this logit model is that the utility error is now i.i.d. extreme value
 and $\alpha _{i}=\alpha $ for all $i$, i.e.:
-$$\boldsymbol{u_{ijt}=\delta _{jt}^{\ast }+\epsilon _{ijt} \quad \text{ and } \quad \delta
+$$\symbf{u_{ijt}=\delta _{jt}^{\ast }+\epsilon _{ijt} \quad \text{ and } \quad \delta
 _{jt}^{\ast }=x_{jt}\beta -\alpha p_{jt}+\xi _{jt} \quad \forall \; t \in T}$$
 \begin{enumerate}
 \item Beginning with the utility function, derive market share as a function of \(\delta^*\)s. Then invert the equation to solve for \(\delta^*\) as a function of shares. Allow each year to be separately estimated.
@@ -65,7 +65,7 @@ Now use a nested logit model with a single level of nesting.
 \setcounter{enumi}{\value{mycounter}}
 \item
     \begin{enumerate}[(a)]
-    \item Write down market share for a single product as a function of the vector \(\boldsymbol{\delta}^*\) and the nesting parameter \(\sigma\). Use the \(\sigma\) and group notation used by Berry (1994 Rand), not the \(\lambda\) notation used by Train and McFadden.
+    \item Write down market share for a single product as a function of the vector \(\symbf{\delta}^*\) and the nesting parameter \(\sigma\). Use the \(\sigma\) and group notation used by Berry (1994 Rand), not the \(\lambda\) notation used by Train and McFadden.
     \item Invert that equation to solve for \(\delta_{j}^*\) as a function of market shares, within group shares, and \(\sigma\).
     \item Finally, use this second equation to write a regression equation with an observed quantity on the left-hand-side and observed variables and coefficients (including \(\sigma\)) on the right-hand-side.
     \end{enumerate}
@@ -146,10 +146,10 @@ used in the estimation in question \ref{est:logit}?
 %%%%%% Explanation of nested logit with two different sigmas. %%%%%%%%%%%%%%%%%%%%%
 The first dimension will be between inside goods and the outside good. The second dimension will be between makes of cars (firm id). We will use the notation of Berry(1994 Rand), generalized to the case of two nesting dimensions, which assumes the existence of a single nesting parameter for each dimension of nesting. In the notation below \(\sigma_1\) is the parameter for the highest dimension of nesting, and \(\sigma_2\) is the parameter for the lower dimension of nesting. \\ \\
 For a product \(j\) in subgroup \(g\) of group \(G_f\), the market share as a fraction of the market share of subgroup \(g\) is
-\[s_{j/g}(\boldsymbol{\delta}^{*},\sigma_2) = \frac{ e^{\delta^{*}_j / (1-\sigma_2)}}{D_g} \quad \text{ where } \quad D_g = \sum_{j\prime \in g} e^{\delta^{*}_j / (1-\sigma_2)}\]
+\[s_{j/g}(\symbf{\delta}^{*},\sigma_2) = \frac{ e^{\delta^{*}_j / (1-\sigma_2)}}{D_g} \quad \text{ where } \quad D_g = \sum_{j\prime \in g} e^{\delta^{*}_j / (1-\sigma_2)}\]
 The market share of subgroup \(g\), as a fraction of the market share of all subgroups in group \(G_f\), is
-\[s_{g/G_{f}}(\boldsymbol{\delta}^{*}, \sigma_1, \sigma_2) = \frac{D_g^{(1-\sigma_2)/(1-\sigma_1)}}{\sum_{g\prime \in G_f}D_{g^{\prime}}^{(1-\sigma_2)/(1-\sigma_1)}} \]
+\[s_{g/G_{f}}(\symbf{\delta}^{*}, \sigma_1, \sigma_2) = \frac{D_g^{(1-\sigma_2)/(1-\sigma_1)}}{\sum_{g\prime \in G_f}D_{g^{\prime}}^{(1-\sigma_2)/(1-\sigma_1)}} \]
 Finally, the market share of group \(G_f\) is
-\[s_{G_{f}}(\boldsymbol{\delta}^{*},\sigma_1, \sigma_2) = \frac{ \left( \sum_{g\prime \in G_f} D_{g^{\prime}}^{(1-\sigma_2)/(1-\sigma_1)} \right)^{(1-\sigma_1)}}{\sum_{f^{\prime}}  \left( \sum_{g\prime \in G_{f^{\prime}}} D_{g^{\prime}}^{(1-\sigma_2)/(1-\sigma_1)} \right)^{(1-\sigma_1)} }\]
+\[s_{G_{f}}(\symbf{\delta}^{*},\sigma_1, \sigma_2) = \frac{ \left( \sum_{g\prime \in G_f} D_{g^{\prime}}^{(1-\sigma_2)/(1-\sigma_1)} \right)^{(1-\sigma_1)}}{\sum_{f^{\prime}}  \left( \sum_{g\prime \in G_{f^{\prime}}} D_{g^{\prime}}^{(1-\sigma_2)/(1-\sigma_1)} \right)^{(1-\sigma_1)} }\]
 
 By multiplying these three pieces together we can find the market share of product \(j\) as a function of \(\delta^{*}\)s and \(\sigma\)s.

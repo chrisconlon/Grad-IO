@@ -133,15 +133,15 @@
 \begin{itemize}
 	\item Each individual maximizes a utility function:
 	\begin{equation*}
-	U_{j}=\beta_{1}\mathbbm{E}[x_{j}|\mathcal{J}] +\beta_{2}p_{j}+ \nu_{j},\qquad  j = 1,\dots,J.
+	U_{j}=\beta_{1}\mathbbm{E}[x_{j}|\calJ] +\beta_{2}p_{j}+ \nu_{j},\qquad  j = 1,\dots,J.
 	\end{equation*}
 	\item Instead of agent's $i$ subjective expectations, the econometrician observes both the realized values,
 	\begin{equation*}
-	x_{j} = \mathbbm{E}[x_{j}|\mathcal{J}] + \epsilon^{x}_{j},\text{ $\mathbbm{E}[\epsilon^{x}_{j}|\mathcal{J}]=0$,}
+	x_{j} = \mathbbm{E}[x_{j}|\calJ] + \epsilon^{x}_{j},\text{ $\mathbbm{E}[\epsilon^{x}_{j}|\calJ]=0$,}
 	\end{equation*}
 	and an additional shifter of agent's $i$ expectations:
 	\begin{equation*}
-	z_{j} = \mathbbm{E}[x_{j}|\mathcal{J}] + \epsilon^{z}_{j}.
+	z_{j} = \mathbbm{E}[x_{j}|\calJ] + \epsilon^{z}_{j}.
 	\end{equation*}
 	\item The expectational error corresponds to the classical measurement error in an explanatory variable (errors-in-variables).
 \end{itemize}
@@ -154,15 +154,15 @@
 \begin{itemize}
 	\item Each firm decides where to locate a plant:
 	\begin{equation*}
-	U_{j}=\mathbbm{E}[R_{j}|\mathcal{J}] +\beta_{2}F_{j}+ \nu_{j},\qquad  j = 1,\dots,J.
+	U_{j}=\mathbbm{E}[R_{j}|\calJ] +\beta_{2}F_{j}+ \nu_{j},\qquad  j = 1,\dots,J.
 	\end{equation*}
 	\item Instead of agent's $i$ subjective expectations, the econometrician observes realized values:
 	\begin{equation*}
-	R_{j} = \mathbbm{E}[R_{j}|\mathcal{J}] + \epsilon^{R}_{j}.
+	R_{j} = \mathbbm{E}[R_{j}|\calJ] + \epsilon^{R}_{j}.
 	\end{equation*}
 	The econometrician also observes $Z$ such that
 	\begin{equation*}
-	Z_{j} = \mathbbm{E}[R_{j}|\mathcal{J}] + \epsilon^{Z}_{j},
+	Z_{j} = \mathbbm{E}[R_{j}|\calJ] + \epsilon^{Z}_{j},
 	\end{equation*}
 	\item Similar to previous example but with structural restriction: $\beta_{1}$ = $1$.
 	\item Standard application of the moment inequalities estimator:
@@ -183,12 +183,12 @@
 	\end{equation*}
 	\item The expected present value of locating plant in location $j$ is:
 	\begin{align*}
-	U_{jt}&=\mathbbm{E}[\pi_{jt}+\sum_{s=t+1}^{\infty}\delta^{s-t}d_{js}\pi_{js}|\mathcal{J}_{t},d_{jt}=1],\\
+	U_{jt}&=\mathbbm{E}[\pi_{jt}+\sum_{s=t+1}^{\infty}\delta^{s-t}d_{js}\pi_{js}|\calJ_{t},d_{jt}=1],\\
 	&=V_{jt}-\sum_{j'=1}^{J}F_{jj'}d_{j't-1},
 	\end{align*}
 	with
 	\begin{equation*}
-	V_{jt}=\pi_{jt}+\mathbbm{E}[\sum_{s=t+1}^{\infty}\delta^{s-t}d_{js}\pi_{js}|\mathcal{J}_{t},d_{jt}=1].
+	V_{jt}=\pi_{jt}+\mathbbm{E}[\sum_{s=t+1}^{\infty}\delta^{s-t}d_{js}\pi_{js}|\calJ_{t},d_{jt}=1].
 	\end{equation*}
 \end{itemize}
 \end{frame}
@@ -200,7 +200,7 @@
 \begin{itemize}
 	\item Assume a projection of $V_{jt}$ on a set of observable covariates:
 	\begin{equation*}
-	V_{jt}=\beta x_{jt} + \nu_{jt},\qquad(x_{t},\nu_{t})\in\mathcal{J}_{it}.
+	V_{jt}=\beta x_{jt} + \nu_{jt},\qquad(x_{t},\nu_{t})\in\calJ_{it}.
 	\end{equation*}
 	\item Assume a structural form for $F_{jj'}$:
 	\begin{equation*}

@@ -268,7 +268,7 @@ The estimation algorithm is generally as follows:
 \item Possibly construct other errors/instruments from supply side.
 \item Construct GMM Objective
 \end{enumerate}
-The idea is that $\delta(\alert{\theta_2})$ is an implicit function of the nonlinear parameters $\alert{\theta_2}$. And for each guess we find that implicit solution for reduce the parameter space of the problem. But the Jacobian: $\frac{\partial \boldsymbol{\xi_t}}{\partial \theta_2}(\theta_2) = -{\left[\frac{\partial \boldsymbol{s}_t}{\partial \boldsymbol{\delta_t}}(\theta_2)\right]^{-1} \left[\frac{\partial \boldsymbol{s}_t}{\partial \theta_2}(\theta_2)\right]} $ is complicated to compute.
+The idea is that $\delta(\alert{\theta_2})$ is an implicit function of the nonlinear parameters $\alert{\theta_2}$. And for each guess we find that implicit solution for reduce the parameter space of the problem. But the Jacobian: $\frac{\partial \symbf{\xi_t}}{\partial \theta_2}(\theta_2) = -{\left[\frac{\partial \symbf{s}_t}{\partial \symbf{\delta_t}}(\theta_2)\right]^{-1} \left[\frac{\partial \symbf{s}_t}{\partial \theta_2}(\theta_2)\right]} $ is complicated to compute.
 }
 
 
@@ -288,7 +288,7 @@ s_{jt}(\alert{\Sigma,\alpha,\beta, \xi}) &=  \sum_i w_i \frac{\exp[x_{jt} \alert
 \begin{itemize}
 \item Expand the parameter space of the nonlinear search to include $\alert{\alpha,\beta,\xi}$
 \item Don't have to solve for $\xi$ except at the end.
-\item No implicit functions of $\theta_2$ and $\left[\frac{\partial \boldsymbol{s}_t}{\partial \sigma}(\alert{\sigma,\alpha,\beta, \xi})\right]$ is straightforward (no matrix inverse!).
+\item No implicit functions of $\theta_2$ and $\left[\frac{\partial \symbf{s}_t}{\partial \sigma}(\alert{\sigma,\alpha,\beta, \xi})\right]$ is straightforward (no matrix inverse!).
 \item Sparsity!
 \end{itemize}
 }

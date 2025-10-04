@@ -262,7 +262,7 @@ u_{ijt} &=   \alpha_i x_{jt}  +  \xi_{jt} + \varepsilon_{ijt}
 \end{align*}
 What would we do?
 \begin{itemize}
-\item Why not estimate static demand among $\bigcup_{t=1,2}  \mathcal{J}_t $ alternatives?
+\item Why not estimate static demand among $\bigcup_{t=1,2}  \calJ_t $ alternatives?
 \item Remaining issues:
 \begin{itemize}
 \item Buying in period 1 allows me an additional period of consumption
@@ -297,7 +297,7 @@ v_{i0,t=1} \equiv \E_{\varepsilon} [\max_j u_{ij2} | \Omega_{t=1} ] = \log \left
 \item Maybe we want to make some component of $x_{j2}$ \alert{unobserved} (such as price or $\xi$).
 $$
 \E_t\left[ \log \left( \sum_j \exp [ \alpha_i p_{j2}  +  \xi_{j2} ] \right)\big| \Omega_t\right]= 
-\int \log \left( \sum_j \exp [ \alpha_i p_{j2}  +  \xi_{j2} ] \right)  g(\mathbf{p_2} | \Omega_t) 
+\int \log \left( \sum_j \exp [ \alpha_i p_{j2}  +  \xi_{j2} ] \right)  g(\symbf{p_2} | \Omega_t) 
 $$
 \end{itemize}
 Integrate out over the unknown (distribution depends on information $\Omega_t$)

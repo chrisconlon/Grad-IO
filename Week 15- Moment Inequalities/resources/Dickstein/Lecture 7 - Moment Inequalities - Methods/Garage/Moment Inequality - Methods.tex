@@ -211,11 +211,11 @@ and \textbf{errors-in-variables.}
 \begin{itemize}
 	\item The payoff function of agent $i$ for alternative $j$ is
 	\begin{align*}
-	U_{j} = \beta\mathcal{E}[X_{j}|\mathcal{J}]+\nu_{j}= \beta X^{*}_{j}+\nu_{j},\qquad j \in \{0,1\}.
+	U_{j} = \beta\mathcal{E}[X_{j}|\calJ]+\nu_{j}= \beta X^{*}_{j}+\nu_{j},\qquad j \in \{0,1\}.
 	\end{align*}
 	\item We denote the expectational error as
 	\begin{align*}
-	\varepsilon_{j} = \beta X_{j}-\beta \mathcal{E}[X_{j}|\mathcal{J}],
+	\varepsilon_{j} = \beta X_{j}-\beta \mathcal{E}[X_{j}|\calJ],
 	\end{align*}
 	and rewrite payoff function as
 	\begin{align*}
@@ -237,7 +237,7 @@ and \textbf{errors-in-variables.}
 	\mathbbm{E}[\varepsilon_{j}|X^{*}_{j}]=0,\qquad\text{ and }\qquad\mathbbm{E}[\varepsilon_{j}|X_{j}]\neq0.
 	\end{equation*}
 	\item Rational expectations assumption $\Longrightarrow$ Errors-in-variables assumption.
-	\item For any $Z\in\mathcal{J}$, $\mathbbm{E}[\varepsilon_{j}|Z]=0$ $\Longrightarrow$ Z is an IV.
+	\item For any $Z\in\calJ$, $\mathbbm{E}[\varepsilon_{j}|Z]=0$ $\Longrightarrow$ Z is an IV.
 \end{itemize}
 \end{frame}
 
@@ -344,7 +344,7 @@ F_{\nu}(\Delta\nu_{j}|(\Delta Z_{j},\Delta X^{*}_{j}))=F_{\nu}(\Delta\nu_{j}).
 		\item It does not impose a parametric assumption on the marginal distribution of the measurement error.
 		\item It does not require full independence between the measurement error and the vector $(\Delta X^{*}_{j},$ $\Delta Z_{j},$ $\Delta\nu_{j})$
 	\end{itemize}
-	\item If $\Delta\varepsilon_{j}$ captures expectational error and we assume rational expectations, the only additional restriction that Assumption 3 imposes is that $\Delta Z_{2j}$ $\in$ $\mathcal{J}$.
+	\item If $\Delta\varepsilon_{j}$ captures expectational error and we assume rational expectations, the only additional restriction that Assumption 3 imposes is that $\Delta Z_{2j}$ $\in$ $\calJ$.
 \end{itemize}
 \end{frame}
 
@@ -422,7 +422,7 @@ F_{\nu}(\Delta\nu_{j}|(\Delta Z_{j},\Delta X^{*}_{j}))=F_{\nu}(\Delta\nu_{j}).
 	\begin{align*}
 	U_{j}=\beta^{(1)}X^{*(1)}_{j} + \beta^{(2)}X^{*(2)}_{j} + \beta^{(3)}X^{*(3)}_{j}+ \nu_{j},\quad j=\{0,1\},
 	\end{align*}
-	with $\beta$ = $\mathbf{(0.5,0.5,0.25)}$ and
+	with $\beta$ = $\symbf{(0.5,0.5,0.25)}$ and
 	\begin{align*}
 	\nu_{j}\backsim\mathbbm{N}(0,\sigma_{\nu}^{2}),\qquad\sigma_{\nu}=1.
 	\end{align*}

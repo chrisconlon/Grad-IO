@@ -12,7 +12,7 @@
 \frametitle{Multinomial Logit: IIA}
 The multinomial logit is frequently criticized for producing unrealistic substitution patterns
 \begin{itemize}
-\item Suppose we got rid of a product $k$ then $s_{ij}(\mathcal{J}\setminus k) = s_{ij}(\mathcal{J})\cdot \frac{1}{1- s_{ik}}$.
+\item Suppose we got rid of a product $k$ then $s_{ij}(\calJ\setminus k) = s_{ij}(\calJ)\cdot \frac{1}{1- s_{ik}}$.
 \item Substitution is just proportional to your pre-existing shares $s_j$
 \item No concept of ``closeness'' of competition!
 \end{itemize}
@@ -23,7 +23,7 @@ The multinomial logit is frequently criticized for producing unrealistic substit
 \frametitle{Can we do better?}
 Multinomial Probit?
 \begin{itemize}
-\item The probit has $\boldsymbol{\varepsilon_i} \sim N(0,\Sigma)$.
+\item The probit has $\symbf{\varepsilon_i} \sim N(0,\Sigma)$.
 \item If $\Sigma$ is unrestricted, then this can produce relatively flexible substitution patterns.
 \item Flexible is relative: still have normal tails, only pairwise correlations, etc.
 \item It might be that $\rho_{12}$ is large if $1,2$ are similar products.
@@ -82,7 +82,7 @@ U_{ij} = V_{ij} + \underbrace{\eta_{ig} + \widetilde{\varepsilon_{ij}}}_{\vareps
 \end{eqnarray*}
 \begin{itemize}
 \item We add a new term that depends on the group $g$ but not the product $j$ and think about it as varying unobservably over individuals $i$ just like $\varepsilon_{ij}$.
-\item Now $\boldsymbol{\varepsilon_i} \sim F(\varepsilon)$ where $F(\varepsilon) = \exp[-\sum_{g=G}^G \left(\sum_{j \in J_g} \exp[-\varepsilon_{ij}/\lambda_g]\right)^{\lambda_g}$. This is no longer Type I EV but a special kind of GEV.
+\item Now $\symbf{\varepsilon_i} \sim F(\varepsilon)$ where $F(\varepsilon) = \exp[-\sum_{g=G}^G \left(\sum_{j \in J_g} \exp[-\varepsilon_{ij}/\lambda_g]\right)^{\lambda_g}$. This is no longer Type I EV but a special kind of GEV.
 \item The key is the addition of the $\lambda_g$ parameters which govern (roughly) the within group correlation.
 \item This distribution is a bit cooked up to get a closed form result, but for $\lambda_g \in [0,1]$ for all $g$ it is consistent with random utility maximization.
 \end{itemize}
@@ -188,14 +188,14 @@ There are more potential generalizations though they are less frequently used:
 \begin{frame}{McFadden (1978) and GEV}
 In case you are wondering where these things come from...
 \begin{align*}
-s_{ij}(\mathcal{J})=\frac{y_{ij}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G\left(y_{i1}, \ldots, y_{iJ}\right)}
+s_{ij}(\calJ)=\frac{y_{ij}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G\left(y_{i1}, \ldots, y_{iJ}\right)}
 \end{align*}
 With conditions on the \alert{generator function} $G$:
 \begin{enumerate}
 \item $G(\cdot)$ is homogenous of degree $\mu > 0$ so that $G(\alpha y)=\alpha^{\mu} G(y)$
-\item $\lim _{y_{j} \rightarrow+\infty} G\left(y_{1}, \ldots, y_{j}, \ldots, y_{J}\right)=+\infty, \text { for each } j \in \mathcal{J} $
+\item $\lim _{y_{j} \rightarrow+\infty} G\left(y_{1}, \ldots, y_{j}, \ldots, y_{J}\right)=+\infty, \text { for each } j \in \calJ $
 \item the $k$ th partial derivative with respect to $k$ distinct $y_{j}$ is \alert{non-negative if $k$ is
-odd} and \alert{non-positive if $k$ is even} that is, for any distinct indices $i_{1}, \ldots, i_{k} \in \mathcal{J}$, we have
+odd} and \alert{non-positive if $k$ is even} that is, for any distinct indices $i_{1}, \ldots, i_{k} \in \calJ$, we have
 $$
 (-1)^{k} \frac{\partial^{k} G}{\partial x_{i_{1}} \ldots \partial x_{i_{k}}}(x) \leq 0, \forall x \in \mathbb{R}_{+}^{J}
 $$
@@ -208,10 +208,10 @@ The objects are more mathematical than economic...
 \begin{frame}{McFadden (1978) and GEV}
 This is much easier with an example:
 \begin{align*}
-s_{ij}(\mathcal{J})=\frac{y_{ij}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G_i\left(y_{i1}, \ldots, y_{iJ}\right)}
+s_{ij}(\calJ)=\frac{y_{ij}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G_i\left(y_{i1}, \ldots, y_{iJ}\right)}
 \end{align*}
 \begin{itemize}
-\item If $y_j = e^{V_{ij}}$ and $G_i = \log \sum_{j \in \mathcal{J}} y_{ij} $ we get the IIA logit.
+\item If $y_j = e^{V_{ij}}$ and $G_i = \log \sum_{j \in \calJ} y_{ij} $ we get the IIA logit.
 \item If $y_j = e^{V_{ij}}$ and $G_i=\sum_{h=1}^{H}\left(\sum_{j \in B_{h}} Y_{ij}^{1 / \lambda_{h}}\right)^{\lambda_{h}}$ we get the nested logit.
 \item ... if $G_i=\sum_{h=1}^{H}\left(\sum_{j \in B_{h}}\left(\alpha_{j h} Y_{ij}\right)^{1 / \lambda_{k}}\right)^{\lambda_{k}}$ we get \alert{generalized nested logit} (GNL).
 \item ... if $G=\sum_{k=1}^{J-1} \Sigma_{l=k+1}^{J}\left(y_{i k}^{1 / \lambda_{k l}}+y_{i l}^{1 / \lambda_{k l}}\right)^{\lambda_{k l}}$ we get \alert{pairwise combinatorial logit} (PCL).

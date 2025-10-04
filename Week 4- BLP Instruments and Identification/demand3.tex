@@ -474,21 +474,21 @@ We can break up the parameter space into three parts:
 Consider the multi-product Bertrand FOCs:
 \footnotesize
 {\begin{eqnarray*}
-\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &=& \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot s_j(\mathbf{p}) +  \kappa_{fg}\sum_{k \in \mathcal{J}_g} (p_k - c_k) \cdot s_k(\mathbf{p}) \\
-0&=& s_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial s_{k}}{\partial p_j}(\mathbf{p}) 
+\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) &=& \sum_{j \in \calJ_f} (p_j - c_j) \cdot s_j(\symbf{p}) +  \kappa_{fg}\sum_{k \in \calJ_g} (p_k - c_k) \cdot s_k(\symbf{p}) \\
+0&=& s_j(\symbf{p}) + \sum_{k \in \calJ_f} (p_k - c_k) \frac{\partial s_{k}}{\partial p_j}(\symbf{p}) 
 \end{eqnarray*}
 }
-It is helpful to define the \alert{ownership matrix} $\Omega_{(j,k)}(\mathbf{p})  = - \frac{\partial s_{j}}{\partial p_k}(\mathbf{p})$:
+It is helpful to define the \alert{ownership matrix} $\Omega_{(j,k)}(\symbf{p})  = - \frac{\partial s_{j}}{\partial p_k}(\symbf{p})$:
 \begin{eqnarray*}
 A(\kappa)_{(j,k)} = \left\{\begin{array}{lr}
-          1 & \text{for }  (j,k) \in \mathcal{J}_f \text{ for any } f \\ 
+          1 & \text{for }  (j,k) \in \calJ_f \text{ for any } f \\ 
 	  0 & \text{o.w}\\
         \end{array} \right\}
 \end{eqnarray*}
 We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product (element-wise):
 \begin{eqnarray*}
-        s(\mathbf{p}) &= (A \odot \Omega(\mathbf{p})) \cdot (\mathbf{p} - \mathbf{mc}), \\
-       \mathbf{mc} &=  \mathbf{p} - \underbrace{(A \odot \Omega(\mathbf{p}))^{-1} s(\mathbf{p})}_{\eta(\mathbf{p},\mathbf{s},\theta_2)}.
+        s(\symbf{p}) &= (A \odot \Omega(\symbf{p})) \cdot (\symbf{p} - \symbf{mc}), \\
+       \symbf{mc} &=  \symbf{p} - \underbrace{(A \odot \Omega(\symbf{p}))^{-1} s(\symbf{p})}_{\eta(\symbf{p},\symbf{s},\theta_2)}.
 \end{eqnarray*}
 \end{frame}
 
@@ -497,12 +497,12 @@ We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product (e
 \begin{frame}{Recovering Marginal Costs }
 Recover implied markups/ marginal costs, and assume a functional form for $mc_{jt}(x_{jt},w_{jt})$.
 \begin{eqnarray*}
-\widehat{\mathbf{mc}}(\theta)&=& \mathbf{p}- \Omega(\mathbf{p},\theta)^{-1} q(\mathbf{p},\theta)\\
+\widehat{\symbf{mc}}(\theta)&=& \symbf{p}- \Omega(\symbf{p},\theta)^{-1} q(\symbf{p},\theta)\\
 f(mc_{jt}) &=& [x_{jt} \,, w_{jt}] \gamma + \omega_{jt}
 \end{eqnarray*}
 Which we can solve for $\omega_{jt}$:
 \begin{eqnarray*}
-\omega_{jt} &=&  f(\mathbf{p}- \Omega(\mathbf{p},\theta)^{-1} q(\mathbf{p},\theta)) - x_{jt} \gamma_1 - w_{jt} \gamma_2
+\omega_{jt} &=&  f(\symbf{p}- \Omega(\symbf{p},\theta)^{-1} q(\symbf{p},\theta)) - x_{jt} \gamma_1 - w_{jt} \gamma_2
 \end{eqnarray*}
 \begin{itemize}
 \item $f(\cdot)$ is usually $\log(\cdot)$ or identity.
@@ -518,9 +518,9 @@ Which we can solve for $\omega_{jt}$:
 \begin{frame}{Simultaneous Supply and Demand}
 \tiny
 \begin{enumerate}[(a)]
-\item For each market $t$: solve $\mathcal{S}_{jt} = s_{jt}(\delta_{\cdot t},\theta_2)$ for $\widehat{\delta}_{\cdot t}(\theta_2)$.
+\item For each market $t$: solve $\calS_{jt} = s_{jt}(\delta_{\cdot t},\theta_2)$ for $\widehat{\delta}_{\cdot t}(\theta_2)$.
 \item For each market $t$: use $\widehat{\delta}_{\cdot t}(\theta_2)$ to construct $\eta_{\cdot 
-t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
+t}(\symbf{q_t},\symbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 \item For each market $t$: Recover $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2) = p_{jt} - \eta_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 \item Stack up $\widehat{\delta}_{\cdot t}(\theta_2)$ and $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$ and use linear IV-GMM to recover $[\widehat{\theta}_1(\theta_2), \widehat{\theta}_3(\theta_2) ]$ following the recipe in Appendix
 \item Construct the residuals:
@@ -569,12 +569,12 @@ X_D & 0 \\
 %\item Where do instruments come from? Something omitted that appears in another equation.
 %\end{itemize}
 %\begin{eqnarray*}
-%p_{jt}  &=& c_{jt}(w_{jt},x_{jt}) +  \frac{s_{jt}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|}  +\sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\frac{ \partial s_{kt}}{\partial p_{jt}}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|}  
+%p_{jt}  &=& c_{jt}(w_{jt},x_{jt}) +  \frac{s_{jt}(\symbf{p_t})}{\left|\frac{\partial s_{jt}(\symbf{p_t})}{\partial p_{jt}}\right|}  +\sum_{k \in \calJ_f} (p_k - c_k) \frac{\frac{ \partial s_{kt}}{\partial p_{jt}}(\symbf{p_t})}{\left|\frac{\partial s_{jt}(\symbf{p_t})}{\partial p_{jt}}\right|}  
 %\end{eqnarray*}
 %\begin{enumerate}
 %\item Exogenous regressors $x_{jt}$.
 %\item Cost shifters: $w_{jt}$ (hard to find in practice), Hausman instruments.
-%\item Markup shifters:  $ \frac{s_{jt}(\mathbf{p_t})}{\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}}$ \\(function of $(p_j,x_j,\xi_j, p_{-j},x_{-j},\xi_{-j})$).
+%\item Markup shifters:  $ \frac{s_{jt}(\symbf{p_t})}{\frac{\partial s_{jt}(\symbf{p_t})}{\partial p_{jt}}}$ \\(function of $(p_j,x_j,\xi_j, p_{-j},x_{-j},\xi_{-j})$).
 %\end{enumerate}
 %\end{frame}
 %
@@ -620,8 +620,8 @@ X_D & 0 \\
 
 \begin{frame}{Exclusion Restrictions}
 \begin{eqnarray*}
-    \delta_{jt}(\mathcal{S}_t,\widetilde{\theta}_2) &=&  [x_{jt}, \alert{v_{jt}}]  \beta  - \alpha p_{jt} + \xi_{jt}\\
-    f(p_{jt} - \eta_{jt}(\theta_2,\mathbf{p},\mathbf{s})) &=&   h(x_{jt},\alert{w_{jt}};\theta_3)+\omega_{jt}
+    \delta_{jt}(\calS_t,\widetilde{\theta}_2) &=&  [x_{jt}, \alert{v_{jt}}]  \beta  - \alpha p_{jt} + \xi_{jt}\\
+    f(p_{jt} - \eta_{jt}(\theta_2,\symbf{p},\symbf{s})) &=&   h(x_{jt},\alert{w_{jt}};\theta_3)+\omega_{jt}
 \end{eqnarray*}
 The first place to look for exclusion restrictions/instruments:
 \begin{itemize}
@@ -634,7 +634,7 @@ The first place to look for exclusion restrictions/instruments:
 
 
 \begin{frame}{Markup Shifters}
-The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p},\mathbf{s},\xi_t,\omega_t,x_{t},w_{t},v_t,\theta_2)$:
+The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\symbf{p},\symbf{s},\xi_t,\omega_t,x_{t},w_{t},v_t,\theta_2)$:
 \begin{itemize}
 \item It is literally \alert{endogenous} (depends on error terms)!
 \item But lots of potential instruments beyond \alert{excluded} $v_t$ or $w_t$.
@@ -652,7 +652,7 @@ The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p
 \begin{itemize}
 \item Common choices are average characteristics of other products in the same market $f(x_{-j,t})$. \alert{BLP instruments}
 \begin{itemize}
-\item Same firm $z_{1jt} = \overline{x}_{-j_f,t} = \frac{1}{\left\vert{F_j}\right\vert}  \sum_{k \in \mathcal{F}_j} x_{kt} - \frac{1}{\left\vert{F_j}\right\vert} x_{jt}$.
+\item Same firm $z_{1jt} = \overline{x}_{-j_f,t} = \frac{1}{\left\vert{F_j}\right\vert}  \sum_{k \in \calF_j} x_{kt} - \frac{1}{\left\vert{F_j}\right\vert} x_{jt}$.
 \item Other firms $z_{2jt}=\overline{x}_{\cdot t} - \overline{x}_{-j_f,t} - \frac{1}{J} x_{jt}$.
 \item Plus regressors $(1, x_{jt})$.
 \item Plus higher order interactions 
@@ -672,7 +672,7 @@ The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p
 \begin{frame}{Armstrong (2016): Weak Instruments?}
 Consider the limit as $J \rightarrow \infty$
 \begin{eqnarray*}
-\frac{s_{jt}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|} = \frac{1}{\alpha} \frac{1}{1-s_{jt}} \rightarrow \frac{1}{\alpha}
+\frac{s_{jt}(\symbf{p_t})}{\left|\frac{\partial s_{jt}(\symbf{p_t})}{\partial p_{jt}}\right|} = \frac{1}{\alpha} \frac{1}{1-s_{jt}} \rightarrow \frac{1}{\alpha}
 \end{eqnarray*}
 \begin{itemize}
 \item Hard to use markup shifting instruments to instrument for a constant.
@@ -787,7 +787,7 @@ E\left[\frac{\partial \xi_{jt}}{\partial \theta} | X_t, w_{jt} \right] = \left[\
 Some challenges:
 \begin{enumerate}
 \item $p_{jt}$ depends on $X_{t}, w_{t}, \xi_{t}$ in a highly nonlinear way (no explicit solution!).
-\item $E[\frac{\partial \xi_{jt}}{\partial \sigma} | X_t, w_{t} ] =E[[\frac{\partial \mathbf{s_t}}{\partial \mathbf{\delta_t}}]^{-1} [\frac{\partial \mathbf{s_t}}{\partial \mathbf{\sigma}}] | X_t, w_{t} ]$  (not conditioned on endogenous $p$!)
+\item $E[\frac{\partial \xi_{jt}}{\partial \sigma} | X_t, w_{t} ] =E[[\frac{\partial \symbf{s_t}}{\partial \symbf{\delta_t}}]^{-1} [\frac{\partial \symbf{s_t}}{\partial \symbf{\sigma}}] | X_t, w_{t} ]$  (not conditioned on endogenous $p$!)
 \end{enumerate}
 ``Feasible'' Recipe:
 \begin{enumerate}

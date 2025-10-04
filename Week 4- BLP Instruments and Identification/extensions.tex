@@ -109,13 +109,13 @@ Efficiency requires correcting micro-data to avoid double-counting:
 
 \begin{frame} \frametitle{Extensions: Second Choices (Conlon, Mortimer, Sarkis 2022)}
 \small
-We need to see at least some $\mathcal{D}_{jk}$
+We need to see at least some $\calD_{jk}$
 \begin{align*}
-\min_{s_{ij}, \pi_i}\sum_{(k,j) \in \text{OBS}} \left( \mathcal{D}_{kj} - D_{kj}\right)^2+ & \lambda_1 \cdot  \sum_j \left(\mathcal{S}_j - \sum_i \pi_i \cdot s_{ij} \right)^2\\ %+ \lambda_2 \norm{\pi_i}^2 \\
+\min_{s_{ij}, \pi_i}\sum_{(k,j) \in \text{OBS}} \left( \calD_{kj} - D_{kj}\right)^2+ & \lambda_1 \cdot  \sum_j \left(\calS_j - \sum_i \pi_i \cdot s_{ij} \right)^2\\ %+ \lambda_2 \norm{\pi_i}^2 \\
 \text{subject to} \quad 
 %\nonumber    s_j &= \sum_{i=1}^I \pi_i \cdot s_{ij}\\
 \nonumber    D_{kj} &= \sum_{i=1}^I \pi_i \cdot \frac{s_{ij}}{1-s_{ik}} \cdot \frac{s_{ik}}{s_{k}}\\
-\nonumber    \mathcal{S}_j &= \frac{\mathcal{Q}_j }{\overline{q}_0 +\sum_{k \in \mathcal{J}_t} \mathcal{Q}_k}  \\
+\nonumber    \calS_j &= \frac{\mathcal{Q}_j }{\overline{q}_0 +\sum_{k \in \calJ_t} \mathcal{Q}_k}  \\
 \nonumber   0\leq s_{ij}, \pi_i, s_j, D_{kj} \leq 1,& \quad
    \sum_{i=1}^I \pi_i = 1,\quad
    \sum_j s_{ij} = 1 
@@ -243,7 +243,7 @@ s_{ij} &=& \int \frac{\exp[x_{j} \beta_i  ]}{1+\sum_k \exp[x_{k} \beta_i  ]} f(\
 \frametitle{Fully Nonparametric Demand (Compiani 2019)}
 Takes identification arguments in Berry Haile (2014) to the data. Looks at a sieve approximation to
 \begin{align*}
-\sigma_{j}^{-1}(\mathcal{S}_t,\widetilde{\theta}_2)
+\sigma_{j}^{-1}(\calS_t,\widetilde{\theta}_2)
 \end{align*}
 Using the \alert{Bernstein Polynomials}
 \begin{itemize}

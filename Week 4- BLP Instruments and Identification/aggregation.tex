@@ -1,52 +1,56 @@
-\def\beamerclassoptions{[dvipsnames,table,mathserif,aspectratio=169]}
-\input{../resources/preamble.tex}
-\usetheme{metropolis}
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
-\usepackage[english]{babel}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,centernot}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage{pdfpages}
-\usepackage[absolute,overlay]{textpos} 
+% \def\beamerclassoptions{[dvipsnames,table,mathserif,aspectratio=169]}
+% \input{../resources/preamble.tex}
+% \usetheme{metropolis}
 
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+% \usepackage[english]{babel}
+% \usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+% \usepackage{amsmath,amssymb,setspace,centernot}
+% \usepackage[latin1]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage{relsize}
+% \usepackage{pdfpages}
+% \usepackage[absolute,overlay]{textpos} 
 
-\DeclareMathSizes{10}{10}{6}{6} 
-\AtBeginSection[]{
-  \begin{frame}
-  \vfill
-  \centering
-  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
-    \usebeamerfont{title}\insertsectionhead\par%
-  \end{beamercolorbox}
-  \vfill
-  \end{frame}
-}
+% \newenvironment{reference}[2]{% 
+%   \begin{textblock*}{\textwidth}(#1,#2) 
+%       \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+
+% \DeclareMathSizes{10}{10}{6}{6} 
+% \AtBeginSection[]{
+%   \begin{frame}
+%   \vfill
+%   \centering
+%   \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+%     \usebeamerfont{title}\insertsectionhead\par%
+%   \end{beamercolorbox}
+%   \vfill
+%   \end{frame}
+% }
 
 
-% argmax/argmin are provided by the canonical preamble
+% % argmax/argmin are provided by the canonical preamble
 
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
-\newcommand{\X}{\mathtt{X}}
-\newcommand{\Y}{\mathtt{Y}}
+% \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+% \newcommand{\X}{\mathtt{X}}
+% \newcommand{\Y}{\mathtt{Y}}
 
-%\newcommand{\R}{\mathbb{R}}
-%\newcommand{\E}{\mathbb{E}}
-%\newcommand{\V}{\mathbb{V}}
-\newcommand{\p}{\mathbb{P}}
-\newcommand*\df{\mathop{}\!\mathrm{d}}
-\newcommand{\del}{\partial}
+% %\newcommand{\R}{\mathbb{R}}
+% %\newcommand{\E}{\mathbb{E}}
+% %\newcommand{\V}{\mathbb{V}}
+% \newcommand{\p}{\mathbb{P}}
+% \newcommand*\df{\mathop{}\!\mathrm{d}}
+% \newcommand{\del}{\partial}
 
-\begin{document}
+
 \title{Aggregate Data}
 \author{Chris Conlon}
 \institute{Grad IO}
 \date{\today}
 
+\begin{document}
 \frame{\titlepage}
 
 \begin{frame}{Aggregate Data}
@@ -61,7 +65,7 @@
 
 \begin{frame}
 \frametitle{Multinomial:  Aggregation Property}
-Each individual's choice $y_{ij} \in\{0,1\}$ and $\sum_{j \in \mathcal{J}} d_{ij} =1$.\\
+Each individual's choice $y_{ij} \in\{0,1\}$ and $\sum_{j \in \calJ} d_{ij} =1$.\\
 
 Choices follow a Multinomial distribution with $m=1$:
 \begin{align*}
@@ -76,19 +80,19 @@ where $q_{j}^{*}=\sum_{i=1}^M d_{ij}$ is a \alert{sufficient statistic}.
 
 \begin{frame}
 \frametitle{Multinomial:  Aggregation Property (Likelihood)}
-We can write the likelihood as $L\left((y_{i1},\ldots,y_{iJ},y_{i0})  \mid \mathbf{x_i},  \theta \right)$ where $\mathbf{x_i}$ is a $J$ vector that includes all relevant product characteristics interacted with all relevant individual characteristics.
+We can write the likelihood as $L\left((y_{i1},\ldots,y_{iJ},y_{i0})  \mid \symbf{x_i},  \theta \right)$ where $\symbf{x_i}$ is a $J$ vector that includes all relevant product characteristics interacted with all relevant individual characteristics.
 \begin{align*}
 &=
 \left(\begin{array}{c}
 M \\
 q_{i1},\ldots, q_{iJ}, q_{i0}
 \end{array}\right)
-\prod_{i=1}^M s_{i1}(\mathbf{x_i},\theta)^{d_{i1}}\cdots s_{iJ}(\mathbf{x_i},\theta)^{d_{iJ}}  s_{i0}(\mathbf{x_i},\theta)^{d_{i0}}\\
-\rightarrow \ell(\mathbf{x_i},\theta)&= \sum_{i=1}^M \sum_{j \in \mathcal{J}} d_{ij} \log s_{ij}(\mathbf{x_i},\theta) + \log C(\mathbf{q})
+\prod_{i=1}^M s_{i1}(\symbf{x_i},\theta)^{d_{i1}}\cdots s_{iJ}(\symbf{x_i},\theta)^{d_{iJ}}  s_{i0}(\symbf{x_i},\theta)^{d_{i0}}\\
+\rightarrow \ell(\symbf{x_i},\theta)&= \sum_{i=1}^M \sum_{j \in \calJ} d_{ij} \log s_{ij}(\symbf{x_i},\theta) + \log C(\symbf{q})
 \end{align*}
-If all individuals face the same $(\mathbf{x_i})$ and $\mathcal{J}$ they will have the same $s_{ij}(\mathbf{x_i},\theta)$ and we can aggregate outcomes into \alert{sufficient statistics}.
+If all individuals face the same $(\symbf{x_i})$ and $\calJ$ they will have the same $s_{ij}(\symbf{x_i},\theta)$ and we can aggregate outcomes into \alert{sufficient statistics}.
 \begin{align*}
-\rightarrow \ell(\theta) &=  \sum_{j \in \mathcal{J}} q_{j}^{*} \log s_{j}(\theta)
+\rightarrow \ell(\theta) &=  \sum_{j \in \calJ} q_{j}^{*} \log s_{j}(\theta)
 \end{align*}
 \end{frame}
 
@@ -98,7 +102,7 @@ If all individuals face the same $(\mathbf{x_i})$ and $\mathcal{J}$ they will ha
 \begin{itemize}
 \item Instead of individual data, or a single group we might have multiple groups: if prices only change once per week, we can aggregate all of the week's sales into one ``observation''.
 \item Likewise if we only observe that an individual is within one of five income buckets -- there is no loss from aggregating our data into these five buckets.
-\item All of this depends on the precise form of $ s_{ij}(\mathbf{x_i},\theta)$. When it doesn't change across observations: we can aggregate.
+\item All of this depends on the precise form of $ s_{ij}(\symbf{x_i},\theta)$. When it doesn't change across observations: we can aggregate.
 \item Notice I didn't need anything to follow a logit/probit.
 \end{itemize}
 \end{frame}
@@ -107,15 +111,15 @@ If all individuals face the same $(\mathbf{x_i})$ and $\mathcal{J}$ they will ha
 \begin{frame}
 \frametitle{Aggregation with Unobserved Heterogeneity}
 \begin{eqnarray*}
-s_{ij}(\mathbf{x_{i}} , \theta) &=& \int \frac{\exp [x_{ij} \beta_{\iota}  ]}{1+\sum_k \exp[x_{ik} \beta_{\iota}]} f(\beta_{\iota} | \theta) \partial \beta_{\iota} 
+s_{ij}(\symbf{x_{i}} , \theta) &=& \int \frac{\exp [x_{ij} \beta_{\iota}  ]}{1+\sum_k \exp[x_{ik} \beta_{\iota}]} f(\beta_{\iota} | \theta) \partial \beta_{\iota} 
 = \sum_{\iota=1}^{S} w_{\iota} \frac{\exp [x_{ij} \beta_{\iota}  ]}{1+\sum_k \exp[x_{ik} \beta_{\iota}]} 
 \end{eqnarray*}
 \begin{itemize}
-\item Notice that while $i$ subscripts ``individuals'' with different characteristics $\mathbf{x_i}$
+\item Notice that while $i$ subscripts ``individuals'' with different characteristics $\symbf{x_i}$
 \item $\iota$ is the dummy index of integration/summation. 
 \begin{itemize}
 \item Even though we sometimes call these ``simulated individuals''
-\item Everyone with the same $\mathbf{x_i}$ still has the same $s_{ij}(\mathbf{x_{i}} , \theta)$
+\item Everyone with the same $\symbf{x_i}$ still has the same $s_{ij}(\symbf{x_{i}} , \theta)$
 \end{itemize}
 \item Most papers will abuse notation and $i$ will serve double duty!
 \end{itemize}
@@ -126,14 +130,14 @@ s_{ij}(\mathbf{x_{i}} , \theta) &=& \int \frac{\exp [x_{ij} \beta_{\iota}  ]}{1+
 
 \begin{frame}
 \frametitle{Multinomial Logit: Estimation with Aggregate Data}
-Now suppose we have aggregate data: $(q_1,\ldots,q_J,q_0)$ where $M = \sum_{j \in \mathcal{J}} q_j$.
+Now suppose we have aggregate data: $(q_1,\ldots,q_J,q_0)$ where $M = \sum_{j \in \calJ} q_j$.
 \begin{itemize}
 \item If $M$ gets large enough then $(\frac{q_1}{M},\ldots,\frac{q_J}{M},\frac{q_0}{M})\rightarrow (\mathfrak{s}_1,\ldots,\mathfrak{s}_J,\mathfrak{s}_0)$
 \begin{itemize}
-\item Idea: Observe $(\mathfrak{s}_1(\mathbf{x_i}),\ldots,\mathfrak{s}_J(\mathbf{x_i}), \mathfrak{s}_0(\mathbf{x_i}))$ without sampling variance.
+\item Idea: Observe $(\mathfrak{s}_1(\symbf{x_i}),\ldots,\mathfrak{s}_J(\symbf{x_i}), \mathfrak{s}_0(\symbf{x_i}))$ without sampling variance.
 \item  Challenges: We probably don't really observe $q_0$ and hence $M$.
 \end{itemize}
-\item Idea: Equate observed market shares to the conditional choice probabilities $(s_1(\mathbf{x_i},\theta),\ldots,s_J(\mathbf{x_i},\theta),s_0(\mathbf{x_i},\theta))$.
+\item Idea: Equate observed market shares to the conditional choice probabilities $(s_1(\symbf{x_i},\theta),\ldots,s_J(\symbf{x_i},\theta),s_0(\symbf{x_i},\theta))$.
 \item Choose $\theta$ that minimizes distance: MLE? MSM? Least Squares? etc.
 \end{itemize}
 \end{frame}
@@ -199,7 +203,7 @@ s_{jt} &= \frac{\exp[x_{jt} \beta -\alpha p_{jt} ]}{1+\sum_k \exp[x_{kt} \beta -
 \eta_{jt} &\equiv (s_{jt}(\theta) - \mathfrak{s}_{jt}) 
 \end{align*}
 \begin{itemize}
-\item Each share depends on all prices $(p_{1t},\ldots,p_{Jt})$ and characteristics $\mathbf{x_t}$.
+\item Each share depends on all prices $(p_{1t},\ldots,p_{Jt})$ and characteristics $\symbf{x_t}$.
 \item Harder to come up with IV here.
  \end{itemize}
 \end{frame}
@@ -227,21 +231,21 @@ This takes a bit more algebra but not much
 
 \begin{frame}
 \frametitle{BLP 1995/1999 and Berry Haile (2014)}
-Think about a \alert{generalized inverse} for $\sigma_{j}(\mathbf{x}_t,\theta_2) = \mathfrak{s}_{jt}$ so that 
+Think about a \alert{generalized inverse} for $\sigma_{j}(\symbf{x}_t,\theta_2) = \mathfrak{s}_{jt}$ so that 
 \begin{align*}
-%\sigma_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt},v_{jt},\theta_1)   + \xi_{jt}\\
- \sigma_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)&= x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
+%\sigma_{jt}^{-1}(\calS_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt},v_{jt},\theta_1)   + \xi_{jt}\\
+ \sigma_{jt}^{-1}(\calS_{\cdot t},\widetilde{\theta}_2)&= x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
 \end{align*}
  \begin{itemize}
-\item After some transformation of data (shares $\mathcal{S}_{\cdot t}$) we get \alert{mean utilities} $\delta_{jt}$.
+\item After some transformation of data (shares $\calS_{\cdot t}$) we get \alert{mean utilities} $\delta_{jt}$.
 \begin{itemize}
 \item We assume $\delta_{jt}=h(x_{jt},v_{jt},\theta_1) -\alpha p_{jt} + \xi_{jt}$ follows some parametric form (often linear).
  \end{itemize}
 \item Same IV-GMM approach after transformation
 \item Examples:
 \begin{itemize}
-\item Plain Logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t}) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$
-\item Nested Logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} + \rho  \ln \mathfrak{s}_{j|gt}$
+\item Plain Logit: $\sigma_{j}^{-1}(\calS_{\cdot t}) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$
+\item Nested Logit: $\sigma_{j}^{-1}(\calS_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} + \rho  \ln \mathfrak{s}_{j|gt}$
  \end{itemize}
  \end{itemize}
 \end{frame}
@@ -251,27 +255,27 @@ Think about a \alert{generalized inverse} for $\sigma_{j}(\mathbf{x}_t,\theta_2)
 \frametitle{Inversion: BLP (Random Coefficients)}
 We can't solve for $\delta_{jt}$ directly this time.
 \begin{align*}
-\sigma_{j}(\boldsymbol{\delta_{t}},\widetilde{\theta}_2) &= \int \frac{\exp[\delta_{jt} + \mu_{ijt} ]}{1+\sum_k \exp[\delta_{kt} +  \mu_{ikt}  ]} f(\boldsymbol{\mu_{it}} | \widetilde{\theta}_2)
+\sigma_{j}(\symbf{\delta_{t}},\widetilde{\theta}_2) &= \int \frac{\exp[\delta_{jt} + \mu_{ijt} ]}{1+\sum_k \exp[\delta_{kt} +  \mu_{ikt}  ]} f(\symbf{\mu_{it}} | \widetilde{\theta}_2)
 \end{align*}
  \begin{itemize}
  \item This is a $J \times J$ system of equations for each $t$.
  \item It is diagonally dominant (with outside good).
- \item There is a unique vector $\boldsymbol{\delta_{t}}$ that solves it for each market $t$.
+ \item There is a unique vector $\symbf{\delta_{t}}$ that solves it for each market $t$.
  \item If you can work out $\frac{\partial s_{jt}}{\partial \delta_{kt}}$ (easy) you can solve this using Newton's Method.
  \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Contraction: BLP}
-BLP actually propose an easy solution to find $\boldsymbol{\delta_t}$. Fix $\widetilde{\theta_2}$ and solve for $\boldsymbol{\delta_t}$. Think about doing this one market at a time:
+BLP actually propose an easy solution to find $\symbf{\delta_t}$. Fix $\widetilde{\theta_2}$ and solve for $\symbf{\delta_t}$. Think about doing this one market at a time:
 \begin{align*}
-\boldsymbol{\delta_t}^{(k)}(\widetilde{\theta}_2) = \boldsymbol{\delta_t}^{(k-1)}(\widetilde{\theta}_2) + \left[ \log(\boldsymbol{\mathfrak{s}}_{j}) - \log(\boldsymbol{s}_{j}(\boldsymbol{\delta_t}^{(k-1)}, \widetilde{\theta}_2) \right]
+\symbf{\delta_t}^{(k)}(\widetilde{\theta}_2) = \symbf{\delta_t}^{(k-1)}(\widetilde{\theta}_2) + \left[ \log(\symbf{\mathfrak{s}}_{j}) - \log(\symbf{s}_{j}(\symbf{\delta_t}^{(k-1)}, \widetilde{\theta}_2) \right]
 \end{align*}
  \begin{itemize}
  \item They prove (not easy) that this is a \alert{contraction mapping}.
- \item If you keep iterating this equation enough $\norm{\boldsymbol{\delta_{t}}^{(k)}(\theta) - \boldsymbol{\delta_{t}}^{(k-1)}(\theta)} < \epsilon_{tol}$ you can recover the $\delta$'s so that the observed shares and the predicted shares are identical.
+ \item If you keep iterating this equation enough $\norm{\symbf{\delta_{t}}^{(k)}(\theta) - \symbf{\delta_{t}}^{(k-1)}(\theta)} < \epsilon_{tol}$ you can recover the $\delta$'s so that the observed shares and the predicted shares are identical.
  \item Practical tip: $\epsilon_{tol}$ needs to be as small as possible. ($\approx 10^{-13}$).
- \item Practical tip: Contraction isn't as easy as it looks:  $\boldsymbol{s}_{j}(\boldsymbol{\delta_t}^{(k-1)}, \widetilde{\theta}_2)$ requires computing the numerical integral each time (either via quadrature or monte carlo).
+ \item Practical tip: Contraction isn't as easy as it looks:  $\symbf{s}_{j}(\symbf{\delta_t}^{(k-1)}, \widetilde{\theta}_2)$ requires computing the numerical integral each time (either via quadrature or monte carlo).
   \end{itemize}
  \end{frame}
  
@@ -288,15 +292,15 @@ From the outside, in:
  \item Inner Loop:
  \begin{itemize}
 \item Fix a guess of $\widetilde{\theta}_2$.
-\item Solve for $\boldsymbol{\delta_t}(\mathcal{S}_t,\widetilde{\theta}_2)$ which satisfies $\sigma_{jt}(\boldsymbol{\delta_t},\widetilde{\theta}_2) = \mathfrak{s}_{jt}$.
+\item Solve for $\symbf{\delta_t}(\calS_t,\widetilde{\theta}_2)$ which satisfies $\sigma_{jt}(\symbf{\delta_t},\widetilde{\theta}_2) = \mathfrak{s}_{jt}$.
 \begin{itemize}
-\item Computing $s_{jt}(\boldsymbol{\delta_t},\widetilde{\theta}_2)$ requires numerical integration (quadrature or monte carlo).
+\item Computing $s_{jt}(\symbf{\delta_t},\widetilde{\theta}_2)$ requires numerical integration (quadrature or monte carlo).
 \end{itemize}
  \item We can do IV-GMM to recover $\hat{\alpha}(\widetilde{\theta}_2),\hat{\beta}(\widetilde{\theta}_2),\hat{\xi}(\widetilde{\theta}_2)$.
   \begin{align*}
-\boldsymbol{\delta_t}(\mathcal{S}_t,\widetilde{\theta}_2)= x_{jt} \beta -\alpha p_{jt}+  \xi_{jt}
+\symbf{\delta_t}(\calS_t,\widetilde{\theta}_2)= x_{jt} \beta -\alpha p_{jt}+  \xi_{jt}
  \end{align*}
-  \item Use $\boldsymbol{\hat{\xi}}(\theta)$ to construct sample moment conditions $\frac{1}{N} \sum_{j,t} Z_{jt}' \xi_{jt}$
+  \item Use $\symbf{\hat{\xi}}(\theta)$ to construct sample moment conditions $\frac{1}{N} \sum_{j,t} Z_{jt}' \xi_{jt}$
  \end{itemize}
  \item When we have found $\hat{\theta}_{BLP}$ we can use this to update $W \rightarrow W(\hat{\theta}_{BLP})$ and do 2-stage GMM.
  \end{itemize}

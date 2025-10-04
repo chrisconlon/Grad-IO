@@ -158,8 +158,8 @@ Fruity Pebbles      &      0.61 &       0.59 &         0.71 &           0.71 &  
 Consider Bertrand FOC's for multi-product firm $j$:
 \begin{align*}
 \label{eq:best_response}
-\rightarrow \nonumber p_j &=q_{j}(\mathbf{p}) \left[-\frac{\partial q_{j}}{\partial P_{j}}(\mathbf{p})\right]^{-1} + c_{j} + \sum_{k \in \mathcal{J}_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial P_{j}}(\mathbf{p})\left[-\frac{\partial q_{j}}{\partial P_{j}}(\mathbf{p})\right]^{-1}}_{D_{jk}(\mathbf{p})}\\
-p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\mathbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p}) \right].
+\rightarrow \nonumber p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial P_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial P_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial P_{j}}(\symbf{p})\right]^{-1}}_{D_{jk}(\symbf{p})}\\
+p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right].
 \end{align*}
 Mult-product pricing \alert{raises the opportunity cost} of selling $j$.
 \end{frame}
@@ -167,8 +167,8 @@ Mult-product pricing \alert{raises the opportunity cost} of selling $j$.
 \begin{frame}{Upward Pricing Pressure}
 Agencies often calculate \alert{Upward Pricing Pressure} or UPP asks how merger \alert{changes}:
 \begin{align*}
-\left[ c_j + \sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p}) \right] \\
-UPP_j = \Delta c_j + \sum_{k \in \mathcal{J}_{g}}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p}) 
+\left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right] \\
+UPP_j = \Delta c_j + \sum_{k \in \calJ_{g}}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) 
 \end{align*}
 How does the merger change the \alert{opportunity cost} for $j$?
 \end{frame}
@@ -178,13 +178,13 @@ How does the merger change the \alert{opportunity cost} for $j$?
 \begin{block}{Extension to multiple acquisitions:}
 Very easy if we have that $p_j - mc_j = p - mc$ are the same for several values of $j$.  Then
 \begin{eqnarray*}
-UPP_j &\approx& (p - mc) \sum_k D_{jk}(\mathbf{p}) -  \Delta mc_j \\
+UPP_j &\approx& (p - mc) \sum_k D_{jk}(\symbf{p}) -  \Delta mc_j \\
 \end{eqnarray*}
 \end{block}
 If several brands of acquisition have the same markup -- can consider firm-level diversion. (We can aggregate diversion across similar flavors)
 \begin{block}{Ignoring Efficiencies}
 \begin{eqnarray*}
-GUPPI_j &\approx& \frac{(p_j - mc_j)}{p_j} D_{jk}(\mathbf{p}) \\
+GUPPI_j &\approx& \frac{(p_j - mc_j)}{p_j} D_{jk}(\symbf{p}) \\
 \end{eqnarray*}
 \end{block}
 \end{frame}
@@ -222,7 +222,7 @@ The diversion ratio $D_{jk}(p_j,x) \equiv\frac{\partial q_k}{\partial P_j}(p_j,x
 \begin{theorem}[Conlon Mortimer (2020)]\ \\
 \label{prop:late}
 Under the following conditions:\\ 
-(a) Mutually Exclusive and Exhaustive Discrete Choice: $d_{ij} \in \{0,1\}$ and $\sum_{j \in \mathcal{J}} d_{ij}=1$.\\
+(a) Mutually Exclusive and Exhaustive Discrete Choice: $d_{ij} \in \{0,1\}$ and $\sum_{j \in \calJ} d_{ij}=1$.\\
 (b) Exclusion: $u_{ik}(p_j,x)=u_{ik}(p_j',x)$ for all $k \neq j$ and any $(p_j, p_j')$; \\
 (c) Monotonicity: $u_{ij}(p_j',x) \leq u_{ij}(p_j,x)$ for all $i$ and any $(p_j' > p_{j})$; and \\
 (d) Existence of a first-stage: $Pr(d_{ij}(p_j,x)=0) \neq Pr(d_{ij}(p_j',x)=0) $ for $(p_j' > p_{j})$; \\
@@ -275,12 +275,12 @@ For plain logit $D_{jk,i} = \frac{s_{k}}{1-s_{j}}$ for all $i$ and weights don't
 \begin{frame}{Welfare and WTP}
 As we learned on HW2, welfare and willingness to pay are mostly about \alert{diversion to outside good}
 \begin{align*}
-WTP_i(j) = \mathbb{E}[\max_{k \in \mathcal{J}} u_{ik}]  - \mathbb{E}[\max_{k' \in \mathcal{J}\setminus j} u_{ik'} ] =  \log \left( \sum_{k \in \mathcal{J}} \exp[V_{ik}] \right)-  \log \left(\sum_{k \in \mathcal{J} \setminus j} \exp[V_{ik}]\right)
+WTP_i(j) = \mathbb{E}[\max_{k \in \calJ} u_{ik}]  - \mathbb{E}[\max_{k' \in \calJ\setminus j} u_{ik'} ] =  \log \left( \sum_{k \in \calJ} \exp[V_{ik}] \right)-  \log \left(\sum_{k \in \calJ \setminus j} \exp[V_{ik}]\right)
 \end{align*}
 Exploit the following:
 \begin{enumerate}
- \item the individual outside good choice probability $s_{i0}(\mathcal{J},x) = \frac{1}{ \sum_{k \in \mathcal{J}} \exp[V_{ik}]}$;
- \item  that the outside good choice probability after removing $j$ increases by the individual share of $j$ times the individual diversion ratio from $j$ to the outside good $s_{i0}(\mathcal{J}\setminus j,x)  = s_{i0}(\mathcal{J},x) + D_{j0,i}(x) \cdot s_{ij}(x)$; 
+ \item the individual outside good choice probability $s_{i0}(\calJ,x) = \frac{1}{ \sum_{k \in \calJ} \exp[V_{ik}]}$;
+ \item  that the outside good choice probability after removing $j$ increases by the individual share of $j$ times the individual diversion ratio from $j$ to the outside good $s_{i0}(\calJ\setminus j,x)  = s_{i0}(\calJ,x) + D_{j0,i}(x) \cdot s_{ij}(x)$; 
  \item for members of the logit family: $D_{j0,i}(x) = \frac{s_{i0}(x)}{1-s_{ij}(x)}$. 
 \end{enumerate}
 \end{frame}
@@ -288,9 +288,9 @@ Exploit the following:
 \begin{frame}{Welfare and WTP}
 To get EV we integrate over $\frac{1}{|\alpha_i|}$.
 \begin{align*}
-WTP_i(j) &=\log \left( \frac{s_{i0}(\mathcal{J}\setminus j,x) }{s_{i0}(\mathcal{J},x) }\right)
-=\log \left( 1+\frac{D_{j0,i}(x) s_{ij}(x)}{s_{i0}(\mathcal{J},x) }\right)\\
-&=\log \left( 1+\frac{s_{i0}(\mathcal{J},x) \cdot s_{ij}(x)}{(1-s_{ij}(x)) \cdot s_{i0}(\mathcal{J},x) }\right)\\
+WTP_i(j) &=\log \left( \frac{s_{i0}(\calJ\setminus j,x) }{s_{i0}(\calJ,x) }\right)
+=\log \left( 1+\frac{D_{j0,i}(x) s_{ij}(x)}{s_{i0}(\calJ,x) }\right)\\
+&=\log \left( 1+\frac{s_{i0}(\calJ,x) \cdot s_{ij}(x)}{(1-s_{ij}(x)) \cdot s_{i0}(\calJ,x) }\right)\\
 &=\log \left( 1+\frac{s_{ij}(x)}{1-s_{ij}(x)  }\right)
 \approx \frac{s_{ij}(x)}{1-s_{ij}(x) }
 \end{align*}

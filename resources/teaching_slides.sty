@@ -18,9 +18,9 @@
 
 % define custom colors
 \RequirePackage{xcolor}
-% \definecolor{darkgray}{HTML}{444444}
+\definecolor{darkgray}{HTML}{444444}
 \definecolor{lightgray}{HTML}{777777}
-% \definecolor{darkred}{HTML}{BB0000}
+\definecolor{darkred}{HTML}{BB0000}
 \definecolor{darkgreen}{HTML}{00BB00}
 \definecolor{RoyalBlue}{cmyk}{1, 0.50, 0, 0}
 
@@ -31,7 +31,7 @@
 \definecolor{bleudefrance}{rgb}{0.19, 0.55, 0.91}
 
 % configure metropolis (the theme package itself is loaded by the document)
-\usetheme[numbering=fraction]{metropolis}
+\usetheme[progressbar=frametitle, numbering=fraction,block=fill]{metropolis}
 \setbeamercolor{author}{fg=charcoal}
 \setbeamercolor{background canvas}{bg=white}
 \setbeamercolor{section in toc}{fg=charcoal}
@@ -60,13 +60,27 @@
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
 \RequirePackage{mathtools}
-\RequirePackage{mathabx}
+% \RequirePackage{mathabx}  % Comment out mathabx as it conflicts with mathcal
+\RequirePackage{mathrsfs}  % Provides \mathscr for script fonts
 \RequirePackage{stmaryrd}
 \RequirePackage{graphicx}
 \RequirePackage{hyperref}
 \RequirePackage{xfrac}
 \RequirePackage{appendixnumberbeamer}
 \RequirePackage{tabularx}
+
+% Redefine \mathcal to use script fonts
+\let\mathcal\mathscr
+
+% Special definitions for common calligraphic letters that work with unicode-math
+\AtBeginDocument{%
+  % Simple approach: directly define the problematic letters
+  \providecommand{\calS}{\ensuremath{\mathscr{S}}}
+  \providecommand{\calD}{\ensuremath{\mathscr{D}}}
+  \providecommand{\calJ}{\ensuremath{\mathscr{J}}}
+  \providecommand{\calF}{\ensuremath{\mathscr{F}}}
+  \providecommand{\calH}{\ensuremath{\mathscr{H}}}
+}
 
 
 % Make common graphics paths available so \includegraphics finds images from
@@ -87,7 +101,7 @@
 \providecommand{\xmark}{{\color{darkred}\ding{55}}\hspace{0.5em}}
 
 
-% use New PX Fonts (Palatino) for text and math
+% use classic font for math (try to load concmath if available)
 \RequirePackage[T1]{fontenc}
 \usefonttheme{serif}
 \usefonttheme{professionalfonts}
@@ -135,8 +149,6 @@
     \IfFileExists{unicode-math.sty}{\RequirePackage{unicode-math}}{}
 }{}
 
-% concmath may not be installed on all TeX systems; load only when present.
-\IfFileExists{concmath.sty}{\RequirePackage{concmath}}{}
 % make equation font readable across themes (less tiny)
 \setbeamerfont{equation}{size=\small}
 

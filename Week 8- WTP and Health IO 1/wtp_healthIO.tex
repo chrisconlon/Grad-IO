@@ -339,8 +339,8 @@ Why do not all hospitals reach agreement with all plans?
 \begin{frame}{Producer Surplus for Network}
 Profit is surplus generated $S_{jm}$ for network $H_j$ less cost:
 \begin{align*}
-\pi_{j, m}^{P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \theta\right)&=S_{j, m}\left(H_{j}, \mathcal{H}_{-j}\right)-c_{j, m}^{H O S P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \theta\right)-c_{j, m}^{N O N H O S P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \boldsymbol{\theta}\right) \\
-\pi_{j, m}^{P, o}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}^{o}, \theta\right)&=\pi_{j, m}^{P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \boldsymbol{\theta}\right)+u_{j, H}
+\pi_{j, m}^{P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \theta\right)&=S_{j, m}\left(H_{j}, \mathcal{H}_{-j}\right)-c_{j, m}^{H O S P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \theta\right)-c_{j, m}^{N O N H O S P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \symbf{\theta}\right) \\
+\pi_{j, m}^{P, o}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}^{o}, \theta\right)&=\pi_{j, m}^{P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \symbf{\theta}\right)+u_{j, H}
 \end{align*}
 \begin{itemize}
 \item First (eq) econometrician; second (eq) plan beliefs
@@ -358,7 +358,7 @@ E\left(\pi_{j, m}^{P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \theta\right) |
 \item Plan $j$'s expected profits from network $H_j$ must exceed its expected profits from alternative network where it drops/adds hospital $h$ holding all else fixed
 \item This represents \alert{necessary} but \alert{not sufficient} conditions for equilibrium.
 \begin{align*}
-E\left(\pi_{j, m}^{P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \boldsymbol{\theta}\right) | I_{j m}\right) \geq E\left(\pi_{j, m}^{P}\left(H_{j}^{h}, \mathcal{H}_{-j}, \mathcal{X}, \boldsymbol{\theta}\right) | I_{j, m}\right)
+E\left(\pi_{j, m}^{P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \symbf{\theta}\right) | I_{j m}\right) \geq E\left(\pi_{j, m}^{P}\left(H_{j}^{h}, \mathcal{H}_{-j}, \mathcal{X}, \symbf{\theta}\right) | I_{j, m}\right)
 \end{align*}
 Combine with both error terms:
 \begin{align*}
@@ -374,7 +374,7 @@ Second term has expectation zero.
 \begin{itemize}
 \item Resulting estimator combines \alert{moment equalities }$E[\xi_{jt}' z_{jt}]=0$ with \alert{moment inequalities}
 \begin{align*}
-\frac{1}{M} \sum_{m} \frac{\sqrt{n_{m}}}{n_{m}} \sum_{j=1}^{n_{m}}\left[\left(\pi_{j, m}^{P, o}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}^{o}, \boldsymbol{\theta}\right)-\left(\pi_{j, m}^{P, o}\left(H_{j}^{h}, \mathcal{H}_{-j}, \mathcal{X}^{o}, \boldsymbol{\theta}\right)\right) \otimes g\left(z_{j, m}\right)\right] \geq 0\right.
+\frac{1}{M} \sum_{m} \frac{\sqrt{n_{m}}}{n_{m}} \sum_{j=1}^{n_{m}}\left[\left(\pi_{j, m}^{P, o}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}^{o}, \symbf{\theta}\right)-\left(\pi_{j, m}^{P, o}\left(H_{j}^{h}, \mathcal{H}_{-j}, \mathcal{X}^{o}, \symbf{\theta}\right)\right) \otimes g\left(z_{j, m}\right)\right] \geq 0\right.
 \end{align*}
 \item Penalize violations of moment equalities in both directions
 \item Penalize violations of moment inequalities in only one direction.

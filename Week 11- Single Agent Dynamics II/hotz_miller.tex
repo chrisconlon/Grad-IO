@@ -32,15 +32,15 @@ d' = \arg \max_d U(d,x) + \beta \sum_{x'} V(d,x') f (x' | x,d)
 \footnotesize
 Policy Iteration is even easier if choices AND states are discrete.
 \begin{itemize}
-\item For Markov transition matrix $\sum_j f_{ij} =1$ ,we want $\pi \, \mathbf{F} = \pi$
-\item $\lim_{t \rightarrow \infty} \mathbf{F}^t = \pi$ where the $j$th element of $\pi$ represents the long run probability of state $j$.
+\item For Markov transition matrix $\sum_j f_{ij} =1$ ,we want $\pi \, \symbf{F} = \pi$
+\item $\lim_{t \rightarrow \infty} \symbf{F}^t = \pi$ where the $j$th element of $\pi$ represents the long run probability of state $j$.
 \item We want the eigenvalue for which $\lambda = 1$.
-\item $\mathbf{\tilde{F}}^k$ is \alert{post-decision transition rule} it depends on \alert{policy function} $d^k(x)$.
+\item $\symbf{\tilde{F}}^k$ is \alert{post-decision transition rule} it depends on \alert{policy function} $d^k(x)$.
 \end{itemize}
 Now updating the value function is easy for $k$th iterate of PI
 \begin{align*}
-V^k(x) &= \E u(d^k(x),x) + \beta \, \mathbf{\tilde{F}}^k \, V^k(x)\\
-\Rightarrow V^k(x) &= [1 - \beta \, \mathbf{\tilde{F}}^k]^{-1}\, \E u(d^k(x),x)
+V^k(x) &= \E u(d^k(x),x) + \beta \, \symbf{\tilde{F}}^k \, V^k(x)\\
+\Rightarrow V^k(x) &= [1 - \beta \, \symbf{\tilde{F}}^k]^{-1}\, \E u(d^k(x),x)
 \end{align*}
 \vspace{-.5cm}
 \begin{itemize}
@@ -109,7 +109,7 @@ V^k(x) &= \E u(d^k(x),x) + \beta \, \mathbf{\tilde{F}}^k \, V^k(x)\\
 	\end{align*}
 	where $0$ denotes some reference action.	
 	\medskip
-	\item Let $Q:\, \mathbb{R}^{\left| \mathbf{J}\right|-1} \rightarrow \Delta^{\left| \mathbf{J}\right|}$ be the mapping
+	\item Let $Q:\, \mathbb{R}^{\left| \symbf{J}\right|-1} \rightarrow \Delta^{\left| \symbf{J}\right|}$ be the mapping
 	from the \alert{differences in conditional (choice-specific) values to CCP's}.
 	\medskip
 	\item Note: we're taking for granted that the distribution of $\varepsilon$ is identical across states, otherwise
@@ -128,7 +128,7 @@ V^k(x) &= \E u(d^k(x),x) + \beta \, \mathbf{\tilde{F}}^k \, V^k(x)\\
 	\smallskip
 	\item Expression for CCP's: 
 	\begin{align*}
-	p_{j}\left(x\right) = \frac{\exp\left(v_{j}\left(x\right)\right)}{\sum_{j'\in \mathbf{J}}\exp\left(v_{j}\left(x\right)\right)}.
+	p_{j}\left(x\right) = \frac{\exp\left(v_{j}\left(x\right)\right)}{\sum_{j'\in \symbf{J}}\exp\left(v_{j}\left(x\right)\right)}.
 	\end{align*}
 	\item The HM inversion follows by taking logs and differencing across actions: 
 	\begin{align*}
@@ -136,9 +136,9 @@ V^k(x) &= \E u(d^k(x),x) + \beta \, \mathbf{\tilde{F}}^k \, V^k(x)\\
 	\end{align*}
 	\item Thus, in the logit case (this looks a lot like Berry (1994)):
 	\begin{align*}
-	Q_{j}^{-1} \left(\mathbf{p} \right) = \ln p_{j} - \ln p_{0}
+	Q_{j}^{-1} \left(\symbf{p} \right) = \ln p_{j} - \ln p_{0}
 	\end{align*}
-	\item From now on, I will use $\phi(\mathbf{p})$ to denote $Q^{-1}(\mathbf{p})$.
+	\item From now on, I will use $\phi(\symbf{p})$ to denote $Q^{-1}(\symbf{p})$.
 
 \end{itemize}
 \end{frame}
@@ -152,7 +152,7 @@ and more elegant.
 For any action-state pair $\left(a,x\right)$, there exists a function
 $\psi$ such that 
 \begin{align*}
-V\left(x\right)=v_{a}\left(x\right)+\psi_{a}\left(\mathbf{p}\left(x\right)\right)
+V\left(x\right)=v_{a}\left(x\right)+\psi_{a}\left(\symbf{p}\left(x\right)\right)
 \end{align*}
 \end{block}
 \end{frame}
@@ -161,9 +161,9 @@ V\left(x\right)=v_{a}\left(x\right)+\psi_{a}\left(\mathbf{p}\left(x\right)\right
 \begin{align*}
 V\left(x\right) &=  \int\max_{j}\left\{ v_{j}\left(x\right)+\varepsilon_{j}\right\} dG\left(\varepsilon_{j}\right)\\
  &= \int\max_{j}\left\{ v_{j}\left(x\right)-v_{a}\left(x\right)+\varepsilon_{j}\right\} dG\left(\varepsilon_{j}\right)+v_{a}\left(x\right)\\
- &=  \int\max_{j}\left\{ \phi_{ja}\left(\mathbf{p}\left(x\right)\right)+\varepsilon_{j}\right\} dG\left(\varepsilon_{j}\right)+v_{a}\left(x\right)
+ &=  \int\max_{j}\left\{ \phi_{ja}\left(\symbf{p}\left(x\right)\right)+\varepsilon_{j}\right\} dG\left(\varepsilon_{j}\right)+v_{a}\left(x\right)
 \end{align*}
-Letting $\psi_{a}\left(\mathbf{p}\left(x\right)\right)=\int\max_{j}\left\{ \phi_{ja}\left(\mathbf{p}\left(x\right)\right)+\varepsilon_{j}\right\} dG\left(\varepsilon_{j}\right)$ completes the proof
+Letting $\psi_{a}\left(\symbf{p}\left(x\right)\right)=\int\max_{j}\left\{ \phi_{ja}\left(\symbf{p}\left(x\right)\right)+\varepsilon_{j}\right\} dG\left(\varepsilon_{j}\right)$ completes the proof
 \end{frame}
 
 \begin{frame}{Important relationships}
@@ -172,17 +172,17 @@ Letting $\psi_{a}\left(\mathbf{p}\left(x\right)\right)=\int\max_{j}\left\{ \phi_
 \item The Hotz-Miller Inversion allows us to map from CCP's to differences
 in conditional (choice-specific) value functions:
 \begin{align*}
-\phi_{ja}\left(\mathbf{p}\left(x\right)\right)=v_{j}\left(x\right)-v_{a}\left(x\right)
+\phi_{ja}\left(\symbf{p}\left(x\right)\right)=v_{j}\left(x\right)-v_{a}\left(x\right)
 \end{align*}
 \item The Arcidiacono and Miller Lemma allows us to relate ex ante and conditional (choice specific)
 value functions: 
 \begin{align*}
-V\left(x\right)=v_{j}\left(x\right)+\psi_{j}\left(\mathbf{p}\left(x\right)\right)
+V\left(x\right)=v_{j}\left(x\right)+\psi_{j}\left(\symbf{p}\left(x\right)\right)
 \end{align*}
 \item For the logit case:
 \begin{align*}
-\phi_{ja}\left(\mathbf{p}\left(x\right)\right) & = \ln\left(p_{j}\left(x\right)\right)-\ln\left(p_{a}\left(x\right)\right)\\
-\psi_{j}\left(\mathbf{p}\left(x\right)\right) & =  -\ln\left(p_{j}\left(x\right)\right)+\gamma
+\phi_{ja}\left(\symbf{p}\left(x\right)\right) & = \ln\left(p_{j}\left(x\right)\right)-\ln\left(p_{a}\left(x\right)\right)\\
+\psi_{j}\left(\symbf{p}\left(x\right)\right) & =  -\ln\left(p_{j}\left(x\right)\right)+\gamma
 \end{align*}
 where $\gamma$ is Euler's gamma.
 \end{itemize}
@@ -198,13 +198,13 @@ where $\gamma$ is Euler's gamma.
 	\item Using vector notation (standard font, matrices bold) recall the definition of the choice-specific value function
 	for the reference action:
 \begin{align*}
-v_{0} & = \underbrace{\pi_{0}}_{=0}+ \beta\, \mathbf{F_{0}}\, V = \beta \mathbf{F_{0}}\, V
+v_{0} & = \underbrace{\pi_{0}}_{=0}+ \beta\, \symbf{F_{0}}\, V = \beta \symbf{F_{0}}\, V
 \end{align*}
 \item Using the Arcidiacono-Miller Lemma:
 \medskip
 \begin{align*}
-V-\psi_{0}\left(p\right) & =  \beta\, \mathbf{ F_{0}} \, V\\
-\Rightarrow  V & =  \left(\mathbf{I}-\beta\, \mathbf{F_{0}} \right)^{-1} \psi_{0} \left(p\right)
+V-\psi_{0}\left(p\right) & =  \beta\, \symbf{ F_{0}} \, V\\
+\Rightarrow  V & =  \left(\symbf{I}-\beta\, \symbf{F_{0}} \right)^{-1} \psi_{0} \left(p\right)
 \end{align*}
 \end{itemize}
 \end{frame}
@@ -216,14 +216,14 @@ V-\psi_{0}\left(p\right) & =  \beta\, \mathbf{ F_{0}} \, V\\
 	\item Now we have an expression for the ex ante value function
 	that only depends on objects we can estimate in a first stage:
 \begin{align*}
-V  =  \left(\mathbf{I}-\beta\, \mathbf{F_{0}}\right)^{-1}\psi_{0}\left(p\right)
+V  =  \left(\symbf{I}-\beta\, \symbf{F_{0}}\right)^{-1}\psi_{0}\left(p\right)
 \end{align*}
 \item To estimate the utility function for the other actions, 	
 \begin{align*}
-v_{j} & =  \pi_{j}+\beta\, \mathbf{F_{j}} \, V\\
-V-\psi_{j}\left(p\right) & =  \pi_{j}+\beta\,  \mathbf{F_{j}} \, V\\
-\pi_{j} & =  -\psi_{j}\left(p\right)+\left(\mathbf{I}-\beta\,  \mathbf{F_{j}} \right)\,V\\
-\pi_{j} & =  -\psi_{j}\left(p\right)+\left(\mathbf{I}-\beta\,   \mathbf{F_{j}} \right)\, \left(\mathbf{I}-\beta\,  \mathbf{F_{0}} \right)^{-1} \,\psi_{0}\left(p\right)
+v_{j} & =  \pi_{j}+\beta\, \symbf{F_{j}} \, V\\
+V-\psi_{j}\left(p\right) & =  \pi_{j}+\beta\,  \symbf{F_{j}} \, V\\
+\pi_{j} & =  -\psi_{j}\left(p\right)+\left(\symbf{I}-\beta\,  \symbf{F_{j}} \right)\,V\\
+\pi_{j} & =  -\psi_{j}\left(p\right)+\left(\symbf{I}-\beta\,   \symbf{F_{j}} \right)\, \left(\symbf{I}-\beta\,  \symbf{F_{0}} \right)^{-1} \,\psi_{0}\left(p\right)
 \end{align*}
 \end{itemize}
 \end{frame}
@@ -235,13 +235,13 @@ V-\psi_{j}\left(p\right) & =  \pi_{j}+\beta\,  \mathbf{F_{j}} \, V\\
 	an arbitrary vector $\widetilde{\pi}_{0}$ rather than 0, we will arrive at the
 	following:
 	\begin{align*}
-		\pi_{j} = \mathbf{A_{j}} \, \widetilde{\pi}_{0} + b_{j} 
+		\pi_{j} = \symbf{A_{j}} \, \widetilde{\pi}_{0} + b_{j} 
 	\end{align*}
 	where $ A_{j} $ and $b_{j} $ depend only on things we can estimate in a first
 	stage: 
 	\begin{align*}
-	\mathbf{A_{j}} & = \left(1-\beta\, \mathbf{F_{j}}\right) \, \left(1-\beta\,  \mathbf{F_{0}}\right)^{-1}\\
-	b_{j} & = \mathbf{A_{j}}\, \psi_{0}\left(p\right)-\psi_{j}\left(p\right)
+	\symbf{A_{j}} & = \left(1-\beta\, \symbf{F_{j}}\right) \, \left(1-\beta\,  \symbf{F_{0}}\right)^{-1}\\
+	b_{j} & = \symbf{A_{j}}\, \psi_{0}\left(p\right)-\psi_{j}\left(p\right)
 	\end{align*}
 	\item We can plug in any value for $\widetilde{\pi}_{0}$, and each value
 	will lead to a different utility function (different values for $\pi_{j}$). Each
@@ -312,7 +312,7 @@ Approximation to the problem:
 \end{align*}
 \begin{itemize}
 \item Now we need to do actual numerical integration instead of just summation.
-\item We cannot use the $[I- \beta \, \mathbf{F}]^{-1}$ to get the ergodic distribution.
+\item We cannot use the $[I- \beta \, \symbf{F}]^{-1}$ to get the ergodic distribution.
 \item Usually requires interpolating between grid points to evaluate $EV(\cdot)$.
 \end{itemize}
 \end{frame}

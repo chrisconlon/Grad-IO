@@ -54,9 +54,9 @@ These problems are related because we find the minimum by setting: $f'(x)=0$
 
 \section{Linear Systems}
 \begin{frame}{Linear Systems}
-Many problems of the form: $A \mathbf{x} = b$.
+Many problems of the form: $A \symbf{x} = b$.
 \begin{itemize}
-\item In general these are much easy to solve: $A^{-1} b = \mathbf{x}$.
+\item In general these are much easy to solve: $A^{-1} b = \symbf{x}$.
 \item In practice the computer doesn't do this:
 \begin{enumerate}
 \item Factorize into triangular matrices: $QR$, $LU$, or Cholesky (Positive Definite).
@@ -75,11 +75,11 @@ If $A$ is really big you may not be able to invert it directly. Can still do it 
 \item $A = D + L + U$ where $D$ is diagonal and $L,U$ are lower/upper triangles.
 \item Gauss Jacobi Iteration:
 \begin{align*}
-\mathbf{x}^{(n+1)}=D^{-1}\left(\mathbf{b}-(L+U) \mathbf{x}^{(n)}\right)
+\symbf{x}^{(n+1)}=D^{-1}\left(\symbf{b}-(L+U) \symbf{x}^{(n)}\right)
 \end{align*}
 \item Gauss-Seidel Iteration
 \begin{align*}
-\mathbf{x}^{(n+1)}=(L+D)^{-1}\left(\mathbf{b}-U \mathbf{x}^{(n)}\right)
+\symbf{x}^{(n+1)}=(L+D)^{-1}\left(\symbf{b}-U \symbf{x}^{(n)}\right)
 \end{align*}
 \item Richardson Iteration (with $\lambda < 1$):
 \begin{align*}
@@ -244,7 +244,7 @@ Idea: use two iterations to construct something more like the quadratic/Halley m
 \section{In higher dimensions...}
 
 \begin{frame}{Multiple Equations}
-Solving $f(x) = 0$ for scalars is fine, but we often are interested in $F(\mathbf{x}) = 0$ or $m$ nonlinear equations and $k$ unknowns $\mathbf{x} = (x_1,\ldots, x_K) \in \mathbb{R}^k$.
+Solving $f(x) = 0$ for scalars is fine, but we often are interested in $F(\symbf{x}) = 0$ or $m$ nonlinear equations and $k$ unknowns $\symbf{x} = (x_1,\ldots, x_K) \in \mathbb{R}^k$.
 \begin{itemize}
 \item If we have $k>m$ we say the system is \alert{undetermined}
 \item If we have $k<m$ we say the system is \alert{overdetermined}
@@ -256,7 +256,7 @@ For the most part, the approaches for scalar root finding still apply.
 
 \begin{frame}{Solution Methods}
 \vspace{0.5cm}
-General problem $F(\mathbf{x}) = 0$ or $m$ nonlinear equations and $m$ unknowns $\mathbf{x} = (x_1,\ldots, x_m) \in \mathbb{R}^m$.
+General problem $F(\symbf{x}) = 0$ or $m$ nonlinear equations and $m$ unknowns $\symbf{x} = (x_1,\ldots, x_m) \in \mathbb{R}^m$.
 \begin{eqnarray*}
 F_1 (x_1,\ldots, x_m)  &=& 0 \\
 F_2 (x_1,\ldots, x_m)  &=& 0\\
@@ -267,13 +267,13 @@ F_N (x_1,\ldots, x_m)  &=& 0\\
 \end{frame} 
 
 \begin{frame}{Solution Methods}
-Helpful to write $F(\mathbf{x}) = 0 \Leftrightarrow \mathbf{x} - \alpha F(\mathbf{x}) = \mathbf{x}$ which yields the fixed point problem:
+Helpful to write $F(\symbf{x}) = 0 \Leftrightarrow \symbf{x} - \alpha F(\symbf{x}) = \symbf{x}$ which yields the fixed point problem:
 \begin{eqnarray*}
-G(\mathbf{x}) = \mathbf{x} -\alpha F(\mathbf{x})
+G(\symbf{x}) = \symbf{x} -\alpha F(\symbf{x})
 \end{eqnarray*}
 Fixed point iteration
 \begin{eqnarray*}
-\mathbf{x^{n+1}} = G(\mathbf{x^n})
+\symbf{x^{n+1}} = G(\symbf{x^n})
 \end{eqnarray*}
 Nonlinear Richardson iteration or Picard iteration.\\
 \vspace{0.5cm}
@@ -281,9 +281,9 @@ We need $G$ to be a \alert{contraction mapping} for iterative methods to guarant
 \end{frame} 
 
 \begin{frame}{Gauss Jacobi: Simultaneous Best Reply}
-Current iterate: $\mathbf{x^n} = (x_1^n,x_2^n,\ldots,x_{m-1}^n,x_m^n)$.\\
+Current iterate: $\symbf{x^n} = (x_1^n,x_2^n,\ldots,x_{m-1}^n,x_m^n)$.\\
 \vspace{0.5cm}
-Compute the next iterate $\alert{x^{n+1}}$ by solving one equation in one variable using only values from $\mathbf{x^n}$ : 
+Compute the next iterate $\alert{x^{n+1}}$ by solving one equation in one variable using only values from $\symbf{x^n}$ : 
 \begin{eqnarray*}
 F_1 (\alert{x_1^{n+1}},x_2^n \ldots, x_{m-1}^n, x_m^n)  &=& 0 \\
 F_2  (x_1^n,\alert{x_2^{n+1}},\ldots,x_{m-1}^n,x_m^n)  &=& 0\\
@@ -295,9 +295,9 @@ Requires contraction and strong monotonicity.
 \end{frame} 
 
 \begin{frame}{Gauss Seidel: Iterated Best Response}
-Current iterate: $\mathbf{x^n} = (x_1^n,x_2^n,\ldots,x_{m-1}^n,x_m^n)$.\\
+Current iterate: $\symbf{x^n} = (x_1^n,x_2^n,\ldots,x_{m-1}^n,x_m^n)$.\\
 \vspace{0.5cm}
-Compute the next iterate $\alert{\mathbf{x^{n+1}}}$ by solving one equation in one variable updating as we go through:
+Compute the next iterate $\alert{\symbf{x^{n+1}}}$ by solving one equation in one variable updating as we go through:
 \begin{align*}
 F_1 (\alert{x_1^{n+1}},x_2^n \ldots, x_{m-1}^n, x_m^n)  &= 0 \\
 F_2  (\alert{x_1^{n+1},x_2^{n+1}},\ldots,x_{m-1}^n,x_m^n)  &= 0\\
@@ -312,12 +312,12 @@ You can speed things up (sometimes) by re-ordering equations.
 
 \begin{frame}{Newton-Raphson Method}
 \begin{enumerate}
-\item Take an initial guess $\mathbf{x^0}$
+\item Take an initial guess $\symbf{x^0}$
 \item Take a Newton step by solving the following system of linear equations
 \begin{eqnarray*}
-J_F(\mathbf{x^n}) \mathbf{s^n} = - F(\mathbf{x^n})
+J_F(\symbf{x^n}) \symbf{s^n} = - F(\symbf{x^n})
 \end{eqnarray*}
-\item New guess $\mathbf{x^{n+1}} =\mathbf{x^n} + \mathbf{s^n}$ or  $\mathbf{x^{n+1}} =\mathbf{x^n} - J_F^{-1}(\mathbf{x^n})\cdot F(\mathbf{x^n}) $ 
+\item New guess $\symbf{x^{n+1}} =\symbf{x^n} + \symbf{s^n}$ or  $\symbf{x^{n+1}} =\symbf{x^n} - J_F^{-1}(\symbf{x^n})\cdot F(\symbf{x^n}) $ 
 \item Good (Quadratic) Local convergence
 \end{enumerate}
 \begin{itemize}
@@ -330,8 +330,8 @@ J_F(\mathbf{x^n}) \mathbf{s^n} = - F(\mathbf{x^n})
 
 \begin{frame}{Why not always do Newton-Raphson?}
 \begin{itemize}
-\item Often computing or inverting $J_f(\mathbf{x^n})$ is hard.
-\item Alternatives focus on simplified ways to compute $J_f(\mathbf{x^n})$ or to update $J_f^{-1}(\mathbf{x^n})$
+\item Often computing or inverting $J_f(\symbf{x^n})$ is hard.
+\item Alternatives focus on simplified ways to compute $J_f(\symbf{x^n})$ or to update $J_f^{-1}(\symbf{x^n})$
 \begin{itemize}
 \item Some techniques similar to \alert{secant method} (Broyden's Method).
 \item Also what are known as \alert{quasi-Newton} methods.
@@ -341,13 +341,13 @@ J_F(\mathbf{x^n}) \mathbf{s^n} = - F(\mathbf{x^n})
 \end{frame} 
 
 \begin{frame}{Broyden's Method}
-Idea: approximate the Jacobian $J_f(\mathbf{x^n}) \approx A_n$
+Idea: approximate the Jacobian $J_f(\symbf{x^n}) \approx A_n$
 \begin{enumerate}
-\item Start with $A_0 = \mathbf{I}_m$.
-\item Iterate on $\mathbf{x^{n+1}}= \mathbf{x^n} - A_n^{-1} F\left(\mathbf{x^{n}}\right)$
+\item Start with $A_0 = \symbf{I}_m$.
+\item Iterate on $\symbf{x^{n+1}}= \symbf{x^n} - A_n^{-1} F\left(\symbf{x^{n}}\right)$
 \item Update the Jacobian:
 \begin{align*}
-A_{n+1}=A_{n}-\frac{F\left(\alert{\mathbf{x^{n+1}}}\right)\left[A_{n}^{-1}  F\left(\mathbf{x^{n}}\right) \right]^{\prime}}{\left[A_{n} F\left(\mathbf{x^{n}}\right) \right]^{\prime}\left[A_{n} F\left(\mathbf{x^{n}}\right) \right]}
+A_{n+1}=A_{n}-\frac{F\left(\alert{\symbf{x^{n+1}}}\right)\left[A_{n}^{-1}  F\left(\symbf{x^{n}}\right) \right]^{\prime}}{\left[A_{n} F\left(\symbf{x^{n}}\right) \right]^{\prime}\left[A_{n} F\left(\symbf{x^{n}}\right) \right]}
 \end{align*}
 \end{enumerate}
 This is meant to be the multivariate version of the \alert{secant method}.
@@ -358,8 +358,8 @@ This is meant to be the multivariate version of the \alert{secant method}.
 \begin{frame}{Broyden-Fletcher-Goldfarb-Shanno (BFGS)}
 Same idea, different Jacobian update:
 \begin{align*}
-d_n &= \mathbf{x^{n+1}} - \mathbf{x^n} \\
-g_n &= F(\mathbf{x^{n+1}}) -F(\mathbf{x^n}) \\
+d_n &= \symbf{x^{n+1}} - \symbf{x^n} \\
+g_n &= F(\symbf{x^{n+1}}) -F(\symbf{x^n}) \\
 A_{n+1}&=A_{n}+\frac{g_{n} g_{n}^{\prime}}{d_{n}^{\prime} g_{n}}-\frac{A_{n} d_{n} d_{n}^{\prime} A_{n}}{d_{n}^{\prime} A_{n} d_{n}}
 \end{align*}
 Or the Davidson-Fletcher-Powell (DFP) version (operates directly on inverse)
@@ -380,9 +380,9 @@ There are some pathological problems for derivative/Jacobian based methods, but 
 
 
 \begin{frame}{Least Squares Methods}
-Instead of solving $F(\mathbf{x})=0$, we could recast the problem as a least squares minimization problem:
+Instead of solving $F(\symbf{x})=0$, we could recast the problem as a least squares minimization problem:
 \begin{align*}
-\min_{\mathbf{x}} \sum_{m=1}^M \left( F_m(\mathbf{x}) \right) ^2
+\min_{\symbf{x}} \sum_{m=1}^M \left( F_m(\symbf{x}) \right) ^2
 \end{align*}
 \begin{itemize}
 \item Ex: \alert{Levenberg-Marquardt}

@@ -242,14 +242,14 @@ chooses its capital first ($f>\frac{1}{16}$).
 \section{Basics of Discrete Games}
 
 \begin{frame}{Four Conditions Required for Discrete Games}
-Let $\pi(\cdot)$ be the profit earned in the second period, $d_i$ and $\mathbf{d_{-i}}$
-be the agent's and its competitors' choices, $\mathbf{y_i}$ be any variable (other than the decision variables) that affects the agent's profit, $D_i$ be the choice set, and $I_i$ be the agent's information set.  \large{$\varepsilon[\cdot|I_i]$} \normalsize is the agent's expectation conditional on the information set $I_i$.
+Let $\pi(\cdot)$ be the profit earned in the second period, $d_i$ and $\symbf{d_{-i}}$
+be the agent's and its competitors' choices, $\symbf{y_i}$ be any variable (other than the decision variables) that affects the agent's profit, $D_i$ be the choice set, and $I_i$ be the agent's information set.  \large{$\varepsilon[\cdot|I_i]$} \normalsize is the agent's expectation conditional on the information set $I_i$.
 \vspace{0.2in}
 
 1. Nash Condition\ (C1).
 
 \begin{equation*}
-\sup_{d\in D_{i},d\neq d_{i}}\varepsilon\left[ \pi (d,\mathbf{d}_{-i},\mathbf{y}_{i},\theta _{0})|\mathit{I}_{i}\right] \leq \varepsilon\left[ \pi (d_{i},\mathbf{d}_{-i},\mathbf{y}_{i},\theta _{0})|\mathit{I}_{i}\right] 
+\sup_{d\in D_{i},d\neq d_{i}}\varepsilon\left[ \pi (d,\symbf{d}_{-i},\symbf{y}_{i},\theta _{0})|\mathit{I}_{i}\right] \leq \varepsilon\left[ \pi (d_{i},\symbf{d}_{-i},\symbf{y}_{i},\theta _{0})|\mathit{I}_{i}\right] 
 \end{equation*}
 
 where $D_{i}\subset D$, for $i=1,...,n$.
@@ -271,8 +271,8 @@ traveled conditional on car choice).
 
 \item To check the Nash Condition, we need an approximation to what profits \textit{%
 would have been} had the agent made a choice which in fact he did not make.
-This requires a model of how the agent thinks that $\mathbf{d}_{-i}$ and $%
-\mathbf{y}_{i}$ are likely to change in response to a change in the agent's
+This requires a model of how the agent thinks that $\symbf{d}_{-i}$ and $%
+\symbf{y}_{i}$ are likely to change in response to a change in the agent's
 decision. 
 
 \end{itemize}
@@ -281,7 +281,7 @@ decision.
 
 \begin{frame}{Counterfactual Condition (C2)}
 
-The model for how the agent thinks $(\mathbf{y_i, d_{-i}})$ are likely to
+The model for how the agent thinks $(\symbf{y_i, d_{-i}})$ are likely to
 respond to changes in $d_i$ may depend on other variables, say $z_i$, but we require $z_i$ to be exogenous (i.e., the agent believes $z_i$ will not change if the agent changes its own
 decision). Condition C2 formalizes this assumption.
 
@@ -290,11 +290,11 @@ decision). Condition C2 formalizes this assumption.
 2. Counterfactual Condition\ (C2).
 
 \begin{equation*}
-\mathbf{d}_{-i}=d^{-i}(\mathbf{d}_{i},\mathbf{z}_{i}),\text{ \ }\mathbf{y}%
-_{i}=y(\mathbf{z}_{i},\mathbf{d}_{i},\mathbf{d}_{-i}),\text{ }and
+\symbf{d}_{-i}=d^{-i}(\symbf{d}_{i},\symbf{z}_{i}),\text{ \ }\symbf{y}%
+_{i}=y(\symbf{z}_{i},\symbf{d}_{i},\symbf{d}_{-i}),\text{ }and
 \end{equation*}
 
-the distribution of $\mathbf{z}_{i}$ conditional on $\mathit{I}_{i}$ does
+the distribution of $\symbf{z}_{i}$ conditional on $\mathit{I}_{i}$ does
 not depend on $d_{i}$.
 
 \end{frame}
@@ -305,18 +305,18 @@ Notes about C2:
 
 \begin{itemize}
 
-%\item The assumption that the distribution of $\mathbf{z}_{i}$ conditional
-%on $\mathit{I}_{i}$ does not depend on $d_{i}$ is what we mean by $\mathbf{z}%
+%\item The assumption that the distribution of $\symbf{z}_{i}$ conditional
+%on $\mathit{I}_{i}$ does not depend on $d_{i}$ is what we mean by $\symbf{z}%
 %_{i}$ being an exogenous random variable.
 
-\item If we have simultaneous moves then $d^{-i}(d',\mathbf{z_i}) = \mathbf{d}_{-i}$ (i.e., there is no need for an explicit model of reactions by competitors, and Condition C2 is satisfied.)
+\item If we have simultaneous moves then $d^{-i}(d',\symbf{z_i}) = \symbf{d}_{-i}$ (i.e., there is no need for an explicit model of reactions by competitors, and Condition C2 is satisfied.)
 
 \item If there are sequential decisions and we want to use the decision of the first player in the analysis,
 then we have to specify a model for what the first player
 thinks the second player would do were the first player to
 change his decision.
 
-\item If there is a $\mathbf{y}$ which is ``endogenous" - i.e. its distribution depends on $d_{i}$ - then we
+\item If there is a $\symbf{y}$ which is ``endogenous" - i.e. its distribution depends on $d_{i}$ - then we
 need a model of that dependence.
 \end{itemize}
 
@@ -334,7 +334,7 @@ If $d^{\prime }\in D_{i}$ is any alternative choice, and
 then%
 
 \begin{equation*}
-\varepsilon[ \Delta \pi (d_{i},d^{\prime },\mathbf{d}_{-i},\mathbf{z}_{i})|\mathit{I}_{i}] \geq 0 \text{ \hspace{0.1in}   } \forall  \text{   \hspace{0.1in}   }d'.
+\varepsilon[ \Delta \pi (d_{i},d^{\prime },\symbf{d}_{-i},\symbf{z}_{i})|\mathit{I}_{i}] \geq 0 \text{ \hspace{0.1in}   } \forall  \text{   \hspace{0.1in}   }d'.
 \end{equation*}
 
 To use this inequality as a basis for an estimation algorithm, we need to specify the
@@ -451,8 +451,8 @@ FC3 relates the data to agents' expectations.
 3. Expectational Condition (FC3).
 
 \begin{equation*}
-\pi (d,d_{-i},z_{i},\theta _{0})=\varepsilon \left[ \pi (d,\mathbf{d}%
-_{-i},\mathbf{z}_{i},\theta _{0})|\mathit{I}_{i}\right] \text{ \hspace{0.1in}} \forall  \text{ \hspace{0.1in}} d\in D_{i}
+\pi (d,d_{-i},z_{i},\theta _{0})=\varepsilon \left[ \pi (d,\symbf{d}%
+_{-i},\symbf{z}_{i},\theta _{0})|\mathit{I}_{i}\right] \text{ \hspace{0.1in}} \forall  \text{ \hspace{0.1in}} d\in D_{i}
 \end{equation*}
 
 FC3 implies that the model does not allow for any expectational error. That

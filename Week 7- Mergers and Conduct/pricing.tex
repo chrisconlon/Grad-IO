@@ -65,19 +65,19 @@
 \small
 Recall the multi-product Bertrand FOCs:
 \begin{align*}
-\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &= \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot q_j(\mathbf{p}) \\
-\rightarrow 0&= q_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p})
+\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) &= \sum_{j \in \calJ_f} (p_j - c_j) \cdot q_j(\symbf{p}) \\
+\rightarrow 0&= q_j(\symbf{p}) + \sum_{k \in \calJ_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\symbf{p})
 \end{align*}
 It is helpful to define the matrix $\Delta$ with entries:
 \begin{align*}
-\Delta_{(j,k)}(\mathbf{p}) = \left\{\begin{array}{lr}
-         - \frac{\partial q_{j}}{\partial p_k}(\mathbf{p}) & \text{for }  (j,k) \in \mathcal{J}_f\\
-       	  \quad 0 & \text{for } (j,k) \notin \mathcal{J}_f
+\Delta_{(j,k)}(\symbf{p}) = \left\{\begin{array}{lr}
+         - \frac{\partial q_{j}}{\partial p_k}(\symbf{p}) & \text{for }  (j,k) \in \calJ_f\\
+       	  \quad 0 & \text{for } (j,k) \notin \calJ_f
         \end{array} \right\}
 \end{align*}
 We can re-write the FOC in matrix form:
 \begin{align*}
-q(\mathbf{p}) = \Delta(\mathbf{p})\cdot(\mathbf{p}-\mathbf{mc})
+q(\symbf{p}) = \Delta(\symbf{p})\cdot(\symbf{p}-\symbf{mc})
 \end{align*}
 \end{frame}
 
@@ -86,17 +86,17 @@ q(\mathbf{p}) = \Delta(\mathbf{p})\cdot(\mathbf{p}-\mathbf{mc})
 What does a merger do? \alert{change the ownership matrix}.
 \begin{itemize}
 
-\item Step 1: Recover marginal costs $\widehat{\mathbf{mc}} = \mathbf{p} +\Delta(\mathbf{p})^{-1}q(\mathbf{p})$.
-\item Step 1a: (Possibly) adjust marginal cost $\widehat{\mathbf{mc}}\cdot (1-e)$ with some cost efficiency $e$.
-\item Step 2: Change the ownership matrix $\Delta^{pre}(\mathbf{p}) \rightarrow \Delta^{post}(\mathbf{p})$.
-\item Step 3: Solve for $\mathbf{p}^{post}$ via: $\mathbf{p} = \widehat{\mathbf{mc}} - \Delta(\mathbf{p})^{-1}q(\mathbf{p})$.
+\item Step 1: Recover marginal costs $\widehat{\symbf{mc}} = \symbf{p} +\Delta(\symbf{p})^{-1}q(\symbf{p})$.
+\item Step 1a: (Possibly) adjust marginal cost $\widehat{\symbf{mc}}\cdot (1-e)$ with some cost efficiency $e$.
+\item Step 2: Change the ownership matrix $\Delta^{pre}(\symbf{p}) \rightarrow \Delta^{post}(\symbf{p})$.
+\item Step 3: Solve for $\symbf{p}^{post}$ via: $\symbf{p} = \widehat{\symbf{mc}} - \Delta(\symbf{p})^{-1}q(\symbf{p})$.
 \end{itemize}
 \pause
 \vspace{0.5cm}
 \begin{itemize}
 \item The first step is easy (just a matrix inverse).
 \item The second step is trivial.
-\item The third step is tricky because we have to solve an implicit system of equations. $\mathbf{p}$ is on both sides.
+\item The third step is tricky because we have to solve an implicit system of equations. $\symbf{p}$ is on both sides.
 \end{itemize}
 \end{frame}
 
@@ -107,9 +107,9 @@ What does a merger do? \alert{change the ownership matrix}.
 \item Adjust the marginal costs for potential efficiencies.
 \item Consider only the FOC for product $j$
 \begin{eqnarray*}
-0&=& q_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p})
+0&=& q_j(\symbf{p}) + \sum_{k \in \calJ_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\symbf{p})
 \end{eqnarray*}
-\item Solve for the new $p_j$ given the change in the products controlled by firm $f$: $\mathcal{J}_f \rightarrow \mathcal{J}_f'$
+\item Solve for the new $p_j$ given the change in the products controlled by firm $f$: $\calJ_f \rightarrow \calJ_f'$
 \item This is a single Gauss-Jacobi step (only products involved in merger).
 \end{itemize}
 \end{frame} 
@@ -125,15 +125,15 @@ What does a merger do? \alert{change the ownership matrix}.
 
 
 \begin{frame}{Solution Methods}
-How do we solve: $\mathbf{p} = \widehat{\mathbf{mc}} - \Delta(\mathbf{p})^{-1}q(\mathbf{p})$?
+How do we solve: $\symbf{p} = \widehat{\symbf{mc}} - \Delta(\symbf{p})^{-1}q(\symbf{p})$?
 \begin{enumerate}
-\item Gauss Jacobi: Simultaneous Best Reply  $p_j^{k+1}(\mathbf{p_{-j}^k})$.
-\item Gauss Seidel: Iterated Best Response  $p_j^{k+1}(\mathbf{p_{<j}^{k+1}},\mathbf{p_{>j}^{k}})$.
-\item Newton's Method: Set $\mathbf{p} - \widehat{\mathbf{mc}} + \Delta(\mathbf{p})^{-1}q(\mathbf{p})=0$\\ but requires derivatives of $\Delta(\mathbf{p})^{-1}q(\mathbf{p})$
-\item Fixed point iteration: $\mathbf{p} \mapsfrom \widehat{\mathbf{mc}} - \Delta(\mathbf{p})^{-1}q(\mathbf{p})$
+\item Gauss Jacobi: Simultaneous Best Reply  $p_j^{k+1}(\symbf{p_{-j}^k})$.
+\item Gauss Seidel: Iterated Best Response  $p_j^{k+1}(\symbf{p_{<j}^{k+1}},\symbf{p_{>j}^{k}})$.
+\item Newton's Method: Set $\symbf{p} - \widehat{\symbf{mc}} + \Delta(\symbf{p})^{-1}q(\symbf{p})=0$\\ but requires derivatives of $\Delta(\symbf{p})^{-1}q(\symbf{p})$
+\item Fixed point iteration: $\symbf{p} \mapsfrom \widehat{\symbf{mc}} - \Delta(\symbf{p})^{-1}q(\symbf{p})$
 \begin{itemize}
 \item Turns out this is \alert{not a contraction}.
-\item But you can get lucky... $\mathbf{p} - \widehat{\mathbf{mc}} + \Delta(\mathbf{p})^{-1}q(\mathbf{p})=0$ means you have satisfied FOC's
+\item But you can get lucky... $\symbf{p} - \widehat{\symbf{mc}} + \Delta(\symbf{p})^{-1}q(\symbf{p})=0$ means you have satisfied FOC's
 \end{itemize}
 \item Alternative fixed point.
 \end{enumerate}
@@ -142,24 +142,24 @@ How do we solve: $\mathbf{p} = \widehat{\mathbf{mc}} - \Delta(\mathbf{p})^{-1}q(
 \begin{frame}{Exploit the logit formula}
 For the logit the $\Delta$ matrix (for a single market) looks like:
 \begin{align*}
-\Delta_{(j,k)}(\mathbf{p}) = \left\{\begin{array}{lr}
+\Delta_{(j,k)}(\symbf{p}) = \left\{\begin{array}{lr}
        \int \alpha_i \cdot s_{ij}\cdot (1-s_{ij}) \, \partial F_i& \text{ if } j=k \\
        	  \quad -\int \alpha_i \cdot s_{ij} \cdot s_{ik} \, \partial F_i &  \text{ if }  j\neq k 
         \end{array} \right\}
 \end{align*}
 Which we can factor into two parts (for plain logit):
 \begin{align*}
-\Delta(\mathbf{p}) =  \underbrace{\text{ Diag}\left[ \alpha \, \mathbf{s}(\mathbf{p}) \, \right]}_{\Lambda(\mathbf{p})} -  \underbrace{\alpha \cdot \mathbf{s}(\mathbf{p}) \mathbf{s}(\mathbf{p})'}_{\Gamma(\mathbf{p})}
+\Delta(\symbf{p}) =  \underbrace{\text{ Diag}\left[ \alpha \, \symbf{s}(\symbf{p}) \, \right]}_{\Lambda(\symbf{p})} -  \underbrace{\alpha \cdot \symbf{s}(\symbf{p}) \symbf{s}(\symbf{p})'}_{\Gamma(\symbf{p})}
 \end{align*}
-$\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\Lambda(\mathbf{p})$ is diagonal and $(j,k)$ is nonzero in $\Gamma(\mathbf{p})$ only if $(j,k)$ share an owner.
+$\Gamma(\symbf{p})$ and $\Lambda(\symbf{p})$ are $J \times J$ matrices and $\Lambda(\symbf{p})$ is diagonal and $(j,k)$ is nonzero in $\Gamma(\symbf{p})$ only if $(j,k)$ share an owner.
 \end{frame}
 
 
 \begin{frame}{Morrow Skerlos (2010) Fixed Point}
 \begin{itemize}
-\item After factoring we can rescale by $\Lambda^{-1} (\mathbf{p})$
+\item After factoring we can rescale by $\Lambda^{-1} (\symbf{p})$
 \begin{align*}
-(\mathbf{p}-\mathbf{mc} ) \mapsfrom \Lambda^{-1}(\mathbf{p}) \cdot \Gamma(\mathbf{p})\cdot(\mathbf{p}- \mathbf{mc}) - \Lambda^{-1}(\mathbf{p})\cdot s(\mathbf{p})
+(\symbf{p}-\symbf{mc} ) \mapsfrom \Lambda^{-1}(\symbf{p}) \cdot \Gamma(\symbf{p})\cdot(\symbf{p}- \symbf{mc}) - \Lambda^{-1}(\symbf{p})\cdot s(\symbf{p})
 \end{align*}
 \item This alternative fixed point is in fact a contraction.
 \item Moreover the rate of convergence is generally fast and stable (much more than Gauss-Seidel or Gauss-Jacobi).
@@ -175,7 +175,7 @@ Lots of cases where we want to recompute prices:
 \begin{itemize}
 \item Change conduct/ownership $\mathcal{H}_t(\kappa)$.
 \item Change the $mc$ (add a tax, tariff, etc.)
-\item Add/drop a product/products from the choice set $\mathcal{J}_t$.
+\item Add/drop a product/products from the choice set $\calJ_t$.
 \item Change demographics of consumers $d_i$
 \end{itemize}
 \end{frame}

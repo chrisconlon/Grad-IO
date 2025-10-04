@@ -71,9 +71,9 @@ We begin with a relatively standard BLP-style differentiated products setup.\\
 \begin{itemize}
     \item Markets $t$
     \item Products $j$
-    \item Data $\chi_t = \{(\textrm{x}_{jt},\textrm{v}_{jt},\textrm{w}_{jt})$ for all $j \in \mathcal{J}_t\}$.
-    \item Market Shares $\mathcal{S}_t = [s_{1t}, \ldots, s_{Jt}, s_{0t}]$.
-    \item Prices $\mathbf{p}_t = [p_{1t}, \ldots, p_{Jt}]$.
+    \item Data $\chi_t = \{(\textrm{x}_{jt},\textrm{v}_{jt},\textrm{w}_{jt})$ for all $j \in \calJ_t\}$.
+    \item Market Shares $\calS_t = [s_{1t}, \ldots, s_{Jt}, s_{0t}]$.
+    \item Prices $\symbf{p}_t = [p_{1t}, \ldots, p_{Jt}]$.
     \item Consumers $i$ with demographics $y_{it}$ (income, presence of kids)
 \end{itemize}
 \end{frame}
@@ -83,8 +83,8 @@ We begin with a relatively standard BLP-style differentiated products setup.\\
 \small
 We generalize the $\mathcal{H}(\kappa)$ and derive multi-product Bertrand FOCs:
 \begin{align*}
-\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &= \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot q_j(\mathbf{p}) +  \alert{\kappa_{fg} \sum_{j \in \mathcal{J}_g} (p_j - c_j) \cdot q_j(\mathbf{p})} \\
-\rightarrow 0&= q_j(\mathbf{p}) + \sum_{k \in (\mathcal{J}_f,\mathcal{J}_g)} \alert{\kappa_{fg}}\cdot (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p}) 
+\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) &= \sum_{j \in \calJ_f} (p_j - c_j) \cdot q_j(\symbf{p}) +  \alert{\kappa_{fg} \sum_{j \in \calJ_g} (p_j - c_j) \cdot q_j(\symbf{p})} \\
+\rightarrow 0&= q_j(\symbf{p}) + \sum_{k \in (\calJ_f,\calJ_g)} \alert{\kappa_{fg}}\cdot (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\symbf{p}) 
 \end{align*}
 \begin{itemize}
 \item Instead of $0$'s and $1$'s we now have $\kappa_{fg} \in [0,1]$ representing how much firm $f$ cares about the profits of $g$.
@@ -105,8 +105,8 @@ We generalize the $\mathcal{H}(\kappa)$ and derive multi-product Bertrand FOCs:
 \item $\mathcal{H}(\kappa)=\kappa_{fg}$ for products owned by $(f,g)$ where $\kappa_{ff}=1$ always.
 \end{itemize}
 \item Mergers are about changing $0$'s to $1$'s in the $\mathcal{H}(\kappa)$ matrix.
-\item Matrix form of FOC: $q(\mathbf{p}) = \Delta(\mathbf{p},\kappa)\cdot(\mathbf{p}-\mathbf{mc})$
-\item $\mathbf{mc} =  \mathbf{p} - \underbrace{\Delta(\mathbf{p}, \theta_2, \kappa)^{-1} s(\mathbf{p})}_{\eta(\mathbf{p},\mathbf{s},\theta_2,\kappa)}$
+\item Matrix form of FOC: $q(\symbf{p}) = \Delta(\symbf{p},\kappa)\cdot(\symbf{p}-\symbf{mc})$
+\item $\symbf{mc} =  \symbf{p} - \underbrace{\Delta(\symbf{p}, \theta_2, \kappa)^{-1} s(\symbf{p})}_{\eta(\symbf{p},\symbf{s},\theta_2,\kappa)}$
 where $\eta_{jt}$ is the markup.
 \end{itemize}
 \end{frame}
@@ -127,14 +127,14 @@ where $\eta_{jt}$ is the markup.
 \begin{frame}{Simultaneous Problem}
 Assume additivity, and write in terms of structural errors:
 \begin{align*}
-\delta_{jt}(\mathcal{S}_t,\alert{\mathrm{y}_t}, \widetilde{\theta}_2) + \alpha p_{jt} &= h_d(\textrm{x}_{jt}, \, \alert{\textrm{v}_{jt}},\theta_1)  + \xi_{jt} \\
- f \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\theta_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \omega_{jt}
+\delta_{jt}(\calS_t,\alert{\mathrm{y}_t}, \widetilde{\theta}_2) + \alpha p_{jt} &= h_d(\textrm{x}_{jt}, \, \alert{\textrm{v}_{jt}},\theta_1)  + \xi_{jt} \\
+ f \left( p_{jt} - \eta_{jt}(\symbf{p},\symbf{s},\theta_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \omega_{jt}
 \end{align*}
 \vspace{-.4cm}
 \begin{itemize}
  \item To simplify slides we let $f(x)=x$ (often $f(x) =\log(x))$ but we can put that in $h_s(\cdot)$.
 \item $h(\cdot)$ are often just linear relationships like: $\theta_1 [\textrm{x}_{jt}, \textrm{v}_{jt}]$.
-\item Endogeneity Problem: $p_{jt}$ and $\eta_{jt}$ are functions of $(\boldsymbol{\xi},\boldsymbol{\omega})$.
+\item Endogeneity Problem: $p_{jt}$ and $\eta_{jt}$ are functions of $(\symbf{\xi},\symbf{\omega})$.
 \item $(\theta_2, \kappa)$ parameters that determine markups
 \end{itemize}
 \end{frame}
@@ -143,17 +143,17 @@ Assume additivity, and write in terms of structural errors:
 \frametitle{Approach \#1: Demand Side}
 1. Estimate $\theta_2$ from demand alone.
 \begin{align*}
-\delta_{jt}(\mathcal{S}_t,\widetilde{\theta}_2) + \alpha p_{jt} &= h_d(\textrm{x}_{jt}, \, \alert{\textrm{v}_{jt}},\theta_1)  + \xi_{jt} \\
+\delta_{jt}(\calS_t,\widetilde{\theta}_2) + \alpha p_{jt} &= h_d(\textrm{x}_{jt}, \, \alert{\textrm{v}_{jt}},\theta_1)  + \xi_{jt} \\
 E[\xi_{jt} | \textrm{x}_{t}, \textrm{v}_{t}, \textrm{w}_{t}] &=0
 \end{align*}
-2. Recover marginal costs $\widehat{\mathbf{mc}} = \mathbf{p} + \boldsymbol{\eta}$
+2. Recover marginal costs $\widehat{\symbf{mc}} = \symbf{p} + \symbf{\eta}$
 \begin{align*}
-\boldsymbol{\eta}(\mathbf{p},\mathbf{s},\theta_2,\kappa) \equiv \left(\mathcal{H}(\kappa).*\tilde{\Delta}(\mathbf{p},\theta_2) \right)^{-1} q(\mathbf{p})
+\symbf{\eta}(\symbf{p},\symbf{s},\theta_2,\kappa) \equiv \left(\mathcal{H}(\kappa).*\tilde{\Delta}(\symbf{p},\theta_2) \right)^{-1} q(\symbf{p})
 \end{align*}
 \vspace{-0.2cm}
 Challenges:
 \begin{itemize}
-\item Given $[\mathbf{q},\mathbf{p},\tilde{\Delta},\mathcal{H}(\kappa)]$ I can always produce a vector of marginal costs $\mathbf{mc}$ that rationalizes what we observe. [ie: $J$ equations $J$ unknowns].
+\item Given $[\symbf{q},\symbf{p},\tilde{\Delta},\mathcal{H}(\kappa)]$ I can always produce a vector of marginal costs $\symbf{mc}$ that rationalizes what we observe. [ie: $J$ equations $J$ unknowns].
 \item Nonparametrically we cannot identify $\kappa$ without more restrictions (!).
 \end{itemize}
 \end{frame}
@@ -161,14 +161,14 @@ Challenges:
 
 
 \begin{frame}\frametitle{What do people do?}
-Maybe some vectors of $\mathbf{mc}$ look less ``reasonable'' than others.
+Maybe some vectors of $\symbf{mc}$ look less ``reasonable'' than others.
 \begin{itemize}
 \item Marginal costs $\leq 0$ seem problematic.
 [Might just be that your estimates for demand are too inelastic...]
 \item or I have a parametric model of MC in mind. 
 \begin{align*}
- f \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\theta_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \textrm{w}_{jt},\theta_3) + \omega_{jt}\\
- E[\omega_{jt} | \mathbf{\textrm{x}_{t}}, \mathbf{\textrm{w}_{t}}, \alert{\mathbf{\textrm{v}_{t}}}]&=0
+ f \left( p_{jt} - \eta_{jt}(\symbf{p},\symbf{s},\theta_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \textrm{w}_{jt},\theta_3) + \omega_{jt}\\
+ E[\omega_{jt} | \symbf{\textrm{x}_{t}}, \symbf{\textrm{w}_{t}}, \alert{\symbf{\textrm{v}_{t}}}]&=0
 \end{align*}
 \item Can test that model with GMM objective of $mc_{jt}$ on regressors.
 \item Maybe marginal costs cannot deviate too much within product from period to period. (We can write these as moment restrictions too).
@@ -179,8 +179,8 @@ Maybe some vectors of $\mathbf{mc}$ look less ``reasonable'' than others.
 \frametitle{Approach \#2: Simultaneous Supply and Demand}
 Estimate $\theta_2$ using both supply and demand. The fit of my supply side will also inform my demand parameters, particularly $\alpha$ the price coefficient. [BLP 95 used this for additional power with lots of random coefficients and potentially weak instruments].
 \begin{align*}
-\delta_{jt}(\mathcal{S}_t,\widetilde{\theta}_2) + \alpha p_{jt} &= h_d(\textrm{x}_{jt}, \, \alert{\textrm{v}_{jt}},\theta_1)  + \xi_{jt} \\
- f \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\theta_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \omega_{jt}
+\delta_{jt}(\calS_t,\widetilde{\theta}_2) + \alpha p_{jt} &= h_d(\textrm{x}_{jt}, \, \alert{\textrm{v}_{jt}},\theta_1)  + \xi_{jt} \\
+ f \left( p_{jt} - \eta_{jt}(\symbf{p},\symbf{s},\theta_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \omega_{jt}
 \end{align*}
 Challenges:
 \begin{itemize}
@@ -253,7 +253,7 @@ There are 2.5 ways to think about conduct:
 \begin{frame}{Testing a single model of $\kappa$}
 Put the $\eta_{jt}$ on the RHS and test whether $\lambda=1$:
 \begin{align*}
- p_{jt} = h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\mathbf{p},\mathbf{s},\theta_2,\kappa \right)+  \omega_{jt} \text{ with }
+ p_{jt} = h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\symbf{p},\symbf{s},\theta_2,\kappa \right)+  \omega_{jt} \text{ with }
  E[\omega_{jt} | \textrm{x}_{t},\textrm{w}_{t},\textrm{z}_{t}]=0s
 \end{align*}
 \vspace{-0.25cm}
@@ -289,7 +289,7 @@ These are somewhat reassuring:
 \begin{frame}{Goodness of Fit Tests}
 Another idea (Bonnet and Dubois, Rand 2010) runs the following regression:
 \begin{align*}
-\log \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\widehat{\theta}_2,\kappa) \right) &= h_s(x_{jt}, \alert{w_{jt}},\theta_3) + \omega_{jt}
+\log \left( p_{jt} - \eta_{jt}(\symbf{p},\symbf{s},\widehat{\theta}_2,\kappa) \right) &= h_s(x_{jt}, \alert{w_{jt}},\theta_3) + \omega_{jt}
 \end{align*}
 \begin{itemize}
 \item Run a regression for each $\kappa$ and obtain $Q(\kappa)=\sum_{jt} \widehat{\omega}_{jt}^2$
@@ -342,11 +342,11 @@ So far three approaches to exploit $ E[\omega_{jt} | x_{t},w_{t},z_{t}]=0$
 \begin{enumerate}
 \item Put the markup on RHS and instrument for it to test $\lambda=1$ (Wald)
 \begin{align*}
- p_{jt} &= h_s(x_{jt}, \alert{w_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\mathbf{p},\mathbf{s},\widehat{\theta_2},\kappa \right)+  \omega_{jt}
+ p_{jt} &= h_s(x_{jt}, \alert{w_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\symbf{p},\symbf{s},\widehat{\theta_2},\kappa \right)+  \omega_{jt}
 \end{align*}
 \item Put the markup on LHS assuming $\lambda=1$ and test goodness of fit of supply equation (Anderson Rubin)
 \begin{align*}
- p_{jt} -\eta_{jt}\left(\mathbf{p},\mathbf{s},\widehat{\theta_2},\kappa \right)&= h_s(x_{jt}, \alert{w_{jt}},\theta_3) +  \omega_{jt}
+ p_{jt} -\eta_{jt}\left(\symbf{p},\symbf{s},\widehat{\theta_2},\kappa \right)&= h_s(x_{jt}, \alert{w_{jt}},\theta_3) +  \omega_{jt}
 \end{align*}
 \item Estimate supply and demand simultaneously $[\theta_1,\theta_2,\theta_3]$ and compare goodness of fit for different $\kappa$. (Likelihood Ratio)
 \end{enumerate}
@@ -362,7 +362,7 @@ So far three approaches to exploit $ E[\omega_{jt} | x_{t},w_{t},z_{t}]=0$
 % \end{align*}
 % Write things in terms of the markup difference:
 % \begin{align*}
-% p_{jt} -\eta_{jt}(\kappa_1)= h(x_{jt},w_{jt};\theta_3)+ \overbrace{\lambda \cdot  \Delta \eta_{jt}(\mathbf{p},\mathbf{s},\theta,\kappa_0,\kappa_1) +   \omega_{jt}}^{\widetilde{\omega_{jt}}}
+% p_{jt} -\eta_{jt}(\kappa_1)= h(x_{jt},w_{jt};\theta_3)+ \overbrace{\lambda \cdot  \Delta \eta_{jt}(\symbf{p},\symbf{s},\theta,\kappa_0,\kappa_1) +   \omega_{jt}}^{\widetilde{\omega_{jt}}}
 % \end{align*}
 % Tempting idea: run the above regression and test if $\lambda=0$.
 % \begin{itemize}
@@ -380,7 +380,7 @@ So far three approaches to exploit $ E[\omega_{jt} | x_{t},w_{t},z_{t}]=0$
 % \begin{itemize}
 % \item If my marginal cost is correlated with marginal costs of other products or ``closeness of competitors'', I've got the wrong conduct assumption!
 % \end{itemize}
-% \item We need an instrument for $\Delta \eta_{jt}(\mathbf{p},\mathbf{s},\theta,\kappa_0,\kappa_1)$
+% \item We need an instrument for $\Delta \eta_{jt}(\symbf{p},\symbf{s},\theta,\kappa_0,\kappa_1)$
 % \begin{itemize}
 % \item Maybe not so hard since it is basically a function of everything.
 % \item Cannot have a direct effect on $mc_{jt}$ (exclusion restriction).
@@ -393,12 +393,12 @@ So far three approaches to exploit $ E[\omega_{jt} | x_{t},w_{t},z_{t}]=0$
 % \begin{frame}{Backus, Conlon, Sinkinson (2020)}
 % What would a really good instrument look like?
 % \begin{itemize}
-% \item Chamberlain (1987) style optimal IV for $\kappa_{fg}$ would be $E\left[\frac{\partial \eta_{jt}(\theta_2,\mathbf{s},\mathbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$
+% \item Chamberlain (1987) style optimal IV for $\kappa_{fg}$ would be $E\left[\frac{\partial \eta_{jt}(\theta_2,\symbf{s},\symbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$
 % \begin{itemize}
 % \item But infeasible without knowledge of $(\kappa,\xi,\omega)$!
 % \item We could try to recover the infeasible estimate and project it onto $(x_t,w_t,v_t)$ (note: lack of $j$ subscripts!)
 % \end{itemize}
-% \item Menu approach: could look at discrete analogue: $E\left[\Delta \eta_{jt}(\kappa_1,\kappa_0,\theta_2,\mathbf{s},\mathbf{p}) | x_{t}, w_{t}, v_{t}\right]$
+% \item Menu approach: could look at discrete analogue: $E\left[\Delta \eta_{jt}(\kappa_1,\kappa_0,\theta_2,\symbf{s},\symbf{p}) | x_{t}, w_{t}, v_{t}\right]$
 % \begin{itemize}
 % \item I would need to know $\kappa_1,\kappa_0$.
 % \item Still infeasible but could run a first-stage regression
@@ -411,12 +411,12 @@ So far three approaches to exploit $ E[\omega_{jt} | x_{t},w_{t},z_{t}]=0$
 % \begin{frame}{Backus, Conlon, Sinkinson (2020)}
 % What would a really good instrument look like?
 % \begin{itemize}
-% \item Chamberlain (1987) style optimal IV for $\kappa_{fg}$ would be $E\left[\frac{\partial \eta_{jt}(\theta_2,\mathbf{s},\mathbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$
+% \item Chamberlain (1987) style optimal IV for $\kappa_{fg}$ would be $E\left[\frac{\partial \eta_{jt}(\theta_2,\symbf{s},\symbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$
 % \begin{itemize}
 % \item But infeasible without knowledge of $(\kappa,\xi,\omega)$ so we take expectation over exogenous variables.
 % \item We could try to recover the infeasible estimate and project it onto $(x_t,w_t,v_t)$ (note: lack of $j$ subscripts!)
 % \end{itemize}
-% \item Menu approach: could look at discrete analogue: $E\left[\Delta \eta_{jt}(\kappa_1,\kappa_0,\theta_2,\mathbf{s},\mathbf{p}) | x_{t}, w_{t}, v_{t}\right]$
+% \item Menu approach: could look at discrete analogue: $E\left[\Delta \eta_{jt}(\kappa_1,\kappa_0,\theta_2,\symbf{s},\symbf{p}) | x_{t}, w_{t}, v_{t}\right]$
 % \begin{itemize}
 % \item I would need to know $\kappa_1,\kappa_0$.
 % \item Still infeasible but could run a first-stage regression
@@ -431,7 +431,7 @@ So far three approaches to exploit $ E[\omega_{jt} | x_{t},w_{t},z_{t}]=0$
 % \begin{enumerate}
 % \item Run OLS to obtain $\widehat{\omega}_1,\widehat{\omega}_2$ for $(\kappa_1,\kappa_2)$
 % \begin{align*}
-% \log \left( p_{jt} - \eta_{jt}(\mathbf{p},\mathbf{s},\widehat{\theta}_2,\kappa) \right) = h_s(x_{jt}, w_{jt},\theta_3) + \omega_{jt}
+% \log \left( p_{jt} - \eta_{jt}(\symbf{p},\symbf{s},\widehat{\theta}_2,\kappa) \right) = h_s(x_{jt}, w_{jt},\theta_3) + \omega_{jt}
 % \end{align*}
 % \item Recover $\Delta \widehat{\eta}_{jt}(\kappa_1,\kappa_2)$ via nonparametric regression/machine-learning
 % \begin{align*}
@@ -447,11 +447,11 @@ So far three approaches to exploit $ E[\omega_{jt} | x_{t},w_{t},z_{t}]=0$
 
 % \begin{frame}{Backus, Conlon, Sinkinson (2020) [Alternative]}
 % \begin{align*}
-%  p_{jt} -\eta_{jt}\left(\mathbf{p},\mathbf{s},\widehat{\theta_2},\kappa \right)&= h_s(x_{jt}, \alert{w_{jt}},\theta_3) +  \omega_{jt}
+%  p_{jt} -\eta_{jt}\left(\symbf{p},\symbf{s},\widehat{\theta_2},\kappa \right)&= h_s(x_{jt}, \alert{w_{jt}},\theta_3) +  \omega_{jt}
 % \end{align*}
 % \begin{itemize}
 % \item We can also directly test violations of $E[\omega_{jt} | x_t, v_t, w_t]$ by comparing resulting CUE or GEL (or GMM) objective values.
-% \item Probably want to include approximate optimal IV $E\left[\frac{\partial \eta_{jt}(\theta_2,\mathbf{s},\mathbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$ in instrument set.
+% \item Probably want to include approximate optimal IV $E\left[\frac{\partial \eta_{jt}(\theta_2,\symbf{s},\symbf{p},\kappa)}{\partial \kappa_{fg}} | x_{t}, w_{t}, v_{t}\right]$ in instrument set.
 % \end{itemize}
 % \end{frame}
 
@@ -532,7 +532,7 @@ Solve for $\omega_{jt}$
 \omega_{jt} &= p_{jt} - h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \tau\, \eta_{jt}^A + (1-\tau)\,\eta_{jt}^B
 \end{align*}
 \begin{itemize}
-  \item What is $\frac{\partial \omega_{jt}}{\partial \tau}?: \quad A(z_t) = \E[\eta_{jt}^A - \eta_{jt}^B \mid \mathbf{x_t}, \mathbf{w_t}, \mathbf{v_t}, \textrm{y}_t]$
+  \item What is $\frac{\partial \omega_{jt}}{\partial \tau}?: \quad A(z_t) = \E[\eta_{jt}^A - \eta_{jt}^B \mid \symbf{x_t}, \symbf{w_t}, \symbf{v_t}, \textrm{y}_t]$
   \item This looks like a \alert{first stage} (nonparametric) regression of markup difference on instruments/all exogenous variables. (Newey 1990).
   \item Instruments are supposed to explain \alert{differences in endogenous markups}. 
 \end{itemize}
@@ -611,7 +611,7 @@ Getting the SD of the difference is hard $\rightarrow$ bootstrap
 \begin{enumerate}[(a)]
 \item For each candidate model, compute the value of the scalar moment:\footnotemark
 \begin{align*}
- Q(\eta^m) =\left(\sum_{j,t} \hat\omega_{jt}^m\cdot \hat{g}(\mathbf{z_t}) \right)^2.
+ Q(\eta^m) =\left(\sum_{j,t} \hat\omega_{jt}^m\cdot \hat{g}(\symbf{z_t}) \right)^2.
 \end{align*}
 \item Repeat the previous step on bootstrapped samples and estimate $\hat\sigma/\sqrt{n}$ the standard error of the difference $\tilde Q(\eta^1) - \tilde Q(\eta^2)$.
 \item Compute the test statistic
@@ -665,9 +665,9 @@ Not everything is testable:
 \begin{frame}{Possible Exclusion Restrictions}
 We are looking for variables which affect \alert{demand but not supply}:
 \begin{align*}
-\sigma_{j}^{-1}(\mathcal{S}_t, \mathbf{p_t},\alert{\mathrm{y_t}}, \mathrm{x}_t,  \mathrm{v}_t, \widetilde{\theta}_2) 
+\sigma_{j}^{-1}(\calS_t, \symbf{p_t},\alert{\mathrm{y_t}}, \mathrm{x}_t,  \mathrm{v}_t, \widetilde{\theta}_2) 
 &= h_d(\mathrm{x}_{jt},\alert{ \mathrm{v}_{jt}}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt})+ \xi_{jt} \\
-p_{jt} - \eta_{jt}(\mathcal{S}_t, \mathbf{p_t}; \theta_2, \mathcal{H}_t(\kappa))
+p_{jt} - \eta_{jt}(\calS_t, \symbf{p_t}; \theta_2, \mathcal{H}_t(\kappa))
 &= h_s(\textrm{x}_{jt}, \alert{\mathrm{w}_{jt}}; \theta_3) + \omega_{jt} 
 \end{align*}
 Things we use:
@@ -776,8 +776,8 @@ in 2013, Teva Pharmaceuticals, the largest generic firm, hired NP, a marketing e
 \begin{frame}[plain]{An Internalization Parameter}
 Let $\kappa$ represent the weight a firm places on competitors and $\tau$ the internalization of those weights.
  \begin{equation*}
- arg\max_{p_j \,:\, j \in \mathcal{J}_f} \sum_{j \in \mathcal{J}_f} (p_j - mc_j) \cdot s_j(\mathbf{p})+
- \sum_{g\neq f} \alert{\tau} \kappa_{fg} \sum_{j \in \mathcal{J}_g} (p_k - mc_k) \cdot s_k(\mathbf{p})
+ arg\max_{p_j \,:\, j \in \calJ_f} \sum_{j \in \calJ_f} (p_j - mc_j) \cdot s_j(\symbf{p})+
+ \sum_{g\neq f} \alert{\tau} \kappa_{fg} \sum_{j \in \calJ_g} (p_k - mc_k) \cdot s_k(\symbf{p})
  \end{equation*}
 Now, 
 \begin{itemize}
@@ -801,9 +801,9 @@ We test $\tau \in (0.1, \ldots, 0.9)$ against own-profit maximization.
 % u_{ijt} &=  h_d(\textrm{x}_{jt}, \textrm{v}_{jt}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt}) + \xi_{jt}  + \mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2) + \varepsilon_{ijt}
 % \end{align*}
 % 
-% Following Berry, Levinsohn, Pakes, we fix $\theta_2=[\widetilde \theta_2,\alpha, \lambda]$ and invert system of equations for $\mathcal{S}_t$ to get mean utilities:
+% Following Berry, Levinsohn, Pakes, we fix $\theta_2=[\widetilde \theta_2,\alpha, \lambda]$ and invert system of equations for $\calS_t$ to get mean utilities:
 % \begin{align*}
-% \sigma_{j}^{-1}(\mathcal{S}_t, \chi_t, \mathbf{p_t},\mathrm{y_t}; \widetilde{\theta}_2) + \alpha\, p_{jt} - \lambda \, \log(\text{ad}_{jt}) &= h_d(\textrm{x}_{jt}, \textrm{v}_{jt}; \theta_1) + \xi_{jt} 
+% \sigma_{j}^{-1}(\calS_t, \chi_t, \symbf{p_t},\mathrm{y_t}; \widetilde{\theta}_2) + \alpha\, p_{jt} - \lambda \, \log(\text{ad}_{jt}) &= h_d(\textrm{x}_{jt}, \textrm{v}_{jt}; \theta_1) + \xi_{jt} 
 % \end{align*}
 % Can estimate $[\widehat{\theta_1}, \widehat{\theta_2}]$ using the CMR $\mathbb{E}[\xi_{jt} | z_{jt}^d]=0$.
 % \end{frame}
@@ -811,7 +811,7 @@ We test $\tau \in (0.1, \ldots, 0.9)$ against own-profit maximization.
 % \begin{frame}{Setup: Supply and Conduct}
 % Assume that we know $\widehat{\theta_2}$ from demand:
 % \begin{align*}
-% p_{jt} - \eta_{jt}(\mathcal{S}_t, \chi_t, \mathbf{p_t},\mathrm{y_t}; \widehat{\theta}_2) = h_s(\mathrm{x}_{jt}, \mathrm{w}_{jt}, q_{jt}; \theta_3) + \omega_{jt} \quad &\text{ with } \mathbb{E}[\omega_{jt} | z_{jt}^s]=0
+% p_{jt} - \eta_{jt}(\calS_t, \chi_t, \symbf{p_t},\mathrm{y_t}; \widehat{\theta}_2) = h_s(\mathrm{x}_{jt}, \mathrm{w}_{jt}, q_{jt}; \theta_3) + \omega_{jt} \quad &\text{ with } \mathbb{E}[\omega_{jt} | z_{jt}^s]=0
 % \end{align*}
 % \begin{itemize}
 % \item The model is defined by \alert{conditional moment restrictions}.

@@ -28,10 +28,10 @@ Overview
 
 \begin{frame}{Crawford, Lee, Whinston, Yurukoglou (ECMA 2018)}
 \begin{itemize}
-\item Household $i$ in market $m$ and period $t$ subscribes to MVPD $f \in \mathcal{F}_{mt}$.
-\item Spends time $w_{ifct}$ watching channel $c$ or non TV activities $c=0$ choice is the vector $\mathbf{w}_{ift}$.
+\item Household $i$ in market $m$ and period $t$ subscribes to MVPD $f \in \calF_{mt}$.
+\item Spends time $w_{ifct}$ watching channel $c$ or non TV activities $c=0$ choice is the vector $\symbf{w}_{ift}$.
 \begin{eqnarray*}
-\max_{\mathbf{w}_{ift}} v_{ift}(\mathbf{w}_{ift}) =  \sum_{c \in \mathcal{B}_{fmt} \cup \{0\}}  \frac{\gamma_{ict}}{1-\nu_c}(w_{ift})^{1-\nu_c}\\
+\max_{\symbf{w}_{ift}} v_{ift}(\symbf{w}_{ift}) =  \sum_{c \in \mathcal{B}_{fmt} \cup \{0\}}  \frac{\gamma_{ict}}{1-\nu_c}(w_{ift})^{1-\nu_c}\\
 \mbox{s.t. : } w_{ifct} \geq 0\quad  \forall c \quad \mbox{ and } \sum_{c \in \mathcal{B}_{fmt} \cup \{0\}} w_{ifct} \leq T
 \end{eqnarray*}
 \item $\gamma_{ict}$: marginal value for first unit of watching TV channel
@@ -58,7 +58,7 @@ u_{ift} = \beta^v v_{ift}^{*} + \beta^x x_{ft} + \beta_{if}^{sat} + \alpha p_{ft
 \item $p_{ft}$ is monthly (tax inclusive) price.
 \item $x_{ft}$ firm-state and year dummies
 \item $\beta_i^{sat} \sim Exp(\rho_f^{sat})$ for satellite providers.
-\item Demand is logit with random coefficients for $(\mathbf{\beta,\gamma})$.
+\item Demand is logit with random coefficients for $(\symbf{\beta,\gamma})$.
 \item Marketsize is \# of TV households.
 \end{itemize}
 }
@@ -69,7 +69,7 @@ u_{ift} = \beta^v v_{ift}^{*} + \beta^x x_{ft} + \beta_{if}^{sat} + \alpha p_{ft
 \begin{enumerate}
 \item MVPDs and content providers negotiate over a per subscriber fee $\tau_{fct}$ paid by distributor $f$ to channel $c$: vector form $\tau_{t}$.
 \item Simultaneously: each distributor chooses prices and channel composition of its bundle in all markets where it operates.
-\item $\{\mathbf{p}_{mt},\mathbf{\mathcal{B}}_{mt}, \tau_t, \mu\}$ are jointly optimal w.r.t one another.
+\item $\{\symbf{p}_{mt},\symbf{\mathcal{B}}_{mt}, \tau_t, \mu\}$ are jointly optimal w.r.t one another.
 \end{enumerate}
 }
 
@@ -79,7 +79,7 @@ u_{ift} = \beta^v v_{ift}^{*} + \beta^x x_{ft} + \beta_{if}^{sat} + \alpha p_{ft
 \small
 \begin{eqnarray*}
 \Pi_{ft}^{M}(\mathcal{B}_{mt},p_{mt},\tau_t,\mu) = D_{fmt} \times (p_{fmt}^{pre-tax} - mc_{fmt}) + \\
-\mu \times \left(\sum_{g \in \mathcal{F}_{mt}} \sum_{c \in \mathcal{B}_{gmt}} O_{fct} \times D_{gmt} \times (\tau_{gmt} + a_{ct}) \right)
+\mu \times \left(\sum_{g \in \calF_{mt}} \sum_{c \in \mathcal{B}_{gmt}} O_{fct} \times D_{gmt} \times (\tau_{gmt} + a_{ct}) \right)
 \end{eqnarray*}
 
 \begin{itemize}
@@ -104,7 +104,7 @@ For Prices:
 \small
 \begin{eqnarray*}
 \Pi_{ft}^{M}(\mathcal{B}_{mt},p_{mt},\tau_t,\mu) =  \frac{s_{fmt}}{1+tax_{fmt}}\times (p_{fmt}^{pre-tax} - mc_{fmt})  \frac{\partial s_{fmt}}{\partial p_{fmt}} + \\
-\mu \times \left(\sum_{g \in \mathcal{F}_{mt}} \sum_{c \in \mathcal{B}_{gmt}} O_{fct} \times \frac{\partial s_{gmt}}{\partial p_{fmt}} \times (\tau_{gmt} + a_{ct}) \right) =0
+\mu \times \left(\sum_{g \in \calF_{mt}} \sum_{c \in \mathcal{B}_{gmt}} O_{fct} \times \frac{\partial s_{gmt}}{\partial p_{fmt}} \times (\tau_{gmt} + a_{ct}) \right) =0
 \end{eqnarray*}
 For Carriage:
 \begin{eqnarray*}

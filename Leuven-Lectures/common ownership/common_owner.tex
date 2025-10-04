@@ -20,9 +20,9 @@
 \begin{frame}{Possible Exclusion Restrictions}
 We are looking for variables which affect \alert{demand but not supply}:
 \begin{align*}
-\sigma_{j}^{-1}(\mathcal{S}_t, \mathbf{p_t},\alert{\mathrm{y_t}}, \mathrm{x}_t,  \mathrm{v}_t, \widetilde{\theta}_2) 
+\sigma_{j}^{-1}(\calS_t, \symbf{p_t},\alert{\mathrm{y_t}}, \mathrm{x}_t,  \mathrm{v}_t, \widetilde{\theta}_2) 
 &= h_d(\mathrm{x}_{jt},\alert{ \mathrm{v}_{jt}}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt})+ \xi_{jt} \\
-p_{jt} - \eta_{jt}(\mathcal{S}_t, \mathbf{p_t}; \theta_2, \mathcal{H}_t(\kappa))
+p_{jt} - \eta_{jt}(\calS_t, \symbf{p_t}; \theta_2, \mathcal{H}_t(\kappa))
 &= h_s(\textrm{x}_{jt}, \alert{\mathrm{w}_{jt}}; \theta_3) + \omega_{jt} 
 \end{align*}
 Things we use:
@@ -52,8 +52,8 @@ Things we don't use:
 \begin{frame}[plain]{An Internalization Parameter}
 Let $\kappa$ represent the weight a firm places on competitors and $\tau$ the internalization of those weights.
  \begin{equation*}
- arg\max_{p_j \,:\, j \in \mathcal{J}_f} \sum_{j \in \mathcal{J}_f} (p_j - mc_j) \cdot s_j(\mathbf{p})+
- \sum_{g\neq f} \alert{\tau} \kappa_{fg} \sum_{j \in \mathcal{J}_g} (p_k - mc_k) \cdot s_k(\mathbf{p})
+ arg\max_{p_j \,:\, j \in \calJ_f} \sum_{j \in \calJ_f} (p_j - mc_j) \cdot s_j(\symbf{p})+
+ \sum_{g\neq f} \alert{\tau} \kappa_{fg} \sum_{j \in \calJ_g} (p_k - mc_k) \cdot s_k(\symbf{p})
  \end{equation*}
 Now, 
 \begin{itemize}

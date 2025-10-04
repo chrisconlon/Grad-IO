@@ -2,7 +2,7 @@
 
 
 
-\newcommand{\vect}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\vect}[1]{\symbf{\symbf{#1}}}
 \newcommand{\pd}[2]{\frac{\partial{#1}}{\partial{#2}}}
 \newcommand{\expect}[2]{\mathbb{E}_{#1}\left[{#2}\right]}
 \newcommand{\expectsmall}[2]{\mathbb{E}_{#1}{#2}}
@@ -37,18 +37,18 @@
 
 \begin{frame}{What is the goal?}
 \small
-Consider the multi-product Bertrand problem where firms solve: $\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) = \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot q_j(\mathbf{p})$:
+Consider the multi-product Bertrand problem where firms solve: $\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) = \sum_{j \in \calJ_f} (p_j - c_j) \cdot q_j(\symbf{p})$:
 \begin{align*}
- 0&= q_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p}) \\
-\rightarrow p_j &=q_{j}(\mathbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\mathbf{p})\right]^{-1} + c_{j} + \sum_{k \in \mathcal{J}_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\mathbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\mathbf{p})\right]^{-1}}_{D_{jk}(\mathbf{p})}\\
-p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\mathbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p}) \right].
+ 0&= q_j(\symbf{p}) + \sum_{k \in \calJ_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\symbf{p}) \\
+\rightarrow p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1}}_{D_{jk}(\symbf{p})}\\
+p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right].
 \end{align*}
-We call $D_{jk}(\mathbf{p}) = \frac{\frac{\partial q_{k}}{\partial p_j}(\mathbf{p})}{\left| \frac{\partial q_{j}}{\partial p_j}(\mathbf{p}) \right|}$ the \alert{diversion ratio} and $\epsilon_{jj}$ the \alert{own elasticity} and these are the main deliverables.
+We call $D_{jk}(\symbf{p}) = \frac{\frac{\partial q_{k}}{\partial p_j}(\symbf{p})}{\left| \frac{\partial q_{j}}{\partial p_j}(\symbf{p}) \right|}$ the \alert{diversion ratio} and $\epsilon_{jj}$ the \alert{own elasticity} and these are the main deliverables.
 \end{frame}
 
 \begin{frame}
 \frametitle{Starting Point: McFadden and MLE}
-Each individual's choice $d_{ij} \in\{0,1\}$ and $\sum_{j \in \mathcal{J}} d_{ij} =1$.\\
+Each individual's choice $d_{ij} \in\{0,1\}$ and $\sum_{j \in \calJ} d_{ij} =1$.\\
 Consumers make mutually exclusive and exhaustive choices to maximize (indirect) utility:
 \begin{align*}
 u_{ij} &= \beta_i \, x_{ij}  + \varepsilon_{ij} \text{ and }
@@ -66,11 +66,11 @@ Choices follow a Categorical distribution:
 \frametitle{Starting Point: McFadden and MLE}
 If we assume that $\varepsilon_{ij}$ is Type I extreme value and $\beta_{\iota} \sim f(\beta_{\iota} \mid \theta)$ (some known parametric distribution) then we can write:
 \begin{align*}
-s_{ij}(\theta)= \mathbb{P}(d_{ij}=1) = \int \frac{\exp[\beta_{\iota} \, x_j]}{1+\sum_{k \in \mathcal{J}} \exp[\beta_{\iota} \, x_k]}\, f(\beta_{\iota} \mid \theta)\, \partial \beta_{\iota}
+s_{ij}(\theta)= \mathbb{P}(d_{ij}=1) = \int \frac{\exp[\beta_{\iota} \, x_j]}{1+\sum_{k \in \calJ} \exp[\beta_{\iota} \, x_k]}\, f(\beta_{\iota} \mid \theta)\, \partial \beta_{\iota}
 \end{align*}
 Which gives us the log-likelihood:
  \begin{align*}
- \ell(\theta) = \sum_{i=1}^N \sum_{j \in \mathcal{J} \cup \{0\}} d_{ij} \log s_{ij}(\mathbf{x_i} \mid \theta)
+ \ell(\theta) = \sum_{i=1}^N \sum_{j \in \calJ \cup \{0\}} d_{ij} \log s_{ij}(\symbf{x_i} \mid \theta)
  \end{align*}
  There are a bunch of challenges, not least among which is that the above is \alert{inconsistent} if the integral is evaluated with error that doesn't decrease in $N$.
 \end{frame}
@@ -90,7 +90,7 @@ If each individual is \alert{exchangable} then ex-ante they have the same choice
 where $q_{j}^{*}=\sum_{i=1}^M d_{ij}$ is a \alert{sufficient statistic}. 
 \begin{itemize}
 \item If $M$ gets large enough then $(\frac{q_1}{M},\ldots,\frac{q_J}{M},\frac{q_0}{M})\rightarrow (\mathfrak{s}_1,\ldots,\mathfrak{s}_J,\mathfrak{s}_0)$
- \item Idea: Equate observed market shares to the conditional choice probabilities $(s_1(\mathbf{x_i},\theta),\ldots,s_J(\mathbf{x_i},\theta),s_0(\mathbf{x_i},\theta))$.
+ \item Idea: Equate observed market shares to the conditional choice probabilities $(s_1(\symbf{x_i},\theta),\ldots,s_J(\symbf{x_i},\theta),s_0(\symbf{x_i},\theta))$.
 \item  Challenges: We probably don't really observe $q_0$ and hence $M$.
 \item Introduce idea of market $t$ (otherwise not much data!)
 \end{itemize}
@@ -121,8 +121,8 @@ where $q_{j}^{*}=\sum_{i=1}^M d_{ij}$ is a \alert{sufficient statistic}.
 \begin{frame}{Semiparametric Extensions: Fox Kim Ryan Bajari (QE 2011)}
 \vspace{-0.5cm}
 \begin{align*}
-\nonumber \min_{\pi_i} \sum_{j,t} \left(\mathcal{S}_{jt}(\mathbf{x_t}) - \sum_i \pi_i \cdot s^{*}_{ijt}(\beta^{*}_i, \mathbf{x_t})\right)^2 &
-\quad \text{subject to} \quad s^{*}_{ijt}(\beta^{*}_i, \mathbf{x_t}) = \frac{e^{\beta^{*}_i x_{jt} }}{1+\sum_{j'}e^{\beta^{*}_i x_{j't}}}\\
+\nonumber \min_{\pi_i} \sum_{j,t} \left(\calS_{jt}(\symbf{x_t}) - \sum_i \pi_i \cdot s^{*}_{ijt}(\beta^{*}_i, \symbf{x_t})\right)^2 &
+\quad \text{subject to} \quad s^{*}_{ijt}(\beta^{*}_i, \symbf{x_t}) = \frac{e^{\beta^{*}_i x_{jt} }}{1+\sum_{j'}e^{\beta^{*}_i x_{j't}}}\\
    0\leq  \pi_i \leq 1,& \quad   \sum_i \pi_i = 1
 \end{align*}
 \vspace{-0.5cm}
@@ -157,11 +157,11 @@ These estimators are helpful when computing choice probabilities is time-consumi
 
 % % \begin{frame}
 % % \frametitle{Multinomial Logit: Estimation with Aggregate Data}
-% % Now suppose we have aggregate data: $(q_1,\ldots,q_J,q_0)$ where $M = \sum_{j \in \mathcal{J}} q_j$.
+% % Now suppose we have aggregate data: $(q_1,\ldots,q_J,q_0)$ where $M = \sum_{j \in \calJ} q_j$.
 % % \begin{itemize}
 % % \item If $M$ gets large enough then $(\frac{q_1}{M},\ldots,\frac{q_J}{M},\frac{q_0}{M})\rightarrow (\mathfrak{s}_1,\ldots,\mathfrak{s}_J,\mathfrak{s}_0)$
 % % \begin{itemize}
-% % \item Idea: Observe $(\mathfrak{s}_1(\mathbf{x_i}),\ldots,\mathfrak{s}_J(\mathbf{x_i}), \mathfrak{s}_0(\mathbf{x_i}))$ without sampling variance.
+% % \item Idea: Observe $(\mathfrak{s}_1(\symbf{x_i}),\ldots,\mathfrak{s}_J(\symbf{x_i}), \mathfrak{s}_0(\symbf{x_i}))$ without sampling variance.
 % % \end{itemize}
 % % \item Choose $\theta$ that minimizes distance: MLE? MSM? Least Squares? etc.
 % % \end{itemize}
@@ -175,7 +175,7 @@ These estimators are helpful when computing choice probabilities is time-consumi
 Add unobservable error for each $\mathfrak{s}_{jt}$ labeled $\alert{\xi_{jt}}$.
 \begin{align*}
 u_{ijt} = \underbrace{x_{jt} \beta -\alpha p_{jt} + \alert{\xi_{jt}}}_{\delta_{jt}} +  \varepsilon_{ijt} , \quad 
-\sigma_j(\boldsymbol{\delta_{t}}) = \frac{e^{\delta_{jt}} }{1+\sum_k e^{\delta_{kt}} } 
+\sigma_j(\symbf{\delta_{t}}) = \frac{e^{\delta_{jt}} }{1+\sum_k e^{\delta_{kt}} } 
 \end{align*}
 \vspace{-0.5cm}
 \begin{itemize}
@@ -229,22 +229,22 @@ This takes a bit more algebra but not much
 
 \begin{frame}
 \frametitle{BLP 1995/1999 and Berry Haile (2014)}
-Think about a \alert{generalized inverse} for $\sigma_{j}(\boldsymbol{\delta_{t}}, \mathbf{x}_t,\theta_2) = \mathfrak{s}_{jt}$ so that 
+Think about a \alert{generalized inverse} for $\sigma_{j}(\symbf{\delta_{t}}, \symbf{x}_t,\theta_2) = \mathfrak{s}_{jt}$ so that 
 \begin{align*}
-%\sigma_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt},v_{jt},\theta_1)   + \xi_{jt}\\
- \sigma_{jt}^{-1}(\mathcal{S}_{\cdot t},\widetilde{\theta}_2)&= \delta_{jt} \equiv x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
+%\sigma_{jt}^{-1}(\calS_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt},v_{jt},\theta_1)   + \xi_{jt}\\
+ \sigma_{jt}^{-1}(\calS_{\cdot t},\widetilde{\theta}_2)&= \delta_{jt} \equiv x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
 \end{align*}
  \begin{itemize}
-\item After some transformation of data (shares $\mathcal{S}_{\cdot t}$) we get \alert{mean utilities} $\delta_{jt}$.
+\item After some transformation of data (shares $\calS_{\cdot t}$) we get \alert{mean utilities} $\delta_{jt}$.
 % \begin{itemize}
 % \item We assume $\delta_{jt}=h(x_{jt},v_{jt},\theta_1) -\alpha p_{jt} + \xi_{jt}$ follows some parametric form (often linear).
 %  \end{itemize}
 \item Same IV-GMM approach after transformation
 \item Examples:
 \begin{itemize}
-\item Plain Logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t}) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$
-\item Nested Logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} + \rho  \ln \mathfrak{s}_{j|gt}$
-\item Three level nested logit: $\sigma_{j}^{-1}(\mathcal{S}_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} +\sum_{d=1}^2 \rho_d \ln \left(\frac{s_{j t}}{s_{d(j), t}}\right)$ (Verboven 1996)
+\item Plain Logit: $\sigma_{j}^{-1}(\calS_{\cdot t}) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$
+\item Nested Logit: $\sigma_{j}^{-1}(\calS_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} + \rho  \ln \mathfrak{s}_{j|gt}$
+\item Three level nested logit: $\sigma_{j}^{-1}(\calS_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} +\sum_{d=1}^2 \rho_d \ln \left(\frac{s_{j t}}{s_{d(j), t}}\right)$ (Verboven 1996)
  \end{itemize}
  \item Anything with a share requires an IV (otherwise $\rho \rightarrow 1$).
  \end{itemize}
@@ -255,7 +255,7 @@ Think about a \alert{generalized inverse} for $\sigma_{j}(\boldsymbol{\delta_{t}
 \frametitle{Aside: Other Analytic Inverses?}
 Fosgerau, Monardo, De Palma (2022) propose the IPDL
 \begin{align*}
-\ln \left(\frac{s_{j t}}{s_{0 t}}\right)=\mathbf{x}_{j t} \boldsymbol{\beta}-\alpha p_{j t}+\sum_{d=1}^D \rho_d \ln \left(\frac{s_{j t}}{s_{d(j), t}}\right)+\xi_{j t}
+\ln \left(\frac{s_{j t}}{s_{0 t}}\right)=\symbf{x}_{j t} \symbf{\beta}-\alpha p_{j t}+\sum_{d=1}^D \rho_d \ln \left(\frac{s_{j t}}{s_{d(j), t}}\right)+\xi_{j t}
 \end{align*}
  \begin{itemize}
 \item Can accomodate multiple (partially) overlapping nests
@@ -272,7 +272,7 @@ Fosgerau, Monardo, De Palma (2022) propose the IPDL
 \frametitle{Inversion: BLP}
 We can't solve for $\delta_{jt}$ directly this time. We often exploit a trick when $\beta_i,\nu_i$ is normally distributed:
 \begin{align*}
-\sigma_j(\boldsymbol{\delta_t}; \mathbf{x_t}; \theta_2) &= \int \frac{\exp[\delta_{jt} +  \mu_{ij} ]}{1+\sum_k \exp[\delta_{kt} + \mu_{ik} ]} f(\boldsymbol{\mu_i}| \theta_2)
+\sigma_j(\symbf{\delta_t}; \symbf{x_t}; \theta_2) &= \int \frac{\exp[\delta_{jt} +  \mu_{ij} ]}{1+\sum_k \exp[\delta_{kt} + \mu_{ik} ]} f(\symbf{\mu_i}| \theta_2)
 \end{align*}
  \begin{itemize}
     \item We typically parametrize $\mu_{ijt} = x_{jt} \cdot [\Pi \, y_i + \Sigma \, \nu_{i}]$ where $y_i$ are demographics and $\nu_i$ are unobserved heterogeneity (typically multivariate normal).
@@ -289,7 +289,7 @@ We can't solve for $\delta_{jt}$ directly this time. We often exploit a trick wh
      \item If you can work out $\frac{\partial \sigma_{jt}}{\partial \delta_{kt}}$ (easy) you can solve this using Newton's Method. 
  \item BLP prove (not easy) that this is a \alert{contraction mapping}.
 \begin{align*}
-    \boldsymbol{\delta^{(k)}}(\theta) = \boldsymbol{\delta^{(k-1)}}(\theta) + \log(\mathcal{S}_{j}) - \log(\sigma_{j}(\boldsymbol{\delta_t}^{(k-1)}, \theta)
+    \symbf{\delta^{(k)}}(\theta) = \symbf{\delta^{(k-1)}}(\theta) + \log(\calS_{j}) - \log(\sigma_{j}(\symbf{\delta_t}^{(k-1)}, \theta)
 \end{align*}
 
 \begin{itemize} 
@@ -305,10 +305,10 @@ We can't solve for $\delta_{jt}$ directly this time. We often exploit a trick wh
 \frametitle{Rewriting as a Convex Program (Li 2018, Monardo 2024)}
 We can also solve the following convex program:
 \begin{align*}
-    \min_{\boldsymbol{\delta}}  \sum_{i=1}^I w_i \cdot \log \left(\sum_{j} \exp\left(\delta_j  + \mu_{ij}(\theta_2) \right) \right) - \sum_k \delta_k \cdot \mathfrak{s}_{k}
+    \min_{\symbf{\delta}}  \sum_{i=1}^I w_i \cdot \log \left(\sum_{j} \exp\left(\delta_j  + \mu_{ij}(\theta_2) \right) \right) - \sum_k \delta_k \cdot \mathfrak{s}_{k}
 \end{align*}
 The first-order conditions are given by
-$$\sigma_j(\boldsymbol{\delta},\theta_2) = \mathfrak{s}_j$$
+$$\sigma_j(\symbf{\delta},\theta_2) = \mathfrak{s}_j$$
 And the Hessian requires knowledge of $\frac{\partial \sigma_{j}}{\partial \delta_{k}}$
 \begin{itemize}
     \item We are back to solving the non-linear system of equations, but...
@@ -408,7 +408,7 @@ The model is still defined by CMR $\mathbb{E}[\xi_{jt} \mid  z_{jt}^D]=0$
 \nonumber \arg \min_{\theta_2} & \psi' \Omega^{-1} \psi \quad \mbox{ s.t. } \\
 \nonumber \psi &= \xi(\theta_2)' Z\\
 \xi_{jt}(\theta_2) &= \delta_{jt}(\theta_2) - x_{jt} \beta - \alpha p_{jt} \\
-\nonumber \log(\mathcal{S}_{jt})  &= \log(\sigma_{jt}(\delta,\theta_2))
+\nonumber \log(\calS_{jt})  &= \log(\sigma_{jt}(\delta,\theta_2))
 \end{align}
 
 \begin{eqnarray}
@@ -416,7 +416,7 @@ The model is still defined by CMR $\mathbb{E}[\xi_{jt} \mid  z_{jt}^D]=0$
 \nonumber \arg \min_{\theta_2,\alpha,\beta, \xi,\psi} && \psi' \Omega^{-1}  \psi \quad \mbox{ s.t. } \\
  \psi &=& \xi' Z\\
 \nonumber \xi_{jt} &=& \delta_{jt} - x_{jt} \beta - \alpha p_{jt} \\
-\nonumber \log(\mathcal{S}_{jt})  &=& \log(\sigma_{jt}(\theta_2, \delta))
+\nonumber \log(\calS_{jt})  &=& \log(\sigma_{jt}(\theta_2, \delta))
 \end{eqnarray}
 \end{frame}
 
@@ -497,21 +497,21 @@ We can break up the parameter space into three parts:
 Consider the multi-product Bertrand FOCs:
 \footnotesize
 {\begin{align*}
-\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) &= \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot s_j(\mathbf{p}) +  \kappa_{fg}\sum_{k \in \mathcal{J}_g} (p_k - c_k) \cdot s_k(\mathbf{p}) \\
-0&= s_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial s_{k}}{\partial p_j}(\mathbf{p}) 
+\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) &= \sum_{j \in \calJ_f} (p_j - c_j) \cdot s_j(\symbf{p}) +  \kappa_{fg}\sum_{k \in \calJ_g} (p_k - c_k) \cdot s_k(\symbf{p}) \\
+0&= s_j(\symbf{p}) + \sum_{k \in \calJ_f} (p_k - c_k) \frac{\partial s_{k}}{\partial p_j}(\symbf{p}) 
 \end{align*}
 }
-It is helpful to define the \alert{ownership matrix} $\Omega_{(j,k)}(\mathbf{p})  = - \frac{\partial s_{j}}{\partial p_k}(\mathbf{p})$:
+It is helpful to define the \alert{ownership matrix} $\Omega_{(j,k)}(\symbf{p})  = - \frac{\partial s_{j}}{\partial p_k}(\symbf{p})$:
 \begin{align*}
 \mathcal{H}(\kappa)_{(j,k)} = \left\{\begin{array}{lr}
-          1 & \text{for }  (j,k) \in \mathcal{J}_f \text{ for any } f \\ 
+          1 & \text{for }  (j,k) \in \calJ_f \text{ for any } f \\ 
       0 & \text{o.w}\\
         \end{array} \right\}
 \end{align*}
 We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product (element-wise):
 \begin{align*}
-        s(\mathbf{p}) &= (\mathcal{H} \odot \Omega(\mathbf{p})) \cdot (\mathbf{p} - \mathbf{mc}), \\
-       \mathbf{mc} &=  \mathbf{p} - \underbrace{(A \odot \Omega(\mathbf{p}))^{-1} s(\mathbf{p})}_{\eta(\mathbf{p},\mathbf{s},\theta_2)}.
+        s(\symbf{p}) &= (\mathcal{H} \odot \Omega(\symbf{p})) \cdot (\symbf{p} - \symbf{mc}), \\
+       \symbf{mc} &=  \symbf{p} - \underbrace{(A \odot \Omega(\symbf{p}))^{-1} s(\symbf{p})}_{\eta(\symbf{p},\symbf{s},\theta_2)}.
 \end{align*}
 \end{frame}
 
@@ -520,12 +520,12 @@ We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product (e
 \begin{frame}{Recovering Marginal Costs }
 Recover implied markups/ marginal costs, and assume a functional form for $mc_{jt}(x_{jt},w_{jt})$.
 \begin{align*}
-\mathbf{mc}(\theta)&= \mathbf{p}- \boldsymbol{\eta}(\mathbf{p},\mathbf{s},\theta_2)\\
+\symbf{mc}(\theta)&= \symbf{p}- \symbf{\eta}(\symbf{p},\symbf{s},\theta_2)\\
 f(mc_{jt}) &= [\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 + \omega_{jt}
 \end{align*}
 Which we can solve for $\omega_{jt}$:
 \begin{align*}
-\omega_{jt} &=  f(\mathbf{p}- \boldsymbol{\eta}(\mathbf{p},\mathbf{s},\theta_2) ) -[\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 
+\omega_{jt} &=  f(\symbf{p}- \symbf{\eta}(\symbf{p},\symbf{s},\theta_2) ) -[\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 
 \end{align*}
 \begin{itemize}
 \item $f(\cdot)$ is usually $\log(\cdot)$ or identity.
@@ -565,9 +565,9 @@ X_D & 0 \\
 \begin{frame}{Simultaneous Supply and Demand: in details}
 \footnotesize
 \begin{enumerate}[(a)]
-\item For each market $t$: solve $\mathcal{S}_{jt} = \sigma_{jt}(\delta_{\cdot t},\theta_2)$ for $\widehat{\delta}_{\cdot t}(\theta_2)$.
+\item For each market $t$: solve $\calS_{jt} = \sigma_{jt}(\delta_{\cdot t},\theta_2)$ for $\widehat{\delta}_{\cdot t}(\theta_2)$.
 \item For each market $t$: use $\widehat{\delta}_{\cdot t}(\theta_2)$ to construct $\eta_{\cdot 
-t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
+t}(\symbf{q_t},\symbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 \item For each market $t$: Recover $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2) = p_{jt} - \eta_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 \item Stack up $\widehat{\delta}_{\cdot t}(\theta_2)$ and $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$ and use linear IV-GMM to recover $[\widehat{\theta}_1(\theta_2), \widehat{\theta}_3(\theta_2) ]$ following the recipe in Appendix of Conlon Gortmaker (2020)
 \item Construct the residuals:
@@ -611,17 +611,17 @@ t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 
 \begin{frame}{What's the point?}
 \begin{align*}
-p_j &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\mathbf{p})}}_{\text{Markup}} \left[c_j + \underbrace{\sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p}) }_{\text{opportunity cost}}\right]
+p_j &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[c_j + \underbrace{\sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) }_{\text{opportunity cost}}\right]
 \end{align*}
 Demand systems have two main deliverables:
 \begin{itemize}
-\item Own-price elasticities $\epsilon_{jj}(\mathbf{p})$
+\item Own-price elasticities $\epsilon_{jj}(\symbf{p})$
 \item Substitution patterns
 \begin{itemize}
-\item Cross elasticities: $\epsilon_{jk}(\mathbf{p}) = \frac{\partial q_k}{\partial p_j}$
-\item Diversion Ratios: $D_{jk}(\mathbf{p}) = \frac{\partial q_k}{\partial p_j}/|\frac{\partial q_j}{\partial p_j}|$
+\item Cross elasticities: $\epsilon_{jk}(\symbf{p}) = \frac{\partial q_k}{\partial p_j}$
+\item Diversion Ratios: $D_{jk}(\symbf{p}) = \frac{\partial q_k}{\partial p_j}/|\frac{\partial q_j}{\partial p_j}|$
 \end{itemize}
-\item Other checks: $D_{j0}(\mathbf{p})$ diversion to outside good; $\epsilon^{agg}$ category elasticity to 1\% tax.
+\item Other checks: $D_{j0}(\symbf{p})$ diversion to outside good; $\epsilon^{agg}$ category elasticity to 1\% tax.
 \end{itemize}
 \end{frame}
 
@@ -771,8 +771,8 @@ u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[
 
 \begin{frame}{Exclusion Restrictions (see Berry Haile 2014)}
 \begin{eqnarray*}
-    \delta_{jt}(\mathcal{S}_t,\alert{\textrm{y}_t}, \widetilde{\theta}_2) &=&  [\textrm{x}_{jt}, \alert{\textrm{v}_{jt}}]  \beta  - \alpha p_{jt} + \xi_{jt}\\
-    f(p_{jt} - \eta_{jt}(\theta_2,\mathbf{p},\mathbf{s})) &=&   h(\textrm{x}_{jt},\alert{\textrm{w}_{jt}};\theta_3)+\omega_{jt}
+    \delta_{jt}(\calS_t,\alert{\textrm{y}_t}, \widetilde{\theta}_2) &=&  [\textrm{x}_{jt}, \alert{\textrm{v}_{jt}}]  \beta  - \alpha p_{jt} + \xi_{jt}\\
+    f(p_{jt} - \eta_{jt}(\theta_2,\symbf{p},\symbf{s})) &=&   h(\textrm{x}_{jt},\alert{\textrm{w}_{jt}};\theta_3)+\omega_{jt}
 \end{eqnarray*}
 The first place to look for exclusion restrictions/instruments:
 \begin{itemize}
@@ -808,7 +808,7 @@ AKA contemporaneous prices of same product in a different market.
 
 
 \begin{frame}{Markup Shifters}
-The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p},\mathbf{s},\xi_t,\omega_t,\textrm{x}_{t},\textrm{w}_{t},\textrm{v}_t,\textrm{y}_t,\theta_2)$:
+The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\symbf{p},\symbf{s},\xi_t,\omega_t,\textrm{x}_{t},\textrm{w}_{t},\textrm{v}_t,\textrm{y}_t,\theta_2)$:
 \begin{itemize}
 \item It is obviously \alert{endogenous} (depends on error terms)!
 \item But lots of potential instruments beyond \alert{excluded} $\textrm{v}_t$ or $\textrm{w}_t$.
@@ -829,7 +829,7 @@ The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p
 \begin{itemize}
 \item Common choices are average characteristics of other products in the same market $f(x_{-j,t})$. \alert{BLP instruments}
 \begin{itemize}
-\item Same firm $z_{1jt} = \overline{x}_{-j_f,t} = \frac{1}{\left\vert{F_j}\right\vert}  \sum_{k \in \mathcal{F}_j} x_{kt} - \frac{1}{\left\vert{F_j}\right\vert} x_{jt}$.
+\item Same firm $z_{1jt} = \overline{x}_{-j_f,t} = \frac{1}{\left\vert{F_j}\right\vert}  \sum_{k \in \calF_j} x_{kt} - \frac{1}{\left\vert{F_j}\right\vert} x_{jt}$.
 \item Other firms $z_{2jt}=\overline{x}_{\cdot t} - \overline{x}_{-j_f,t} - \frac{1}{J} x_{jt}$.
 \item Plus regressors $(1, x_{jt})$.
 \item Plus higher order interactions 
@@ -849,7 +849,7 @@ The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p
 \begin{frame}{Armstrong (2016): Weak Instruments?}
 Consider the limit as $J \rightarrow \infty$
 \begin{eqnarray*}
-\frac{s_{jt}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|} = \frac{1}{\alpha} \frac{1}{1-s_{jt}} \rightarrow \frac{1}{\alpha}
+\frac{s_{jt}(\symbf{p_t})}{\left|\frac{\partial s_{jt}(\symbf{p_t})}{\partial p_{jt}}\right|} = \frac{1}{\alpha} \frac{1}{1-s_{jt}} \rightarrow \frac{1}{\alpha}
 \end{eqnarray*}
 \begin{itemize}
 \item Hard to use markup shifting instruments to instrument for a constant.
@@ -891,7 +891,7 @@ DIV_2 &= \sum_{j \in F}  \mathbb{I}[d_{jt} < c]   \quad \sum_{j \notin F}   \mat
 Simple case where $\theta_0 = (\beta_0, \pi_0, \sigma_0)'$. A second-order Taylor expansion around $\pi_0 = \sigma_0 = 0$ gives the following linear model with four regressors:
 \begin{equation}
     \label{eq:frac}
-    \log\frac{\mathcal{S}_{jt}}{\mathcal{S}_{0t}} \approx \beta_0 x_{jt} + \sigma_0^2 a_{jt} + \pi_0 m_t^y x_{jt} + \pi_0^2 v_t^y a_{jt} + \xi_{jt}, \quad a_{jt} = \Big(\frac{x_{jt}}{2} - \sum_{k \in \mathcal{J}_t} \mathcal{S}_{kt} \cdot x_{kt}\Big) \cdot x_{jt}
+    \log\frac{\calS_{jt}}{\calS_{0t}} \approx \beta_0 x_{jt} + \sigma_0^2 a_{jt} + \pi_0 m_t^y x_{jt} + \pi_0^2 v_t^y a_{jt} + \xi_{jt}, \quad a_{jt} = \Big(\frac{x_{jt}}{2} - \sum_{k \in \calJ_t} \calS_{kt} \cdot x_{kt}\Big) \cdot x_{jt}
 \end{equation}
 \begin{itemize}
     \item $m_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot y_{it}$ is the within-market demographic mean
@@ -900,7 +900,7 @@ Simple case where $\theta_0 = (\beta_0, \pi_0, \sigma_0)'$. A second-order Taylo
     \item Linear but we still need an IV for $a_{jt}$.
 \end{itemize}
 Implemented in Julia by Jimbo Brand  \url{https://github.com/jamesbrandecon/FRAC.jl}
-% where $m_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot y_{it}$ is the within-market demographic mean, $v_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot (y_{it} - m_t^y)^2$ is its variance, and $a_{jt}$ is an ``artificial regressor'' that reflects within-market differentiation of the product characteristic $x_{jt}$.\footnote{\cite{salanie2019fast} give additional intuition for the functional form of $a_{jt}$. A quadratic form is unsurprising because $x_{jt}$ multiplied $\nu_{it}$. The $\frac{1}{2}$ comes from the symmetric shape of the logistic distribution.} If $\pi_0 = \sigma_0 = 0$, the approximation is exact, and collapses to a simple logit regression: $\log(\mathcal{S}_{jt} / \mathcal{S}_{0t}) = \delta_{jt} = \beta_0 x_{jt} + \xi_{jt}$.
+% where $m_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot y_{it}$ is the within-market demographic mean, $v_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot (y_{it} - m_t^y)^2$ is its variance, and $a_{jt}$ is an ``artificial regressor'' that reflects within-market differentiation of the product characteristic $x_{jt}$.\footnote{\cite{salanie2019fast} give additional intuition for the functional form of $a_{jt}$. A quadratic form is unsurprising because $x_{jt}$ multiplied $\nu_{it}$. The $\frac{1}{2}$ comes from the symmetric shape of the logistic distribution.} If $\pi_0 = \sigma_0 = 0$, the approximation is exact, and collapses to a simple logit regression: $\log(\calS_{jt} / \calS_{0t}) = \delta_{jt} = \beta_0 x_{jt} + \xi_{jt}$.
 \end{frame}
 
 
@@ -911,7 +911,7 @@ J \cdot x_{jt}^2 + \underbrace{\sum_k x_{kt}^2}_{\text{ constant for } t } - 2 \
 \end{align*}
 and the artificial regressor is
 \begin{align*}
-\frac{1}{2} x_{jt}^2 - 2 x_{jt} \cdot \sum_k \mathcal{S}_{kt}  \cdot x_{kt}
+\frac{1}{2} x_{jt}^2 - 2 x_{jt} \cdot \sum_k \calS_{kt}  \cdot x_{kt}
 \end{align*}
 \begin{itemize}
 \item We should be \alert{share weighting} the interaction term, but GH assume equal weighting.\\
@@ -990,7 +990,7 @@ Recall the GMM moment conditions are given by $\mathbb{E}[\xi_{jt} | Z_{jt}^D]=0
     G=\mathbb{E}\left[
     \left(\frac{\partial \xi_{jt}}{\partial \theta}, \,
     \frac{\partial \omega_{jt}}{\partial \theta} \right)
-| \mathbf{Z_t} \right], \quad 
+| \symbf{Z_t} \right], \quad 
 \Omega = \mathbb{E}\left[
 \begin{pmatrix}
     \xi_{jt} \\
@@ -1000,16 +1000,16 @@ Recall the GMM moment conditions are given by $\mathbb{E}[\xi_{jt} | Z_{jt}^D]=0
     \xi_{jt}\, \,
     \omega_{jt}
 \end{pmatrix}
-| \mathbf{Z_t} \right].
+| \symbf{Z_t} \right].
 \end{align*}
-Chamberlain (1987) showed that the approximation to the optimal instruments are given by the expected Jacobian contribution for each observation $(j,t)$: $\mathbb{E}[G_{jt}(\mathbf{Z_t})\, \Omega_{jt}^{-1} | \mathbf{Z_t}]$.\\
+Chamberlain (1987) showed that the approximation to the optimal instruments are given by the expected Jacobian contribution for each observation $(j,t)$: $\mathbb{E}[G_{jt}(\symbf{Z_t})\, \Omega_{jt}^{-1} | \symbf{Z_t}]$.\\
 \end{frame}
 
 
 
 
 \begin{frame}{Optimal Instruments (see Conlon Gortmaker 2020)}
-\noindent BLP 1999 tells us the (Chamberlain 1987) optimal instruments for this supply-demand system of $G\, \Omega^{-1}$ where for a given observation $n$, we need to compute $\mathbb{E}[\frac{\partial \xi_{jt}}{\partial \theta} | \mathbf{Z_t}]$ and $\mathbb{E}[\frac{\partial \omega_{jt}}{\partial \theta} | \mathbf{Z_t}]$
+\noindent BLP 1999 tells us the (Chamberlain 1987) optimal instruments for this supply-demand system of $G\, \Omega^{-1}$ where for a given observation $n$, we need to compute $\mathbb{E}[\frac{\partial \xi_{jt}}{\partial \theta} | \symbf{Z_t}]$ and $\mathbb{E}[\frac{\partial \omega_{jt}}{\partial \theta} | \symbf{Z_t}]$
 
 \begin{align*}
     G_{jt} \equiv \underbrace{
@@ -1096,7 +1096,7 @@ Chamberlain (1987) showed that the approximation to the optimal instruments are 
 
 
 \begin{frame}{Optimal Instruments}
-How to construct optimal instruments in form of Chamberlain (1987). Start with initial instruments $\chi_t = A\left(\mathbf{X_t},\mathbf{W_t},\mathbf{V_t}\right)$
+How to construct optimal instruments in form of Chamberlain (1987). Start with initial instruments $\chi_t = A\left(\symbf{X_t},\symbf{W_t},\symbf{V_t}\right)$
 \begin{eqnarray*}
 \mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \theta} | \chi_{t} \right] = \left[\beta, E\left[\frac{\partial \xi_{jt}}{\partial \alpha} | \chi_{t} \right] ,
  \mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} | \chi_{t} \right] \right]
@@ -1104,8 +1104,8 @@ How to construct optimal instruments in form of Chamberlain (1987). Start with i
 Some challenges:
 \begin{enumerate}
 \item $p_{jt}$ or $\eta_{jt}$ depends on $(\omega_{j},\xi_{t})$ in a highly nonlinear way (no explicit solution!).
-\item $\mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} \mid X_t, w_{t} \right] =\mathbb{E}\left[\left[\frac{\partial \mathbf{s_t}}{\partial \mathbf{\delta_t}}\right]^{-1} 
-\left[\frac{\partial \mathbf{s_t}}{\partial \widetilde{\theta}_2}\right] \mid Z_{jt}^D \right]$  (not conditioned on endogenous $p$!)
+\item $\mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} \mid X_t, w_{t} \right] =\mathbb{E}\left[\left[\frac{\partial \symbf{s_t}}{\partial \symbf{\delta_t}}\right]^{-1} 
+\left[\frac{\partial \symbf{s_t}}{\partial \widetilde{\theta}_2}\right] \mid Z_{jt}^D \right]$  (not conditioned on endogenous $p$!)
 \end{enumerate}
 Things are \alert{infeasible} because we don't know $\theta_0$!
 \end{frame}
@@ -1113,15 +1113,15 @@ Things are \alert{infeasible} because we don't know $\theta_0$!
 
 \begin{frame}{Feasible Recipe (BLP 1999)}
 \begin{enumerate}
-\item Fix $\widehat{\theta}=(\widehat{\theta}_1,\widehat{\theta}_2,\widehat{\theta}_3)$ and draw $(\boldsymbol{\xi}^{*},\boldsymbol{\omega}^{*})$ from empirical density
-\item Solve firm FOC's for $\mathbf{\hat{p}_{t}}(\boldsymbol{\xi}^{*},\boldsymbol{\omega}^{*},\widehat{\theta})$
-\item Solve shares $\mathbf{s_{t}}(\mathbf{\hat{p}_{t}},\widehat{\theta})$
+\item Fix $\widehat{\theta}=(\widehat{\theta}_1,\widehat{\theta}_2,\widehat{\theta}_3)$ and draw $(\symbf{\xi}^{*},\symbf{\omega}^{*})$ from empirical density
+\item Solve firm FOC's for $\symbf{\hat{p}_{t}}(\symbf{\xi}^{*},\symbf{\omega}^{*},\widehat{\theta})$
+\item Solve shares $\symbf{s_{t}}(\symbf{\hat{p}_{t}},\widehat{\theta})$
 \item Compute necessary Jacobian
-\item Average over multiple values of$(\boldsymbol{\xi}^{*},\boldsymbol{\omega}^{*})$. (Lazy approach: use only $(\boldsymbol{\xi}^{*},\boldsymbol{\omega}^{*})=0$).
+\item Average over multiple values of$(\symbf{\xi}^{*},\symbf{\omega}^{*})$. (Lazy approach: use only $(\symbf{\xi}^{*},\symbf{\omega}^{*})=0$).
 \end{enumerate}
-In simulation the ``lazy'' approach does just as well. (At least for iid normal $(\boldsymbol{\xi},\boldsymbol{\omega})$)\\
+In simulation the ``lazy'' approach does just as well. (At least for iid normal $(\symbf{\xi},\symbf{\omega})$)\\
 
- Alternative: Can we use $\mathbb{E}[ \mathbf{p_t} \mid \mathbf{Z_t}]$ instead for (2) if we don't have supply side
+ Alternative: Can we use $\mathbb{E}[ \symbf{p_t} \mid \symbf{Z_t}]$ instead for (2) if we don't have supply side
 \end{frame}
 
 

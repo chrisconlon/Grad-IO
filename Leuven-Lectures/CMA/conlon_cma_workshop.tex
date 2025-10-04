@@ -9,7 +9,7 @@
 \usepackage{dutchcal}
 
 
-\newcommand{\vect}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\vect}[1]{\symbf{\symbf{#1}}}
 \newcommand{\pd}[2]{\frac{\partial{#1}}{\partial{#2}}}
 \newcommand{\expect}[2]{\mathbb{E}_{#1}\left[{#2}\right]}
 \newcommand{\expectsmall}[2]{\mathbb{E}_{#1}{#2}}
@@ -141,14 +141,14 @@ HHI &=  \frac{1}{\epsilon_d \left(Q^{*}\right)} \cdot \frac{PS}{CS}\\
 
 \begin{frame}{Multiproduct (Asymmetric) Bertrand}
 \small
-Consider the multi-product Bertrand problem where firms solve: $\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) = \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot q_j(\mathbf{p})$:
+Consider the multi-product Bertrand problem where firms solve: $\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) = \sum_{j \in \calJ_f} (p_j - c_j) \cdot q_j(\symbf{p})$:
 \begin{align*}
- 0&= q_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p}) \\
-\rightarrow p_j &=q_{j}(\mathbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\mathbf{p})\right]^{-1} + c_{j} + \sum_{k \in \mathcal{J}_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\mathbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\mathbf{p})\right]^{-1}}_{D_{jk}(\mathbf{p})}\\
-p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\mathbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p}) \right]\\
-\underbrace{p_j\cdot\left(1+1/\epsilon_{jj}(\mathbf{p})\right)}_{\text{MR}} &=  c_j + \sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p})
+ 0&= q_j(\symbf{p}) + \sum_{k \in \calJ_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\symbf{p}) \\
+\rightarrow p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1}}_{D_{jk}(\symbf{p})}\\
+p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right]\\
+\underbrace{p_j\cdot\left(1+1/\epsilon_{jj}(\symbf{p})\right)}_{\text{MR}} &=  c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p})
 \end{align*}
-We call $D_{jk}(\mathbf{p}) = \frac{\frac{\partial q_{k}}{\partial p_j}(\mathbf{p})}{\left| \frac{\partial q_{j}}{\partial p_j}(\mathbf{p}) \right|}$ the \alert{diversion ratio} and $\epsilon_{jj}$ the \alert{own elasticity} and these are the main deliverables.
+We call $D_{jk}(\symbf{p}) = \frac{\frac{\partial q_{k}}{\partial p_j}(\symbf{p})}{\left| \frac{\partial q_{j}}{\partial p_j}(\symbf{p}) \right|}$ the \alert{diversion ratio} and $\epsilon_{jj}$ the \alert{own elasticity} and these are the main deliverables.
 \end{frame}
 
 
@@ -157,20 +157,20 @@ We call $D_{jk}(\mathbf{p}) = \frac{\frac{\partial q_{k}}{\partial p_j}(\mathbf{
 \begin{frame}[plain]
 \frametitle{In Matrix/Vector Form}
 \begin{align*}
-q_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p}) =0
+q_j(\symbf{p}) + \sum_{k \in \calJ_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\symbf{p}) =0
 \end{align*}
 
-It is helpful to define the \alert{demand derivatives} $\Delta_{(j,k)}(\mathbf{p})  = - \frac{\partial q_{j}}{\partial p_k}(\mathbf{p})$ and the \alert{ownership matrix}:
+It is helpful to define the \alert{demand derivatives} $\Delta_{(j,k)}(\symbf{p})  = - \frac{\partial q_{j}}{\partial p_k}(\symbf{p})$ and the \alert{ownership matrix}:
 \begin{align*}
 \mathcal{H}_{(j,k)} = \left\{\begin{array}{lr}
-          1 & \text{for }  (j,k) \in \mathcal{J}_f \text{ for any } f \\ 
+          1 & \text{for }  (j,k) \in \calJ_f \text{ for any } f \\ 
       0 & \text{o.w}\\
         \end{array} \right\}
 \end{align*}
 We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product (element-wise):
 \begin{align*}
-        \mathbf{q}(\mathbf{p}) &= (\mathcal{H} \odot \Delta(\mathbf{p})) \cdot (\mathbf{p} - \mathbf{mc}), \\
-       \mathbf{mc} &=  \mathbf{p} - \underbrace{(\mathcal{H} \odot \Delta(\mathbf{p}))^{-1} \mathbf{q}(\mathbf{p})}_{\eta(\mathbf{p},\mathbf{q},\theta_2)}.
+        \symbf{q}(\symbf{p}) &= (\mathcal{H} \odot \Delta(\symbf{p})) \cdot (\symbf{p} - \symbf{mc}), \\
+       \symbf{mc} &=  \symbf{p} - \underbrace{(\mathcal{H} \odot \Delta(\symbf{p}))^{-1} \symbf{q}(\symbf{p})}_{\eta(\symbf{p},\symbf{q},\theta_2)}.
 \end{align*}
 Solving this is easy (just inverting a matrix).
 \end{frame}
@@ -180,15 +180,15 @@ Solving this is easy (just inverting a matrix).
 \frametitle{Unilateral Effects: What do mergers do?}
 Change the owenrship matrix !
 \begin{align*}
-\underbrace{p_j\cdot\left(1+1/\epsilon_{jj}(\mathbf{p})\right)}_{\text{MR}} &=  c_j + \sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p})
+\underbrace{p_j\cdot\left(1+1/\epsilon_{jj}(\symbf{p})\right)}_{\text{MR}} &=  c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p})
 \end{align*}
 \begin{itemize}
     \item \alert{Upward Pricing Pressure}: how does RHS change?
-     $$UPP_j = \Delta c_j + \sum_{k \in \mathcal{J}_{g}}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p})$$
+     $$UPP_j = \Delta c_j + \sum_{k \in \calJ_{g}}  (p_k-c_k) \cdot  D_{jk} (\symbf{p})$$
      \item This tells us whether or not \alert{opportunity costs} increase/decrease?
-     \item To get price predictions we have to solve $J$ equations and $J$ unknowns $\mathbf{p}$.
+     \item To get price predictions we have to solve $J$ equations and $J$ unknowns $\symbf{p}$.
      \begin{itemize}
-        \item Need to know $\frac{\partial \mathbf{p}}{\partial \mathbf{c}}$ (pass-through matrix).
+        \item Need to know $\frac{\partial \symbf{p}}{\partial \symbf{c}}$ (pass-through matrix).
     \end{itemize}
     \item What do we miss? \alert{Coordinated Effects}, \alert{Dynamics}, \alert{Innovation}, etc.
 \end{itemize}
@@ -201,32 +201,32 @@ Change the owenrship matrix !
 What does a merger do? \alert{change the ownership matrix}.
 \begin{itemize}
 
-\item Step 1: Recover marginal costs $\widehat{\mathbf{mc}} = \mathbf{p} +(\mathcal{H} \odot \Delta(\mathbf{p}))^{-1} \mathbf{q}(\mathbf{p})$.
-\item Step 1a: (Possibly) adjust marginal cost $\widehat{\mathbf{mc}}\cdot (1-e)$ with some cost efficiency $e$.
+\item Step 1: Recover marginal costs $\widehat{\symbf{mc}} = \symbf{p} +(\mathcal{H} \odot \Delta(\symbf{p}))^{-1} \symbf{q}(\symbf{p})$.
+\item Step 1a: (Possibly) adjust marginal cost $\widehat{\symbf{mc}}\cdot (1-e)$ with some cost efficiency $e$.
 \item Step 2: Change the ownership matrix $\mathcal{H}^{pre} \rightarrow \mathcal{H}^{post}$.
-\item Step 3: Solve for $\mathbf{p}^{post}$ via: $\mathbf{p} = \widehat{\mathbf{mc}} - \Delta(\mathbf{p})^{-1}q(\mathbf{p})$.
+\item Step 3: Solve for $\symbf{p}^{post}$ via: $\symbf{p} = \widehat{\symbf{mc}} - \Delta(\symbf{p})^{-1}q(\symbf{p})$.
 \end{itemize}
 \pause
 \vspace{0.5cm}
 \begin{itemize}
 \item The first step is easy (just a matrix inverse).
 \item The second step is trivial.
-\item The third step is tricky because we have to solve an implicit system of equations. $\mathbf{p}$ is on both sides. (It turns out it isn't a contraction).
+\item The third step is tricky because we have to solve an implicit system of equations. $\symbf{p}$ is on both sides. (It turns out it isn't a contraction).
 \end{itemize}
 \end{frame}
 
 
 
 \begin{frame}{Solution Methods}
-How do we solve: $\mathbf{p} = \widehat{\mathbf{mc}} - \Delta(\mathbf{p})^{-1}q(\mathbf{p})$?
+How do we solve: $\symbf{p} = \widehat{\symbf{mc}} - \Delta(\symbf{p})^{-1}q(\symbf{p})$?
 \begin{enumerate}
-\item Gauss Jacobi: Simultaneous Best Reply  $p_j^{k+1}(\mathbf{p_{-j}^k})$.
-\item Gauss Seidel: Iterated Best Response  $p_j^{k+1}(\mathbf{p_{<j}^{k+1}},\mathbf{p_{>j}^{k}})$.
-\item Newton's Method: Set $\mathbf{p} - \widehat{\mathbf{mc}} + \Delta(\mathbf{p})^{-1}q(\mathbf{p})=0$\\ but requires derivatives of $\Delta(\mathbf{p})^{-1}q(\mathbf{p})$
-\item Fixed point iteration: $\mathbf{p} \mapsfrom \widehat{\mathbf{mc}} - \Delta(\mathbf{p})^{-1}q(\mathbf{p})$
+\item Gauss Jacobi: Simultaneous Best Reply  $p_j^{k+1}(\symbf{p_{-j}^k})$.
+\item Gauss Seidel: Iterated Best Response  $p_j^{k+1}(\symbf{p_{<j}^{k+1}},\symbf{p_{>j}^{k}})$.
+\item Newton's Method: Set $\symbf{p} - \widehat{\symbf{mc}} + \Delta(\symbf{p})^{-1}q(\symbf{p})=0$\\ but requires derivatives of $\Delta(\symbf{p})^{-1}q(\symbf{p})$
+\item Fixed point iteration: $\symbf{p} \mapsfrom \widehat{\symbf{mc}} - \Delta(\symbf{p})^{-1}q(\symbf{p})$
 \begin{itemize}
 \item Turns out this is \alert{not a contraction}.
-\item But you can get lucky... $\mathbf{p} - \widehat{\mathbf{mc}} + \Delta(\mathbf{p})^{-1}q(\mathbf{p})=0$ means you have satisfied FOC's
+\item But you can get lucky... $\symbf{p} - \widehat{\symbf{mc}} + \Delta(\symbf{p})^{-1}q(\symbf{p})=0$ means you have satisfied FOC's
 \end{itemize}
 \item Alternative fixed point.
 \end{enumerate}
@@ -235,24 +235,24 @@ How do we solve: $\mathbf{p} = \widehat{\mathbf{mc}} - \Delta(\mathbf{p})^{-1}q(
 \begin{frame}{Exploit the logit formula}
 For the logit the $\Delta$ matrix (for a single market) looks like:
 \begin{align*}
-\Delta_{(j,k)}(\mathbf{p}) = \left\{\begin{array}{lr}
+\Delta_{(j,k)}(\symbf{p}) = \left\{\begin{array}{lr}
        \int \alpha_i \cdot s_{ij}\cdot (1-s_{ij}) \, \partial F_i& \text{ if } j=k \\
           \quad -\int \alpha_i \cdot s_{ij} \cdot s_{ik} \, \partial F_i &  \text{ if }  j\neq k 
         \end{array} \right\}
 \end{align*}
 Which we can factor into two parts (for plain logit):
 \begin{align*}
-\Delta(\mathbf{p}) =  \underbrace{\text{ Diag}\left[ \alpha \, \mathbf{s}(\mathbf{p}) \, \right]}_{\Lambda(\mathbf{p})} -  \underbrace{\alpha \cdot \mathbf{s}(\mathbf{p}) \mathbf{s}(\mathbf{p})'}_{\Gamma(\mathbf{p})}
+\Delta(\symbf{p}) =  \underbrace{\text{ Diag}\left[ \alpha \, \symbf{s}(\symbf{p}) \, \right]}_{\Lambda(\symbf{p})} -  \underbrace{\alpha \cdot \symbf{s}(\symbf{p}) \symbf{s}(\symbf{p})'}_{\Gamma(\symbf{p})}
 \end{align*}
-$\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\Lambda(\mathbf{p})$ is diagonal and $(j,k)$ is nonzero in $\Gamma(\mathbf{p})$ only if $(j,k)$ share an owner.
+$\Gamma(\symbf{p})$ and $\Lambda(\symbf{p})$ are $J \times J$ matrices and $\Lambda(\symbf{p})$ is diagonal and $(j,k)$ is nonzero in $\Gamma(\symbf{p})$ only if $(j,k)$ share an owner.
 \end{frame}
 
 
 \begin{frame}{Morrow Skerlos (2010) Fixed Point}
 \begin{itemize}
-\item After factoring we can rescale by $\Lambda^{-1} (\mathbf{p})$
+\item After factoring we can rescale by $\Lambda^{-1} (\symbf{p})$
 \begin{align*}
-(\mathbf{p}-\mathbf{mc} ) \mapsfrom \Lambda^{-1}(\mathbf{p}) \cdot \Gamma(\mathbf{p})\cdot(\mathbf{p}- \mathbf{mc}) - \Lambda^{-1}(\mathbf{p})\cdot s(\mathbf{p})
+(\symbf{p}-\symbf{mc} ) \mapsfrom \Lambda^{-1}(\symbf{p}) \cdot \Gamma(\symbf{p})\cdot(\symbf{p}- \symbf{mc}) - \Lambda^{-1}(\symbf{p})\cdot s(\symbf{p})
 \end{align*}
 \item This alternative fixed point is in fact a contraction.
 \item Moreover the rate of convergence is generally fast and stable (much more than Gauss-Seidel or Gauss-Jacobi).
@@ -265,7 +265,7 @@ $\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\L
 
 % \begin{frame}
 % \frametitle{Starting Point: McFadden and MLE}
-% Each individual's choice $d_{ij} \in\{0,1\}$ and $\sum_{j \in \mathcal{J}} d_{ij} =1$.\\
+% Each individual's choice $d_{ij} \in\{0,1\}$ and $\sum_{j \in \calJ} d_{ij} =1$.\\
 % Consumers make mutually exclusive and exhaustive choices to maximize (indirect) utility:
 % \begin{align*}
 % u_{ij} &= \beta_i \, x_{ij}  + \varepsilon_{ij} \text{ and }
@@ -283,11 +283,11 @@ $\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\L
 % \frametitle{Starting Point: McFadden and MLE}
 % If we assume that $\varepsilon_{ij}$ is Type I extreme value and $\beta_{\iota} \sim f(\beta_{\iota} \mid \theta)$ (some known parametric distribution) then we can write:
 % \begin{align*}
-% s_{ij}(\theta)= \mathbb{P}(d_{ij}=1) = \int \frac{\exp[\beta_{\iota} \, x_j]}{1+\sum_{k \in \mathcal{J}} \exp[\beta_{\iota} \, x_k]}\, f(\beta_{\iota} \mid \theta)\, \partial \beta_{\iota}
+% s_{ij}(\theta)= \mathbb{P}(d_{ij}=1) = \int \frac{\exp[\beta_{\iota} \, x_j]}{1+\sum_{k \in \calJ} \exp[\beta_{\iota} \, x_k]}\, f(\beta_{\iota} \mid \theta)\, \partial \beta_{\iota}
 % \end{align*}
 % Which gives us the log-likelihood:
 %  \begin{align*}
-%  \ell(\theta) = \sum_{i=1}^N \sum_{j \in \mathcal{J} \cup \{0\}} d_{ij} \log s_{ij}(\mathbf{x_i} \mid \theta)
+%  \ell(\theta) = \sum_{i=1}^N \sum_{j \in \calJ \cup \{0\}} d_{ij} \log s_{ij}(\symbf{x_i} \mid \theta)
 %  \end{align*}
 %  There are a bunch of challenges, not least among which is that the above is \alert{inconsistent} if the integral is evaluated with error that doesn't decrease in $N$.
 % \end{frame}
@@ -307,7 +307,7 @@ $\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\L
 % where $q_{j}^{*}=\sum_{i=1}^M d_{ij}$ is a \alert{sufficient statistic}. 
 % \begin{itemize}
 % \item If $M$ gets large enough then $(\frac{q_1}{M},\ldots,\frac{q_J}{M},\frac{q_0}{M})\rightarrow (\mathfrak{s}_1,\ldots,\mathfrak{s}_J,\mathfrak{s}_0)$
-%  \item Idea: Equate observed market shares to the conditional choice probabilities $(s_1(\mathbf{x_i},\theta),\ldots,s_J(\mathbf{x_i},\theta),s_0(\mathbf{x_i},\theta))$.
+%  \item Idea: Equate observed market shares to the conditional choice probabilities $(s_1(\symbf{x_i},\theta),\ldots,s_J(\symbf{x_i},\theta),s_0(\symbf{x_i},\theta))$.
 % \item  Challenges: We probably don't really observe $q_0$ and hence $M$.
 % \item Introduce idea of market $t$ (otherwise not much data!)
 % \end{itemize}
@@ -338,8 +338,8 @@ $\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\L
 % \begin{frame}{Semiparametric Extensions: Fox Kim Ryan Bajari (QE 2011)}
 % \vspace{-0.5cm}
 % \begin{align*}
-% \nonumber \min_{\pi_i} \sum_{j,t} \left(\mathcal{S}_{jt}(\mathbf{x_t}) - \sum_i \pi_i \cdot s^{*}_{ijt}(\beta^{*}_i, \mathbf{x_t})\right)^2 &
-% \quad \text{subject to} \quad s^{*}_{ijt}(\beta^{*}_i, \mathbf{x_t}) = \frac{e^{\beta^{*}_i x_{jt} }}{1+\sum_{j'}e^{\beta^{*}_i x_{j't}}}\\
+% \nonumber \min_{\pi_i} \sum_{j,t} \left(\calS_{jt}(\symbf{x_t}) - \sum_i \pi_i \cdot s^{*}_{ijt}(\beta^{*}_i, \symbf{x_t})\right)^2 &
+% \quad \text{subject to} \quad s^{*}_{ijt}(\beta^{*}_i, \symbf{x_t}) = \frac{e^{\beta^{*}_i x_{jt} }}{1+\sum_{j'}e^{\beta^{*}_i x_{j't}}}\\
 %    0\leq  \pi_i \leq 1,& \quad   \sum_i \pi_i = 1
 % \end{align*}
 % \vspace{-0.5cm}
@@ -374,11 +374,11 @@ $\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\L
 
 % % \begin{frame}
 % % \frametitle{Multinomial Logit: Estimation with Aggregate Data}
-% % Now suppose we have aggregate data: $(q_1,\ldots,q_J,q_0)$ where $M = \sum_{j \in \mathcal{J}} q_j$.
+% % Now suppose we have aggregate data: $(q_1,\ldots,q_J,q_0)$ where $M = \sum_{j \in \calJ} q_j$.
 % % \begin{itemize}
 % % \item If $M$ gets large enough then $(\frac{q_1}{M},\ldots,\frac{q_J}{M},\frac{q_0}{M})\rightarrow (\mathfrak{s}_1,\ldots,\mathfrak{s}_J,\mathfrak{s}_0)$
 % % \begin{itemize}
-% % \item Idea: Observe $(\mathfrak{s}_1(\mathbf{x_i}),\ldots,\mathfrak{s}_J(\mathbf{x_i}), \mathfrak{s}_0(\mathbf{x_i}))$ without sampling variance.
+% % \item Idea: Observe $(\mathfrak{s}_1(\symbf{x_i}),\ldots,\mathfrak{s}_J(\symbf{x_i}), \mathfrak{s}_0(\symbf{x_i}))$ without sampling variance.
 % % \end{itemize}
 % % \item Choose $\theta$ that minimizes distance: MLE? MSM? Least Squares? etc.
 % % \end{itemize}
@@ -391,7 +391,7 @@ $\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\L
 \begin{frame}
 \frametitle{Demand: Product Space}
 \begin{itemize}
-    \item Remember we need $\epsilon_{jj}(\mathbf{p})$ and $D_{jk}(\mathbf{p}) = \frac{\epsilon_{jk}(\mathbf{p})}{\epsilon_{jj}(\mathbf{p})}\cdot \frac{q_j}{q_k}$ so $\epsilon_{jk}(\mathbf{p})$.
+    \item Remember we need $\epsilon_{jj}(\symbf{p})$ and $D_{jk}(\symbf{p}) = \frac{\epsilon_{jk}(\symbf{p})}{\epsilon_{jj}(\symbf{p})}\cdot \frac{q_j}{q_k}$ so $\epsilon_{jk}(\symbf{p})$.
     \item Multiple ``markets'' $t$ with different prices/assortment.
     \item One approach might be \alert{constant elasticity} or \alert{log-log}
     \begin{align*}
@@ -413,7 +413,7 @@ $\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\L
     \item Assume consumers have unit demand and make discrete choices
     \item Label $j=0$ the no-purchase or outside option has $V_{i0t}=0$
     \begin{align*}
-        u_{ijt} = V_{ijt} - \alpha p_{jt} +  \varepsilon_{ijt} \text{ with } \boldsymbol{\varepsilon_{it}} \sim \mathcal{N}(0,\Omega)
+        u_{ijt} = V_{ijt} - \alpha p_{jt} +  \varepsilon_{ijt} \text{ with } \symbf{\varepsilon_{it}} \sim \mathcal{N}(0,\Omega)
     \end{align*}
     \item Idea: calculate $\sigma_{ijt} = \mathbb{P}(u_{ijt} > u_{ikt} \text{ for all } k \neq j)$
     \item But some problems...
@@ -443,7 +443,7 @@ $\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\L
           \sigma_{jt} \equiv \mathbb{P}(u_{ijt} > u_{ikt} \text{ for all } k \neq j)  = 
     \frac{e^{x_{jt} \beta- \alpha p_{jt}}}{1+\sum_k e^{x_{kt} \beta- \alpha p_{kt} }}
     \end{align*}
-    \item But now IV is hard: because $\mathbf{p_t}$ enters the model \alert{nonlinearly}
+    \item But now IV is hard: because $\symbf{p_t}$ enters the model \alert{nonlinearly}
 \end{itemize}
 \end{frame}
 
@@ -454,11 +454,11 @@ $\Gamma(\mathbf{p})$ and $\Lambda(\mathbf{p})$ are $J \times J$ matrices and $\L
 \begin{frame}
 \frametitle{Inversion: IIA Logit (Berry 1994)}
 Add unobservable error for each $s_{jt}$ labeled $\alert{\xi_{jt}}$ and set\\
- \alert{observed shares} $\mathcal{S}_{jt} = \sigma_{j}(\boldsymbol{\delta_{t}},\alpha,\beta)$ \alert{predicted shares}.
+ \alert{observed shares} $\calS_{jt} = \sigma_{j}(\symbf{\delta_{t}},\alpha,\beta)$ \alert{predicted shares}.
 \begin{align*}
 u_{ijt} &= \underbrace{x_{jt} \beta -\alpha p_{jt} + \alert{\xi_{jt}}}_{\delta_{jt}} +  \varepsilon_{ijt} , \quad 
-\sigma_j(\boldsymbol{\delta_{t}}) = \frac{e^{\delta_{jt}} }{1+\sum_k e^{\delta_{kt}} } \\
- \log \mathcal{S}_{jt} - \log \mathcal{S}_{0t} &= \delta_{jt} - \underbrace{\delta_{0t}}_{=0} 
+\sigma_j(\symbf{\delta_{t}}) = \frac{e^{\delta_{jt}} }{1+\sum_k e^{\delta_{kt}} } \\
+ \log \calS_{jt} - \log \calS_{0t} &= \delta_{jt} - \underbrace{\delta_{0t}}_{=0} 
  = x_{jt} \beta -\alpha p_{jt} + \xi_{jt}
 \end{align*}
 \vspace{-0.5cm}
@@ -519,7 +519,7 @@ This gets used a ton at DOJ/FTC (with all goods in one nest). Why?\\
 \frametitle{Inversion: Berry, Levinsohn, Pakes (1995)}
 We can't solve for $\delta_{jt}$ directly this time
 \begin{eqnarray*}
-\sigma_j(\boldsymbol{\delta_t}; \mathbf{x_t}; \theta_2) &=& \int \frac{\exp[\delta_{jt} +  \mu_{ij} ]}{1+\sum_k \exp[\delta_{kt} + \mu_{ik} ]} f(\boldsymbol{\mu_i}| \widetilde{\theta_2})
+\sigma_j(\symbf{\delta_t}; \symbf{x_t}; \theta_2) &=& \int \frac{\exp[\delta_{jt} +  \mu_{ij} ]}{1+\sum_k \exp[\delta_{kt} + \mu_{ik} ]} f(\symbf{\mu_i}| \widetilde{\theta_2})
 \end{eqnarray*}
  \begin{itemize}
     \item We typically parametrize $\mu_{ijt} = x_{jt} \cdot [\Pi \, y_i + \Sigma \, \nu_{i}]$ where $y_i$ are demographics and $\nu_i$ are unobserved heterogeneity (typically multivariate normal).
@@ -536,7 +536,7 @@ We can't solve for $\delta_{jt}$ directly this time
      \item If you can work out $\frac{\partial \sigma_{jt}}{\partial \delta_{kt}}$ (easy) you can solve this using Newton's Method. 
  \item BLP prove (not easy) that this is a \alert{contraction mapping}.
 \begin{eqnarray*}
-    \boldsymbol{\delta^{(k)}}(\theta) = \boldsymbol{\delta^{(k-1)}}(\theta) + \log(\mathcal{S}_{j}) - \log(\sigma_{j}(\boldsymbol{\delta_t}^{(k-1)}, \theta)
+    \symbf{\delta^{(k)}}(\theta) = \symbf{\delta^{(k-1)}}(\theta) + \log(\calS_{j}) - \log(\sigma_{j}(\symbf{\delta_t}^{(k-1)}, \theta)
 \end{eqnarray*}
 
 \begin{itemize} 
@@ -636,12 +636,12 @@ We can break up the parameter space into three parts:
 \begin{frame}{Recovering Marginal Costs }
 Recover implied markups/ marginal costs, and assume a functional form for $mc_{jt}(x_{jt},w_{jt})$.
 \begin{align*}
-\mathbf{mc}(\theta_2)&= \mathbf{p}- \boldsymbol{\eta}(\mathbf{p},\mathbf{s},\theta_2)\\
+\symbf{mc}(\theta_2)&= \symbf{p}- \symbf{\eta}(\symbf{p},\symbf{s},\theta_2)\\
 f(mc_{jt}) &= [\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 + \omega_{jt}
 \end{align*}
 Which we can solve for $\omega_{jt}$:
 \begin{align*}
-\omega_{jt} &=  f(\mathbf{p}- \boldsymbol{\eta}(\mathbf{p},\mathbf{s},\theta_2) ) -[\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 
+\omega_{jt} &=  f(\symbf{p}- \symbf{\eta}(\symbf{p},\symbf{s},\theta_2) ) -[\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 
 \end{align*}
 \begin{itemize}
 \item $f(\cdot)$ is usually $\log(\cdot)$ or identity.
@@ -681,9 +681,9 @@ Which we can solve for $\omega_{jt}$:
 \begin{frame}{Simultaneous Supply and Demand: in details}
 \footnotesize
 \begin{enumerate}[(a)]
-\item For each market $t$: solve $\mathcal{S}_{jt} = \sigma_{jt}(\delta_{\cdot t},\theta_2)$ for $\widehat{\delta}_{\cdot t}(\theta_2)$.
+\item For each market $t$: solve $\calS_{jt} = \sigma_{jt}(\delta_{\cdot t},\theta_2)$ for $\widehat{\delta}_{\cdot t}(\theta_2)$.
 \item For each market $t$: use $\widehat{\delta}_{\cdot t}(\theta_2)$ to construct $\eta_{\cdot 
-t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
+t}(\symbf{q_t},\symbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 \item For each market $t$: Recover $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2) = p_{jt} - \eta_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 \item Stack up $\widehat{\delta}_{\cdot t}(\theta_2)$ and $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$ and use linear IV-GMM to recover $[\widehat{\theta}_1(\theta_2), \widehat{\theta}_3(\theta_2) ]$ following the recipe in Appendix of Conlon Gortmaker (2020)
 \item Construct the residuals:
@@ -741,7 +741,7 @@ t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
         
         \item Aggregate data generated market-by-market $t$
         \begin{itemize}
-            \item \alert{Products} $j \in \mathcal{J}_t$ have observed characteristics $x_{jt}$, unobserved quality $\xi_{jt}$
+            \item \alert{Products} $j \in \calJ_t$ have observed characteristics $x_{jt}$, unobserved quality $\xi_{jt}$
             \item \alert{Consumer types} $i \in \mathcal{I}_t$ have observed demographics $y_{it}$, unobserved preferences $\nu_{it}$
             \item \alert{Market shares} $s_{jt} = \sum_i w_{it} s_{ijt}$ integrate over consumer mass, each type has known weight $w_{it}$
         \end{itemize}
@@ -801,19 +801,19 @@ t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
     \begin{tabular}{@{\hspace{-1.2em}}r@{\hspace{0.6em}}l@{\hspace{-1.2em}}r@{\hspace{0.6em}}l@{\hspace{-1.2em}}}
         Paper & Micro moments shorthand & Paper & Micro moments shorthand \\
         \midrule
-        \cite{petrin2002quantifying} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{barwick2017local} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ \\
-        {\color{light gray}Berry et al.\ (2004)} & $\Cov(x_j, y_i \,|\, j \neq 0)$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ & \cite{murry2017advertising} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
-        \cite{thomadsen2005effect} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{wollmann2018trucks} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
-        \cite{goeree2008limited} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{li2018better} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ \\
-        \cite{ciliberto2010public} & $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{li2018empirical} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ \\
-        \cite{nakamura2010accounting} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{backus2021common} & $\E[y_i \,|\, j \in \mathcal{J}]$, $\Cov(x_j, y_i \,|\, j \neq 0)$ \\
-        \cite{beresteanu2011gasoline} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{grieco2021evolution} & $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ \\
-        \cite{li2012traffic} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{neilson2021targeted} & $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
-        \cite{copeland2014intertemporal} & $\E[y_i \,|\, j \in \mathcal{J}]$ & \cite{armitage2022regulatory} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
-        \cite{starc2014insurer} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ & \cite{dopper2022rising} & $\E[y_i \,|\, j \in \mathcal{J}]$ \\
-        \cite{ching2015quantifying} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{bodere2023dynamic} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
-        \cite{li2015price} & $\Pr(j \in \mathcal{J} \,|\, i \in \mathcal{I})$ & \cite{montag2023mergers} & $\Cov(x_j, y_i \,|\, j \neq 0)$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ \\
-        \cite{nurski2016exclusive} & $\E[y_i \,|\, j \in \mathcal{J}]$, $\Cov(x_j, y_i \,|\, j \neq 0)$ & \cite{conlon2023market} & $\E[y_i \,|\, j \in \mathcal{J}]$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
+        \cite{petrin2002quantifying} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$, $\E[y_i \,|\, j \in \calJ]$ & \cite{barwick2017local} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ \\
+        {\color{light gray}Berry et al.\ (2004)} & $\Cov(x_j, y_i \,|\, j \neq 0)$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ & \cite{murry2017advertising} & $\E[y_i \,|\, j \in \calJ]$ \\
+        \cite{thomadsen2005effect} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{wollmann2018trucks} & $\E[y_i \,|\, j \in \calJ]$ \\
+        \cite{goeree2008limited} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{li2018better} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ \\
+        \cite{ciliberto2010public} & $\E[y_i \,|\, j \in \calJ]$ & \cite{li2018empirical} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ \\
+        \cite{nakamura2010accounting} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{backus2021common} & $\E[y_i \,|\, j \in \calJ]$, $\Cov(x_j, y_i \,|\, j \neq 0)$ \\
+        \cite{beresteanu2011gasoline} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{grieco2021evolution} & $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ \\
+        \cite{li2012traffic} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$, $\E[y_i \,|\, j \in \calJ]$ & \cite{neilson2021targeted} & $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
+        \cite{copeland2014intertemporal} & $\E[y_i \,|\, j \in \calJ]$ & \cite{armitage2022regulatory} & $\E[y_i \,|\, j \in \calJ]$ \\
+        \cite{starc2014insurer} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ & \cite{dopper2022rising} & $\E[y_i \,|\, j \in \calJ]$ \\
+        \cite{ching2015quantifying} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{bodere2023dynamic} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
+        \cite{li2015price} & $\Pr(j \in \calJ \,|\, i \in \mathcal{I})$ & \cite{montag2023mergers} & $\Cov(x_j, y_i \,|\, j \neq 0)$, $\Cov(x_j, x_{k(\text{-}j)} \,|\, j, k \neq 0)$ \\
+        \cite{nurski2016exclusive} & $\E[y_i \,|\, j \in \calJ]$, $\Cov(x_j, y_i \,|\, j \neq 0)$ & \cite{conlon2023market} & $\E[y_i \,|\, j \in \calJ]$, $\E[x_j \,|\, i \in \mathcal{I}, j \neq 0]$ \\
         $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$
     \end{tabular}
     \normalsize
@@ -859,8 +859,8 @@ t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 \section{Instruments and Identification}
 \begin{frame}{Exclusion Restrictions (see Berry Haile 2014)}
 \begin{eqnarray*}
-    \delta_{jt}(\mathcal{S}_t,\alert{\textrm{y}_t}, \widetilde{\theta}_2) &=&  [\textrm{x}_{jt}, \alert{\textrm{v}_{jt}}]  \beta  - \alpha p_{jt} + \xi_{jt}\\
-    f(p_{jt} - \eta_{jt}(\theta_2,\mathbf{p},\mathbf{s})) &=&   h(\textrm{x}_{jt},\alert{\textrm{w}_{jt}};\theta_3)+\omega_{jt}
+    \delta_{jt}(\calS_t,\alert{\textrm{y}_t}, \widetilde{\theta}_2) &=&  [\textrm{x}_{jt}, \alert{\textrm{v}_{jt}}]  \beta  - \alpha p_{jt} + \xi_{jt}\\
+    f(p_{jt} - \eta_{jt}(\theta_2,\symbf{p},\symbf{s})) &=&   h(\textrm{x}_{jt},\alert{\textrm{w}_{jt}};\theta_3)+\omega_{jt}
 \end{eqnarray*}
 The first place to look for exclusion restrictions/instruments:
 \begin{itemize}
@@ -914,7 +914,7 @@ AKA contemporaneous prices of same product in a different market.
 
 
 \begin{frame}{Markup Shifters}
-The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p},\mathbf{s},\xi_t,\omega_t,\textrm{x}_{t},\textrm{w}_{t},\textrm{v}_t,\textrm{y}_t,\theta_2)$:
+The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\symbf{p},\symbf{s},\xi_t,\omega_t,\textrm{x}_{t},\textrm{w}_{t},\textrm{v}_t,\textrm{y}_t,\theta_2)$:
 \begin{itemize}
 \item It is obviously \alert{endogenous} (depends on error terms)!
 \item But lots of potential instruments beyond \alert{excluded} $\textrm{v}_t$ or $\textrm{w}_t$.
@@ -935,7 +935,7 @@ The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p
 \begin{itemize}
 \item Common choices are average characteristics of other products in the same market $f(x_{-j,t})$. \alert{BLP instruments}
 \begin{itemize}
-\item Same firm $z_{1jt} = \overline{x}_{-j_f,t} = \frac{1}{\left\vert{F_j}\right\vert}  \sum_{k \in \mathcal{F}_j} x_{kt} - \frac{1}{\left\vert{F_j}\right\vert} x_{jt}$.
+\item Same firm $z_{1jt} = \overline{x}_{-j_f,t} = \frac{1}{\left\vert{F_j}\right\vert}  \sum_{k \in \calF_j} x_{kt} - \frac{1}{\left\vert{F_j}\right\vert} x_{jt}$.
 \item Other firms $z_{2jt}=\overline{x}_{\cdot t} - \overline{x}_{-j_f,t} - \frac{1}{J} x_{jt}$.
 \item Plus regressors $(1, x_{jt})$.
 \item Plus higher order interactions 
@@ -955,7 +955,7 @@ The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p
 % \begin{frame}{Armstrong (2016): Weak Instruments?}
 % Consider the limit as $J \rightarrow \infty$
 % \begin{eqnarray*}
-% \frac{s_{jt}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|} = \frac{1}{\alpha} \frac{1}{1-s_{jt}} \rightarrow \frac{1}{\alpha}
+% \frac{s_{jt}(\symbf{p_t})}{\left|\frac{\partial s_{jt}(\symbf{p_t})}{\partial p_{jt}}\right|} = \frac{1}{\alpha} \frac{1}{1-s_{jt}} \rightarrow \frac{1}{\alpha}
 % \end{eqnarray*}
 % \begin{itemize}
 % \item Hard to use markup shifting instruments to instrument for a constant.
@@ -997,7 +997,7 @@ DIV_2 &= \sum_{j \in F}  \mathbb{I}[d_{jt} < c]   \quad \sum_{j \notin F}   \mat
 % Simple case where $\theta_0 = (\beta_0, \pi_0, \sigma_0)'$. A second-order Taylor expansion around $\pi_0 = \sigma_0 = 0$ gives the following linear model with four regressors:
 % \begin{equation}
 %     \label{eq:frac}
-%     \log\frac{\mathcal{S}_{jt}}{\mathcal{S}_{0t}} \approx \beta_0 x_{jt} + \sigma_0^2 a_{jt} + \pi_0 m_t^y x_{jt} + \pi_0^2 v_t^y a_{jt} + \xi_{jt}, \quad a_{jt} = \Big(\frac{x_{jt}}{2} - \sum_{k \in \mathcal{J}_t} \mathcal{S}_{kt} \cdot x_{kt}\Big) \cdot x_{jt}
+%     \log\frac{\calS_{jt}}{\calS_{0t}} \approx \beta_0 x_{jt} + \sigma_0^2 a_{jt} + \pi_0 m_t^y x_{jt} + \pi_0^2 v_t^y a_{jt} + \xi_{jt}, \quad a_{jt} = \Big(\frac{x_{jt}}{2} - \sum_{k \in \calJ_t} \calS_{kt} \cdot x_{kt}\Big) \cdot x_{jt}
 % \end{equation}
 % \begin{itemize}
 %     \item $m_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot y_{it}$ is the within-market demographic mean
@@ -1006,7 +1006,7 @@ DIV_2 &= \sum_{j \in F}  \mathbb{I}[d_{jt} < c]   \quad \sum_{j \notin F}   \mat
 %     \item Linear but we still need an IV for $a_{jt}$.
 % \end{itemize}
 % Implemented in Julia by Jimbo Brand  \url{https://github.com/jamesbrandecon/FRAC.jl}
-% % where $m_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot y_{it}$ is the within-market demographic mean, $v_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot (y_{it} - m_t^y)^2$ is its variance, and $a_{jt}$ is an ``artificial regressor'' that reflects within-market differentiation of the product characteristic $x_{jt}$.\footnote{\cite{salanie2019fast} give additional intuition for the functional form of $a_{jt}$. A quadratic form is unsurprising because $x_{jt}$ multiplied $\nu_{it}$. The $\frac{1}{2}$ comes from the symmetric shape of the logistic distribution.} If $\pi_0 = \sigma_0 = 0$, the approximation is exact, and collapses to a simple logit regression: $\log(\mathcal{S}_{jt} / \mathcal{S}_{0t}) = \delta_{jt} = \beta_0 x_{jt} + \xi_{jt}$.
+% % where $m_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot y_{it}$ is the within-market demographic mean, $v_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot (y_{it} - m_t^y)^2$ is its variance, and $a_{jt}$ is an ``artificial regressor'' that reflects within-market differentiation of the product characteristic $x_{jt}$.\footnote{\cite{salanie2019fast} give additional intuition for the functional form of $a_{jt}$. A quadratic form is unsurprising because $x_{jt}$ multiplied $\nu_{it}$. The $\frac{1}{2}$ comes from the symmetric shape of the logistic distribution.} If $\pi_0 = \sigma_0 = 0$, the approximation is exact, and collapses to a simple logit regression: $\log(\calS_{jt} / \calS_{0t}) = \delta_{jt} = \beta_0 x_{jt} + \xi_{jt}$.
 % \end{frame}
 
 
@@ -1017,7 +1017,7 @@ DIV_2 &= \sum_{j \in F}  \mathbb{I}[d_{jt} < c]   \quad \sum_{j \notin F}   \mat
 % \end{align*}
 % and the artificial regressor is
 % \begin{align*}
-% \frac{1}{2} x_{jt}^2 - 2 x_{jt} \cdot \sum_k \mathcal{S}_{kt}  \cdot x_{kt}
+% \frac{1}{2} x_{jt}^2 - 2 x_{jt} \cdot \sum_k \calS_{kt}  \cdot x_{kt}
 % \end{align*}
 % \begin{itemize}
 % \item We should be \alert{share weighting} the interaction term, but GH assume equal weighting.\\
@@ -1163,7 +1163,7 @@ Is it sufficient to rely on data from merging firms only?
 \begin{theorem}[Conlon Mortimer (RJE 2021)]\ \\
 \label{prop:late}
 Under the following conditions:\\ 
-(a) Mutually Exclusive and Exhaustive Discrete Choice: $d_{ij} \in \{0,1\}$ and $\sum_{j \in \mathcal{J}} d_{ij}=1$.\\
+(a) Mutually Exclusive and Exhaustive Discrete Choice: $d_{ij} \in \{0,1\}$ and $\sum_{j \in \calJ} d_{ij}=1$.\\
 (b) Exclusion: $u_{ik}(p_j,x)=u_{ik}(p_j',x)$ for all $k \neq j$ and any $(p_j, p_j')$; \\
 (c) Monotonicity: $u_{ij}(p_j',x) \leq u_{ij}(p_j,x)$ for all $i$ and any $(p_j' > p_{j})$; and \\
 (d) Existence of a first-stage: $Pr(d_{ij}(p_j,x)=0) \neq Pr(d_{ij}(p_j',x)=0) $ for $(p_j' > p_{j})$; \\
@@ -1214,11 +1214,11 @@ small quality change $\frac{\partial}{\partial \xi_{j}}$ & $s_{i j}(x) \cdot\lef
 \begin{frame}{Definitions: Second Choices}
 For any (semiparametric) mixture of logits we can write the probability that individual $i$ chooses $k$ as their \alert{second choice} given that $j$ is their first choice as:
 \begin{align*}
-D_{j \rightarrow k} & \equiv \mathbb{P}(\text{ chooses } k \in \mathcal{J} \setminus \{j\} \mid
-\text{ chooses } j \in \mathcal{J} )\\
+D_{j \rightarrow k} & \equiv \mathbb{P}(\text{ chooses } k \in \calJ \setminus \{j\} \mid
+\text{ chooses } j \in \calJ )\\
 &= \sum_{i=1}^I \pi_i \cdot \frac{s_{ik}}{1-s_{ik}} \cdot \frac{s_{ij}}{s_j}
 \end{align*}
-It is convenient to interpret $D_{j \rightarrow k}$ as the $(j,k)$th entry in the second-choice matrix $\mathbf{D}(\mathbf{S},\pi)$.
+It is convenient to interpret $D_{j \rightarrow k}$ as the $(j,k)$th entry in the second-choice matrix $\symbf{D}(\symbf{S},\pi)$.
 \end{frame}
 
 
@@ -1227,7 +1227,7 @@ It is convenient to interpret $D_{j \rightarrow k}$ as the $(j,k)$th entry in th
 \begin{frame}{Our Semiparametric Problem}
 \small
 \begin{align*}
-\min _{(\mathbf{S}, \pi) \geq 0} \left\|\mathcal{P}_{\Omega}(\mathcal{D}-\mathbf{D}(\mathbf{S},\pi))\right\|_{\ell_2}  &+ \lambda \left\|\mathcal{S}- \mathbf{S}\,\pi \right\|_{\ell_2} \text { with } \left\|\pi  \right\|_{\ell_1} \leq 1, \quad   \left\|\mathbf{s_i}  \right\|_{\ell_1} \leq 1.
+\min _{(\symbf{S}, \pi) \geq 0} \left\|\mathcal{P}_{\Omega}(\calD-\symbf{D}(\symbf{S},\pi))\right\|_{\ell_2}  &+ \lambda \left\|\calS- \symbf{S}\,\pi \right\|_{\ell_2} \text { with } \left\|\pi  \right\|_{\ell_1} \leq 1, \quad   \left\|\symbf{s_i}  \right\|_{\ell_1} \leq 1.
 \end{align*}
 \vspace{-.25cm}
 \begin{itemize}
@@ -1235,7 +1235,7 @@ It is convenient to interpret $D_{j \rightarrow k}$ as the $(j,k)$th entry in th
 \item Use cross validation to select \# of types $I$ and Lagrange multiplier $\lambda$.
 \item Not-convex but not very difficult either.
 \item $\ell_1$ constraints lead to \alert{sparsity}.
-\item Goal: estimate $\mathbf{s_i}$ (choice probabilities) and corresponding weights $\pi_i$ (Finite Mixture)
+\item Goal: estimate $\symbf{s_i}$ (choice probabilities) and corresponding weights $\pi_i$ (Finite Mixture)
 \item Can also match \alert{price cost margins}
 % \item Weights $\widetilde c_j$ and $c_j$ are proportional to $\ln q_j$
 \end{itemize}
@@ -1246,35 +1246,35 @@ Would this be useful to folks at CMA?
 
 \begin{frame}{Second Choice Matrix}
 \begin{itemize}
-\item Individual $i$'s share for each choice given by $\mathbf{s_i} = [s_{i0},s_{i1},\ldots,s_{iJ}]$.
-\item Aggregate shares by $\sum_{i=1}^I  \pi_i \cdot \mathbf{s_i} =\mathbf{s}$.
+\item Individual $i$'s share for each choice given by $\symbf{s_i} = [s_{i0},s_{i1},\ldots,s_{iJ}]$.
+\item Aggregate shares by $\sum_{i=1}^I  \pi_i \cdot \symbf{s_i} =\symbf{s}$.
 \item The matrix of individual diversion ratios is given by
-$\mathbf{D}_i  = \mathbf{s_i}  \cdot \left[\frac{1}{(1-\mathbf{s_i})} \right]^T$. 
+$\symbf{D}_i  = \symbf{s_i}  \cdot \left[\frac{1}{(1-\symbf{s_i})} \right]^T$. 
 \end{itemize}
 We write the $(J+1)\times (J+1)$ matrix of second-choice probabilities as:
 \begin{align*}
-\nonumber \mathbf{D} &=  \left(\sum_{i=1}^I \pi_i \cdot \mathbf{s_i} \cdot \left[\frac{1}{(1-\mathbf{s_i})} \right]^T \cdot \text{diag}(\mathbf{s_i}/\mathbf{s})^{-1}\right)^T \\
-&=\text{diag}(\mathbf{s})^{-1}  \cdot \left(\sum_{i=1}^I \pi_i \cdot  \left[\frac{\mathbf{s_i}}{(1-\mathbf{s_i})} \right]\cdot  \mathbf{s_i}^T   \right) 
+\nonumber \symbf{D} &=  \left(\sum_{i=1}^I \pi_i \cdot \symbf{s_i} \cdot \left[\frac{1}{(1-\symbf{s_i})} \right]^T \cdot \text{diag}(\symbf{s_i}/\symbf{s})^{-1}\right)^T \\
+&=\text{diag}(\symbf{s})^{-1}  \cdot \left(\sum_{i=1}^I \pi_i \cdot  \left[\frac{\symbf{s_i}}{(1-\symbf{s_i})} \right]\cdot  \symbf{s_i}^T   \right) 
 \end{align*}
 \end{frame}
 
 \begin{frame}{Second Choice Matrix: Continued}
 Under relatively general conditions, second-choice probabilities can be written as:
 \begin{align*}
-\mathbf{D}= \text{diag}(\mathbf{s})^{-1}  \cdot  \left(\sum_{i=1}^I \pi_i\cdot 
+\symbf{D}= \text{diag}(\symbf{s})^{-1}  \cdot  \left(\sum_{i=1}^I \pi_i\cdot 
 \left[
 \begin{array}{l}
 \mid \\
-\mathbf{s_i} \\
+\symbf{s_i} \\
 \mid
 \end{array}\right] \cdot \left[\begin{array}{lll}
-\horzbar  &\frac{\mathbf{s_i}}{1-\mathbf{s_i}}  & \horzbar
+\horzbar  &\frac{\symbf{s_i}}{1-\symbf{s_i}}  & \horzbar
 \end{array}\right] \right)
 \end{align*}
 \begin{itemize}
-    \item Each individual diversion ratio is of rank one since it is the outer product of $\mathbf{s_i}$ with itself (and some diagonal ``weights'').
-    \item The (unrestricted) matrix of diversion ratios $\mathbf{D}$ is $(J+1)\times(J+1)$.
-    \item Logit restricts $\mathbf{D}$ to be of rank one. Nested logit of rank $\leq G$ (the number of non-singleton nests). Mixed logit to $\text{rank}(\mathbf{D})\leq I$ (but bound is likely uninformative).
+    \item Each individual diversion ratio is of rank one since it is the outer product of $\symbf{s_i}$ with itself (and some diagonal ``weights'').
+    \item The (unrestricted) matrix of diversion ratios $\symbf{D}$ is $(J+1)\times(J+1)$.
+    \item Logit restricts $\symbf{D}$ to be of rank one. Nested logit of rank $\leq G$ (the number of non-singleton nests). Mixed logit to $\text{rank}(\symbf{D})\leq I$ (but bound is likely uninformative).
 \end{itemize}
 In practice this works shockingly well (with some caveats).
 \end{frame}

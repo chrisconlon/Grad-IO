@@ -1,4 +1,6 @@
-\input{../resources/preamble.tex}
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
+
 
 \title{Differentiated Bertrand}
 \author{C.Conlon}
@@ -12,20 +14,20 @@
 \begin{frame}
 \frametitle{Differentiated Products Bertrand}
 \small
-Consider the multi-product Bertrand problem where firms solve: $\arg \max_{p \in \mathcal{J}_f} \pi_f (\mathbf{p}) = \sum_{j \in \mathcal{J}_f} (p_j - c_j) \cdot q_j(\mathbf{p})$:
+Consider the multi-product Bertrand problem where firms solve: $\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) = \sum_{j \in \calJ_f} (p_j - c_j) \cdot q_j(\symbf{p})$:
 \begin{align*}
- 0&= q_j(\mathbf{p}) + \sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\mathbf{p}) \\
-\rightarrow p_j &=q_{j}(\mathbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\mathbf{p})\right]^{-1} + c_{j} + \sum_{k \in \mathcal{J}_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\mathbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\mathbf{p})\right]^{-1}}_{D_{jk}(\mathbf{p})}\\
-p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\mathbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p}) \right].
+ 0&= q_j(\symbf{p}) + \sum_{k \in \calJ_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\symbf{p}) \\
+\rightarrow p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1}}_{D_{jk}(\symbf{p})}\\
+p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right].
 \end{align*}
-We call $D_{jk}(\mathbf{p}) = \frac{\frac{\partial q_{k}}{\partial p_j}(\mathbf{p})}{\left| \frac{\partial q_{j}}{\partial p_j}(\mathbf{p}) \right|}$ the \alert{diversion ratio}.
+We call $D_{jk}(\symbf{p}) = \frac{\frac{\partial q_{k}}{\partial p_j}(\symbf{p})}{\left| \frac{\partial q_{j}}{\partial p_j}(\symbf{p}) \right|}$ the \alert{diversion ratio}.
 \end{frame}
 
 \begin{frame}
 \frametitle{Differentiated Products Bertrand}
 We can also re-write the best-response in the Lerner Index form:
 \begin{align*}
-p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\mathbf{p})}}_{\text{Markup}} \left[c_j + \underbrace{\sum_{k \in \mathcal{J}_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\mathbf{p}) }_{\text{opportunity cost}}\right]
+p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[c_j + \underbrace{\sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) }_{\text{opportunity cost}}\right]
 \end{align*}
 
 \end{frame}
@@ -35,14 +37,14 @@ p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\mathbf{p})}}_{\text{Marku
 \frametitle{Differentiated Products Bertrand}
 It is helpful to define the matrix $\Delta$ with entries:
 \begin{eqnarray*}
-\Delta_{(j,k)}(\mathbf{p}) = \left\{\begin{array}{lr}
-         - \frac{\partial q_{j}}{\partial p_k}(\mathbf{p}) & \text{for }  (j,k) \in \mathcal{J}_f\\
-       	  \quad 0 & \text{for } (j,k) \notin \mathcal{J}_f
+\Delta_{(j,k)}(\symbf{p}) = \left\{\begin{array}{lr}
+         - \frac{\partial q_{j}}{\partial p_k}(\symbf{p}) & \text{for }  (j,k) \in \calJ_f\\
+       	  \quad 0 & \text{for } (j,k) \notin \calJ_f
         \end{array} \right\}
 \end{eqnarray*}
 We can re-write the FOC in matrix form:
 \begin{eqnarray*}
-q(\mathbf{p}) = \Delta(\mathbf{p})\cdot(\mathbf{p}-\mathbf{mc})
+q(\symbf{p}) = \Delta(\symbf{p})\cdot(\symbf{p}-\symbf{mc})
 \end{eqnarray*}
 \end{frame}
 
@@ -51,7 +53,7 @@ q(\mathbf{p}) = \Delta(\mathbf{p})\cdot(\mathbf{p}-\mathbf{mc})
 \frametitle{What do we want to learn from demand systems?}
 We can recover markups and marginal costs:
 \begin{eqnarray*}
-(\mathbf{p}-\mathbf{mc}) =  \Delta(\mathbf{p})^{-1} q(\mathbf{p})  \Rightarrow \mathbf{mc}= \mathbf{p} - \Delta(\mathbf{p})^{-1} q(\mathbf{p})
+(\symbf{p}-\symbf{mc}) =  \Delta(\symbf{p})^{-1} q(\symbf{p})  \Rightarrow \symbf{mc}= \symbf{p} - \Delta(\symbf{p})^{-1} q(\symbf{p})
 \end{eqnarray*}
 \end{frame}
 
@@ -60,12 +62,12 @@ We can recover markups and marginal costs:
 \begin{itemize}
 \item We need two objects from the demand system:
 \begin{itemize}
-\item The (vector of) \alert{predicted sales} at the (vector of) prices $\mathbf{q(p)}$.
-\item The \alert{derivatives} (or elasticities) of the demand function  $\frac{\partial q_k}{\partial p_j}(\mathbf{p})$ 
-\item Or the \alert{diversion ratios}: $D_{jk}(\mathbf{p})$.
+\item The (vector of) \alert{predicted sales} at the (vector of) prices $\symbf{q(p)}$.
+\item The \alert{derivatives} (or elasticities) of the demand function  $\frac{\partial q_k}{\partial p_j}(\symbf{p})$ 
+\item Or the \alert{diversion ratios}: $D_{jk}(\symbf{p})$.
 \item Welfare is often related to substitution to no purchase or ``outside goods''.
 \end{itemize}
-\item Ideally, these objects depend on the full vector of prices $\mathbf{p}$.
+\item Ideally, these objects depend on the full vector of prices $\symbf{p}$.
 \begin{itemize}
 \item We can impose restrictions on the demand curve, such as constant slope or constant elasticity.
 \end{itemize}

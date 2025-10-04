@@ -58,22 +58,22 @@ u_{ijt}(\delta_{jt},\widetilde{\theta}_2) =  \delta_{jt}(\theta_1)  + \mu_{ijt}(
 \end{align*}
 When $\varepsilon_{ijt}$ is IID extreme value, tesulting marketshare are given by $s_{ijt} = Pr(u_{ijt}> u_{ikt})$ for all $k\neq j$ (including the ``outside option'' $k=0$)
 \begin{align*}
-\sigma_j(\boldsymbol{\delta_t},y_t;\theta_2)=\int \frac{\exp[\delta_{jt}+\mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2)]}{1+\sum_{j'} \exp[\delta_{j't}+\mu_{ij't}(\textrm{x}_{j't}, y_i; \widetilde{\theta}_2)]}f(\boldsymbol{\mu_{it}}| \widetilde{\theta}_2) \partial \boldsymbol{\mu_{it}}
+\sigma_j(\symbf{\delta_t},y_t;\theta_2)=\int \frac{\exp[\delta_{jt}+\mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2)]}{1+\sum_{j'} \exp[\delta_{j't}+\mu_{ij't}(\textrm{x}_{j't}, y_i; \widetilde{\theta}_2)]}f(\symbf{\mu_{it}}| \widetilde{\theta}_2) \partial \symbf{\mu_{it}}
 \end{align*}
 \end{frame}
 
 
 \begin{frame}{Setup}
-By matching observed marketshares $\mathcal{S}_t$ to predicted marketshares $\sigma_j(\boldsymbol{\delta_t},y_t;\theta_2)$ for each market $t$, we define a system of $\mathcal{J}_t$ equations and $\mathcal{J}_t$ unknowns (where $\delta_{0t}=0$):
+By matching observed marketshares $\calS_t$ to predicted marketshares $\sigma_j(\symbf{\delta_t},y_t;\theta_2)$ for each market $t$, we define a system of $\calJ_t$ equations and $\calJ_t$ unknowns (where $\delta_{0t}=0$):
 \begin{align*}
-\sigma_j(\boldsymbol{\delta_t},y_t;\widetilde{\theta}_2))=\int \frac{\exp[\delta_{jt}+\mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2)]}{1+\sum_{j'} \exp[\delta_{j't}+\mu_{ij't}(\textrm{x}_{j't}, y_i; \widetilde{\theta}_2)]}f(\boldsymbol{\mu_{it}} | \widetilde{\theta}_2) \partial \boldsymbol{\mu_{it}}
+\sigma_j(\symbf{\delta_t},y_t;\widetilde{\theta}_2))=\int \frac{\exp[\delta_{jt}+\mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2)]}{1+\sum_{j'} \exp[\delta_{j't}+\mu_{ij't}(\textrm{x}_{j't}, y_i; \widetilde{\theta}_2)]}f(\symbf{\mu_{it}} | \widetilde{\theta}_2) \partial \symbf{\mu_{it}}
 \end{align*}
 If the solution is unique then we can define the \alert{inverse share function}
 \begin{align*}
-\sigma_j^{-1}(\mathcal{S}_t,y_t;\widetilde{\theta}_2)=\delta_{jt}
+\sigma_j^{-1}(\calS_t,y_t;\widetilde{\theta}_2)=\delta_{jt}
 \end{align*}
-Common examples Logit: $\sigma_j^{-1}(\mathcal{S}_t,y_t)=\log s_{jt}- \log s_{0t}$\\
-Nested Logit: $\sigma_j^{-1}(\mathcal{S}_t,y_t, \rho)=\log s_{jt}- \log s_{0t}- \rho \log s_{j |g, t}$
+Common examples Logit: $\sigma_j^{-1}(\calS_t,y_t)=\log s_{jt}- \log s_{0t}$\\
+Nested Logit: $\sigma_j^{-1}(\calS_t,y_t, \rho)=\log s_{jt}- \log s_{0t}- \rho \log s_{j |g, t}$
 \end{frame}
 
 
@@ -81,9 +81,9 @@ Nested Logit: $\sigma_j^{-1}(\mathcal{S}_t,y_t, \rho)=\log s_{jt}- \log s_{0t}- 
 
 \begin{frame}{Parametric Identifcation}
 \begin{itemize}
-\item Once we have $\sigma_j^{-1}(\mathcal{S}_t,y_t;\widetilde{\theta}_2) = \delta_{jt}(\mathcal{S}_t,y_t;\widetilde{\theta}_2)$ identification of remaining parameters is pretty straightforward
+\item Once we have $\sigma_j^{-1}(\calS_t,y_t;\widetilde{\theta}_2) = \delta_{jt}(\calS_t,y_t;\widetilde{\theta}_2)$ identification of remaining parameters is pretty straightforward
 \begin{eqnarray*}
-\delta_{jt}(\mathcal{S}_t,y_t;\widetilde{\theta}_2)=  h_d(\mathrm{x}_{jt};\theta_1)-  \alpha \cdot \alert{ p_{jt}} + \xi_{jt}
+\delta_{jt}(\calS_t,y_t;\widetilde{\theta}_2)=  h_d(\mathrm{x}_{jt};\theta_1)-  \alpha \cdot \alert{ p_{jt}} + \xi_{jt}
 \end{eqnarray*}
 \item This is either basic linear IV or panel linear IV and we need instruments for $p_{jt}$
 \item The $\widetilde{\theta}_2$ parameters governing the change of variables require \alert{nonlinear IV}
@@ -93,8 +93,8 @@ Nested Logit: $\sigma_j^{-1}(\mathcal{S}_t,y_t, \rho)=\log s_{jt}- \log s_{0t}- 
 
 \begin{frame}{Exclusion Restrictions}
 \begin{eqnarray*}
-    \sigma_j^{-1}(\mathcal{S}_t,y_t;\widetilde{\theta}_2) &=&  h_d\left(\mathrm{x}_{jt}, \alert{\mathrm{v}_{jt}}; \theta_1 \right)  - \alpha p_{jt} + \xi_{jt}\\
-    p_{jt} - \eta_{jt}(\theta_2,\mathbf{p_t},\mathbf{s_t}) &=&   h_s\left(\mathrm{x}_{jt},\alert{\mathrm{w}_{jt}};\theta_3 \right)+\omega_{jt}
+    \sigma_j^{-1}(\calS_t,y_t;\widetilde{\theta}_2) &=&  h_d\left(\mathrm{x}_{jt}, \alert{\mathrm{v}_{jt}}; \theta_1 \right)  - \alpha p_{jt} + \xi_{jt}\\
+    p_{jt} - \eta_{jt}(\theta_2,\symbf{p_t},\symbf{s_t}) &=&   h_s\left(\mathrm{x}_{jt},\alert{\mathrm{w}_{jt}};\theta_3 \right)+\omega_{jt}
 \end{eqnarray*}
 The first place to look for exclusion restrictions/instruments:
 \begin{itemize}
@@ -108,12 +108,12 @@ The first place to look for exclusion restrictions/instruments:
 
 \begin{frame}{BLP Instruments}
 \begin{eqnarray*}
-    \sigma_j^{-1}(\mathcal{S}_t,y_t;\widetilde{\theta}_2) &=&  h_d\left(\mathrm{x}_{jt}, \mathrm{v}_{jt}; \theta_1 \right)  - \alpha p_{jt} + \xi_{jt}\\
-    p_{jt} - \eta_{jt}(\theta_2,\mathbf{p_t},\mathbf{s_t}) &=&   h_s\left(\mathrm{x}_{jt},\mathrm{w}_{jt};\theta_3 \right)+\omega_{jt}
+    \sigma_j^{-1}(\calS_t,y_t;\widetilde{\theta}_2) &=&  h_d\left(\mathrm{x}_{jt}, \mathrm{v}_{jt}; \theta_1 \right)  - \alpha p_{jt} + \xi_{jt}\\
+    p_{jt} - \eta_{jt}(\theta_2,\symbf{p_t},\symbf{s_t}) &=&   h_s\left(\mathrm{x}_{jt},\mathrm{w}_{jt};\theta_3 \right)+\omega_{jt}
 \end{eqnarray*}
 The second place to look are characteristics of other goods
 \begin{itemize}
-\item $\chi_t = (\mathbf{x}_{t},\mathbf{v}_{t},\mathbf{w}_{t})$ characteristics of other products affect both $\sigma_{j}^{-1}(\cdot)$ and $\eta_{jt}(\cdot)$.
+\item $\chi_t = (\symbf{x}_{t},\symbf{v}_{t},\symbf{w}_{t})$ characteristics of other products affect both $\sigma_{j}^{-1}(\cdot)$ and $\eta_{jt}(\cdot)$.
 \item But which functions $f(\chi_t)$ to use?
 \begin{itemize}
 \item Sums of competing products? Averages of own and competing products? Counts?
@@ -125,7 +125,7 @@ The second place to look are characteristics of other goods
 
 
 % \begin{frame}{Markup Shifters}
-% The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\mathbf{p},\mathbf{s},\xi_t,\omega_t,x_{t},w_{t},v_t,\theta_2)$:
+% The equilibrium markup is a function of \alert{everything!} $\eta_{jt}(\symbf{p},\symbf{s},\xi_t,\omega_t,x_{t},w_{t},v_t,\theta_2)$:
 % \begin{itemize}
 % \item It is literally \alert{endogenous} (depends on error terms)!
 % \item But lots of potential instruments beyond \alert{excluded} $v_t$ or $w_t$.
@@ -174,7 +174,7 @@ The second place to look are characteristics of other goods
 \begin{itemize}
 \item Common choices are average characteristics of other products in the same market $f(x_{-j,t})$. \alert{BLP instruments}
 \begin{itemize}
-\item Same firm $z_{1jt} = \overline{x}_{-j_f,t} = \frac{1}{\left\vert{F_j}\right\vert}  \sum_{k \in \mathcal{F}_j} x_{kt} - \frac{1}{\left\vert{F_j}\right\vert} x_{jt}$.
+\item Same firm $z_{1jt} = \overline{x}_{-j_f,t} = \frac{1}{\left\vert{F_j}\right\vert}  \sum_{k \in \calF_j} x_{kt} - \frac{1}{\left\vert{F_j}\right\vert} x_{jt}$.
 \item Other firms $z_{2jt}=\overline{x}_{\cdot t} - \overline{x}_{-j_f,t} - \frac{1}{J} x_{jt}$.
 \item Plus regressors $(1, x_{jt})$.
 \item Plus higher order interactions 
@@ -194,7 +194,7 @@ The second place to look are characteristics of other goods
 \begin{frame}{Armstrong (2016): Weak Instruments?}
 Consider the limit as $J \rightarrow \infty$
 \begin{eqnarray*}
-\frac{s_{jt}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|} = \frac{1}{\alpha} \frac{1}{1-s_{jt}} \rightarrow \frac{1}{\alpha}
+\frac{s_{jt}(\symbf{p_t})}{\left|\frac{\partial s_{jt}(\symbf{p_t})}{\partial p_{jt}}\right|} = \frac{1}{\alpha} \frac{1}{1-s_{jt}} \rightarrow \frac{1}{\alpha}
 \end{eqnarray*}
 \begin{itemize}
 \item Hard to use markup shifting instruments to instrument for a constant.
@@ -265,7 +265,7 @@ Recall the GMM moment conditions are given by $\mathbb{E}[\xi_{jt} | Z_{jt}^D]=0
     D=\mathbb{E}\left[
     \left(\frac{\partial \xi_{jt}}{\partial \theta}, \,
     \frac{\partial \omega_{jt}}{\partial \theta} \right)
-| \mathbf{Z_t} \right], \quad 
+| \symbf{Z_t} \right], \quad 
 \Omega = \mathbb{E}\left[
 \begin{pmatrix}
     \xi_{jt} \\
@@ -275,9 +275,9 @@ Recall the GMM moment conditions are given by $\mathbb{E}[\xi_{jt} | Z_{jt}^D]=0
     \xi_{jt}\, \,
     \omega_{jt}
 \end{pmatrix}
-| \mathbf{Z_t} \right].
+| \symbf{Z_t} \right].
 \end{align*}
-Chamberlain (1987) showed that the approximation to the optimal instruments are given by the expected Jacobian contribution for each observation $(j,t)$: $\mathbb{E}[D_{jt}(\mathbf{Z_t}) \Omega_{jt}^{-1} | \mathbf{Z_t}]$.
+Chamberlain (1987) showed that the approximation to the optimal instruments are given by the expected Jacobian contribution for each observation $(j,t)$: $\mathbb{E}[D_{jt}(\symbf{Z_t}) \Omega_{jt}^{-1} | \symbf{Z_t}]$.
 \end{frame}
 
 \begin{frame}{Optimal Instruments (Newey 1990)}
@@ -386,7 +386,7 @@ From previous slide, nothing says that $\mathbb{E}\left[x_i \mid v_i, z_i \right
 
 
 \begin{frame}{Optimal Instruments}
-How to construct optimal instruments in form of Chamberlain (1987). Start with initial instruments $Z_{jt}=A\left(\mathbf{X_t},\mathbf{W_t},\mathbf{V_t}\right)$
+How to construct optimal instruments in form of Chamberlain (1987). Start with initial instruments $Z_{jt}=A\left(\symbf{X_t},\symbf{W_t},\symbf{V_t}\right)$
 \begin{eqnarray*}
 \mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \theta} | \chi_{t} \right] = \left[\beta, E\left[\frac{\partial \xi_{jt}}{\partial \alpha} | \chi_{t} \right] ,
  \mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} | \chi_{t} \right] \right]
@@ -394,8 +394,8 @@ How to construct optimal instruments in form of Chamberlain (1987). Start with i
 Some challenges:
 \begin{enumerate}
 \item $p_{jt}$ or $\eta_{jt}$ depends on $(\omega_{j},\xi_{t})$ in a highly nonlinear way (no explicit solution!).
-\item $\mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} \mid X_t, w_{t} \right] =\mathbb{E}\left[\left[\frac{\partial \mathbf{s_t}}{\partial \mathbf{\delta_t}}\right]^{-1} 
-\left[\frac{\partial \mathbf{s_t}}{\partial \widetilde{\theta}_2}\right] \mid Z_{jt}^D \right]$  (not conditioned on endogenous $p$!)
+\item $\mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} \mid X_t, w_{t} \right] =\mathbb{E}\left[\left[\frac{\partial \symbf{s_t}}{\partial \symbf{\delta_t}}\right]^{-1} 
+\left[\frac{\partial \symbf{s_t}}{\partial \widetilde{\theta}_2}\right] \mid Z_{jt}^D \right]$  (not conditioned on endogenous $p$!)
 \end{enumerate}
 Things are \alert{infeasible} because we don't know $\theta_0$!
 \end{frame}
@@ -403,14 +403,14 @@ Things are \alert{infeasible} because we don't know $\theta_0$!
 
 \begin{frame}{Feasible Recipe (BLP 1999)}
 \begin{enumerate}
-\item Fix $\widehat{\theta}=(\widehat{\theta}_1,\widehat{\theta}_2,\widehat{\theta}_3)$ and draw $(\boldsymbol{\xi}^{*},\boldsymbol{\omega}^{*})$ from empirical density
-\item Solve firm FOC's for $\mathbf{\hat{p}_{t}}(\boldsymbol{\xi}^{*},\boldsymbol{\omega}^{*},\widehat{\theta})$
-\item Solve shares $\mathbf{s_{t}}(\mathbf{\hat{p}_{t}},\widehat{\theta})$
+\item Fix $\widehat{\theta}=(\widehat{\theta}_1,\widehat{\theta}_2,\widehat{\theta}_3)$ and draw $(\symbf{\xi}^{*},\symbf{\omega}^{*})$ from empirical density
+\item Solve firm FOC's for $\symbf{\hat{p}_{t}}(\symbf{\xi}^{*},\symbf{\omega}^{*},\widehat{\theta})$
+\item Solve shares $\symbf{s_{t}}(\symbf{\hat{p}_{t}},\widehat{\theta})$
 \item Compute necessary Jacobian
-\item Average over multiple values of$(\boldsymbol{\xi}^{*},\boldsymbol{\omega}^{*})$. (Lazy approach: use only $(\boldsymbol{\xi}^{*},\boldsymbol{\omega}^{*})=0$).
+\item Average over multiple values of$(\symbf{\xi}^{*},\symbf{\omega}^{*})$. (Lazy approach: use only $(\symbf{\xi}^{*},\symbf{\omega}^{*})=0$).
 \end{enumerate}
 In simulation the ``lazy'' approach does just as well.\\
- (Caveat: At least for iid normally distributed $(\boldsymbol{\xi},\boldsymbol{\omega})$)
+ (Caveat: At least for iid normally distributed $(\symbf{\xi},\symbf{\omega})$)
 \end{frame}
 
 

@@ -62,8 +62,8 @@ Part II Hotz Miller}
 \begin{equation*}
 \resizebox{.9999999\hsize}{!}{$ \hat G (x' | x, d) \equiv \left \{
 \begin{array}{lc} 
-\sum^N_{i=1} \sum^{T-1}_{t=1} \frac{1}{\sum_i \sum_t 1 (x_{it} = x, d_{it} = 0)} \cdot \mathbf{1} (x_{i, t+1} \leq x', x_{it} = x, d_{it} = 0), & \text{if } d = 0 \\
-\sum^N_{i=1} \sum^{T-1}_{t=1} \frac{1}{\sum_i \sum_t 1 (d_{it}=1)} \cdot \mathbf{1} (x_{i,t+1} \leq x', d_{it} = 1), & \text{if } d =1
+\sum^N_{i=1} \sum^{T-1}_{t=1} \frac{1}{\sum_i \sum_t 1 (x_{it} = x, d_{it} = 0)} \cdot \symbf{1} (x_{i, t+1} \leq x', x_{it} = x, d_{it} = 0), & \text{if } d = 0 \\
+\sum^N_{i=1} \sum^{T-1}_{t=1} \frac{1}{\sum_i \sum_t 1 (d_{it}=1)} \cdot \symbf{1} (x_{i,t+1} \leq x', d_{it} = 1), & \text{if } d =1
 \end{array}
 \right . $}
 \end{equation*}
@@ -74,7 +74,7 @@ Part II Hotz Miller}
 \begin{itemize}
 \item Choice probabilities, conditional on state variable: $Pr(d = 1 | x)$  , estimated by :
 \begin{equation*}
-\hat P (d = 1| x) \equiv \sum^N_{i=1} \sum^{T-1}_{t=1} \frac{1}{\sum_i \sum_t \mathbf{1} (x_{it} = x ) \cdot \mathbf{1} (d_{it} =1, x_{it} = x).}
+\hat P (d = 1| x) \equiv \sum^N_{i=1} \sum^{T-1}_{t=1} \frac{1}{\sum_i \sum_t \symbf{1} (x_{it} = x ) \cdot \symbf{1} (d_{it} =1, x_{it} = x).}
 \end{equation*}
 \item  Since  $Pr(d = 0 | x) = 1 - Pr(d=1 |x)$, we have $\hat{P} (d = 0 | x) = 1 - \hat{P}(d = 1|x)$
 \item Let $\tilde V (x, d ; \theta)$ denote the choice-specific value function, minus the error term $\epsilon_d$. That is,
@@ -142,7 +142,7 @@ and analogously for $\tilde p (d = 0 |x ; \theta)$. Note that the predicted choi
 \begin{frame}{Hotz Miller (1993) Estimator}
 $\bullet$ One way to estimate $\theta$ is to minimize the distance between the predicted conditional choice probabilities, and the actual conditional choice probabilities:
 \begin{equation*}
-\hat \theta = \arg \min_\theta || \hat {\mathbf{p}} (d = 1 |x) - \tilde {\mathbf{p}} (d = 1 |x; \theta) ||
+\hat \theta = \arg \min_\theta || \hat {\symbf{p}} (d = 1 |x) - \tilde {\symbf{p}} (d = 1 |x; \theta) ||
 \end{equation*}
 where \textbf{p} denotes a vector of probabilities, at various values of $x$. \\
 Another way to estimate $\theta$ is very similar to the Berry/BLP method. We can calculate directly from the data. 
@@ -330,11 +330,11 @@ We make the following assumptions, which are standard in this literature:
 \begin{frame}{Semiparametric identification of DDC Models}
 \begin{enumerate}
 \item Agents are optimizing in an infinite-horizon, stationary setting. Therefore, in the rest of this section, we use primes to denote the next-period values. 
-\item Actions $D$ are chosen from the set $\mathcal{D} = \{0,1, \cdots, K\}$.
+\item Actions $D$ are chosen from the set $\calD = \{0,1, \cdots, K\}$.
 \item The state variables are $X$.
-\item The per-period utility from taking action $d \in \mathcal{D}$ in period $t$ is:
+\item The per-period utility from taking action $d \in \calD$ in period $t$ is:
 \begin{equation*}
-u_d(X_t) +\epsilon_{d,t}, \forall d \in \mathcal{D}.
+u_d(X_t) +\epsilon_{d,t}, \forall d \in \calD.
 \end{equation*}
 \item The $\epsilon_{d,t}$'s are utility shocks which are independent of $X_t$, and distributed i.i.d. with known distribution $F(\epsilon)$ across periods $t$ and actions $d$. Let $\vec \epsilon_t \equiv (\epsilon_{0,1}, \epsilon_{1,t}, \cdots, \epsilon_{K,t}).$ \\
 \end{enumerate}
@@ -355,7 +355,7 @@ Following the arguments in Magnac and Thesmar (2002) and Bajari, Chernozhukov, H
 \vspace{3mm}
 The Bellman equation for this dynamic optimization problem is 
 \begin{equation*}
-V(X, \vec{\epsilon}) = \text{max}_{d \in \mathcal{D}} ( u_d(X) + \epsilon_d + \beta E_{X', \vec{\epsilon} | D, X} V(X', \vec{\epsilon}))
+V(X, \vec{\epsilon}) = \text{max}_{d \in \calD} ( u_d(X) + \epsilon_d + \beta E_{X', \vec{\epsilon} | D, X} V(X', \vec{\epsilon}))
 \end{equation*}
 where $V(X, \vec{\epsilon})$ denotes the value function. \\
 \vspace{0.5cm}
@@ -371,7 +371,7 @@ V_d(X) \equiv u_d(X) + \beta E_{X', \vec{\epsilon}|D, X} V(X', \vec{\epsilon}').
 \begin{frame}{Semiparametric identification of DDC Models}
 Given these definitions, an agent's optimal choice when the state is $X$ is given by 
 \begin{equation*}
-y^* (X) = \text{argmax}_{y \in \mathcal{D}} (V_d(X) + \epsilon_d)
+y^* (X) = \text{argmax}_{y \in \calD} (V_d(X) + \epsilon_d)
 \end{equation*}
 Hotz and Miller (1993) and Magnac and Thesmar (2002) show that in this setting, there is a known one-to-one mapping, $q(X) : \mathbb{R}^K \rightarrow \mathbb{R}^K$, which maps the $K$-vector of choice probabilities $(p_1(X), \cdots , p_K(X))$ to the $K$-vector $(\triangle_1(X), \cdots , \triangle_K (X))$, where $\triangle_d(X)$ denotes the difference in choice-specific value functions
 \begin{equation*}
@@ -386,8 +386,8 @@ Hence, since the choice probabilities can be identified from the data, and the m
 Next, we note that the choice-specific value function also satisfies a Bellman-like equation:
 \begin{equation}
 \begin{split}
-V_d(X) = & u_d(X) + \beta E_{X'|X,D} \left [ E_{\vec{\epsilon}} \text{max}_{d' \in \mathcal{D}} (V_{d'} (X') + \epsilon'_{d'}) \right ] \\
-= & u_d(X) + \beta E_{X'|X,D} \left \{ V_0 (X') + \left [ E_{\vec{\epsilon}} \text{max}_{d' \in \mathcal{D}} (\triangle_{d'} (X') + \epsilon'_{d'}) \right ] \right \} \\
+V_d(X) = & u_d(X) + \beta E_{X'|X,D} \left [ E_{\vec{\epsilon}} \text{max}_{d' \in \calD} (V_{d'} (X') + \epsilon'_{d'}) \right ] \\
+= & u_d(X) + \beta E_{X'|X,D} \left \{ V_0 (X') + \left [ E_{\vec{\epsilon}} \text{max}_{d' \in \calD} (\triangle_{d'} (X') + \epsilon'_{d'}) \right ] \right \} \\
 = & u_d(X) + \beta E_{X'|X,D} [ H(\triangle_1 (X'), \cdots, \triangle_K(X')) + V_0(X') ]
 \end{split}
 \end{equation}
@@ -401,14 +401,14 @@ V_0(X) = \beta E_{X'|X,D} [ H (\triangle_1(X'), \cdots , \triangle_K(X')) + V_0(
 \end{equation}
 In this equation, everything is known (including, importantly, the distribution of $X'|X, D$), except the $V_0(\cdot)$ function. Hence, by iterating over Eq. (6), we can recover the $V_0(X)$ function. Once $V_0(\cdot)$ is known, the other choice-specific value functions can be recovered as 
 \begin{equation*}
-V_d(X) = \triangle_d(X) + V_0(X), ~ \forall y \in \mathcal{D}, \forall X.
+V_d(X) = \triangle_d(X) + V_0(X), ~ \forall y \in \calD, \forall X.
 \end{equation*}
 \end{frame}
 
 \begin{frame}{Semiparametric identification of DDC Models}
 Finally, the per-period utility functions $u_d(X)$ can be recovered from the choice-specific value functions as 
 \begin{equation*}
-\resizebox{.99 \hsize}{!}{$ u_d(X) = V_d(X) - \beta E_{X'|X,D} [ H (\triangle_1 (X'), \cdots , \triangle_K(X')) + V_0(X') ], \forall y \in \mathcal{D}, \forall X $}
+\resizebox{.99 \hsize}{!}{$ u_d(X) = V_d(X) - \beta E_{X'|X,D} [ H (\triangle_1 (X'), \cdots , \triangle_K(X')) + V_0(X') ], \forall y \in \calD, \forall X $}
 \end{equation*}
 where everything on the right-hand side is known. 
 \end{frame}

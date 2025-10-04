@@ -181,7 +181,7 @@ Go back to the full likelihood function (condition on initial $\varepsilon_0$ fo
 \end{align*}
 Need to take probability over distribution of $(\varepsilon_1,\ldots,\varepsilon_T | \varepsilon_0)$.  Let $F(\varepsilon_{t+1} | \varepsilon_t,\theta)$ then the above probability can be expressed as the integral:
 \begin{align*}
-\int \cdots \int \prod_t \mathbf{1}(i_t^{*} \left(\varepsilon_t,\theta) = i_t\right) \prod_t d F(\varepsilon_t | \varepsilon_{t-1}; \theta)
+\int \cdots \int \prod_t \symbf{1}(i_t^{*} \left(\varepsilon_t,\theta) = i_t\right) \prod_t d F(\varepsilon_t | \varepsilon_{t-1}; \theta)
 \end{align*}
 Simulate by drawing sequences of $(\varepsilon_t)$.
 \end{frame}
@@ -208,7 +208,7 @@ Simulate by drawing sequences of $(\varepsilon_t)$ and for each draw $s=1,\ldots
 \begin{frame}{Naive Frequency Simulator (Don't do this...)}
 And for the case where $(i,x)$ are both discrete (Rust) we can approximate:
 \begin{align*}
-\ell(i_t,\ldots,i_T | \varepsilon_0,i_0;\theta) \approx \frac{1}{S} \sum_s \prod_{t=1}^T \mathbf{1}(i_t^s = i_t)
+\ell(i_t,\ldots,i_T | \varepsilon_0,i_0;\theta) \approx \frac{1}{S} \sum_s \prod_{t=1}^T \symbf{1}(i_t^s = i_t)
 \end{align*}
 Frequency of simulated sequences which match observed sequence.  $T$ long or $S$ small you're in trouble (non-smooth).
 \end{frame}
@@ -246,7 +246,7 @@ Let's look more closely at the last line:
 \begin{itemize}
 \item first term: $l(y_t, | \epsilon^t,y^{t-1})$ we can calculate for a value of $\epsilon_t$
 \begin{eqnarray*}
-l(y_t | \epsilon^t , y^{t-1}) = p(i_t | \epsilon^t, y^{t-1}) = p(i_t | \epsilon_t) = \mathbf{1}(i(\epsilon_t) = i_t)
+l(y_t | \epsilon^t , y^{t-1}) = p(i_t | \epsilon^t, y^{t-1}) = p(i_t | \epsilon_t) = \symbf{1}(i(\epsilon_t) = i_t)
 \end{eqnarray*}
 \item the second term $p(\epsilon^t | y^{t-1})$ is generally not obtainable in closed form. So numerical integration is not feasible. Particle filtering let's us draw $\epsilon^t$ from this distribution for every period $t$.
 \end{itemize}

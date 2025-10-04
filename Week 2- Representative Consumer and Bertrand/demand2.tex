@@ -1,26 +1,28 @@
-\input{../resources/preamble}
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
 
-\DeclareMathSizes{10}{10}{6}{6} 
-\AtBeginSection[]{
-  \begin{frame}
-  \vfill
-  \centering
-  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
-    \usebeamerfont{title}\insertsectionhead\par%
-  \end{beamercolorbox}
-  \vfill
-  \end{frame}
-}
-\begin{document}
-\title{Week 2: Demand Estimation (Part two)}
+% \newenvironment{reference}[2]{% 
+%   \begin{textblock*}{\textwidth}(#1,#2) 
+%       \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
+
+% \DeclareMathSizes{10}{10}{6}{6} 
+% \AtBeginSection[]{
+%   \begin{frame}
+%   \vfill
+%   \centering
+%   \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+%     \usebeamerfont{title}\insertsectionhead\par%
+%   \end{beamercolorbox}
+%   \vfill
+%   \end{frame}
+% }
+\title{Week 2: Demand Estimation (Part two) [OLD]}
 \author{Chris Conlon}
 \institute{Grad IO}
 \date{\today}
 
+\begin{document}
 \frame{\titlepage}
 
 \begin{frame}{Reading for Today}
@@ -234,7 +236,7 @@ What is actually identified here?
 \begin{itemize}
 \item Helpful to look at the ratio of two choice probabilities
 \begin{eqnarray*}
-\log \frac{s_{ij}(\theta)}{s_{ik}(\theta)} = \mathbf{x_{ij}} \beta_j - \mathbf{x_{ik}} \beta_k \rightarrow  \mathbf{x_i}\cdot(\beta_j - \beta_k)
+\log \frac{s_{ij}(\theta)}{s_{ik}(\theta)} = \symbf{x_{ij}} \beta_j - \symbf{x_{ik}} \beta_k \rightarrow  \symbf{x_i}\cdot(\beta_j - \beta_k)
 \end{eqnarray*}
 \item We only identify the \alert{difference in indirect utilities} not the levels.
 \item This is a feature and not a bug. Why?
@@ -245,7 +247,7 @@ What is actually identified here?
 \frametitle{Multinomial Logit: Identification}
 As another idea suppose we add a constant $C$ to each $\beta_j$.
 \begin{eqnarray*}
-s_{ij} = \frac{\exp[\mathbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\mathbf{x_i} (\beta_k+C) ]} =  \frac{\exp[\mathbf{x_i} C] \exp[\mathbf{x_i} \beta_j ]}{\exp[\mathbf{x_i} C] \sum_k \exp[\mathbf{x_i} \beta_k ]} 
+s_{ij} = \frac{\exp[\symbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\symbf{x_i} (\beta_k+C) ]} =  \frac{\exp[\symbf{x_i} C] \exp[\symbf{x_i} \beta_j ]}{\exp[\symbf{x_i} C] \sum_k \exp[\symbf{x_i} \beta_k ]} 
 \end{eqnarray*}
 \begin{itemize}
 \item This has no effect.  That means we need to fix a normalization $C$. The most convenient is generally that $C = - \beta_K$. \
@@ -259,7 +261,7 @@ s_{ij} = \frac{\exp[\mathbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\mathbf{x_i} (\beta_
 \frametitle{Multinomial Logit: Identification}
 The most sensible normalization in demand settings is to allow for an \alert{outside option} which produces no utility in expectation.
 \begin{eqnarray*}
-s_{ij} = \frac{\exp[\mathbf{x_i}\beta_j ]}{1+\sum_k \exp[\mathbf{x_i} \beta_k ]} 
+s_{ij} = \frac{\exp[\symbf{x_i}\beta_j ]}{1+\sum_k \exp[\symbf{x_i} \beta_k ]} 
 \end{eqnarray*}
 \begin{itemize}
 \item Hopefully the choice of outside option is well defined: not buying a yogurt, buying some other used car, etc.
@@ -362,9 +364,9 @@ Cross elasticity doesn't really depend on $j$.
 \frametitle{Multinomial Logit: Estimation with Individual Data}
 Estimation is straightforward via Maximum Likelihood (MLE):
 \begin{eqnarray*}
-L(\mathbf{y} | \mathbf{x}, \theta) &=& \prod_{i=1}^N  \underbrace{\frac{n_i!}{\prod_{j=1}^J y_{ij}!}}_{C(\mathbf{y})} \prod_{j=1}^J  s_{ij}(x_{ij},\theta)^{y_{ij}} \\
-ll(\mathbf{y} | \mathbf{x}, \theta) &=& \sum_{i=1}^N \log(C(\mathbf{y}))   + \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( s_{ij}(x_{ij},\theta)) \\
-l(\mathbf{y} | \mathbf{x}, \theta) &\approx& \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( s_{ij}(x_{ij},\theta))
+L(\symbf{y} | \symbf{x}, \theta) &=& \prod_{i=1}^N  \underbrace{\frac{n_i!}{\prod_{j=1}^J y_{ij}!}}_{C(\symbf{y})} \prod_{j=1}^J  s_{ij}(x_{ij},\theta)^{y_{ij}} \\
+ll(\symbf{y} | \symbf{x}, \theta) &=& \sum_{i=1}^N \log(C(\symbf{y}))   + \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( s_{ij}(x_{ij},\theta)) \\
+l(\symbf{y} | \symbf{x}, \theta) &\approx& \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( s_{ij}(x_{ij},\theta))
 \end{eqnarray*}
 \begin{itemize}
 \item We can ignore the combinatorial term (with the factorials) since it does not affect the location of the maximum (it is additive and doesn't depend on $\theta$).
@@ -377,10 +379,10 @@ To be more specific:
 \begin{itemize}
 \item Let's look a little more closely at what's going on:
 \begin{eqnarray*}
-\sum_{i=1}^N \sum_{j=1}^J  y_{ij} \left[ x_{ij} \beta - \underbrace{\log \left(\sum_{k=1}^K x_{ik} \beta  \right)}_{IV_i(\mathbf{x_i},\theta)} \right]
+\sum_{i=1}^N \sum_{j=1}^J  y_{ij} \left[ x_{ij} \beta - \underbrace{\log \left(\sum_{k=1}^K x_{ik} \beta  \right)}_{IV_i(\symbf{x_i},\theta)} \right]
 \end{eqnarray*}
 \item We call the term on the right the \alert{logit inclusive value}. It does not depend on $k$ but might vary across choice situations/individuals $i$.
-\item The point of the inclusive value is to guarantee that $\sum_{k=1} s_{ik}(\mathbf{x_i},\theta) = 1$.
+\item The point of the inclusive value is to guarantee that $\sum_{k=1} s_{ik}(\symbf{x_i},\theta) = 1$.
 \item If we somehow observed $IV_i(\theta)$ we could just do linear regression (in fact we could do this separately for each $K$).
 \end{itemize}
 \end{frame}
@@ -393,7 +395,7 @@ Estimation is just like before
 \item  Suppose that all consumers had the same $x_{ij} = x_{j}$ (Choices depended only on products not on income, education, etc.)
 \item We can construct $y_{j}^* = \sum_{i=1}^N y_{ij}$.
 \begin{eqnarray*}
-l(\mathbf{y} | \mathbf{x}, \theta) &\approx& \sum_{j=1}^J  y_{j}^{*} \log( s_{j}(\mathbf{x},\theta))
+l(\symbf{y} | \symbf{x}, \theta) &\approx& \sum_{j=1}^J  y_{j}^{*} \log( s_{j}(\symbf{x},\theta))
 \end{eqnarray*}
 \item When each consumer $i$ faces the same choice environment, we can aggregate data into \alert{sufficient statistics}.
 \end{itemize}
@@ -406,9 +408,9 @@ l(\mathbf{y} | \mathbf{x}, \theta) &\approx& \sum_{j=1}^J  y_{j}^{*} \log( s_{j}
 \begin{itemize}
 \item Instead of individual data, or a single group we might have multiple groups: if prices only change once per week, we can aggregate all of the week's sales into one ``observation''.
 \item Likewise if we only observe that an individual is within one of five income buckets -- there is no loss from aggregating our data into these five buckets.
-\item All of this depends on the precise form of $ s_{j}(\mathbf{x_i},\theta)$. When it doesn't change across observations: we can aggregate.
+\item All of this depends on the precise form of $ s_{j}(\symbf{x_i},\theta)$. When it doesn't change across observations: we can aggregate.
 \item It functions as if we have a representative consumer up to $\varepsilon_{i}$.
-\item We can use this idea to go from individual level to market demand: $q_j(\mathbf{x_i}) = N_i s_{ij}(\theta)$.
+\item We can use this idea to go from individual level to market demand: $q_j(\symbf{x_i}) = N_i s_{ij}(\theta)$.
 \end{itemize}
 \end{frame}
 
@@ -416,7 +418,7 @@ l(\mathbf{y} | \mathbf{x}, \theta) &\approx& \sum_{j=1}^J  y_{j}^{*} \log( s_{j}
 \frametitle{Multinomial Logit: Elasticity}
 An important output from a demand system are elasticities
 \begin{itemize}
-\item An important element in $\mathbf{x_i}$ are prices $[p_{1},\ldots,p_J]$
+\item An important element in $\symbf{x_i}$ are prices $[p_{1},\ldots,p_J]$
 \item Helpful to write $u_{ij} = x_j \beta -\alpha p_j$ (assumes aggregation!).
 \begin{eqnarray*}
 \frac{\partial q_j}{\partial p_k} =-N \cdot \alpha \left(I[j = k] s_j -\sum_{k=1}^K s_j s_k \right)
@@ -778,7 +780,7 @@ How do we actually estimate these models?
 %\frametitle{Mixed Logit}
 % \begin{itemize}
 %\item Now the choice of $\mu_{ij}$ is crucial.  
-%\item A popular choice is \alert{random coefficients logit}: $\beta_i = \overline{\beta} +  \Sigma \nu_i * \mathbf{x_j}$ where $\nu_i$ is a vector of standard normal draws and $\Sigma$ are covariance parameters so that $\beta_i \sim N(\overline{\beta},\Sigma)$.
+%\item A popular choice is \alert{random coefficients logit}: $\beta_i = \overline{\beta} +  \Sigma \nu_i * \symbf{x_j}$ where $\nu_i$ is a vector of standard normal draws and $\Sigma$ are covariance parameters so that $\beta_i \sim N(\overline{\beta},\Sigma)$.
 %\item We have to estimate $(\overline{\beta},\Sigma)$.
 %\item People are often lazy and let $\Sigma$ be a diagonal matrix to reduce the \# of parameters.
 % \end{itemize}
@@ -853,11 +855,11 @@ s_{ij} &=& \int \frac{\exp[x_{j} \beta_i  ]}{1+\sum_k \exp[x_{k} \beta_i  ]} f(\
 \frame{\frametitle{Convexity}
 \begin{block}{An optimization problem is convex if}
 \begin{eqnarray*}
-\min_{x} f(\mathbf{x}) &s.t.& h(\mathbf{x}) \leq 0 \quad A \mathbf{x} = 0
+\min_{x} f(\symbf{x}) &s.t.& h(\symbf{x}) \leq 0 \quad A \symbf{x} = 0
 \end{eqnarray*}
 \vskip -2ex
 \begin{itemize}
-\item $f(\mathbf{x}),h(\mathbf{x)}$ are convex (PSD second derivative matrix)
+\item $f(\symbf{x}),h(\symbf{x)}$ are convex (PSD second derivative matrix)
 \item Equality Constraint is affine
 \end{itemize}
 \end{block}

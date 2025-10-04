@@ -309,7 +309,7 @@ allowing for:
 \begin{itemize}
 \item Utility of individual $i$ for any alternative $j$ $\in$ $\{0,1\}$ is  
 \begin{align*}
-U_{j}=\beta\mathcal{E}[X_{j}|\mathcal{J}]+\nu_{j}=\beta X^{*}_{j} + \nu_{j}.
+U_{j}=\beta\mathcal{E}[X_{j}|\calJ]+\nu_{j}=\beta X^{*}_{j} + \nu_{j}.
 \end{align*}
 
 \item Decision, $d_{j}$, for any $j$:  
@@ -339,7 +339,7 @@ parameter we want to identify and estimate. We assume this index function is
 
 \item Expectational error, $\varepsilon_{j}$:  
 \begin{align*}
-\beta(X_{j} - \mathcal{E}[X_{j}|\mathcal{J}] )= \varepsilon_{j}
+\beta(X_{j} - \mathcal{E}[X_{j}|\calJ] )= \varepsilon_{j}
 \end{align*}
 
 \item Rewrite the payoff function:  
@@ -373,7 +373,7 @@ U_{j} = \beta X_{j}+\nu_{j}-\varepsilon_{j}.
 \item Rational expectations $\Longrightarrow$ Errors-in-variables
 assumption. 
 
-\item For any $Z\in\mathcal{J}$, $\mathbbm{E}[\varepsilon_{j}|Z]=0$ $%
+\item For any $Z\in\calJ$, $\mathbbm{E}[\varepsilon_{j}|Z]=0$ $%
 \Longrightarrow$ any $Z$ in the information set is a valid IV. 
 \end{itemize}
 \end{itemize}
@@ -490,7 +490,7 @@ under probit)
 \item does not require full independence between expectational error and
 vector of $\nu_{j}$
 
-\item under rational expectations, need $\Delta Z_{j}$ to be in $\mathcal{J}$
+\item under rational expectations, need $\Delta Z_{j}$ to be in $\calJ$
 \end{itemize}
 \end{frame}
 
@@ -660,10 +660,10 @@ Z_{2j}<0\}.
 \frametitle{Assuming an Information Set}
 
 \begin{itemize}
-	\item The researcher rarely observes $\mathcal{J}_{ij}$.
-	\item Standard assumption - $\mathcal{J}_{ij}$ is a set of variables observed by the researcher:
+	\item The researcher rarely observes $\calJ_{ij}$.
+	\item Standard assumption - $\calJ_{ij}$ is a set of variables observed by the researcher:
 	\begin{align*}
-	\mathcal{J}_{ij}=Z_{ij}.
+	\calJ_{ij}=Z_{ij}.
 	\end{align*}
 	\item Then, the export probability conditional on $Z_{j}$ is:
 	\begin{align*}
@@ -679,7 +679,7 @@ Z_{2j}<0\}.
 \begin{itemize}
 	\item If firms' true information sets differ from observed vector of covariates and
 	\begin{align*}
-	\mathbbm{E}[r_{ij}|Z_{ij}]=\mathbbm{E}[r_{ij}|\mathcal{J}_{ij}]+\xi_{ij},\qquad\xi_{ij}\neq0,
+	\mathbbm{E}[r_{ij}|Z_{ij}]=\mathbbm{E}[r_{ij}|\calJ_{ij}]+\xi_{ij},\qquad\xi_{ij}\neq0,
 	\end{align*}
 	then the true export probability conditional on $Z_{j}$ is 
 \end{itemize}	
@@ -692,7 +692,7 @@ Z_{2j}<0\}.
 	\begin{align*}
 	f(k\xi+\nu|Z_{j})=\phi(\nu).
 	\end{align*}
-	\item This equality holds if and only if $\mathbbm{E}[r_{ij}|Z_{ij}]=\mathbbm{E}[r_{ij}|\mathcal{J}_{ij}]$.
+	\item This equality holds if and only if $\mathbbm{E}[r_{ij}|Z_{ij}]=\mathbbm{E}[r_{ij}|\calJ_{ij}]$.
 \end{itemize}
 \end{frame}
 %-------------------------------------------------------------------------------
@@ -701,7 +701,7 @@ Z_{2j}<0\}.
 \frametitle{Information Set: Options}
 Export probability:
 	\begin{align*}
-	\mathcal{P}_{ij}=\mathcal{P}(d_{ij}=1|\mathcal{J}_{ij})=\Phi\big(\sigma_{\nu}^{-1}\big(\eta^{-1}\mathbbm{E}[r_{ij}|\mathcal{J}_{ij}]-\beta_{0}-\beta_{1}dist_{j}\big)\big).
+	\mathcal{P}_{ij}=\mathcal{P}(d_{ij}=1|\calJ_{ij})=\Phi\big(\sigma_{\nu}^{-1}\big(\eta^{-1}\mathbbm{E}[r_{ij}|\calJ_{ij}]-\beta_{0}-\beta_{1}dist_{j}\big)\big).
 	\end{align*}
 (1) Perfect foresight
 \begin{itemize}
@@ -752,7 +752,7 @@ Export probability:
 		\item odds-based moment inequalities
 		\item generalized revealed-preference moment inequalities
 	\end{itemize}
-	\item We show how to perform counterfactuals and to test $H_{0}: Z_{ij}\in\mathcal{J}_{ij}$.
+	\item We show how to perform counterfactuals and to test $H_{0}: Z_{ij}\in\calJ_{ij}$.
 \end{itemize}
 \end{frame}
 
@@ -761,7 +761,7 @@ Export probability:
 \frametitle{Odds-Based Inequalities}
 
 \begin{itemize}
-	\item If $Z_{ij}\subset\mathcal{J}_{ij}$, then
+	\item If $Z_{ij}\subset\calJ_{ij}$, then
 	\begin{align*}
 	\mathcal{M}(Z_{ij};(\beta_{0},\beta_{1},\sigma_{\nu}))=\mathbbm{E}
 	\left[
@@ -785,7 +785,7 @@ Export probability:
 \frametitle{Generalized Revealed-Preference Inequalities}
 
 \begin{itemize}
-	\item If $Z_{ij}\subset\mathcal{J}_{ij}$, then
+	\item If $Z_{ij}\subset\calJ_{ij}$, then
 	\footnotesize
 	\begin{align*}
 	\mathcal{M}^{r}(Z_{ij};(\beta_{0},\beta_{1},\sigma_{\nu}))=\mathbbm{E}
@@ -837,7 +837,7 @@ Export probability:
 \end{frame}
 %-------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Empirical Application: $(r_{iht-1},R_{jt-1},dist_{j})\in\mathcal{J}_{ijt}$}
+\frametitle{Empirical Application: $(r_{iht-1},R_{jt-1},dist_{j})\in\calJ_{ijt}$}
 
 \begin{figure}[h]
 \centering\includegraphics[width=1\linewidth]{parm_est_all.pdf}

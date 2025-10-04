@@ -71,7 +71,7 @@ We can break up the parameter space into three parts:
  \item $\theta_2 = [\alpha, \widetilde{\theta}_2]$
 \end{itemize}
  \item $\theta_3$: linear exogenous supply parameters with dimension $K_3$
- \item $N = \sum_{t} \dim(\mathcal{J}_t)$ observations.
+ \item $N = \sum_{t} \dim(\calJ_t)$ observations.
 \end{itemize}
 \end{frame}
 
@@ -83,15 +83,15 @@ We can break up the parameter space into three parts:
 Consider the multi-product Bertrand FOCs:
 \begin{align*}
 \begin{array}{c}
-\max _{p_{j t}: j \in \mathcal{J}_{f t}} \sum_{j \in \mathcal{J}_{f t}} s_{j t}\left(\boldsymbol{p}_{t}\right) \cdot\left(p_{j t}-c_{j t}\right) \\
-s_{j t}\left(\boldsymbol{p}_{t}\right)+\sum_{k \in \mathcal{J}_{f t}} \frac{\partial s_{k t}}{\partial p_{j t}}\left(\boldsymbol{p}_{t}\right) \cdot\left(p_{k t}-c_{k t}\right)=0
+\max _{p_{j t}: j \in \calJ_{f t}} \sum_{j \in \calJ_{f t}} s_{j t}\left(\symbf{p}_{t}\right) \cdot\left(p_{j t}-c_{j t}\right) \\
+s_{j t}\left(\symbf{p}_{t}\right)+\sum_{k \in \calJ_{f t}} \frac{\partial s_{k t}}{\partial p_{j t}}\left(\symbf{p}_{t}\right) \cdot\left(p_{k t}-c_{k t}\right)=0
 \end{array}
 \end{align*}
 It is helpful to define the \alert{multiproduct oligopoly ownership matrix} $\mathcal{H}_t$ as having $1$'s if $(j,k)$ have the same owner, and $0$'s otherwise. We can re-write the FOC in matrix form where $\odot$ denotes Hadamard product:
 \begin{align*}
-\Delta_{t}\left(\boldsymbol{p}_{t}\right) &\equiv-\mathcal{H}_{t} \odot \frac{\partial \boldsymbol{s}_{t}}{\partial \boldsymbol{p}_{t}}\left(\boldsymbol{p}_{t}\right)\\
-s_{t}\left(\boldsymbol{p}_{t}\right) &=\Delta_{t}\left(\boldsymbol{p}_{t}\right) \cdot\left(\boldsymbol{p}_{t}-\boldsymbol{c}_{t}\right) \\
-\underbrace{\Delta_{t}\left(\boldsymbol{p}_{t}\right)^{-1} \boldsymbol{s}_{t}\left(\boldsymbol{p}_{t}\right)}_{\eta_{t}\left(\boldsymbol{p}_{t}, \boldsymbol{s}_{t}, \theta_{2}\right)} &=\boldsymbol{p}_{t}-\boldsymbol{c}_{t}
+\Delta_{t}\left(\symbf{p}_{t}\right) &\equiv-\mathcal{H}_{t} \odot \frac{\partial \symbf{s}_{t}}{\partial \symbf{p}_{t}}\left(\symbf{p}_{t}\right)\\
+s_{t}\left(\symbf{p}_{t}\right) &=\Delta_{t}\left(\symbf{p}_{t}\right) \cdot\left(\symbf{p}_{t}-\symbf{c}_{t}\right) \\
+\underbrace{\Delta_{t}\left(\symbf{p}_{t}\right)^{-1} \symbf{s}_{t}\left(\symbf{p}_{t}\right)}_{\eta_{t}\left(\symbf{p}_{t}, \symbf{s}_{t}, \theta_{2}\right)} &=\symbf{p}_{t}-\symbf{c}_{t}
 \end{align*}
 \end{frame}
 
@@ -100,12 +100,12 @@ s_{t}\left(\boldsymbol{p}_{t}\right) &=\Delta_{t}\left(\boldsymbol{p}_{t}\right)
 \begin{frame}{Recovering Marginal Costs }
 Recover implied markups/ marginal costs, and assume a functional form for $mc_{jt}(x_{jt},w_{jt})$. (Again for a single market $t$).
 \begin{align*}
-\widehat{\mathbf{mc_t}}(\theta_2)&= \mathbf{p_t}- \boldsymbol{\eta_t}(\mathbf{p_t},\mathbf{s_t},\theta_2)\\
+\widehat{\symbf{mc_t}}(\theta_2)&= \symbf{p_t}- \symbf{\eta_t}(\symbf{p_t},\symbf{s_t},\theta_2)\\
 f(mc_{jt}) &= h_s(x_{jt} , w_{jt},\theta_3)+ \omega_{jt}
 \end{align*}
 Which we can solve for $\omega_{jt}$:
 \begin{align*}
-\omega_{jt} &=  f^{-1}(\mathbf{p_t}- \boldsymbol{\eta_t}(\mathbf{p},\mathbf{s},\theta_2)) - h_s(x_{jt},w_{jt},\theta_3)
+\omega_{jt} &=  f^{-1}(\symbf{p_t}- \symbf{\eta_t}(\symbf{p},\symbf{s},\theta_2)) - h_s(x_{jt},w_{jt},\theta_3)
 \end{align*}
 \vspace{-0.4cm}
 \begin{itemize}
@@ -146,9 +146,9 @@ Note: we cannot perform independent regressions unless we are willing to assume 
 \begin{frame}{Simultaneous Supply and Demand (Conlon Gortmaker RJE 2020)}
 \tiny
 \begin{enumerate}[(a)]
-\item For each market $t$: solve $\mathcal{S}_{jt} = s_{jt}(\delta_{\cdot t},\theta_2)$ for $\widehat{\delta}_{\cdot t}(\theta_2)$.
+\item For each market $t$: solve $\calS_{jt} = s_{jt}(\delta_{\cdot t},\theta_2)$ for $\widehat{\delta}_{\cdot t}(\theta_2)$.
 \item For each market $t$: use $\widehat{\delta}_{\cdot t}(\theta_2)$ to construct $\eta_{\cdot 
-t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
+t}(\symbf{q_t},\symbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 \item For each market $t$: Recover $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2) = p_{jt} - \eta_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 \item Stack up $\widehat{\delta}_{\cdot t}(\theta_2)$ and $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$ and use linear IV-GMM to recover $[\widehat{\theta}_1(\theta_2), \widehat{\theta}_3(\theta_2) ]$ following the recipe on previous slide
 \item Construct the residuals:
@@ -195,12 +195,12 @@ t}(\mathbf{q_t},\mathbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 %\item Where do instruments come from? Something omitted that appears in another equation.
 %\end{itemize}
 %\begin{eqnarray*}
-%p_{jt}  &=& c_{jt}(w_{jt},x_{jt}) +  \frac{s_{jt}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|}  +\sum_{k \in \mathcal{J}_f} (p_k - c_k) \frac{\frac{ \partial s_{kt}}{\partial p_{jt}}(\mathbf{p_t})}{\left|\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}\right|}  
+%p_{jt}  &=& c_{jt}(w_{jt},x_{jt}) +  \frac{s_{jt}(\symbf{p_t})}{\left|\frac{\partial s_{jt}(\symbf{p_t})}{\partial p_{jt}}\right|}  +\sum_{k \in \calJ_f} (p_k - c_k) \frac{\frac{ \partial s_{kt}}{\partial p_{jt}}(\symbf{p_t})}{\left|\frac{\partial s_{jt}(\symbf{p_t})}{\partial p_{jt}}\right|}  
 %\end{eqnarray*}
 %\begin{enumerate}
 %\item Exogenous regressors $x_{jt}$.
 %\item Cost shifters: $w_{jt}$ (hard to find in practice), Hausman instruments.
-%\item Markup shifters:  $ \frac{s_{jt}(\mathbf{p_t})}{\frac{\partial s_{jt}(\mathbf{p_t})}{\partial p_{jt}}}$ \\(function of $(p_j,x_j,\xi_j, p_{-j},x_{-j},\xi_{-j})$).
+%\item Markup shifters:  $ \frac{s_{jt}(\symbf{p_t})}{\frac{\partial s_{jt}(\symbf{p_t})}{\partial p_{jt}}}$ \\(function of $(p_j,x_j,\xi_j, p_{-j},x_{-j},\xi_{-j})$).
 %\end{enumerate}
 %\end{frame}
 %

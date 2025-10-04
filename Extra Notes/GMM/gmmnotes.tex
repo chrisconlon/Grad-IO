@@ -88,7 +88,7 @@ The global identification condition is difficult to understand, for the linear m
 \end{eqnarray*}
 For the linear IV problem this becomes:
 \begin{eqnarray*}
-g_N(\theta)' W_N  g_N(\theta) &=& \frac{1}{N^2} \cdot (\mathbf{Z}' (\mathbf{Y} - \mathbf{X} \beta))' W_N (\mathbf{Z}' (\mathbf{Y} - \mathbf{X} \beta)) \\
+g_N(\theta)' W_N  g_N(\theta) &=& \frac{1}{N^2} \cdot (\symbf{Z}' (\symbf{Y} - \symbf{X} \beta))' W_N (\symbf{Z}' (\symbf{Y} - \symbf{X} \beta)) \\
 &=& \frac{1}{N^2}\cdot [Y'Z W_N Z' Y - 2 \beta X' Z W_N Z' Y + \beta' X' Z W_N Z' X \beta]
 \end{eqnarray*}
 We can ignore the $\frac{1}{N^2}$ and take the first-order condition:
@@ -98,9 +98,9 @@ We can ignore the $\frac{1}{N^2}$ and take the first-order condition:
 \end{eqnarray*}
 
 \noindent \textit{OLS Estimator}\\
-Suppose that we do not have any excluded instruments so that $Z=X$ (and thus $q=k$). Also suppose that $W_N = \mathbf{I}_q$ (the identity matrix). Then we can see that:
+Suppose that we do not have any excluded instruments so that $Z=X$ (and thus $q=k$). Also suppose that $W_N = \symbf{I}_q$ (the identity matrix). Then we can see that:
 \begin{eqnarray*}
-\hat{\beta}_{GMM} &=& (X'X \mathbf{I}_q X' X)^{-1} X' X \mathbf{I}_q X'Y\\
+\hat{\beta}_{GMM} &=& (X'X \symbf{I}_q X' X)^{-1} X' X \symbf{I}_q X'Y\\
  &=& (X'X X' X)^{-1} X' X X'Y\\
  &=& (X'X)^{-1} (X' X)^{-1} (X' X) X'Y =  (X'X)^{-1} X'Y = \hat{\beta}_{OLS}
 \end{eqnarray*}
@@ -119,7 +119,7 @@ If $dim(Z) = q = dim(X) = k$ then $(X'Z)$ is square (and invertible). This expre
 
 
 \section*{\normalsize  Optimal Weighting Matrix}
-An important question remains how one should choose the weighting matrix $W_N$. We've already seen two options: (1) The identity matrix $\mathbf{I}_q$ equally penalizes violations of all $q$ moments; and (2) the TSLS weighting matrix $(Z'Z)^{-1}$ which can be thought about as the inverse of the covariance of the instruments. 
+An important question remains how one should choose the weighting matrix $W_N$. We've already seen two options: (1) The identity matrix $\symbf{I}_q$ equally penalizes violations of all $q$ moments; and (2) the TSLS weighting matrix $(Z'Z)^{-1}$ which can be thought about as the inverse of the covariance of the instruments. 
 
 
 We are interested in \textit{efficient GMM} which is the GMM estimator with the lowest variance. In order to find the $W_N$ which minimizes the variance of $\hat{\theta}_{GMM}$ we recall the asymptotic variance of the GMM estimator:
@@ -140,7 +140,7 @@ Because $E[g(w_i,\theta_0)]=0$ at $\theta_0$ there is a tendency to use $\left(\
 
 \noindent The overall procedure works as follows:
 \begin{enumerate}
-\item Pick some initial weighting matrix $W_0$: often $\mathbf{I}_q$ or $(Z'Z)^{-1}$.
+\item Pick some initial weighting matrix $W_0$: often $\symbf{I}_q$ or $(Z'Z)^{-1}$.
 \item Solve $\hat{\theta} = \arg \min_{\theta} g_N(\theta)' W_0  g_N(\theta)$.
 \item Update $\hat{W} = \left(\frac{1}{N} \sum_{i=1}^N (g(w_i,\hat{\theta}) - g_N(\hat{\theta}))  \, (g(w_i,\hat{\theta}) - g_N(\hat{\theta}))'\right)^{-1}$
 \item Solve $\hat{\theta}_{GMM} = \arg \min_{\theta}\, g_N(\theta)' \, \hat{W} \, g_N(\theta)$.

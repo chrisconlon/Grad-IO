@@ -164,8 +164,8 @@ choice econometrics). \\
 \begin{frame}{Four Conditions Required for Discrete Games}
 \begin{itemize}
 \item Let $\pi(\cdot)$ be the payoffs, 
-\item $d_i$ and $\mathbf{d_{-i}}$ be the agent's and its competitors' choices
-\item $\mathbf{y_i}$ be any variable (other than the decision variables) that affects the agent's payoffs
+\item $d_i$ and $\symbf{d_{-i}}$ be the agent's and its competitors' choices
+\item $\symbf{y_i}$ be any variable (other than the decision variables) that affects the agent's payoffs
 \item $D_i$ be the choice set, and $\Omega_i$ be the agent's information set.  
 \item \large{$\varepsilon[ \cdot | \Omega_i]$} \normalsize is the agent's expectation conditional on the information set $\Omega_i$.
 \end{itemize}
@@ -175,7 +175,7 @@ choice econometrics). \\
 
 \begin{frame}{Nash Condition (C1)}
 \begin{equation*}
-\sup_{d\in D_{i},d\neq d_{i}}\varepsilon\left[ \pi (d,\mathbf{d}_{-i},\mathbf{y}_{i},\theta _{0})|\Omega_i \right] \leq \varepsilon\left[ \pi (d_{i},\mathbf{d}_{-i},\mathbf{y}_{i},\theta _{0})| \Omega_i \right] 
+\sup_{d\in D_{i},d\neq d_{i}}\varepsilon\left[ \pi (d,\symbf{d}_{-i},\symbf{y}_{i},\theta _{0})|\Omega_i \right] \leq \varepsilon\left[ \pi (d_{i},\symbf{d}_{-i},\symbf{y}_{i},\theta _{0})| \Omega_i \right] 
 \end{equation*}
 where $D_{i}\subset D$, for $i=1,...,n$.
 \begin{itemize}
@@ -187,8 +187,8 @@ traveled conditional on car choice).
 \item C1 is a necessary condition for a Nash equilibrium, and is meant to be a rationality assumption (i.e., the agent's choice is optimal wrt his beliefs).  However, it does not imply uniqueness, and equilibrium selection can differ across observations.
 \item To check the Nash Condition, we need an approximation to what profits \textit{%
 would have been} had the agent made a choice which in fact he did not make.
-This requires a model of how the agent thinks that $\mathbf{d}_{-i}$ and $%
-\mathbf{y}_{i}$ are likely to change in response to a change in the agent's
+This requires a model of how the agent thinks that $\symbf{d}_{-i}$ and $%
+\symbf{y}_{i}$ are likely to change in response to a change in the agent's
 decision. 
 \end{itemize}
 \end{frame}
@@ -196,26 +196,26 @@ decision.
 
 \begin{frame}{Counterfactual Condition (C2)}
 \footnotesize
-The model for how the agent thinks $(\mathbf{y_i, d_{-i}})$ are likely to
+The model for how the agent thinks $(\symbf{y_i, d_{-i}})$ are likely to
 respond to changes in $d_i$ may depend on other variables, say $z_i$, but we require $z_i$ to be exogenous (i.e., the agent believes $z_i$ will not change if the agent changes its own
 decision). \\ \vspace{0.2in}
 \noindent Condition C2 formalizes this assumption.
 \begin{equation*}
-\mathbf{d}_{-i}=d^{-i}(\mathbf{d}_{i},\mathbf{z}_{i}),\text{ \ }\mathbf{y}%
-_{i}=y(\mathbf{z}_{i},\mathbf{d}_{i},\mathbf{d}_{-i}),\text{ }and
+\symbf{d}_{-i}=d^{-i}(\symbf{d}_{i},\symbf{z}_{i}),\text{ \ }\symbf{y}%
+_{i}=y(\symbf{z}_{i},\symbf{d}_{i},\symbf{d}_{-i}),\text{ }and
 \end{equation*}
-the distribution of $\mathbf{z}_{i}$ conditional on $\mathit{I}_{i}$ does
+the distribution of $\symbf{z}_{i}$ conditional on $\mathit{I}_{i}$ does
 not depend on $d_{i}$.
 \begin{itemize}
-%\item The assumption that the distribution of $\mathbf{z}_{i}$ conditional
-%on $\mathit{I}_{i}$ does not depend on $d_{i}$ is what we mean by $\mathbf{z}%
+%\item The assumption that the distribution of $\symbf{z}_{i}$ conditional
+%on $\mathit{I}_{i}$ does not depend on $d_{i}$ is what we mean by $\symbf{z}%
 %_{i}$ being an exogenous random variable.
-\item If we have simultaneous moves then $d^{-i}(d',\mathbf{z_i}) = \mathbf{d}_{-i}$ (i.e., there is no need for an explicit model of reactions by competitors, and Condition C2 is satisfied.)
+\item If we have simultaneous moves then $d^{-i}(d',\symbf{z_i}) = \symbf{d}_{-i}$ (i.e., there is no need for an explicit model of reactions by competitors, and Condition C2 is satisfied.)
 \item If there are sequential decisions and we want to use the decision of the first player in the analysis,
 then we have to specify a model for what the first player
 thinks the second player would do were the first player to
 change his decision.
-\item If there is a $\mathbf{y}$ which is ``endogenous" - i.e. its distribution depends on $d_{i}$ - then we
+\item If there is a $\symbf{y}$ which is ``endogenous" - i.e. its distribution depends on $d_{i}$ - then we
 need a model of that dependence.
 \end{itemize}
 \end{frame}
@@ -229,8 +229,8 @@ If $d^{\prime }\in D_{i}$ and
 \end{equation*}
 then%
 \begin{equation*}
-\mathit{\varepsilon }\left[ \Delta \pi (d_{i},d^{\prime },\mathbf{d}_{-i},%
-\mathbf{z}_{i})| \Omega_i \right] \geq 0.
+\mathit{\varepsilon }\left[ \Delta \pi (d_{i},d^{\prime },\symbf{d}_{-i},%
+\symbf{z}_{i})| \Omega_i \right] \geq 0.
 \end{equation*}
 To use this inequality directly as a basis for an estimation algorithm, we need the
 relationships between:
@@ -349,8 +349,8 @@ Each of these models are Full Information models except Seim; she introduces Asy
 \begin{frame}{Expectational Condition (FC3)}
 
 \begin{equation*}
-\pi (d,d_{-i},z_{i},\theta _{0})=\varepsilon \left[ \pi (d,\mathbf{d}%
-_{-i},\mathbf{z}_{i},\theta _{0})| \Omega_i \right] \text{ \hspace{0.1in}} \forall  \text{ \hspace{0.1in}} d\in D_{i}
+\pi (d,d_{-i},z_{i},\theta _{0})=\varepsilon \left[ \pi (d,\symbf{d}%
+_{-i},\symbf{z}_{i},\theta _{0})| \Omega_i \right] \text{ \hspace{0.1in}} \forall  \text{ \hspace{0.1in}} d\in D_{i}
 \end{equation*}
 \begin{itemize}
 \item FC3 implies that the model does not allow for any expectational error. That
@@ -1068,7 +1068,7 @@ _{0})=r^{I}(d,d_{-i},z_{i}^{o},\theta _{0})-\pi (d,d_{-i},z_{i}).
 Then by definition:%
 \begin{equation*}
 r^{I}(d,d_{-i},z_{i}^{o},\theta _{0})=\mathit{\varepsilon }\left[ \pi (d_{i},%
-\mathbf{d}_{-i},\mathbf{z}_{i})|\mathit{I}_{i}\right] +\upsilon
+\symbf{d}_{-i},\symbf{z}_{i})|\mathit{I}_{i}\right] +\upsilon
 _{2,i,d}^{I}+\upsilon _{1,i,d}^{I},
 \end{equation*}
 
@@ -1129,9 +1129,9 @@ and
 
 The expectational error is caused by:
 \begin{enumerate}[i]
-\item uncertainty in $\mathbf{z}_{i}$,
+\item uncertainty in $\symbf{z}_{i}$,
 and/or 
-\item asymmetric information which is uncertainty in $\mathbf{d}_{-i}$%. 
+\item asymmetric information which is uncertainty in $\symbf{d}_{-i}$%. 
 \end{enumerate}
 \vspace{0.1in}
 
@@ -1288,16 +1288,16 @@ E\left[ \frac{1}{N}\sum_{i}\left[ \Delta \pi (d_{i},d^{\prime
 \begin{itemize}
 \item Standard condition - each agent knows:
 \begin{enumerate}[i]
-\item the other agents' strategies ($\mathbf{d}_{-i}(\mathit{I}_{-i})$), and 
+\item the other agents' strategies ($\symbf{d}_{-i}(\mathit{I}_{-i})$), and 
 \item the joint distribution of other agents' information sets and the primitive sources of
-uncertainty (of $(\mathit{I}_{-i},\mathbf{z}_{-i})$) conditional on $\mathit{%
+uncertainty (of $(\mathit{I}_{-i},\symbf{z}_{-i})$) conditional on $\mathit{%
 I}_{i}$, and regularity conditions.
 \end{enumerate}
 \vspace{0.2in}
 \item Weaker condition:\ agents' conditional expectations of the profit
 difference are correct. 
 \begin{itemize} \item This does not require knowledge of other agents'
-strategies, or the distribution of $(\mathbf{d}_{-i},\mathbf{z}_{i})$
+strategies, or the distribution of $(\symbf{d}_{-i},\symbf{z}_{i})$
 conditional on $\mathit{I}_{i}$. 
 \item Agent uncertainty is permitted and
 we do not need to fully specify how the agent forms its expectations.

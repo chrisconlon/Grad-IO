@@ -27,7 +27,7 @@ Most decisions agents make are not necessarily binary:
 We consider a \alert{multinomial discrete choice}:
 \begin{itemize}
 \item in period $t$
-\item with $\mathcal{J}_t$ alternatives.
+\item with $\calJ_t$ alternatives.
 \item subscript individual agents by $i$.
 \item agents choose $j \in J_t$ with probability $s_{ijt}$.
 \item Agent $i$ receives utility $U_{ijt}$ for choosing $j$.
@@ -234,7 +234,7 @@ What is actually identified here?
 \frametitle{Multinomial Logit: Identification}
 As another idea suppose we add a constant $C$ to each $\beta_j$.
 \begin{eqnarray*}
-s_{ij} = \frac{\exp[\mathbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\mathbf{x_i} (\beta_k+C) ]} =  \frac{\exp[\mathbf{x_i} C] \exp[\mathbf{x_i} \beta_j ]}{\exp[\mathbf{x_i} C] \sum_k \exp[\mathbf{x_i} \beta_k ]}
+s_{ij} = \frac{\exp[\symbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\symbf{x_i} (\beta_k+C) ]} =  \frac{\exp[\symbf{x_i} C] \exp[\symbf{x_i} \beta_j ]}{\exp[\symbf{x_i} C] \sum_k \exp[\symbf{x_i} \beta_k ]}
 \end{eqnarray*}
 This has no effect.  That means we need to fix a normalization $C$.\\
  The most convenient is generally that $C = - \beta_K$.
@@ -297,10 +297,10 @@ The well known critique:
 \begin{frame}{IIA Property}
 \begin{itemize}
 \item IIA implies that we can obtain consistent estimates for $\beta$ on any subset of alternatives.
-\item This means instead of using all $\mathcal{J}$ alternatives in the choice set, we could estimate on some subset $\mathcal{S} \subset \mathcal{J}$.
+\item This means instead of using all $\calJ$ alternatives in the choice set, we could estimate on some subset $\calS \subset \calJ$.
 \item This used to be a way to reduce the computational burden of estimation (not clear this is an issue in 21st century).
-\item Sometimes we have \alert{choice based samples} where we oversample people who choose a particular alternative. Manski and Lerman (1977) show we can get consistent estimates for all but the ASC. This requires knowledge of the difference between the true rate $A_j$ and the choice-based sample rate $\mathcal{S}_j$.
-\item Hausman proposes a specification test of the logit model: estimate on the full dataset to get $\hat{\beta}$, construct a smaller subsample $\mathcal{S}^k \subset \mathcal{J}$ and $\hat{\beta^k}$ for one or more subsets $k$. If $|\hat{\beta}^k - \hat{\beta}|$ is small enough.
+\item Sometimes we have \alert{choice based samples} where we oversample people who choose a particular alternative. Manski and Lerman (1977) show we can get consistent estimates for all but the ASC. This requires knowledge of the difference between the true rate $A_j$ and the choice-based sample rate $\calS_j$.
+\item Hausman proposes a specification test of the logit model: estimate on the full dataset to get $\hat{\beta}$, construct a smaller subsample $\calS^k \subset \calJ$ and $\hat{\beta^k}$ for one or more subsets $k$. If $|\hat{\beta}^k - \hat{\beta}|$ is small enough.
 \end{itemize}
 \end{frame}
 
@@ -351,7 +351,7 @@ D_{jk} =\frac{\frac{\partial s_{ik}}{\partial p_{j}}}{\left |\frac{\partial s_{i
 \end{align*}
 \begin{itemize}
 \item Again proportional substitution. As price of $j$ goes up we proportionally inflate choice probabilities of substitutes.
-\item Likewise removing an option $j$ means that $\tilde{s}_{ik}(\mathcal{J} \setminus j) = \frac{s_{ik}}{1-s_{ij}}$ for all other $k$.
+\item Likewise removing an option $j$ means that $\tilde{s}_{ik}(\calJ \setminus j) = \frac{s_{ik}}{1-s_{ij}}$ for all other $k$.
 \item IIA/Logit means \alert{constant diversion ratios}.
 \end{itemize}
 \end{frame}
@@ -375,9 +375,9 @@ D_{jk} =\frac{\frac{\partial s_{ik}}{\partial p_{j}}}{\left |\frac{\partial s_{i
 %\frametitle{Multinomial Logit: Estimation with Individual Data}
 %Estimation is straightforward via Maximum Likelihood (MLE):
 %\begin{eqnarray*}
-%L(\mathbf{y} | \mathbf{x}, \theta) &=& \prod_{i=1}^N  \underbrace{\frac{n_i!}{\prod_{j=1}^J y_{ij}!}}_{C(\mathbf{y})} \prod_{j=1}^J  s_{ij}(x_{ij},\theta)^{y_{ij}} \\
-%ll(\mathbf{y} | \mathbf{x}, \theta) &=& \sum_{i=1}^N \log(C(\mathbf{y}))   + \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( s_{ij}(x_{ij},\theta)) \\
-%l(\mathbf{y} | \mathbf{x}, \theta) &\approx& \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( s_{ij}(x_{ij},\theta))
+%L(\symbf{y} | \symbf{x}, \theta) &=& \prod_{i=1}^N  \underbrace{\frac{n_i!}{\prod_{j=1}^J y_{ij}!}}_{C(\symbf{y})} \prod_{j=1}^J  s_{ij}(x_{ij},\theta)^{y_{ij}} \\
+%ll(\symbf{y} | \symbf{x}, \theta) &=& \sum_{i=1}^N \log(C(\symbf{y}))   + \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( s_{ij}(x_{ij},\theta)) \\
+%l(\symbf{y} | \symbf{x}, \theta) &\approx& \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( s_{ij}(x_{ij},\theta))
 %\end{eqnarray*}
 %\begin{itemize}
 %\item We can ignore the combinatorial term (with the factorials) since it does not affect the location of the maximum (it is additive and doesn't depend on $\theta$).
@@ -390,10 +390,10 @@ D_{jk} =\frac{\frac{\partial s_{ik}}{\partial p_{j}}}{\left |\frac{\partial s_{i
 %\begin{itemize}
 %\item Let's look a little more closely at what's going on:
 %\begin{eqnarray*}
-%\sum_{i=1}^N \sum_{j=1}^J  y_{ij} \left[ x_{ij} \beta - \underbrace{\log \left(\sum_{k=1}^K x_{ik} \beta  \right)}_{IV_i(\mathbf{x_i},\theta)} \right]
+%\sum_{i=1}^N \sum_{j=1}^J  y_{ij} \left[ x_{ij} \beta - \underbrace{\log \left(\sum_{k=1}^K x_{ik} \beta  \right)}_{IV_i(\symbf{x_i},\theta)} \right]
 %\end{eqnarray*}
 %\item We call the term on the right the \alert{logit inclusive value}. It does not depend on $k$ but might vary across choice situations/individuals $i$.
-%\item The point of the inclusive value is to guarantee that $\sum_{k=1} s_{ik}(\mathbf{x_i},\theta) = 1$.
+%\item The point of the inclusive value is to guarantee that $\sum_{k=1} s_{ik}(\symbf{x_i},\theta) = 1$.
 %\item If we somehow observed $IV_i(\theta)$ we could just do linear regression (in fact we could do this separately for each $K$).
 %\end{itemize}
 %\end{frame}
@@ -406,7 +406,7 @@ D_{jk} =\frac{\frac{\partial s_{ik}}{\partial p_{j}}}{\left |\frac{\partial s_{i
 %\item  Suppose that all consumers had the same $x_{ij} = x_{j}$ (Choices depended only on products not on income, education, etc.)
 %\item We can construct $y_{j}^* = \sum_{i=1}^N y_{ij}$.
 %\begin{eqnarray*}
-%l(\mathbf{y} | \mathbf{x}, \theta) &\approx& \sum_{j=1}^J  y_{j}^{*} \log( s_{j}(\mathbf{x},\theta))
+%l(\symbf{y} | \symbf{x}, \theta) &\approx& \sum_{j=1}^J  y_{j}^{*} \log( s_{j}(\symbf{x},\theta))
 %\end{eqnarray*}
 %\item When each consumer $i$ faces the same choice environment, we can aggregate data into \alert{sufficient statistics}.
 %\end{itemize}
@@ -419,9 +419,9 @@ D_{jk} =\frac{\frac{\partial s_{ik}}{\partial p_{j}}}{\left |\frac{\partial s_{i
 %\begin{itemize}
 %\item Instead of individual data, or a single group we might have multiple groups: if prices only change once per week, we can aggregate all of the week's sales into one ``observation''.
 %\item Likewise if we only observe that an individual is within one of five income buckets -- there is no loss from aggregating our data into these five buckets.
-%\item All of this depends on the precise form of $ s_{j}(\mathbf{x_i},\theta)$. When it doesn't change across observations: we can aggregate.
+%\item All of this depends on the precise form of $ s_{j}(\symbf{x_i},\theta)$. When it doesn't change across observations: we can aggregate.
 %\item It functions as if we have a representative consumer up to $\varepsilon_{i}$.
-%\item We can use this idea to go from individual level to market demand: $q_j(\mathbf{x_i}) = N_i s_{ij}(\theta)$.
+%\item We can use this idea to go from individual level to market demand: $q_j(\symbf{x_i}) = N_i s_{ij}(\theta)$.
 %\end{itemize}
 %\end{frame}
 
