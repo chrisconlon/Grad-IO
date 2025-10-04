@@ -1,45 +1,12 @@
-\def\beamerclassoptions{[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]}
-\input{../resources/preamble.tex}
-\usetheme{metropolis}
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage{teaching_slides}
 
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,centernot}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage{stmaryrd}
-\usepackage{pdfpages}
-\usepackage{booktabs}
-\usepackage[absolute,overlay]{textpos} 
-
-
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
-
-\DeclareMathSizes{10}{10}{6}{6} 
-\AtBeginSection[]{
-  \begin{frame}
-  \vfill
-  \centering
-  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
-    \usebeamerfont{title}\insertsectionhead\par%
-  \end{beamercolorbox}
-  \vfill
-  \end{frame}
-}
-\begin{document}
 \title{Antitrust}
 \author{Chris Conlon}
 \institute{Grad IO}
 \date{\today}
 
+\begin{document}
 \frame{\titlepage}
 
 \begin{frame}
