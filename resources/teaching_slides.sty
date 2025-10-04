@@ -1,7 +1,16 @@
 % gradio-preamble.sty
 % Shared package extracted from resources/preamble.tex
 % Provides guarded package loads and common macros for Grad-IO slides
-\ProvidesPackage{gradio-preamble}[2025/10/03 Grad-IO shared preamble]
+\ProvidesPackage{teaching_slides}[2025/10/03 Conlon Teaching Preamble]
+
+% read class options
+% \ifdefined\beamerclassoptions
+%     % Expand \beamerclassoptions (which should be like "[notes=show]") safely
+%     \begingroup\edef\x{\endgroup\noexpand\documentclass\beamerclassoptions{beamer}}\x
+% \else
+%     \documentclass[handout,10pt,aspectratio=169]{beamer}
+% \fi
+
 
 % silence some Metropolis warnings (silence package may not be available at this stage)
 \RequirePackage{silence}
@@ -11,20 +20,28 @@
 
 % define custom colors
 \RequirePackage{xcolor}
-\definecolor{darkgray}{HTML}{444444}
+% \definecolor{darkgray}{HTML}{444444}
 \definecolor{lightgray}{HTML}{777777}
-\definecolor{darkred}{HTML}{BB0000}
+% \definecolor{darkred}{HTML}{BB0000}
 \definecolor{darkgreen}{HTML}{00BB00}
 \definecolor{RoyalBlue}{cmyk}{1, 0.50, 0, 0}
 
+\definecolor{dimwhite}{rgb}{0.99, 0.99, 0.99}
+\definecolor{charcoal}{rgb}{0.21, 0.27, 0.31}
+\definecolor{slategray}{rgb}{0.44, 0.5, 0.56}
+\definecolor{dimgray}{rgb}{0.41, 0.41, 0.41}
+\definecolor{bleudefrance}{rgb}{0.19, 0.55, 0.91}
+
 % configure metropolis (the theme package itself is loaded by the document)
 \usetheme[numbering=fraction]{metropolis}
+\setbeamercolor{author}{fg=charcoal}
 \setbeamercolor{background canvas}{bg=white}
-\setbeamercolor{frametitle}{bg=darkgray}
-\setbeamercolor{alerted text}{fg=darkred}
-\setbeamercolor{item projected}{bg=darkred}
-\setbeamercolor{local structure}{fg=darkred}
-\setbeamersize{text margin left=0.5cm,text margin right=0.5cm}
+\setbeamercolor{section in toc}{fg=charcoal}
+\setbeamercolor{subsection in toc}{fg=dimgray}
+\setbeamercolor{frametitle}{bg=dimwhite, fg=charcoal}
+\setbeamercolor{progress bar}{fg=slategray, bg=fg!50!black!30}
+% \setbeamersize{text margin left=0.5cm,text margin right=0.5cm}
+\setbeamersize{text margin left=7mm,text margin right=7mm} 
 \setbeamercovered{transparent=10}
 
 % use thicker lines
@@ -34,15 +51,14 @@
 \makeatother
 
 % custom bullet points (safe to include multiple times)
-\setbeamertemplate{itemize item}{\color{darkred}$\blacktriangleright$}
-\setbeamertemplate{itemize subitem}{\color{darkred}$\blacktriangleright$}
-\setbeamertemplate{itemize subsubitem}{\color{darkred}$\blacktriangleright$}
-\providecommand{\custombullet}{{\color{darkred}$\blacktriangleright$}\hspace{0.5em}}
+\setbeamertemplate{itemize items}{\scriptsize$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}[circle]
+\setbeamertemplate{itemize subsubitem}[square]
+% \providecommand{\custombullet}{{\color{darkred}$\blacktriangleright$}\hspace{0.5em}}
 
 
 % imports
 \RequirePackage[english]{babel}
-\RequirePackage[utf8]{inputenc}
 \RequirePackage{amsthm}
 \RequirePackage{amssymb}
 \RequirePackage{amsmath}
@@ -55,6 +71,7 @@
 \RequirePackage{xfrac}
 \RequirePackage{appendixnumberbeamer}
 \RequirePackage{tabularx}
+
 
 % Make common graphics paths available so \includegraphics finds images from
 % standard resources locations regardless of nesting depth.
@@ -74,7 +91,7 @@
 \providecommand{\xmark}{{\color{darkred}\ding{55}}\hspace{0.5em}}
 
 
-% use classic font for math (try to load concmath if available)
+% use New PX Fonts (Palatino) for text and math
 \RequirePackage[T1]{fontenc}
 \usefonttheme{serif}
 \usefonttheme{professionalfonts}
@@ -220,14 +237,15 @@
 % canonical math operators (use thinspace in "arg\,max" for nicer spacing)
 \@ifundefined{argmax}{\DeclareMathOperator*{\argmax}{arg\,max}}{}
 \@ifundefined{argmin}{\DeclareMathOperator*{\argmin}{arg\,min}}{}
-\@ifundefined{Pr}{\renewcommand{\Pr}{\mathbb{P}}}{}
-\providecommand{\E}{\mathbb{E}}
-\providecommand{\Var}{\mathbb{V}}
-\providecommand{\Cov}{\mathbb{C}}
+\@ifundefined{Pr}{\renewcommand{\Pr}{\symbb{P}}}{}
+\providecommand{\E}{\symbb{E}}
+\providecommand{\Var}{\symbb{V}}
+\providecommand{\Cov}{\symbb{C}}
 \providecommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 \makeatother
 \providecommand{\abs}[1]{\lvert#1\rvert}
 \providecommand{\norm}[1]{\lVert#1\rVert}
+
 
 % tables
 \RequirePackage{booktabs}
