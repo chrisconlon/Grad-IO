@@ -1,6 +1,4 @@
-% gradio-preamble.sty
-% Shared package extracted from resources/preamble.tex
-% Provides guarded package loads and common macros for Grad-IO slides
+% Provides guarded package loads and common macros for Teaching slides
 \ProvidesPackage{teaching_slides}[2025/10/03 Conlon Teaching Preamble]
 
 % read class options
@@ -40,7 +38,6 @@
 \setbeamercolor{subsection in toc}{fg=dimgray}
 \setbeamercolor{frametitle}{bg=dimwhite, fg=charcoal}
 \setbeamercolor{progress bar}{fg=slategray, bg=fg!50!black!30}
-% \setbeamersize{text margin left=0.5cm,text margin right=0.5cm}
 \setbeamersize{text margin left=7mm,text margin right=7mm} 
 \setbeamercovered{transparent=10}
 
@@ -54,7 +51,6 @@
 \setbeamertemplate{itemize items}{\scriptsize$\blacktriangleright$}
 \setbeamertemplate{itemize subitem}[circle]
 \setbeamertemplate{itemize subsubitem}[square]
-% \providecommand{\custombullet}{{\color{darkred}$\blacktriangleright$}\hspace{0.5em}}
 
 
 % imports
@@ -75,7 +71,7 @@
 
 % Make common graphics paths available so \includegraphics finds images from
 % standard resources locations regardless of nesting depth.
-\graphicspath{{./}{../resources/}{../../resources/}{../../../resources/}}
+\graphicspath{{./}{./resources/}{../resources/}{../../resources/}}
 
 % Hyperref link coloring (safe defaults); files can override further if needed.
 \hypersetup{
