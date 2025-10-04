@@ -1,0 +1,113 @@
+Build started at Sat Oct  4 13:44:39 EDT 2025
+Rc files read:
+  NONE
+Latexmk: Run number 1 of rule 'pdflatex'
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+Latexmk: Getting log file 'demand2.log'
+Latexmk: Using bibtex to make bibliography file(s).
+
+Rc files read:
+  NONE
+Latexmk: Run number 1 of rule 'pdflatex'
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+Latexmk: Getting log file 'representative_consumer.log'
+Latexmk: Using bibtex to make bibliography file(s).
+
+Rc files read:
+  NONE
+Latexmk: Run number 1 of rule 'pdflatex'
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+Latexmk: Getting log file 'bertrand.log'
+Latexmk: Using bibtex to make bibliography file(s).
+
+Rc files read:
+  NONE
+Latexmk: Run number 1 of rule 'pdflatex'
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+Latexmk: Getting log file 'part1b-scp.log'
+Latexmk: Using bibtex to make bibliography file(s).
+
+Rc files read:
+  NONE
+Latexmk: Run number 1 of rule 'pdflatex'
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+Latexmk: Getting log file 'course_intro.log'
+Latexmk: Using bibtex to make bibliography file(s).
+
+Rc files read:
+  NONE
+Latexmk: Run number 1 of rule 'pdflatex'
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+Latexmk: Getting log file 'part1a-old io.log'
+Latexmk: Using bibtex to make bibliography file(s).
+
+Rc files read:
+  NONE
+Latexmk: Run number 1 of rule 'pdflatex'
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+Latexmk: Getting log file 'part 2-homogenous products.log'
+Latexmk: Using bibtex to make bibliography file(s).
+
+Rc files read:
+  NONE
+Latexmk: Run number 1 of rule 'pdflatex'
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+Latexmk: Getting log file 'multinomial_choice1.log'
+Latexmk: Using bibtex to make bibliography file(s).
+
+Rc files read:
+  NONE
+Latexmk: Run number 1 of rule 'pdflatex'
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+Latexmk: Getting log file 'multinomial_choice2.log'
+Latexmk: Using bibtex to make bibliography file(s).
+
+Rc files read:
+  NONE
+Latexmk: Run number 1 of rule 'pdflatex'
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+Latexmk: Getting log file 'multinomial_choice3.log'
+Latexmk: Using bibtex to make bibliography file(s).
+
+Rc files read:
+  NONE
+Latexmk: Run number 1 of rule 'pdflatex'
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+Latexmk: Getting log file 'demand_new.log'
+Latexmk: Using bibtex to make bibliography file(s).
+
+Rc files read:
+  NONE
+Latexmk: Nothing to do for 'aggregation.tex'.
+Collected error summary (may duplicate other messages):
+  pdflatex: gave an error in previous invocation of latexmk.
+
+Latexmk: Sometimes, the -f option can be used to get latexmk
+  to try to force complete processing.
+  But normally, you will need to correct the file(s) that caused the
+  error, and then rerun latexmk.
+  In some cases, it is best to clean out generated files before rerunning
+  latexmk after you've corrected the files.
+Error building Week 4- BLP Instruments and Identification/aggregation.tex at Sat Oct  4 13:45:06 EDT 2025
