@@ -1,0 +1,283 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
+
+
+\title{Aggregate Data}
+\author{Chris Conlon}
+\institute{Grad IO}
+\date{\today}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Aggregate Data}
+ \begin{itemize}
+\item Now we want to have both \alert{price endogeneity} and \alert{flexible substitution} in the same model.
+\item We are ultimately going with the random coefficients logit model, but we will start with the logit and nested logit.
+\item We will explore a technique that works with \alert{aggregate data}.
+ \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Multinomial:  Aggregation Property}
+Each individual's choice $y_{ij} \in\{0,1\}$ and $\sum_{j \in \calJ} d_{ij} =1$.\\
+
+Choices follow a Multinomial distribution with $m=1$:
+\begin{align*}
+(d_{i1},\ldots,d_{iJ},d_{i0}) \sim \text{Mult} (1,s_{i1},\ldots,s_{iJ},s_{i0} ) 
+\end{align*}
+If each individual faces the same $s_{ij}=s_j$ the the sum of Multinomials is itself Multinomial:
+\begin{align*}
+(q_{1}^{*},\ldots,q_{J}^{*},q_{0}^{*}) \sim \text{Mult} (M, s_{1},\ldots,s_{J},s_{0} ) 
+\end{align*}
+where $q_{j}^{*}=\sum_{i=1}^M d_{ij}$ is a \alert{sufficient statistic}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Multinomial:  Aggregation Property (Likelihood)}
+We can write the likelihood as $L\left((y_{i1},\ldots,y_{iJ},y_{i0})  \mid \symbf{x_i},  \theta \right)$ where $\symbf{x_i}$ is a $J$ vector that includes all relevant product characteristics interacted with all relevant individual characteristics.
+\begin{align*}
+&=
+\left(\begin{array}{c}
+M \\
+q_{i1},\ldots, q_{iJ}, q_{i0}
+\end{array}\right)
+\prod_{i=1}^M s_{i1}(\symbf{x_i},\theta)^{d_{i1}}\cdots s_{iJ}(\symbf{x_i},\theta)^{d_{iJ}}  s_{i0}(\symbf{x_i},\theta)^{d_{i0}}\\
+\rightarrow \ell(\symbf{x_i},\theta)&= \sum_{i=1}^M \sum_{j \in \calJ} d_{ij} \log s_{ij}(\symbf{x_i},\theta) + \log C(\symbf{q})
+\end{align*}
+If all individuals face the same $(\symbf{x_i})$ and $\calJ$ they will have the same $s_{ij}(\symbf{x_i},\theta)$ and we can aggregate outcomes into \alert{sufficient statistics}.
+\begin{align*}
+\rightarrow \ell(\theta) &=  \sum_{j \in \calJ} q_{j}^{*} \log s_{j}(\theta)
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multinomial Logit: Estimation with Aggregate Data}
+\alert{Aggregation} is probably the most important property of discrete choice:
+\begin{itemize}
+\item Instead of individual data, or a single group we might have multiple groups: if prices only change once per week, we can aggregate all of the week's sales into one ``observation''.
+\item Likewise if we only observe that an individual is within one of five income buckets -- there is no loss from aggregating our data into these five buckets.
+\item All of this depends on the precise form of $ s_{ij}(\symbf{x_i},\theta)$. When it doesn't change across observations: we can aggregate.
+\item Notice I didn't need anything to follow a logit/probit.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Aggregation with Unobserved Heterogeneity}
+\begin{eqnarray*}
+s_{ij}(\symbf{x_{i}} , \theta) &=& \int \frac{\exp [x_{ij} \beta_{\iota}  ]}{1+\sum_k \exp[x_{ik} \beta_{\iota}]} f(\beta_{\iota} | \theta) \partial \beta_{\iota} 
+= \sum_{\iota=1}^{S} w_{\iota} \frac{\exp [x_{ij} \beta_{\iota}  ]}{1+\sum_k \exp[x_{ik} \beta_{\iota}]} 
+\end{eqnarray*}
+\begin{itemize}
+\item Notice that while $i$ subscripts ``individuals'' with different characteristics $\symbf{x_i}$
+\item $\iota$ is the dummy index of integration/summation. 
+\begin{itemize}
+\item Even though we sometimes call these ``simulated individuals''
+\item Everyone with the same $\symbf{x_i}$ still has the same $s_{ij}(\symbf{x_{i}} , \theta)$
+\end{itemize}
+\item Most papers will abuse notation and $i$ will serve double duty!
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Multinomial Logit: Estimation with Aggregate Data}
+Now suppose we have aggregate data: $(q_1,\ldots,q_J,q_0)$ where $M = \sum_{j \in \calJ} q_j$.
+\begin{itemize}
+\item If $M$ gets large enough then $(\frac{q_1}{M},\ldots,\frac{q_J}{M},\frac{q_0}{M})\rightarrow (\mathfrak{s}_1,\ldots,\mathfrak{s}_J,\mathfrak{s}_0)$
+\begin{itemize}
+\item Idea: Observe $(\mathfrak{s}_1(\symbf{x_i}),\ldots,\mathfrak{s}_J(\symbf{x_i}), \mathfrak{s}_0(\symbf{x_i}))$ without sampling variance.
+\item  Challenges: We probably don't really observe $q_0$ and hence $M$.
+\end{itemize}
+\item Idea: Equate observed market shares to the conditional choice probabilities $(s_1(\symbf{x_i},\theta),\ldots,s_J(\symbf{x_i},\theta),s_0(\symbf{x_i},\theta))$.
+\item Choose $\theta$ that minimizes distance: MLE? MSM? Least Squares? etc.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Inversion: IIA Logit}
+Add unobservable error for each $\mathfrak{s}_{jt}$ labeled $\xi_{jt}$.
+\begin{align*}
+u_{ijt} = x_{jt} \beta -\alpha p_{jt} + \xi_{jt} +  \varepsilon_{ijt} , \quad 
+s_{jt} = \frac{\exp[x_{jt} \beta -\alpha p_{jt} + \xi_{jt} ]}{1+\sum_k \exp[x_{kt} \beta -\alpha p_{kt}  + \xi_{kt} ]} 
+\end{align*}
+\begin{itemize}
+\item The idea is that $\xi_{jt}$ is observed to the firm when prices are set, but not to us the econometricians.
+\item Potentially correlated with price $\text{Corr}(\xi_{jt},p_{jt}) \neq 0$
+\item But not characteristics $E[\xi_{jt} | x_{jt}]=0$.
+\begin{itemize}
+\item This allows for products $j$ to better than some other product in a way that is not fully explained by differences in $x_j$ and $x_k$.
+\item Something about a BMW makes it better than a Peugeot but is not fully captured by characteristics that leads higher sales and/or higher prices.
+\item Consumers agree on its value  (\alert{vertical component}).
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Inversion: IIA Logit}
+Taking logs:
+\begin{align*}
+\ln s_{0t} &= -\log \left(1+\sum_k \exp[x_{kt} \beta + \xi_{kt}] \right) \\
+\ln s_{jt} &= [x_{jt} \beta - \alpha p_{jt} +  \xi_{jt} ] - \log \left(1+\sum_k \exp[x_{kt} \beta + \xi_{kt}] \right)\\
+\underbrace{\ln s_{jt}- \ln s_{0t}}_{\alert{Data!}} &= x_{jt} \beta -\alpha p_{jt} +  \xi_{jt}
+\end{align*}
+Exploit the fact that: 
+\begin{enumerate}
+\item $\ln s_{jt}- \ln s_{0t}= \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$  (with no sampling error)
+\item We have one $\xi_{jt}$ for every share $s_{jt}$ (one to one mapping)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{IV Logit Estimation (Berry 1994)}
+\begin{enumerate}
+\item Transform the data: $\ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$. 
+\item IV Regression of: $\ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$ on $x_{jt} \beta -\alpha p_{jt} +  \xi_{jt}$ with IV $z_{jt}$.
+\end{enumerate}
+Was it magic?
+\begin{itemize}
+\item No. It was just a nonlinear change of variables from $s_{jt} \rightarrow \xi_{jt}$.
+\item Our (conidtional) moment condition is just that $E[\xi_{jt} | x_{jt}, z_{jt}]=0$.
+\item We moved from the space of shares and MLE for the logit to the space of utilities and an IV model.
+\begin{itemize}
+\item We are losing some efficiency -- but now we are able to estimate under weaker conditions.
+\item But we need \alert{aggregate data} and shares without sampling variance.
+ \end{itemize}
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Naive Approach}
+Did we need to do change of variables? Imagine we work with:
+\begin{align*}
+s_{jt} &= \frac{\exp[x_{jt} \beta -\alpha p_{jt} ]}{1+\sum_k \exp[x_{kt} \beta -\alpha p_{kt}  ]}\\
+\eta_{jt} &\equiv (s_{jt}(\theta) - \mathfrak{s}_{jt}) 
+\end{align*}
+\begin{itemize}
+\item Each share depends on all prices $(p_{1t},\ldots,p_{Jt})$ and characteristics $\symbf{x_t}$.
+\item Harder to come up with IV here.
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Inversion: Nested Logit (Berry 1994 / Cardell 1991)}
+This takes a bit more algebra but not much
+\begin{align*}
+\underbrace{\ln s_{jt}- \ln s_{0t}  - \rho \log(s_{j|gt}) }_{\text{data!}}&= x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} \\
+\ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} &= x_{jt} \beta -\alpha p_{jt} +  \rho \log(\mathfrak{s}_{j|gt})  +  \xi_{jt}
+\end{align*}
+ \begin{itemize}
+\item Same as logit plus an extra term $\log(s_{j|g})$ the \alert{within group share}.
+\begin{itemize}
+\item We now have a second endogenous regressor.
+\item If you don't see it -- realize we are regressing $Y$ on a function of $Y$. This should always make you nervous.
+ \end{itemize}
+\item If you forget to instrument for $\rho$ you will get $\rho \rightarrow 1$ because of \alert{attenuation bias}.
+\item A common instrument for $\rho$ is the number of products within the nest. Why?
+ \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{BLP 1995/1999 and Berry Haile (2014)}
+Think about a \alert{generalized inverse} for $\sigma_{j}(\symbf{x}_t,\theta_2) = \mathfrak{s}_{jt}$ so that 
+\begin{align*}
+%\sigma_{jt}^{-1}(\calS_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt},v_{jt},\theta_1)   + \xi_{jt}\\
+ \sigma_{jt}^{-1}(\calS_{\cdot t},\widetilde{\theta}_2)&= x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
+\end{align*}
+ \begin{itemize}
+\item After some transformation of data (shares $\calS_{\cdot t}$) we get \alert{mean utilities} $\delta_{jt}$.
+\begin{itemize}
+\item We assume $\delta_{jt}=h(x_{jt},v_{jt},\theta_1) -\alpha p_{jt} + \xi_{jt}$ follows some parametric form (often linear).
+ \end{itemize}
+\item Same IV-GMM approach after transformation
+\item Examples:
+\begin{itemize}
+\item Plain Logit: $\sigma_{j}^{-1}(\calS_{\cdot t}) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$
+\item Nested Logit: $\sigma_{j}^{-1}(\calS_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} + \rho  \ln \mathfrak{s}_{j|gt}$
+ \end{itemize}
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Inversion: BLP (Random Coefficients)}
+We can't solve for $\delta_{jt}$ directly this time.
+\begin{align*}
+\sigma_{j}(\symbf{\delta_{t}},\widetilde{\theta}_2) &= \int \frac{\exp[\delta_{jt} + \mu_{ijt} ]}{1+\sum_k \exp[\delta_{kt} +  \mu_{ikt}  ]} f(\symbf{\mu_{it}} | \widetilde{\theta}_2)
+\end{align*}
+ \begin{itemize}
+ \item This is a $J \times J$ system of equations for each $t$.
+ \item It is diagonally dominant (with outside good).
+ \item There is a unique vector $\symbf{\delta_{t}}$ that solves it for each market $t$.
+ \item If you can work out $\frac{\partial s_{jt}}{\partial \delta_{kt}}$ (easy) you can solve this using Newton's Method.
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Contraction: BLP}
+BLP actually propose an easy solution to find $\symbf{\delta_t}$. Fix $\widetilde{\theta_2}$ and solve for $\symbf{\delta_t}$. Think about doing this one market at a time:
+\begin{align*}
+\symbf{\delta_t}^{(k)}(\widetilde{\theta}_2) = \symbf{\delta_t}^{(k-1)}(\widetilde{\theta}_2) + \left[ \log(\symbf{\mathfrak{s}}_{j}) - \log(\symbf{s}_{j}(\symbf{\delta_t}^{(k-1)}, \widetilde{\theta}_2) \right]
+\end{align*}
+ \begin{itemize}
+ \item They prove (not easy) that this is a \alert{contraction mapping}.
+ \item If you keep iterating this equation enough $\norm{\symbf{\delta_{t}}^{(k)}(\theta) - \symbf{\delta_{t}}^{(k-1)}(\theta)} < \epsilon_{tol}$ you can recover the $\delta$'s so that the observed shares and the predicted shares are identical.
+ \item Practical tip: $\epsilon_{tol}$ needs to be as small as possible. ($\approx 10^{-13}$).
+ \item Practical tip: Contraction isn't as easy as it looks:  $\symbf{s}_{j}(\symbf{\delta_t}^{(k-1)}, \widetilde{\theta}_2)$ requires computing the numerical integral each time (either via quadrature or monte carlo).
+  \end{itemize}
+ \end{frame}
+ 
+
+ \begin{frame}
+\frametitle{BLP Pseudocode}
+\footnotesize
+From the outside, in:
+\begin{itemize}
+\item Outer loop: search over nonlinear parameters $\theta$ to minimize GMM objective:
+ \begin{align*}
+ \widehat{\theta_{BLP}} = \arg \min_{\theta_2} (Z' \hat{\xi}(\theta_2)) W  (Z' \hat{\xi}(\theta_2))'
+ \end{align*}
+ \item Inner Loop:
+ \begin{itemize}
+\item Fix a guess of $\widetilde{\theta}_2$.
+\item Solve for $\symbf{\delta_t}(\calS_t,\widetilde{\theta}_2)$ which satisfies $\sigma_{jt}(\symbf{\delta_t},\widetilde{\theta}_2) = \mathfrak{s}_{jt}$.
+\begin{itemize}
+\item Computing $s_{jt}(\symbf{\delta_t},\widetilde{\theta}_2)$ requires numerical integration (quadrature or monte carlo).
+\end{itemize}
+ \item We can do IV-GMM to recover $\hat{\alpha}(\widetilde{\theta}_2),\hat{\beta}(\widetilde{\theta}_2),\hat{\xi}(\widetilde{\theta}_2)$.
+  \begin{align*}
+\symbf{\delta_t}(\calS_t,\widetilde{\theta}_2)= x_{jt} \beta -\alpha p_{jt}+  \xi_{jt}
+ \end{align*}
+  \item Use $\symbf{\hat{\xi}}(\theta)$ to construct sample moment conditions $\frac{1}{N} \sum_{j,t} Z_{jt}' \xi_{jt}$
+ \end{itemize}
+ \item When we have found $\hat{\theta}_{BLP}$ we can use this to update $W \rightarrow W(\hat{\theta}_{BLP})$ and do 2-stage GMM.
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{Coming Up}
+\begin{itemize}
+\item Extensions and Variants
+\item Supply Side Restrictions
+\item Instruments
+\item Implementation Details
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+
+
+
+\end{document}
