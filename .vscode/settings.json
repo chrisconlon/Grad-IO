@@ -1,0 +1,26 @@
+{
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk-xelatex",
+      "command": "/Library/TeX/texbin/latexmk",
+      "args": [
+        "-e",
+        "$xelatex = \"/Library/TeX/texbin/xelatex %O %S\"",
+        "-interaction=nonstopmode",
+        "-synctex=1",
+        "-file-line-error",
+        "-recorder",
+        "%DOC%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk (xelatex)",
+      "tools": [
+        "latexmk-xelatex"
+      ]
+    }
+  ],
+  "latex-workshop.latex.autoBuild.run": "never"
+}
