@@ -616,7 +616,7 @@ Demand systems have two main deliverables:
 
 
 
-\begin{frame}{Why does supply matter? (Conlon Rao 2014/2023)}
+\begin{frame}{Why does supply matter? (Conlon Rao 2025)}
 Consumer $i$ chooses product $j$ (brand-size-flavor) in quarter $t$:
 \begin{align*}
 u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[1750mL]_j + \gamma_j + \gamma_t+ \varepsilon_{ijt}(\rho)\\
@@ -672,7 +672,7 @@ u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[
 \vspace{-0.3cm}
     \begin{center}
     \scalebox{0.55}{
-    \input{resources/table3_slides.tex}
+    \input{resources/table3_parameter_results.tex}
     }
     \end{center}
   \end{column}
@@ -697,7 +697,7 @@ u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[
 
 \begin{frame}{Elasticities and Diversion Ratios}
 \begin{center}
-    \includegraphics[height=0.9\textheight]{./resources/figure6_outside_diversion_elas_v2.pdf}
+    \includegraphics[height=0.8\textheight]{./resources/figure6_outside_diversion_elas.pdf}
 \end{center}
 \end{frame}
 
@@ -706,7 +706,7 @@ u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[
 \begin{frame}{Diversion Ratios}
 \begin{center}
 \scalebox{0.6}{
-\input{resources/table4_diversion_results_main_new.tex}
+\input{resources/table4_diversion_results.tex}
 }
 \end{center}
 % \begin{tablenotes}
@@ -1161,7 +1161,7 @@ E\left[ \frac{\partial \xi_{jt} }{\partial \widetilde{\theta}_2} | z_t \right] &
 What does this mean:
 \begin{itemize}
     \item We should always check $\mathbb{E}[p \mid x, z]$ before we do anything else.
-    \item Can use FRAC to figure out where the heterogeneity is, get startingn values
+    \item Can use FRAC to figure out where the heterogeneity is, get starting values
     \item May want to consider adding a supply side (if you're willing to assume for counterfactuals, why not?)
     \item Certainly should do \texttt{results.compute\_optimal\_instruments()} in PyBLP.
 \end{itemize}
