@@ -1087,13 +1087,13 @@ Chamberlain (1987) showed that the approximation to the optimal instruments are 
 \begin{frame}{Optimal Instruments}
 How to construct optimal instruments in form of Chamberlain (1987). Start with initial instruments $\chi_t = A\left(\symbf{X_t},\symbf{W_t},\symbf{V_t}\right)$
 \begin{eqnarray*}
-\mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \theta} | \chi_{t} \right] = \left[\beta, E\left[\frac{\partial \xi_{jt}}{\partial \alpha} | \chi_{t} \right] ,
- \mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} | \chi_{t} \right] \right]
+\E\left[\frac{\partial \xi_{jt}}{\partial \theta} | \chi_{t} \right] = \left[\beta, \E\left[\frac{\partial \xi_{jt}}{\partial \alpha} | \chi_{t} \right] ,
+ \E\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} | \chi_{t} \right] \right]
 \end{eqnarray*}
 Some challenges:
 \begin{enumerate}
 \item $p_{jt}$ or $\eta_{jt}$ depends on $(\omega_{j},\xi_{t})$ in a highly nonlinear way (no explicit solution!).
-\item $\mathbb{E}\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} \mid X_t, w_{t} \right] =\mathbb{E}\left[\left[\frac{\partial \symbf{s_t}}{\partial \symbf{\delta_t}}\right]^{-1} 
+\item $\E\left[\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2} \mid X_t, w_{t} \right] =\E\left[\left[\frac{\partial \symbf{s_t}}{\partial \symbf{\delta_t}}\right]^{-1} 
 \left[\frac{\partial \symbf{s_t}}{\partial \widetilde{\theta}_2}\right] \mid Z_{jt}^D \right]$  (not conditioned on endogenous $p$!)
 \end{enumerate}
 Things are \alert{infeasible} because we don't know $\theta_0$!
@@ -1110,7 +1110,7 @@ Things are \alert{infeasible} because we don't know $\theta_0$!
 \end{enumerate}
 In simulation the ``lazy'' approach does just as well. (At least for iid normal $(\symbf{\xi},\symbf{\omega})$)\\
 
- Alternative: Can we use $\mathbb{E}[ \symbf{p_t} \mid \symbf{Z_t}]$ instead for (2) if we don't have supply side
+ Alternative: Can we use $\E[ \symbf{p_t} \mid \symbf{Z_t}]$ instead for (2) if we don't have supply side
 \end{frame}
 
 
@@ -1124,9 +1124,9 @@ c = p  + \underbrace{\Delta^{-1} s}_{\rightarrow 0}  = X \gamma_1 + W \gamma_2 +
 \end{eqnarray*}
 \item Linear cost function means linear reduced-form price function (could do nonlinear regression too)
 \begin{eqnarray*}
-E\left[ \frac{\partial \xi_{jt} }{\partial \alpha} | z_t \right] &=& E[p_{jt} | z_t] = x_{jt} \gamma_1 + w_{jt} \gamma_2\\
-E\left[ \frac{\partial \omega_{jt} }{\partial \alpha} | z_t \right] &=& 0 , \quad E\left[ \frac{\partial \omega_{jt} }{\partial \widetilde{\theta}_2} | z_t \right] = 0\\
-E\left[ \frac{\partial \xi_{jt} }{\partial \widetilde{\theta}_2} | z_t \right] &=&E\left[ \frac{\partial \delta_{jt} }{\partial \widetilde{\theta}_2} | z_t \right]\\
+\E\left[ \frac{\partial \xi_{jt} }{\partial \alpha} | z_t \right] &=& \E[p_{jt} | z_t] = x_{jt} \gamma_1 + w_{jt} \gamma_2\\
+\E\left[ \frac{\partial \omega_{jt} }{\partial \alpha} | z_t \right] &=& 0 , \quad \E\left[ \frac{\partial \omega_{jt} }{\partial \widetilde{\theta}_2} | z_t \right] = 0\\
+\E\left[ \frac{\partial \xi_{jt} }{\partial \widetilde{\theta}_2} | z_t \right] &=&\E\left[ \frac{\partial \delta_{jt} }{\partial \widetilde{\theta}_2} | z_t \right]\\
 \end{eqnarray*}
 \item If we are worried about endogenous oligopoly markups is this a reasonable idea?
 \item Turns out that the important piece tends to be \alert{shape} of jacobian for $\sigma_x$.
@@ -1160,7 +1160,7 @@ E\left[ \frac{\partial \xi_{jt} }{\partial \widetilde{\theta}_2} | z_t \right] &
 \begin{frame}{Takeaway}
 What does this mean:
 \begin{itemize}
-    \item We should always check $\mathbb{E}[p \mid x, z]$ before we do anything else.
+    \item We should always check $\E[p \mid x, z]$ before we do anything else.
     \item Can use FRAC to figure out where the heterogeneity is, get starting values
     \item May want to consider adding a supply side (if you're willing to assume for counterfactuals, why not?)
     \item Certainly should do \texttt{results.compute\_optimal\_instruments()} in PyBLP.
