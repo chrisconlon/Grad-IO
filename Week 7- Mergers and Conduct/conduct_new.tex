@@ -1,18 +1,13 @@
 \documentclass[aspectratio=169,10pt]{beamer}
 \usepackage{teaching_slides}
 
-\title{Conduct and Testing for Conduct}
-\author{C.Conlon}
-\institute{Grad IO }
-\date{Fall 2024}
-\setbeamerfont{equation}{size=\tiny}
 
-
-\begin{document}
-\title{Conduct}
+\title{Conduct and Testing For Conduct}
 \author{Chris Conlon}
 \institute{Grad IO}
 \date{\today}
+
+\begin{document}
 
 \frame{\titlepage}
 
@@ -231,12 +226,12 @@ Challenges:
 \begin{frame}{Estimation vs. Menus}
 There are 2.5 ways to think about conduct:
 \begin{enumerate}
-\item Using moment conditions to estimate $\widehat{\kappa}$ or $\mathcal{H}(\kappa)$ directly.
+\item Using moment conditions to estimate $\widehat{\kappa}$ or $\mathcal{H}(\kappa)$ directly. (Wald)
 \begin{itemize}
 \item Often with a small number of parameters (ie: $\kappa_{fg}=0$ except for firms I know are in a cartel).
 \item Can be challenging to tell similar values of $\kappa_{fg}$ apart (under-powered).
 \end{itemize}
-\item ``Menu Approach''
+\item ``Menu Approach'' / (LR)
 \begin{itemize}
 \item  Nevo (Economics Letters 1998)
 \item Bresnahan (1987)
@@ -254,7 +249,7 @@ There are 2.5 ways to think about conduct:
 Put the $\eta_{jt}$ on the RHS and test whether $\lambda=1$:
 \begin{align*}
  p_{jt} = h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\symbf{p},\symbf{s},\theta_2,\kappa \right)+  \omega_{jt} \text{ with }
- E[\omega_{jt} | \textrm{x}_{t},\textrm{w}_{t},\textrm{z}_{t}]=0s
+ \E[\omega_{jt} | \textrm{x}_{t},\textrm{w}_{t},\textrm{z}_{t}]=0s
 \end{align*}
 \vspace{-0.25cm}
 \begin{itemize}
@@ -262,7 +257,7 @@ Put the $\eta_{jt}$ on the RHS and test whether $\lambda=1$:
 \item ``Informal'' test of Villas Boas (2007): $\mathbb{E}[\omega_{jt} | \textrm{x}_{jt},\alert{\textrm{w}_{jt}},\alert{\eta_{jt}}]=0$.
 \begin{itemize}
 \item Considers different forms of $f(\cdot)$: linear, exponential, logarithmic.
-\item Not sure the published paper includes these results (?) WP does?
+\item WP discusses this more than Restud version.
   \end{itemize}
 \item Pakes (2017) uses Wollman (2018) data and BLP IV $\mathbb{E}[\omega_{jt} | x_{jt},w_{jt},f(x_{-j})]=0$.
 \item $\lambda \neq 0$ is hard to interpret.
@@ -289,7 +284,7 @@ These are somewhat reassuring:
 \begin{frame}{Goodness of Fit Tests}
 Another idea (Bonnet and Dubois, Rand 2010) runs the following regression:
 \begin{align*}
-\log \left( p_{jt} - \eta_{jt}(\symbf{p},\symbf{s},\widehat{\theta}_2,\kappa) \right) &= h_s(x_{jt}, \alert{w_{jt}},\theta_3) + \omega_{jt}
+\log \left( p_{jt} - \eta_{jt}(\symbf{p},\symbf{s},\widehat{\theta}_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \omega_{jt}
 \end{align*}
 \begin{itemize}
 \item Run a regression for each $\kappa$ and obtain $Q(\kappa)=\sum_{jt} \widehat{\omega}_{jt}^2$
@@ -338,15 +333,15 @@ Another idea (Bonnet and Dubois, Rand 2010) runs the following regression:
 
 \begin{frame}{Recap}
 \small
-So far three approaches to exploit $ E[\omega_{jt} | x_{t},w_{t},z_{t}]=0$
+So far three approaches to exploit $ E[\omega_{jt} | \textrm{x}_{t}, \textrm{w}_{t}, \textrm{z}_{t}]=0$
 \begin{enumerate}
 \item Put the markup on RHS and instrument for it to test $\lambda=1$ (Wald)
 \begin{align*}
- p_{jt} &= h_s(x_{jt}, \alert{w_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\symbf{p},\symbf{s},\widehat{\theta_2},\kappa \right)+  \omega_{jt}
+ p_{jt} &= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\symbf{p},\symbf{s},\widehat{\theta_2},\kappa \right)+  \omega_{jt}
 \end{align*}
 \item Put the markup on LHS assuming $\lambda=1$ and test goodness of fit of supply equation (Anderson Rubin)
 \begin{align*}
- p_{jt} -\eta_{jt}\left(\symbf{p},\symbf{s},\widehat{\theta_2},\kappa \right)&= h_s(x_{jt}, \alert{w_{jt}},\theta_3) +  \omega_{jt}
+ p_{jt} -\eta_{jt}\left(\symbf{p},\symbf{s},\widehat{\theta_2},\kappa \right)&= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) +  \omega_{jt}
 \end{align*}
 \item Estimate supply and demand simultaneously $[\theta_1,\theta_2,\theta_3]$ and compare goodness of fit for different $\kappa$. (Likelihood Ratio)
 \end{enumerate}
@@ -463,7 +458,7 @@ So far three approaches to exploit $ E[\omega_{jt} | x_{t},w_{t},z_{t}]=0$
 
 
 
-\section{Backus Conlon Sinkinson (2022)}
+\section{Backus Conlon Sinkinson (2022-?)}
 
 
 
@@ -534,17 +529,17 @@ Solve for $\omega_{jt}$
 \begin{itemize}
   \item What is $\frac{\partial \omega_{jt}}{\partial \tau}?: \quad A(z_t) = \E[\eta_{jt}^A - \eta_{jt}^B \mid \symbf{x_t}, \symbf{w_t}, \symbf{v_t}, \textrm{y}_t]$
   \item This looks like a \alert{first stage} (nonparametric) regression of markup difference on instruments/all exogenous variables. (Newey 1990).
-  \item Instruments are supposed to explain \alert{differences in endogenous markups}. 
+  \item Instruments are supposed to explain \alert{differences in endogenous markups} beyond the regressors $h_s(\textrm{x}_{jt},\textrm{w}_{jt})$ (this is the usual first-stage F-stat).
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}[plain,label=misspecification]{Our Idea: Motivation \#2 (Misspecification)}
 Index the \alert{true} model by $0$. Then,
-$$ p_{jt} -\eta^0_{jt}= h_s(x_{jt},w_{jt}) + \omega^0_{jt}.$$
+$$ p_{jt} -\eta^0_{jt}= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega^0_{jt}.$$
 To motivate a useful test, we ask what happens when we estimate supply with the \alert{wrong} conduct model (1):
 
-$$p_{jt} -\eta_{jt}^1 = h_s(x_{jt},w_{jt}) + \underbrace{\underbrace{\eta^0_{jt} - \eta^1_{jt}}_{\equiv \Delta \eta_{jt}^{0,1}} +  \omega_{jt}^{0}}_{\omega_{jt}^{1}}.$$
+$$p_{jt} -\eta_{jt}^1 = h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \underbrace{\underbrace{\eta^0_{jt} - \eta^1_{jt}}_{\equiv \Delta \eta_{jt}^{0,1}} +  \omega_{jt}^{0}}_{\omega_{jt}^{1}}.$$
 \begin{itemize}
 \item Misspecifying conduct introduces an omitted variable: the difference in markups.
 \item Our test is premised on detection of this omitted variable.
@@ -558,12 +553,12 @@ $$p_{jt} -\eta_{jt}^1 = h_s(x_{jt},w_{jt}) + \underbrace{\underbrace{\eta^0_{jt}
 The model is given by
 $$p_{jt} - \eta^m_{jt} = h_s(\cdot) +  \omega^m_{jt} \text{,   and  } \mathbb{E}[\omega_{jt}^{(m)}\cdot A(z_t)] = 0.$$
 
-We suggest $A(z_t) = \mathbb{E}[\eta^1_{jt}-\eta_{jt}^2|z_{t}]$; several advantages:
+We suggest $A(z_t) = \mathbb{E}[\eta^1_{jt}-\eta_{jt}^2|\chi_t, z_{jt}]$; several advantages:
 
 \begin{itemize}
 % \item What is the point of instruments for testing? To explain the \alert{difference in markups}
 \item Reduces potentially many moments ($\mathbb{E}[\omega_{jt}' z_t]=0$) to a single, scalar moment. No need for a weighting matrix, or associated problems.
-\item Testing is reduced to two prediction exercises: $\mathbb{E}[\eta^1_{jt}-\eta_{jt}^2|z_{t}]$ and $\widehat \omega_{jt}^{(m)}$.
+\item Testing is reduced to two prediction exercises: $\mathbb{E}[\eta^1_{jt}-\eta_{jt}^2 \mid \textrm{x}_t, \textrm{w}_t,\textrm{v}_t,\textrm{y}_t, z_{jt}] - \mathbb{E}[\eta^1_{jt}-\eta_{jt}^2 \mid \textrm{x}_{jt}, \textrm{w}_{jt}]$ and $\widehat \omega_{jt}^{(m)}$.
 \item Show in the paper that this leads to the most powerful test (maximizes distance between two GMM objective functions conditional on weight matrix).
 \item Downside: Our choice of instrument is \alert{model specific}! UMP is not going to happen.
 \end{itemize}
@@ -658,6 +653,7 @@ Not everything is testable:
 \item Discuss plain logit
 %\end{itemize}
 \item Beware of ``accidental'' exclusion restrictions.
+\item Moments are about \alert{correlation} not \alert{levels}.
 \end{itemize}
 \end{frame}
 
@@ -686,10 +682,34 @@ Things we don't use:
 \end{frame}
 
 
+
+\begin{frame}{BCS in one slide}
+Two competing markups (markdowns) $(\eta_{jt}^A, \eta_{jt}^B)$. Which fit data better? (both may be misspecified)\\
+\begin{align*}
+\only<1>{p_{jt} &= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \tau\, \eta_{jt}^A + (1-\tau)\,\eta_{jt}^B + \omega_{jt} 
+\text{ where } \mathbb{E}[\omega_{jt}  | \textrm{x}_{jt} ,\textrm{w}_{jt}, \alert{z_{jt}}]=0\\} 
+\only<2>{p_{jt} -\eta_{jt}^A &= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega_{jt} \text { under } H_0: \tau=1\\
+p_{jt} -\eta_{jt}^A &= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega_{jt} \text { under } H_1: \tau=0}
+\end{align*}
+\pause
+The only IV that matters is the \alert{predicted markup difference}, which we can get in a first stage
+\begin{align*}
+\eta_{jt}^{A}- \eta_{jt}^{B} = g_s(\textrm{x}_{jt},\textrm{w}_{jt}, \alert{z_{jt}}) + \zeta_{jt}^{A-B}
+\end{align*}
+As long as we have some \alert{exclusion restrictions $z_{jt}$} that:
+\begin{itemize}
+  \item \textbf{Relevance}: Predict markups \alert{beyond} the cost shifters $(\textrm{x}_{jt},\textrm{w}_{jt})$.
+  \item \textbf{Exlcusion}: Do \alert{not} affect marginal cost. (exclusion)
+\end{itemize}
+Rest of paper: make $h(\cdot)$ and $g(\cdot)$ as flexible as possible, and get a Vuong $\mathcal{N}(0,1)$ test.
+\end{frame}
+
+
+
 \section{Examples}
 
 
-\begin{frame}{Scuderi JMP 2022: Models of Labor Supply}
+\begin{frame}{Scuderi Roussille (2025): Models of Labor Supply}
 \begin{columns}
 \begin{column}{0.7\textwidth}
 \includegraphics[height=0.9\textheight]{resources/scuderi1}
@@ -764,15 +784,6 @@ in 2013, Teva Pharmaceuticals, the largest generic firm, hired NP, a marketing e
 \end{frame}
 
 
-
-% \begin{frame}[plain,label=mainresults]{Main Results: These are $N(0,1)$}
-% \begin{center}
-% \scalebox{0.55}{\input{resources/8_23_testing.tex}}
-% \end{center}
-% \end{frame}
-% \hyperlink{morepanels}{\beamerskipbutton{additional specifications}}\hyperlink{mcregs}{\beamerskipbutton{marginal cost regressions}}
-%\hyperlink{step2regs}{\beamerskipbutton{step 2 regressions}} \hyperlink{pwregs}{\beamerskipbutton{Pakes-Wollmann regressions}}
-
 \begin{frame}[plain]{An Internalization Parameter}
 Let $\kappa$ represent the weight a firm places on competitors and $\tau$ the internalization of those weights.
  \begin{equation*}
@@ -795,69 +806,7 @@ We test $\tau \in (0.1, \ldots, 0.9)$ against own-profit maximization.
 \end{frame}
 
 
-% \begin{frame}{Setup: Demand (BLP95, BLP99, Nevo 2000, ...)}
-% Consumer $i$ makes discrete choice in market $t$ and receives utility for choice $j$:
-% \begin{align*}
-% u_{ijt} &=  h_d(\textrm{x}_{jt}, \textrm{v}_{jt}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt}) + \xi_{jt}  + \mu_{ijt}(\textrm{x}_{jt}, y_i; \widetilde{\theta}_2) + \varepsilon_{ijt}
-% \end{align*}
-% 
-% Following Berry, Levinsohn, Pakes, we fix $\theta_2=[\widetilde \theta_2,\alpha, \lambda]$ and invert system of equations for $\calS_t$ to get mean utilities:
-% \begin{align*}
-% \sigma_{j}^{-1}(\calS_t, \chi_t, \symbf{p_t},\mathrm{y_t}; \widetilde{\theta}_2) + \alpha\, p_{jt} - \lambda \, \log(\text{ad}_{jt}) &= h_d(\textrm{x}_{jt}, \textrm{v}_{jt}; \theta_1) + \xi_{jt} 
-% \end{align*}
-% Can estimate $[\widehat{\theta_1}, \widehat{\theta_2}]$ using the CMR $\mathbb{E}[\xi_{jt} | z_{jt}^d]=0$.
-% \end{frame}
-
-% \begin{frame}{Setup: Supply and Conduct}
-% Assume that we know $\widehat{\theta_2}$ from demand:
-% \begin{align*}
-% p_{jt} - \eta_{jt}(\calS_t, \chi_t, \symbf{p_t},\mathrm{y_t}; \widehat{\theta}_2) = h_s(\mathrm{x}_{jt}, \mathrm{w}_{jt}, q_{jt}; \theta_3) + \omega_{jt} \quad &\text{ with } \mathbb{E}[\omega_{jt} | z_{jt}^s]=0
-% \end{align*}
-% \begin{itemize}
-% \item The model is defined by \alert{conditional moment restrictions}.
-% \item Testing conduct is typically about detecting violations of the CMR for supply.
-% \item We follow the \alert{sequential approach} and estimate $[\widehat \theta_1,\widehat \theta_2]$ from demand and then test supply separately.
-% \item The $\theta_3$ parameters are \alert{nuisance parameters}, we don't care what they are, we just want to measure violations of moments.
-% \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}[plain,label=chamberlain]{A Brief Aside: Chamberlain (1987) in a Slide}
-% What contains as much information as the CMR $\mathbb{E}[\omega|z_{jt}^s]$ and moments of the form $ \mathbb{E}[\omega_{jt}\cdot A(z_{jt}^s)]. $
-% \begin{itemize}
-% \item For linear models $A(z_{jt}^s) = z_{jt}^s$ is generally without loss.
-% \item For nonlinear models, Chamberlain (1987) shows that the efficient estimator uses
-% $$A(z_{jt}^s) = \mathbb{E}\left[\frac{\partial \omega_{jt}}{\partial \theta}|z_{jt}^s\right]$$
-% \item That is not too helpful (its a function of the unknown $\theta$).
-% \item Much of the follow-up work has been about feasible approximations to this ``optimal instrument" (e.g., Newey 1990)
-% \end{itemize}
-% For us a similar concern arises, but it is about \alert{power} to distinguish conduct models rather than \alert{efficiency} of estimation.
-% %\hyperlink{label=cmrbasics}{\beamerskipbutton{back}} 
-% \end{frame}
-
-
-
-% \begin{frame}[plain,label=innovation]{Our Idea: Motivation \#1 (Optimal IV)}
-% The model is given by
-% \begin{align*}
-% p_{jt} &= h_s(\textrm{x}_{jt},\textrm{w}_{jt},\theta_3) + \tau \cdot \eta^A_{jt} + (1-\tau) \cdot \eta^B_{jt} + \omega^m_{jt}\\
-% & \text{  where  }  H_0: \tau=1 \text{ and } H_a: \tau = 0
-% \end{align*}
-
-% \begin{itemize}
-% \item The optimal IV in the Chamberlain (1987) sense is given by $\mathbb{E}\left[\frac{\partial \omega_{jt}}{\partial \tau}|z_{t} \right]= \mathbb{E}\left[\eta^A_{jt}-\eta_{jt}^B|z_{t}\right]$.
-% \item In words: The IV need to predict the \alert{difference in markups}\\ (beyond observed $h_s(\textrm{x}_{jt},\textrm{w}_{jt},\theta_3)$).
-% \end{itemize}
-% \end{frame}
-
-
-
-
-
-
-
-
+\section{Thanks!}
 
 
 

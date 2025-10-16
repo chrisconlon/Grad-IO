@@ -21,7 +21,7 @@ In some cases, the Agencies may seek to quantify the extent of direct competitio
 \begin{frame}{This time with equations}
  Raise price of good $j$. People leave. What fraction of leavers switch to $k$?
 \begin{eqnarray*}
-D_{jk} (p_j,p_{-j})= \frac{\frac{\partial q_k}{\partial p_j}}{\left|\frac{\partial q_j}{\partial p_j} \right|}
+D_{j \rightarrow k} (p_j,\symbf{p}_{-j})= \frac{\frac{\partial q_k}{\partial p_j}}{\left|\frac{\partial q_j}{\partial p_j} \right|}
 \end{eqnarray*}
 It's one of the best ways economists have to characterize competition among sellers.
 \begin{itemize}
@@ -40,7 +40,7 @@ It's one of the best ways economists have to characterize competition among sell
 \item Based on modern theoretical literature: Farrell Shaprio (1990), Werden (1996), Farrel Shapiro (2010), Froeb and Werden (1998)
 \item Extension to multiple products/firms may be tricky (Carlton 2010, Hausman, Moresei, Rainey (2010)).
 \item Doesn't go as far as pass-through literature (Bulow Geanakoplos Klemperer (1985), Jaffe Weyl (2013)). 
-\item Limited empirical results in academic literature: (Cheung 2013, Miller, Remer, Ryan, Sheu (2013), Conlon Mortimer (2013/2015/2020...))
+\item Limited empirical results in academic literature: (Cheung 2013, Miller, Remer, Ryan, Sheu (2013), Conlon Mortimer (2021))
 \item Commonplace at DOJ/FTC.
 \end{itemize} 
 \end{frame}
@@ -121,23 +121,23 @@ Fruity Pebbles      &      0.61 &       0.59 &         0.71 &           0.71 &  
 %\end{itemize}
 %\end{frame}
 
-\section{Where do Diversion Ratios come from?\\ (Stolen from Conlon and Mortimer (2020)}
+\section{Where do Diversion Ratios come from?\\ (Stolen from Conlon and Mortimer (2021)}
 \begin{frame}{In Theory}
 \footnotesize
 Consider Bertrand FOC's for multi-product firm $j$:
 \begin{align*}
 \label{eq:best_response}
-\rightarrow \nonumber p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial P_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial P_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial P_{j}}(\symbf{p})\right]^{-1}}_{D_{jk}(\symbf{p})}\\
-p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right].
+\rightarrow \nonumber p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial P_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial P_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial P_{j}}(\symbf{p})\right]^{-1}}_{D_{j \rightarrow k}(\symbf{p})}\\
+p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{j \rightarrow k} (\symbf{p}) \right].
 \end{align*}
 Mult-product pricing \alert{raises the opportunity cost} of selling $j$.
 \end{frame}
 
 \begin{frame}{Upward Pricing Pressure}
-Agencies often calculate \alert{Upward Pricing Pressure} or UPP asks how merger \alert{changes}:
+Agencies often calculate \alert{Upward Pricing Pressure} or UPP asks how merger \alert{changes} as we combine $\mathcal{J}_f$ and $\mathcal{J}_g$:
 \begin{align*}
-\left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right] \\
-UPP_j = \Delta c_j + \sum_{k \in \calJ_{g}}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) 
+\left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{j \rightarrow k} (\symbf{p}) \right] \\
+UPP_j = \Delta c_j + \sum_{k \in \calJ_{g}}  (p_k-c_k) \cdot  D_{j \rightarrow k} (\symbf{p}) 
 \end{align*}
 How does the merger change the \alert{opportunity cost} for $j$?
 \end{frame}
@@ -147,13 +147,13 @@ How does the merger change the \alert{opportunity cost} for $j$?
 \begin{block}{Extension to multiple acquisitions:}
 Very easy if we have that $p_j - mc_j = p - mc$ are the same for several values of $j$.  Then
 \begin{eqnarray*}
-UPP_j &\approx& (p - mc) \sum_k D_{jk}(\symbf{p}) -  \Delta mc_j \\
+UPP_j &\approx& (p - mc) \sum_k D_{j \rightarrow k}(\symbf{p}) -  \Delta mc_j \\
 \end{eqnarray*}
 \end{block}
 If several brands of acquisition have the same markup -- can consider firm-level diversion. (We can aggregate diversion across similar flavors)
 \begin{block}{Ignoring Efficiencies}
 \begin{eqnarray*}
-GUPPI_j &\approx& \frac{(p_j - mc_j)}{p_j} D_{jk}(\symbf{p}) \\
+GUPPI_j &\approx& \frac{(p_j - mc_j)}{p_j} D_{j \rightarrow k}(\symbf{p}) \\
 \end{eqnarray*}
 \end{block}
 \end{frame}
@@ -161,7 +161,6 @@ GUPPI_j &\approx& \frac{(p_j - mc_j)}{p_j} D_{jk}(\symbf{p}) \\
 
 \begin{frame}
 \frametitle{Diversion: In Practice}
-\footnotesize
 \begin{enumerate}
 \item Calculated from an estimated demand system (ratio of estimated cross-price to own-price demand derivatives)
 \item Consumer surveys (what would you buy if not this?)
@@ -181,14 +180,14 @@ Is it sufficient to rely on data from merging firms only?
 
 
 \begin{frame}{Wald Estimator}
-The diversion ratio $D_{jk}(p_j,x) \equiv\frac{\partial q_k}{\partial P_j}(p_j,x)/-\frac{\partial q_j}{\partial P_j}(p_j,x)$ can be obtained as the limit of the Wald estimator where the price increase (or decrease) becomes small, so long as demand slopes \textit{strictly} downwards $\frac{\partial q_j}{\partial P_j} <0$.
+The diversion ratio $D_{j \rightarrow k}(p_j,x) \equiv\frac{\partial q_k}{\partial P_j}(p_j,x)/-\frac{\partial q_j}{\partial P_j}(p_j,x)$ can be obtained as the limit of the Wald estimator where the price increase (or decrease) becomes small, so long as demand slopes \textit{strictly} downwards $\frac{\partial q_j}{\partial P_j} <0$.
 \begin{align*}                               
-\lim_{p_j' \rightarrow p_j} \frac{q_k(p_j',x) - q_k(p_j,x)}{-(q_j(p_j',x) - q_j(p_j,x))} \rightarrow \frac{\frac{\partial q_k}{\partial P_j}(p_j,x)}{-\frac{\partial q_j}{\partial P_j}(p_j,x)} \equiv D_{jk}(p_j,x)
+\lim_{p_j' \rightarrow p_j} \frac{q_k(p_j',x) - q_k(p_j,x)}{-(q_j(p_j',x) - q_j(p_j,x))} \rightarrow \frac{\frac{\partial q_k}{\partial P_j}(p_j,x)}{-\frac{\partial q_j}{\partial P_j}(p_j,x)} \equiv D_{j \rightarrow k}(p_j,x)
 \end{align*}
 \end{frame}
 
 \begin{frame}{Analogue to LATE Theorem Imbens Angrist (1994)}
-\begin{theorem}[Conlon Mortimer (2020)]\ \\
+\begin{theorem}[Conlon Mortimer (2021)]\ \\
 \label{prop:late}
 Under the following conditions:\\ 
 (a) Mutually Exclusive and Exhaustive Discrete Choice: $d_{ij} \in \{0,1\}$ and $\sum_{j \in \calJ} d_{ij}=1$.\\
@@ -230,16 +229,77 @@ w(p_s)=\frac{  \frac{\partial q_j(p_s,x)}{\partial p_j} }{\int_{p_j}^{p_j'}  \fr
 
 \begin{frame}{Weights}
 Again $D_{jk,i} = \frac{s_{ik}}{1-s_{ij}}$ for logit family:\\
+\begin{center}
 \begin{tabular}{rcc} 
 & $w_{i j}(x) \propto$ \\
 \midrule second choice data & $s_{i j}(x)$ \\
 price change $\frac{\partial}{\partial p_{j}}$ & $s_{i j}(x) \cdot\left(1-s_{i j}(x)\right) \cdot\left|\alpha_{i}\right|$ \\
 characteristic change $\frac{\partial}{\partial x_{j}}$ & $s_{i j}(x) \cdot\left(1-s_{i j}(x)\right) \cdot\left|\beta_{i}\right|$ \\
 small quality change $\frac{\partial}{\partial \xi_{j}}$ & $s_{i j}(x) \cdot\left(1-s_{i j}(x)\right)$ \\
+finite change in $z_j$ & $s_{ij}(z_j') - s_{ij}(z_j)$\\
 \midrule
-\end{tabular}\\
-For plain logit $D_{jk,i} = \frac{s_{k}}{1-s_{j}}$ for all $i$ and weights don't matter!
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item Normalize so that above weights sum to one $w_{ij}^* = w_{ij}/\int w_{ij} \, d F_i$
+\item For plain logit $D_{jk,i} = \frac{s_{k}}{1-s_{j}}$ for all $i$ and weights don't matter!
+\end{itemize}
 \end{frame}
+
+\begin{frame}{Mixed Logit, Second Choices}
+Here we get a really simple decomposition:
+\begin{align*}
+D_{j \rightarrow k} = \sum_{i \in \mathcal{I}} \underbrace{\frac{s_{ik}}{1-s_{ij}}}_{D_{jk,i}} \cdot \underbrace{\frac{\pi_i \cdot s_{ij}}{s_{j}}}_{\gamma_{ij}}
+\end{align*}
+Idea: different interventions change \alert{weights} but not \alert{individual diversion ratios}:
+\begin{itemize}
+\item \textbf{Individual Diversion Ratios} $D_{j\rightarrow k,i}$ : $\Pr( i \text{ chooses } k \mid \text{ doesn't choose } j)$.
+
+\item \textbf{Weights} $\gamma_{ij}$ : For second choices: $\Pr(\text{Type } i \mid \text{ leaves } j) =\Pr(\text{Type } i \mid \text{ chooses } j)$.\\ For infinitesimal price changes $\gamma_{ij}=\frac{\pi_i \cdot |\beta_i^p| \cdot s_{ij}(1-s_{ij})}{\sum_{i
+ \in \mathcal{I}} \pi_{i'} \cdot |\beta_i^p| \cdot s_{i'j}\cdot(1-s_{i'j})}$ or finite: $\gamma_{ij}(p_j,p_j')=\frac{s_{ij}(p_j')-s_{ij}(p_j)}{s_{j}(p_j')-s_{j}(p_j)}$.\\
+ (Types that are: price sensitive and likely to choose $j$).\\
+ But we could do this with anything (not just price!)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Application of CM Decomposition: Einav, Guido, Klenow (2025)}
+Measuring \alert{customer overlap} by counting total sales of substitute $k$ (Dunkin) and purchases of NOT focal product $j$ (Starbucks) using \alert{panel data}:
+\begin{align*}
+C_{j \rightarrow k}= 
+\frac{\sum_{\left\{i t \mid i \in \mathcal{C}_j\right\}} 1\left(d_{i t}=k\right)}{\sum_{\left\{i t \mid i \in \mathcal{C}_j\right\}} 1\left(d_{i t} \neq j\right)} 
+=\frac{\sum_{i \in \mathcal{C}_j} q_{i,k}}{\sum_{i \in \mathcal{C}_j} q_{i,(-j)}} 
+= \frac{Q_k}{\left(\sum_{i \in \mathcal{C}_j} T_i \right)
+ -Q_j} \approx \frac{s_k}{1-s_j} \mid \text{ ever chooses } j
+\end{align*}
+\begin{itemize}
+	\item Restrict to the set $\mathcal{C}_j$ of households that \alert{ever purchased} $j$.
+	\item $T_i$ are total purchases in category by household $i$.
+    \item For any full support random utility model $u_{ij} = v_{ij}(\theta_i) + \varepsilon_{ijt}$ as $T_i \rightarrow \infty$.\\
+     $i$ will always choose $j$ with positive probability. This will make the $\mathcal{C}_j$ restriction meaningless.
+    \item In the limit we should get the logit prediction.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Application of CM Decomposition: Einav, Guido, Klenow (2025)}
+Can I rewrite this as a weighted average of \alert{individual diversion ratios}? (Yes)
+\begin{align*}
+C_{j \rightarrow k}
+=\frac{\sum_{i \in \mathcal{C}_j} q_{i,k}}{\sum_{i \in \mathcal{C}_j} q_{i,(-j)}} 
+%&= \frac{\sum_{i \in \mathcal{C}_j} \sum_{t} 1\left(c_{i t}=k\right)}{\sum_{i \in \mathcal{C}_j} \sum_{t} 1\left(c_{i t} \neq j\right)} 
+= \frac{\sum_{i \in \mathcal{C}_j}   T_i \cdot \hat{s}_{ik} }{\sum_{i \in \mathcal{C}_j}  T_i \cdot (1-\hat{s}_{ij}) } 
+= \sum_{i \in \mathcal{C}_i} \underbrace{\frac{\hat{s}_{ik}}{1-\hat{s}_{ij}}}_{\hat{D}_{j \rightarrow k, i}} \cdot \underbrace{\frac{q_{i,(-j)}}{\sum_{i' \in \mathcal{C}_j} q_{i',(-j)}}}_{=\gamma_{ij}}.
+\end{align*}
+\begin{itemize}
+    \item Define: $\hat{s}_{ij} = \frac{1}{T_i} \sum_t 1(c_{it} =j)$, and $q_{i,(-j)} = \sum_{t} 1 [c_{it} \neq j] =  T_i (1- \hat{s}_{ij})$. 
+    \item Now the weights are $\Pr( \text{ Type } i  \mid \text{ chooses \alert{NOT} } j)$ for $i$ where $\hat{s}_{ij} > 0$.
+    \item We put the most weight on people who have the most \alert{non Starbucks} visits\\
+    (but zero if they never visit).
+    \item But with individual data, we could re-weight the households in the sample $\gamma_i$ such that we get \alert{second-choice diversion} (or whatever else we want).
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Welfare and WTP}
 As we learned on HW2, welfare and willingness to pay are mostly about \alert{diversion to outside good}
