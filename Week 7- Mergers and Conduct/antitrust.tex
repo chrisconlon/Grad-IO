@@ -12,10 +12,12 @@
 \begin{frame}
 \frametitle{What is Antitrust?}
  \begin{itemize}
-\item Current Debate: should we maximize \alert{efficiency/social surplus} or should we focus on \alert{consumer surplus}.
+\item Historical Debate: should we maximize \alert{efficiency/social surplus} or should we focus on \alert{consumer surplus}
+\item Today: Maybe something else like political power? big-ness? profits of small firms?
 \begin{itemize}
 \item US antitrust law focuses primarily on harm to consumers.
 \item EC tends to also worry about harm to competing firms.
+\item Canada had something like ``total surplus'' as objective until recently. 
  \end{itemize}
  \item We know about DWL from market power from undergrad economics. However, without profits, why would firms innovate or perform R\&D?
  \begin{itemize}
@@ -38,7 +40,7 @@
  Three \textit{per se} violations
  \begin{itemize}
  \item (1) price fixing (2) horizontal market division (3) refusals to deal.
- \item Other violations are \textit{rule of reason}.
+ \item Other violations are \textit{rule of reason} (mostly).
  \end{itemize}
  
 \end{frame}
@@ -104,10 +106,88 @@ SSNIP
  \end{itemize}
  Tricky Examples:
   \begin{itemize}
-\item Whole Foods vs. Wild Oats
-\item Cellophane Fallacy.
+\item \textit{FTC vs. Whole Foods/Wild Oats}
+\item Cellophane Fallacy (\textit{U.S. v. DuPont (1956)})
  \end{itemize}
 \end{frame}
+
+\begin{frame}{SSNIP/HMT Example}
+Courts often rely on the \alert{hypothetical monopolist test} or \alert{SSNIP} to define a market:
+\begin{enumerate}
+\item Start with a candidate market\\
+Suppose you’re defining the market for Coca-Cola.
+
+\item  If a monopolist controlled Coca-Cola only, could it raise price by 5–10\% without losing too many customers?
+\begin{itemize}
+\item If customers switch heavily to Pepsi, then the SSNIP is not profitable.
+\item So, expand the market to include Pepsi.
+\end{itemize}
+\item Re-test. Now suppose the market is Coca-Cola + Pepsi.
+\item Ask again: If a monopolist controlled both, could they raise price 5–10\%?
+\begin{itemize}
+\item If consumers switch to Sprite, bottled water, iced tea, etc., such that the price increase would fail, expand again.
+\end{itemize}
+\item Continue until the hypothetical monopolist could profitably raise prices — that defines the relevant market.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Problems with HMT}
+There are (many) problems with HMT
+\begin{itemize}
+\item To avoid the cellophane fallacy, we'd like to ask how substitutable products are not at \alert{observed market prices} but rather at \alert{competitive prices} (which we don't see/know).
+\item There are likely many such markets that satisfy the SSNIP test, and it seems like the order in which we add products will likely matter. The ``greedy algorithm'' was described above.
+\begin{itemize}
+    \item After stopping we might apply \alert{smallest market principle} and see if we could still sustain an SSNIP after eliminating one or more products from the market.
+    \item In reality, Coca-Cola owns many products (Coke, Sprite, Diet Coke, Powerade) already, and maybe we should already take that into account? (Do we add firms or products to the HMT?)
+    \item Do I add products that are closer substitutes to $A$ or products that increase the average price in the market by the most? (ie: closer to substitute $B$).
+\end{itemize}
+\item You and I may propose candidate markets that: (a) satisfy SSNIP test; (b) satisfy smallest market principle and (c) don't overlap much at all.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Critical Loss}
+A similar idea is \alert{critical loss}
+\begin{align*}
+    CL = \frac{\Delta p}{\Delta p +L} \text{ where  } L=\frac{p-mc}{p}
+\end{align*}
+Example $L = 40\%$ and $\Delta p=.05$ (or 5\% increase)
+\begin{align*}
+    CL = \frac{.05 }{.05 + 0.4} = 0.111 \text { or 11\% sales decline }
+\end{align*}
+\begin{itemize}
+    \item We're just describing an (own) elasticity! If actual loss (or elasticity) exceeds $CL$ than price increase isn't profitable    
+    \item But this is kind of just coming from a single product lerner index (!)
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Aggregate Diversion}
+A related idea is \alert{aggregate diversion ratio}
+\begin{align*}
+D_{j \rightarrow 0}^{\mathcal{M}} =  \frac{\sum_{k \in \mathcal{M}} \frac{\partial\, q_k}{\partial\, p_j}}{\frac{\partial\, q_k}{\partial\, p_j}}
+\end{align*}
+\begin{itemize}
+    \item Raise the price $p_j$ and calculate the diversion ratio to the outside good (all products outside the candidate market $\mathcal{M}$).
+    \item You only want to increase prices if $\frac{L}{ \Delta p} > D_{j \rightarrow 0}^{\mathcal{M}}$
+    \item High outside-good diversion means everyone leaves the market (market too small).
+    \item Low outside-good diversion means you recapture consumers.
+    \item Note: all of these ideas impose a lot of symmetry about price cost margins!
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Market Definition}
+A necessary or \alert{unnecessary} evil?
+\begin{itemize}
+    \item If you had sufficient data to estimate cross-elasticities or diversion ratios, it is probably easier to tell us if \alert{merger will increase prices} than whether a hypothetical monopolist would raise prices 5\% above the perfect competition level given a very different ownership structrure than the current market.
+    \item But judges/courts insist on ``it will raise prices? but in which \textit{market}?''
+    \item Personal View: if a merger of A\&B is likely to increase prices by more than some amount (5\%) then we already know: (a) they are in the same market and (b) merger will substially lessen competiion
+\end{itemize}
+Shows up not only in \alert{merger cases} but in \alert{monopolization cases} as well.
+\end{frame}
+
+
+
 
 \begin{frame}
 \frametitle{Step 2: Concentration/Screening}
