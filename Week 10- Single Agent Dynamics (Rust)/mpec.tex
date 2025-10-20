@@ -1,5 +1,5 @@
-\input{../resources/preamble.tex}
-
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
 
 
@@ -248,7 +248,7 @@ If we did we would have to \alert{interpolate}.
 \begin{exampleblock}{BLP 1995}
 The estimator solves the following mathematical program:
 \begin{align*}
-\min_{\alert{\theta_2}} & g(\xi(\alert{\theta_2}))' W g(\xi(\alert{\theta_2})) \quad \mbox{ s.t. } \\
+\min_{\alert{\theta_2}}\, & g(\xi(\alert{\theta_2}))' W g(\xi(\alert{\theta_2})) \quad \mbox{ s.t. } \\
 g(\xi(\alert{\theta_2})) &= \frac{1}{N} \sum_{\forall j,t} \xi_{jt} (\alert{\theta_2}) ' z_{jt} \\
 \xi_{jt}(\alert{\theta_2}) &= \delta_j(\alert{\theta_2}) - x_{jt} \beta - \alpha p_{jt} \\
 s_{jt}(\delta(\alert{\theta_2}),\alert{\theta_2}) &= \int \frac{\exp[\delta_j(\alert{\theta_2})+ \mu_{ij}]}{1+\sum_k \exp[\delta_j(\alert{\theta_2})+ \mu_{ik}]} f(\mu | \alert{\theta_2})\\
@@ -319,9 +319,9 @@ Time & 28 s & 12s & 19s  \\
 }
 
 \begin{frame}{Another Example: Empirical Likelihood}
-Consider the GMM moment condition $\mathbb{E}[g(Z_i,\theta)]=0$
+Consider the GMM moment condition $\E[g(Z_i,\theta)]=0$
 \begin{itemize}
-\item A common example is $E[z_i' (y_i-x_i \beta)]=0$
+\item A common example is $\E[z_i' (y_i-x_i \beta)]=0$
 \item Now consider re-weighting the data with $\rho_i$ so that $\sum_i \rho_i g(Z_i,\theta)=0$
 \begin{itemize}
 \item We also need that $\sum_i \rho_i =1$ and $\rho_i \in (0,1)$ (ie: $\rho$ is a valid probability measure)
@@ -334,7 +334,7 @@ Consider the GMM moment condition $\mathbb{E}[g(Z_i,\theta)]=0$
 
 
 
-\begin{frame}{Another Example: Empirical Likelihood}
+\begin{frame}{Another Example: (Generalized) Empirical Likelihood}
 \begin{align*}
 \min_{\alert{\theta}, \textcolor{blue}{\rho} }\sum_i f(\textcolor{blue}{\rho_i}) \quad &\text{ s.t } \sum_i \textcolor{blue}{\rho_i} \cdot g(Z_i,\alert{\theta})= 0\\
 & \sum_i \textcolor{blue}{\rho_i} =1 \quad \textcolor{blue}{\rho_i} \geq 0
@@ -344,6 +344,7 @@ Choices of $f(\rho_i)$:
 \item Empirical Likelihood: $f(\rho_i) = - \log \rho_i$ [This is NPMLE]
 \item Continuously Updating GMM (CUE): $f(\rho_i) = \rho_i^2$ [Derivation is \alert{not} obvious]
 \item Exponential Tilt: $f(\rho_i) = \rho_i \log \rho_i $ [has some ``robustness'' properties]
+\item Adversarial Method of Moments: Conlon, Kim, Manresa, Li (2025)
 \item See Kitamura's Handbook Chapter for more details (and convex analysis) or Newey Smith (2004) for asymptotic bias.
 \end{itemize}
 \end{frame}
@@ -356,16 +357,18 @@ Start with the Lagrangian:
 \end{align*}
 Take derivatives with respect to \textcolor{blue}{$\rho$} and $\alert{\theta}$ and Lagrange multipliers to get $\textcolor{blue}{\gamma}$ and concentrate out $\textcolor{blue}{\rho_i}(\alert{\theta})$
 \begin{align*}
-\textcolor{blue}{\hat{\gamma}}(\alert{\theta}) &=\arg \min _{\textcolor{blue}{\gamma} \in \mathbb{R}^{q}}-
+\textcolor{blue}{\hat{\gamma}}(\alert{\theta}) &=\arg \min\, _{\textcolor{blue}{\gamma} \in \mathbb{R}^{q}}-
 \sum_{i=1}^{n} \log \left(1+\textcolor{blue}{\gamma}^{\prime} g\left(Z_{i}, \alert{\theta}\right)\right) \\
 \textcolor{blue}{\hat{\rho}}_{i}(\alert{\theta}) &=\frac{1}{n\left(1+\textcolor{blue}{\hat{\gamma}}(\alert{\theta})^{\prime} g\left(Z_{i}, \alert{\theta}\right)\right)}, \quad \hat{\lambda}=n
 \end{align*}
 The resulting dual is a saddle-point problem:
 \begin{align*}
-\hat{\theta}_{E L}=\arg \max _{\alert{\theta} \in \Theta} l_{N P}(\alert{\theta})=\arg \max _{\alert{\theta} \in \Theta} \min _{\textcolor{blue}{\gamma} \in \mathbb{R}^{q}}-\sum_{i=1}^{n} \log \left(1+\textcolor{blue}{\gamma}^{\prime} g\left(Z_{i}, \alert{\theta}\right)\right)
+\hat{\theta}_{E L}=\arg \max _{\alert{\theta} \in \Theta} \ell_{N P}(\alert{\theta})=\arg \max _{\alert{\theta} \in \Theta} \min\, _{\textcolor{blue}{\gamma} \in \mathbb{R}^{q}}-\sum_{i=1}^{n} \log \left(1+\textcolor{blue}{\gamma}^{\prime} g\left(Z_{i}, \alert{\theta}\right)\right)
 \end{align*}
 But the primal (MPEC) problem is much easier... unless $g(Z_i,\theta)$ is trivial.
 \end{frame}
+
+\section{Thanks!}
 
 \end{document}
 

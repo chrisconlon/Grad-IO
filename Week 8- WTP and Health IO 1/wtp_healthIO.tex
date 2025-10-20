@@ -1,30 +1,13 @@
-\def\beamerclassoptions{[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]}
-\input{../resources/preamble.tex}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage[absolute,overlay]{textpos} 
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
-
-\DeclareMathSizes{10}{10}{6}{6} 
-
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage{teaching_slides}
 
 \title [Healthcare and IO]{Willingness to Pay and Healthcare}
-\author{C.Conlon }
+\author{Chris Conlon }
 \institute{Grad IO }
-\date{Fall 2019}
-\setbeamerfont{equation}{size=\tiny}
+\date{\today}
+%\setbeamerfont{equation}{size=\tiny}
+
+
 \begin{document}
 
 \begin{frame}
@@ -59,7 +42,7 @@ The Government keeps losing hospital mergers (basically all of them):
 \item These cases are lost at the stage of \alert{market definition} under the \alert{hypothetical monopolist test}.
 \begin{itemize}
 \item Recall: SSNIP of 5\% price increase for all products. If this is not profitable -- include next closest substitute. Continue adding products to define relevant market.
-\item Resulting markets are so large (and unconcentrated) that mergers always lead to negligible changes in market power
+\item Resulting markets are so large (and unconcentrated) that mergers always lead to negligible changes in market share
 \end{itemize}
 \item What if we could measure relevant markets better?
 \end{itemize}
@@ -69,14 +52,14 @@ The Government keeps losing hospital mergers (basically all of them):
 \begin{frame}{CDS(2003): Ex-Ante and Ex-Post WTP}
 What is the value that $i$ places on having hospital $j$ included in network $G$?
 \begin{align*}
-U_{i j} &=\alpha R_{j}+H_{j}^{\prime} \Gamma X_{i}+\tau_{1} T_{i j}+\tau_{2} T_{i j} \cdot X_{i}+\tau_{3} T_{i j} \cdot R_{j}-\gamma\left(Y_{i}, Z_{i}\right) P_{j}\left(Z_{i}\right)+\varepsilon_{i j} \\ &=U\left(H_{j}, X_{i}, \lambda_{i}\right)-\gamma\left(X_{i}\right) P_{j}\left(Z_{i}\right)+\varepsilon_{i j} 
+U_{i j} &=\alpha R_{j}+H_{j}^{\prime} \Gamma X_{i}+\tau_{1} T_{i j}+\tau_{2} T_{i j} \cdot X_{i}+\tau_{3} T_{i j} \cdot R_{j}-\alert{\gamma\left(Y_{i}, Z_{i}\right) P_{j}\left(Z_{i}\right)}+\varepsilon_{i j} \\ &=U\left(H_{j}, X_{i}, \lambda_{i}\right)-\alert{\gamma\left(X_{i}\right) P_{j}\left(Z_{i}\right)}+\varepsilon_{i j} 
 \end{align*}
 
 \begin{itemize}
 \item $H_{j}=\left[R_{j}, S_{j}\right]$ is partitioned into generic $R$ and diagnosis specific $S$ characteristics.
 \item $X_{i}=\left[Y_{i}, Z_{i}\right]$ is partitioned into demographic $Y$ and diagnosis specific $Z$ characteristics.
 \item $T_{i j}=T_{j}\left(\lambda_{i}\right)$ distance from $i$'s home to hospital $j$
-\item This paper: ignore $\gamma\left(X_{i}\right) P_{j}\left(Z_{i}\right)$ since $P_{j'}(Z_i) \approx P_j(z_i)$
+\item This paper: ignore $\alert{\gamma\left(X_{i}\right) P_{j}\left(Z_{i}\right)}$ since $P_{j'}(Z_i) \approx P_j(z_i)$
 \item Parameters: $[\alpha,\Gamma, \tau]$ and $\gamma(X_i)$.
 \end{itemize}
 \end{frame} 
@@ -89,7 +72,7 @@ s_{j}\left(G, X_{i}, \lambda_{i}\right)=\frac{\exp \left[U\left(H_{j}, X_{i}, \l
 \end{align*}
 And
 \begin{align*}
-V^{I U}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right)=E \max _{j \in G}\left[U\left(H_{j}, Y_{i}, Z_{i}, \lambda_{i}\right)+\varepsilon_{i j}\right]=\ln \left[\sum_{j \in G} \exp \left(U\left(H_{j}, Y_{i}, Z_{i}, \lambda_{i}\right)\right)\right]
+V^{I U}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right)=\E \max _{j \in G}\left[U\left(H_{j}, Y_{i}, Z_{i}, \lambda_{i}\right)+\varepsilon_{i j}\right]=\ln \left[\sum_{j \in G} \exp \left(U\left(H_{j}, Y_{i}, Z_{i}, \lambda_{i}\right)\right)\right] + 0.577
 \end{align*}
 \end{frame}
 
@@ -358,7 +341,7 @@ E\left(\pi_{j, m}^{P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \theta\right) |
 \item Plan $j$'s expected profits from network $H_j$ must exceed its expected profits from alternative network where it drops/adds hospital $h$ holding all else fixed
 \item This represents \alert{necessary} but \alert{not sufficient} conditions for equilibrium.
 \begin{align*}
-E\left(\pi_{j, m}^{P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \symbf{\theta}\right) | I_{j m}\right) \geq E\left(\pi_{j, m}^{P}\left(H_{j}^{h}, \mathcal{H}_{-j}, \mathcal{X}, \symbf{\theta}\right) | I_{j, m}\right)
+\E\left(\pi_{j, m}^{P}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}, \symbf{\theta}\right) | I_{j m}\right) \geq \E\left(\pi_{j, m}^{P}\left(H_{j}^{h}, \mathcal{H}_{-j}, \mathcal{X}, \symbf{\theta}\right) | I_{j, m}\right)
 \end{align*}
 Combine with both error terms:
 \begin{align*}
@@ -372,14 +355,14 @@ Second term has expectation zero.
 
 \begin{frame}{Methodological Innovation}
 \begin{itemize}
-\item Resulting estimator combines \alert{moment equalities }$E[\xi_{jt}' z_{jt}]=0$ with \alert{moment inequalities}
+\item Resulting estimator combines \alert{moment equalities } $\E[\xi_{jt}' z_{jt}]=0$ with \alert{moment inequalities}
 \begin{align*}
 \frac{1}{M} \sum_{m} \frac{\sqrt{n_{m}}}{n_{m}} \sum_{j=1}^{n_{m}}\left[\left(\pi_{j, m}^{P, o}\left(H_{j}, \mathcal{H}_{-j}, \mathcal{X}^{o}, \symbf{\theta}\right)-\left(\pi_{j, m}^{P, o}\left(H_{j}^{h}, \mathcal{H}_{-j}, \mathcal{X}^{o}, \symbf{\theta}\right)\right) \otimes g\left(z_{j, m}\right)\right] \geq 0\right.
 \end{align*}
 \item Penalize violations of moment equalities in both directions
 \item Penalize violations of moment inequalities in only one direction.
 \item Parameters may be \alert{set} rather than \alert{point identified}
-\item Prof. Dickstein will talk more about estimation/inference.
+\item Prof. Dickstein is the expert, but he is on sabbatical right now.
 \end{itemize}
 \end{frame}
 

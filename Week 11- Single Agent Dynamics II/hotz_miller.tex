@@ -1,9 +1,10 @@
-\input{../resources/preamble.tex}
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
 \title{CCPs and Sufficient Statistics: Hotz-Miller (1993)}
 \author{C.Conlon - help from M. Shum and Paul Scott}
 \institute{Grad IO }
-\date{}
+\date{\today}
 \setbeamerfont{equation}{size=\tiny}
 
 \begin{document}
@@ -56,7 +57,7 @@ V^k(x) &= \E u(d^k(x),x) + \beta \, \symbf{\tilde{F}}^k \, V^k(x)\\
 
 \begin{frame}{Motivation}
 \begin{itemize}
-	\item In Rust, we started with a guess of parameters $\theta$, iterated on the Bellman operator to get $EV_{\theta}(x,j)$ and then constructed CCP's $Pr(a(x) = j | x,\theta) \equiv p(j | x,\theta)$.
+	\item In Rust, we started with a guess of parameters $\theta$, iterated on the Bellman operator to get $EV_{\theta}(x,j)$ and then constructed CCP's $\Pr(a(x) = j | x,\theta) \equiv p(j | x,\theta)$.
 	\item A disadvantage of Rust's approach is that it can be computationally intensive
 	\begin{itemize}
 		\item With a richer state space, solving value function (inner fixed point) 
@@ -417,5 +418,6 @@ P^{k+1}(d | x,\theta) &=& g(h(\hat{P^{k}}(d | x, \theta),s ,\theta),s,\theta)
 \end{frame}
 
 
+\section{Thanks!}
 
 \end{document}

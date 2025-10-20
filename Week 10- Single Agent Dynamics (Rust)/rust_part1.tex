@@ -1,11 +1,12 @@
-\input{../resources/preamble.tex}
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
 
 
 \title [Single-agent dynamic optimization models]{Single-agent dynamic optimization models}
 \author{C.Conlon - help from M. Shum and Paul Scott}
-\institute{Grad IO }
-\date{}
+\institute{Grad IO}
+\date{\today}
 \setbeamerfont{equation}{size=\tiny}
 
 \begin{document}
@@ -14,8 +15,7 @@
 \end{frame}
 
 
-\frame{
-\frametitle{Why dynamic estimation? External validity}
+\begin{frame}{Why dynamic estimation? External validity}
 \begin{itemize}
 	\item<1-> Famous example: Hendel and Nevo's (2006) estimation of laundry detergent demand
 
@@ -34,12 +34,11 @@
 	variation.
 
 \end{itemize}
-}
+\end{frame}
 
 
 
-\frame{
-\frametitle{Why are dynamics difficult?}
+\begin{frame}{Why are dynamics difficult?}
 \begin{itemize}
 	\item The computational burden of solving dynamic problems blows up 
 		as the state space gets large. With standard dynamic estimation techniques, 
@@ -54,11 +53,10 @@
 	\medskip	
 	\item Solving for equilibria, multiplicity (dynamic games)
 \end{itemize}
-}
+\end{frame}
 
 
-\frame{
-\frametitle{Outline}
+\begin{frame}{Outline}
 \begin{itemize}
 	\item Introduction to dynamic estimation: Rust (1987)
 	\item MPEC: an alternative algorithm (Su and Judd 2012)
@@ -70,7 +68,7 @@
 	\item Euler equation estimation: Scott (2014)
 
 \end{itemize}
-}
+\end{frame}
 
 
 \section{Rust: Theory of Dynamic Discrete Choice (DDC)}

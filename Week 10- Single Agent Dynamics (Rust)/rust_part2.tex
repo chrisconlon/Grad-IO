@@ -1,4 +1,5 @@
-\input{../resources/preamble.tex}
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
 
 \title [Single-agent dynamic optimization models]{Single-agent dynamic optimization models}
@@ -18,7 +19,7 @@
 Likelihood function for a single bus:
 \begin{equation*}
 \begin{split}
-& l (x_1, \cdots , x_T, i_t, \cdots , i_T | x_0, i_0 ; \theta) \\
+& \ell (x_1, \cdots , x_T, i_t, \cdots , i_T | x_0, i_0 ; \theta) \\
 = & \prod^T_{t=1} \Pr(i_t, x_t | x_0, i_0, \cdots , x_{t-1}, i_{t-1} ; \theta) \\
 = & \prod^T_{t=1} \Pr(i_t, x_t |  x_{t-1}, i_{t-1} ; \theta) \\
 = & \prod^T_{t=1} \Pr(i_t | x_t; \theta) \cdot \prod^T_{t=1} \Pr (x_t | x_{t-1}, i_{t-1} ; \theta_3) .
@@ -30,7 +31,7 @@ The third line arises from the Markovian feature of the problem, and the last eq
 \begin{frame}{Rust (1987)}
 Log likelihood is additively separable in the two components:
 \begin{equation*}
-\text{log } l(\theta) = \sum^T_{t=1} \text{log } \Pr (i_t | x_t ; \theta_1) + \sum^T_{t=1} \text{log } \Pr (x_t | x_{t-1}, i_{t-1}; \theta_3).
+\text{log } \ell(\theta) = \sum^T_{t=1} \text{log } \Pr (i_t | x_t ; \theta_1) + \sum^T_{t=1} \text{log } \Pr (x_t | x_{t-1}, i_{t-1}; \theta_3).
 \end{equation*}
 Give the factorization of the likelihood function above, we can estimate in two steps... \\
 \vspace{3mm}
@@ -211,5 +212,7 @@ T(\epsilon,\beta) = \frac{1}{| \log(\beta) | } \log \left (\frac{1}{(1-\beta)\ep
 \end{center}
 \end{frame}
 
+
+\section{Thanks!}
 
 \end{document}

@@ -1,13 +1,14 @@
-\input{../resources/preamble}
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
 \title [Single-agent dynamic optimization models]{Persistent Unobservables}
 \author{C.Conlon - Adapted from M. Shum}
 \institute{Grad IO}
 \date{\today}
 \setbeamerfont{equation}{size=\tiny}
+
+
 \begin{document}
-
-
 \begin{frame}
 \titlepage
 \end{frame}
@@ -103,8 +104,8 @@ Timing
 \begin{frame}{Pakes (1986)}
 Gives us the value function
 \begin{align*}
-V&\equiv& \max_{t \in [a,L] }\sum_{a'=1}^{L-a} \beta^{a'} R(a+ a') \\
-R(a) &=& \begin{cases} r_a -c_a, & \mbox{if } t \geq a \mbox{ when you hold patent} \\0 & \mbox{if } t < a \mbox{ after patent expires} \end{cases}
+V&\equiv \max_{t \in [a,L] }\sum_{a'=1}^{L-a} \beta^{a'} R(a+ a') \\
+R(a) &= \begin{cases} r_a -c_a, & \mbox{if } t \geq a \mbox{ when you hold patent} \\0 & \mbox{if } t < a \mbox{ after patent expires} \end{cases}
 \end{align*}
 \begin{itemize}
 \item $t$ above denotes the age which allows the patent to expire and is the choice variable.  Another \alert{optimal stopping} problem.\\
@@ -233,8 +234,8 @@ Frequency of simulated sequences which match observed sequence.  $T$ long or $S$
 \end{itemize}
 Go back to the factorized likelihood
 \begin{eqnarray*}
-l(y^T | y_0,\epsilon_0 ) &=& \prod_{t=1}^T l (y_t | y^{t-1},y_0,\epsilon_0) = \prod_{t=1} \int l (y_t |\epsilon^t, y^{t-1}) p(\epsilon^t | y^{t-1} )d \epsilon^t  \\
-&\approx& \frac{1}{S} \sum_s l(y_t | \epsilon^{t | t-1,s},y^{t-1})
+\ell(y^T | y_0,\epsilon_0 ) &=& \prod_{t=1}^T \ell (y_t | y^{t-1},y_0,\epsilon_0) = \prod_{t=1} \int \ell (y_t |\epsilon^t, y^{t-1}) p(\epsilon^t | y^{t-1} )d \epsilon^t  \\
+&\approx& \frac{1}{S} \sum_s \ell(y_t | \epsilon^{t | t-1,s},y^{t-1})
 \end{eqnarray*}
 We omit conditioning on $(\epsilon_0, y_0)$ for convenience, and $\epsilon^{t | t-1,s}$ is a simulated draw of $\epsilon^t \sim p(\epsilon^t | y^{t-1})$.
 \end{frame}
@@ -244,9 +245,9 @@ We omit conditioning on $(\epsilon_0, y_0)$ for convenience, and $\epsilon^{t | 
 \begin{frame}{Importance Sampling: Particle Filtering}
 Let's look more closely at the last line:
 \begin{itemize}
-\item first term: $l(y_t, | \epsilon^t,y^{t-1})$ we can calculate for a value of $\epsilon_t$
+\item first term: $\ell(y_t, | \epsilon^t,y^{t-1})$ we can calculate for a value of $\epsilon_t$
 \begin{eqnarray*}
-l(y_t | \epsilon^t , y^{t-1}) = p(i_t | \epsilon^t, y^{t-1}) = p(i_t | \epsilon_t) = \symbf{1}(i(\epsilon_t) = i_t)
+\ell(y_t | \epsilon^t , y^{t-1}) = p(i_t | \epsilon^t, y^{t-1}) = p(i_t | \epsilon_t) = \symbf{1}(i(\epsilon_t) = i_t)
 \end{eqnarray*}
 \item the second term $p(\epsilon^t | y^{t-1})$ is generally not obtainable in closed form. So numerical integration is not feasible. Particle filtering let's us draw $\epsilon^t$ from this distribution for every period $t$.
 \end{itemize}

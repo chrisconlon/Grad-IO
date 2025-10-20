@@ -1,29 +1,11 @@
-\def\beamerclassoptions{[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]}
-\input{../resources/preamble.tex}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage[absolute,overlay]{textpos} 
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
-
-\DeclareMathSizes{10}{10}{6}{6} 
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
 
 \title [Dynamic Oligopoly I]{Network Effects}
 \author{C.Conlon }
 \institute{Grad IO }
-\date{Fall 2023}
+\date{\today}
 \setbeamerfont{equation}{size=\tiny}
 \begin{document}
 
@@ -68,7 +50,7 @@
 
 \begin{frame}{What are Network Effects?}
 \begin{center}
-\includegraphics[scale=0.5]{resources/triangles.pdf}
+\includegraphics[scale=0.5]{resources/triangles.png}
 \end{center}
 \end{frame}
 
@@ -88,16 +70,10 @@
 \end{enumerate}
 \item Information structure guarantees a unique best response (conjecture) and a pure-strategy equilibria.
 \item Hence prices $p_{jt}$ contain a lot of information.
+\item Titles depend on next period state variable: $n_{jt} = h_j(y_{j,t+1})$. \alert{Why?}
 \end{itemize}
 \end{frame}
 
-
-
-\begin{frame}{}
-\begin{itemize}
-\item Titles depend on next period state variable: $n_{jt} = h_j(y_{j,t+1})$. Why?
-\end{itemize}
-\end{frame}
 
 \begin{frame}{Consumers}
 Need two things:
@@ -108,7 +84,7 @@ Need two things:
 Utilities
 \begin{itemize}
 \item Flow from software: $u_j(y_{j,t+1}) = \gamma n_{jt} = \gamma h_j (y_{j,t+1})$
-\item In PDV: $\omega_j (y_{t+1}) = E [ \sum_{k=0}^{\infty} \beta^k u_j(y_{j,t+1+k}) | y_{t+1}]$
+\item In PDV: $\omega_j (y_{t+1}) = \E [ \sum_{k=0}^{\infty} \beta^k u_j(y_{j,t+1+k}) | y_{t+1}]$
 \item This PDV trick is common (and helpful) and solves the recursion:
 \begin{eqnarray*}
 \omega_j(y_{t+1}) &=& u_j(y_{j,t+1}) + \beta \int  \omega_j( f^e(y_t,\xi_t)) \phi(\xi) \partial \xi\\
@@ -142,8 +118,7 @@ y_{j,t+1} = y_{jt} + (1-\sum_{k=1}^J y_{kt}) s_j(y_t,\xi_t, p_t) = f_j (y_t, \xi
 \end{eqnarray*}
 Solve Bellman:
 \begin{eqnarray*} 
-V_j(y,\xi_j) &=& \sup_{p_j \geq 0} [ \pi_j(y,\xi,p_j) +\\
- && \beta_f \int V_j(f_j(y,\xi_j,\xi_{-j},p_j,\sigma_{-j}(y,\xi_{-j}))) \phi(\xi_{-j}) \phi(\xi_j')]
+V_j(y,\xi_j) &=& \sup_{p_j \geq 0} \left[ \pi_j(y,\xi,p_j) +\beta_f \int V_j(f_j(y,\xi_j,\xi_{-j},p_j,\sigma_{-j}(y,\xi_{-j}))) \phi(\xi_{-j}) \phi(\xi_j') \right]
 \end{eqnarray*}
 
 
@@ -178,8 +153,8 @@ Define an MPE such that:
 
 \begin{frame}{Data and Estimates}
 \begin{center}
-\includegraphics[scale=0.5]{resources/dube-table1}\\
-\includegraphics[scale=0.5]{resources/dube-table2}
+\includegraphics[width=0.5\textwidth]{resources/dube-table1.png}
+\includegraphics[width=0.5\textwidth]{resources/dube-table2.png}
 \end{center}
 \end{frame}
 
