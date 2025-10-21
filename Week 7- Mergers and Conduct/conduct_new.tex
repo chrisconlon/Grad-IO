@@ -606,12 +606,12 @@ Getting the SD of the difference is hard $\rightarrow$ bootstrap
 \begin{enumerate}[(a)]
 \item For each candidate model, compute the value of the scalar moment:\footnotemark
 \begin{align*}
- Q(\eta^m) =\left(\sum_{j,t} \hat\omega_{jt}^m\cdot \hat{g}(\symbf{z_t}) \right)^2.
+ Q(\eta^m) =\left(\frac{1}{T}\sum_{j,t} \hat\omega_{jt}^m\cdot \hat{g}(\symbf{z_t}) \right)^2.
 \end{align*}
-\item Repeat the previous step on bootstrapped samples and estimate $\hat\sigma/\sqrt{n}$ the standard error of the difference $\tilde Q(\eta^1) - \tilde Q(\eta^2)$.
+\item Repeat the previous step on bootstrapped samples and estimate $\hat\sigma/\sqrt{T}$ the standard error of the difference $\tilde Q(\eta^1) - \tilde Q(\eta^2)$.
 \item Compute the test statistic
 \begin{align*}
-T = \frac{\sqrt{n} \left(Q(\eta^1) -  Q(\eta^2) \right)}{\widehat{\sigma}} \sim \mathcal{N}(0,1).
+T = \frac{\sqrt{T} \left(Q(\eta^1) -  Q(\eta^2) \right)}{\widehat{\sigma}} \sim \mathcal{N}(0,1).
 \end{align*}
 \textit{Note: Steps 2(a) and 2(b) can be done in any order via non-parametric regression.}
 \end{enumerate}
