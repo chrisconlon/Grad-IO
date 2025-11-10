@@ -1,21 +1,5 @@
-\def\beamerclassoptions{[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]}
-\input{../resources/preamble.tex}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,centernot}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage{pdfpages}
-\usepackage[absolute,overlay]{textpos} 
-
-\DeclareMathSizes{10}{10}{6}{6} 
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
 
 \title [Dynamic Demand I]{Dynamic Demand I:\\
@@ -23,7 +7,9 @@
 \author{C.Conlon}
 \institute{Grad IO}
 \date{\today}
-\setbeamerfont{equation}{size=\tiny}
+%\setbeamerfont{equation}{size=\tiny}
+
+
 \begin{document}
 
 \begin{frame}
@@ -733,7 +719,7 @@ This is a \alert{Smooth Approximation} approach
 \begin{frame}{Table 4: Brand Choice Estimates}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=4in]{resources/hntable4.pdf}
+\includegraphics[height=\textheight]{resources/hntable4.pdf}
 \label{gandr1}
 \end{center}
 \end{figure}
@@ -742,7 +728,7 @@ This is a \alert{Smooth Approximation} approach
 \begin{frame}{Table 5: Belief Process Estimates}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=4in]{resources/hntable5.pdf}
+\includegraphics[height=\textheight]{resources/hntable5.pdf}
 \label{gandr1}
 \end{center}
 \end{figure}
@@ -751,7 +737,7 @@ This is a \alert{Smooth Approximation} approach
 \begin{frame}{Table 5: Dynamic Problem Estimates}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=4in]{resources/hntable6.pdf}
+\includegraphics[height=\textheight]{resources/hntable6.pdf}
 \label{gandr1}
 \end{center}
 \end{figure}
@@ -760,7 +746,7 @@ This is a \alert{Smooth Approximation} approach
 \begin{frame}{Table 8: Elasticities Compared to Static Model}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=4in]{resources/hntable8.pdf}
+\includegraphics[height=\textheight]{resources/hntable8.pdf}
 \label{gandr1}
 \end{center}
 \end{figure}
