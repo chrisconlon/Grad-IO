@@ -264,7 +264,7 @@ x &=W_{k}-P_{k j t}-O O P+\eta\left(\symbf{X}_{k t}^{B}, Y_{k}\right) 1_{k j, t-
 \item $P_{k j t}$ is the price for insurance plan $j$ to family $k$.
 \item $OOP$ is a draw from the distribution of $f(OOP)$ expenses: depends on the plan.
 \item $\eta\left(\symbf{X}_{k t}^{B}, Y_{k}\right) 1_{k j, t-1}$ is the switching cost which depends on demographics $\symbf{X}_{k t}^{B}$.
-\item $\delta_{k}(Y_k)$ is the family specific intercept for high-deductible plan $(Y_k)$ is family dummy.
+\item $\delta_{k}(Y_k)$ is the family specific intercept for high-deductible plan $(Y_k)$ is family dummy (ie., unit $k$ is family or single).
 \item $\alpha H_{k, t-1} 1_{250}$ is interaction between 90th percentile spenders and most generous plan.
 \end{itemize}
 \end{frame}
@@ -316,7 +316,7 @@ _{\gamma }^{2}) \\
 
 \item Switching costs:%
 \begin{align*}
-\eta (X_{k}^{B},Y_{k})=\eta _{0}+\eta _{1}X_{kt}^{B}+\eta _{2}Y_{k}
+\eta (X_{kt}^{B},Y_{k})=\eta _{0}+\eta _{1}X_{kt}^{B}+\eta _{2}Y_{k}
 \end{align*}
 
 \item Probit error, $\varepsilon _{kjt}$ distributed iid with parms $(\mu
@@ -448,7 +448,7 @@ With endogenous price changes:
 \item What is a switching cost?
 \begin{itemize}
 \item Transaction costs (then SC=0 when no switch)
-\item Learning costs  -  effort needed to learn about new plan’s features.
+\item Learning costs  -  effort needed to learn about new plan√ïs features.
 \item Product compatibility - important if network changes (need to make new relationship-specific investments)
 \item Fixed re-optimization costs - some cost to changing beliefs from status quo
 \item Inertial and psychological costs
