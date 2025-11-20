@@ -1,5 +1,6 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
-\input{../resources/preamble.tex}
 
 
 \title [Dynamic Demand III]{Dynamic Demand III:
@@ -12,9 +13,7 @@
 
 \begin{document}
 
-\begin{frame}
-\titlepage
-\end{frame}
+\maketitle
 
 \begin{frame}{Today's Readings}
 \begin{itemize}
@@ -76,8 +75,8 @@
 \begin{frame}{Dynamic Discrete Choice}
 \footnotesize
 \begin{eqnarray*}
-V(s_t)&=& \max_{c_h(s_t),d_{jxt}(s_t)} \sum_t \beta^{t-1} E[ u(c_{ht}+\nu_{ht}; \theta_h) - C_h(i_{h,t+1};\theta_h) \\
-&+&\sum_j d_{hjxt} (\alpha_h^p p_{jxt} + \xi_{hjx} + \alpha_h^a a_{jxt} + \epsilon_{hjxt} )| s_t]\\
+V(s_t)&=& \max_{c_h(s_t),d_{jxt}(s_t)} \sum_t \beta^{t-1} \E[ u(c_{ht}+\nu_{ht}; \theta_h) - C_h(i_{h,t+1};\theta_h) \\
+&+&\sum_j d_{hjxt} (\alpha_h^p p_{jxt} + \xi_{hjx} + \alpha_h^a a_{jxt} + \epsilon_{hjxt} ) \mid  s_t]\\
 i_{h,t+1} &=& i_{ht} + x_{ht} - c_{ht}\\
 \sum_{j,x} d_{hjxt} &=& 1
 \end{eqnarray*}
@@ -110,7 +109,8 @@ $\epsilon_{jxt}$ is i.i.d. extreme value type 1.
 \begin{frame}{Likelihood}
 Conditional on Household we can write the probability of a sequence of purchase decisions:
 \begin{eqnarray*}
-P(d_1,\ldots,d_t | p_1,\ldots,p_T) = \int \prod_t P(d_t | p_t, \\
+\Pr(d_1,\ldots,d_t &\mid& p_1,\ldots,p_T) \\
+&=& \int \prod_t P(d_t \mid p_t, 
 i_t(d_{t-1},\ldots,d_1, \nu_{t-1},\ldots,\nu_1,i_1))dF(\nu_1,\ldots,\nu_T) dF(i_1)
 \end{eqnarray*}
 \begin{itemize}
@@ -121,8 +121,8 @@ i_t(d_{t-1},\ldots,d_1, \nu_{t-1},\ldots,\nu_1,i_1))dF(\nu_1,\ldots,\nu_T) dF(i_
 
 \begin{frame}{Choice Problem}
 \begin{eqnarray*}
-Pr(d_{jx} | p_t,i_t,\nu_t) &=& \frac{\exp[\alpha p_{jxt} + \xi_{jx} + \beta a_{jxt} + M(s_t,j,x)]}{\sum_{k,y} \exp[\alpha p_{kyt} + \xi_{jy} + \beta a_{kyt} + M(s_t,k,y)]}\\
-M (s_t,j,x) &=& \max_c [ u(c+\nu_t) - C(i_{t+1}) + \beta E[V(s_{t+1}|d_{jx},c,s_t]]\\
+\Pr(d_{jx} \mid p_t,i_t,\nu_t) &=& \frac{\exp[\alpha p_{jxt} + \xi_{jx} + \beta a_{jxt} + M(s_t,j,x)]}{\sum_{k,y} \exp[\alpha p_{kyt} + \xi_{jy} + \beta a_{kyt} + M(s_t,k,y)]}\\
+M (s_t,j,x) &=& \max_c [ u(c+\nu_t) - C(i_{t+1}) + \beta \E[V(s_{t+1} \mid d_{jx},c,s_t]]\\
 \end{eqnarray*}
 \begin{itemize}
 \item State space has very high dimension. (Lots of brand-size combos at different prices)
@@ -143,8 +143,8 @@ To reduce complexity, Hendel and Nevo propose a 3-step estimator
 
 \begin{frame}{Step 1: Brand Choice}
 \begin{eqnarray*}
-Pr(d_{jx} | x_t, p_t,i_t,\nu_t) &=& \frac{\exp[\alpha^p p_{jxt} + \xi_{jx} + \alpha^a a_{jxt}]}{\sum_{k,y} \exp[\alpha^p p_{kyt} + \xi_{jy} + \alpha^a a_{kyt}  ] }\\
-&=&Pr(d_{jx} | x_t, p_t)
+\Pr(d_{jx} \mid x_t, p_t,i_t,\nu_t) &=& \frac{\exp[\alpha^p p_{jxt} + \xi_{jx} + \alpha^a a_{jxt}]}{\sum_{k,y} \exp[\alpha^p p_{kyt} + \xi_{jy} + \alpha^a a_{kyt}  ] }\\
+&=& \Pr(d_{jx} \mid x_t, p_t)
 \end{eqnarray*}
 \begin{itemize}
 \item The trick is that $M(s_t,j,x)$ is the same for all products of the same size $x$.
@@ -154,12 +154,14 @@ Pr(d_{jx} | x_t, p_t,i_t,\nu_t) &=& \frac{\exp[\alpha^p p_{jxt} + \xi_{jx} + \al
 \end{frame}
 
 \begin{frame}{Step 2: Inclusive Values}
-\begin{eqnarray*}
-\omega_{xt} &=& \log \left( \sum_k \exp(\alpha^p p_{kxt} + \xi_{xt} + \alpha^a a_{kxt}) \right)
-\end{eqnarray*}
+\begin{align*}
+\omega_{xt} &= \log \left( \sum_k \exp(\alpha^p p_{kxt} + \xi_{xt} + \alpha^a a_{kxt}) \right)
+\end{align*}
 \vspace{-0.5cm}
 \begin{block}{Assumption 4: IVS}
-$$F(\omega_t | s_{t-1}) = F(\omega_t | \omega_{t-1})$$
+\begin{align*}
+(\omega_t \mid s_{t-1}) = F(\omega_t \mid \omega_{t-1})
+\end{align*}
 \end{block}
 \begin{itemize}
 \item Compute ex-ante expected utility of purchasing size $x$ in period $t$
@@ -172,10 +174,10 @@ $$F(\omega_t | s_{t-1}) = F(\omega_t | \omega_{t-1})$$
 
 
 \begin{frame}{Step 3: Dynamic Choice of Size}
-\begin{eqnarray*}
+\begin{align*}
 V(i,\omega_t,\epsilon_t,\nu_t) = \max_{c,x} [ u(c + \nu_t) - C(i_{t+1}) + \omega_{xt} + \epsilon_{xt} + \\
-\beta E[V(i_{t+1},\omega_{t+1},\epsilon_{t+1},\nu_{t+1}) | i_t, \omega_t, \epsilon_t, \nu_t, c, x] ]
-\end{eqnarray*}
+\beta \E[V(i_{t+1},\omega_{t+1},\epsilon_{t+1},\nu_{t+1}) \mid i_t, \omega_t, \epsilon_t, \nu_t, c, x] ]
+\end{align*}
 
 \begin{itemize}
 \item Compute ex-ante expected utility of purchasing size $x$ in period $t$
@@ -188,9 +190,9 @@ V(i,\omega_t,\epsilon_t,\nu_t) = \max_{c,x} [ u(c + \nu_t) - C(i_{t+1}) + \omega
 
 \begin{frame}{Key Proposition}
 How do we know that the simplified problem has the same solution as the original dynamic problem?
-\begin{eqnarray*}
-P(x_t | i_t,p_t, \nu_t) = P(x_t | i_t, \omega(p_t),\nu_t)
-\end{eqnarray*}
+\begin{align*}
+\Pr(x_t \mid i_t,p_t, \nu_t) = \Pr(x_t \mid i_t, \omega(p_t),\nu_t)
+\end{align*}
 
 \begin{itemize}
 \item Before we got to see the entire state $s_t$
@@ -215,7 +217,7 @@ This is a \alert{Smooth Approximation} approach
 \begin{frame}{Table 4: Brand Choice Estimates}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=4in]{resources/hntable4.pdf}
+\includegraphics[width=0.9\textwidth]{resources/hntable4.pdf}
 \label{gandr1}
 \end{center}
 \end{figure}
@@ -224,7 +226,7 @@ This is a \alert{Smooth Approximation} approach
 \begin{frame}{Table 5: Belief Process Estimates}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=4in]{resources/hntable5.pdf}
+\includegraphics[width=0.9\textwidth]{resources/hntable5.pdf}
 \label{gandr1}
 \end{center}
 \end{figure}
@@ -233,7 +235,7 @@ This is a \alert{Smooth Approximation} approach
 \begin{frame}{Table 5: Dynamic Problem Estimates}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=4in]{resources/hntable6.pdf}
+\includegraphics[width=0.9\textwidth]{resources/hntable6.pdf}
 \label{gandr1}
 \end{center}
 \end{figure}
@@ -242,9 +244,12 @@ This is a \alert{Smooth Approximation} approach
 \begin{frame}{Table 8: Elasticities Compared to Static Model}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=4in]{resources/hntable8.pdf}
+\includegraphics[width=0.9\textwidth]{resources/hntable8.pdf}
 \label{gandr1}
 \end{center}
 \end{figure}
 \end{frame}
+
+\section*{Thanks!}
+
 \end{document}

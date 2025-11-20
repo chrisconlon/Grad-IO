@@ -1,55 +1,17 @@
-\def\beamerclassoptions{[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]}
-\input{../resources/preamble.tex}
-\usetheme{metropolis}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,centernot}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage{pdfpages}
-\usepackage[absolute,overlay]{textpos} 
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
 
-
-\DeclareMathSizes{10}{10}{6}{6} 
-
-
-\title [Dynamic Demand I]{Learning Models and Experience Goods}
+\title{Learning Models and Experience Goods}
 \author{C.Conlon}
 \institute{Grad IO }
-\date{Fall 2019}
+\date{\today}
 \setbeamerfont{equation}{size=\tiny}
 \begin{document}
 
-\begin{frame}
-\titlepage
-\end{frame}
-
-
+\maketitle
 
 \section*{Introduction}
-%\begin{frame}{State Dependence}
-%Think about a static model like BLP
-%\begin{eqnarray*}
-%u_{ijt} = \beta_i x_{jt} - \alpha_i p_{jt} + \xi_{jt} + \epsilon_{ijt}
-%\end{eqnarray*}
-%\begin{itemize}
-%\item Suppose I have panel data on consumer $i$'s purchases and I observe that the consumer chooses different brands over time
-%\item Why do you switch brands? 
-%\begin{enumerate}
-%\item New $\epsilon \rightarrow$ not helpful!
-%\item Price responses $\rightarrow$ may wrongly attribute all effects to price.
-%\item $\xi_{jt}$ not correlated across individuals but may include things like advertising, etc.
-%\end{enumerate}
-%\item Challenge is explaining both \alert{persistence} and \alert{switching} behavior.
-%\end{itemize}
-%\end{frame} 
 
 
 
@@ -120,7 +82,7 @@ We examine three papers dealing with uncertainty and learning:
 \begin{frame}{Table 2: Descriptive Correlations}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=9.5cm]{resources/acker2.pdf}
+\includegraphics[height=0.9\textheight]{resources/acker2.pdf}
 \label{default}
 \end{center}
 \end{figure}
@@ -129,7 +91,7 @@ We examine three papers dealing with uncertainty and learning:
 \begin{frame}{Table 3: Descriptive Results}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=9.5cm]{resources/acker3.pdf}
+\includegraphics[height=0.9\textheight]{resources/acker3.pdf}
 \label{default}
 \end{center}
 \end{figure}
@@ -156,9 +118,9 @@ c_{it} = \begin{cases}
 
 \begin{frame}{Likelihood}
 \begin{eqnarray*}
-L_i(\theta) &=& Pr[c_{i1},\ldots,c_{iT_i} | W_i^t, Z_i^t, p_i^t; \theta] \\
-&=& \int Pr[c_{i1},\ldots,c_{iT_i} | W_i^t, Z_i^t, p_i^t; a_i;  \theta] f(d \alpha_i | \theta)\\
-&=& \int \prod_{t=1}^{T_i} Pr[c_{it}|  X_{it}(c_{i}^{t-1}), Z_{it}, p_{it}; a_i;  \theta] f(d \alpha_i | \theta)
+\ell_i(\theta) &=& \Pr[c_{i1},\ldots,c_{iT_i} \mid W_i^t, Z_i^t, p_i^t; \theta] \\
+&=& \int \Pr[c_{i1},\ldots,c_{iT_i} \mid W_i^t, Z_i^t, p_i^t; a_i;  \theta] f(d \alpha_i \mid \theta)\\
+&=& \int \prod_{t=1}^{T_i} \Pr[c_{it}\mid  X_{it}(c_{i}^{t-1}), Z_{it}, p_{it}; a_i;  \theta] f(d \alpha_i \mid \theta)
 \end{eqnarray*}
 \begin{itemize}
 \item $c_{i}^{t-1}$ is your entire purchase history
@@ -197,9 +159,9 @@ L_i(\theta) &=& Pr[c_{i1},\ldots,c_{iT_i} | W_i^t, Z_i^t, p_i^t; \theta] \\
 \end{frame} 
 
 \begin{frame}{Guardini Little (Pre-Dynamics)}
-\begin{eqnarray*}
-E[U_{ij} | I_i(t) ] = a_j -w_P P_j + w_E \sum_{s=0}^t D_{1ijs}  + w_{Ad} \sum_{s=t_0}^t D_{2ijs}
-\end{eqnarray*}
+\begin{align*}
+\E[U_{ij} \mid I_i(t) ] = a_j -w_P P_j + w_E \sum_{s=0}^t D_{1ijs}  + w_{Ad} \sum_{s=t_0}^t D_{2ijs}
+\end{align*}
 \begin{itemize}
 \item $a_j$ mean brand taste for $j$
 \item $D_{1ijt}$: dummy of whether consumer purchases brand $j$ or not
@@ -214,11 +176,11 @@ E[U_{ij} | I_i(t) ] = a_j -w_P P_j + w_E \sum_{s=0}^t D_{1ijs}  + w_{Ad} \sum_{s
 \item Consumer $i$ chooses among $J$ products in $T$ periods of time.
 \item $d_{ij}(t)=1$ if consumer chooses $j$ (0 o.w.)
 \item Includes an \textit{other brand} option
-\item $E[U_{ij}(t) | I_i(t)]$ is current period expected utility conditional on information set $I_i(t)$.
+\item $\E[U_{ij}(t) \mid I_i(t)]$ is current period expected utility conditional on information set $I_i(t)$.
 \end{itemize}
 Consumers maximize a discounted stream of expected utilities producing the Bellman:
 \begin{eqnarray*}
-V_{ij}(I_i(t),t) &=& E[U_{ij}(t) | I_i(t)] + \beta E[V(I(t+1),t+1) | I(t)] \\
+V_{ij}(I_i(t),t) &=& \E[U_{ij}(t) \mid I_i(t)] + \beta \cdot \E[V(I(t+1),t+1) \mid I(t)] \\
 V_i(I(t),t) &=& \max_j V_j(I_j(t),t)
 \end{eqnarray*}
 \end{frame}
@@ -238,8 +200,8 @@ V_i(I(t),t) &=& \max_j V_j(I_j(t),t)
 Additive Compensatory Multiattribute utility model. (Fishbein 1967) (Lancaster 1966)
 \begin{eqnarray*}
 U_{ijt} &=& -w_p P_{ijt} + w_A A_{E_{ijt}} - w_A r A_{E_{ijt}}^2 + e_{ijt}\\
-E[U_{ijt} | I_i(t)] &=& -w_j P_{ijt} + w_A E[A_{E_{ijt}} | I(t)] - w_A r E [A_{E_{ijt}} | I_i(t)]^2\\
-&&-w_A r E[A_{E_{ijt}} - E[A_{E_{ijt}}^2 | I_i(t)]]^2 + e_{ijt}
+\E[U_{ijt} \mid I_i(t)] &=& -w_j P_{ijt} + w_A \E[A_{E_{ijt}} \mid I(t)] - w_A r \E [A_{E_{ijt}} \mid I_i(t)]^2\\
+&&-w_A r \E[A_{E_{ijt}} - \E[A_{E_{ijt}}^2 \mid I_i(t)]]^2 + e_{ijt}
 \end{eqnarray*}
 Where $r$ is your risk parameter:  $r > 0$ risk averse
 \begin{eqnarray*}
@@ -257,9 +219,9 @@ S_{ijt} = A_j + \zeta_{ijt}, \quad &\zeta_{ijt} \sim N(0,\sigma_{\zeta}^2)
 \end{eqnarray*}
 Consumers update:
 \begin{eqnarray*}
-E[A_{E_{ij,t+1}} | I_i(t)] &=&  E[A_{E_{ijt}} | I_i(t-1)] \\
- &-& D_{1ijt} \beta_{1ij}(t) [A_{E_{ijt}} - E[A_{E_{ijt}} | I_i(t-1)] ] \\
- &+&D_{2ijt} \beta_{2ij}(t) [S_{E_{ijt}} - E[S_{E_{ijt}} | I_i(t-1)] ] \\
+\E[A_{E_{ij,t+1}} \mid I_i(t)] &=&  \E[A_{E_{ijt}} \mid I_i(t-1)] \\
+ &-& D_{1ijt} \beta_{1ij}(t) [A_{E_{ijt}} - \E[A_{E_{ijt}} \mid I_i(t-1)] ] \\
+ &+&D_{2ijt} \beta_{2ij}(t) [S_{E_{ijt}} - \E[S_{E_{ijt}} \mid I_i(t-1)] ] \\
 \end{eqnarray*}
 \end{frame}
 
@@ -268,16 +230,16 @@ E[A_{E_{ij,t+1}} | I_i(t)] &=&  E[A_{E_{ijt}} | I_i(t-1)] \\
 \item $D_{1ijt}$: dummy of whether consumer purchases brand $j$ or not
 \item $D_{2ijt}$: dummy of whether consumers receives an advertising signal of brand $j$ or not
 \item Kalman Filter Update
-\begin{eqnarray*}
-\beta_{1ijt} = \frac{ \sigma_{vij}^2(t)} { \sigma_{vij}^2(t) + \sigma_{\delta}^2}, &\quad& 
+\begin{align*}
+\beta_{1ijt} = \frac{ \sigma_{vij}^2(t)} { \sigma_{vij}^2(t) + \sigma_{\delta}^2}, &\quad 
 \beta_{2ijt} = \frac{ \sigma_{vij}^2(t)} { \sigma_{vij}^2(t) + \sigma_{\zeta}^2}\\
-v_{ij} &=& E[A_{ij} | I_{ij}(t)] - A_j
-\end{eqnarray*} 
+v_{ij} &= E[A_{ij} \mid I_{ij}(t)] - A_j
+\end{align*} 
 \item And
-\begin{eqnarray*}
-A_{j} &=& E[A_j | I_{ij}(t)] + v_{ij}(t)\\
-A_{E_{ijt}} &=& A_j + \delta_{ijt} , \quad S_{ijt} = A_j + \zeta_{ijt}
-\end{eqnarray*} 
+\begin{align*}
+A_{j} &= \E[A_j \mid I_{ij}(t)] + v_{ij}(t)\\
+A_{E_{ijt}} &= A_j + \delta_{ijt} , \quad S_{ijt} = A_j + \zeta_{ijt}
+\end{align*} 
 \end{itemize}
 \end{frame}
 
@@ -288,20 +250,20 @@ v_{ijt}(t) &=& v_{ij}(t-1) + D_{1ijt} \beta_{1ij}(t)[-v_{ij}(t-1) + \delta_{ijt}
 \sigma_{vij}^2(t) &=& \frac{1}{\frac{1}{\sigma_v^2(0)} + \frac{\sum_{s=0}^t D_{1ijs}}{\sigma_{\delta}^2} + \frac{\sum_{s=0}^t D_{2ijs}}{\sigma_{\zeta}^2}}
 \end{eqnarray*}
 And expected utilities:
-\begin{eqnarray*}
-E[U_{ij} | I_i(t)] &=& w_A A_j - w_A r A_j^2 -w_A r \sigma_{\delta}^2 -w_P P_{ij} \\
-&-& -w_A r \sigma_{vij}^2(t) - w_A r v_{ij}(t)^2  - w_A v_{ij}(t) - 2w_A r A_j v_{ij} (t) \\ &+& e_{ijt}\\
-E[V_{ij} | I_i(t)] &=& E[U_{ij} | I_i(t)] + \beta E[V_{ij} | I_i(t+1) | d_{ijt} =1, I_i(t)]
-\end{eqnarray*}
+\begin{align*}
+\E[U_{ij} \mid I_i(t)] &= w_A A_j - w_A r A_j^2 -w_A r \sigma_{\delta}^2 -w_P P_{ij} \\
+& -w_A r \sigma_{vij}^2(t) - w_A r v_{ij}(t)^2  - w_A v_{ij}(t) - 2w_A r A_j v_{ij} (t) \\ &+ e_{ijt}\\
+\E[V_{ij} \mid I_i(t)] &= \E[U_{ij} \mid I_i(t)] + \beta \E[V_{ij} \mid I_i(t+1) \mid d_{ijt} =1, I_i(t)]
+\end{align*}
 \end{frame}
 
 
 \begin{frame}{Choice Probabilities}
 For the Static and Dynamic case:
-\begin{eqnarray*}
-P^s_i(I(t),t) = \int \frac{\exp [E [U_{ij} | I_i(t)] ] } {\sum_k \exp [E [U_{ik} | I_i(t)] ] } f(v) dv\\
-P^d_i(I(t),t) = \int \frac{\exp [E [V_{ij} | I_i(t)] ] } {\sum_k \exp [E [V_{ik} | I_i(t)] ] } f(v) dv
-\end{eqnarray*}
+\begin{align*}
+P^s_i(I(t),t) &= \int \frac{\exp [\E [U_{ij} \mid I_i(t)] ] } {\sum_k \exp [E [U_{ik} \mid I_i(t)] ] } f(v) dv\\
+P^d_i(I(t),t) &= \int \frac{\exp [\E [V_{ij} \mid I_i(t)] ] } {\sum_k \exp [\E [V_{ik} \mid I_i(t)] ] } f(v) dv
+\end{align*}
 \begin{itemize}
 \item Static model allows choices to depend on 
 \alert{current knowledge of attribute}
@@ -426,11 +388,11 @@ u(x_{jnt},p_n,\epsilon_{jnt}) &=& -\exp(r *x_{jnt}) - \alpha p_n + \epsilon_{jnt
 \item Derive the expected utility as:
 \end{itemize}
 \vspace{-0.5cm}
-\begin{eqnarray*}
-\tilde{EU}(\mu_{jn}(t),\nu_{jn}(t), p_n,\epsilon_{jnt}) &=& -\exp(r *\mu_{jn}(t) + \frac{1}{2} r^2(\sigma) (\sigma^2_n + V_{jn}(t))) \\
-&& - \alpha p_n + \epsilon_{jnt}\\
-&=& EU(\mu_{jn}(t),V_{jn}(t),p_n) + \epsilon_{jnt}
-\end{eqnarray*}
+\begin{align*}
+\tilde{EU}(\mu_{jn}(t),\nu_{jn}(t), p_n,\epsilon_{jnt}) &= -\exp(r *\mu_{jn}(t) + \frac{1}{2} r^2(\sigma) (\sigma^2_n + V_{jn}(t))) \\
+& - \alpha p_n + \epsilon_{jnt}\\
+&= EU(\mu_{jn}(t),V_{jn}(t),p_n) + \epsilon_{jnt}
+\end{align*}
 \end{frame}
 
 \begin{frame}{State Space}
@@ -443,7 +405,7 @@ u(x_{jnt},p_n,\epsilon_{jnt}) &=& -\exp(r *x_{jnt}) - \alpha p_n + \epsilon_{jnt
 \end{itemize}
 \item Recovery probability follows a Markov Process:
 \begin{eqnarray*}
-h_{jt}(h_{j,t-1},y_{jnt}) = \frac{ \left(\frac{h_{j,t-1}}{1-h_{j,t-1}} \right) + d_{jnt} y_{jnt}}  {1+ \left(\frac{h_{j,t-1}}{1-h_{j,t-1}} \right) + d_{jnt} y_{jnt}}  
+h_{jt}(h_{j,t-1},y_{jnt}) = \frac{ \left(\frac{h_{j,t-1}}{1-h_{j,t-1}} \right) + d_{jnt} \cdot y_{jnt}}  {1+ \left(\frac{h_{j,t-1}}{1-h_{j,t-1}} \right) + d_{jnt} \cdot y_{jnt}}  
 \end{eqnarray*}
 \item Beliefs follow Bayesian updating depending on $I_{jnt}$ the number of times patient $j$ takes drug $n$ at time $t$.
 \end{itemize}
@@ -453,20 +415,12 @@ h_{jt}(h_{j,t-1},y_{jnt}) = \frac{ \left(\frac{h_{j,t-1}}{1-h_{j,t-1}} \right) +
 Doctors face choice specific value function (infinite horizon, recovery state absorbing):
 \begin{eqnarray*}
 W(S_t) &=& \max_n [\exp(-r\mu_{jnt} + 0.5r^2(\sigma_n^2 + V_{jnt})) - \alpha p_n + \epsilon_{jnt}\\
-&&+ \beta E[(1-h_{jt}(h_{j,t-1},y_{jnt}) E[W(S_{t+1}) | x_{jnt},y_{jnt},d_n=1] | S_t]\\
-&=& \log [ \sum_n \exp[ \tilde{EU}(s) + \beta E[(1-h(s'))W(s') | d_n=1] | S_t] \\
+&&+ \beta \cdot \E[(1-h_{jt}(h_{j,t-1},y_{jnt})\cdot  \E[W(S_{t+1}) \mid x_{jnt},y_{jnt},d_n=1] \mid S_t]\\
+&=& \log [ \sum_n \exp[ \tilde{EU}(s) + \beta \E[(1-h(s'))W(s') \mid d_n=1] \mid S_t] \\
 &=& \max_n \{W_n(S_t)\}
 \end{eqnarray*}
 \end{frame}
 
-\begin{frame}{Value Function}
-\begin{eqnarray*}
-W(S_t) &=& \max_n [\exp(-r\mu_{jnt} + 0.5r^2(\sigma_n^2 + V_{jnt})) - \alpha p_n + \epsilon_{jnt}\\
-&&+ \beta E[(1-h_{jt}(h_{j,t-1},y_{jnt}) E[W(S_{t+1}) | x_{jnt},y_{jnt},d_n=1] | S_t]\\
-&=& \log [ \sum_n \exp[ \tilde{EU}(s) + \beta E[(1-h(s'))W(s') | d_n=1] | S_t] \\
-&=& \max_n \{W_n(S_t)\}
-\end{eqnarray*}
-\end{frame}
 
 \begin{frame}{VFI + Simulate + Interpolate: (Keane Wolpin 1994): }
 \begin{enumerate}
@@ -476,7 +430,7 @@ W(S_t) &=& \max_n [\exp(-r\mu_{jnt} + 0.5r^2(\sigma_n^2 + V_{jnt})) - \alpha p_n
 \item Draw the $M$ random signals $\{x_{jn}^m, y_{jn}^m\}$
 \item Compute the expected value of choosing drug $n$ for each $s \in S^*S$, where $s^m$ is state corresponding to random draw $m$ and drug $n$ being chosen.
 \begin{eqnarray*}
-E[W(s | d_n =1,s)] = \frac{1}{M} \sum_m (1-h(s^m)) W^0(s^m)
+\E[W(s \mid d_n =1,s)] = \frac{1}{M} \sum_m (1-h(s^m)) W^0(s^m)
 \end{eqnarray*}
 \item Update the value function for each $s \in S^{*}$
 \item Iterate until convergence
@@ -486,8 +440,8 @@ E[W(s | d_n =1,s)] = \frac{1}{M} \sum_m (1-h(s^m)) W^0(s^m)
 \begin{frame}{Likelihood}
 For $I_=0$ and $I_j=1$ censored and uncensored observations for patient $j$.
 \begin{eqnarray*}
-&&\sum_{k=1}^K p_k E_{\overline{x}_{jn T_{j}},k | h_{0,j,k}} \left[ \prod_{t=1}^{T_j-1} \left((1-h_{jt,k}) \prod_n \lambda_{jnt,k}^{d_{jnt}} \right) \right] \cdot h_{jT_j,k} \prod_n  \lambda_{jnt,k}^{d_{jnt}}\\
-&&\sum_{k=1}^K p_k E_{\overline{x}_{jn T_{j}},k | h_{0,j,k}} \left[ \prod_{t=1}^{T_j-1} \left((1-h_{jt,k}) \prod_n \lambda_{jnt,k}^{d_{jnt}} \right) \right] \cdot \prod_n  \lambda_{jnt,k}^{d_{jnt}}\\
+&&\sum_{k=1}^K p_k \E_{\overline{x}_{jn T_{j}},k \mid h_{0,j,k}} \left[ \prod_{t=1}^{T_j-1} \left((1-h_{jt,k}) \prod_n \lambda_{jnt,k}^{d_{jnt}} \right) \right] \cdot h_{jT_j,k} \prod_n  \lambda_{jnt,k}^{d_{jnt}}\\
+&&\sum_{k=1}^K p_k \E_{\overline{x}_{jn T_{j}},k \mid h_{0,j,k}} \left[ \prod_{t=1}^{T_j-1} \left((1-h_{jt,k}) \prod_n \lambda_{jnt,k}^{d_{jnt}} \right) \right] \cdot \prod_n  \lambda_{jnt,k}^{d_{jnt}}\\
 \end{eqnarray*}
 ($\lambda$ is logit choice probability)\\
 We need to calculate expectations of joint distribution of $(\overline{x},h)$ by drawing $S=30$ sequences  per patient.
@@ -979,7 +933,7 @@ over the discrete number of possible realizations.
 \small
 (1) `Bayesian Myopic' at $(T+1)$ after updating using $\widehat{Y}_{ij}$: 
 \[
-\max_{j\in 1,...,J}E(p_{i,j,T+1}|a_{0},b_{0},\widehat{Y}_{ij}) +
+\max_{j\in 1,...,J} \E(p_{i,j,T+1} \mid a_{0},b_{0},\widehat{Y}_{ij}) +
 \varepsilon_{ijt}=\mu _{j,T+1} + \varepsilon_{ijt} 
 \]
 
@@ -1014,7 +968,7 @@ _{ij})) + \varepsilon_{ijt}
 The physician and patient choose a sequence of drugs to maximize the
 expected discounted sum of outcomes, $Y_{t}$: 
 \begin{equation}
-\int ...\int E_{p_{1},...,p_{J}}\left( \sum_{t=1}^{\infty }\delta
+\int ...\int \E_{p_{1},...,p_{J}}\left( \sum_{t=1}^{\infty }\delta
 ^{t-1}Y_{t}\right) d\Pi ^{(1)}(p_{1})\cdots d\Pi ^{(J)}(p_{J})
 \label{seq_prob}
 \end{equation}
@@ -1192,7 +1146,7 @@ h(\delta)\ast \sigma ^{2}(\mu _{c,t})}\right)\right]
 
 \item Drug compound choice probability 
 \begin{eqnarray*}
-\text{Prob}_{j\in c,t} &=&\text{Prob}_{c,t}\text{(Prob}_{j,t}|\text{1\{c
+\text{Prob}_{j\in c,t} &=&\text{Prob}_{c,t}\text{(Prob}_{j,t}\mid \text{1\{c
 chosen\})} \\
 &=&\text{Prob}_{c,t}\ast \frac{\exp (G(\Pi _{t}^{(j)}))}{\sum_{k\in c}\exp
 (G(\Pi _{t}^{(k)}))}
@@ -1210,7 +1164,7 @@ chosen\})} \\
 \begin{itemize}
 \item Parameterize $p_{j}$ using beta regression model 
 \begin{eqnarray*}  \label{mu_logit}
-p_{j}|X_{ij} &\backsim &Beta(a_{0},b_{0}) \\
+p_{j}\mid X_{ij} &\backsim &Beta(a_{0},b_{0}) \\
 \mu(X_{ij};\gamma_{1}) &=& \frac{a_{o}}{a_{0}+b_{0}} = \frac{\exp
 (X_{ij}\gamma_{1} )}{1+\exp(X_{ij}\gamma_{1} )} \\
 \phi(\gamma_{2}) &=& a_{0}+b_{0}=\exp(\gamma_{2})
@@ -1220,7 +1174,7 @@ where $\mu$ is prior mean, $\phi$ is the prior precision of $p_{j}$
 
 \item The prior variance of $p_{j}$ is: 
 \begin{eqnarray*}
-V(p_{j}|X_{ij})&=&\frac{\mu(1-\mu)}{1+\phi}
+V(p_{j} \mid X_{ij})&=&\frac{\mu(1-\mu)}{1+\phi}
 \end{eqnarray*}
 
 \item For a fixed $\mu$, the larger the value of $\phi$, the smaller the
@@ -1400,7 +1354,7 @@ year of life (Cutler (2004))
 When we assume independent products, the likelihood for individual $i$ in
 period $t$ is:%
 \begin{multline*}
-\prod_{j=1}^{J}E_{\varepsilon _{i1t},...,\varepsilon _{iJt}}(1\{G_{ijt}(\Pi
+\prod_{j=1}^{J} \E_{\varepsilon _{i1t},...,\varepsilon _{iJt}}(1\{G_{ijt}(\Pi
 _{t}^{(j)})+\varepsilon_{ijt}>G_{ikt}(\Pi _{t}^{(k)})+\varepsilon_{ikt}\text{
 for all }k\neq j\}^{d_{ijt}}) \\
 =\prod_{j=1}^{J}\left( \frac{\exp (G_{ijt}(X_{ij},\widehat{Y}%

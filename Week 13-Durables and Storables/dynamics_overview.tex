@@ -1,9 +1,12 @@
-\input{../resources/preamble.tex}
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
+
+
 
 \title [Dynamic Demand II]{Dynamic Demand I: Overview }
 \author{C.Conlon}
 \institute{Grad IO }
-\date{}
+\date{\today}
 \setbeamerfont{equation}{size=\tiny}
 
 
@@ -98,8 +101,7 @@ Another way to think about dynamics is to think about the rental rate:
 \begin{frame}{CPI: High Tech Durables}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=3.75in]{resources/cpi_chart.png}
-\label{gandr2}
+\includegraphics[height=\textheight]{resources/cpi_chart.png}
 \end{center}
 \end{figure}
 \end{frame}
@@ -118,31 +120,24 @@ Another way to think about dynamics is to think about the rental rate:
 \end{frame}
 
 
-\begin{frame}{Adoption Curve}
+\begin{frame}[plain]{Adoption Curve}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=3.75in]{resources/s_curve.pdf}
-\label{gandr2}
+\includegraphics[height=\textheight]{resources/s_curve.pdf}
 \end{center}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Dynamic Demand  (Gowrisankaran Rysman)}
-\begin{figure}[htbp]
+\begin{frame}[fragile]{Dynamic Demand  (Gowrisankaran Rysman)}
 \begin{center}
-\includegraphics[width=4in]{resources/gandr1.pdf}
-\label{gandr1}
+\includegraphics[height=\textheight]{resources/gandr1_new.pdf}
 \end{center}
-\end{figure}
 \end{frame}
 
-\begin{frame}{Dynamic Demand (Gowrisankaran Rysman)}
-\begin{figure}[htbp]
+\begin{frame}[fragile]{Dynamic Demand (Gowrisankaran Rysman)}
 \begin{center}
-\includegraphics[width=4in]{resources/gandr2.pdf}
-\label{gandr2}
+\includegraphics[height=\textheight]{resources/gandr2.pdf}
 \end{center}
-\end{figure}
 \end{frame}
 
 \begin{frame}{High-Tech Durables}
@@ -383,6 +378,7 @@ u_{i0t} &=  \alert{\overline{u}_{i0t}} + \E[\max_j u_{ij,t+1}| \Omega_t] + \vare
 \end{itemize}
 \end{frame}
 
+\section*{Thanks!}
 
 \end{document}
 
