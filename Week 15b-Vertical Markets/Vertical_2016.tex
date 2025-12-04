@@ -1,30 +1,12 @@
-% Use the shared preamble; preserve original beamer class options
-\def\beamerclassoptions{[xcolor=pdftex,dvipsnames,table,mathserif]}
-\input{../resources/preamble.tex}
-\usetheme{default}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage[absolute,overlay]{textpos} 
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
-
-\DeclareMathSizes{10}{10}{6}{6} 
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
 
 
-\title{Vertical Control (Undergrad Notes)}
-\author{Chris Conlon}
-%\institute{EC853}
+\title [Vertical Issues]{Overview of Vertical Issues}
+\author{C.Conlon}
+\institute{Grad IO}
 \date{\today}
+%\setbeamerfont{equation}{size=\tiny}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -237,7 +219,7 @@ the vertical channel.
 \frametitle{Externalities}
 
 
-
+\scalebox{0.75}{
 \begin{picture}(5,35)(-40,-5)
 \setlength{\unitlength}{1mm}
 
@@ -315,8 +297,9 @@ the vertical channel.
 %%\put(-10,12.5){\makebox(0,0)[l]{\tiny{$P_r$}}}
 
 \end{picture}
-
 }
+}
+
 
 \frame[plain]{
 \frametitle{Externalities}
