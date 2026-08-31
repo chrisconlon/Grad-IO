@@ -238,3 +238,6 @@ TSWLatexianTemp*
 *.orig
 *.tmp
 
+
+# build script output
+build_log.txt
