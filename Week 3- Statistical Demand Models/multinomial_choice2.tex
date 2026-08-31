@@ -4,7 +4,7 @@
 \title{Multinomial Discrete Choice: Nested Logit and GEV}
 \author{Chris Conlon}
 \institute{Grad IO}
-\date{Fall 2025}
+\date{Fall 2026}
 
 \frame{\titlepage}
 
@@ -12,8 +12,8 @@
 \frametitle{Multinomial Logit: IIA}
 The multinomial logit is frequently criticized for producing unrealistic substitution patterns
 \begin{itemize}
-\item Suppose we got rid of a product $k$ then $s_{ij}(\calJ\setminus k) = s_{ij}(\calJ)\cdot \frac{1}{1- s_{ik}}$.
-\item Substitution is just proportional to your pre-existing shares $s_j$
+\item Suppose we got rid of a product $k$ then $\sigma_{ij}(\calJ\setminus k) = \sigma_{ij}(\calJ)\cdot \frac{1}{1- \sigma_{ik}}$.
+\item Substitution is just proportional to your pre-existing choice probabilities $\sigma_{ij}$
 \item No concept of ``closeness'' of competition!
 \end{itemize}
 \end{frame}
@@ -33,7 +33,7 @@ Downside
 \begin{itemize}
 \item $\Sigma$ has potentially $J^2$ parameters (that is a lot)!
 \item Maybe $J * (J-1)/2$ under symmetry. (still a lot).
-\item Each time we want to compute $s_j(\theta)$ we have to simulate an integral of dimension $J$.
+\item Each time we want to compute $\sigma_j(\theta)$ we have to simulate an integral of dimension $J$.
 \item I wouldn't do this for $J \geq 5$.
 \end{itemize}
 \end{frame}
@@ -92,16 +92,16 @@ U_{ij} = V_{ij} + \underbrace{\eta_{ig} + \widetilde{\varepsilon_{ij}}}_{\vareps
 \small
 The nested logit choice probabilities are:
 \begin{eqnarray*}
-s_{ij} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g -1}}{\sum_{h=1}^G \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h}}
+\sigma_{ij} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g -1}}{\sum_{h=1}^G \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h}}
 \end{eqnarray*}
 Within the same group $g$ we have IIA and proportional substitution
 \begin{eqnarray*}
-\frac{s_{ij}}{s_{ik}} = \frac{ e^{V_{ij}/\lambda_g}}{ e^{V_{ik}/\lambda_g}}
+\frac{\sigma_{ij}}{\sigma_{ik}} = \frac{ e^{V_{ij}/\lambda_g}}{ e^{V_{ik}/\lambda_g}}
 \end{eqnarray*}
 
 But for different groups we do not:
 \begin{eqnarray*}
-\frac{s_{ij}}{s_{ik}} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g -1}}{ e^{V_{ik}/\lambda_h} \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h -1}}
+\frac{\sigma_{ij}}{\sigma_{ik}} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g -1}}{ e^{V_{ik}/\lambda_h} \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h -1}}
 \end{eqnarray*}
 \end{frame}
 
@@ -110,12 +110,12 @@ But for different groups we do not:
 We can take the probabilities and re-write them slightly with the substitution that
 $\log \left(\sum_{k \in J_g} e^{V_{ik}/ \lambda_g} \right)\equiv IV_{ig}=E_{\varepsilon}[\max_{j \in G} u_{ij}]$:
 \begin{eqnarray*}
-s_{ij} &=& \frac{ e^{V_{ij}/\lambda_g}}{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)}
+\sigma_{ij} &=& \frac{ e^{V_{ij}/\lambda_g}}{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)}
 \cdot
 \frac{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g}}{\sum_{h=1}^G \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h}} \\
-&=& \underbrace{\frac{ e^{V_{ij}/\lambda_g}}{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)}}_{s_{i j | g}}
+&=& \underbrace{\frac{ e^{V_{ij}/\lambda_g}}{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)}}_{\sigma_{ij|g}}
 \cdot
-\underbrace{\frac{e^{\lambda_g IV_{ig}}}{\sum_{h=1}^{G} e^{\lambda_h IV_{ih}} }}_{s_{ig}}
+\underbrace{\frac{e^{\lambda_g IV_{ig}}}{\sum_{h=1}^{G} e^{\lambda_h IV_{ih}} }}_{\sigma_{ig}}
 \end{eqnarray*}
 This is the decomposition into two logits that leads to the ``sequential logit'' story.
 \end{frame}
@@ -128,7 +128,7 @@ This is the decomposition into two logits that leads to the ``sequential logit''
 \item $\lambda_g \rightarrow 0$ implies that all consumers stay within the nest.
 \item $\lambda < 0$ or $\lambda > 1$ can happen and usually means something is wrong. These models are not generally consistent with RUM. (If you report one in your paper I will reject it).
 \item $\lambda$ is often interpreted as a correlation parameter and this is almost true but not exactly!
-\item Because the nested logit can be written as the within group share $s_{ij|g}$ and the share of the group $s_{ig}$ we often explain this model as \alert{sequential choice}. It could just be a \alert{block structure} on $\varepsilon_i$.
+\item Because the nested logit can be written as the within group share $\sigma_{ij|g}$ and the share of the group $\sigma_{ig}$ we often explain this model as \alert{sequential choice}. It could just be a \alert{block structure} on $\varepsilon_i$.
 \item You need to assign products to categories \alert{before you estimate} and you can't make mistakes!
 \end{itemize}
 \end{frame}
@@ -137,9 +137,9 @@ This is the decomposition into two logits that leads to the ``sequential logit''
 \frametitle{Parametric Identification}
 Look at derivatives:
 \begin{align*}
-\frac{\partial\, s_{ij|g}}{\partial X_j} &= \beta_x \cdot s_{ij|g} \cdot (1-s_{ij|g}) \\
- \frac{\partial\, s_{ig}}{\partial X} &= (1-\lambda_g) \cdot \beta_x \cdot s_{ig}(1-s_{ig}) \\
-  \frac{\partial\, s_{ig}}{\partial J} &= \frac{1-\lambda_g}{J} \cdot s_{ig} \cdot (1-s_{ig})
+\frac{\partial\, \sigma_{ij|g}}{\partial X_j} &= \beta_x \cdot \sigma_{ij|g} \cdot (1-\sigma_{ij|g}) \\
+ \frac{\partial\, \sigma_{ig}}{\partial X} &= (1-\lambda_g) \cdot \beta_x \cdot \sigma_{ig}(1-\sigma_{ig}) \\
+  \frac{\partial\, \sigma_{ig}}{\partial J} &= \frac{1-\lambda_g}{J} \cdot \sigma_{ig} \cdot (1-\sigma_{ig})
 \end{align*}
 \begin{itemize}
 \item We get $\beta$ by changing $x_j$ within group
@@ -150,28 +150,28 @@ Look at derivatives:
 \end{frame}
 
 \begin{frame}{A Confusing Gotcha}
-An alternative version of the nested logit is popular in IO (Cardell 1991) $\sigma \approx 1-\lambda$:
+An alternative version of the nested logit is popular in IO (Cardell 1991) with nesting parameter $\rho \approx 1-\lambda$ (beware: Berry 1994 and much of IO write $\sigma$ for what we call $\rho$):
 \begin{align*}
-s_{ij | g}&=\frac{e^{V_{ij}/(1-\sigma)}}{D_{ig}}  \quad &
-D_{ig}&= \sum_{j \in \mathcal{G}} e^{V_{ij}/(1-\sigma)}   \\
-s_{ig}&=\frac{D_{ig}^{(1-\sigma)}}{\sum_{g} D_{ig}^{(1-\sigma)}} \quad &
-s_{ij}=  s_{ij | g}\cdot s_{ig } &=\frac{\exp \left(\frac{V_{ij}}{1-\sigma}\right)}{D_{g}^{\sigma}\left[\sum_{g} D_{g}^{(1-\sigma)}\right]}
+\sigma_{ij|g}&=\frac{e^{V_{ij}/(1-\rho)}}{D_{ig}}  \quad &
+D_{ig}&= \sum_{j \in \mathcal{G}} e^{V_{ij}/(1-\rho)}   \\
+\sigma_{ig}&=\frac{D_{ig}^{(1-\rho)}}{\sum_{g} D_{ig}^{(1-\rho)}} \quad &
+\sigma_{ij}=  \sigma_{ij|g}\cdot \sigma_{ig} &=\frac{\exp \left(\frac{V_{ij}}{1-\rho}\right)}{D_{g}^{\rho}\left[\sum_{g} D_{g}^{(1-\rho)}\right]}
 \end{align*}
 Derivatives for nested logit are complicated and worked out at \url{http://www.nathanhmiller.org/nlnotes.pdf}.
 \end{frame}
 
 \begin{frame}
 \frametitle{Substitution Patterns}
-It is helpful to define: $Z(\sigma,s_g)=[\sigma + (1-\sigma) s_g ] \in (0,1]$ and note that $Z(0,s_g)=s_g$ and $Z(1,s_g)=1$. If two products are in the same nest or different nests respectively:
+It is helpful to define: $Z(\rho,\sigma_g)=[\rho + (1-\rho) \sigma_g ] \in (0,1]$ and note that $Z(0,\sigma_g)=\sigma_g$ and $Z(1,\sigma_g)=1$. If two products are in the same nest or different nests respectively:
 \begin{align*}
- -\frac{\frac{\partial s_{k}}{\partial p_j}}{\frac{\partial s_{j}}{\partial p_j} } \text{| same}
-&=\frac{ s_{k|g} }{ Z^{-1}(\sigma,s_g) - s_{j|g}}  \equiv D_{jk}^{*}\\
- -\frac{\frac{\partial s_{k}}{\partial p_j}}{\frac{\partial s_{j}}{\partial p_j} } \text{| different}
-&= \frac{ s_{k}  (1-\sigma) }{ 1 - s_{j|g} \cdot Z(\sigma,s_{g(j)}) } \equiv D_{jk}^{**}
+ -\frac{\frac{\partial \sigma_{k}}{\partial p_j}}{\frac{\partial \sigma_{j}}{\partial p_j} } \text{| same}
+&=\frac{ \sigma_{k|g} }{ Z^{-1}(\rho,\sigma_g) - \sigma_{j|g}}  \equiv D_{jk}^{*}\\
+ -\frac{\frac{\partial \sigma_{k}}{\partial p_j}}{\frac{\partial \sigma_{j}}{\partial p_j} } \text{| different}
+&= \frac{ \sigma_{k}  (1-\rho) }{ 1 - \sigma_{j|g} \cdot Z(\rho,\sigma_{g(j)}) } \equiv D_{jk}^{**}
 \end{align*}
 These are related by:
 \begin{align*}
-D_{jk}^{**}&=  D_{jk}^{*} \cdot \frac{s_{g(k)} \cdot (1-\sigma)}{Z(\sigma,s_{g(j)})}
+D_{jk}^{**}&=  D_{jk}^{*} \cdot \frac{\sigma_{g(k)} \cdot (1-\rho)}{Z(\rho,\sigma_{g(j)})}
 \end{align*}
 \end{frame}
 
@@ -188,7 +188,7 @@ There are more potential generalizations though they are less frequently used:
 \begin{frame}{McFadden (1978) and GEV}
 In case you are wondering where these things come from...
 \begin{align*}
-s_{ij}(\calJ)=\frac{y_{ij}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G\left(y_{i1}, \ldots, y_{iJ}\right)}
+\sigma_{ij}(\calJ)=\frac{y_{ij}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G\left(y_{i1}, \ldots, y_{iJ}\right)}
 \end{align*}
 With conditions on the \alert{generator function} $G$:
 \begin{enumerate}
@@ -208,7 +208,7 @@ The objects are more mathematical than economic...
 \begin{frame}{McFadden (1978) and GEV}
 This is much easier with an example:
 \begin{align*}
-s_{ij}(\calJ)=\frac{y_{ij}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G_i\left(y_{i1}, \ldots, y_{iJ}\right)}
+\sigma_{ij}(\calJ)=\frac{y_{ij}\cdot  \frac{\partial G_i}{\partial y_{j}}\left(y_{i1}, \ldots, y_{iJ}\right)}{\mu \cdot G_i\left(y_{i1}, \ldots, y_{iJ}\right)}
 \end{align*}
 \begin{itemize}
 \item If $y_j = e^{V_{ij}}$ and $G_i = \log \sum_{j \in \calJ} y_{ij} $ we get the IIA logit.

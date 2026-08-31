@@ -1,4 +1,8 @@
-\input{preamble.tex}
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage{teaching_slides}
+\definecolor{light gray}{HTML}{777777}
+% ported from the old shared preamble (not in teaching_slides)
+\newcommand{\custombullet}{{\color{darkred}$\blacktriangleright$}\hspace{0.5em}}
 
 \usepackage{lipsum}
 \usepackage{amsmath} 
@@ -6,7 +10,9 @@
 \usepackage{amssymb} 
 \usepackage{mathtools}
 %\usepackage{natbib}
-\usepackage{dutchcal}
+% dutchcal removed: its legacy \mathcal glyphs crash XeTeX under teaching_slides'
+% unicode-math when combined with \hat{...}; unicode-math's script alphabet is used instead
+
 
 
 \newcommand{\vect}[1]{\symbf{\symbf{#1}}}
@@ -15,7 +21,6 @@
 \newcommand{\expectsmall}[2]{\mathbb{E}_{#1}{#2}}
 \newcommand{\expectsuper}[3]{\mathbb{E}_{#1}^{#2}\left[{#3}\right]}
 \newcommand{\ind}[1]{\mathbbm{1}\left\{{#1}\right\}}
-\newcommand{\prob}[1]{\mathbb{P}\left\{{#1}\right\}}
 \newcommand{\derivative}[2]{\frac{d{#2}}{d{#1}}}
 \newcommand{\cat}[1]{\citeasnoun{#1}}
 
@@ -162,7 +167,7 @@ A nice extension/application of this approach
     
         \item Estimate $(\hat{\delta}, \hat{\theta})$ by maximizing the likelihood
         
-        $$\mathcal{L}(\delta,\theta) =  \sum_i\sum_j\sum_m d_{ijm} \log \int \frac{\exp{(\delta_{jm} + \mu_{ijm}^{y} + \mu_{ijm}^{\nu})}}{\underbrace{\sum_{l=0}^{Jm}\exp{(\delta_{jm} + \mu_{ijm}^{y} + \mu_{ijm}^{\nu})}}_{s_{jm}(y_{im},\nu;\theta,\delta)}} dF(\nu)$$
+        $$\mathcal{L}(\delta,\theta) =  \sum_i\sum_j\sum_m d_{ijm} \log \int \frac{\exp{(\delta_{jm} + \mu_{ijm}^{y} + \mu_{ijm}^{\nu})}}{\underbrace{\sum_{l=0}^{Jm}\exp{(\delta_{jm} + \mu_{ijm}^{y} + \mu_{ijm}^{\nu})}}_{\sigma_{jm}(y_{im},\nu;\theta,\delta)}} dF(\nu)$$
         
         and recover $\hat{\beta}$ by running IV regression on $\hat{\delta}$.\\
         
@@ -188,8 +193,8 @@ A nice extension/application of this approach
         \begin{enumerate}
             \item the \textbf{MDLE}
                 \begin{align}
-                    \log\hat{L}(\theta,\delta) =\sum_{m=1}^M\sum_{j=0}^{J_m}\sum_{i=1}^{N_m} d_{ijm}(D_{im}\log \pi_{jm}^{y_{im}}(\theta,\delta) + (1-D_{im})\log\pi_{jm}(\theta,\delta))\\
-                     =\sum_{m=1}^M\sum_{j=0}^{J_m}\sum_{i=1}^{N_m} D_{im} d_{ijm} \log\frac{\pi_{jm}^{y_{im}}}{\pi_{jm}} + \sum_{m=1}^M N_m\sum_{j=0}^{J_m}s_{jm}\log\pi_{jm}
+                    \log\hat{L}(\theta,\delta) =\sum_{m=1}^M\sum_{j=0}^{J_m}\sum_{i=1}^{N_m} d_{ijm}(D_{im}\log \sigma_{jm}^{y_{im}}(\theta,\delta) + (1-D_{im})\log\sigma_{jm}(\theta,\delta))\\
+                     =\sum_{m=1}^M\sum_{j=0}^{J_m}\sum_{i=1}^{N_m} D_{im} d_{ijm} \log\frac{\sigma_{jm}^{y_{im}}}{\sigma_{jm}} + \sum_{m=1}^M N_m\sum_{j=0}^{J_m}s_{jm}\log\sigma_{jm}
                 \end{align}
                 
                 If $N_m = S_m$ this estimator $\leftrightarrow$ mixed-logit estimator in previous slides.\\
@@ -349,7 +354,7 @@ A nice extension/application of this approach
         \begin{itemize}
             \item \alert{Products} $j \in \calJ_t$ have observed characteristics $x_{jt}$, unobserved quality $\xi_{jt}$
             \item \alert{Consumer types} $i \in \mathcal{I}_t$ have observed demographics $y_{it}$, unobserved preferences $\nu_{it}$
-            \item \alert{Market shares} $s_{jt} = \sum_i w_{it} s_{ijt}$ integrate over consumer mass, each type has known weight $w_{it}$
+            \item \alert{Market shares} $\sigma_{jt} = \sum_i w_{it} \sigma_{ijt}$ integrate over consumer mass, each type has known weight $w_{it}$
         \end{itemize}
         
         \item Micro data generated dataset-by-dataset $d$, conditional on aggregate data
@@ -395,7 +400,7 @@ A nice extension/application of this approach
         
         \item What about $\beta_0$?
         \begin{itemize}
-            \item Only \alert{indirectly}: $\beta_0$ enters $s_{ijt}$ only through $\delta_{jt} = x_{jt}'\beta_0 + \xi_{jt}$, pinned down by share constraint
+            \item Only \alert{indirectly}: $\beta_0$ enters $\sigma_{ijt}$ only through $\delta_{jt} = x_{jt}'\beta_0 + \xi_{jt}$, pinned down by share constraint
         \end{itemize}
     \end{wideitemize}
 \end{frame}
@@ -504,7 +509,7 @@ A nice extension/application of this approach
     \begin{wideitemize}
         \item Micro moments $m$ match smooth functions $f_m(\cdot)$ of simple averages, called micro parts $p$
         \begin{equation*}
-            \overline{v}_p = \frac{1}{N_{d_p}} \sum_n v_{pi_nj_nt_n} \xrightarrow{P_\mathrm{A}} v_p(\theta_0) = \E_\mathrm{A}[v_{pi_nj_nt_n}] = \frac{\sum_t \sum_i \sum_j w_{it} s_{ijt}(\theta_0) w_{d_pijt} v_{pijt}}{\sum_t \sum_i \sum_j w_{it} s_{ijt}(\theta_0) w_{d_pijt}}
+            \overline{v}_p = \frac{1}{N_{d_p}} \sum_n v_{pi_nj_nt_n} \xrightarrow{P_\mathrm{A}} v_p(\theta_0) = \E_\mathrm{A}[v_{pi_nj_nt_n}] = \frac{\sum_t \sum_i \sum_j w_{it} \sigma_{ijt}(\theta_0) w_{d_pijt} v_{pijt}}{\sum_t \sum_i \sum_j w_{it} \sigma_{ijt}(\theta_0) w_{d_pijt}}
         \end{equation*}
     \end{wideitemize}
 \end{frame}
@@ -593,3 +598,5 @@ A nice extension/application of this approach
 \begin{frame}[plain,allowframebreaks,noframenumbering]{References}
     \bibliography{references}
 \end{frame}
+
+\end{document}

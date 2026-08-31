@@ -1,4 +1,6 @@
-\input{preamble.tex}
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage{teaching_slides}
+\definecolor{light gray}{HTML}{777777}
 
 \usepackage{lipsum}
 \usepackage{amsmath} 
@@ -6,7 +8,9 @@
 \usepackage{amssymb} 
 \usepackage{mathtools}
 %\usepackage{natbib}
-\usepackage{dutchcal}
+% dutchcal removed: its legacy \mathcal glyphs crash XeTeX under teaching_slides'
+% unicode-math when combined with \hat{...}; unicode-math's script alphabet is used instead
+
 \usepackage{stackengine}
 
 
@@ -16,7 +20,6 @@
 \newcommand{\expectsmall}[2]{\mathbb{E}_{#1}{#2}}
 \newcommand{\expectsuper}[3]{\mathbb{E}_{#1}^{#2}\left[{#3}\right]}
 \newcommand{\ind}[1]{\mathbbm{1}\left\{{#1}\right\}}
-\newcommand{\prob}[1]{\mathbb{P}\left\{{#1}\right\}}
 \newcommand{\derivative}[2]{\frac{d{#2}}{d{#1}}}
 \newcommand{\cat}[1]{\citeasnoun{#1}}
 
@@ -311,8 +314,8 @@ We did Nash-in-Prices because it is popular but we could have done something els
 \begin{frame}{Constructing Supply Moments}
 If we are willing to impose $MR = MC$ (as in the original BLP papers) we can recover implied markups/ marginal costs:
 \begin{align*}
-\symbf{mc}(\theta_2)&\equiv \symbf{p}- \symbf{\eta}(\calS_t,\symbf{p}_t,\chi_t, y_t, ;\theta_2) \\
-f\left(\symbf{p}- \symbf{\eta}(\calS_t,\symbf{p}_t,\chi_t, y_t, ;\theta_2)  \right) &= [\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 + \alert{g(q_{jt})} +  \omega_{jt}
+\symbf{mc}(\theta_2)&\equiv \symbf{p}- \symbf{\eta}(\symbf{s}_t,\symbf{p}_t,\chi_t, y_t, ;\theta_2) \\
+f\left(\symbf{p}- \symbf{\eta}(\symbf{s}_t,\symbf{p}_t,\chi_t, y_t, ;\theta_2)  \right) &= [\textrm{x}_{jt} \,, \textrm{w}_{jt}] \theta_3 + \alert{g(q_{jt})} +  \omega_{jt}
 \end{align*}
 % Which we can solve for $\omega_{jt}$:
 % \begin{align*}
@@ -329,8 +332,8 @@ f\left(\symbf{p}- \symbf{\eta}(\calS_t,\symbf{p}_t,\chi_t, y_t, ;\theta_2)  \rig
 
 \begin{frame}{Simultaneous Supply and Demand}
 \begin{align*}
-\sigma_j^{-1}(\calS_t,\symbf{p}_t,\chi_t, y_t; \theta_2) &= [\mathrm{x}_{jt} \,,  \mathrm{v}_{jt}]\, \theta_1 - \alpha p_{jt} + \xi_{jt}\\
-f\left(p_{jt}- \eta_{jt}(\calS_t,\symbf{p}_t,\chi_t, y_t ;\theta_2)  \right) &= [\mathrm{x}_{jt} \,, \mathrm{w}_{jt}]\, \theta_3 +  \omega_{jt}
+\sigma_j^{-1}(\symbf{s}_t,\symbf{p}_t,\chi_t, y_t; \theta_2) &= [\mathrm{x}_{jt} \,,  \mathrm{v}_{jt}]\, \theta_1 - \alpha p_{jt} + \xi_{jt}\\
+f\left(p_{jt}- \eta_{jt}(\symbf{s}_t,\symbf{p}_t,\chi_t, y_t ;\theta_2)  \right) &= [\mathrm{x}_{jt} \,, \mathrm{w}_{jt}]\, \theta_3 +  \omega_{jt}
 \end{align*}
 We can now form two sets of moments: $\E[\omega_{jt} \mid  z_{jt}^{s}]=0$ and $\E[\xi_{jt} \mid  z_{jt}^{d}]=0$
 \begin{itemize}
@@ -437,7 +440,7 @@ Even with an intitial guess of $\widehat{\theta}$, we still have that $p_{jt}$ o
 \begin{frame}{Feasible Recipe (BLP 1999)}
 \begin{enumerate}
 \item Fix $\widehat{\theta}=(\widehat{\theta}_1,\widehat{\theta}_2,\widehat{\theta}_3)$ and draw $(\symbf{\xi}^{*},\symbf{\omega}^{*})$ from empirical density
-\item Solve firm FOC's for $\symbf{\hat{p}_{t}}(\symbf{\xi}^{*},\symbf{\omega}^{*},\widehat{\theta})$ and shares $\symbf{s_{t}}(\symbf{\hat{p}_{t}},\widehat{\theta})$
+\item Solve firm FOC's for $\symbf{\hat{p}_{t}}(\symbf{\xi}^{*},\symbf{\omega}^{*},\widehat{\theta})$ and shares $\symbf{\sigma_{t}}(\symbf{\hat{p}_{t}},\widehat{\theta})$
 \item Compute necessary Jacobian
 \item Average over multiple values of$(\symbf{\xi}^{*},\symbf{\omega}^{*})$. (Lazy approach: use only $(\symbf{\xi}^{*},\symbf{\omega}^{*})=0$).
 \end{enumerate}
@@ -536,7 +539,7 @@ BLP today mostly works
 Your BLP model probably isn't as flexible as you think (Sorry!)
 \begin{itemize}
 \item The unrestricted matrix of of $D_{jk}(\symbf{p})$'s (or elasticities) is $J \times J$ and probably not feasible to estimate directly. $\rightarrow$ need some \alert{dimension reduction}.
-\item Logit simply assumes proportional substitution ${D}_{jk}=\frac{s_k}{1-s_{j}}$ so that $\symbf{D}(\symbf{p})$ is of rank one!
+\item Logit simply assumes proportional substitution ${D}_{jk}=\frac{\sigma_k}{1-\sigma_{j}}$ so that $\symbf{D}(\symbf{p})$ is of rank one!
 \item The BLP solution is to project $\symbf{D}(\symbf{p})$ onto a lower-dimensional basis of $x_{j}$ characteristics.
 \begin{itemize}
 \item Ultimately the basis will be only as good as the characteristics $x_{jt}$ with heterogeneous coefficients.
@@ -670,7 +673,7 @@ Like a one-step version of Goolsbee Petrin (2004)
         \begin{enumerate}
             \item the Mixed Data Likelihood Estimator:
                 \begin{align*}
-                    \log\hat{L}(\theta,\delta) =\sum_{m=1}^M\sum_{j=0}^{J_m}\sum_{i=1}^{N_m} d_{ijm}(D_{im} \underbrace{\log \pi_{jm}^{y_{im}}(\theta_2,\delta)}_{\text{individual choices}} + (1-D_{im}) \underbrace{\log\pi_{jm}(\theta_2,\delta)}_{\text{aggregate share}})%\\
+                    \log\hat{L}(\theta,\delta) =\sum_{m=1}^M\sum_{j=0}^{J_m}\sum_{i=1}^{N_m} d_{ijm}(D_{im} \underbrace{\log \sigma_{jm}^{y_{im}}(\theta_2,\delta)}_{\text{individual choices}} + (1-D_{im}) \underbrace{\log\sigma_{jm}(\theta_2,\delta)}_{\text{aggregate share}})%\\
                      %=\sum_{m=1}^M\sum_{j=0}^{J_m}\sum_{i=1}^{N_m} D_{im} d_{ijm} \log\frac{\pi_{jm}^{y_{im}}}{\pi_{jm}} + \sum_{m=1}^M N_m\sum_{j=0}^{J_m}s_{jm}\log\pi_{jm}
                 \end{align*}
         \item including the BLP moment conditions
@@ -813,23 +816,23 @@ u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[
 
 \begin{frame}
 \frametitle{BLP 1995/1999 and Berry Haile (2014)}
-Think about a \alert{generalized inverse} for $\sigma_{j}(\symbf{\delta_{t}}, \symbf{x}_t,\theta_2) = \mathfrak{s}_{jt}$ so that 
+Think about a \alert{generalized inverse} for $\sigma_{j}(\symbf{\delta_{t}}, \symbf{x}_t,\theta_2) = s_{jt}$ so that 
 \begin{align*}
 %\sigma_{jt}^{-1}(\calS_{\cdot t},\widetilde{\theta}_2)+\alpha p_{jt}&= h(x_{jt},v_{jt},\theta_1)   + \xi_{jt}\\
- \sigma_{jt}^{-1}(\calS_{\cdot t},\widetilde{\theta}_2)&= \delta_{jt} \equiv x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
+ \sigma_{jt}^{-1}(\symbf{s}_t,\widetilde{\theta}_2)&= \delta_{jt} \equiv x_{jt} \beta -\alpha p_{jt} +  \xi_{jt} 
 \end{align*}
  \begin{itemize}
-\item After some transformation of data (shares $\calS_{\cdot t}$) we get \alert{mean utilities} $\delta_{jt}$.
+\item After some transformation of data (shares $\symbf{s}_t$) we get \alert{mean utilities} $\delta_{jt}$.
 % \begin{itemize}
 % \item We assume $\delta_{jt}=h(x_{jt},v_{jt},\theta_1) -\alpha p_{jt} + \xi_{jt}$ follows some parametric form (often linear).
 %  \end{itemize}
 \item Same IV-GMM approach after transformation
 \item Examples:
 \begin{itemize}
-\item Plain Logit: $\sigma_{j}^{-1}(\calS_{\cdot t}) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}$
-\item Nested Logit: $\sigma_{j}^{-1}(\calS_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} - \rho  \ln \mathfrak{s}_{j|gt}$
-\item Three level nested logit: $\sigma_{j}^{-1}(\calS_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t} -\sum_{d=1}^2 \rho_d \ln \left(\frac{\mathfrak{s}_{jt}}{\mathfrak{s}_{d(j), t}}\right)$ (Verboven 1996)
-\item IPDL: $\sigma_{j}^{-1}(\calS_{\cdot t},\rho) = \ln \mathfrak{s}_{jt}- \ln \mathfrak{s}_{0t}-\symbf{x}_{j t} \symbf{\beta}-\alpha p_{j t}-\sum_{d=1}^D \rho_d \ln \left(\frac{\mathfrak{s}_{jt}}{\mathfrak{s}_{d(j), t}}\right)+\xi_{j t}$\\ (Fosgerau, Monardo, De Palma (2022))
+\item Plain Logit: $\sigma_{j}^{-1}(\symbf{s}_t) = \ln s_{jt}- \ln s_{0t}$
+\item Nested Logit: $\sigma_{j}^{-1}(\symbf{s}_t,\rho) = \ln s_{jt}- \ln s_{0t} - \rho  \ln s_{j|gt}$
+\item Three level nested logit: $\sigma_{j}^{-1}(\symbf{s}_t,\rho) = \ln s_{jt}- \ln s_{0t} -\sum_{d=1}^2 \rho_d \ln \left(\frac{s_{jt}}{s_{d(j), t}}\right)$ (Verboven 1996)
+\item IPDL: $\sigma_{j}^{-1}(\symbf{s}_t,\rho) = \ln s_{jt}- \ln s_{0t}-\symbf{x}_{j t} \symbf{\beta}-\alpha p_{j t}-\sum_{d=1}^D \rho_d \ln \left(\frac{s_{jt}}{s_{d(j), t}}\right)+\xi_{j t}$\\ (Fosgerau, Monardo, De Palma (2022))
  \end{itemize}
  \item Anything with a share requires an IV (otherwise $\rho \rightarrow 1$).
  \end{itemize}
@@ -838,9 +841,9 @@ Think about a \alert{generalized inverse} for $\sigma_{j}(\symbf{\delta_{t}}, \s
 
 
 \begin{frame}{Intuition from Linear IV (FRAC: Salanie and Wolak)}
-Simple case where $\theta_0 = (\beta_0, \pi_0, \sigma_0)'$. A second-order Taylor expansion around $\pi_0 = \sigma_0 = 0$ gives the following linear model with four regressors:
+Simple case where $\theta_0 = (\beta_0, \Pi_0, \Sigma_0)'$. A second-order Taylor expansion around $\Pi_0 = \Sigma_0 = 0$ gives the following linear model with four regressors:
 \begin{align*}
-    \log\frac{\calS_{jt}}{\calS_{0t}} \approx \beta_0 x_{jt} + \pi_0 m_t^y x_{jt} + \left(\sigma_0^2+  \pi_0^2 v_t^y \right) a_{jt} + \xi_{jt}, \quad a_{jt} = \Big(\frac{x_{jt}}{2} - \sum_{k \in \calJ_t} \alert{\calS_{kt}} \cdot x_{kt}\Big) \cdot x_{jt}
+    \log\frac{s_{jt}}{s_{0t}} \approx \beta_0 x_{jt} + \Pi_0 m_t^y x_{jt} + \left(\Sigma_0^2+  \Pi_0^2 v_t^y \right) a_{jt} + \xi_{jt}, \quad a_{jt} = \Big(\frac{x_{jt}}{2} - \sum_{k \in \calJ_t} \alert{s_{kt}} \cdot x_{kt}\Big) \cdot x_{jt}
 \end{align*}
 \begin{itemize}
     \item $m_t^y = \sum_{i \in \mathcal{I}_t} w_{it} \cdot y_{it}$ is the within-market demographic mean
@@ -860,7 +863,7 @@ x_{jt}^2 + \underbrace{\frac{1}{J} \cdot \sum_k x_{kt}^2}_{\text{ constant for }
 \end{align*}
 and the artificial regressor is
 \begin{align*}
-\frac{1}{2} x_{jt}^2 - \alert{2 x_{jt} \cdot \sum_k \calS_{kt}  \cdot x_{kt}}
+\frac{1}{2} x_{jt}^2 - \alert{2 x_{jt} \cdot \sum_k s_{kt}  \cdot x_{kt}}
 \end{align*}
 \begin{itemize}
 \item We should be \alert{share weighting} the interaction term, but GH assume equal weighting.\\
@@ -1027,8 +1030,8 @@ u_{ij} = \beta_i x_j - \alpha_i p_j + \xi_j + \varepsilon_{ij} \text{ with } f(\
 \end{align*}
 \begin{itemize}
 %    \item Fixed Grids (Fox, Kim, Ryan, Bajari 2011, Heiss, Hetzenecker, Osterhaus 2022, Nevo Turner Williams 2016): draw from ``prior'' of $\beta_i$, compute $\sigma_{ij}(\beta_i)$ and choose weights on each $i$, $\pi_i$.
-    \item Compiani (QE 2022): approximate $\sigma_{j}^{-1}(\calS_t,\symbf{x}_t^{(2)})$ directly with Bernstein Polynomials (ditches $\varepsilon \rightarrow$ very hard)
-    \item Ao Wang (JE 2022): use polynomial sieves: $\mathbb{E}\left[\left(\sigma_j^{-1}\left(s_t ; \symbf{x}_t^{(2)}, \alert{F}\right)-X_t^{(1)} \beta^{(1)}\right) \phi_k\left(Z_{j t}\right)\right]=0$
+    \item Compiani (QE 2022): approximate $\sigma_{j}^{-1}(\symbf{s}_t,\symbf{x}_t^{(2)})$ directly with Bernstein Polynomials (ditches $\varepsilon \rightarrow$ very hard)
+    \item Ao Wang (JE 2022): use polynomial sieves: $\mathbb{E}\left[\left(\sigma_j^{-1}\left(\symbf{s}_t ; \symbf{x}_t^{(2)}, \alert{F}\right)-X_t^{(1)} \beta^{(1)}\right) \phi_k\left(Z_{j t}\right)\right]=0$
     \item Lu, Shi, Tao (JE 2023): use partially linear model: $\log \left(s_{j t} / s_{0 t}\right)=X_{1, j t}^{\prime} \beta^0+\alert{\psi^0\left(X_{2, j t} ; S_{J, t}\right)}+\xi_{j t}$ where        $\psi^0\left(x_{2, j t} ; IV_{J, t}\right)=\log \left[\frac{\int \frac{\exp \left(x_{2, j t}^{\prime} v\right)}{\exp \left(IV_{J, t}(v)\right)} f^0(v) d v}{\int \frac{1}{\exp \left(IV_{J, t}(v)\right)} f^0(v) d v}\right]$.
 \end{itemize}
 But these are still \alert{only as good as characteristics}.
@@ -1083,17 +1086,17 @@ What if we could first estimate \alert{unobserved characteristics}?
 
 \begin{frame}{Conlon, Mortimer, Sarkis (2024): Structural Low Rank Approximations}
 \small
-Fix $\textrm{rank}(\symbf{D}(\symbf{S},\pi))=I$, and for each choice of $I$ solve:
+Fix $\textrm{rank}(\symbf{D}(\symbf{S},w))=I$, and for each choice of $I$ solve:
 \begin{align*}
-\min _{(\symbf{S}, \pi) \geq 0} \left\|\mathcal{P}_{\Omega}(\calD-\symbf{D}(\symbf{S},\pi))\right\|_{\ell_2}  &+ \lambda \left\|\calS- \symbf{S}\,\pi \right\|_{\ell_2} \text { with } \left\|\pi  \right\|_{\ell_1} \leq 1, \quad   \left\|\symbf{s_i}  \right\|_{\ell_1} \leq 1.
+\min _{(\symbf{S}, w) \geq 0} \left\|\mathcal{P}_{\Omega}(\calD-\symbf{D}(\symbf{S},w))\right\|_{\ell_2}  &+ \lambda \left\|\symbf{s}- \symbf{S}\,w \right\|_{\ell_2} \text { with } \left\|w  \right\|_{\ell_1} \leq 1, \quad   \left\|\symbf{\sigma_i}  \right\|_{\ell_1} \leq 1.
 \end{align*}
 \vspace{-.25cm}
 \begin{itemize}
-\item Goal: estimate $\symbf{s_i}$ (choice probabilities) and corresponding weights $\pi_i$ (Finite Mixture) in \alert{product space}
+\item Goal: estimate $\symbf{\sigma_i}$ (choice probabilities) and corresponding weights $w_i$ (Finite Mixture) in \alert{product space}
 \begin{itemize}
 \item Consistent with $U_{ij} = V_{ij} + \varepsilon_{ij}$ and logit error.
 \end{itemize}
-\item Constraints: Choice probabilities $s_{ij}$ sum to one, type weights $\pi_i$ sum to one.
+\item Constraints: Choice probabilities $\sigma_{ij}$ sum to one, type weights $w_i$ sum to one.
 \begin{itemize}
 \item $\ell_1$ constraints lead to \alert{sparsity}.
 \end{itemize}
@@ -1101,7 +1104,7 @@ Fix $\textrm{rank}(\symbf{D}(\symbf{S},\pi))=I$, and for each choice of $I$ solv
 \begin{itemize}
 \item Use cross validation to select \# of types $I$ and Lagrange multiplier $\lambda$.
 \end{itemize}
-\item Matrix completion: We can construct estimates of $\symbf{D}(\symbf{S},\pi)$ including elements of $\mathcal{P}_{\overline{\Omega}}$.
+\item Matrix completion: We can construct estimates of $\symbf{D}(\symbf{S},w)$ including elements of $\mathcal{P}_{\overline{\Omega}}$.
 % \item Weights $\widetilde c_j$ and $c_j$ are proportional to $\ln q_j$
 \end{itemize}
 \end{frame}

@@ -1,16 +1,6 @@
-\def\beamerclassoptions{[xcolor=pdftex,dvipsnames,table]}
-\input{../resources/preamble.tex}
-\usetheme{default}
-%\usetheme{Darmstadt}
-%\usepackage{times}
-%\usefonttheme{structurebold}
-
-\usepackage[english]{babel}
-%\usepackage[table]{xcolor}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
+\usepackage{outline}
 
 
 \setbeamercovered{dynamic}
@@ -31,14 +21,7 @@
 \newcommand{\Nat}{\mathbb{N}}
 \newcommand{\Set}[1]{\{#1\}}
 
-\newcommand{\abs}[1]{\lvert#1\rvert}
-\newcommand{\norm}[1]{\lVert#1\rVert}
 
-\pgfdeclaremask{tu}{beamer-tu-logo-mask}
-\pgfdeclaremask{computer}{beamer-computer-mask}
-\pgfdeclareimage[interpolate=true,mask=computer,height=2cm]{computerimage}{beamer-computer}
-\pgfdeclareimage[interpolate=true,mask=computer,height=2cm]{computerworkingimage}{beamer-computerred}
-\pgfdeclareimage[mask=tu,height=.5cm]{logo}{beamer-tu-logo}
 
 
 \begin{document}

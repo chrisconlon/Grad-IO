@@ -1,4 +1,4 @@
-% Provides guarded package loads and common macros for Teaching slides
+% Provides guarded package loads and common macros for Grad-IO slides
 \ProvidesPackage{teaching_slides}[2025/10/03 Conlon Teaching Preamble]
 
 % read class options
@@ -38,7 +38,7 @@
 \setbeamercolor{subsection in toc}{fg=dimgray}
 \setbeamercolor{frametitle}{bg=dimwhite, fg=charcoal}
 \setbeamercolor{progress bar}{fg=slategray, bg=fg!50!black!30}
-\setbeamersize{text margin left=7mm,text margin right=7mm} 
+\setbeamersize{text margin left=7mm,text margin right=7mm}
 \setbeamercovered{transparent=10}
 
 % use thicker lines
@@ -60,27 +60,14 @@
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
 \RequirePackage{mathtools}
-% \RequirePackage{mathabx}  % Comment out mathabx as it conflicts with mathcal
-\RequirePackage{mathrsfs}  % Provides \mathscr for script fonts
+%\RequirePackage{mathabx}
+\RequirePackage{eucal}  % Better calligraphic fonts
 \RequirePackage{stmaryrd}
 \RequirePackage{graphicx}
 \RequirePackage{hyperref}
 \RequirePackage{xfrac}
 \RequirePackage{appendixnumberbeamer}
 \RequirePackage{tabularx}
-
-% Redefine \mathcal to use script fonts
-\let\mathcal\mathscr
-
-% Special definitions for common calligraphic letters that work with unicode-math
-\AtBeginDocument{%
-  % Simple approach: directly define the problematic letters
-  \providecommand{\calS}{\ensuremath{\mathscr{S}}}
-  \providecommand{\calD}{\ensuremath{\mathscr{D}}}
-  \providecommand{\calJ}{\ensuremath{\mathscr{J}}}
-  \providecommand{\calF}{\ensuremath{\mathscr{F}}}
-  \providecommand{\calH}{\ensuremath{\mathscr{H}}}
-}
 
 
 % Make common graphics paths available so \includegraphics finds images from
@@ -149,6 +136,21 @@
     \IfFileExists{unicode-math.sty}{\RequirePackage{unicode-math}}{}
 }{}
 
+% Redefine \mathcal to use script fonts
+% \let\mathcal\mathscr
+
+% Special definitions for common calligraphic letters that work with unicode-math
+\AtBeginDocument{%
+  % Simple approach: directly define the problematic letters
+  \providecommand{\calS}{\ensuremath{\mathscr{S}}}
+  \providecommand{\calD}{\ensuremath{\mathscr{D}}}
+  \providecommand{\calJ}{\ensuremath{\mathscr{J}}}
+  \providecommand{\calF}{\ensuremath{\mathscr{F}}}
+  \providecommand{\calH}{\ensuremath{\mathscr{H}}}
+}
+
+% concmath may not be installed on all TeX systems; load only when present.
+%\IfFileExists{concmath.sty}{\RequirePackage{concmath}}{}
 % make equation font readable across themes (less tiny)
 \setbeamerfont{equation}{size=\small}
 
@@ -245,7 +247,9 @@
 % canonical math operators (use thinspace in "arg\,max" for nicer spacing)
 \@ifundefined{argmax}{\DeclareMathOperator*{\argmax}{arg\,max}}{}
 \@ifundefined{argmin}{\DeclareMathOperator*{\argmin}{arg\,min}}{}
-\@ifundefined{Pr}{\renewcommand{\Pr}{\symbb{P}}}{}
+% \Pr is always kernel-defined, so an \@ifundefined guard would never fire; renew unconditionally
+\renewcommand{\Pr}{\symbb{P}}
+\providecommand{\prob}[1]{\symbb{P}\left\{#1\right\}}
 \providecommand{\E}{\symbb{E}}
 \providecommand{\Var}{\symbb{V}}
 \providecommand{\Cov}{\symbb{C}}
@@ -271,5 +275,24 @@
 
 % fix pauses with graphics
 \RequirePackage{fixpauseincludegraphics}
+
+
+% Code for R
+\usepackage{listings}
+
+\lstset{
+  language=R,
+  basicstyle=\ttfamily\tiny,
+  backgroundcolor=\color{gray!5},
+  frame=single,
+  rulecolor=\color{gray!50},
+  keywordstyle=\color{blue!70!black},
+  commentstyle=\color{green!40!black},
+  stringstyle=\color{orange!90!black},
+  columns=flexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true
+}
 
 % End of package

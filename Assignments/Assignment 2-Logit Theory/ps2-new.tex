@@ -27,24 +27,24 @@ The motivation is that are potentially many geographic markets $L$ with differen
 \begin{eqnarray*}
 \nu_{ijl} = \eta_{jl}+ \underbrace{\zeta_{ic} + \varepsilon_{ijl}}_{GEV(\lambda)}
 \end{eqnarray*}
-The idea is to allow for different locations $l$ to obtain different utility from different products $j$. Assume (again) that the outside good exists alone in its own nest. We can write the share of product $j$ nationwide as $\pi_j = \sum_{l=1}^L \omega_l \pi_{jl}$ as the share of people $\omega_l$ who live in location $l$ and the choice probability of $j$ within $l$: $\pi_{jl}$. We can decompose $\pi_{jl} =  \pi_{lc} \cdot \pi_{jl|c}$ as the ``product of two logits''.\\
+The idea is to allow for different locations $l$ to obtain different utility from different products $j$. Assume (again) that the outside good exists alone in its own nest. We can write the share of product $j$ nationwide as $\sigma_j = \sum_{l=1}^L \omega_l \sigma_{jl}$ as the share of people $\omega_l$ who live in location $l$ and the choice probability of $j$ within $l$: $\sigma_{jl}$. We can decompose $\sigma_{jl} =  \sigma_{lc} \cdot \sigma_{jl|c}$ as the ``product of two logits''.\\
 
 Define the logit denominator as:
 \begin{eqnarray*}
 D_{lc} = \sum_{j \in c} \exp \left[\frac{\delta_j  -\alpha p_j+ \eta_{jl}}{1-\lambda}\right]
 \end{eqnarray*}
 
-\noindent 1) [Very Easy] Write the within group share of $\pi_{jl | c}$ assuming that $\eta_{jl}$ is observed for a single market $l$. It will be a function of the usual numerator and the denominator function $D_{lc}$.\\
+\noindent 1) [Very Easy] Write the within group share of $\sigma_{jl | c}$ assuming that $\eta_{jl}$ is observed for a single market $l$. It will be a function of the usual numerator and the denominator function $D_{lc}$.\\
 
-\noindent 2) [Easy]  Write $\pi_{lc}$ and $\pi_{l0}$ as a function of only $D_{lc}$ for a single market $l$.  (ie: nothing product specific).\\
+\noindent 2) [Easy]  Write $\sigma_{lc}$ and $\sigma_{l0}$ as a function of only $D_{lc}$ for a single market $l$.  (ie: nothing product specific).\\
 
-\noindent 3) Now write $D_{lc}$ as a function of only $\pi_{lc}$ and $\pi_{l0}$ and the unknown parameters for a single market $l$. (ie: nothing product specific).\\
+\noindent 3) Now write $D_{lc}$ as a function of only $\sigma_{lc}$ and $\sigma_{l0}$ and the unknown parameters for a single market $l$. (ie: nothing product specific).\\
 
-\noindent 4) Now write $\pi_j = \sum \omega_l \cdot \pi_{lg} \cdot \pi_{lj|g}$ as an expression which depends only on: $\pi_j, \pi_{l0},\pi_{lc},\eta_{jl},\lambda$ and features of $j$ but not on features of other products.\\
+\noindent 4) Now write $\sigma_j = \sum \omega_l \cdot \sigma_{lg} \cdot \sigma_{lj|g}$ as an expression which depends only on: $\sigma_j, \sigma_{l0},\sigma_{lc},\eta_{jl},\lambda$ and features of $j$ but not on features of other products.\\
 
-\noindent 5) Now take logs of $\pi_j$ and solve for $\delta_j$ (this is the ``Berry (1994) inversion''). Show that your solution reduces to Berry (1994) inversion when $\eta_{jl} = 0$ for all $(j,l)$.\\
+\noindent 5) Now take logs of $\sigma_j$ and solve for $\delta_j$ (this is the ``Berry (1994) inversion''). Show that your solution reduces to Berry (1994) inversion when $\eta_{jl} = 0$ for all $(j,l)$.\\
 
-\noindent Some trickery to avoid complicated proofs. Suppose that there are a lot of products per category so that you observe $\pi_{lc}, \pi_{l0}$ without any error. Moreover assume that any single product has a negligible effect on $\pi_{lc}$. The idea is that you can treat the observed values of $\pi_{lc}, \pi_{l0}$ and thus $D_{lc}$ as data that are unaffected by your parameters.\\
+\noindent Some trickery to avoid complicated proofs. Suppose that there are a lot of products per category so that you observe $\sigma_{lc}, \sigma_{l0}$ without any error. Moreover assume that any single product has a negligible effect on $\sigma_{lc}$. The idea is that you can treat the observed values of $\sigma_{lc}, \sigma_{l0}$ and thus $D_{lc}$ as data that are unaffected by your parameters.\\
 
 \noindent 6) Find the closed form solution to the integral $\int \exp[\eta_{jl}/(1-\lambda)] f(\eta_{jl} | \sigma^2) d\, \eta_{jl}$.\\
 
@@ -60,7 +60,7 @@ Now consider a very particular nested logit model:\footnote{If you get stuck loo
 \begin{eqnarray*}
 u_{ij} = \delta_j - \alpha p_j + \epsilon_{ij}
 \end{eqnarray*}
-We assume that $\epsilon_{ij}$ is distributed GEV with some nesting parameter $\sigma$ like the Cardell (1997) paper or the Berry (1994) paper. Assume that all products are in the same nest, so that the outside good is the only product in the second nest.\\
+We assume that $\epsilon_{ij}$ is distributed GEV with some nesting parameter $\rho$ like the Cardell (1997) paper or the Berry (1994) paper (note that Berry (1994) writes $\sigma$ for this parameter). Assume that all products are in the same nest, so that the outside good is the only product in the second nest.\\
 
 \noindent 9) [Easy] Derive a simplified form of the nested logit choice probabilities and the expected (ex-ante) consumer surplus in dollars.[Just write them from Berry (1994)].\\
 
@@ -115,14 +115,14 @@ W(t) &=& \max_x \left\{  u(x) + Z - t x_1 - p(t) \cdot x \right\}  + \max_x \lef
 We can see the logit has this property in a more concrete way. If you don't get the first part -- you can start here ( this is a bit easier). Given $u_{ij} = v_{ij} + \varepsilon_{ij}$ where $\varepsilon_{ij}$ has a Type I EV (logit) distribution. We can derive individual purchase probabilities:
 
 \begin{eqnarray*}
-S_{ij} = \frac{\exp v_{ij}}{\sum_k \exp v_{ik}}
+\sigma_{ij} = \frac{\exp v_{ij}}{\sum_k \exp v_{ik}}
 \end{eqnarray*}
 To make life easier assume that $\frac{\partial v_{ij}}{\partial p_{pij}}=1$ for all $(i,j)$ or that utility is quasi-linear (and money-metric in price).\footnote{You can relax this but then you need to carry around $\frac{1}{\alpha_i}$ terms.}\\
 
-\noindent 2) Write the individual surplus function $S_i = E[\max_j u_{ij}]$ and the total welfare function $W(t)$ (for all consumers and the representative firm) where $\pi(p) = p \cdot S- c(S)$ (where $S$ is the stacked vector of $S_{j}$ and $S_j = \sum_i n_i S_{ij}$, the sum of individual demands).\\
+\noindent 2) Write the individual surplus function $S_i = E[\max_j u_{ij}]$ and the total welfare function $W(t)$ (for all consumers and the representative firm) where $\pi(p) = p \cdot q- c(q)$ (where $q$ is the stacked vector of $q_{j}$ and $q_j = \sum_i n_i \sigma_{ij}$, the sum of individual demands).\\
 
 
-\noindent 3) Use the envelope theorem to show that $\frac{d W(t)}{d\, t} = t \frac{d\, S_1(t)}{d t_1}$. for a tax $t_1$ on good $1$ that is returned lump sum to consumers.\\
+\noindent 3) Use the envelope theorem to show that $\frac{d W(t)}{d\, t} = t \frac{d\, q_1(t)}{d t_1}$. for a tax $t_1$ on good $1$ that is returned lump sum to consumers.\\
 
 \noindent 4) What does this tell us about the welfare effects of taxation in this model? What would we want to observe in the data? What is the most important feature of our model?
 

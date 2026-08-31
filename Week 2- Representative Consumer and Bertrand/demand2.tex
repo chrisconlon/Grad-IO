@@ -55,13 +55,13 @@ We consider a \alert{multinomial discrete choice}:
 \item in period $t$
 \item with $J_t$ alternatives.
 \item subscript individual agents by $i$.
-\item agents choose $j \in J_t$ with probability $P_{ijt}$.
+\item agents choose $j \in J_t$ with probability $\sigma_{ijt}$.
 \item Agent $i$ receives utility $U_{ij}$ for choosing $j$.
 \item Choice is exhaustive and mutually exclusive.
  \end{itemize}\pause
 Consider the simple example $(t=1)$:
 \begin{eqnarray*}
-P_{ij} = Prob( U_{ij} > U_{ik} \quad \forall j \neq k)
+\sigma_{ij} = \Pr( U_{ij} > U_{ik} \quad \forall j \neq k)
 \end{eqnarray*}
 \end{frame}
 
@@ -69,14 +69,14 @@ P_{ij} = Prob( U_{ij} > U_{ik} \quad \forall j \neq k)
 \frametitle{Nonparametric Setup}
 Now consider separating the utility into the observed $V_{ij}$ and unobserved components $\varepsilon_{ij}$.
 \begin{eqnarray*}
-P_{ij} &=& Prob( U_{ij} > U_{ik} \quad \forall j \neq k)\\
- &=& Prob( V_{ij} + \varepsilon_{ij} > V_{ik} + \varepsilon_{ik} \quad \forall j \neq k)\\
- &=& Prob( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall j \neq k)
+\sigma_{ij} &=& \Pr( U_{ij} > U_{ik} \quad \forall j \neq k)\\
+ &=& \Pr( V_{ij} + \varepsilon_{ij} > V_{ik} + \varepsilon_{ik} \quad \forall j \neq k)\\
+ &=& \Pr( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall j \neq k)
 \end{eqnarray*}
 \pause
 It is helpful to define $f(\varepsilon_{i})$ as the $J$ vector of individual $i$'s unobserved utility.
 \begin{eqnarray*}
-P_{ij} &=& Prob( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall j \neq k)\\
+\sigma_{ij} &=& \Pr( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall j \neq k)\\
 &=& \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f( \varepsilon_i) \partial \varepsilon_i \\
 \end{eqnarray*}
 \end{frame}
@@ -85,7 +85,7 @@ P_{ij} &=& Prob( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \fora
 \frametitle{Nonparametric Setup}
 In order to compute the choice probabilities, we must perform a $J$ dimensional integral over $f(\varepsilon_i)$.
 \begin{eqnarray*}
-P_{ij} &=&  \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f( \varepsilon_i) \partial \varepsilon_i 
+\sigma_{ij} &=&  \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f( \varepsilon_i) \partial \varepsilon_i 
 \end{eqnarray*}
 There are some choices that make our life easier
 \begin{itemize}
@@ -99,8 +99,8 @@ There are some choices that make our life easier
 \frametitle{Errors}
 Allowing for full support $[-\infty, \infty]$ errors provide two key features:
 \begin{itemize}
-\item Smoothness: $P_{ij}$ is everywhere continuously differentiable in $V_{ij}$.
-\item Bound $P_{ij} \in (0,1)$ so that we can rationalize any observed pattern in the data.
+\item Smoothness: $\sigma_{ij}$ is everywhere continuously differentiable in $V_{ij}$.
+\item Bound $\sigma_{ij} \in (0,1)$ so that we can rationalize any observed pattern in the data.
 \item What does $\varepsilon_{ij}$ really mean? (unobserved utility, idiosyncratic tastes, etc.)
 \end{itemize}
 \end{frame}
@@ -109,7 +109,7 @@ Allowing for full support $[-\infty, \infty]$ errors provide two key features:
 \frametitle{Basic Identification}
 \small
 \begin{itemize}
-\item Only differences in utility matter: $Prob( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall j \neq k)$
+\item Only differences in utility matter: $\Pr( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall j \neq k)$
 \item Adding constants is irrelevant: if $U_{ij} > U_{ik}$ then $U_{ij} + a > U_{ik} + a$.
 \item Only differences in alternative specific constants can be identified
 \begin{eqnarray*}
@@ -141,7 +141,7 @@ Scale
 
 \begin{frame}
 \frametitle{Observed Heteroskedasticity}
-Consider the case where $Var(\varepsilon_{ij}^B) = \sigma^2$ and   $Var(\varepsilon_{ij}^C) =  k^2 \sigma^2$ :
+Consider the case where $Var(\varepsilon_{ij}^B) = a^2$ and   $Var(\varepsilon_{ij}^C) =  k^2 a^2$ :
 \begin{itemize}
 \item We can estimate
 \begin{eqnarray*}
@@ -176,7 +176,7 @@ Different ways to look at identification
 \begin{itemize}
 \item Logit has closed form choice probabilities
 \begin{eqnarray*}
-s_{ij} = \frac{e^{V_{ij}}}{\sum_k e^{V_{ik}}} \approx \frac{e^{\beta' x_{ij}}}{\sum_k e^{\beta' x_{ik}}}
+\sigma_{ij} = \frac{e^{V_{ij}}}{\sum_k e^{V_{ik}}} \approx \frac{e^{\beta' x_{ij}}}{\sum_k e^{\beta' x_{ik}}}
 \end{eqnarray*}
 \item Approximation arises from the hope that we can approximate $V_{ij} \approx  X_{ik} \beta$ with something linear in parameters.
 \item Expected maximum also has closed form:
@@ -236,7 +236,7 @@ What is actually identified here?
 \begin{itemize}
 \item Helpful to look at the ratio of two choice probabilities
 \begin{eqnarray*}
-\log \frac{s_{ij}(\theta)}{s_{ik}(\theta)} = \symbf{x_{ij}} \beta_j - \symbf{x_{ik}} \beta_k \rightarrow  \symbf{x_i}\cdot(\beta_j - \beta_k)
+\log \frac{\sigma_{ij}(\theta)}{\sigma_{ik}(\theta)} = \symbf{x_{ij}} \beta_j - \symbf{x_{ik}} \beta_k \rightarrow  \symbf{x_i}\cdot(\beta_j - \beta_k)
 \end{eqnarray*}
 \item We only identify the \alert{difference in indirect utilities} not the levels.
 \item This is a feature and not a bug. Why?
@@ -247,7 +247,7 @@ What is actually identified here?
 \frametitle{Multinomial Logit: Identification}
 As another idea suppose we add a constant $C$ to each $\beta_j$.
 \begin{eqnarray*}
-s_{ij} = \frac{\exp[\symbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\symbf{x_i} (\beta_k+C) ]} =  \frac{\exp[\symbf{x_i} C] \exp[\symbf{x_i} \beta_j ]}{\exp[\symbf{x_i} C] \sum_k \exp[\symbf{x_i} \beta_k ]} 
+\sigma_{ij} = \frac{\exp[\symbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\symbf{x_i} (\beta_k+C) ]} =  \frac{\exp[\symbf{x_i} C] \exp[\symbf{x_i} \beta_j ]}{\exp[\symbf{x_i} C] \sum_k \exp[\symbf{x_i} \beta_k ]} 
 \end{eqnarray*}
 \begin{itemize}
 \item This has no effect.  That means we need to fix a normalization $C$. The most convenient is generally that $C = - \beta_K$. \
@@ -261,7 +261,7 @@ s_{ij} = \frac{\exp[\symbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\symbf{x_i} (\beta_k+
 \frametitle{Multinomial Logit: Identification}
 The most sensible normalization in demand settings is to allow for an \alert{outside option} which produces no utility in expectation.
 \begin{eqnarray*}
-s_{ij} = \frac{\exp[\symbf{x_i}\beta_j ]}{1+\sum_k \exp[\symbf{x_i} \beta_k ]} 
+\sigma_{ij} = \frac{\exp[\symbf{x_i}\beta_j ]}{1+\sum_k \exp[\symbf{x_i} \beta_k ]} 
 \end{eqnarray*}
 \begin{itemize}
 \item Hopefully the choice of outside option is well defined: not buying a yogurt, buying some other used car, etc.
@@ -272,14 +272,14 @@ s_{ij} = \frac{\exp[\symbf{x_i}\beta_j ]}{1+\sum_k \exp[\symbf{x_i} \beta_k ]}
 
 \begin{frame}{Back to Scale of Utility}
 \begin{itemize}
-\item Consider $U_{ij}^{*} = V_{ij} + \varepsilon_{ij}^{*}$ with $Var(\varepsilon^{*}) = \sigma^2 \pi^2/6$.
-\item Without changing behavior we can divide by $\sigma$ so that $U_{ij} = V_{ij}/\sigma + \varepsilon_{ij}$ and $Var(\varepsilon^{*}/\sigma)=Var(\varepsilon) = \pi^2/6$
+\item Consider $U_{ij}^{*} = V_{ij} + \varepsilon_{ij}^{*}$ with $Var(\varepsilon^{*}) = a^2 \pi^2/6$.
+\item Without changing behavior we can divide by the scale parameter $a$ so that $U_{ij} = V_{ij}/a + \varepsilon_{ij}$ and $Var(\varepsilon^{*}/a)=Var(\varepsilon) = \pi^2/6$
 \begin{eqnarray*}
-s_{ij} = \frac{e^{V_{ij}/\sigma}}{\sum_k e^{V_{ik}/\sigma}} \approx \frac{e^{\beta^{*}/\sigma \cdot x_{ij}}}{\sum_k e^{\beta^{*}/\sigma \cdot x_{ik}}}
+\sigma_{ij} = \frac{e^{V_{ij}/a}}{\sum_k e^{V_{ik}/a}} \approx \frac{e^{\beta^{*}/a \cdot x_{ij}}}{\sum_k e^{\beta^{*}/a \cdot x_{ik}}}
 \end{eqnarray*}
-\item Every coefficient $\beta$ is rescaled by $\sigma$. This implies that only the ratio $\beta^{*}/\sigma$ is identified. 
+\item Every coefficient $\beta$ is rescaled by $a$. This implies that only the ratio $\beta^{*}/a$ is identified.
 \item Coefficients are relative to variance of unobserved factors. More unobserved variance $\longrightarrow$ smaller $\beta$.
-\item Ratio $\beta_1/\beta_2$ is invariant to the scale parameter $\sigma$.
+\item Ratio $\beta_1/\beta_2$ is invariant to the scale parameter $a$.
 \end{itemize}
 \end{frame}
 
@@ -295,7 +295,7 @@ s_{ij} = \frac{e^{V_{ij}/\sigma}}{\sum_k e^{V_{ik}/\sigma}} \approx \frac{e^{\be
 
 \begin{frame}{Taste Variation}
 \begin{eqnarray*}
-\frac{s_{ij}}{s_{ik}} = \frac{e^{V_{ij}}}{\sum_{k'} e^{V_{ik'}}} / \frac{e^{V_{ik}}}{\sum_{k'} e^{V_{ik'}}} = \frac{e^{V_{ij}}}{e^{V_{ik}}} = \exp[V_{ij} - V_{ik}].
+\frac{\sigma_{ij}}{\sigma_{ik}} = \frac{e^{V_{ij}}}{\sum_{k'} e^{V_{ik'}}} / \frac{e^{V_{ik}}}{\sum_{k'} e^{V_{ik'}}} = \frac{e^{V_{ij}}}{e^{V_{ik}}} = \exp[V_{ij} - V_{ik}].
 \end{eqnarray*}
 \begin{itemize}
 \item The ratio of choice probabilities for $j$ and $k$ depends only on $j$ and $k$ and not on any alternative $l$, this is known as \alert{independence of irrelevant alternatives}.
@@ -306,9 +306,9 @@ s_{ij} = \frac{e^{V_{ij}/\sigma}}{\sum_k e^{V_{ik}/\sigma}} \approx \frac{e^{\be
 
 \begin{frame}{IIA Property}
 \begin{itemize}
-\item The well known counterexample: You can choose to go to work on a car $c$ or blue bus $bb$. $P_{c} = P_{bb} = \frac{1}{2}$ so that $\frac{P_c}{P_{bb}} = 1$.
-\item Now we introduce a red bus $rb$ that is identical to $bb$. Then $\frac{P_{rb}}{P_{bb}} = 1$ and $P_{c} = P_{bb}= P_{rb} = \frac{1}{3}$ as the logit model predicts.
-\item In reality we don't expect painting a bus red would change the number of individuals who drive a car so we would anticipate $P_{c} = \frac{1}{2}$ and $P_{bb} = P_{rb} = \frac{1}{4}$.
+\item The well known counterexample: You can choose to go to work on a car $c$ or blue bus $bb$. $\sigma_{c} = \sigma_{bb} = \frac{1}{2}$ so that $\frac{\sigma_c}{\sigma_{bb}} = 1$.
+\item Now we introduce a red bus $rb$ that is identical to $bb$. Then $\frac{\sigma_{rb}}{\sigma_{bb}} = 1$ and $\sigma_{c} = \sigma_{bb}= \sigma_{rb} = \frac{1}{3}$ as the logit model predicts.
+\item In reality we don't expect painting a bus red would change the number of individuals who drive a car so we would anticipate $\sigma_{c} = \frac{1}{2}$ and $\sigma_{bb} = \sigma_{rb} = \frac{1}{4}$.
 \item We may not encounter too many cases where $\rho_{\varepsilon_{ik},\varepsilon_{ij}} \approx 1$, but we have many cases where this $\rho_{\varepsilon_{ik},\varepsilon_{ij}} \neq 0$
 \item What we need is the ratio of probabilities to change when we introduce a third option!
 \end{itemize}
@@ -319,7 +319,7 @@ s_{ij} = \frac{e^{V_{ij}/\sigma}}{\sum_k e^{V_{ik}/\sigma}} \approx \frac{e^{\be
 \item IIA implies that we can obtain consistent estimates for $\beta$ on any subset of alternatives.
 \item This means instead of using all $J$ alternatives in the choice set, we could estimate on some subset $S \subset J$.
 \item This used to be a way to reduce the computational burden of estimation (not clear this is an issue in 2016).
-\item Sometimes we have \alert{choice based samples} where we oversample people who choose a particular alternative. Manski and Lerman (1977) show we can get consistent estimates for all but the ASC. This requires knowledge of the difference between the true rate $A_j$ and the choice-based sample rate $S_j$.
+\item Sometimes we have \alert{choice based samples} where we oversample people who choose a particular alternative. Manski and Lerman (1977) show we can get consistent estimates for all but the ASC. This requires knowledge of the difference between the true (population) rate $A_j$ and the choice-based sample rate $H_j$.
 \item Hausman proposes a specification test of the logit model: estimate on the full dataset to get $\hat{\beta}$, construct a smaller subsample $S^k \subset J$ and $\hat{\beta^k}$ for one or more subsets $k$. If $|\hat{\beta}^k - \hat{\beta}|$ is small enough.
 \end{itemize}
 \end{frame}
@@ -327,19 +327,19 @@ s_{ij} = \frac{e^{V_{ij}/\sigma}}{\sum_k e^{V_{ik}/\sigma}} \approx \frac{e^{\be
 \begin{frame}{IIA Property}
 \small
 \begin{eqnarray*}
-\frac{\partial s_{ij}}{\partial z_{ij}} = s_{ij}(1- s_{ij}) \frac{\partial V_{ij}}{\partial z_{ij}}
+\frac{\partial \sigma_{ij}}{\partial z_{ij}} = \sigma_{ij}(1- \sigma_{ij}) \frac{\partial V_{ij}}{\partial z_{ij}}
 \end{eqnarray*}
 And Elasticity:
 \begin{eqnarray*}
-\frac{ \partial \log s_{ij}}{ \partial \log z_{ij}} = s_{ij}(1- s_{ij}) \frac{\partial V_{ij}}{\partial z_{ij}} \frac{z_{ij}}{s_{ij}} = (1- s_{ij}) z_{ij} \frac{\partial V_{ij}}{\partial z_{ij}}
+\frac{ \partial \log \sigma_{ij}}{ \partial \log z_{ij}} = \sigma_{ij}(1- \sigma_{ij}) \frac{\partial V_{ij}}{\partial z_{ij}} \frac{z_{ij}}{\sigma_{ij}} = (1- \sigma_{ij}) z_{ij} \frac{\partial V_{ij}}{\partial z_{ij}}
 \end{eqnarray*}
 With cross effects:
 \begin{eqnarray*}
-\frac{\partial s_{ij}}{\partial z_{ik}} = -s_{ij} s_{ik} \frac{\partial V_{ik}}{\partial z_{ik}}
+\frac{\partial \sigma_{ij}}{\partial z_{ik}} = -\sigma_{ij} \sigma_{ik} \frac{\partial V_{ik}}{\partial z_{ik}}
 \end{eqnarray*}
 And Elasticity:
 \begin{eqnarray*}
-\frac{ \partial \log s_{ij}}{ \partial \log z_{ik}} = -s_{ik} z_{ik} \frac{\partial V_{ik}}{\partial z_{ik}}
+\frac{ \partial \log \sigma_{ij}}{ \partial \log z_{ik}} = -\sigma_{ik} z_{ik} \frac{\partial V_{ik}}{\partial z_{ik}}
 \end{eqnarray*}
 For the linear $V_{ij}$ case we have that $\frac{\partial V_{ij}}{\partial z_{ij}}=  \beta_z$.
 \end{frame}
@@ -347,11 +347,11 @@ For the linear $V_{ij}$ case we have that $\frac{\partial V_{ij}}{\partial z_{ij
 \begin{frame}{Proportional Substitution}
 Cross elasticity doesn't really depend on $j$.
 \begin{eqnarray*}
-\frac{ \partial \log s_{ij}}{ \partial \log z_{ik}} = -s_{ik} z_{ik} \underbrace{\frac{\partial V_{ik}}{\partial z_{ik}}}_{\beta_z}.
+\frac{ \partial \log \sigma_{ij}}{ \partial \log z_{ik}} = -\sigma_{ik} z_{ik} \underbrace{\frac{\partial V_{ik}}{\partial z_{ik}}}_{\beta_z}.
 \end{eqnarray*}
 \begin{itemize}
 \item This leads to the idea of proportional substitution. As option $k$ gets better it proportionally reduces the shares of the all other choices.
-\item Likewise removing an option $k$ means that $\tilde{s}_{ij} = \frac{s_{ij}}{1-s_{ik}}$ for all other $j$.
+\item Likewise removing an option $k$ means that $\tilde{\sigma}_{ij} = \frac{\sigma_{ij}}{1-\sigma_{ik}}$ for all other $j$.
 \item This might be a desirable property but probably not.
 \end{itemize}
 \end{frame}
@@ -364,9 +364,9 @@ Cross elasticity doesn't really depend on $j$.
 \frametitle{Multinomial Logit: Estimation with Individual Data}
 Estimation is straightforward via Maximum Likelihood (MLE):
 \begin{eqnarray*}
-L(\symbf{y} | \symbf{x}, \theta) &=& \prod_{i=1}^N  \underbrace{\frac{n_i!}{\prod_{j=1}^J y_{ij}!}}_{C(\symbf{y})} \prod_{j=1}^J  s_{ij}(x_{ij},\theta)^{y_{ij}} \\
-ll(\symbf{y} | \symbf{x}, \theta) &=& \sum_{i=1}^N \log(C(\symbf{y}))   + \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( s_{ij}(x_{ij},\theta)) \\
-l(\symbf{y} | \symbf{x}, \theta) &\approx& \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( s_{ij}(x_{ij},\theta))
+L(\symbf{y} | \symbf{x}, \theta) &=& \prod_{i=1}^N  \underbrace{\frac{n_i!}{\prod_{j=1}^J y_{ij}!}}_{C(\symbf{y})} \prod_{j=1}^J  \sigma_{ij}(x_{ij},\theta)^{y_{ij}} \\
+ll(\symbf{y} | \symbf{x}, \theta) &=& \sum_{i=1}^N \log(C(\symbf{y}))   + \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( \sigma_{ij}(x_{ij},\theta)) \\
+l(\symbf{y} | \symbf{x}, \theta) &\approx& \sum_{i=1}^N \sum_{j=1}^J y_{ij} \log( \sigma_{ij}(x_{ij},\theta))
 \end{eqnarray*}
 \begin{itemize}
 \item We can ignore the combinatorial term (with the factorials) since it does not affect the location of the maximum (it is additive and doesn't depend on $\theta$).
@@ -382,7 +382,7 @@ To be more specific:
 \sum_{i=1}^N \sum_{j=1}^J  y_{ij} \left[ x_{ij} \beta - \underbrace{\log \left(\sum_{k=1}^K x_{ik} \beta  \right)}_{IV_i(\symbf{x_i},\theta)} \right]
 \end{eqnarray*}
 \item We call the term on the right the \alert{logit inclusive value}. It does not depend on $k$ but might vary across choice situations/individuals $i$.
-\item The point of the inclusive value is to guarantee that $\sum_{k=1} s_{ik}(\symbf{x_i},\theta) = 1$.
+\item The point of the inclusive value is to guarantee that $\sum_{k=1} \sigma_{ik}(\symbf{x_i},\theta) = 1$.
 \item If we somehow observed $IV_i(\theta)$ we could just do linear regression (in fact we could do this separately for each $K$).
 \end{itemize}
 \end{frame}
@@ -395,7 +395,7 @@ Estimation is just like before
 \item  Suppose that all consumers had the same $x_{ij} = x_{j}$ (Choices depended only on products not on income, education, etc.)
 \item We can construct $y_{j}^* = \sum_{i=1}^N y_{ij}$.
 \begin{eqnarray*}
-l(\symbf{y} | \symbf{x}, \theta) &\approx& \sum_{j=1}^J  y_{j}^{*} \log( s_{j}(\symbf{x},\theta))
+l(\symbf{y} | \symbf{x}, \theta) &\approx& \sum_{j=1}^J  y_{j}^{*} \log( \sigma_{j}(\symbf{x},\theta))
 \end{eqnarray*}
 \item When each consumer $i$ faces the same choice environment, we can aggregate data into \alert{sufficient statistics}.
 \end{itemize}
@@ -408,9 +408,9 @@ l(\symbf{y} | \symbf{x}, \theta) &\approx& \sum_{j=1}^J  y_{j}^{*} \log( s_{j}(\
 \begin{itemize}
 \item Instead of individual data, or a single group we might have multiple groups: if prices only change once per week, we can aggregate all of the week's sales into one ``observation''.
 \item Likewise if we only observe that an individual is within one of five income buckets -- there is no loss from aggregating our data into these five buckets.
-\item All of this depends on the precise form of $ s_{j}(\symbf{x_i},\theta)$. When it doesn't change across observations: we can aggregate.
+\item All of this depends on the precise form of $ \sigma_{j}(\symbf{x_i},\theta)$. When it doesn't change across observations: we can aggregate.
 \item It functions as if we have a representative consumer up to $\varepsilon_{i}$.
-\item We can use this idea to go from individual level to market demand: $q_j(\symbf{x_i}) = N_i s_{ij}(\theta)$.
+\item We can use this idea to go from individual level to market demand: $q_j(\symbf{x_i}) = N_i \sigma_{ij}(\theta)$.
 \end{itemize}
 \end{frame}
 
@@ -421,11 +421,11 @@ An important output from a demand system are elasticities
 \item An important element in $\symbf{x_i}$ are prices $[p_{1},\ldots,p_J]$
 \item Helpful to write $u_{ij} = x_j \beta -\alpha p_j$ (assumes aggregation!).
 \begin{eqnarray*}
-\frac{\partial q_j}{\partial p_k} =-N \cdot \alpha \left(I[j = k] s_j -\sum_{k=1}^K s_j s_k \right)
+\frac{\partial q_j}{\partial p_k} =-N \cdot \alpha \left(I[j = k] \sigma_j -\sum_{k=1}^K \sigma_j \sigma_k \right)
 \end{eqnarray*}
-\item This implies that $ \eta_{jj} = \frac{\partial q_j}{\partial p_j} \frac{p_j}{q_j}  = -\alpha p_j (1-s_j)$.
+\item This implies that $ \eta_{jj} = \frac{\partial q_j}{\partial p_j} \frac{p_j}{q_j}  = -\alpha p_j (1-\sigma_j)$.
 \item The price elasticity is increasing in own price! (Why is this a bad idea?)
-\item  $ \eta_{jk} = \frac{\partial q_j}{\partial p_k} \frac{p_k}{q_j}  = -\alpha p_k s_k$.
+\item  $ \eta_{jk} = \frac{\partial q_j}{\partial p_k} \frac{p_k}{q_j}  = -\alpha p_k \sigma_k$.
 \item The cross price elasticity doesn't depend on which product $j$ you are talking about!
 \end{itemize}
 \end{frame}
@@ -434,8 +434,8 @@ An important output from a demand system are elasticities
 \frametitle{Multinomial Logit: IIA}
 The multinomial logit is frequently criticized for producing unrealistic substitution patterns
 \begin{itemize}
-\item Suppose we got rid of a product $k$ then $s_j^{(1)} = s_j^{(0)} \frac{1}{1- s_k}$.
-\item Substitution is just proportional to your pre-existing shares $s_j$
+\item Suppose we got rid of a product $k$ then $\sigma_j^{(1)} = \sigma_j^{(0)} \frac{1}{1- \sigma_k}$.
+\item Substitution is just proportional to your pre-existing shares $\sigma_j$
 \item No concept of ``closeness'' of competition!
 \end{itemize}
 \end{frame}
@@ -454,7 +454,7 @@ Downside
 \begin{itemize}
 \item $\Sigma$ has potentially $J^2$ parameters (that is a lot)!
 \item Maybe $J * (J-1)/2$ under symmetry. (still a lot).
-\item Each time we want to compute $s_j(\theta)$ we have to simulate an integral of dimension $J$.
+\item Each time we want to compute $\sigma_j(\theta)$ we have to simulate an integral of dimension $J$.
 \item I wouldn't do this for $J \geq 5$.
 \end{itemize}
 \end{frame}
@@ -509,16 +509,16 @@ U_{ij} = V_{ij} + \underbrace{\eta_{ig} + \widetilde{\varepsilon_{ij}}}_{\vareps
 \begin{frame}{Nested Logit}
 The nested logit choice probabilities are:
 \begin{eqnarray*}
-P_{ij} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g -1}}{\sum_{h=1}^G \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h}}
+\sigma_{ij} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g -1}}{\sum_{h=1}^G \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h}}
 \end{eqnarray*}
 Within the same group $g$ we have IIA and proportional substitution 
 \begin{eqnarray*}
-\frac{P_{ij}}{P_{ik}} = \frac{ e^{V_{ij}/\lambda_g}}{ e^{V_{ik}/\lambda_g}}
+\frac{\sigma_{ij}}{\sigma_{ik}} = \frac{ e^{V_{ij}/\lambda_g}}{ e^{V_{ik}/\lambda_g}}
 \end{eqnarray*}
 
 But for different groups we do not:
 \begin{eqnarray*}
-P_{ij} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g -1}}{ e^{V_{ik}/\lambda_h} \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h -1}}
+\sigma_{ij} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g -1}}{ e^{V_{ik}/\lambda_h} \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h -1}}
 \end{eqnarray*}
 \end{frame}
 
@@ -527,12 +527,12 @@ P_{ij} = \frac{ e^{V_{ij}/\lambda_g} \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g}
 We can take the probabilities and re-write them slightly with the substitution that 
 $\lambda_g \cdot \underbrace{\log \left(\sum_{k \in J_g} e^{V_{ik}} \right)}_{IV_{ig}}$.
 \begin{eqnarray*}
-P_{ij} &=& \frac{ e^{V_{ij}/\lambda_g}}{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)}
+\sigma_{ij} &=& \frac{ e^{V_{ij}/\lambda_g}}{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)}
 \cdot
 \frac{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)^{\lambda_g}}{\sum_{h=1}^G \left(\sum_{k \in J_h} e^{V_{ik}/\lambda_h} \right)^{\lambda_h}} \\
-&=& \underbrace{\frac{ e^{V_{ij}/\lambda_g}}{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)}}_{P_{i j | g}}
+&=& \underbrace{\frac{ e^{V_{ij}/\lambda_g}}{ \left(\sum_{k \in J_g} e^{V_{ik}/\lambda_g} \right)}}_{\sigma_{ij|g}}
 \cdot
-\underbrace{\frac{e^{\lambda_g IV_{ig}}}{\sum_{h=1}^{G} e^{\lambda_h IV_{ih}} }}_{P_{ig}}
+\underbrace{\frac{e^{\lambda_g IV_{ig}}}{\sum_{h=1}^{G} e^{\lambda_h IV_{ih}} }}_{\sigma_{ig}}
 \end{eqnarray*}
 This is the decomposition into two logits that leads to the ``sequential logit'' story.
 \end{frame}
@@ -561,10 +561,10 @@ This is the decomposition into two logits that leads to the ``sequential logit''
 \frametitle{Nested Logit}
 In practice we end up with the following:
 \begin{eqnarray*}
-s_{ij} = s_{ij|g}(\theta) s_{ig}(\theta)
+\sigma_{ij} = \sigma_{ij|g}(\theta) \sigma_{ig}(\theta)
 \end{eqnarray*}
 \begin{itemize}
-\item Because the nested logit can be written as the within group share $s_{ij|g}$ and the share of the group $s_{ig}$ we often explain this model as \alert{sequential choice}
+\item Because the nested logit can be written as the within group share $\sigma_{ij|g}$ and the share of the group $\sigma_{ig}$ we often explain this model as \alert{sequential choice}
 \item First you pick a category, then you pick a product within a category.
 \item This is a sometimes helpful (sometimes unhelpful) way to think about this.
 \item We can also think about this as putting a block structure on the covariance matrix of $\varepsilon_i$
@@ -577,8 +577,8 @@ s_{ij} = s_{ij|g}(\theta) s_{ig}(\theta)
 How does it actually look?
 \begin{eqnarray*}
  IV_{ig}(\theta) &=& \log \left(\sum_{k \in G} \exp [x_k \beta/(1-\lambda_g)] \right) = E_{\varepsilon}[\max_{j \in G} u_{ij}]\\
- s_{ij|g}(\theta) &=& \frac{\exp [x_j \beta/(1-\lambda_g)]}{\sum_{k \in G} \exp [x_k \beta/(1-\lambda_g)]} \\
- s_{ig}(\theta) &=& \frac{\exp [IV_{ig}]^{1-\lambda_g}}{\sum_{h} \exp [IV_{ih}]^{1-\lambda_h}} 
+ \sigma_{ij|g}(\theta) &=& \frac{\exp [x_j \beta/(1-\lambda_g)]}{\sum_{k \in G} \exp [x_k \beta/(1-\lambda_g)]} \\
+ \sigma_{ig}(\theta) &=& \frac{\exp [IV_{ig}]^{1-\lambda_g}}{\sum_{h} \exp [IV_{ih}]^{1-\lambda_h}} 
 \end{eqnarray*}
 %\begin{itemize}
 %\item When $\lambda_g \rightarrow 0$ we get the IIA logit model (no correlation within nests)
@@ -591,7 +591,7 @@ How does it actually look?
 \frametitle{Nested Logit}
 How does it actually look?
 \begin{eqnarray*}
-\log \left(\frac{s_{ij|g}(\theta)}{s_{ik|g}(\theta)} \right) = (x_j -x_k)\cdot \frac{\beta}{1-\lambda_g}
+\log \left(\frac{\sigma_{ij|g}(\theta)}{\sigma_{ik|g}(\theta)} \right) = (x_j -x_k)\cdot \frac{\beta}{1-\lambda_g}
  \end{eqnarray*}
  \begin{itemize}
 \item We are back to having the IIA property but now within the group $G$.
@@ -608,9 +608,9 @@ How does it actually look?
 
 Look at derivatives:
 \begin{eqnarray*}
-\frac{\partial\, s_{j|g}}{\partial X_j} &=& \beta_1 s_{j|g}(1-s_{j|g}) \\
- \frac{\partial\, s_{g}}{\partial X} &=& (1-\lambda) \beta_1 s_{g}(1-s_{g}) \\
-  \frac{\partial\, s_{g}}{\partial J} &=& \frac{1-\lambda}{J} s_{g}(1-s_{g})
+\frac{\partial\, \sigma_{j|g}}{\partial X_j} &=& \beta_1 \sigma_{j|g}(1-\sigma_{j|g}) \\
+ \frac{\partial\, \sigma_{g}}{\partial X} &=& (1-\lambda) \beta_1 \sigma_{g}(1-\sigma_{g}) \\
+  \frac{\partial\, \sigma_{g}}{\partial J} &=& \frac{1-\lambda}{J} \sigma_{g}(1-\sigma_{g})
 \end{eqnarray*}
 \begin{itemize}
 \item We get $\beta$ by changing $x_j$ within group
@@ -637,7 +637,7 @@ There are more potential generalizations though they are less frequently used:
 We relax the IIA property by mixing over various logits:
 \begin{eqnarray*}
 u_{ijt} &=& x_j \beta + \mu_{ij} + \varepsilon_{ij} \\
-s_{ij} &=& \int \frac{\exp[x_{j} \beta + \mu_{ij} ]}{1+\sum_k \exp[x_{k} \beta + \mu_{ik} ]} f(\mu_i | \theta)
+\sigma_{ij} &=& \int \frac{\exp[x_{j} \beta + \mu_{ij} ]}{1+\sum_k \exp[x_{k} \beta + \mu_{ik} ]} f(\mu_i | \theta)
 \end{eqnarray*}
  \begin{itemize}
  \item Each individual draws a vector $\mu_i$ of $\mu_{ij}$ (separately from $\varepsilon$).
@@ -685,7 +685,7 @@ Which is the random coefficients formulation (these are the same model).
 \item Kinds of heterogeneity
 \begin{itemize}
 \item We can allow for there to be two types of $\beta_i$ in the population (high-type, low-type). \alert{latent class model}.
-\item We can allow $\beta_i$ to follow an independent normal distribution for each component of $x_{ij}$ such as $\beta_i = \overline{\beta} + \nu_i \sigma$.
+\item We can allow $\beta_i$ to follow an independent normal distribution for each component of $x_{ij}$ such as $\beta_i = \overline{\beta} + \Sigma \nu_i$.
 \item We can allow for correlated normal draws using the Cholesky root of the covariance matrix.
 \item Can allow for non-normal distributions too (lognormal, exponential). Why is normal so easy?
 \end{itemize}
@@ -701,7 +701,7 @@ Which is the random coefficients formulation (these are the same model).
 \frametitle{Mixed Logit}
 How does it work?
  \begin{itemize}
-\item Well we are mixing over individuals who conditional on $\beta_i$ or $\mu_i$ follow logit substitution patterns, however they may differ wildly in their $s_{ij}$ and hence their substitution patterns.
+\item Well we are mixing over individuals who conditional on $\beta_i$ or $\mu_i$ follow logit substitution patterns, however they may differ wildly in their $\sigma_{ij}$ and hence their substitution patterns.
 \item For example if we are buying cameras: I may care a lot about price, you may care a lot about megapixels, and someone else may care mostly about zoom.
 \item The basic idea is that we need to explain the heteroskedasticity of $Cov(\varepsilon_i, \varepsilon_j)$ what random coefficients do is let us use a basis from our $X$'s.
 \item If our $X$'s are able to span the space effectively, then an RC logit model can approximate any arbitrary RUM (McFadden and Train 2002). 
@@ -730,17 +730,17 @@ How does it work?
 \begin{frame}{Mixed/ Random Coefficients Logit}
 Suppose there is only one random coefficient, and the others are fixed:
 \begin{itemize}
-\item $f(\beta_i \theta) \sim N(\overline{\beta},\sigma)$.
+\item $f(\beta_i \theta) \sim N(\overline{\beta},\Sigma)$.
 \item We can re-write this as the integral over a transformed standard normal density
 \begin{eqnarray*}
-P_{ij}(\theta) = \int \frac{ e^{V_{ij}(\nu_i,\theta)}}{\sum_k e^{V_{ik}(\nu_i,\theta)}} f(\nu_i) \partial \nu
+\sigma_{ij}(\theta) = \int \frac{ e^{V_{ij}(\nu_i,\theta)}}{\sum_k e^{V_{ik}(\nu_i,\theta)}} f(\nu_i) \partial \nu
 \end{eqnarray*}
 \item Monte Carlo Integration: Independent Normal Case
 \begin{itemize}
 \item Draw $\nu_i$ from the standard normal distribution.
-\item Now we can rewrite $\beta_i = \overline{\beta} + \nu_i \sigma$
-\item For each $\beta_i$ calculate $P_{ij}(\beta_i)$.
-\item $\frac{1}{S} \sum_{s=1}^S P_{ij} = \widehat{P_{j}^{s}}$
+\item Now we can rewrite $\beta_i = \overline{\beta} + \Sigma \nu_i$
+\item For each $\beta_i$ calculate $\sigma_{ij}(\beta_i)$.
+\item $\frac{1}{S} \sum_{s=1}^S \sigma_{ij} = \widehat{\sigma_{j}^{s}}$
 \end{itemize}
 \item Gaussian Quadrature
 \begin{itemize}
@@ -763,11 +763,11 @@ How do we actually estimate these models?
 \begin{itemize}
 \item In practice we should be able to do MLE.
 \begin{eqnarray*}
-\max_{\theta} \sum_{i=1}^N y_{ij} \log P_{ij}(\theta)
+\max_{\theta} \sum_{i=1}^N y_{ij} \log \sigma_{ij}(\theta)
 \end{eqnarray*}
 \item When we are doing IIA logit, this problem is globally convex and is easy to estimate using Newton's Method.
 \item When doing nested logit or random coefficients logit, it generally is non-convex which can make life difficult.
-\item The tough part is generally working out what $\frac{\partial \log P_{ij}}{\partial \theta}$ is, especially when we need to simulate to obtain $P_{ij}$.
+\item The tough part is generally working out what $\frac{\partial \log \sigma_{ij}}{\partial \theta}$ is, especially when we need to simulate to obtain $\sigma_{ij}$.
 \item It turns out that MSLE actually has consistent problems for fixed $S$. Why?
 \item Alternative? MSM/MoM type estimators (next time).
 \end{itemize}
@@ -794,7 +794,7 @@ How do we actually estimate these models?
 \item One wrinkle--how do we compute the integral?
  \end{itemize}
 \begin{eqnarray*}
-s_{ij} &=& \int \frac{\exp[x_{j} \beta_i  ]}{1+\sum_k \exp[x_{k} \beta_i  ]} f(\beta_i | \theta) \\
+\sigma_{ij} &=& \int \frac{\exp[x_{j} \beta_i  ]}{1+\sum_k \exp[x_{k} \beta_i  ]} f(\beta_i | \theta) \\
  &=& \sum_{s=1}^{ns} w_s \frac{\exp[x_{j} (\overline{\beta} + \Sigma \nu_{is})  ]}{1+\sum_k \exp[x_{k} (\overline{\beta} + \Sigma \nu_{is})  ]} 
 \end{eqnarray*}
  \begin{itemize}
@@ -809,7 +809,7 @@ s_{ij} &=& \int \frac{\exp[x_{j} \beta_i  ]}{1+\sum_k \exp[x_{k} \beta_i  ]} f(\
  How bad is the simulation error?
  \begin{itemize}
 \item Depends how small your shares are. 
-\item Since you care about $\log s_{jt}$ when shares are small, tiny errors can be enormous.
+\item Since you care about $\log \sigma_{jt}$ when shares are small, tiny errors can be enormous.
 \item Often it is pretty bad.
 \item I recommend sticking with quadrature at a high level of precision.
 \item \texttt{sparse-grids.de} provide efficient high dimensional quadrature rules.
@@ -822,15 +822,15 @@ s_{ij} &=& \int \frac{\exp[x_{j} \beta_i  ]}{1+\sum_k \exp[x_{k} \beta_i  ]} f(\
 \frametitle{Even More Flexibility (Fox, Kim, Ryan, Bajari)}
 Suppose we wanted to nonparametrically estimate $f(\beta_i | \theta)$ instead of assuming that it is normal or log-normal.
 \begin{eqnarray*}
-s_{ij} &=& \int \frac{\exp[x_{j} \beta_i  ]}{1+\sum_k \exp[x_{k} \beta_i  ]} f(\beta_i | \theta)
+\sigma_{ij} &=& \int \frac{\exp[x_{j} \beta_i  ]}{1+\sum_k \exp[x_{k} \beta_i  ]} f(\beta_i | \theta)
 \end{eqnarray*}
 \begin{itemize}
 \item Choose a distribution $g(\beta_i)$ that is more spread out that $f(\beta_i | \theta)$
 \item Draw several $\beta_{s}$ from that distribution (maybe 500-1000).
-\item Compute $\hat{s}_{ij}(\beta_s)$ for each draw of $\beta_s$ and each $j$.
-\item Holding $\hat{s}_{ij}(\beta_s)$ fixed, look for $w_s$ that solve
+\item Compute $\hat{\sigma}_{ij}(\beta_s)$ for each draw of $\beta_s$ and each $j$.
+\item Holding $\hat{\sigma}_{ij}(\beta_s)$ fixed, look for $w_s$ that solve
 \begin{eqnarray*}
-\min_w \left(s_j -  \sum_{s=1}^{ns} w_s \hat{s}_{ij}(\beta_s) \right)^2 \quad \mbox{ s.t. } \sum_{s=1}^{ns} w_s = 1, \quad w_s \geq 0 \quad \forall s
+\min_w \left(s_j -  \sum_{s=1}^{ns} w_s \hat{\sigma}_{ij}(\beta_s) \right)^2 \quad \mbox{ s.t. } \sum_{s=1}^{ns} w_s = 1, \quad w_s \geq 0 \quad \forall s
 \end{eqnarray*}
 \end{itemize}
 \end{frame}
@@ -899,14 +899,14 @@ s_{ij} &=& \int \frac{\exp[x_{j} \beta_i  ]}{1+\sum_k \exp[x_{k} \beta_i  ]} f(\
 \frame{\frametitle{Nested Logit Model}
 \begin{exampleblock}{FIML Nested Logit Model is Non-Convex}
 \begin{eqnarray*}
-\min_{\theta} \sum_j q_j \ln P_j(\theta) \quad \mbox{s.t.} \quad  P_j(\theta) = \frac{e^{x_j \beta/ \lambda}( \sum_{k \in g_l} e^{x_j \beta/ \lambda})^{\lambda-1}}{\sum_{\forall l'} ( \sum_{k \in g_l'} e^{x_j \beta/ \lambda})^{\lambda} }
+\min_{\theta} \sum_j q_j \ln \sigma_j(\theta) \quad \mbox{s.t.} \quad  \sigma_j(\theta) = \frac{e^{x_j \beta/ \lambda}( \sum_{k \in g_l} e^{x_j \beta/ \lambda})^{\lambda-1}}{\sum_{\forall l'} ( \sum_{k \in g_l'} e^{x_j \beta/ \lambda})^{\lambda} }
 \end{eqnarray*}
-This is a pain to show but the problem is with the cross term $\frac{\partial^2 P_j}{\partial \beta \partial \lambda}$ because $\exp[x_j \beta / \lambda]$ is not convex.
+This is a pain to show but the problem is with the cross term $\frac{\partial^2 \sigma_j}{\partial \beta \partial \lambda}$ because $\exp[x_j \beta / \lambda]$ is not convex.
 \end{exampleblock}
 \begin{exampleblock}{A Simple Substitution Saves the Day:  let $\gamma = \beta / \lambda$}
 \begin{eqnarray*}
-\min_{\theta} \sum_j q_j \ln P_j(\theta) \quad \mbox{s.t.} \quad  
-P_j(\theta) = \frac{e^{x_j \gamma}( \sum_{k \in g_l} e^{x_j \gamma})^{\lambda-1}}{\sum_{\forall l'} ( \sum_{k \in g_l'} e^{x_j \gamma})^{\lambda} }
+\min_{\theta} \sum_j q_j \ln \sigma_j(\theta) \quad \mbox{s.t.} \quad  
+\sigma_j(\theta) = \frac{e^{x_j \gamma}( \sum_{k \in g_l} e^{x_j \gamma})^{\lambda-1}}{\sum_{\forall l'} ( \sum_{k \in g_l'} e^{x_j \gamma})^{\lambda} }
 \end{eqnarray*}
 This is much better behaved and easier to optimize.
 \end{exampleblock}

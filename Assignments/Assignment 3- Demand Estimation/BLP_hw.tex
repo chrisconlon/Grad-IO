@@ -16,7 +16,7 @@
 \begin{center}
 \textbf{PhD Empirical IO}
 
-\textbf{Fall 2025}
+\textbf{Fall 2026}
 
 \textbf{Prof. Conlon}
 
@@ -82,7 +82,7 @@ cost in market $t$ is
 \end{equation*}%
 where w$_{jt}$ is an observed cost shifter. Firms compete by simultaneously choosing prices in each market under complete information. Firm $j$ has profit
 \begin{equation*}
-\pi _{jt}=\max_{p_{jt}}M_{t}(p_{jt}-mc_{jt})s_{jt}(p_{t}).
+\pi _{jt}=\max_{p_{jt}}M_{t}(p_{jt}-mc_{jt})\sigma_{jt}(p_{t}).
 \end{equation*}
 
 \section{Generate Fake Data}
@@ -127,7 +127,7 @@ Simulate demand and cost unobservables as well, specifying
 shares with respect to prices (taking prices, shares, $x$, and demand
 parameters as inputs). The key steps are:
 \begin{enumerate}
-\item For each $(j,t)$, write the choice probability $s_{jt}$ as a weighted
+\item For each $(j,t)$, write the choice probability $\sigma_{jt}$ as a weighted
 average (integral) of the (multinomial logit) choice probabilities
 conditional on the value of each consumer's random coefficients;
 \item Anticipating differentiation under the integral sign, derive the
@@ -135,7 +135,7 @@ analytical expression for the derivative of the \textit{integrand} with
 respect to each $p_{kt}$; 
 \item Use the expression you obtained in (2) and simulation draws of the
 random coefficients to approximate the integral that corresponds to $%
-\partial s_{jt}/\partial p_{kt}$ for each $j$ and $k$ (i.e., replace
+\partial \sigma_{jt}/\partial p_{kt}$ for each $j$ and $k$ (i.e., replace
 the integral with the mean over the values at each simulation draw).
 \item Experiment to see how many simulation draws you need to get precise
 approximations and check this again at the equilibrium shares and prices you
@@ -149,14 +149,14 @@ jittering\textquotedblright\ across iterations. So take your simulation draws on
 
 \item The FOC for firm $j$'s profit maximization problem in market $t$ is
 \begin{align}
-(p_{jt}-mc_{jt})\frac{\partial s_{jt}(p_{t})}{\partial p_{jt}}+s_{jt}& =0
+(p_{jt}-mc_{jt})\frac{\partial \sigma_{jt}(p_{t})}{\partial p_{jt}}+\sigma_{jt}& =0
 \notag \\
-\implies p_{jt}-mc_{jt}& =-\left( \frac{\partial s_{jt}(p_{t})}{\partial
-p_{jt}}\right) ^{-1}s_{jt}  \label{FOC}
+\implies p_{jt}-mc_{jt}& =-\left( \frac{\partial \sigma_{jt}(p_{t})}{\partial
+p_{jt}}\right) ^{-1}\sigma_{jt}  \label{FOC}
 \end{align}
 
 \item Substituting in your approximation of each $\left( \frac{\partial
-s_{jt}(p_{t})}{\partial p_{jt}}\right) $, solve the system of equations (\ref%
+\sigma_{jt}(p_{t})}{\partial p_{jt}}\right) $, solve the system of equations (\ref%
 {FOC}) ($J\,$equations per market) for the equilibrium prices in each market.
 
 \begin{enumerate}
@@ -171,7 +171,7 @@ your code or explaining why your preferred method is the one to be trusted.
 \end{enumerate}
 \end{enumerate}
 
-\item Calculate \textquotedblleft observed\textquotedblright\ shares for
+\item Calculate the observed shares $s_{jt}$ for
 your fake data set using your parameters, your draws of $x,$w$,\beta
 _{i},\omega ,\xi $, and your equilibrium prices.
 \end{enumerate}
@@ -195,9 +195,10 @@ goods. You will probably want to review the discussion of the nested logit
 in Berry (1994). Note that Berry focuses on the special case in which all
 the \textquotedblleft nesting parameters\textquotedblright\ are the same;
 you should allow a different nesting parameter for each nest.\footnote{%
-In Berry's notation, this means letting the parameter $\sigma $ become $%
-\sigma _{g(j)}$, where $g\left( j\right) $ indicates the group (satellite or
-wired) to which each inside good $j$ belongs.} Without reference to the
+In our notation, this means letting the nesting parameter $\rho $ become $%
+\rho _{g(j)}$, where $g\left( j\right) $ indicates the group (satellite or
+wired) to which each inside good $j$ belongs. (Berry (1994) writes $\sigma$
+for this parameter.)} Without reference to the
 results, explain the way(s) that this model is misspecified. (Hint: students
 tend to get this question wrong; recall that I suggested you review Berry
 94).

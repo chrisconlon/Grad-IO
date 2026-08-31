@@ -213,13 +213,13 @@ This is meant to be the multivariate version of the \alert{secant method}.
 For the logit the $\Delta$ matrix (for a single market) looks like:
 \begin{align*}
 \Delta_{(j,k)}(\symbf{p}) = \left\{\begin{array}{lr}
-       \int \alpha_i \cdot s_{ij}\cdot (1-s_{ij}) \, \partial F_i& \text{ if } j=k \\
-       	  \quad -\int \alpha_i \cdot s_{ij} \cdot s_{ik} \, \partial F_i &  \text{ if }  j\neq k 
+       \int \alpha_i \cdot \sigma_{ij}\cdot (1-\sigma_{ij}) \, \partial F_i& \text{ if } j=k \\
+       	  \quad -\int \alpha_i \cdot \sigma_{ij} \cdot \sigma_{ik} \, \partial F_i &  \text{ if }  j\neq k
         \end{array} \right\}
 \end{align*}
 Which we can factor into two parts (for plain logit):
 \begin{align*}
-\Delta(\symbf{p}) =  \underbrace{\text{ Diag}\left[ \alpha \, \symbf{s}(\symbf{p}) \, \right]}_{\Lambda(\symbf{p})} -  \underbrace{\alpha \cdot \symbf{s}(\symbf{p}) \symbf{s}(\symbf{p})'}_{\Gamma(\symbf{p})}
+\Delta(\symbf{p}) =  \underbrace{\text{ Diag}\left[ \alpha \, \symbf{\sigma}(\symbf{p}) \, \right]}_{\Lambda(\symbf{p})} -  \underbrace{\alpha \cdot \symbf{\sigma}(\symbf{p}) \symbf{\sigma}(\symbf{p})'}_{\Gamma(\symbf{p})}
 \end{align*}
 $\Gamma(\symbf{p})$ and $\Lambda(\symbf{p})$ are $J \times J$ matrices and $\Lambda(\symbf{p})$ is diagonal and $(j,k)$ is nonzero in $\Gamma(\symbf{p})$ only if $(j,k)$ share an owner.
 \end{frame}
@@ -229,7 +229,7 @@ $\Gamma(\symbf{p})$ and $\Lambda(\symbf{p})$ are $J \times J$ matrices and $\Lam
 \begin{itemize}
 \item After factoring we can rescale by $\Lambda^{-1} (\symbf{p})$
 \begin{align*}
-(\symbf{p}-\symbf{mc} ) \mapsfrom \Lambda^{-1}(\symbf{p}) \cdot \Gamma(\symbf{p})\cdot(\symbf{p}- \symbf{mc}) - \Lambda^{-1}(\symbf{p})\cdot s(\symbf{p})
+(\symbf{p}-\symbf{mc} ) \mapsfrom \Lambda^{-1}(\symbf{p}) \cdot \Gamma(\symbf{p})\cdot(\symbf{p}- \symbf{mc}) - \Lambda^{-1}(\symbf{p})\cdot \symbf{\sigma}(\symbf{p})
 \end{align*}
 \item This alternative fixed point is in fact a contraction.
 \item Moreover the rate of convergence is generally fast and stable (much more than Gauss-Seidel or Gauss-Jacobi).

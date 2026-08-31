@@ -5,7 +5,7 @@
 \title{Multinomial Discrete Choice: Mixed Logit}
 \author{Chris Conlon}
 \institute{Grad IO}
-\date{Fall 2025}
+\date{Fall 2026}
 
 \begin{document}
 \frame{\titlepage}
@@ -67,7 +67,7 @@ We relax the IIA property by mixing over various logits:
 &\mu_{ij}=&   x_{j} \cdot \left(  \Pi \, \textrm{y}_i + \Sigma \, \nu_{i} \right) \\
 u_{ijt} &= x_j \beta_i + \varepsilon_{ij}  
 &=&  x_j \beta  + \mu_{ij}+ \varepsilon_{ij}   \\
-s_{j}(\theta) &= \int \frac{\exp[x_{j} \beta_i ]}{1+\sum_k \exp[x_{k} \beta_i ]} f(\beta_i | \theta) 
+\sigma_{j}(\theta) &= \int \frac{\exp[x_{j} \beta_i ]}{1+\sum_k \exp[x_{k} \beta_i ]} f(\beta_i | \theta) 
 &=& \int \frac{\exp[x_{j} \beta + \mu_{ij} ]}{1+\sum_k \exp[x_{k} \beta+ \mu_{ik} ]} f(\symbf{\mu_i} | \theta)
 \end{align*}
  \begin{itemize}
@@ -98,14 +98,14 @@ s_{j}(\theta) &= \int \frac{\exp[x_{j} \beta_i ]}{1+\sum_k \exp[x_{k} \beta_i ]}
 
 \begin{frame}{Kinds of heterogeneity}
 \begin{align*}
-s_{ij}(\theta) &= \int \frac{\exp[x_{j} \beta_i ]}{1+\sum_k \exp[x_{k} \beta_i ]} f(\symbf{\beta_i} | \theta) \approx \sum_{s=1}^S w_i^s \, \frac{\exp[x_{j} \beta_i^s ]}{1+\sum_k \exp[x_{k} \beta_i^s ]}
+\sigma_{ij}(\theta) &= \int \frac{\exp[x_{j} \beta_i ]}{1+\sum_k \exp[x_{k} \beta_i ]} f(\symbf{\beta_i} | \theta) \approx \sum_{s=1}^S w_i^s \, \frac{\exp[x_{j} \beta_i^s ]}{1+\sum_k \exp[x_{k} \beta_i^s ]}
 \end{align*}
 
 \begin{itemize}
 \item We can only \alert{approximate} the integral with \alert{weights} $w_{i}^s$ and \alert{nodes} $\beta_i^s$
 \begin{itemize}
 \item We can allow for there to be two types of $\beta_i$ in the population (high-type, low-type). \alert{latent class model}.
-\item We can allow $\beta_i$ to follow an independent normal distribution for each component of $x_{ij}$ such as $\beta_i = \overline{\beta} + \nu_i \sigma$.
+\item We can allow $\beta_i$ to follow an independent normal distribution for each component of $x_{ij}$ such as $\beta_i = \overline{\beta} + \Sigma \nu_i$.
 \item We can allow for correlated normal draws $\beta_i \sim N(\mu_{\beta},\Sigma_{\beta})$.
 \item Can allow for non-normal distributions too (lognormal, exponential).
 \item Why is normal so easy?
@@ -131,7 +131,7 @@ s_{ij}(\theta) &= \int \frac{\exp[x_{j} \beta_i ]}{1+\sum_k \exp[x_{k} \beta_i ]
 \frametitle{Mixed Logit}
 How does it work?
  \begin{itemize}
-\item Well we are mixing over individuals who conditional on $\beta_i$ or $\symbf{\mu_i}$ follow logit substitution patterns, however they may differ wildly in their $s_{ij}$ and hence their substitution patterns.
+\item Well we are mixing over individuals who conditional on $\beta_i$ or $\symbf{\mu_i}$ follow logit substitution patterns, however they may differ wildly in their $\sigma_{ij}$ and hence their substitution patterns.
 \item For example if we are buying cameras: I may care a lot about price, you may care a lot about megapixels, and someone else may care mostly about zoom.
 \item The basic idea is that we need to explain the heteroskedasticity of $Cov(\symbf{\varepsilon_i}, \symbf{\varepsilon_{\ell}},)$ what random coefficients do is let us use a basis from our $X$'s.
 \item If our $X$'s are able to span the space effectively, then an RC logit model can approximate any arbitrary RUM (such as probit) (McFadden and Train 2002). 
@@ -143,16 +143,16 @@ How does it work?
 \frametitle{Elasticities}
 At the level of an individual substitution patterns follow a plain logit:
 \begin{align*}
-\epsilon_{s_j,p_j} = \frac{\partial s_{j}}{\partial p_j} \cdot \frac{p_j}{s_{j}}
-=\frac{p_j}{s_{j}}  \cdot \int \frac{\partial s_{ij}}{\partial p_j}  \, d F_i 
-= \frac{p_j}{s_{j}}  \int \beta_i \cdot s_{ij} \cdot (1-s_{ij} ) \,d F_i 
+\epsilon_{\sigma_j,p_j} = \frac{\partial \sigma_{j}}{\partial p_j} \cdot \frac{p_j}{\sigma_{j}}
+=\frac{p_j}{\sigma_{j}}  \cdot \int \frac{\partial \sigma_{ij}}{\partial p_j}  \, d F_i 
+= \frac{p_j}{\sigma_{j}}  \int \beta_i \cdot \sigma_{ij} \cdot (1-\sigma_{ij} ) \,d F_i 
 \end{align*}
 \begin{align*}
-\epsilon_{s_j,p_k} = \frac{\partial s_{j}}{\partial p_k} \cdot \frac{p_k}{s_{j}}
-=\frac{p_k}{s_{j}}  \cdot \int \frac{\partial s_{ij}}{\partial p_k} \,  d F_i 
-=- \frac{p_k}{s_{j}}  \int \beta_i \cdot s_{ij}\cdot s_{ik}\, d F_i 
+\epsilon_{\sigma_j,p_k} = \frac{\partial \sigma_{j}}{\partial p_k} \cdot \frac{p_k}{\sigma_{j}}
+=\frac{p_k}{\sigma_{j}}  \cdot \int \frac{\partial \sigma_{ij}}{\partial p_k} \,  d F_i 
+=- \frac{p_k}{\sigma_{j}}  \int \beta_i \cdot \sigma_{ij}\cdot \sigma_{ik}\, d F_i 
 \end{align*}
-Notation: here $s_j \equiv s_j(x_i)$ denotes an individual choice probability (we re-use the $i$ subscript) and $s_{ij}(\symbf{\mu_{i}})=s_{ij}$.
+Notation: $\sigma_{ij}(\symbf{\mu_i}) \equiv \sigma_{ij}$ is the individual choice probability and $\sigma_j = \int \sigma_{ij}\, d F_i$ is its aggregate (market-level) counterpart.
 \end{frame}
 
 
@@ -163,7 +163,7 @@ Notation: here $s_j \equiv s_j(x_i)$ denotes an individual choice probability (w
 \frametitle{Substitution (Conlon Mortimer 2020)}
 At the level of an individual substitution patterns follow a plain logit:
 \begin{align*}
-D_{jk,i}(x) = \frac{\frac{\partial s_{ik}}{\partial p_j}}{\left| \frac{\partial s_{ij}}{\partial p_j} \right|} = \frac{s_{ik}(x)}{1-s_{ij}(x)}
+D_{jk,i}(x) = \frac{\frac{\partial \sigma_{ik}}{\partial p_j}}{\left| \frac{\partial \sigma_{ij}}{\partial p_j} \right|} = \frac{\sigma_{ik}(x)}{1-\sigma_{ij}(x)}
 \end{align*}
 But at the aggregate level, we mix over heterogeneous individuals:
 \begin{align*}
@@ -178,11 +178,11 @@ Different interventions (price changes, product removals, quality changes, etc.)
 \frametitle{Estimation Details: MSL/MSLE}
 How do we estimate these models? (Derived from multinomial log-likelihood):
 \begin{align*}
-\theta_{MLE} = \arg \min_{\theta} - \sum_{i=1}^N \sum_{j=1}^J y_{ij} \ln \widehat{s}_{ij}(\theta)
+\theta_{MLE} = \arg \min_{\theta} - \sum_{i=1}^N \sum_{j=1}^J y_{ij} \ln \widehat{\sigma}_{ij}(\theta)
 \end{align*}
 
 \begin{itemize}
-\item We need to perform numerical integration to get $\widehat{s}_{ij}(\theta)$ and its derivative: $\widehat{\frac{\partial s_{ij}}{\partial \theta}}$.
+\item We need to perform numerical integration to get $\widehat{\sigma}_{ij}(\theta)$ and its derivative: $\widehat{\frac{\partial \sigma_{ij}}{\partial \theta}}$.
 \item Consistency
 \begin{itemize}
 \item Technically for fixed number of MC draws the MSLE estimator is inconsistent. Why?
@@ -196,11 +196,11 @@ How do we estimate these models? (Derived from multinomial log-likelihood):
 \frametitle{Estimation Alternatives: MSM}
 Can also do a simulated GMM estimator with moment conditions:
 \begin{align*}
-\E\left[\left(y_{ij} - \widehat{s}_{ij}(\theta) \right) | z_{ij} \right]=0
+\E\left[\left(y_{ij} - \widehat{\sigma}_{ij}(\theta) \right) | z_{ij} \right]=0
 \end{align*}
 \begin{itemize}
-\item We need to perform numerical integration to get $\widehat{s}_{ij}(\theta)$ and its derivative: $\widehat{\frac{\partial s_{ij}}{\partial \theta}}$.
-\item The \alert{optimal instruments} in the sense of Chamberlain (1987) or Amemiya (1977) are the derivative of moments with respect to parameters (\alert{scores}): $z_{ij} = \frac{\partial \log s_{ij}}{\partial \theta}(\theta)$.
+\item We need to perform numerical integration to get $\widehat{\sigma}_{ij}(\theta)$ and its derivative: $\widehat{\frac{\partial \sigma_{ij}}{\partial \theta}}$.
+\item The \alert{optimal instruments} in the sense of Chamberlain (1987) or Amemiya (1977) are the derivative of moments with respect to parameters (\alert{scores}): $z_{ij} = \frac{\partial \log \sigma_{ij}}{\partial \theta}(\theta)$.
 \item The true scores are infeasible (they depend on $\theta_0$).
 \begin{itemize}
 \item At true scores: same FOC as MLE.
@@ -214,11 +214,11 @@ Can also do a simulated GMM estimator with moment conditions:
 \frametitle{Estimation Alternatives: MSS}
 As an alternative we could work with the score function directly:
 \begin{align*}
-\sum_{i=1}^n\widehat { \frac{\partial \log s_{ij}}{\partial \theta}}(\theta) =\sum_{i=1}^N \frac{1}{\widehat{s_{ij}}(\theta)} \cdot  \widehat{\frac{\partial s_{ij}}{\partial \theta}}(\theta) = 0
+\sum_{i=1}^n\widehat { \frac{\partial \log \sigma_{ij}}{\partial \theta}}(\theta) =\sum_{i=1}^N \frac{1}{\widehat{\sigma_{ij}}(\theta)} \cdot  \widehat{\frac{\partial \sigma_{ij}}{\partial \theta}}(\theta) = 0
 \end{align*}
 \begin{itemize}
 \item We can get unbiased estimated of derivative (linearity)
-\item We can't get unbiased estimate of $\frac{1}{\widehat{s_{ij}}(\theta)}$
+\item We can't get unbiased estimate of $\frac{1}{\widehat{\sigma_{ij}}(\theta)}$
 \begin{itemize}
 \item Train's book suggests Accept-Reject 
 \item Maybe importance sampling would work?
@@ -231,7 +231,7 @@ As an alternative we could work with the score function directly:
  How bad is the simulation error?
  \begin{itemize}
 \item Depends how small your shares are. 
-\item Since you care about $\log s_{jt}$ when shares are small, tiny errors can be enormous.
+\item Since you care about $\log \sigma_{jt}$ when shares are small, tiny errors can be enormous.
 \item Often it is pretty bad.
 %\item I recommend sticking with quadrature at a high level of precision.
 %\item \texttt{sparse-grids.de} provide efficient high dimensional quadrature rules.

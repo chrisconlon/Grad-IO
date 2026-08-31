@@ -52,14 +52,14 @@ The Government keeps losing hospital mergers (basically all of them):
 \begin{frame}{CDS(2003): Ex-Ante and Ex-Post WTP}
 What is the value that $i$ places on having hospital $j$ included in network $G$?
 \begin{align*}
-U_{i j} &=\alpha R_{j}+H_{j}^{\prime} \Gamma X_{i}+\tau_{1} T_{i j}+\tau_{2} T_{i j} \cdot X_{i}+\tau_{3} T_{i j} \cdot R_{j}-\alert{\gamma\left(Y_{i}, Z_{i}\right) P_{j}\left(Z_{i}\right)}+\varepsilon_{i j} \\ &=U\left(H_{j}, X_{i}, \lambda_{i}\right)-\alert{\gamma\left(X_{i}\right) P_{j}\left(Z_{i}\right)}+\varepsilon_{i j} 
+U_{i j} &=\alpha R_{j}+H_{j}^{\prime} \Gamma X_{i}+\tau_{1} T_{i j}+\tau_{2} T_{i j} \cdot X_{i}+\tau_{3} T_{i j} \cdot R_{j}-\alert{\gamma\left(Y_{i}, Z_{i}\right) p_{j}\left(Z_{i}\right)}+\varepsilon_{i j} \\ &=U\left(H_{j}, X_{i}, \lambda_{i}\right)-\alert{\gamma\left(X_{i}\right) p_{j}\left(Z_{i}\right)}+\varepsilon_{i j}
 \end{align*}
 
 \begin{itemize}
 \item $H_{j}=\left[R_{j}, S_{j}\right]$ is partitioned into generic $R$ and diagnosis specific $S$ characteristics.
 \item $X_{i}=\left[Y_{i}, Z_{i}\right]$ is partitioned into demographic $Y$ and diagnosis specific $Z$ characteristics.
 \item $T_{i j}=T_{j}\left(\lambda_{i}\right)$ distance from $i$'s home to hospital $j$
-\item This paper: ignore $\alert{\gamma\left(X_{i}\right) P_{j}\left(Z_{i}\right)}$ since $P_{j'}(Z_i) \approx P_j(z_i)$
+\item This paper: ignore $\alert{\gamma\left(X_{i}\right) p_{j}\left(Z_{i}\right)}$ since $p_{j'}(Z_i) \approx p_j(z_i)$
 \item Parameters: $[\alpha,\Gamma, \tau]$ and $\gamma(X_i)$.
 \end{itemize}
 \end{frame} 
@@ -68,7 +68,7 @@ U_{i j} &=\alpha R_{j}+H_{j}^{\prime} \Gamma X_{i}+\tau_{1} T_{i j}+\tau_{2} T_{
 \begin{frame}{Deriving WTP}
 Assume that $\varepsilon_{ij} \sim$ Type I EV:
 \begin{align*}
-s_{j}\left(G, X_{i}, \lambda_{i}\right)=\frac{\exp \left[U\left(H_{j}, X_{i}, \lambda_{i}\right)\right]}{\sum_{g \in G} \exp \left[U\left(H_{g}, X_{i}, \lambda_{i}\right)\right]}
+\sigma_{ij}\left(G, X_{i}, \lambda_{i}\right)=\frac{\exp \left[U\left(H_{j}, X_{i}, \lambda_{i}\right)\right]}{\sum_{g \in G} \exp \left[U\left(H_{g}, X_{i}, \lambda_{i}\right)\right]}
 \end{align*}
 And
 \begin{align*}
@@ -82,7 +82,7 @@ What happens to utility when we remove $j$ from the choice set?
 \item \alert{After} you know your diagnosis $Z_i$
 \item \alert{Before} you draw your $\varepsilon_{ij}$
 \begin{align*}\Delta V_{j}^{I U}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right)  &=V^{I U}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right)-V^{I U}\left(G / j, Y_{i}, Z_{i}, \lambda_{i}\right) \\
-&=\left[\frac{1}{1-s_{j}\left(H_{j}, Y_{i}, Z_{i}, \lambda_{i}\right)}\right]
+&=\left[\frac{1}{1-\sigma_{ij}\left(H_{j}, Y_{i}, Z_{i}, \lambda_{i}\right)}\right]
 \end{align*}
 \end{itemize}
 To get dollars we need $\gamma(X_i)$ so that $\Delta W_{ij}^{IU}(G,Y_i,\lambda_i) = \frac{\Delta V_{j}^{I U}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right) }{\gamma(X_i)}$
@@ -96,7 +96,7 @@ But at the beginning of the year (when you choose insurance) you don't observe $
  \end{align*}
  Integrate out (expected) health $Z_i$ conditional on demographics $Y_i$ and location $\lambda_i$.
 \begin{align*}
- \Delta W_{j}^{E A}(G) &=N \int_{y, \lambda} \Delta W_{j}^{I U}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right) f\left(Y_{i} | \lambda_{i}\right) d Y_{i} d \lambda_{i} \\ &=N \int_{Y, Z, \lambda} \frac{1}{\gamma\left(Y_{i}, Z_{i}\right)} \ln \left[\frac{1}{1-s_{j}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right)}\right] f\left(Y_{i}, Z_{i}, \lambda_{i}\right) d Y_{i} d Z_{i} d \lambda_{i}
+ \Delta W_{j}^{E A}(G) &=N \int_{y, \lambda} \Delta W_{j}^{I U}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right) f\left(Y_{i} | \lambda_{i}\right) d Y_{i} d \lambda_{i} \\ &=N \int_{Y, Z, \lambda} \frac{1}{\gamma\left(Y_{i}, Z_{i}\right)} \ln \left[\frac{1}{1-\sigma_{ij}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right)}\right] f\left(Y_{i}, Z_{i}, \lambda_{i}\right) d Y_{i} d Z_{i} d \lambda_{i}
 \end{align*}
 Aggregate over $N$ consumers and integrate out heterogeneity in the population.
 \end{frame}
@@ -165,7 +165,7 @@ UCSD's value is driven by most severe diagnoses.
 \begin{frame}{What might a merger do?}
 The merger allows the seller to \alert{bundle} hospitals
 \begin{align*}
-\overline{\Delta W}_{j+k}^{E A}(G)&=N \int_{Y, Z, \lambda} \ln \left[\frac{1}{1-s_{j}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right)-s_{k}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right)}\right] f\left(Y_{i}, Z_{i}, \lambda_{i}\right) d Y_{i} d Z_{i} d \lambda_{i}\\
+\overline{\Delta W}_{j+k}^{E A}(G)&=N \int_{Y, Z, \lambda} \ln \left[\frac{1}{1-\sigma_{ij}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right)-\sigma_{ik}\left(G, Y_{i}, Z_{i}, \lambda_{i}\right)}\right] f\left(Y_{i}, Z_{i}, \lambda_{i}\right) d Y_{i} d Z_{i} d \lambda_{i}\\
 \Delta \hat{\pi}_{j+k}&=\hat{a}\left[\overline{\Delta W}_{j+k}^{E A}(G)-\overline{\Delta W}_{j}^{E A}(G)-\overline{\Delta W}_{k}^{E A}(G)\right]
 \end{align*}
 Where $\hat{a}$ is the coefficient from regression of profits on WTP.
@@ -264,9 +264,9 @@ Plain logit MLE (no random coefficients, no endogeneity)
 \item $[x_h,\eta_h]$ hospital characteristics (obs, unobs)
 \begin{align*}
 u_{i, h, l}&=\eta_{h}+x_{h} \alpha+x_{h} v_{i, l} \beta+\varepsilon_{i, h, l} \\
-E U_{i, j, m}&=\sum_{l} p_{i, l} \log \left(\sum_{h \in H j} \exp \left(\eta_{h}+x_{h} \hat{\alpha}+x_{h} v_{i, l} \hat{\beta}\right)\right)
+E U_{i, j, m}&=\sum_{l} \phi_{i, l} \log \left(\sum_{h \in H j} \exp \left(\eta_{h}+x_{h} \hat{\alpha}+x_{h} v_{i, l} \hat{\beta}\right)\right)
 \end{align*}
-\item $p_{i,l}$ is ex-ante probability that consumer $i$ receives diagnosis $l$.
+\item $\phi_{i,l}$ is ex-ante probability that consumer $i$ receives diagnosis $l$.
 \end{itemize}
 \end{frame}
 
@@ -298,11 +298,11 @@ Take estimated $EU_{ijm}$ and include as a regressor in another logit for plan c
 \begin{frame}{Producer Surplus for Network}
 Surplus generated by plan $j$ in market $m$ with network $H_j$ is:
 \begin{align*}
-S_{j, m}\left(H_{j}, H_{-j}\right)=\sum_{i}\left(n_{i} s_{i, j, m}\left(H_{j}, H_{-j}\right)\left[prem_{j, m}-p_{i} \sum_{h \in H j} s_{i, h}\left(H_{j}\right)  cost_{h}\right]\right)
+S_{j, m}\left(H_{j}, H_{-j}\right)=\sum_{i}\left(n_{i} \sigma_{ijm}\left(H_{j}, H_{-j}\right)\left[prem_{j, m}-\phi_{i} \sum_{h \in H j} \sigma_{ih}\left(H_{j}\right)  cost_{h}\right]\right)
 \end{align*}
 \begin{itemize}
 \item $n_i$ population per (ZCTA, age, gender) bin
-\item $p_i$ admission probability of type $i$ individual
+\item $\phi_i$ admission probability of type $i$ individual
 \item Plan $j$ offers network $H_j$ and rivals networks given by $H_{-j}$
  \item Prices and share (and costs) endogenously adjust. (Random re-allocation of patients at capacity constrained hospitals).
 \end{itemize}

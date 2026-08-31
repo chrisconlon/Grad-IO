@@ -1,36 +1,11 @@
-\def\beamerclassoptions{[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]}
-\input{../resources/preamble.tex}
-\usetheme{metropolis}
-
-\usepackage[english]{babel}
-\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
-\usepackage{amsmath,amssymb,setspace,centernot}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{relsize}
-\usepackage{pdfpages}
-\usepackage[absolute,overlay]{textpos} 
-
-\newenvironment{reference}[2]{% 
-  \begin{textblock*}{\textwidth}(#1,#2) 
-      \footnotesize\it\bgroup\color{red!50!black}}{\egroup\end{textblock*}} 
-
-\DeclareMathSizes{10}{10}{6}{6} 
-\AtBeginSection[]{
-  \begin{frame}
-  \vfill
-  \centering
-  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
-    \usebeamerfont{title}\insertsectionhead\par%
-  \end{beamercolorbox}
-  \vfill
-  \end{frame}
-}
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
+% supply_table/supply_figure now live in the newer Week 4 folder's resources/
+\graphicspath{{./}{./resources/}{../resources/}{../Week 4- BLP Instruments and Identification/}}
 
 
 % argmax/argmin are provided by the canonical preamble
 
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\X}{\mathtt{X}}
 \newcommand{\Y}{\mathtt{Y}}
 

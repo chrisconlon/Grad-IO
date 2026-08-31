@@ -50,9 +50,9 @@ Mostly we mean putting a flexible distribution on $f(\beta_i,\alpha_i \mid \thet
 u_{ij} = \beta_i x_j - \alpha_i p_j + \xi_j + \varepsilon_{ij} \text{ with } f(\beta_i,\alpha_i \mid \theta)
 \end{align*}
 \begin{itemize}
-    \item Fixed Grids (Fox, Kim, Ryan, Bajari 2011, Heiss, Hetzenecker, Osterhaus 2022, Nevo Turner Williams 2016): draw from ``prior'' of $\beta_i$, compute $\sigma_{ij}(\beta_i)$ and choose weights on each $i$, $\pi_i$.
-    \item Compiani (QE 2022): approximate $\sigma_{j}^{-1}(\calS_t,\symbf{x}_t^{(2)})$ directly with Bernstein Polynomials (ditches $\varepsilon \rightarrow$ very hard)
-    \item Ao Wang (JE 2022): use polynomial sieves: $\mathbb{E}\left[\left(\sigma_j^{-1}\left(\calS_t ; \symbf{x}_t^{(2)}, \alert{F}\right)-X_t^{(1)} \beta^{(1)}\right) \phi_k\left(Z_{j t}\right)\right]=0$
+    \item Fixed Grids (Fox, Kim, Ryan, Bajari 2011, Heiss, Hetzenecker, Osterhaus 2022, Nevo Turner Williams 2016): draw from ``prior'' of $\beta_i$, compute $\sigma_{ij}(\beta_i)$ and choose weights on each $i$, $w_i$.
+    \item Compiani (QE 2022): approximate $\sigma_{j}^{-1}(\symbf{s}_t,\symbf{x}_t^{(2)})$ directly with Bernstein Polynomials (ditches $\varepsilon \rightarrow$ very hard)
+    \item Ao Wang (JE 2022): use polynomial sieves: $\mathbb{E}\left[\left(\sigma_j^{-1}\left(\symbf{s}_t ; \symbf{x}_t^{(2)}, \alert{F}\right)-X_t^{(1)} \beta^{(1)}\right) \phi_k\left(Z_{j t}\right)\right]=0$
     \item Lu, Shi, Tao (JE 2023): use partially linear model: $\log \left(s_{j t} / s_{0 t}\right)=X_{1, j t}^{\prime} \beta^0+\alert{\psi^0\left(X_{2, j t} ; IV_{J, t}\right)}+\xi_{j t}$ where        $\psi^0\left(x_{2, j t} ; IV_{J, t}\right)=\log \left[\frac{\int \frac{\exp \left(x_{2, j t}^{\prime} v\right)}{\exp \left(IV_{J, t}(v)\right)} f^0(v) d v}{\int \frac{1}{\exp \left(IV_{J, t}(v)\right)} f^0(v) d v}\right]$.
 \end{itemize}
 But these are still \alert{only as good as characteristics}.
@@ -146,17 +146,17 @@ What if we could first estimate \alert{unobserved characteristics}?
 
 \begin{frame}{Conlon, Mortimer, Sarkis (2024): Structural Low Rank Approximations}
 \small
-Fix $\textrm{rank}(\symbf{D}(\symbf{S},\pi))=I$, and for each choice of $I$ solve:
+Fix $\textrm{rank}(\symbf{D}(\symbf{S},w))=I$, and for each choice of $I$ solve:
 \begin{align*}
-\min _{(\symbf{S}, \pi) \geq 0} \left\|\mathcal{P}_{\Omega}(\calD-\symbf{D}(\symbf{S},\pi))\right\|_{\ell_2}  &+ \lambda \left\|\calS- \symbf{S}\,\pi \right\|_{\ell_2} \text { with } \left\|\pi  \right\|_{\ell_1} \leq 1, \quad   \left\|\symbf{s_i}  \right\|_{\ell_1} \leq 1.
+\min _{(\symbf{S}, w) \geq 0} \left\|\mathcal{P}_{\Omega}(\calD-\symbf{D}(\symbf{S},w))\right\|_{\ell_2}  &+ \lambda \left\|\symbf{s}- \symbf{S}\,w \right\|_{\ell_2} \text { with } \left\|w  \right\|_{\ell_1} \leq 1, \quad   \left\|\symbf{\sigma_i}  \right\|_{\ell_1} \leq 1.
 \end{align*}
 \vspace{-.25cm}
 \begin{itemize}
-\item Goal: estimate $\symbf{s_i}$ (choice probabilities) and corresponding weights $\pi_i$ (Finite Mixture) in \alert{product space}
+\item Goal: estimate $\symbf{\sigma_i}$ (choice probabilities) and corresponding weights $w_i$ (Finite Mixture) in \alert{product space}
 \begin{itemize}
 \item Consistent with $U_{ij} = V_{ij} + \varepsilon_{ij}$ and logit error.
 \end{itemize}
-\item Constraints: Choice probabilities $s_{ij}$ sum to one, type weights $\pi_i$ sum to one.
+\item Constraints: Choice probabilities $\sigma_{ij}$ sum to one, type weights $w_i$ sum to one.
 \begin{itemize}
 \item $\ell_1$ constraints lead to \alert{sparsity}.
 \end{itemize}
@@ -164,10 +164,10 @@ Fix $\textrm{rank}(\symbf{D}(\symbf{S},\pi))=I$, and for each choice of $I$ solv
 \begin{itemize}
 \item Use cross validation to select \# of types $I$ and Lagrange multiplier $\lambda$.
 \end{itemize}
-\item Matrix completion: We can construct estimates of $\symbf{D}(\symbf{S},\pi)$ including elements of $\mathcal{P}_{\overline{\Omega}}$.
+\item Matrix completion: We can construct estimates of $\symbf{D}(\symbf{S},w)$ including elements of $\mathcal{P}_{\overline{\Omega}}$.
 \begin{align*}
 %    & s_j = \sum_{i} \pi_i s_{i,j} \text{ for all } j \in \mathcal{J}\\
-    & \symbf{D}= \frac{1}{\symbf{s}}\sum_{i = 1}^I \pi_i \, \symbf{s_i} \times \left[\frac{\symbf{s_{i}}}{1-\symbf{s_i}}\right]^T
+    & \symbf{D}= \frac{1}{\symbf{s}}\sum_{i = 1}^I w_i \, \symbf{\sigma_i} \times \left[\frac{\symbf{\sigma_{i}}}{1-\symbf{\sigma_i}}\right]^T
 \end{align*}
 % \item Weights $\widetilde c_j$ and $c_j$ are proportional to $\ln q_j$
 \end{itemize}
@@ -181,10 +181,10 @@ Fix $\textrm{rank}(\symbf{D}(\symbf{S},\pi))=I$, and for each choice of $I$ solv
 \end{column}
 \begin{column}{0.5\textwidth}
     \begin{itemize}
-        \item Each column of the matrix $\symbf{S}$ ($I \times J$) represents a ``type'' $\symbf{s_i}$ (a $J \times 1$) vector of choice probabilities.
+        \item Each column of the matrix $\symbf{S}$ ($I \times J$) represents a ``type'' $\symbf{\sigma_i}$ (a $J \times 1$) vector of choice probabilities.
         \item We see both the \alert{sparsity} as well as specific consumer \alert{segments} (or ``types'').
-        \item We also obtain the share of each type in the population $\pi_i$.
-        \item Remember that $u_{ij} - u_{i0} = \log s_{ij} - \log s_{i0}$, so that we identify indirect utilities (relative to outside good).
+        \item We also obtain the share of each type in the population $w_i$.
+        \item Remember that $u_{ij} - u_{i0} = \log \sigma_{ij} - \log \sigma_{i0}$, so that we identify indirect utilities (relative to outside good).
         \item We still need to estimate $\frac{\partial u_{ij}}{\partial p_j}$ somehow.
     \end{itemize}
 \end{column}

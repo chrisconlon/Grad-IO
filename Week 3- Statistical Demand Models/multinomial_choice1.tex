@@ -4,7 +4,7 @@
 \title{Multinomial Discrete Choice: IIA Logit}
 \author{Chris Conlon}
 \institute{Grad IO}
-\date{Fall 2025}
+\date{Fall 2026}
 
 \begin{document}
 \frame{\titlepage}
@@ -29,13 +29,13 @@ We consider a \alert{multinomial discrete choice}:
 \item in period $t$
 \item with $\calJ_t$ alternatives.
 \item subscript individual agents by $i$.
-\item agents choose $j \in J_t$ with probability $s_{ijt}$.
+\item agents choose $j \in J_t$ with probability $\sigma_{ijt}$.
 \item Agent $i$ receives utility $U_{ijt}$ for choosing $j$.
 \item Choice is exhaustive and mutually exclusive.
  \end{itemize}\pause
 Consider the simple example $(t=1)$:
 \begin{eqnarray*}
-s_{ij} = \Pr( U_{ij} > U_{ik} \quad \forall k \neq j)
+\sigma_{ij} = \Pr( U_{ij} > U_{ik} \quad \forall k \neq j)
 \end{eqnarray*}
 \end{frame}
 
@@ -43,14 +43,14 @@ s_{ij} = \Pr( U_{ij} > U_{ik} \quad \forall k \neq j)
 \frametitle{Nonparametric Setup}
 Now consider separating the utility into the \alert{observed} $V_{ij}$ and \alert{unobserved} components $\varepsilon_{ij}$.
 \begin{eqnarray*}
-s_{ij} &=& \Pr( U_{ij} > U_{ik} \quad \forall k \neq j)\\
+\sigma_{ij} &=& \Pr( U_{ij} > U_{ik} \quad \forall k \neq j)\\
  &=& \Pr( V_{ij} + \varepsilon_{ij} > V_{ik} + \varepsilon_{ik} \quad \forall k \neq j)\\
  &=& \Pr( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall k \neq j)
 \end{eqnarray*}
 \pause
 It is helpful to define $f(\symbf{\varepsilon_{i}})$ as the $J$ vector of individual $i$'s unobserved utility.
 \begin{eqnarray*}
-s_{ij} &=& \Pr( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall k \neq j)\\
+\sigma_{ij} &=& \Pr( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \forall k \neq j)\\
 &=& \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f( \symbf{\varepsilon_i}) \partial \symbf{\varepsilon_i} \\
 \end{eqnarray*}
 \end{frame}
@@ -59,7 +59,7 @@ s_{ij} &=& \Pr( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} \quad \foral
 \frametitle{Nonparametric Setup}
 In order to compute the choice probabilities, we must perform a $J$ dimensional integral over $f(\symbf{\varepsilon_i})$.
 \begin{align*}
-s_{ij} =  \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f(\symbf{\varepsilon_i}) \partial \symbf{\varepsilon_i}
+\sigma_{ij} =  \int I( \varepsilon_{ij}-\varepsilon_{ik} > V_{ik} - V_{ij} ) f(\symbf{\varepsilon_i}) \partial \symbf{\varepsilon_i}
 \end{align*}
 There are some choices that make our life easier
 \begin{itemize}
@@ -73,8 +73,8 @@ There are some choices that make our life easier
 \frametitle{Errors}
 Allowing for a continuous density with full support $(-\infty, \infty)$ errors provide two key features:
 \begin{itemize}
-\item Smoothness: $s_{ij}$ is everywhere continuously differentiable in $V_{ij}$.
-\item Bound $s_{ij} \in (0,1)$ so that we can rationalize any observed pattern in the data.
+\item Smoothness: $\sigma_{ij}$ is everywhere continuously differentiable in $V_{ij}$.
+\item Bound $\sigma_{ij} \in (0,1)$ so that we can rationalize any observed pattern in the data.
 \begin{itemize}
 \item Caveat: zero and one (interpretation).
 \end{itemize}
@@ -119,7 +119,7 @@ U_c &= v_{c} + \theta y_i  + \varepsilon_c
 \frametitle{Basic Identification: Scale}
 \begin{itemize}
 \item Consider: $U_{ij}^0 = V_{ij} + \varepsilon_{ij}$ and  $U_{ij}^1 = \lambda V_{ij} + \lambda \varepsilon_{ij}$ with $\lambda > 0$. Multiplying by constant $\lambda$ factor doesn't change any statements about $U_{ij} > U_{ik}$.
-\item We normalize this by fixing the variance of $\varepsilon_{ij}$ since $Var(\lambda \varepsilon_{ij} ) = \sigma_e^2 \lambda^2$.
+\item We normalize this by fixing the variance of $\varepsilon_{ij}$ since $Var(\lambda \varepsilon_{ij} ) = a^2 \lambda^2$.
 \item Normalizing this variance normalizes the scale of utility.
 \item For the logit case the variance is normalized to $\pi^2/6$. (this emerges as a constant of integration to guarantee a proper density).
 \end{itemize}
@@ -129,7 +129,7 @@ U_c &= v_{c} + \theta y_i  + \varepsilon_c
 
 \begin{frame}
 \frametitle{Observed Heteroskedasticity}
-Consider the case where $Var(\varepsilon_{ib}) = \sigma^2$ and   $Var(\varepsilon_{ic}) =  k^2 \sigma^2$ :
+Consider the case where $Var(\varepsilon_{ib}) = a^2$ and   $Var(\varepsilon_{ic}) =  k^2 a^2$ :
 \begin{itemize}
 \item We can estimate
 \begin{eqnarray*}
@@ -164,7 +164,7 @@ Different ways to look at identification
 \begin{itemize}
 \item Multinomial Logit (Gumbel/Type I EV) has closed form choice probabilities
 \begin{eqnarray*}
-s_{ij} = \frac{e^{V_{ij}}}{\sum_k e^{V_{ik}}}
+\sigma_{ij} = \frac{e^{V_{ij}}}{\sum_k e^{V_{ik}}}
 \end{eqnarray*}
 \item Often we approximate $V_{ij} \approx  X_{ik} \beta$ with something linear in parameters.
 \end{itemize}
@@ -221,7 +221,7 @@ What is actually identified here?
 \begin{itemize}
 \item Helpful to look at the ratio of two choice probabilities
 \begin{align*}
-\frac{s_{ij}(\theta)}{s_{ik}(\theta)}  = \frac{e^{V_{ij}}}{e^{V_{ik}}} = e^{V_{ij} - V_{ik}}
+\frac{\sigma_{ij}(\theta)}{\sigma_{ik}(\theta)}  = \frac{e^{V_{ij}}}{e^{V_{ik}}} = e^{V_{ij} - V_{ik}}
 \end{align*}
 \item We only identify the \alert{difference in indirect utilities} not the levels.
 \item The ratio of choice probabilities for $j$ and $k$ depends only on $j$ and $k$ and not on any alternative $l$, this is known as \alert{independence of irrelevant alternatives}.
@@ -234,7 +234,7 @@ What is actually identified here?
 \frametitle{Multinomial Logit: Identification}
 As another idea suppose we add a constant $C$ to each $\beta_j$.
 \begin{eqnarray*}
-s_{ij} = \frac{\exp[\symbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\symbf{x_i} (\beta_k+C) ]} =  \frac{\exp[\symbf{x_i} C] \exp[\symbf{x_i} \beta_j ]}{\exp[\symbf{x_i} C] \sum_k \exp[\symbf{x_i} \beta_k ]}
+\sigma_{ij} = \frac{\exp[\symbf{x_i} (\beta_j+C) ]}{\sum_k \exp[\symbf{x_i} (\beta_k+C) ]} =  \frac{\exp[\symbf{x_i} C] \exp[\symbf{x_i} \beta_j ]}{\exp[\symbf{x_i} C] \sum_k \exp[\symbf{x_i} \beta_k ]}
 \end{eqnarray*}
 This has no effect.  That means we need to fix a normalization $C$.\\
  The most convenient is generally that $C = - \beta_K$.
@@ -249,7 +249,7 @@ This has no effect.  That means we need to fix a normalization $C$.\\
 \frametitle{Multinomial Logit: Identification}
 The most sensible normalization in demand settings is to allow for an \alert{outside option} which produces no utility in expectation so that $e^{V_{i0}} = e^{0}=1$:
 \begin{eqnarray*}
-s_{ij} = \frac{e^{V_{ij} }}{1+\sum_k e^{V_{ik} }}
+\sigma_{ij} = \frac{e^{V_{ij} }}{1+\sum_k e^{V_{ik} }}
 \end{eqnarray*}
 \begin{itemize}
 \item Hopefully the choice of outside option is well defined: not buying a yogurt, buying some other used car, etc.
@@ -260,14 +260,14 @@ s_{ij} = \frac{e^{V_{ij} }}{1+\sum_k e^{V_{ik} }}
 
 \begin{frame}{Back to Scale of Utility}
 \begin{itemize}
-\item Consider $U_{ij}^{*} = V_{ij} + \varepsilon_{ij}^{*}$ with $Var(\varepsilon^{*}) = \sigma^2 \pi^2/6$.
-\item Without changing behavior we can divide by $\sigma$ so that $U_{ij} = V_{ij}/\sigma + \varepsilon_{ij}$ and $Var(\varepsilon^{*}/\sigma)=Var(\varepsilon) = \pi^2/6$
+\item Consider $U_{ij}^{*} = V_{ij} + \varepsilon_{ij}^{*}$ with $Var(\varepsilon^{*}) = a^2 \pi^2/6$.
+\item Without changing behavior we can divide by the scale parameter $a$ so that $U_{ij} = V_{ij}/a + \varepsilon_{ij}$ and $Var(\varepsilon^{*}/a)=Var(\varepsilon) = \pi^2/6$
 \begin{eqnarray*}
-s_{ij} = \frac{e^{V_{ij}/\sigma}}{\sum_k e^{V_{ik}/\sigma}} \approx \frac{e^{\beta^{*}/\sigma \cdot x_{ij}}}{\sum_k e^{\beta^{*}/\sigma \cdot x_{ik}}}
+\sigma_{ij} = \frac{e^{V_{ij}/a}}{\sum_k e^{V_{ik}/a}} \approx \frac{e^{\beta^{*}/a \cdot x_{ij}}}{\sum_k e^{\beta^{*}/a \cdot x_{ik}}}
 \end{eqnarray*}
-\item Every coefficient $\beta$ is rescaled by $\sigma$. This implies that only the ratio $\beta^{*}/\sigma$ is identified.
+\item Every coefficient $\beta$ is rescaled by $a$. This implies that only the ratio $\beta^{*}/a$ is identified.
 \item Coefficients are relative to variance of unobserved factors. More unobserved variance $\longrightarrow$ smaller $\beta$.
-\item Ratio $\beta_1/\beta_2$ is invariant to the scale parameter $\sigma$. (\alert{marginal rate of substitution}).
+\item Ratio $\beta_1/\beta_2$ is invariant to the scale parameter $a$. (\alert{marginal rate of substitution}).
 \end{itemize}
 \end{frame}
 
@@ -286,9 +286,9 @@ s_{ij} = \frac{e^{V_{ij}/\sigma}}{\sum_k e^{V_{ik}/\sigma}} \approx \frac{e^{\be
 \begin{frame}{IIA Property}
 The well known critique:
 \begin{itemize}
-\item You can choose to go to work on a car $c$ or blue bus $bb$. $S_{c} = S_{bb} = \frac{1}{2}$ so that $\frac{S_c}{S_{bb}} = 1$.
-\item Now we introduce a red bus $rb$ that is identical to $bb$. Then $\frac{S_{rb}}{S_{bb}} = 1$ and $S_{c} = S_{bb}= S_{rb} = \frac{1}{3}$ as the logit model predicts.
-\item In reality we don't expect painting a bus red would change the number of individuals who drive a car so we would anticipate $S_{c} = \frac{1}{2}$ and $S_{bb} = S_{rb} = \frac{1}{4}$.
+\item You can choose to go to work on a car $c$ or blue bus $bb$. $\sigma_{c} = \sigma_{bb} = \frac{1}{2}$ so that $\frac{\sigma_c}{\sigma_{bb}} = 1$.
+\item Now we introduce a red bus $rb$ that is identical to $bb$. Then $\frac{\sigma_{rb}}{\sigma_{bb}} = 1$ and $\sigma_{c} = \sigma_{bb}= \sigma_{rb} = \frac{1}{3}$ as the logit model predicts.
+\item In reality we don't expect painting a bus red would change the number of individuals who drive a car so we would anticipate $\sigma_{c} = \frac{1}{2}$ and $\sigma_{bb} = \sigma_{rb} = \frac{1}{4}$.
 \item We may not encounter too many cases where $\rho_{\varepsilon_{ik},\varepsilon_{ij}} \approx 1$, but we have many cases where this $\rho_{\varepsilon_{ik},\varepsilon_{ij}} \neq 0$
 \item What we need is the ratio of probabilities to change when we introduce a third option!
 \end{itemize}
@@ -299,7 +299,7 @@ The well known critique:
 \item IIA implies that we can obtain consistent estimates for $\beta$ on any subset of alternatives.
 \item This means instead of using all $\calJ$ alternatives in the choice set, we could estimate on some subset $\calS \subset \calJ$.
 \item This used to be a way to reduce the computational burden of estimation (not clear this is an issue in 21st century).
-\item Sometimes we have \alert{choice based samples} where we oversample people who choose a particular alternative. Manski and Lerman (1977) show we can get consistent estimates for all but the ASC. This requires knowledge of the difference between the true rate $A_j$ and the choice-based sample rate $\calS_j$.
+\item Sometimes we have \alert{choice based samples} where we oversample people who choose a particular alternative. Manski and Lerman (1977) show we can get consistent estimates for all but the ASC. This requires knowledge of the difference between the true (population) rate $A_j$ and the choice-based sample rate $H_j$.
 \item Hausman proposes a specification test of the logit model: estimate on the full dataset to get $\hat{\beta}$, construct a smaller subsample $\calS^k \subset \calJ$ and $\hat{\beta^k}$ for one or more subsets $k$. If $|\hat{\beta}^k - \hat{\beta}|$ is small enough.
 \end{itemize}
 \end{frame}
@@ -308,16 +308,16 @@ The well known critique:
 \small
 For the linear $V_{ij}$ case we have that $\frac{\partial V_{ij}}{\partial z_{ij}}=  \beta_z$.
 \begin{eqnarray*}
-\frac{\partial s_{ij}}{\partial z_{ij}} = s_{ij}(1- s_{ij}) \frac{\partial V_{ij}}{\partial z_{ij}}
+\frac{\partial \sigma_{ij}}{\partial z_{ij}} = \sigma_{ij}(1- \sigma_{ij}) \frac{\partial V_{ij}}{\partial z_{ij}}
 \end{eqnarray*}
 \begin{eqnarray*}
-\text{ And Elasticity: }\quad  \frac{ \partial \log s_{ij}}{ \partial \log z_{ij}} = s_{ij}(1- s_{ij}) \frac{\partial V_{ij}}{\partial z_{ij}} \frac{z_{ij}}{s_{ij}} = (1- s_{ij}) z_{ij} \frac{\partial V_{ij}}{\partial z_{ij}}
+\text{ And Elasticity: }\quad  \frac{ \partial \log \sigma_{ij}}{ \partial \log z_{ij}} = \sigma_{ij}(1- \sigma_{ij}) \frac{\partial V_{ij}}{\partial z_{ij}} \frac{z_{ij}}{\sigma_{ij}} = (1- \sigma_{ij}) z_{ij} \frac{\partial V_{ij}}{\partial z_{ij}}
 \end{eqnarray*}
 \begin{eqnarray*}
-\text{ With cross effects: }\ \frac{\partial s_{ij}}{\partial z_{ik}} = -s_{ij} s_{ik} \frac{\partial V_{ik}}{\partial z_{ik}}
+\text{ With cross effects: }\ \frac{\partial \sigma_{ij}}{\partial z_{ik}} = -\sigma_{ij} \sigma_{ik} \frac{\partial V_{ik}}{\partial z_{ik}}
 \end{eqnarray*}
 \begin{eqnarray*}
-\text{ and elasticity : }\quad \frac{ \partial \log s_{ij}}{ \partial \log z_{ik}} = -s_{ik} z_{ik} \frac{\partial V_{ik}}{\partial z_{ik}}
+\text{ and elasticity : }\quad \frac{ \partial \log \sigma_{ij}}{ \partial \log z_{ik}} = -\sigma_{ik} z_{ik} \frac{\partial V_{ik}}{\partial z_{ik}}
 \end{eqnarray*}
 \end{frame}
 
@@ -325,7 +325,7 @@ For the linear $V_{ij}$ case we have that $\frac{\partial V_{ij}}{\partial z_{ij
 \frametitle{Own and Cross Elasticity}
 An important output from a demand system are elasticities
 \begin{itemize}
-\item This implies that $ \eta_{jj} = \frac{\partial s_{ij}}{\partial p_j} \frac{p_j}{s_{ij}}  = \beta_p \cdot p_j \cdot (1-s_{ij})$.
+\item This implies that $ \eta_{jj} = \frac{\partial \sigma_{ij}}{\partial p_j} \frac{p_j}{\sigma_{ij}}  = \beta_p \cdot p_j \cdot (1-\sigma_{ij})$.
 \item The price elasticity is increasing in own price! (Why is this a bad idea?)
 \item Also mechanical relationship between elasticity and \alert{share} so that popular products necessarily have higher markups (holding fixed prices).
 \end{itemize}
@@ -336,7 +336,7 @@ An important output from a demand system are elasticities
 \begin{frame}{Proportional Substitution}
 Cross elasticity doesn't really depend on $j$.
 \begin{eqnarray*}
-\frac{ \partial \log s_{ij}}{ \partial \log z_{ik}} = -s_{ik} z_{ik} \underbrace{\frac{\partial V_{ik}}{\partial z_{ik}}}_{\beta_z}.
+\frac{ \partial \log \sigma_{ij}}{ \partial \log z_{ik}} = -\sigma_{ik} z_{ik} \underbrace{\frac{\partial V_{ik}}{\partial z_{ik}}}_{\beta_z}.
 \end{eqnarray*}
 \begin{itemize}
 \item This leads to the idea of proportional substitution. As option $k$ gets better it proportionally reduces the shares of the all other choices.
@@ -347,11 +347,11 @@ Cross elasticity doesn't really depend on $j$.
 \begin{frame}{Diversion Ratios}
 Recall the diversion ratio:
 \begin{align*}
-D_{jk} =\frac{\frac{\partial s_{ik}}{\partial p_{j}}}{\left |\frac{\partial s_{ij}}{\partial p_{j}} \right|} = \frac{\beta_p s_{ik} s_{ij}}{\beta_p s_{ij} (1-s_{ij})} = \frac{s_{ik}}{1-s_{ij}}
+D_{jk} =\frac{\frac{\partial \sigma_{ik}}{\partial p_{j}}}{\left |\frac{\partial \sigma_{ij}}{\partial p_{j}} \right|} = \frac{\beta_p \sigma_{ik} \sigma_{ij}}{\beta_p \sigma_{ij} (1-\sigma_{ij})} = \frac{\sigma_{ik}}{1-\sigma_{ij}}
 \end{align*}
 \begin{itemize}
 \item Again proportional substitution. As price of $j$ goes up we proportionally inflate choice probabilities of substitutes.
-\item Likewise removing an option $j$ means that $\tilde{s}_{ik}(\calJ \setminus j) = \frac{s_{ik}}{1-s_{ij}}$ for all other $k$.
+\item Likewise removing an option $j$ means that $\tilde{\sigma}_{ik}(\calJ \setminus j) = \frac{\sigma_{ik}}{1-\sigma_{ij}}$ for all other $k$.
 \item IIA/Logit means \alert{constant diversion ratios}.
 \end{itemize}
 \end{frame}
