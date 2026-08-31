@@ -1,0 +1,87 @@
+# Session log — 2026-08-31
+
+Work done with Claude Code; commits `ca89c47`, `c7b52f7`, `c13affa` (all pushed).
+
+## Housekeeping (`ca89c47`, `c7b52f7`)
+
+- Deleted 433 untracked LaTeX aux artifacts and `.DS_Store` files; removed the
+  stray macOS partial-transfer file `.!22825!switching_costs2.tex`, scratch
+  `test.tex`/`test.pdf` (Week 12), and the empty `Week 5- Instruments/` folder.
+- Untracked `build_log.txt` (now gitignored); deduped `.gitignore`.
+
+## Notation unification (`c13affa`) — see `NOTATION.md` for the conventions
+
+Berry–Haile (2014) conventions applied across Weeks 2–5, 7, 8, Assignments 2–3,
+and the Leuven demand/conduct decks (Week 4-Old archives and `BLP_hw_2019.tex`
+deliberately untouched):
+
+- `σ_ijt` / `σ_jt(·)` for individual and market-level choice probabilities;
+  `s_jt` strictly observed shares (retired `𝔰`, `\calS`-as-shares, `\tilde s`,
+  `P_ij`, `S_ij`, `π`-as-probability).
+- `ρ` for nesting (Berry's σ); **fixed the nested-logit inversion sign**
+  (`−ρ ln s_{j|gt}`, so ρ ∈ (0,1) is coherent; iioc deck was right, the two
+  `demand_new` copies were wrong).
+- Capital `Σ`/`Π` for RC and demographic parameters (`β_i = β + Σν_i`);
+  `w_i` type weights; `π_f` profits only.
+- Diversion: `D_jk` (small-price-change) vs `D_{j→k}` (second-choice) for
+  **aggregate** objects; individual diversion is intervention-invariant
+  `D_{jk,i}` (no arrow).
+- Scale parameter `σ → a`; Ho admission/diagnosis probabilities `p → φ`
+  (wtp deck); `P_j`-as-price → `p_j`; `Prob(` → `\Pr`; Manski–Lerman bullet
+  harmonized to `A_j` (population) / `H_j` (sample rate).
+- Semester dates → Fall 2026 (incl. the "Fall 2029" typo); course-intro
+  placements updated (Nano Ochoa → Johns Hopkins, Helena Pedrotti → FTC).
+
+## Infrastructure (`c13affa`)
+
+- **`teaching_slides.sty` fork healed**: builds resolve the sty via
+  `~/Library/texmf`, which held a *diverged copy* (eucal + R listings vs the
+  repo's never-active mathrsfs experiment). Reconciled to the texmf behavior +
+  the `\Pr`→ℙ fix and new `\prob{}` macro; **texmf entries are now symlinks to
+  the repo files** (recipe in `resources/README.md`).
+- **`\input{preamble}` pattern retired**: all 22 such decks (Leuven, Extra
+  Notes, Week 15/15b/15c, old Week 7 `conduct.tex`, Week 4-Old
+  `instruments`/`supply`) migrated to `\usepackage{teaching_slides}`; root and
+  folder-local preambles deleted; `resources/README.md` rewritten. (Root
+  preamble had required a `gradio-preamble.sty` that existed nowhere — these
+  decks had been unbuildable.)
+- Latent defects fixed en route: missing `\end{document}` (Leuven
+  `micro_data.tex`), dutchcal/unicode-math XeTeX crash, undefined
+  `\custombullet`, stray `A` for `\calH` in the Leuven FOC, `Ω → Δ`.
+- **Full build: 61/61 decks pass** `build_all.sh`; all PDFs regenerated.
+
+## Leuven / content findings
+
+- The **"30 Years of BLP" talk** is `Leuven-Lectures/demand/demand_iioc.tex`
+  (IIOC 2024) — nondescript filename is why it was lost.
+- Incorporation status: micro_data and conduct fully incorporated (weekly decks
+  are supersets); ML/low-rank section → `machine_learning.tex`; CMA
+  diversion-as-MTE → `diversion.tex`. **Not incorporated:** pass-through (~22
+  theory frames; only 6-frame `pt_notes.tex` in Wk 15b), common ownership (~30
+  BCS cereal frames; only the 3-slide stub), and the IIOC "Good News / Bad News
+  about BLP" retrospective frames (natural Week 4 additions).
+
+## Syllabus comparison
+
+See `other_courses/course-overlap-notes.md`. Headline: Nguyen's S2026 ECON-GA
+1802 dropped entry / moment inequalities / dynamic games and added vertical
+contracts & bargaining — colliding with my planned vertical expansion and
+orphaning entry/MI. **On hold until the third syllabus (Tiew?) arrives.**
+
+## Open items
+
+1. **Dead copy-paste / commented-out block cleanup** across decks (explicitly
+   queued; kept separate from the notation pass for diff reviewability).
+2. `demand_iioc.tex` line ~832: the IPDL row mixes `σ_j^{-1}` with
+   `−x_jt β − α p_jt … + ξ_jt` — looks like ξ-recovery mislabeled as the
+   inversion; needs a substantive look.
+3. Stale assignment due dates: `ps0-matlab.tex` (Sept 2019), `ps4.tex`
+   (Nov 2020).
+4. GMPS `\hat{Π}` GMM-penalty vs `Π`-demographic-matrix collision (micro_data
+   decks + iioc) — decided to let slide; noted here for completeness.
+5. Content phase: pass-through + common-ownership incorporation, IIOC
+   retrospective frames into Week 4, Vertical/Bargaining (pending overlap
+   decision), Production Functions (Week 6 has no .tex source).
+6. `other_courses/` syllabi PDFs are **untracked** — decide whether colleagues'
+   syllabi should live in this public repo before committing them.
+7. On a new machine: recreate the texmf symlinks per `resources/README.md`.
