@@ -72,8 +72,7 @@ p_{jt} &= f(x_{jt}, z_{jt}) + e_{jt}\\
 
 \begin{frame}{Control Functions: What's the point?}
 \begin{itemize}
-\item We can use the same $\hat{e}_{jt}$ approach and just do MLE like McFadden and Train insead.
-lambda, goal is to ``clean'' $\xi_{jt}$ of the endogeneity.
+\item We can use the same $\hat{e}_{jt}$ approach and just do MLE like McFadden and Train instead.
 \item This means we can use full data on individual choices, while also addressing endogeneity of prices.
 \item Possibly more efficient but with really strong assumptions of $f(\cdot)$ being correctly specified
 \item Controversy: We need a consistent estimate for $\hat{e}_{jt}$ so $f(x_{jt}, z_{jt})$ needs to be the ``true'' mapping from observables to endogenous prices.
@@ -242,20 +241,6 @@ A nice extension/application of this approach
 \end{frame}
 
 
-
-% \begin{frame}{Comparisons}
-
-% \begin{enumerate}
-
-%     \item GMM version of the estimator (= MDLE replaced with score moments): asymptotically equivalent, but the GMM can suffer from the multiplicity of optima (while the MDLPE is convex in $\delta)$
-%     \item imposing share constraints (BLP estimators): equivalent with MDLPE with infinite weights on some moments (loss of efficiency)
-%     \item many micro moments in the literature (equivalent to approximated/linearized scores): slower convergence\\
-%     \indent in the case of second choice data, expensive data is also a concern
-
-% \end{enumerate}
-
-% \end{frame}
-
 \begin{frame}{Limitations of the MDPLE estimator}
     
     \begin{itemize}
@@ -268,38 +253,33 @@ A nice extension/application of this approach
 \end{frame}
 
 
+\begin{frame}{Comparisons}
+
+\begin{enumerate}
+
+    \item GMM version of the estimator (= MDLE replaced with score moments): asymptotically equivalent, but the GMM can suffer from the multiplicity of optima (while the MDPLE is convex in $\delta$)
+    \item imposing share constraints (BLP estimators): equivalent with MDPLE with infinite weights on some moments (loss of efficiency)
+    \item many micro moments in the literature (equivalent to approximated/linearized scores): slower convergence\\
+    \indent in the case of second choice data, expensive data is also a concern
+
+\end{enumerate}
+
+\end{frame}
+
 
 \section*{Micro BLP Approaches}
 
 \begin{frame}{Micro BLP is used a lot}
-    \vspace{0.5em}
-    \scriptsize
-    \begin{tabular}{rlrl}
-        Paper & Industry & Paper & Industry \\
-        \midrule
-        \cite*{petrin2002quantifying} & Automobiles & \cite*{barwick2017local} & Automobiles \\
-        \cite*{berry2004differentiated} & Automobiles & \cite*{murry2017advertising} & Automobiles \\
-        \cite*{thomadsen2005effect} & Fast Food & \cite*{wollmann2018trucks} & Commercial Vehicles \\
-        \cite*{goeree2008limited} & Personal Computers & \cite*{li2018better} & Automobiles \\
-        \cite*{ciliberto2010public} & Cigarettes & \cite*{li2018empirical} & Digital Cameras \\
-        \cite*{nakamura2010accounting} & Coffee & \cite*{backus2021common} & Cereal \\
-        \cite*{beresteanu2011gasoline} & Automobiles & \cite*{grieco2021evolution} & Automobiles \\
-        \cite*{li2012traffic} & Automobiles & \cite*{neilson2021targeted} & Primary Schools \\
-        \cite*{copeland2014intertemporal} & Automobiles & \cite*{armitage2022regulatory} & Automobiles \\
-        \cite*{starc2014insurer} & Health Insurance & \cite*{dopper2022rising} & Retail \\
-        \cite*{ching2015quantifying} & Nursing Homes & \cite*{bodere2023dynamic} & Preschools \\
-        \cite*{li2015price} & Automobiles & \cite*{montag2023mergers} & Laundry Machines \\
-        \cite*{nurski2016exclusive} & Automobiles & \cite*{conlon2023market} & Distilled Spirits \\
-        $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$
-    \end{tabular}
-    \normalsize
-    \vspace{0.5em}
     \begin{wideitemize}
-        \item Many empirical IO papers use the ``micro BLP'' approach
+        \item Many empirical IO papers use the ``micro BLP'' approach \nocite{berry2004differentiated}
         \begin{enumerate}
             \item Impose the \cite{berry1995automobile} share constraint (unlike {\color{lightgray}Grieco et al.\ 2023}) \nocite{grieco2023conformant}
             \item Stack product-level or ``\alert{aggregated}'' moments with ``\alert{micro}'' moments from consumer surveys
         \end{enumerate}
+        \item Dozens of applications: automobiles, insurance, retail, schools, distilled spirits, \ldots
+        \begin{itemize}
+            \item See the table of examples (and their micro moments) in a few slides
+        \end{itemize}
     \end{wideitemize}
 \end{frame}
 

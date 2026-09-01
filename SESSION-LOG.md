@@ -1,4 +1,32 @@
-# Session log — 2026-08-31
+# Session log
+
+## 2026-09-01 — Weeks 1–5 streamlining (see `REDESIGN-WEEKS-1-5.md` for full detail)
+
+Three phases, all complete and verified building; uncommitted pending review:
+
+1. **Errata + retirement**: `demand2.tex` retired (superseded ancestor of Week 3;
+   one salvage — the corrected heteroskedasticity display — ported to mc1) with
+   its ghost copies; 2023 Merger Guidelines thresholds; bertrand reordered +
+   merged; rep_consumer CES exponent fix + figure-frame titles; AIG initials;
+   part1b title; Vives 1999; assorted brace/typo fixes.
+2. **Within-deck merges**: mc1/mc2/mc3 consolidated (mc3: 482→203 lines,
+   commented graveyard cleared); demand_new review section compressed, pseudocode
+   /optimal-IV merges, cross-equation supply frame restored, argmax→argmin GMM
+   fix; micro_data citation tables merged (identical paper sets!), Comparisons
+   frame restored.
+3. **New frames**: WDZ theorem + Small–Rosen CS/CV worked removal example
+   (ΔCS = (1/α)log(1−σ_j) identity; virtual-price demystifier per Chris) +
+   CES↔logit bridge in mc1; nested-CES bullet (mc2); preview bullet
+   (rep_consumer); zeros-in-shares ×2 (Gandhi–Lu–Shi, DHJ, Quan–Williams),
+   PCM + vertical-model asides (archive ports, CDF bug fixed), "Taking Stock"
+   IIOC retrospective (Good/Bad News), search/consideration preview — all in
+   demand_new (66→75 pp).
+
+Separately: syllabus-overlap analysis of ECON-GA 1802 vintages (S2025 Waldinger,
+S2026 Nguyen) in `other_courses/course-overlap-notes.md`; reorganization ON HOLD
+pending third syllabus.
+
+## 2026-08-31 — Notation unification + infrastructure
 
 Work done with Claude Code; commits `ca89c47`, `c7b52f7`, `c13affa` (all pushed).
 

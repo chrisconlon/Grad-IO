@@ -23,62 +23,31 @@
 
 \begin{frame}{What is the goal?}
 \small
-Consider the multi-product Bertrand problem where firms solve: $\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) = \sum_{j \in \calJ_f} (p_j - c_j) \cdot q_j(\symbf{p})$:
+Recall the multi-product Bertrand FOCs from Week 2, where firms solve $\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) = \sum_{j \in \calJ_f} (p_j - c_j) \cdot q_j(\symbf{p})$, which rearrange to:
 \begin{align*}
- 0&= q_j(\symbf{p}) + \sum_{k \in \calJ_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\symbf{p}) \\
-\rightarrow p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1}}_{D_{jk}(\symbf{p})}\\
 p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right].
 \end{align*}
 We call $D_{jk}(\symbf{p}) = \frac{\frac{\partial q_{k}}{\partial p_j}(\symbf{p})}{\left| \frac{\partial q_{j}}{\partial p_j}(\symbf{p}) \right|}$ the \alert{diversion ratio} and $\epsilon_{jj}$ the \alert{own elasticity} and these are the main deliverables.
 \end{frame}
 
 \begin{frame}
-\frametitle{Starting Point: McFadden and MLE}
-Each individual's choice $d_{ij} \in\{0,1\}$ and $\sum_{j \in \calJ} d_{ij} =1$.\\
-Consumers make mutually exclusive and exhaustive choices to maximize (indirect) utility:
-\begin{align*}
-u_{ij} &= \beta_i \, x_{ij}  + \varepsilon_{ij} \text{ and }
-u_{i0} = \varepsilon_{i0}\\
-d_{ij} &=1 \text{ IFF } [u_{ij} > u_{ik}\, \forall k \neq j]
-\end{align*}
-Choices follow a Categorical distribution:
-\begin{align*}
-(d_{i1},\ldots,d_{iJ},d_{i0}) \sim \text{Categorical} (\sigma_{i1},\ldots,\sigma_{iJ},\sigma_{i0} ) 
-\end{align*}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Starting Point: McFadden and MLE}
-If we assume that $\varepsilon_{ij}$ is Type I extreme value and $\beta_{\iota} \sim f(\beta_{\iota} \mid \theta)$ (some known parametric distribution) then we can write:
+\frametitle{Starting Point: From Individual Choice to Market Shares}
+\small
+Last lecture: individual choices $(d_{i1},\ldots,d_{iJ},d_{i0}) \sim \text{Categorical} (\sigma_{i1},\ldots,\sigma_{iJ},\sigma_{i0})$ with mixed logit choice probabilities:
 \begin{align*}
 \sigma_{ij}(\theta)= \Pr(d_{ij}=1) = \int \frac{\exp[\beta_{\iota} \, x_j]}{1+\sum_{k \in \calJ} \exp[\beta_{\iota} \, x_k]}\, f(\beta_{\iota} \mid \theta)\, \partial \beta_{\iota}
 \end{align*}
-Which gives us the log-likelihood:
- \begin{align*}
- \ell(\theta) = \sum_{i=1}^N \sum_{j \in \calJ \cup \{0\}} d_{ij} \log \sigma_{ij}(\symbf{x_i} \mid \theta)
- \end{align*}
- There are a bunch of challenges, not least among which is that the above is \alert{inconsistent} if the integral is evaluated with error that doesn't decrease in $N$.
-\end{frame}
-
-
-
-
-
-
-
-\begin{frame}
-\frametitle{Starting Point: Moving to Aggregate Data}
 If each individual is \alert{exchangable} then ex-ante they have the same choice probabilities: $\sigma_{ij}=\sigma_j$, and the sum of $M$ Categoricals is Multinomial:
 \begin{align*}
-(q_{1}^{*},\ldots,q_{J}^{*},q_{0}^{*}) \sim \text{Mult} (M, \sigma_{1},\ldots,\sigma_{J},\sigma_{0} ) 
+(q_{1}^{*},\ldots,q_{J}^{*},q_{0}^{*}) \sim \text{Mult} (M, \sigma_{1},\ldots,\sigma_{J},\sigma_{0} )
 \end{align*}
-where $q_{j}^{*}=\sum_{i=1}^M d_{ij}$ is a \alert{sufficient statistic}. 
+where $q_{j}^{*}=\sum_{i=1}^M d_{ij}$ is a \alert{sufficient statistic}.
 \begin{itemize}
 \item If $M$ gets large enough then $(\frac{q_1}{M},\ldots,\frac{q_J}{M},\frac{q_0}{M})\rightarrow (s_1,\ldots,s_J,s_0)$
  \item Idea: Equate observed market shares to the conditional choice probabilities $(\sigma_1(\symbf{x_i},\theta),\ldots,\sigma_J(\symbf{x_i},\theta),\sigma_0(\symbf{x_i},\theta))$.
 \item  Challenges: We probably don't really observe $q_0$ and hence $M$.
 \item Introduce idea of market $t$ (otherwise not much data!)
+\item MLE on individual data (and why MSLE is \alert{inconsistent} under simulation error) was covered in the mixed logit lecture.
 \end{itemize}
 \end{frame}
 
@@ -133,25 +102,6 @@ These estimators are helpful when computing choice probabilities is time-consumi
 
 
 
-
-
-
-% % \begin{frame}
-
-% % \end{frame}
-
-
-% % \begin{frame}
-% % \frametitle{Multinomial Logit: Estimation with Aggregate Data}
-% % Now suppose we have aggregate data: $(q_1,\ldots,q_J,q_0)$ where $M = \sum_{j \in \calJ} q_j$.
-% % \begin{itemize}
-% % \item If $M$ gets large enough then $(\frac{q_1}{M},\ldots,\frac{q_J}{M},\frac{q_0}{M})\rightarrow (\mathfrak{s}_1,\ldots,\mathfrak{s}_J,\mathfrak{s}_0)$
-% % \begin{itemize}
-% % \item Idea: Observe $(\mathfrak{s}_1(\symbf{x_i}),\ldots,\mathfrak{s}_J(\symbf{x_i}), \mathfrak{s}_0(\symbf{x_i}))$ without sampling variance.
-% % \end{itemize}
-% % \item Choose $\theta$ that minimizes distance: MLE? MSM? Least Squares? etc.
-% % \end{itemize}
-% % \end{frame}
 
 
 
@@ -213,6 +163,39 @@ This takes a bit more algebra but not much
  \end{itemize}
 \end{frame}
 
+
+\begin{frame}
+\frametitle{What about Zero Shares?}
+Every inversion so far needs $\ln s_{jt}$ --- but real data are full of $s_{jt}=0$.
+\begin{itemize}
+\item Weekly store-level scanner data: most UPCs sell zero units in most store-weeks.
+\item \alert{Sampling zeros}: finite number of consumers $N_t$; true $\sigma_{jt}>0$ but nobody happened to buy.
+\item \alert{Structural zeros}: product genuinely not available (or not considered) in market $t$.
+\item Common hacks and why they fail:
+\begin{itemize}
+\item Drop the zeros $\rightarrow$ \alert{selection on $\xi_{jt}$}: you keep only observations with favorable demand shocks; biases price coefficients toward zero.
+\item Replace $s_{jt}$ with $s_{jt} + \epsilon$ or Laplace shares $\frac{n_{jt}+1}{N_t + J_t + 1}$ $\rightarrow$ arbitrary, and elasticities can be badly biased when zeros are common.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Zeros: What can we do?}
+\begin{itemize}
+\item Gandhi, Lu, Shi (QE 2023): treat the true $\sigma_{jt}$ as bounded, construct moment inequalities/bounds that are robust to sampling zeros.
+\item Dub\'e, Horta\c{c}su, Joo (2021): pairwise-differencing / GMM approach that avoids taking logs of zero shares.
+\item Quan and Williams (RAND 2018): aggregate many small local markets (where the zeros live) to a level where shares are positive, modeling the heterogeneity you aggregate over.
+\item Practical advice:
+\begin{itemize}
+\item Zeros are \alert{informative, not missing} --- think about \emph{why} the share is zero (availability? consideration? sampling?).
+\item Aggregation (across weeks/stores) is often the honest fix.
+\item If zeros are structural, model the choice set (product availability, \`a la Conlon and Mortimer (2013)).
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
 \begin{frame}
 \frametitle{BLP 1995/1999 and Berry Haile (2014)}
 Think about a \alert{generalized inverse} for $\sigma_{j}(\symbf{\delta_{t}}, \symbf{x}_t,\theta_2) = s_{jt}$ so that 
@@ -228,11 +211,10 @@ Think about a \alert{generalized inverse} for $\sigma_{j}(\symbf{\delta_{t}}, \s
 \item Same IV-GMM approach after transformation
 \item Examples:
 \begin{itemize}
-\item Plain Logit: $\sigma_{j}^{-1}(\symbf{s}_t) = \ln s_{jt}- \ln s_{0t}$
-\item Nested Logit: $\sigma_{j}^{-1}(\symbf{s}_t,\rho) = \ln s_{jt}- \ln s_{0t} - \rho  \ln s_{j|gt}$
+\item Plain logit and nested logit: the inversions we just derived.
 \item Three level nested logit: $\sigma_{j}^{-1}(\symbf{s}_t,\rho) = \ln s_{jt}- \ln s_{0t} -\sum_{d=1}^2 \rho_d \ln \left(\frac{s_{j t}}{s_{d(j), t}}\right)$ (Verboven 1996)
  \end{itemize}
- \item Anything with a share requires an IV (otherwise $\rho \rightarrow 1$).
+ \item Anything with a share requires an IV.
  \end{itemize}
 \end{frame}
 
@@ -249,6 +231,43 @@ Fosgerau, Monardo, De Palma (2022) propose the IPDL
 \item We need that $\rho > 0$ for this to be RUM.
 \item This can allow for mild complementarities as well.
  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Aside: The Pure Characteristics Model (Berry and Pakes 2007)}
+Mixed logit \alert{without} the idiosyncratic taste shock:
+\begin{align*}
+u_{ijt} = \delta_{jt} + \mu_{ijt} + \underbrace{a}_{\rightarrow 0} \cdot\, \varepsilon_{ijt}
+\end{align*}
+\vspace{-0.5cm}
+\begin{itemize}
+\item Utility comes from characteristics only: vertical tastes over several dimensions (everyone prefers more MHz, more RAM; differ in WTP).
+\item Substitution is purely \alert{local} in characteristic space: you compete only with nearby products; allows for \alert{crowding} of the product space.
+\item Inversion/estimation much harder: no closed form for $\sigma_j$, and the share function is not smooth/invertible the way the logit's is (homotopy: Song; MPCC: Su) $\rightarrow$ why people avoid it in practice.
+\item The logit $\varepsilon$ adds a ``cushion'': it guarantees full support (some substitution to \emph{every} product) --- but also mechanical CS gains from every new product.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Aside: The Vertical Model (Bresnahan 1987)}
+All consumers agree on the quality ranking; they differ only in willingness-to-pay for quality:
+\begin{align*}
+u_{ij} = \delta_j - \alpha_i p_j, \quad \text{sort } p_1 < \cdots < p_J \implies \delta_1 < \cdots < \delta_J \text{ (why?)}
+\end{align*}
+\vspace{-0.5cm}
+\begin{itemize}
+\item Analytic inversion via \alert{indifference cutoffs}: choose $j$ IFF
+\begin{align*}
+\frac{\delta_{j+1} - \delta_j}{p_{j+1} -p_j} < \alpha_i < \frac{\delta_j  - \delta_{j-1}}{p_j - p_{j-1}}, \quad
+\sigma_j = F\left(\frac{\delta_j  - \delta_{j-1}}{p_j - p_{j-1}} \right) - F\left(\frac{\delta_{j+1} - \delta_j}{p_{j+1} -p_j} \right)
+\end{align*}
+where $F(\cdot)$ is the CDF of $\alpha_i$.
+\item Each product competes \alert{only with its quality neighbors}: changing $p_j$ moves only $(\sigma_{j-1},\sigma_j,\sigma_{j+1})$; all other cross-elasticities are zero.
+\item Original application: autos (Bresnahan's 1955 price war). If a luxury car and a truck have similar prices, expect strange substitution patterns.
+\item Special case of pure characteristics with one dimension. Rarely used today.
+\end{itemize}
 \end{frame}
 
 
@@ -308,47 +327,26 @@ And the Hessian requires knowledge of $\frac{\partial \sigma_{j}}{\partial \delt
 
 
  \begin{frame}
-\frametitle{BLP Pseudocode}
+\frametitle{BLP Estimation: Pseudocode}
 \footnotesize
-From the outside, in:
+The model is still defined by CMR $\mathbb{E}[\xi_{jt} \mid  z_{jt}^D]=0$. From the outside, in:
 \begin{itemize}
-\item Outer loop: search over nonlinear parameters $\theta$ to minimize GMM objective:
+\item Outer loop: search over nonlinear parameters $\theta_2$ to minimize GMM objective:
  \begin{align*}
- \widehat{\theta_{BLP}} = \arg \max_{\theta} (Z' \hat{\xi}(\theta)) W  (Z' \hat{\xi}(\theta))'
+ \widehat{\theta_{BLP}} = \arg \min_{\theta_2} (Z' \widehat{\xi}(\theta_2)) W  (Z' \widehat{\xi}(\theta_2))'
  \end{align*}
  \item Inner Loop:
  \begin{itemize}
-% \item Fix $\theta$.
-\item Solve for $\delta$ so that $\sigma_{jt}(\delta,\theta) = s_{jt}$.
+\item Solve for $\delta$ so that $\sigma_{jt}(\delta,\theta_2) = s_{jt}$.
 \begin{itemize}
-\item Computing $\sigma_{jt}(\delta,\theta)$ requires numerical integration (quadrature or monte carlo).
+\item Computing $\sigma_{jt}(\delta,\theta_2)$ requires numerical integration (quadrature or monte carlo).
 \end{itemize}
- \item We can do IV-GMM to recover $\hat{\alpha}(\theta),\hat{\beta}(\theta),\hat{\xi}(\theta)$.
+ \item We can do IV-GMM to recover $\hat{\alpha}(\theta_2),\widehat{\beta}(\theta_2),\widehat{\xi}(\theta_2)$ from the change of variables:
   \begin{align*}
 \delta_{jt}= x_{jt} \beta -\alpha p_{jt}+  \xi_{jt}
  \end{align*}
-  \item Use $\hat{\xi}(\theta)$ to construct moment conditions.
+  \item Use $\widehat{\xi}(\theta_2)$ to construct moment conditions.
  \end{itemize}
- \item When we have found $\hat{\theta}_{BLP}$ we can use this to update $W \rightarrow W(\hat{\theta}_{BLP})$ and do 2-stage GMM.
- \end{itemize}
-\end{frame}
-
-
-
-
- \begin{frame}
-\frametitle{BLP Estimation}
-The model is still defined by CMR $\mathbb{E}[\xi_{jt} \mid  z_{jt}^D]=0$
-\begin{itemize}
- \item Now that you have done change of variables to get:
- \begin{align*}
-\delta_{jt}= x_{jt} \beta -\alpha p_{jt}+  \xi_{jt}
- \end{align*}
- \item We can do IV-GMM to recover $\hat{\alpha}(\theta_2),\widehat{\beta}(\theta_2),\widehat{\xi}(\theta_2)$.
- \item Outer Loop update guess $\theta$, solve for $\delta$ and repeat.
- \begin{align*}
- \widehat{\theta_{BLP}} = \arg \max_{\theta} (Z' \widehat{\xi}(\theta_2)) W  (Z' \widehat{\xi}(\theta_2))'
- \end{align*}
  \item When we have found $\widehat{\theta_2}_{BLP}$ we can use this to update $W \rightarrow W(\widehat{\theta_2}_{BLP})$ and do 2-stage GMM.
  \end{itemize}
 \end{frame}
@@ -554,12 +552,8 @@ X_D & 0 \\
 \item For each market $t$: use $\widehat{\delta}_{\cdot t}(\theta_2)$ to construct $\eta_{\cdot 
 t}(\symbf{q_t},\symbf{p_t},\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
 \item For each market $t$: Recover $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2) = p_{jt} - \eta_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$
-\item Stack up $\widehat{\delta}_{\cdot t}(\theta_2)$ and $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$ and use linear IV-GMM to recover $[\widehat{\theta}_1(\theta_2), \widehat{\theta}_3(\theta_2) ]$ following the recipe in Appendix of Conlon Gortmaker (2020)
-\item Construct the residuals:
-\begin{align*}
-\nonumber    \widehat{\xi}_{jt}(\theta_2) &= \widehat{\delta}_{jt}(\theta_2) -  x_{jt} \widehat{\beta}(\theta_2) + \alpha p_{jt}\\
-    \widehat{\omega}_{jt}(\theta_2) &= \widehat{mc}_{jt}(\theta_2) -  [x_{jt}\, w_{jt}]\, \widehat{\gamma}(\theta_2)
-\end{align*}
+\item Stack up $\widehat{\delta}_{\cdot t}(\theta_2)$ and $\widehat{mc}_{jt}(\widehat{\delta}_{\cdot t}(\theta_2),\theta_2)$ into the stacked system on the previous slide and use linear IV-GMM to recover $[\widehat{\theta}_1(\theta_2), \widehat{\theta}_3(\theta_2) ]$ following the recipe in Appendix of Conlon Gortmaker (2020)
+\item Construct the residuals $\widehat{\xi}_{jt}(\theta_2)$ and $\widehat{\omega}_{jt}(\theta_2)$ from the stacked system.
 \item Construct sample moments
 \begin{align*}
 \nonumber g_n^D(\theta_2)=\frac{1}{N} \sum_{jt} Z_{jt}^{D\prime} \widehat{\xi}_{jt}(\theta_2)\\
@@ -680,7 +674,7 @@ u_{ijt} &= \beta_{i}^0 -  \alpha_i\, p_{jt} + \beta_i^{1750}\, \cdot \mathbb{I}[
  \hspace{-2.2cm}
 \begin{column}{.55\textwidth}
   \begin{itemize}
-    \item Demographic Interactions w/ 5 income bins \\ (matched to micro-moments)
+    \item Demographic Interactions w/ 5 income bins \\ (matched to micro-moments: defined properly next lecture)
     \item Correlated Normal Tastes: (Constant, Large Size, Price)
     \item Supply moments exploit observed upstream prices and tax change (ie: match observed markups).
     \vspace{-0.2cm}
@@ -911,24 +905,11 @@ and the artificial regressor is
 \end{frame}
 
 
-\begin{frame}{Optimal Instruments}
-\begin{itemize}
-\item Since any $f(x,z)$ satisfies our orthogonality condition, we can try to choose $f(x,z)$ as a \alert{basis} to approximate optimal instruments. (Newey 1990)
-\item This is challenging in practice -- and in fact suffers from a curse of dimensionality.
-\item This is frequently given as a rationale behind higher order $x$'s.
-\item When the dimension of $x$ is low -- this may still be feasible. ($K \leq 3)$.
-\end{itemize}
-\end{frame}
-
-
-
 \begin{frame}{Optimal Instruments (Chamberlain 1987)}
 Chamberlain (1987) asks how can we choose $f(z_i)$ to obtain the semi-parametric efficiency bound with conditional moment restrictions:
 \begin{align*}
-\mathbb{E}[g(z_i,\theta) | z_i]=0 \Rightarrow \mathbb{E}[g(z_i,\theta) \cdot f(z_i) ]=0 
+\mathbb{E}[g(z_i,\theta) | z_i]=0 \Rightarrow \mathbb{E}[g(z_i,\theta) \cdot f(z_i) ]=0
 \end{align*}
-Recall that the asymptotic GMM variance depends on $(G'\, \Omega^{-1} G\,)$
-
 The answer is to choose instruments related to the (expected) Jacobian of moment conditions w.r.t $\theta$. The true Jacobian at $\theta_0$ is \alert{infeasible}:
 \begin{align*}
 G=\mathbb{E}\left[\frac{\partial g(z_i,\theta)}{\partial \theta} | z_i, \theta_0 \right]
@@ -1062,26 +1043,26 @@ Chamberlain (1987) showed that the approximation to the optimal instruments are 
 \end{frame}
 
 
-% \begin{frame}{Aside: What does Supply tell us about Demand?}
-% \begin{align*}
-% & \textbf{Demand} & \textbf{Supply} \\
-% \del \alpha:& 
-%         \sigma_\omega^2 \frac{\partial \xi_{jt}}{\partial \alpha} - 
-%         \sigma_{\xi\omega}\frac{\partial \omega_{jt}}{\partial \alpha} 
-%         & \sigma_{\xi}^2 \frac{\partial \omega_{jt}}{\partial \alpha}  - 
-%         \sigma_{\xi\omega}\frac{\partial \xi_{jt}}{\partial \alpha}  \\
-% \del \sigma:& 
-%         \sigma_\omega^2 \frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2}  -
-%         \sigma_{\xi\omega}\frac{\partial \omega_{jt}}{\partial \widetilde{\theta}_2} 
-%         & \sigma_{\xi}^2 \frac{\partial \omega_{jt}}{\partial \widetilde{\theta}_2} - 
-%         \sigma_{\xi\omega}\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2}
-% \end{align*}
-% \begin{itemize}
-% \item These are \alert{cross equation restrictions}
-% \item They serve as \alert{overidentifying restrictions} for $\theta_2$ parameters.
-% \item This is the what imposing supply side tells us about demand (and \textit{vice versa})
-% \end{itemize}
-% \end{frame}
+\begin{frame}{Aside: What does Supply tell us about Demand?}
+\begin{align*}
+& \textbf{Demand} & \textbf{Supply} \\
+\partial \alpha:&
+        \sigma_\omega^2 \frac{\partial \xi_{jt}}{\partial \alpha} -
+        \sigma_{\xi\omega}\frac{\partial \omega_{jt}}{\partial \alpha}
+        & \sigma_{\xi}^2 \frac{\partial \omega_{jt}}{\partial \alpha}  -
+        \sigma_{\xi\omega}\frac{\partial \xi_{jt}}{\partial \alpha}  \\
+\partial \widetilde{\theta}_2:&
+        \sigma_\omega^2 \frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2}  -
+        \sigma_{\xi\omega}\frac{\partial \omega_{jt}}{\partial \widetilde{\theta}_2}
+        & \sigma_{\xi}^2 \frac{\partial \omega_{jt}}{\partial \widetilde{\theta}_2} -
+        \sigma_{\xi\omega}\frac{\partial \xi_{jt}}{\partial \widetilde{\theta}_2}
+\end{align*}
+\begin{itemize}
+\item These are \alert{cross equation restrictions}
+\item They serve as \alert{overidentifying restrictions} for $\theta_2$ parameters.
+\item This is the what imposing supply side tells us about demand (and \textit{vice versa})
+\end{itemize}
+\end{frame}
 
 
 \begin{frame}{Optimal Instruments}
@@ -1149,12 +1130,85 @@ c = p  + \underbrace{\Delta^{-1} \sigma}_{\rightarrow 0}  = X \gamma_1 + W \gamm
 \end{center}
 \end{frame}
 
-\begin{frame}{IV Comparison: Conlon and Gortmaker (2020)}
+\begin{frame}{IV Comparison: Conlon and Gortmaker (2020): Results}
 \begin{center}
 \includegraphics[width=3.9in]{resources/fixed_parameters_simple_plot.pdf}
 \end{center}
 \end{frame}
 
+
+
+\section*{Taking Stock}
+
+\begin{frame}{The Good News}
+30 years on, BLP mostly works
+\begin{itemize}
+    \item There was some concern (see Knittel Metaxoglou 2014) that BLP estimation was a bit ``fragile''
+    \item \texttt{PyBLP} knows how to take derivatives, and we spent a lot of time tuning default options: solving for shares, integration rules, optimization, etc.
+    \item Most problems people have today are: \alert{too many parameters, not enough instruments} (or really bad ones).
+    \item Cross-market variation in number of products, or characteristics of products would also help.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Bad News: Substitution}
+Your BLP model probably isn't as flexible as you think (Sorry!)
+\begin{itemize}
+\item The unrestricted matrix of $D_{jk}(\symbf{p})$'s (or elasticities) is $J \times J$ and probably not feasible to estimate directly. $\rightarrow$ need some \alert{dimension reduction}.
+\item Logit simply assumes proportional substitution ${D}_{jk}=\frac{\sigma_k}{1-\sigma_{j}}$ so that $\symbf{D}(\symbf{p})$ is of rank one!
+\item The BLP solution is to project $\symbf{D}(\symbf{p})$ onto a lower-dimensional basis of $x_{j}$ characteristics.
+\begin{itemize}
+\item Ultimately the basis will be only as good as the characteristics $x_{jt}$ with heterogeneous coefficients.
+\item Distributional assumptions on $f(\beta_i)$ (ie: independent normal) further restrict the basis.
+\end{itemize}
+\item The hardest thing to match is typically \alert{substitution to closest substitutes}.
+\begin{itemize}
+\item I worry that most BLP models (one RC, etc.) look too much like the plain logit.
+\end{itemize}
+\item People often assume \alert{HUGE outside good shares} and then have $D_{j0}>0.9$.
+\begin{itemize}
+    \item We make fun of macro/trade for \alert{monopolistic competition} but easy to estimate something close.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Bad News: Elasticities}
+If you aren't careful, can still get some weird economics...
+\begin{itemize}
+\item Plain logit assumes \alert{elasticities increasing in $p_j$} and \alert{markups that are decreasing}.\\
+\begin{itemize}
+\item One RC or putting all products in one nest probably isn't going to fix that
+\end{itemize}
+\item Simple versions tend to lead to \alert{high income} / \alert{price insensitive} consumers buying all the cars, yogurt, etc.
+\begin{itemize}
+\item $\rightarrow$ Probably everyone should have a \alert{correlated} RC on Price and Constant terms.
+\end{itemize}
+
+\item How $f(y_i - \alpha_i p_j)$ looks as it may determine \alert{pass-through}
+\\
+Griffith, Nesheim O'Connell (2018), Birchall Verboven (2022), Miravete, Seim, Thurk (2023)
+\begin{itemize}
+\item $\rightarrow$ Lognormal $\alpha_i$ is probably a good idea
+\item $\rightarrow$ bins for $\alpha(y_i)$ by income also good (break distributional relationship between $p_{jt}$ and $y_{it}$).
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{What we assumed away: Search and Consideration}
+\begin{itemize}
+\item Everything this week assumed \alert{full information} and \alert{full consideration}: every consumer evaluates every $j \in \calJ_t$.
+\item If consumers only consider $C_i \subset \calJ$, estimated elasticities conflate \alert{preferences} with \alert{attention}:
+\begin{itemize}
+\item Goeree (2008): PCs --- advertising and limited information.
+\item Honka (2014): search and switching costs in auto insurance.
+\item Honka, Horta\c{c}su, Vitorino (2017): advertising and awareness in banking.
+\item Abaluck and Adams-Prassl (2021): recovering consideration from asymmetries in demand (menus).
+\end{itemize}
+\item With search frictions, price responses mix ``who searches'' with ``who prefers'' --- a different demand object.
+\item Search and consideration get several weeks of their own in ECON-GA 1802 (spring).
+\end{itemize}
+\end{frame}
 
 
 \begin{frame}{Takeaway}

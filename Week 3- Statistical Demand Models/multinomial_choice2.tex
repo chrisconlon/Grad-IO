@@ -9,19 +9,8 @@
 \frame{\titlepage}
 
 \begin{frame}
-\frametitle{Multinomial Logit: IIA}
-The multinomial logit is frequently criticized for producing unrealistic substitution patterns
-\begin{itemize}
-\item Suppose we got rid of a product $k$ then $\sigma_{ij}(\calJ\setminus k) = \sigma_{ij}(\calJ)\cdot \frac{1}{1- \sigma_{ik}}$.
-\item Substitution is just proportional to your pre-existing choice probabilities $\sigma_{ij}$
-\item No concept of ``closeness'' of competition!
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
 \frametitle{Can we do better?}
-Multinomial Probit?
+Recall: logit's IIA means proportional substitution --- can we do better? Multinomial Probit?
 \begin{itemize}
 \item The probit has $\symbf{\varepsilon_i} \sim N(0,\Sigma)$.
 \item If $\Sigma$ is unrestricted, then this can produce relatively flexible substitution patterns.
@@ -67,7 +56,7 @@ A traditional (and simple) relaxation of the IIA property is the Nested Logit. T
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Alternative Interpretation}
+\begin{frame}{Nested Logit: Tree Structure}
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=5in]{resources/nesting.png}
@@ -182,6 +171,7 @@ There are more potential generalizations though they are less frequently used:
  \begin{itemize}
 \item You can have multiple levels of nesting: first I select a size car (compact, mid-sized, full-sized) then I select a manufacturer, finally a car.
 \item You can have potentially overlapping nests: Yogurt brands are one nest, Yogurt flavors are a second nest. This way strawberry competes with strawberry and/or Dannon substitutes for Dannon.
+\item Trade/Macro cousin: \alert{nested CES} --- the same segment-level substitution logic in a representative-agent package (recall the CES-logit equivalence from part 1).
  \end{itemize}
 \end{frame}
 

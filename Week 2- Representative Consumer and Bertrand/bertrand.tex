@@ -12,74 +12,6 @@
 \frame{\titlepage}
 
 \begin{frame}
-\frametitle{Differentiated Products Bertrand}
-\small
-Consider the multi-product Bertrand problem where firms solve: $\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) = \sum_{j \in \calJ_f} (p_j - c_j) \cdot q_j(\symbf{p})$:
-\begin{align*}
- 0&= q_j(\symbf{p}) + \sum_{k \in \calJ_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\symbf{p}) \\
-\rightarrow p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1}}_{D_{jk}(\symbf{p})}\\
-p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right].
-\end{align*}
-We call $D_{jk}(\symbf{p}) = \frac{\frac{\partial q_{k}}{\partial p_j}(\symbf{p})}{\left| \frac{\partial q_{j}}{\partial p_j}(\symbf{p}) \right|}$ the \alert{diversion ratio}.
-\end{frame}
-
-\begin{frame}
-\frametitle{Differentiated Products Bertrand}
-We can also re-write the best-response in the Lerner Index form:
-\begin{align*}
-p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[c_j + \underbrace{\sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) }_{\text{opportunity cost}}\right]
-\end{align*}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Differentiated Products Bertrand}
-It is helpful to define the matrix $\Delta$ with entries:
-\begin{eqnarray*}
-\Delta_{(j,k)}(\symbf{p}) = \left\{\begin{array}{lr}
-         - \frac{\partial q_{j}}{\partial p_k}(\symbf{p}) & \text{for }  (j,k) \in \calJ_f\\
-       	  \quad 0 & \text{for } (j,k) \notin \calJ_f
-        \end{array} \right\}
-\end{eqnarray*}
-We can re-write the FOC in matrix form:
-\begin{eqnarray*}
-q(\symbf{p}) = \Delta(\symbf{p})\cdot(\symbf{p}-\symbf{mc})
-\end{eqnarray*}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{What do we want to learn from demand systems?}
-We can recover markups and marginal costs:
-\begin{eqnarray*}
-(\symbf{p}-\symbf{mc}) =  \Delta(\symbf{p})^{-1} q(\symbf{p})  \Rightarrow \symbf{mc}= \symbf{p} - \Delta(\symbf{p})^{-1} q(\symbf{p})
-\end{eqnarray*}
-\end{frame}
-
-\begin{frame}
-\frametitle{What do we want to learn from demand systems?}
-\begin{itemize}
-\item We need two objects from the demand system:
-\begin{itemize}
-\item The (vector of) \alert{predicted sales} at the (vector of) prices $\symbf{q(p)}$.
-\item The \alert{derivatives} (or elasticities) of the demand function  $\frac{\partial q_k}{\partial p_j}(\symbf{p})$ 
-\item Or the \alert{diversion ratios}: $D_{jk}(\symbf{p})$.
-\item Welfare is often related to substitution to no purchase or ``outside goods''.
-\end{itemize}
-\item Ideally, these objects depend on the full vector of prices $\symbf{p}$.
-\begin{itemize}
-\item We can impose restrictions on the demand curve, such as constant slope or constant elasticity.
-\end{itemize}
-\item With these in hand, we can:
-\begin{itemize}
-\item Recover estimates of marginal cost (remember these are proprietary firm information and accounting estimates are often unreliable).
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
 \frametitle{Overview}
 Multiproduct Demand system estimation is probably the most important contribution from the New Empirical IO literature
 \begin{itemize}
@@ -96,8 +28,7 @@ Multiproduct Demand system estimation is probably the most important contributio
 \begin{itemize}
 \item Endogeneity of Prices
 \begin{itemize}
-\item Prices are not randomly determined, but set strategically by firms who observe the demand curve
-\item The \alert{simultaneity} of supply and demand creates a problem. We see the market clearing $(P^*,Q^*)$ over several periods, but in general we do not know which curve shifted.
+\item Prices are not randomly determined, but set strategically by firms who observe the demand curve --- this is exactly the \alert{simultaneity} problem of Working (1927) from Week 1.
 \end{itemize}
 \item Multiple Products/Flexibility
 \begin{itemize}
@@ -143,6 +74,61 @@ Multiproduct Demand system estimation is probably the most important contributio
 \item Often we have aggregate purchase data plus some \alert{micro data} from a survey on a subpopulation.
 \item ie: asking people who purchased GM cars which other cars they were considering.
 \item Using scanner data for alcohol purchases and comparing to consumption surveys by income and education.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Differentiated Products Bertrand}
+\small
+Consider the multi-product Bertrand problem where firms solve: $\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) = \sum_{j \in \calJ_f} (p_j - c_j) \cdot q_j(\symbf{p})$:
+\begin{align*}
+ 0&= q_j(\symbf{p}) + \sum_{k \in \calJ_f} (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\symbf{p}) \\
+\rightarrow p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1}}_{D_{jk}(\symbf{p})}\\
+p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[c_j + \underbrace{\sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) }_{\text{opportunity cost}}\right].
+\end{align*}
+We call $D_{jk}(\symbf{p}) = \frac{\frac{\partial q_{k}}{\partial p_j}(\symbf{p})}{\left| \frac{\partial q_{j}}{\partial p_j}(\symbf{p}) \right|}$ the \alert{diversion ratio}.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Differentiated Products Bertrand}
+It is helpful to define the matrix $\Delta$ with entries:
+\begin{eqnarray*}
+\Delta_{(j,k)}(\symbf{p}) = \left\{\begin{array}{lr}
+         - \frac{\partial q_{j}}{\partial p_k}(\symbf{p}) & \text{for }  (j,k) \in \calJ_f\\
+       	  \quad 0 & \text{for } (j,k) \notin \calJ_f
+        \end{array} \right\}
+\end{eqnarray*}
+We can re-write the FOC in matrix form:
+\begin{eqnarray*}
+q(\symbf{p}) = \Delta(\symbf{p})\cdot(\symbf{p}-\symbf{mc})
+\end{eqnarray*}
+\pause
+And recover markups and marginal costs:
+\begin{eqnarray*}
+(\symbf{p}-\symbf{mc}) =  \Delta(\symbf{p})^{-1} q(\symbf{p})  \Rightarrow \symbf{mc}= \symbf{p} - \Delta(\symbf{p})^{-1} q(\symbf{p})
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}
+\frametitle{What do we want to learn from demand systems?}
+\begin{itemize}
+\item We need two objects from the demand system:
+\begin{itemize}
+\item The (vector of) \alert{predicted sales} at the (vector of) prices $\symbf{q(p)}$.
+\item The \alert{derivatives} (or elasticities) of the demand function  $\frac{\partial q_k}{\partial p_j}(\symbf{p})$
+\item Or the \alert{diversion ratios}: $D_{jk}(\symbf{p})$.
+\item Welfare is often related to substitution to no purchase or ``outside goods''.
+\end{itemize}
+\item Ideally, these objects depend on the full vector of prices $\symbf{p}$.
+\begin{itemize}
+\item We can impose restrictions on the demand curve, such as constant slope or constant elasticity.
+\end{itemize}
+\item With these in hand, we can:
+\begin{itemize}
+\item Recover estimates of marginal cost (remember these are proprietary firm information and accounting estimates are often unreliable).
 \end{itemize}
 \end{itemize}
 \end{frame}

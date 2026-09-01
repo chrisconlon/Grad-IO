@@ -70,25 +70,17 @@ Cov(P_t, Q_t^s) &=& \beta_1 Var P_t + Cov (P_t,V_t)
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Simultaneity}
-\begin{itemize}
-\item For most of you, this was probably a review.
-\item We know what the solution is going to be to the simultaneity problem.
-\item We need an \alert{excluded instrument} that shifts one curve without affecting the other.
-\item We can use this to form a 2SLS estimate.
-\item Instead let's look at something a little different...
-\end{itemize}
-\end{frame}
-
-
 \begin{frame}{Simultaneity and Identification}
-Angrist, Imbens, and Graddy (ReStud 2000).
+\begin{itemize}
+\item For most of you, this was probably a review: we know the solution is an \alert{excluded instrument} that shifts one curve without affecting the other, which we can use to form a 2SLS estimate.
+\item Instead let's look at something a little different: Angrist, Imbens, and Graddy (ReStud 2000).
 \begin{itemize}
 \item Demand for Whiting (fish) at Fulton Fish Market
 \item Do not place functional form restrictions on demand (log-log, log-linear, linear, etc.).
 \item ``What does linear IV regression of $Q$ on $P$ identify, even if the true (but unknown) demand function is nonlinear''
 \item Takes a program evaluation/treatment effects approach to understanding the ``causal effect'' of price on quantity demanded.
 \item Aside: Is there even such a thing as the causal effect of price on quantity demanded?
+\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -171,7 +163,7 @@ Focus on the simple case:
 \end{frame}
 
 
-\begin{frame}{AGI: Negative Results}
+\begin{frame}{AIG: Negative Results}
 \begin{itemize}
 \item Should we divorce structural estimation from estimating ``deep'' population parameters (as suggested by Lucas critique)?
 \item Authors make the point that IV estimator identifies something about relationship between $p$ and $q$, without identifying deep structural parameters?
@@ -179,7 +171,7 @@ Focus on the simple case:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{AGI: Structural Interpretation}
+\begin{frame}{AIG: Structural Interpretation}
 In order to interpret the Wald estimator $\alpha_{1,0}$ we make some additional \alert{economic} assumptions on the structure of the problem:
 \begin{enumerate}
 \item Observed price is market clearing price $q_t^d(p_t) = q_t^s(p_t,z_t)$ for all $t$. (This means no frictions!).
@@ -192,7 +184,7 @@ $\tilde{p}(z,t)$ is the potential price under any counterfactual $(z,t)$
 \end{frame}
 
 
-\begin{frame}{AGI: Structural Interpretation}
+\begin{frame}{AIG: Structural Interpretation}
 \begin{itemize}
 \item Just like in IV we need denominator to be nonzero so that
 $E[p_t | z_t=1] \neq E[p_t | z_t = 0]$.
@@ -207,7 +199,7 @@ $E[p_t | z_t=1] \neq E[p_t | z_t = 0]$.
 \end{frame}
 
 
-\begin{frame}{AGI: Lemma 1}
+\begin{frame}{AIG: Lemma 1}
 The key result establishes that the numerator of $\alpha_{1,0}$:
 \begin{eqnarray*}
 \E[q_t | z_t =1] - \E[q_t | z_t = 0] = \E_t \left[\int_{\tilde{p}(0,t)}^{\tilde{p}(1,t)} \frac{\partial q_t^d(s)}{\partial s}{d\, s} \right]
@@ -219,7 +211,7 @@ The key result establishes that the numerator of $\alpha_{1,0}$:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{AGI: Figure}
+\begin{frame}{AIG: Figure}
 \begin{figure}
 \begin{center}
 \includegraphics[width=4in]{resources/fishfigure.png}
@@ -227,8 +219,27 @@ The key result establishes that the numerator of $\alpha_{1,0}$:
 \end{figure}
 \end{frame}
 
-\begin{frame}{AGI: Takeaways}
+\begin{frame}{AIG: Nonlinear IV}
 \small
+The Wald estimand is a weighted average of demand slopes:
+\begin{eqnarray*}
+\alpha_{1,0} &=& \frac{\E [ \int_{\tilde{p}(0,t)}^{\tilde{p}(1,t)} \frac{\partial q_t^d(s)}{\partial s} d\, s]}{\E \tilde{p}(1,t)- \E\tilde{p}(0,t)}
+ \,\rightarrow\, \int_0^{\infty} \E\left[ \frac{\partial q_t^d(s)}{\partial s} \,\Big|\, s \in [\tilde{p}(0,t),\tilde{p}(1,t)]\right ] \omega(s)\, d  s
+\end{eqnarray*}
+\begin{itemize}
+\item Given $t$: average the slope of $q_t^d$ from $\tilde{p}(0,t)$ to $\tilde{p}(1,t)$. Given price $s$: average across $t$ (randomness is due to $\epsilon_t$).
+\item Weight $\omega(s)$ is not a function of $t$ but it is largest for prices most likely to fall between $\tilde{p}(0,t)$ and $\tilde{p}(1,t)$.
+\item Case (2): $q_t^d(p) = \alpha_{0t} + \alpha_{1t} p + \epsilon_t$ gives
+$\alpha_{1,0} = \frac{\E[\alpha_{1t} (\tilde{p}(1,t) - \tilde{p}(0,t))]}{\E \tilde{p}(1,t) - \E \tilde{p}(0,t)} \neq \E [\alpha_{1,t}]$: we need \alert{mean independence}.
+\item With a continuous $z$ we can do a full nonparametric IV estimator: kernel-estimate $\E(q_t|z)$ and $\E(p_t|z)$ and take the ratio of derivatives $\alpha'(z) = \hat{q}'(z)/\hat{p}'(z)$ (a local Wald estimate at each $z$).
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{AIG: Takeaways}
+\footnotesize
 What did we learn?
 \begin{itemize}
 \item $\alpha_{1,0}$ only provides information about demand curve in range of potential price variation induced by the instrument.
@@ -237,58 +248,8 @@ What did we learn?
 \item This is a bit weird: different cost shocks could trace out different paths along the demand curve-- why do we care if price change came from a tax change or an input price change? Are they tracing out different subpopulations?
 \item We need monotonicity so that we know the range of integration $\tilde{p}(0,t) \rightarrow \tilde{p}(1,t)$ instead of $\tilde{p}(1,t) \rightarrow \tilde{p}(0,t)$
 \item Observations where $\tilde{p}(0,t) = \tilde{p}(1,t)$ don't factor into the average but we don't know what these observations are because potential prices are unobserved! What is the relevant sub-sample?
-\end{itemize}
-\end{frame}
-
-
-
-
-\begin{frame}{AGI: Nonlinear IV}
-\vspace{-0.25cm}
-\begin{eqnarray*}
-\alpha_{1,0} &=& \frac{\E [ \int_{\tilde{p}(0,t)}^{\tilde{p}(1,t)} \frac{\partial q_t^d(s)}{\partial s} d\, s]}{\E \tilde{p}(1,t)- \E\tilde{p}(0,t)}\\
- &\rightarrow& \int_0^{\infty} E\left[ \frac{\partial q_t^d(s)}{\partial s} | s \in [\tilde{p}(0,t),\tilde{p}(1,t)]\right ] \omega(s) d  s
-\end{eqnarray*}
-\vspace{-1cm}
-\begin{itemize}
-\item given $t$ average the slope of $q_t^d$ from $\tilde{p}(0,t)$ to $\tilde{p}(1,t)$
-\item given price $s \in [\tilde{p}(0,t) ,\tilde{p}(1,t)]$ average $q_t^d(s)$ across $t$. (randomness is due to $\epsilon_t$).
-\item Weight $\omega(s)$ is not a function of $t$ but it is largest for prices most likely to fall between $\tilde{p}(0,t)$ and $\tilde{p}(1,t)$.
-\item Case (2): $q_t^d(p) = \alpha_{0t} + \alpha_{1t} p + \epsilon_t$.
-\vspace{-0.25cm}
-\begin{eqnarray*}
-\alpha_{1,0} = \frac{\E[\alpha_{1t} (\tilde{p}(1,t) - \tilde{p}(0,t))]}{\E \tilde{p}(1,t) - \E \tilde{p}(0,t)} \neq \E \alpha_{1,t}
-\end{eqnarray*}
-\vspace{-0.75cm}
-We need mean independence
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{AGI: Nonlinear IV}
-\begin{itemize}
-\item Suppose we had a continuous $z$ instead, now we can do a full nonparametric IV estimator.
-\begin{eqnarray*}
-a(z) = \lim_{\nu \rightarrow 0} \frac{\E(q_t | z) - \E(q_t | z-\nu)}{\E(p_t | z) - \E(p_t | z- \nu)}
-\end{eqnarray*}
-\item Use a kernel to estimate $\hat{q}|z$ and $\hat{p}|z$
-\begin{eqnarray*}
-\alpha'(z) =\frac{\hat{q}'(z)}{\hat{p}'(z)} \approx \frac{\hat{q}'(z+h) - \hat{q}(z)}{\hat{p}'(z+h) - \hat{p}(z)}
-\end{eqnarray*}
-\end{itemize}
-\end{frame}
-
-
-
-\begin{frame}{AGI: Takeaways}
-\begin{itemize}
-\item When you have a parametric model, you don't need these results because we can define whatever (nonlinear) parametric functional form we want.
-\item There we will focus on parsimonious and realistic parametric functional forms. (this is the rest of the course)
-\item If we don't have a parametric model, then these show us that linear IV estimators give us some average (a particular one!) of slopes.
-\item Caveat: this only works for a single product. In the multi-product case things are a lot more complicated
-\begin{itemize}
-\item For multiproduct oligopoly it is much harder to satisfy the \alert{monotonicity} condition.  Why?
-\end{itemize}
+\item When you have a parametric model, you don't need these results because we can define whatever (nonlinear) parametric functional form we want. (Parsimonious and realistic parametric functional forms are the rest of the course.)
+\item Caveat: this only works for a single product --- with multiproduct oligopoly it is much harder to satisfy the \alert{monotonicity} condition. (Why?)
 \end{itemize}
 \end{frame}
 
