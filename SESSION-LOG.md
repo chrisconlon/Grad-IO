@@ -1,5 +1,41 @@
 # Session log
 
+## To-do queue (as of 2026-09-02 close-out)
+
+**Major overhauls (next up, per Chris):**
+
+1. **Vertical lectures** (Lecture 9 / Week 15b: `Vertical_2022.tex`, `CLWY.tex`,
+   `cme_aud_2019_lecture.tex`) — stale; rebuild to reflect current practice.
+   Respect the sequence carve: this course keeps the demand-side story
+   (foreclosure with estimated demand, rebates/AUD, double marginalization)
+   plus a bargaining-econometrics overview pointing into Nguyen's 1802.
+2. **Production functions** (Week 6) — currently a guest-lecture PDF with no
+   .tex source; build a proper owned deck reflecting current practice
+   (OP/LP/ACF, Gandhi–Navarro–Rivers, the De Loecker–Warzynski markup program
+   and its critics, what IO borrows vs. what trade/macro does with it).
+3. **NEW production-functions assignment** (per Chris, 2026-09-02) — natural
+   design follows the BLP_hw pattern: simulate a panel from a known DGP
+   (productivity following an AR(1), input timing assumptions explicit),
+   estimate OLS → fixed effects → OP/ACF two-step → GNR, compare markup
+   implications; solution key + DGP in `solutions/`. Build alongside the
+   Week 6 deck so the assignment and lectures teach the same conventions.
+
+**Smaller / standing items:**
+
+3. Weeks 7–15 streamlining review (the Weeks 1–5 treatment: content maps,
+   dedup, dead-comment cleanup, gaps) — incl. the conduct.tex vs conduct_new
+   supersede decision and the dead copy-paste sweep for Weeks 6–15.
+4. Solution keys for PS2 (numeric verification of the algebra), BLP_hw, PS4,
+   following the PS0/PS1 pattern.
+5. Backup home for `Assignments/solutions/` (exists only on this Mac).
+6. Lecture 15: keep Dickstein MI guest slot or repurpose — pending his
+   availability.
+7. Fill real Fall 2026 due dates (webpage "Due: TBD" × 3; ps4 still carries
+   its old date field).
+8. `demand_iioc.tex` IPDL row (~l.832) — looks like ξ-recovery mislabeled as
+   the inversion; needs Chris's eye.
+9. Cereal BCS citation year in syllabus-2026 if now published.
+
 ## 2026-09-02 (later) — Reorganization executed (Tiew syllabus arrived)
 
 Tiew's ECON-GA 3002 syllabus (local, untracked) settled the open questions:
