@@ -1,5 +1,29 @@
 # Session log
 
+## 2026-09-02 — PS0 expansion + integration notes update
+
+- **PS0 → 5 parts**: Part 2 gained the 4-D curse-of-dimensionality exercise
+  (1-D ridge reduction as truth; nquad timed at moderate tolerance as the
+  "adaptive doesn't scale" lesson; tensor GH vs sparse grids — both routes:
+  sparse-grids.de GQN download or hand-rolled Smolyak — vs matched-node MC;
+  monomial validation required; new (f) on why tensor wins at d=4 and dies at
+  d=10). New Part 3: Berry-inversion fixed point (contraction vs Newton;
+  returns as BLP inner loop + Rust Bellman). New Part 4: numerical derivatives
+  (forward/central vs analytic; truncation-vs-roundoff log-log plot).
+- **Solution keys (local, gitignored)**: ps0_solution.py (Smolyak combination
+  technique validated against published Heiss–Winschel GQN node counts — d=10
+  K=5 gives exactly 8,761; runs ~3 min incl. the deliberate 184s nquad row)
+  and ps1_solution.py + generate_schools.py from 2026-09-01.
+- **Design findings baked in**: sparse grids initially LOST to MC because the
+  original sigmas made the integrand a wide ridge (negative-weight
+  cancellation, sum|w| up to 833); rescaled sigma=(1,.5,.75,.5) gives the
+  clean sparse-beats-MC table while tensor's d=4 dominance becomes question (f).
+- **Extra Notes/integration.tex updated**: Simpson frame had the TRAPEZOID
+  figure (proper figure generated); date/typo/N(mu,Sigma) errata; QMC frame
+  gains MLHS + scipy.stats.qmc + pyblp.Integration; three new frames — Sparse
+  Grids (Smolyak), Sparse Grids: Caveats, Know Your Integrand (ridge
+  reduction) — carrying the PS0 lessons with cross-references both ways.
+
 ## 2026-09-01 (later) — Assignments overhaul
 
 All five active psets repaired, modernized, and extended; all build. Uncommitted

@@ -4,7 +4,7 @@
 
 \title{Bonus Lecture: Numerical Integration}
 \author{C.Conlon}
-\date{Fall 2020}
+\date{Fall 2026}
 \begin{document}
 
 \frame{\titlepage}
@@ -61,7 +61,7 @@ $$ I = \frac{b-a}{2 S} \cdot \left[f(x_0) + 2\cdot(f(x_1)+,\ldots,f(x_{S-1})) + 
 \begin{frame}{Simpson's Rule}
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[height=0.65\textheight]{./resources/trapezoid.png}
+\includegraphics[height=0.65\textheight]{./resources/simpson.png}
 \end{center}
 \end{figure}
 $$ I = \frac{b-a}{3S} \cdot \left[f(x_0) + 4(f(x_1)+ f(x_3) +\ldots) + 2(f(x_2)+ f(x_4)+\ldots )  +  f(x_S) \right] $$
@@ -160,7 +160,7 @@ for some quadrature nodes $x_s \in [a,b]$ and weights $w_s$.
 \begin{itemize}
 \item Let $\calF_k$ be the space of degree $k$ polynomials
 \item Quadrature formulas are exact of degree $k$ if it correctly integrates each function in $\calF_k$
-\item Gaussian quadrature formulas use $S$ points and are exact of degree $2s-1$.
+\item Gaussian quadrature formulas use $S$ points and are exact of degree $2S-1$.
 \end{itemize}
 Approximation Error
 \begin{eqnarray*}
@@ -202,10 +202,10 @@ Still often want to change variables. Consider $f(x | \theta) \sim N(\mu,\sigma^
 \item Might be better to sample $z_s \sim N(0,1)$ and then $x_s = z_s\cdot \sigma + \mu$
 \item For complicated distributions $v_s \sim U[0,1]$ and then $x_s = \Phi^{-1}(v_s) \cdot \sigma + \mu$
 \end{itemize}
-Discuss approximating $\pi$.
+\alert{Always validate your rule}: integrate $f = 1$, $f = x$, $f = x^2$ first --- you know those answers, and it tells you which kernel your nodes/weights actually assume.
 \end{frame}
 
-\begin{frame}{Example: Gauss Herrmite}
+\begin{frame}{Example: Gauss-Hermite}
 Let $Y\sim N(\mu,\sigma^2)$ and apply COV $x = (y-\mu)/\sqrt{2} \sigma$
 \begin{eqnarray*}
 E[f(Y)] = (2 \pi \sigma^2)^{-\frac{1}{2}} \int_{-\infty}^{\infty} f(y) \exp\left[-\frac{(y-\mu)^2}{2\sigma^2} \right] dy \\
@@ -224,11 +224,12 @@ notice that we don't have the $e^{-x^2}$ anymore.
 Lots of ways to improve on purely pseudorandom sampling
 \begin{itemize}
 \item Antithetic draws
-\item Low-discrepancy sequence (Halton, Sobol, Low-discrepancy sequence etc.) 
+\item Low-discrepancy sequences (Halton, Sobol, etc.)
+\item Modified Latin Hypercube Sampling (MLHS): Hess, Train, Polak (2006) --- a workhorse for mixed logit.
 \item Think about these as ensuring more even coverage (stratified).
 \item Koksma-Hlawka inequality gives bounds but is hard to characterize the Hardy-Kruse variation of $f(\cdot)$.
 \end{itemize}
-Many of these are built-in routines in Python, R, Matlab, etc.
+Modern home in Python: \texttt{scipy.stats.qmc} (Halton, Sobol, LHS); \texttt{pyblp.Integration} ships product rules, sparse grids, Halton, and MLHS behind one interface.
 \end{frame}
 
 
@@ -247,7 +248,38 @@ Many of these are built-in routines in Python, R, Matlab, etc.
 
 \item Monte Carlo is not cursed but slow to converge $\frac{1}{\sqrt{S}}$ vs $\frac{1}{2S!} f^{(2S)}$
 \item Some monomial rules (Judd), (Skrainka and Judd) aren't cursed
-\item Sparse Grids show how to combine 1-D rules more efficiently (\url{www.sparse-grids.de})
+\item Sparse Grids show how to combine 1-D rules more efficiently (next slide)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Sparse Grids (Smolyak)}
+Idea: instead of the full tensor product, take a clever \alert{combination of small tensor products} of 1-D rules (Smolyak 1963; for the Gaussian kernel: Heiss and Winschel 2008, \url{https://www.sparse-grids.de}).
+\begin{itemize}
+\item A level-$K$ sparse grid is exact for all polynomials of \alert{total degree} $\leq 2K-1$ --- it gives up the cross terms like $x_1^{8} x_2^{8}$ that the tensor rule pays dearly for.
+\item Node counts ($K=5$): $d=4$: \alert{385} vs $5^4 = 625$ tensor; $d = 10$: \alert{8{,}761} vs $5^{10} \approx 9.8$ million.
+\item Precomputed nodes/weights for the normal kernel (GQN) are downloadable; or build them yourself from \texttt{hermgauss} via the combination formula.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Sparse Grids: Caveats}
+Learned the hard way (see PS0):
+\begin{itemize}
+\item Weights are \alert{negative} for many nodes --- the rule is not a probability distribution, and cancellation can amplify error when the integrand is far from a low-degree polynomial.
+\item Designed for functions dominated by \alert{low-order interactions}; a strongly ``diagonal'' integrand over a wide range converges slowly.
+\item Always run the monomial checks ($1, x_k, x_k^2, x_1^2x_2^2$) before trusting any downloaded rule.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Know Your Integrand (Before Brute Force)}
+The binomial mixed logit from PS0:
+\begin{align*}
+\E[\Lambda(\beta'X)] \quad \text{with} \quad \beta \sim N(\mu, \text{diag}(\sigma^2)), \quad \beta \in \mathbb{R}^4
+\end{align*}
+\begin{itemize}
+\item This is a \alert{ridge function}: it varies only along the direction $X$. And $\beta'X \sim N\left(\mu'X, \sum_k \sigma_k^2 X_k^2\right)$ --- so the ``4-D'' integral is \alert{exactly 1-D}.
+\item \texttt{scipy.integrate.nquad} finds the answer with $\sim$10 million evaluations; 1-D \texttt{quad} on the reduced integral needs a few dozen.
+\item A tensor rule inherits its 1-D accuracy along the ridge --- which is why it can look unbeatable in low $d$ (and still dies at $d=10$).
+\item The multinomial version depends on $J$ indices $\{\beta'x_j\}$, so the reduction is only to $\min(d, J)$ dimensions --- the curse is real in BLP-land, but \alert{effective dimension} is often lower than nominal dimension.
 \end{itemize}
 \end{frame}
 
@@ -282,7 +314,7 @@ Or as a vector:
 \item Find the \alert{Cholesky Root} of $L \cdot L' =\Sigma$ where $\Sigma$ is $D \times D$ covariance matrix\\ (\texttt{scipy.linalg.cholesky}, \texttt{chol} in R and Matlab).
 \item Draw a $n \times D$ dimensional standard normal $\symbf{Z}$ (either at random or via quadrature nodes/ weights).
 \item $L \cdot \symbf{Z} \sim N(0,\Sigma)$, now we have $n$ correlated normals of dimension $D$.
-\item Add back in the mean $\symbf{Y}=\symbf{\mu} + L \cdot \symbf{Z} \sim N(0,\Sigma)$
+\item Add back in the mean $\symbf{Y}=\symbf{\mu} + L \cdot \symbf{Z} \sim N(\symbf{\mu},\Sigma)$
 \end{enumerate}
 \end{frame}
 

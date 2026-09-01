@@ -61,8 +61,41 @@ In this part we will look at calculating the logit choice probability $\sigma(X,
 \item Compare results to the Monte Carlo results. \textit{Make sure your quadrature weights sum to 1!}
 
 \item Repeat the exercise in two dimensions where $\mu = (0.5,1), \sigma = (2,1)$, and $X=(0.5,1)$.
-\item Put everything into two tables (one for the 1-D integral, one for the 2-D integral). Showing the error from the ``true'' value and the number of points used in the evaluation.
+\item Now the \textbf{curse of dimensionality}: repeat the exercise in \textbf{four} dimensions with $\mu = (0.5, 1, 0, -0.5)$, $\sigma = (1, 0.5, 0.75, 0.5)$, and $X = (0.5, 1, -1, 0.5)$, comparing:
+\begin{enumerate}
+\item Smart check first: show that because $\beta' X = \sum_k \beta_k X_k$ is a linear combination of independent normals, it is itself univariate $N\left(\mu'X, \sum_k (\sigma_k X_k)^2\right)$ --- so this ``4-D'' integral is secretly 1-D. Compute the \textbf{true} value with $\mathtt{scipy.integrate.quad}$ on the reduced 1-D integral (tolerance $1\e{-14}$). Lesson: understand the structure of your integrand before reaching for brute force.
+\item $\mathtt{scipy.integrate.nquad}$ on the full 4-D integral at a \emph{moderate} tolerance (\texttt{epsabs=1e-6}): \textbf{time it} and report the number of function evaluations (\texttt{full\_output=1}). Adaptive quadrature does not scale; that is part of the lesson. (Do not be tempted to tighten the tolerance --- budget your afternoon.)
+\item Tensor-product Gauss-Hermite with $k=5$ and $k=9$ nodes per dimension ($5^4 = 625$ and $9^4=6561$ points).
+\item A \textbf{sparse grid} at two or three accuracy levels. Either download the precomputed Gaussian-kernel (GQN) nodes and weights from \url{https://www.sparse-grids.de} (Heiss and Winschel 2008), or construct the grid yourself from 1-D $\mathtt{hermgauss}$ rules via the Smolyak combination technique. \textbf{Required check either way}: before using any rule, verify it on monomials --- $f=1$, $f = x_k$, $f = x_k^2$, $f=x_1^2 x_2^2$ --- where you know the answer under the Gaussian weight. (This is the point of the note above: nodes and weights are only as good as your understanding of the kernel they assume.)
+\item Monte Carlo with the same number of draws as each rule above uses nodes.
+\item Tensor-product Gauss-Hermite probably looks surprisingly good in your table. Two sentences: why does it do so well on \emph{this} integrand at $d=4$ (hint: your answer to (a)), and why will it lose anyway at $d=10$? Report the node counts for $k=5$ per dimension at $d=10$ versus a level-5 sparse grid.
+\end{enumerate}
+\item Put everything into three tables (1-D, 2-D, 4-D), showing the error from the ``true'' value and the number of points used in each evaluation. In the 4-D table, which method would you use inside an estimation routine that must evaluate this integral thousands of times?
 \item Now Construct a new function $\mathtt{binomiallogitmixture}$ that takes a vector for $X$ and returns a vector of binomial probabilities (appropriately integrated over $f(\beta_i | \theta)$ for the 1-D mixture). It should be obvious that Gauss-Hermite is the most efficient way to do this. \textit{Do NOT use loops}
+\end{enumerate}
+
+\section*{Part 3: Fixed Points and the Berry Inversion}
+Consider a three-product logit market plus an outside good, with model shares
+\begin{eqnarray*}
+\sigma_j(\delta) = \frac{\exp[\delta_j]}{1+\sum_{k=1}^{3}\exp[\delta_k]}, \quad j = 1,2,3
+\end{eqnarray*}
+and observed shares $s = (0.30, 0.20, 0.15)$ (so $s_0 = 0.35$).
+\begin{enumerate}
+\item Solve for $\delta$ analytically: $\delta_j = \log s_j - \log s_0$ (the Berry inversion from lecture). Verify $\sigma(\delta) = s$.
+\item Now pretend you didn't know the closed form. Implement the fixed-point iteration
+$\delta^{(t+1)} = \delta^{(t)} + \log s - \log \sigma(\delta^{(t)})$
+starting from $\delta^{(0)} = 0$. How many iterations to reach $\|\delta^{(t+1)}-\delta^{(t)}\|_{\infty} < 10^{-13}$? (Use your Part 0 $\mathtt{logsumexp}$ machinery to compute $\log \sigma$ safely.)
+\item Solve the same system with a Newton-type solver ($\mathtt{scipy.optimize.root}$) and compare iteration counts and wall-clock time.
+\item One sentence: where will you see this fixed point again in this course? (Hint: twice --- once in demand estimation, once in dynamics.)
+\end{enumerate}
+
+\section*{Part 4: Numerical Derivatives}
+Using your 1-D $\mathtt{binomiallogit}$ mixture $\sigma(X,\theta)$ from Part 2 (Gauss-Hermite version, $k=12$), we want $\frac{\partial \sigma}{\partial X}$ at $X=0.5$.
+\begin{enumerate}
+\item Compute the derivative by forward differences $\frac{f(X+h)-f(X)}{h}$ and central differences $\frac{f(X+h)-f(X-h)}{2h}$ for $h \in \{10^{-1}, 10^{-2}, \ldots, 10^{-12}\}$.
+\item Compute the ``exact'' answer by differentiating under the integral sign (the integrand's derivative has a closed form --- write it down) and applying the same quadrature rule.
+\item Plot the absolute error of both difference schemes against $h$ on a log-log scale. Explain the two regimes you see: where does truncation error dominate, and where does floating-point roundoff dominate? What are the (approximate) optimal $h$'s, and how do they relate to machine epsilon?
+\item Why does this matter? You are about to spend a semester handing gradients to $\mathtt{scipy.optimize}$. One sentence on when you should prefer analytic (or automatic) derivatives to finite differences.
 \end{enumerate}
 
 \end{document}
