@@ -1,5 +1,6 @@
 \documentclass[aspectratio=169,10pt]{beamer}
 \usepackage{teaching_slides}
+\usepackage{ragged2e}
 
 
 \title{Conduct and Testing For Conduct}
@@ -658,31 +659,6 @@ Not everything is testable:
 \end{frame}
 
 
-\begin{frame}{Possible Exclusion Restrictions}
-We are looking for variables which affect \alert{demand but not supply}:
-\begin{align*}
-\sigma_{j}^{-1}(\symbf{s}_t, \symbf{p_t},\alert{\mathrm{y_t}}, \mathrm{x}_t,  \mathrm{v}_t, \widetilde{\theta}_2)
-&= h_d(\mathrm{x}_{jt},\alert{ \mathrm{v}_{jt}}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt})+ \xi_{jt} \\
-p_{jt} - \eta_{jt}(\symbf{s}_t, \symbf{p_t}; \theta_2, \mathcal{H}_t(\kappa))
-&= h_s(\textrm{x}_{jt}, \alert{\mathrm{w}_{jt}}; \theta_3) + \omega_{jt} 
-\end{align*}
-Things we use:
-\begin{itemize}
-    \item Obvious choice: $\mathrm{v}_{jt}$ (things like product recalls are relatively weak)
-    \item Demographics (enter nonlinearly): $\mathrm{y}_t$ (chain-level income works well)
-    \item Characteristics of other goods: $f(\mathrm{x}_{-j,t})$ (BLP instruments).
-    \item Characteristics of other goods: $\mathrm{w}_{-j,t}$ (commodity price of oats for Rice Krispies)
-\end{itemize}
-
-Things we don't use:
-\begin{itemize}
-    \item Unobserved demand shocks $\xi_{jt}$ (see MacKay Miller 2020 for $Cov(\xi_j,\omega_j)=0$).
-    \item Observable $\kappa$ conduct shifters (financial mergers/events, see Miller Weinberg (2018))
-\end{itemize}
-\end{frame}
-
-
-
 \begin{frame}{BCS in one slide}
 Two competing markups (markdowns) $(\eta_{jt}^A, \eta_{jt}^B)$. Which fit data better? (both may be misspecified)\\
 \begin{align*}
@@ -784,13 +760,149 @@ in 2013, Teva Pharmaceuticals, the largest generic firm, hired NP, a marketing e
 \end{frame}
 
 
+\section{Application: Common Ownership (Backus Conlon Sinkinson)}
+
+\begin{frame}[plain]{What is the Common Ownership Hypothesis?}
+\begin{itemize}
+\item Economics starts from the premise that firms maximize profits.
+\begin{itemize}
+\item Friedman (1953): natural selection of firms and billiards players.
+\item Or, firms answer to investors, \alert{maximize shareholder value}.
+\item We generally think of these objectives as aligned (possibly subject to managers' agency frictions).
+\end{itemize}
+\item So what do investors want?
+\begin{itemize}
+\item Some (diversified) investors may hold stakes in you \textit{and your competitor}. These are called ``common owners.''
+\item Common owners are harmed when managers engage in \alert{business stealing}.
+\end{itemize}
+\item As a theory of firm behavior in \alert{joint ventures} this is an old idea. The recent innovation is to extend this approach to \alert{passive or institutional investors}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain]{Rise of the Big Three (S\&P 500 components, BCS AEJ:Micro 2021)}
+\begin{center}
+\includegraphics[height=0.9\textheight]{resources/figure5_big3.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Some Reasonable (?) Assumptions (BCS 2020 P\&P)}
+Most models of common ownership (implicitly) make the following assumptions:
+\begin{description}
+\item[Investor Portfolios] Investors are entitled to a share of profits $\beta_{fs}$ and hold portfolios $V_s = \sum_{f} \beta_{fs} \pi_f$
+\item[Manager Agency (Rotemberg 1984)] Managers maximize a $(\gamma)$ weighted average of investor payoffs $Q_f = \sum_{s} \gamma_{fs} V_s$.
+\end{description}
+These are pretty general since $s$ could contain the manager herself.\\
+\end{frame}
+
+\begin{frame}{Derivation of Profit Weight}
+\small
+Easy to show:
+\begin{align*}
+Q_{f}\left(x_{f}, x_{-f}\right) &=\sum_{\forall s} \gamma_{f s} \cdot V_{s}\left(x_{f}, x_{-f}\right)\\
+&\propto \pi_{f}+\sum_{g \neq f} \underbrace{\left(\frac{\sum_{\forall s} \gamma_{f s} \beta_{g s}}{\sum_{\forall s} \gamma_{f s} \beta_{f s}}\right)}_{\equiv \kappa_{f g}\left(\gamma_{f}, \beta\right)} \pi_{g}
+\end{align*}
+\begin{itemize}
+    \item $\kappa_{fg}$ is interpreted as a \alert{profit weight}, where one dollar of profits at firm $g$ are valued as $\kappa_{fg}$ dollars in the objective function of firm $f$.
+    \item Depends on two primitives: $\beta$ and $\gamma$.
+\begin{itemize}
+    \item $\beta$ (cash-flow rights) is often directly observable.
+    \item $\gamma$ embeds a model of corporate governance. Literature assumes $\gamma = \beta$ (``proportional control").
+\end{itemize}
+\item Not specific to a particular strategic game: this is the $\mathcal{H}(\kappa)$ from our multiproduct Bertrand FOCs.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain]{The Reduced-Form Literature (and its Critics)}
+\small
+Symmetric homogeneous-good Cournot with profit weights gives a share-weighted average markup (with market demand elasticity $\epsilon$):
+\begin{align*}
+\sum_f s_f \cdot \frac{p - mc_f}{p} = \frac{1}{\epsilon} \underbrace{\symbf{s}' \, \mathcal{H}(\kappa) \, \symbf{s}}_{\equiv MHHI}, \qquad
+MHHI\Delta \equiv MHHI - \underbrace{\symbf{s} \cdot \symbf{s}}_{HHI}
+\end{align*}
+Some regress
+\begin{align*}
+\log \left(p_{r j t}\right)=\beta_1 \cdot M H H I \Delta_{r t}+\beta_2 \cdot H H I_{r t}+\theta \cdot X_{r j t}+\alpha_t+\nu_{r j}+u_{r j t}
+\end{align*}
+\begin{itemize}
+\item Azar, Schmalz, Tecu (JF 2018): airline routes with more common ownership have 3--7\% higher fares.
+\item But $MHHI\Delta$ is a function of \alert{equilibrium market shares} -- endogenous! (O'Brien Waehrer 2017). Price-concentration regressions all over again.
+\item Dennis, Gerardi, Schnitzler (JF 2022): not robust (driven by the share component); Kennedy, O'Brien, Song, Waehrer (2017): structural version finds nothing.
+\item Better idea: treat CO vs.\ own-profit maximization as a \alert{conduct testing} problem.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cereal Data}
+Main Dataset is NielsenIQ (from Kilts) from 2007-2017
+\begin{itemize}
+\item Consolidate to \texttt{dma-chain-week}.
+\item Keep largest chains who price at chain level
+\begin{itemize}
+\item Select based on \# observations from panelist data.
+\end{itemize}
+\item Consolidate \texttt{upc} $\rightarrow$ \texttt{brand} (Honey Nut Cheerios) from multiple package sizes and box designs.
+\begin{itemize}
+\item Divide revenue by servings
+\item Maintain the fiction that households purchase servings.
+\end{itemize}
+\end{itemize}
+Why cereal? Long history as IO ``model organism'' (Nevo x 3), 4 big firms, and non-Nash behavior isn't so crazy (FTC case in the 1970s, 1990s cartel/price war).
+\end{frame}
+
+\begin{frame}[plain]{Cereal Data: Variation in $\kappa$}
+\begin{center}
+\includegraphics[height = 0.9\textheight ]{resources/cereal_kappas_alpha_1.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Implementation: Demand Specification}
+\begin{gather*}
+u_{ijt} =  h_d(\textrm{x}_{jt}^{(1)}, \textrm{v}_{jt}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt})  + \left(\Sigma \, \nu_i + \Pi\, \textrm{y}_i \right) \cdot \textrm{x}_{jt}^{(2)}+ \xi_{jt} + \varepsilon_{ijt}\\
+\end{gather*}
+\vspace{-0.75cm}
+\begin{itemize}
+\item $\textrm{y}_i$ demographics: estimated at the $\texttt{dma-chain-year}$ level (from panelists); joint distribution of $(income, kids)$.
+\item $\nu_i$ are random (normal) draws; price is lognormal.
+\item Lots of FE in $h_d(\cdot)$ (product, chain-dma, year, week of year); estimated with \texttt{PyBLP} plus 520 micro-moments for $(\Pi,\Sigma)$.
+\item Supply side/testing: exactly the machinery from the previous section -- compute $\eta_{jt}(\symbf{p},\symbf{s},\theta_2,\kappa)$ under each conduct model and compare scalar-moment violations via the RV test.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Possible Exclusion Restrictions}
+We are looking for variables which affect \alert{demand but not supply}:
+\begin{align*}
+\sigma_{j}^{-1}(\symbf{s}_t, \symbf{p_t},\alert{\mathrm{y_t}}, \mathrm{x}_t,  \mathrm{v}_t, \widetilde{\theta}_2)
+&= h_d(\mathrm{x}_{jt},\alert{ \mathrm{v}_{jt}}; \theta_1) - \alpha\, p_{jt} + \lambda \, \log(\text{ad}_{jt})+ \xi_{jt} \\
+p_{jt} - \eta_{jt}(\symbf{s}_t, \symbf{p_t}; \theta_2, \mathcal{H}_t(\kappa))
+&= h_s(\textrm{x}_{jt}, \alert{\mathrm{w}_{jt}}; \theta_3) + \omega_{jt}
+\end{align*}
+Things we use:
+\begin{itemize}
+    \item Obvious choice: $\mathrm{v}_{jt}$ (things like product recalls are relatively weak)
+    \item Demographics (enter nonlinearly): $\mathrm{y}_t$ (chain-level income works well)
+    \item Characteristics of other goods: $f(\mathrm{x}_{-j,t})$ (BLP instruments).
+    \item Characteristics of other goods: $\mathrm{w}_{-j,t}$ (commodity price of oats for Rice Krispies)
+\end{itemize}
+
+Things we don't use:
+\begin{itemize}
+    \item Unobserved demand shocks $\xi_{jt}$ (see MacKay Miller 2020 for $Cov(\xi_j,\omega_j)=0$).
+    \item Observable $\kappa$ conduct shifters (financial mergers/events, see Miller Weinberg (2018))
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain,label=mainresults]{Main Results: These are $N(0,1)$}
+\begin{center}
+\scalebox{0.5}{\input{resources/10_20noeprice_final.tex}}
+\end{center}
+\end{frame}
+
 \begin{frame}[plain]{An Internalization Parameter}
 Let $\kappa$ represent the weight a firm places on competitors and $\tau$ the internalization of those weights.
  \begin{equation*}
  arg\max_{p_j \,:\, j \in \calJ_f} \sum_{j \in \calJ_f} (p_j - mc_j) \cdot \sigma_j(\symbf{p})+
  \sum_{g\neq f} \alert{\tau} \kappa_{fg} \sum_{j \in \calJ_g} (p_k - mc_k) \cdot \sigma_k(\symbf{p})
  \end{equation*}
-Now, 
+Now,
 \begin{itemize}
 \item $\tau = 0$ implies own-profit maximization
 \item $\tau = 1$ implies common ownership pricing
@@ -803,6 +915,24 @@ We test $\tau \in (0.1, \ldots, 0.9)$ against own-profit maximization.
 \begin{center}
 \includegraphics[width=10cm]{resources/tau_figure2.pdf}
 \end{center}
+\end{frame}
+
+\begin{frame}[plain]{Stepping Back: What About the Mechanism?}
+\begin{itemize}
+\item In RTE cereal, we see strong evidence in favor of own-profit maximization rather than common ownership pricing.
+\item In some sense this is a \alert{frictionless} model
+\begin{itemize}
+  \item Managers do exactly what investment managers want
+  \item Investment managers seek to maximize \alert{portfolio value}
+\end{itemize}
+\item Some attempts at micro foundations are questionable
+\begin{itemize}
+  \item Anton, Ederer, Gine, Schmalz: toy model has manager choose effort to reduce $mc$.
+  \item Weaker managerial incentives: higher $mc$ and higher $p$
+  \item Some correlation that executives at commonly owned firms have performance less correlated with profitability.
+\end{itemize}
+\item In some sense CO is what we would see absent agency problems, so where are they?
+\end{itemize}
 \end{frame}
 
 

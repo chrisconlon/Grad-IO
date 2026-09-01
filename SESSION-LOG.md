@@ -1,5 +1,31 @@
 # Session log
 
+## 2026-09-02 (later) — Reorganization executed (Tiew syllabus arrived)
+
+Tiew's ECON-GA 3002 syllabus (local, untracked) settled the open questions:
+she covers entry, moment inequalities, dynamic games, firm learning — so those
+stay pointers here (L15 Dickstein guest slot: decide per availability).
+Executed with Chris's rulings:
+
+- **Pass-through → Week 7**: new `passthrough.tex` (29 frames) ported from the
+  Leuven deck with notation conversions and TWO source sign-error fixes in the
+  Villas-Boas/IFT algebra; `Week 15b/pt_notes.tex` fully subsumed and retired.
+- **Common ownership → half-lecture**: `conduct_new.tex` gained a 13-frame
+  BCS application section (hypothesis, Big Three, κ derivation, reduced-form
+  critiques, cereal data/κ variation, implementation callbacks, results,
+  mechanism), integrating the old 3-frame stub. 46→57 pages.
+- **`syllabus-2026.tex` drafted**: corrected Other Courses rotation +
+  division-of-labor statement (Nguyen 1802 / Tiew 3002 / Waldinger EMD);
+  Week 5 retitled with a Pass-Through reading block (Weyl–Fabinger, MRRS,
+  Mrázová–Neary); 2023 Merger Guidelines; zeros subsection; CG 2020/2023;
+  Small–Rosen; BCS AEJ:Micro. Flag: cereal BCS still cited "(2021, WP)".
+- **Website (chrisconlon.github.io, local edits, not pushed)**: fixed the
+  broken Common Ownership link (pointed at the DP notes); added the Lecture 7
+  Pass-Through entry; repointed Other-Notes Pass Through to the Week 7 deck.
+  Fall-2026 header/dates refresh still pending.
+- Updated `other_courses/course-overlap-notes.md` with the Tiew section and
+  the full sequence division-of-labor table.
+
 ## 2026-09-02 — PS0 expansion + integration notes update
 
 - **PS0 → 5 parts**: Part 2 gained the 4-D curse-of-dimensionality exercise

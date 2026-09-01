@@ -1,7 +1,45 @@
-# Overlap with ECON-GA 1802 (econ-dept IO II) — notes toward reorganization
+# Overlap with the NYU IO sequence — notes toward reorganization
 
-*Drafted 2026-08-31. Status: **on hold** pending the third syllabus (likely Audrey
-Tiew's — the S2026 description names the sequence as Jovanovic + Conlon + Tiew).*
+*Drafted 2026-08-31; updated 2026-09-02 with Tiew's syllabus. Status:
+**reorganization EXECUTED 2026-09-02** — pass-through ported to Week 7, common
+ownership expanded in conduct_new, syllabus-2026 drafted with the division of
+labor; Lecture 15 (Dickstein MI guest slot) left pending his availability.*
+
+## Tiew (ECON-GA 3002-012, "Dynamic Oligopoly and Related Topics," Fall 2026)
+
+Covers, with problem sets (20% each on moment inequalities and dynamic games):
+**entry models** (BR 1991, Berry 1992, Ciliberto–Tamer, Seim, Mazzeo, Jia),
+**moment inequalities** (PPHI, Pakes 2010, CHT, Romano–Shaikh, Andrews–Roth–
+Pakes, Ho–Rosen), **dynamic games** (Ericson–Pakes, Pakes–McGuire, POB, BBL,
+oblivious/EBE, homotopy), **firm learning** (Doraszelski–Lewis–Pakes), plus
+environmental applications and a JMP reading group. Reading list descends from
+Harvard 2611/2612 (Lee/Pakes). My course is listed as a helpful prerequisite.
+
+### What this settles
+
+- **Entry (my Week 15c) and moment inequalities (my Week 15) are no longer
+  orphaned — the recommendation FLIPS.** Instead of promoting them from tail
+  material, they can shrink to a short "coming attractions" pointer (or keep
+  the Dickstein guest-lecture slot if desired) — Tiew gives both topics far
+  deeper treatment than my two tail decks could.
+- **Dynamic games**: definitively hers; my Weeks 10–11 single-agent material
+  is the feeder and stays.
+- **Week 14 learning**: no conflict — mine is *consumer* learning
+  (Erdem–Keane), hers is *firm/equilibrium* learning (DLP). Worth one
+  cross-reference each way.
+- **Freed capacity** (potentially 1–2 lecture slots): exactly what the
+  flesh-out list wants — pass-through into the merger week, a real common
+  ownership lecture, expanded demand-side vertical, production functions.
+
+### The full division of labor (for the 2026 syllabus)
+
+| Course | Owns |
+| --- | --- |
+| Conlon (Fall) | demand (static + dynamic), supply/conduct/mergers, production, single-agent dynamics, WTP/health demand |
+| Nguyen 1802 (Spring) | auctions, search, contracts/relational, vertical & bargaining econometrics, selection |
+| Tiew 3002 (next Fall) | entry, moment inequalities, dynamic games, firm learning, environmental IO |
+| Jovanovic | IO theory |
+| Waldinger | empirical market design |
 
 ## The two vintages
 
