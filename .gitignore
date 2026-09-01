@@ -229,3 +229,6 @@ TSWLatexianTemp*
 
 # build script output
 build_log.txt
+
+# colleagues' syllabi stay local
+other_courses/*.pdf
