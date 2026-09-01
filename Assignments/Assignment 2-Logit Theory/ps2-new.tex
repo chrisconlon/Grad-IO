@@ -1,5 +1,8 @@
 \documentclass[12pt]{article}
 \usepackage{amsmath}
+\usepackage{amssymb}
+
+\newcommand{\calJ}{\mathcal{J}}
 
 \addtolength{\topmargin}{-1in}
 \textwidth = 7.0 in
@@ -16,79 +19,88 @@ Analytic Results}
 \maketitle
 
 \section*{\normalsize Part I}
-Consider the following setup.\footnote{If you get stuck take a look at Quan and Williams (Rand 2018)} Utility for good $j$ in market $l$ by consumer $i$ is given by:
+Consider the following setup.\footnote{If you get stuck take a look at Quan and Williams (RAND 2018)} Utility for good $j$ in market $l$ by consumer $i$ is given by:
 \begin{eqnarray*}
 u_{ijl} = \delta_j - \alpha p_j + \nu_{ijl}
 \end{eqnarray*}
-The motivation is that are potentially many geographic markets $L$ with different preferences for different goods (or categories of goods). For example, snow boots might be very popular in Alaska while flip flops are very popular in Florida.\footnote{Unfortunately the most unusually popular product in the New York-New Jersey metro area turns out to be Ugg Boots!}\\
+There are potentially many geographic markets $L$ with different preferences for different goods (or categories of goods). For example, snow boots might be very popular in Alaska while flip flops are very popular in Florida.\footnote{Unfortunately the most unusually popular product in the New York-New Jersey metro area turns out to be Ugg Boots!}\\
 
-\noindent The main innovation is to introduce a random effect $\eta_{jl} \sim N(0,\sigma_g^2)$ into the nested logit model:\footnote{This exchanges $\lambda \rightarrow 1-\lambda$ when compared to the expressions in the Train textbook. The lecture notes use both the $\lambda$ and $1-\lambda$ formulation of nested logit.}
+\noindent Why do we care? Because in the data, \textit{local} market shares are frequently zero: most products sell zero units in most locations in most periods (recall the ``What about Zero Shares?'' discussion from the BLP lecture). We cannot run the Berry inversion location-by-location because $\log s_{jl}$ is undefined whenever $s_{jl} = 0$. The honest fix is to aggregate across the local markets $l$ rather than pretend the zeros aren't there. The main innovation is to introduce a random effect $\eta_{jl} \sim N(0,\Sigma_{\eta})$ into the nested logit model:\footnote{We use the nesting parameter $\rho$ of Berry (1994) throughout this problem set (Berry actually writes $\sigma$ for this parameter, but we reserve $\sigma$ for choice probabilities; PyBLP also calls it $\rho$). McFadden and the Train textbook instead parameterize the GEV with $\lambda = 1-\rho$, so our $1/(1-\rho)$ exponents are their $1/\lambda$. The lecture notes use both formulations.}
 
 \begin{eqnarray*}
-\nu_{ijl} = \eta_{jl}+ \underbrace{\zeta_{ic} + \varepsilon_{ijl}}_{GEV(\lambda)}
+\nu_{ijl} = \eta_{jl}+ \underbrace{\zeta_{ig} + \varepsilon_{ijl}}_{GEV(\rho)}
 \end{eqnarray*}
-The idea is to allow for different locations $l$ to obtain different utility from different products $j$. Assume (again) that the outside good exists alone in its own nest. We can write the share of product $j$ nationwide as $\sigma_j = \sum_{l=1}^L \omega_l \sigma_{jl}$ as the share of people $\omega_l$ who live in location $l$ and the choice probability of $j$ within $l$: $\sigma_{jl}$. We can decompose $\sigma_{jl} =  \sigma_{lc} \cdot \sigma_{jl|c}$ as the ``product of two logits''.\\
+The idea is to allow for different locations $l$ to obtain different utility from different products $j$ -- a product can be wildly popular in one location and unsellable in another. Assume (again) that the outside good exists alone in its own nest. We can write the share of product $j$ nationwide as $\sigma_j = \sum_{l=1}^L \omega_l \sigma_{jl}$ as the share of people $\omega_l$ who live in location $l$ and the choice probability of $j$ within $l$: $\sigma_{jl}$. We can decompose $\sigma_{jl} =  \sigma_{lg} \cdot \sigma_{jl|g}$ as the ``product of two logits''.\\
 
-Define the logit denominator as:
+Define the logit denominator as:\footnote{Not to be confused with the diversion ratio $D_{jk}$ --- here $D_{lg}$ is the inclusive-value denominator.}
 \begin{eqnarray*}
-D_{lc} = \sum_{j \in c} \exp \left[\frac{\delta_j  -\alpha p_j+ \eta_{jl}}{1-\lambda}\right]
+D_{lg} = \sum_{j \in g} \exp \left[\frac{\delta_j  -\alpha p_j+ \eta_{jl}}{1-\rho}\right]
 \end{eqnarray*}
 
-\noindent 1) [Very Easy] Write the within group share of $\sigma_{jl | c}$ assuming that $\eta_{jl}$ is observed for a single market $l$. It will be a function of the usual numerator and the denominator function $D_{lc}$.\\
+\noindent 1) [Very Easy] Write the within group share of $\sigma_{jl | g}$ assuming that $\eta_{jl}$ is observed for a single market $l$. It will be a function of the usual numerator and the denominator function $D_{lg}$.\\
 
-\noindent 2) [Easy]  Write $\sigma_{lc}$ and $\sigma_{l0}$ as a function of only $D_{lc}$ for a single market $l$.  (ie: nothing product specific).\\
+\noindent 2) [Easy]  Write $\sigma_{lg}$ and $\sigma_{l0}$ as a function of only $D_{lg}$ for a single market $l$.  (ie: nothing product specific).\\
 
-\noindent 3) Now write $D_{lc}$ as a function of only $\sigma_{lc}$ and $\sigma_{l0}$ and the unknown parameters for a single market $l$. (ie: nothing product specific).\\
+\noindent 3) Now write $D_{lg}$ as a function of only $\sigma_{lg}$ and $\sigma_{l0}$ and the unknown parameters for a single market $l$. (ie: nothing product specific).\\
 
-\noindent 4) Now write $\sigma_j = \sum \omega_l \cdot \sigma_{lg} \cdot \sigma_{lj|g}$ as an expression which depends only on: $\sigma_j, \sigma_{l0},\sigma_{lc},\eta_{jl},\lambda$ and features of $j$ but not on features of other products.\\
+\noindent 4) Now write $\sigma_j = \sum \omega_l \cdot \sigma_{lg} \cdot \sigma_{jl|g}$ as an expression which depends only on: $\omega_l, \sigma_{l0},\sigma_{lg},\eta_{jl},\rho$ and features of $j$ but not on features of other products.\\
 
 \noindent 5) Now take logs of $\sigma_j$ and solve for $\delta_j$ (this is the ``Berry (1994) inversion''). Show that your solution reduces to Berry (1994) inversion when $\eta_{jl} = 0$ for all $(j,l)$.\\
 
-\noindent Some trickery to avoid complicated proofs. Suppose that there are a lot of products per category so that you observe $\sigma_{lc}, \sigma_{l0}$ without any error. Moreover assume that any single product has a negligible effect on $\sigma_{lc}$. The idea is that you can treat the observed values of $\sigma_{lc}, \sigma_{l0}$ and thus $D_{lc}$ as data that are unaffected by your parameters.\\
+\noindent Some trickery to avoid complicated proofs. Suppose that there are a lot of products per category so that you observe $\sigma_{lg}, \sigma_{l0}$ without any error. Moreover assume that any single product has a negligible effect on $\sigma_{lg}$. The idea is that you can treat the observed values of $\sigma_{lg}, \sigma_{l0}$ and thus $D_{lg}$ as data that are unaffected by your parameters.\\
 
-\noindent 6) Find the closed form solution to the integral $\int \exp[\eta_{jl}/(1-\lambda)] f(\eta_{jl} | \sigma^2) d\, \eta_{jl}$.\\
+\noindent 6) Find the closed form solution to the integral $\int \exp[\eta_{jl}/(1-\rho)] f(\eta_{jl} | \Sigma_{\eta}) d\, \eta_{jl}$.\\
 
-\noindent 7) Plug your solution to (6) into your solutions for (5) and (4). For this to be allowed this requires applying the law of iteration expectations and some technical conditions that we will ignore. \\
+\noindent 7) Plug your solution to (6) into your solutions for (5) and (4). For this to be allowed this requires applying the law of iterated expectations and some technical conditions that we will ignore. \\
 
 
-\noindent 8) [Hard] Discuss how this relates to Ackerberg and Rysman (Rand 2005).
+\noindent 8) [Hard] Discuss how this relates to Ackerberg and Rysman (RAND 2005).\\
+
+\noindent 9) Suppose that instead of aggregating, you dropped all $(j,l)$ observations with zero local shares and ran the Berry inversion market-by-market on the survivors. Why does this bias your estimates? (What is $E[\eta_{jl} \mid s_{jl} > 0]$?)
 
 
 \section*{\normalsize Part II}
-Now consider a very particular nested logit model:\footnote{If you get stuck look at Ackerberg and Rysman (Rand 2005) or Kroft, Laliberte, Leal-Vizcaino and Notowidigdo (WP 2017).}
+Now consider a very particular nested logit model:\footnote{If you get stuck look at Ackerberg and Rysman (RAND 2005) or Kroft, Laliberte, Leal-Vizcaino and Notowidigdo (WP 2017).}
 
 \begin{eqnarray*}
 u_{ij} = \delta_j - \alpha p_j + \epsilon_{ij}
 \end{eqnarray*}
 We assume that $\epsilon_{ij}$ is distributed GEV with some nesting parameter $\rho$ like the Cardell (1997) paper or the Berry (1994) paper (note that Berry (1994) writes $\sigma$ for this parameter). Assume that all products are in the same nest, so that the outside good is the only product in the second nest.\\
 
-\noindent 9) [Easy] Derive a simplified form of the nested logit choice probabilities and the expected (ex-ante) consumer surplus in dollars.[Just write them from Berry (1994)].\\
+\noindent 10) [Easy] Derive a simplified form of the nested logit choice probabilities and the expected (ex-ante) consumer surplus in dollars.[Just write them from Berry (1994)].\\
 
-\noindent 10) [Easy] Now assume that all products are symmetric. That is they have the same $\delta_j = \delta$ and $p_j = p$. Derive the nested logit choice probabilities and the expected (ex-ante) consumer surplus in dollars. \\
+\noindent 11) Merger analysis is mostly about \textit{diversion}: when we remove product $j$ from the choice set $\calJ$, where do $j$'s consumers go? For consumer $i$, define the second-choice diversion ratio $D_{jk,i}$ as the probability that $i$ chooses $k$ from $\calJ \setminus j$, given that $i$ chose $j$ from $\calJ$.\\
+(a) [Easy] For the plain logit ($\rho = 0$), show that this removal experiment gives $D_{jk,i} = \frac{\sigma_{ik}}{1-\sigma_{ij}}$, so that diversion is proportional to share.\\
+(b) Now derive the nested-logit analogue for our setup (all inside goods in a single nest, outside good alone). Show that diversion is no longer proportional to share across all alternatives: the within-nest products receive disproportionately more of $j$'s displaced consumers than the outside good does. What happens as $\rho \rightarrow 1$?\\
+(c) [One sentence] Why does this matter for merger analysis?\\
 
-\noindent 11) Derive $Q(p,J)$ the total market demand for $J$ goods each with price $p$. The result for $Q(p,J)$ should not include any summations. Also derive the ex-ante consumer surplus expression without a summation.\\
+\noindent 12) [Easy] Now assume that all products are symmetric. That is they have the same $\delta_j = \delta$ and $p_j = p$. Derive the nested logit choice probabilities and the expected (ex-ante) consumer surplus in dollars. \\
 
-\noindent 12) Derive the inverse demand $P(Q,J)$ by solving $Q(p,J)$ for $p$ rather than $Q$. Does an increase in variety cause a parallel shift in the inverse demand curve or not?\\
+\noindent 13) Derive $Q(p,J)$ the total market demand for $J$ goods each with price $p$. The result for $Q(p,J)$ should not include any summations. Also derive the ex-ante consumer surplus expression without a summation.\\
 
-\noindent 13) Let's think about what happens when we add an additional product $J \rightarrow J+1$ in this market. One is that it affects the overall price index $p$ or $P$ and the other is that it causes a shift/rotation in the (inverse) demand curve. Show that $\frac{d\, CS}{d\, J} = -Q \frac{d\, p}{d\, j} +  c \cdot q_{j+1}$ where $c$ is a constant that depends on the parameters of the model and $q_{j+1}$ is the sales of the new product after introduction. [Hint: Recall that CS is the integral under the demand curve. You will probably want to apply the Leibniz Integral Rule and exchange differentiation and integration.]\\
+\noindent 14) Derive the inverse demand $P(Q,J)$ by solving $Q(p,J)$ for $p$ rather than $Q$. Does an increase in variety cause a parallel shift in the inverse demand curve or not?\\
+
+\noindent 15) Let's think about what happens when we add an additional product $J \rightarrow J+1$ in this market. One is that it affects the overall price index $p$ or $P$ and the other is that it causes a shift/rotation in the (inverse) demand curve. Show that $\frac{d\, CS}{d\, J} = -Q \frac{d\, p}{d\, J} +  c \cdot q_{J+1}$ where $c$ is a constant that depends on the parameters of the model and $q_{J+1}$ is the sales of the new product after introduction. [Hint: Recall that CS is the integral under the demand curve. You will probably want to apply the Leibniz Integral Rule and exchange differentiation and integration.]\\
 
 
-\noindent 14) What does this tell us about what is important to observe in order to measure the welfare impact of new product variety?
+\noindent 16) What does this tell us about what is important to observe in order to measure the welfare impact of new product variety?\\
+
+\noindent 17) Compare the symmetric aggregate demand $Q(p,J)$ you derived above with a symmetric CES demand system (recall ``CES and Logit: Two Sides of the Same Coin'' from lecture). Show that the two deliver the same variety and markup logic: which nested-logit parameter plays the role of the CES elasticity of substitution, and how do the markups and the welfare gains from additional variety line up? What does a \textit{nested} CES correspond to?
 
 
 \section*{\normalsize Part III}
-People often claim that in order to understand welfare in the mixed logit model, we only need to look at the share out of the outside good. Show me why this is (almost) true and how it relates to the wilingness-to-pay (WTP) measure of:
+\noindent 18) People often claim that in order to understand welfare in the mixed logit model, we only need to look at the share out of the outside good. Show me why this is (almost) true and how it relates to the willingness-to-pay (WTP) measure of:
 
 \begin{quote}
 Town, Robert and Gregory Vistnes, ``Hospital competition in HMO networks,'' Journal of
 Health Economics, 2001, 20 (5), 733-753.\\
 
-Capps, Cory, David Dranove, and Mark Satterthwaite, ``Competition and Market Power in Option Demand Markets,'' 
+Capps, Cory, David Dranove, and Mark Satterthwaite, ``Competition and Market Power in Option Demand Markets,''
 RAND Journal of Economics, September 2003, 34 (4), 737-763
 \end{quote}
 
 \begin{align*}
-WTP_i(j) = E[ \max_{k \in \calJ} u_{ij}] - E[ \max_{k \in \calJ \setminus j} u_{ik}]
+WTP_i(j) = E[ \max_{k \in \calJ} u_{ik}] - E[ \max_{k \in \calJ \setminus j} u_{ik}]
 \end{align*}
 
 
@@ -110,22 +122,22 @@ The market clears so that $x^d(p) = x^s(p)$. We are interested in how a tax on $
 W(t) &=& \max_x \left\{  u(x) + Z - t x_1 - p(t) \cdot x \right\}  + \max_x \left\{  p(t) \cdot x - c(x)\right\} + t x_1\\
 &=& \max_x \left\{  u(x) + Z - t x_1  - c(x)\right\} + t x_1
 \end{eqnarray*}
-\noindent 1.) Show that the \textit{total derivative} $\frac{d\, W}{d\, t} = t \frac{d\, x_1(t)}{d\, t}$. In other words, the part in the curly brackets cancels out.\footnote{If you get horribly stuck, consider Chetty (2009)'s Annual Review article.} This requires invoking the envelope theorem, and ignoring the possibility of oligopoly pricing. I have already cancelled out prices (a transfer) but you need to make substitution across other goods cancel.\\
+\noindent 19) Show that the \textit{total derivative} $\frac{d\, W}{d\, t} = t \frac{d\, x_1(t)}{d\, t}$. In other words, the part in the curly brackets cancels out.\footnote{If you get horribly stuck, consider Chetty (2009)'s Annual Review article.} This requires invoking the envelope theorem, and ignoring the possibility of oligopoly pricing. I have already cancelled out prices (a transfer) but you need to make substitution across other goods cancel.\\
 
 We can see the logit has this property in a more concrete way. If you don't get the first part -- you can start here ( this is a bit easier). Given $u_{ij} = v_{ij} + \varepsilon_{ij}$ where $\varepsilon_{ij}$ has a Type I EV (logit) distribution. We can derive individual purchase probabilities:
 
 \begin{eqnarray*}
 \sigma_{ij} = \frac{\exp v_{ij}}{\sum_k \exp v_{ik}}
 \end{eqnarray*}
-To make life easier assume that $\frac{\partial v_{ij}}{\partial p_{pij}}=1$ for all $(i,j)$ or that utility is quasi-linear (and money-metric in price).\footnote{You can relax this but then you need to carry around $\frac{1}{\alpha_i}$ terms.}\\
+To make life easier assume that $\frac{\partial v_{ij}}{\partial p_{ij}}=-1$ for all $(i,j)$, ie: that utility is quasi-linear (and money-metric in price, so utility falls one-for-one with the price paid).\footnote{You can relax this but then you need to carry around $\frac{1}{\alpha_i}$ terms.}\\
 
-\noindent 2) Write the individual surplus function $S_i = E[\max_j u_{ij}]$ and the total welfare function $W(t)$ (for all consumers and the representative firm) where $\pi(p) = p \cdot q- c(q)$ (where $q$ is the stacked vector of $q_{j}$ and $q_j = \sum_i n_i \sigma_{ij}$, the sum of individual demands).\\
-
-
-\noindent 3) Use the envelope theorem to show that $\frac{d W(t)}{d\, t} = t \frac{d\, q_1(t)}{d t_1}$. for a tax $t_1$ on good $1$ that is returned lump sum to consumers.\\
-
-\noindent 4) What does this tell us about the welfare effects of taxation in this model? What would we want to observe in the data? What is the most important feature of our model?
+\noindent 20) Write the individual surplus function $S_i = E[\max_j u_{ij}]$ and the total welfare function $W(t)$ (for all consumers and the representative firm) where $\pi(p) = p \cdot q- c(q)$ (where $q$ is the stacked vector of $q_{j}$ and $q_j = \sum_i n_i \sigma_{ij}$, the sum of individual demands).\\
 
 
+\noindent 21) Use the envelope theorem to show that $\frac{d W(t)}{d\, t} = t \frac{d\, q_1(t)}{d t_1}$. for a tax $t_1$ on good $1$ that is returned lump sum to consumers.\\
 
-\end{document} 
+\noindent 22) What does this tell us about the welfare effects of taxation in this model? What would we want to observe in the data? What is the most important feature of our model?
+
+
+
+\end{document}

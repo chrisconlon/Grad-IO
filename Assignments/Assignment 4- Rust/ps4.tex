@@ -3,13 +3,14 @@
 \usepackage{fullpage}
 
 \title{Empirical IO: Problem Set 4}
+\author{Chris Conlon}
 \begin{document}
 \small
 \date{Due date: Nov 30, 2020}
 \maketitle
-Your answers should be produced in \LaTeX, or Jupyter, and should include all relevant graphs and code.  Code should be in the appropriate verbatim environment and properly documented. My python code is in the GitHub folder and should be more than enough if you are stuck.\\
+Your answers should be produced in \LaTeX, or Jupyter, and should include all relevant graphs and code.  Code should be in the appropriate verbatim environment and properly documented.\\
 
-The data are \texttt{rust\_data\_2020.csv}. The fields are \texttt{bus\_id}, \texttt{period\_id},  \texttt{y\_it} (replacement decision) and  \texttt{x\_it} (mileage state).\\
+The data are \texttt{rust\_data\_2020.csv} (the only file in the GitHub folder). The fields are \texttt{bus\_id}, \texttt{period\_id},  \texttt{y\_it} (replacement decision) and  \texttt{x\_it} (mileage state). Throughout, fix the discount factor at $\beta = 0.975$. (Why can't we estimate $\beta$ along with the other parameters?)\\
 
 Part 0 shouldn't take more than 5 minutes. Part 3 is the second easiest. Part 1 and 2 are challenging.
 
@@ -21,7 +22,7 @@ Part 0 shouldn't take more than 5 minutes. Part 3 is the second easiest. Part 1 
 \end{enumerate}
 
 \section*{Part 1: Estimation MLE}
-Estimate the model using the NFXP approach of Rust. Computers are fast enough you can probably get away with a finite differences for the gradient, but analytic gradients will be more reliable in addition to faster. If you are feeling ambitious \texttt{Jax} can do the gradient for you.
+Estimate the model using the NFXP approach of Rust. Computers are fast enough you can probably get away with finite differences for the gradient, but analytic gradients will be more reliable in addition to faster. If you are feeling ambitious, \texttt{JAX}'s autodiff makes the gradient cheap.
 \begin{enumerate}
 \item Compute $EV(x, \theta)$ for a given guess of the parameters via the fixed point.
 \item Construct the CCP given your $EV(x, \theta)$ for every possible mileage state.
@@ -31,29 +32,29 @@ Estimate the model using the NFXP approach of Rust. Computers are fast enough yo
 
 
 \section*{Part 2: Estimation MPEC}
-Estimate the model using the MPEC method of Su and Judd. If you are feeling ambitious, you can try a modeling language like \texttt{pyMC} or \texttt{JuMP} or \texttt{AMPL} or \texttt{GAMS}. (I've solved this in \texttt{AMPL} but have no idea if other approaches work).
+Estimate the model using the MPEC method of Su and Judd (2012). You can set up the constrained problem directly in \texttt{scipy.optimize} (\texttt{SLSQP} or \texttt{trust-constr}); if you are feeling ambitious, you can try a modeling language like \texttt{CasADi} or \texttt{Pyomo} in Python, or \texttt{JuMP} in Julia.
 \begin{enumerate}
 \item You will probably want to work out the analytic Jacobian where $EV_{\theta}$ is a free parameter.
-\item Compare the results in a table, including the nonparametric answers below and discuss the results.
+\item After you complete Part 3, compare the results from all three estimators in a table and discuss.
 \item Plot the $EV(\cdot)$ you have obtained for both estimators.
 \end{enumerate}
 
 
 
 \newpage
-\section*{Part 3: The Stata Estimator}
+\section*{Part 3: The Optimization-Free (CCP) Estimator}
 This is taken from Han Hong's problem set at Stanford, the idea is that we can use the arguments in Hotz-Miller (1993), or Pesendorfer Schmidt-Dengler (2008) to construct an optimization free method to recover the utility parameters in the Rust problem.\\
 
 We began by defining the choice specific value function with $\epsilon_{it}$ i.i.d. and EV.
 \begin{eqnarray*}
 v(x,d) &=& u(x,d) + \beta \int \log \left ( \sum_{d' \in D} \exp ( v (x',d'))  \right) p(x' | x, d) dx' \\
-v(x,d) &=& u(x,d) + \beta \int \log \left ( \sum_{d' \in D} \exp ( v (x',d') - v(x',1) )  \right) p(x' | x, d) dx'  + \beta \int v(x,1) p (x' | x,1) dx'\\
+v(x,d) &=& u(x,d) + \beta \int \log \left ( \sum_{d' \in D} \exp ( v (x',d') - v(x',1) )  \right) p(x' | x, d) dx'  + \beta \int v(x',1) p (x' | x,d) dx'\\
 \end{eqnarray*}
 \begin{enumerate}
 \item Estimate $p(x' | x,d)$ non parametrically or parametrically (for example as a set of  multinomial with $n$ outcomes or an exponential distribution).  Call your estimate $\hat{p}(x' | x,d)$.
 \item Estimate $p(d | x)$ (the CCP) non-parametrically. You can use the binomial logit model with a basis function (increasing number of terms) or you can use a kernel. (Extra Credit: Impose monotonicty on CCP's).
 \item Now use the Hotz-Miller inversion to estimate:  $\hat{v}(x,d) - \hat{v}(x,1) = \log \hat{p}(d|x) - \log \hat{p}(1|x)$
-\item Normalize $u(x,1) = 0$ and so for $=1$  we have that 
+\item Normalize $u(x,1) = 0$ and so for $d=1$  we have that
 \begin{eqnarray*}
 v(x,1) &=& \beta \int v(x',1) p(x' | x,1) dx' + \beta \int \log \left( \sum_{d' \in D} \exp(\hat{v}(x',d') - \hat{v}(x',1)) \right) \hat{p}(x' | x,1) dx' \\
 &=& \beta \int v(x',1) p(x' | x,1) dx' - \beta \int \log \left(\hat{p}(1| x') \right)  \hat{p}(x' | x,1) dx' \\
@@ -61,8 +62,9 @@ v(x,1) &=& \beta \int v(x',1) p(x' | x,1) dx' + \beta \int \log \left( \sum_{d' 
 This defines a fixed point that we can iterate on to obtain a nonparametric estimate of $\hat{v}(x,1)$ .  Add this to $\hat{v}(x,d) - \hat{v}(x,1)$ to recover the choice specific value functions for $d=1,\ldots,D$.
 \item  Once we know $\hat{v}(x,d)$ for all $d \in D$ we can recover the nonparametric estimate of $u(x,d)$ for $d \geq 2$ by 
 \begin{eqnarray*}
-\hat{u}(x,d) = \hat{v}(x,d) - \beta \int \log \left(\exp(\hat{v}(x',d') \right) \hat{p}(x' | x,d) dx'
+\hat{u}(x,d) = \hat{v}(x,d) - \beta \int \log \left( \sum_{d' \in D} \exp(\hat{v}(x',d')) \right) \hat{p}(x' | x,d) dx'
 \end{eqnarray*}
+(Consistent with the displays above, we have dropped the Euler constant $\gamma_E \approx 0.5772$ from the expected maximum; keeping it would only shift each $\hat{u}(x,d)$ by the constant $-\beta \gamma_E$.)
 \end{enumerate}
 This estimator should be very simple to implement (and only requires one fixed point) so we could do inference via the bootstrap if we wanted to.
 

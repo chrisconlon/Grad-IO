@@ -1,5 +1,38 @@
 # Session log
 
+## 2026-09-01 (later) — Assignments overhaul
+
+All five active psets repaired, modernized, and extended; all build. Uncommitted
+pending review.
+
+- **Solutions privatized**: PS0's comment-block answers and PS4's
+  `rust.py`/`generate_data.py` (the DGP!) moved to gitignored
+  `Assignments/solutions/`; public tree now ships data only.
+- **Retired**: MATLAB PS0 variant (stale, contradicted the convexity fix),
+  Su–Judd Knitro/AMPL folders (PS4 now points at scipy/CasADi/Pyomo/JuMP),
+  orphan `BLP_hw_2024.pdf`.
+- **Repairs**: PS4's malformed Hotz–Miller displays fixed (log-sum-exp over
+  actions, primed states, Euler-constant comment) + β=0.975 stated; PS2's
+  `\calJ` compile error, WTP typo, Part-IV sign, λ→ρ relabel (file's λ was
+  already Berry's parameter — exponents kept `1/(1−ρ)`), continuous numbering
+  1–22, `Σ_η` notation; PS1's ξ₁=0 normalization + data-description fixes;
+  PS0's URL/hermgauss/notation refresh.
+- **New material**: SE questions (inverse Hessian/OPG; GMM sandwich with
+  (1+1/S)) and a school-closure ΔCS question (Small–Rosen, miles-as-money,
+  log(1−σ) comparison) in PS1; zeros reframe of PS2 Part I (it *is*
+  Quan–Williams) + selection question + second-choice diversion question +
+  CES coda; sampling-zeros part (7a–7c: multinomial N_t=500, drop vs Laplace,
+  bias directions) and micro-moment question (9a, salvaged from ps2_2016's
+  commented draft, CG-2023 standardized form) in BLP_hw; diversion-object
+  (D_jk vs D_{j→k}) reporting requirements in both diversion tables.
+- **PS1 identification flaw → RESOLVED as pedagogy** (Chris's ruling): Q4 now
+  estimates the characteristics model (ξ=0), Q6 the FE model, with an explicit
+  nesting/LR structure (2 df); new Q7 asks why joint estimation fails (FEs
+  absorb school-level characteristics — exactly BLP's ξ) and runs the two-step
+  ξ̂-on-x projection with a small-J standard-errors caveat. RC question builds
+  on the characteristics model.
+- Due dates deliberately untouched per Chris.
+
 ## 2026-09-01 — Weeks 1–5 streamlining (see `REDESIGN-WEEKS-1-5.md` for full detail)
 
 Three phases, all complete and verified building; uncommitted pending review:

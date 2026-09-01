@@ -1,7 +1,6 @@
 \documentclass[english,11pt]{article}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[T1]{fontenc}
-\usepackage[latin9]{inputenc}
 \usepackage{amsmath}
 \usepackage{babel}
 
@@ -41,20 +40,21 @@ documentation and a very helpful tutorial (which covers merger simulation),
 both easy to find (\url{https://pyblp.readthedocs.io/en/stable/}). You may want to work through the tutorial notebooks available with the documentation (or on the Github page).\\
 
 
-To install \texttt{pyBLP} you need to have Python 3 installed, I recommend Anaconda \url{https://www.anaconda.com/distribution/}. If you have python installed you simply need to type:
+To install \texttt{pyBLP}, I recommend creating a fresh virtual environment and typing:
 \begin{verbatim}
 pip install pyblp
 \end{verbatim}
-or 
+or, for the development version,
 \begin{verbatim}
 pip install git+https://github.com/jeffgortmaker/pyblp
 \end{verbatim}
+(If you manage your Python installations with conda, \texttt{pyblp} is also available on \texttt{conda-forge}.)
 
-Please submit a \underline{single printed} document presenting your answers to the questions below,
-requested results, and code. Write this up cleanly with nice tables where appropriate.
+Please submit a \underline{single PDF} via Brightspace presenting your answers to the questions below,
+requested results, and code (write-up and code in one document). Write this up cleanly with nice tables where appropriate.
 You may work in groups of up to 3 on the coding, but your write-up must be your own work and must indicate who your partners are.
 
-You can do parts (2) and (3) in R, Matlab, Julia, or Python. Parts (4) and (5) use \texttt{pyblp} which you can run in R using \texttt{reticulate} if you really want.
+You can do parts (2)--(4) in R, Matlab, Julia, or Python. Parts (5) and (6) use \texttt{pyblp} which you can run in R using \texttt{reticulate} if you really want.
 \section{Model}
 
 There are $T$ markets, each with four inside goods $j\in
@@ -78,9 +78,9 @@ type-1 extreme value $\epsilon _{ijt}$.  Each consumer purchases the good giving
 Goods are produced by single-product firms. Firm $j$'s (log) marginal
 cost in market $t$ is 
 \begin{equation*}
-\ln mc_{jt}=\gamma ^{0}+\text{w}_{jt}\gamma ^{1}+\omega _{jt}/8,
+\ln mc_{jt}=\gamma ^{0}+w_{jt}\gamma ^{1}+\omega _{jt}/8,
 \end{equation*}%
-where w$_{jt}$ is an observed cost shifter. Firms compete by simultaneously choosing prices in each market under complete information. Firm $j$ has profit
+where $w_{jt}$ is an observed cost shifter. Firms compete by simultaneously choosing prices in each market under complete information. Firm $j$ has profit
 \begin{equation*}
 \pi _{jt}=\max_{p_{jt}}M_{t}(p_{jt}-mc_{jt})\sigma_{jt}(p_{t}).
 \end{equation*}
@@ -99,7 +99,7 @@ N\left( 4,1\right) \text{ for }k=2,3 \\
 \begin{enumerate}
 \item Draw the exogenous product characteristic $x_{jt}$ for $T=600$
 geographically defined markets (e.g., cities). Assume each $x_{jt}$ is equal
-to the absolute value of an iid standard normal draw, as is each w$_{jt}$.
+to the absolute value of an iid standard normal draw, as is each $w_{jt}$.
 Simulate demand and cost unobservables as well, specifying
 \begin{equation*}
 \left(
@@ -160,19 +160,19 @@ p_{jt}}\right) ^{-1}\sigma_{jt}  \label{FOC}
 {FOC}) ($J\,$equations per market) for the equilibrium prices in each market.
 
 \begin{enumerate}
-\item To do this you will need to solve a system of $J \times J$ nonlinear equations.\footnote{To do this in Python use \texttt{scipy.optimize.root}, in MATLAB use \texttt{fsolve}, in R use \texttt{nleqslv} or something similar, and in Julia use \texttt{NLSolve.jl} or something similar.} Make sure to check the exit flag for each market to make sure you have a solution. 
+\item To do this you will need to solve a system of $J \times J$ nonlinear equations.\footnote{To do this in Python use \texttt{scipy.optimize.root}, in MATLAB use \texttt{fsolve}, in R use \texttt{nleqslv} or something similar, and in Julia use \texttt{NLsolve.jl} or something similar.} Make sure to check the exit flag for each market to make sure you have a solution. 
 \item Do this again using the algorithm of Morrow and
-Skerlos (2011), discussed in section 3.6 of Conlon and Gortmaker (2019) (and
+Skerlos (2011), discussed in section 3.6 of Conlon and Gortmaker (2020) (and
 in the \texttt{pyBLP} \textquotedblleft problem simulation tutorial\textquotedblright
 ). Use the numerical integration approach you used in step (a) to approximate the
-terms defined in equation (25) of Conlon and Gortmaker. If you get different
+terms defined in equation (25) of Conlon and Gortmaker (2020). If you get different
 results using this method, resolve this discrepancy either by correcting
 your code or explaining why your preferred method is the one to be trusted.
 \end{enumerate}
 \end{enumerate}
 
 \item Calculate the observed shares $s_{jt}$ for
-your fake data set using your parameters, your draws of $x,$w$,\beta
+your fake data set using your parameters, your draws of $x,w,\beta
 _{i},\omega ,\xi $, and your equilibrium prices.
 \end{enumerate}
 
@@ -185,7 +185,7 @@ _{i},\omega ,\xi $, and your equilibrium prices.
 
 \item[5.] Re-estimate the multinomial logit model of demand by two-stage
 least squares, instrumenting for prices with the exogenous demand shifters $%
-x $ and excluded cost shifters w. Discuss how the results differ from those
+x $ and excluded cost shifters $w$. Discuss how the results differ from those
 obtained by OLS.
 
 \item[6.] Now estimate a nested logit model by two-stage least squares,
@@ -212,7 +212,45 @@ analytic expressions for market shares in the nested logit model, you could
 either differentiate these or use \textquotedblleft finite
 difference\textquotedblright\ approximation of derivatives.} Provide two
 additional tables showing the true matrix of diversion ratios and the
-diversion ratios implied by your estimates.\footnote{If you get stuck working out the diversion ratios for nested logit -- consult Conlon and Mortimer (2018).}
+diversion ratios implied by your estimates.\footnote{If you get stuck working out the diversion ratios for nested logit -- consult Conlon and Mortimer (2018).} State clearly \textit{which} diversion object your
+tables report: the derivative-based (small price change) $D_{jk}$ or the
+second-choice (removal of $j$ from the choice set) $D_{j\rightarrow k}$ --
+these are different objects and your comparison is only meaningful if the true and estimated tables report the same one.
+\end{enumerate}
+
+\section{Sampling Error and Zero Shares}
+\textit{Feel free to use the software package of your choice}\\
+
+So far your \textquotedblleft observed\textquotedblright\ shares are the
+model's exact choice probabilities -- as if each market contained infinitely
+many consumers. Real share data are constructed from a finite number of
+purchases, and some products sell zero units in some markets (see the
+\textquotedblleft What about Zero Shares?\textquotedblright\ frames from the
+BLP lecture). To keep the numbering of the later questions intact, the
+questions in this part are labeled 7a--7c.
+
+\begin{enumerate}
+\item[7a.] For each market, simulate purchases by $N_{t}=500$ consumers:
+draw the vector of purchase counts $(n_{0t},n_{1t},\ldots ,n_{4t})$ from a
+multinomial distribution with $N_{t}$ trials and the true choice
+probabilities (including the outside good), and form the empirical shares $%
+\hat{s}_{jt}=n_{jt}/N_{t}$. Report the fraction of inside-good observations $%
+(j,t)$ with $\hat{s}_{jt}=0$.
+
+\item[7b.] Re-run the logit 2SLS regression from question 5, replacing the
+exact shares with your empirical shares, in two ways: (i) drop the
+observations with $\hat{s}_{jt}=0$ (you have no choice: $\ln 0$ is not an
+option); (ii) keep every observation but replace the empirical shares with
+the \textquotedblleft Laplace shares\textquotedblright\ $%
+(n_{jt}+1)/(N_{t}+J+1)$ (applied to the outside good as well). Provide a
+table comparing both sets of estimates to the true parameters and to your
+infinite-consumer estimates from question 5.
+
+\item[7c.] Which direction does each fix bias the price coefficient $\alpha
+$, and why? (Hint: dropping zeros selects observations on the realized $\xi
+_{jt}$ -- which products are most likely to record zero sales, and at what
+prices? The Laplace correction instead mechanically compresses all shares
+toward each other -- what does that do to the estimated price sensitivity?)
 \end{enumerate}
 
 \section{Estimate the Correctly Specified Model}
@@ -232,9 +270,38 @@ alone, then again when you estimate jointly with supply; and again with the ``op
 preference), provide a table comparing the estimated own-price elasticities
 to the true own-price elasticities. Provide two additional tables showing
 the true matrix of diversion ratios and the diversion ratios implied by your
-estimates.
+estimates. As in question 7, state which diversion object you report: the
+derivative-based $D_{jk}$ (from \texttt{compute\_diversion\_ratios}) or the
+second-choice $D_{j\rightarrow k}$ (from
+\texttt{compute\_long\_run\_diversion\_ratios}).
 
-\item[9*] Extra Credit. Bootstrap your diversion ratio estimates and compare the bootstrapped confidence interval to the ``true'' values. (This may take some computer time).
+\item[9a.] Consider the possibility of adding a \textit{micro moment} to
+the estimation. Micro moments are statistics taken from micro datasets
+(surveys, household panels) that tell us more about consumer preferences
+than aggregate shares alone; see the Micro Data lecture and Conlon and
+Gortmaker (2023). Suppose that household income $y_{it}$ enters utility
+through a demographic interaction with the satellite dummy, $\Pi \,
+y_{it}\, satellite_{jt}$, and that a detailed survey of pay-TV subscribers
+(consumers with $j_{i}>0$) reports that the correlation between $y_{it}$
+and choosing a satellite service is $0.7$.
+\begin{enumerate}
+\item Write out the corresponding micro moment in the standardized form of
+Conlon and Gortmaker (2023): specify the sampling weights $w_{dijt}$ (who
+gets surveyed?), the value function $v_{dijt}$, the model counterpart of the
+survey statistic (an average over the joint distribution of demographics and
+choices, weighted by $w_{it}\,\sigma _{ijt}$), and the moment condition
+matching the two.
+\item Which parameter does this moment help identify: the element of $\Pi $
+(the income $\times $ satellite interaction) or the element of $\Sigma $
+(the random coefficient on satellite)? Explain why aggregate data alone
+struggle to pin this down -- what cross-market variation would you need?
+\item (Optional) Extend your fake-data DGP with a log-normal income draw and
+a nonzero $\Pi $, simulate the survey, and implement the moment via %
+\texttt{pyblp.MicroMoment} (see the micro-moments tutorial). Verify that you
+recover $\Pi $.
+\end{enumerate}
+
+\item[9$^{*}$] Extra Credit. Bootstrap your diversion ratio estimates and compare the bootstrapped confidence interval to the ``true'' values. (This may take some computer time).
 \end{enumerate}
 
 \section{Merger Simulation}
@@ -269,7 +336,9 @@ the merger on consumer welfare,\footnote{%
 Note that because we have quasilinear preferences, consumer surplus is a
 valid measure of aggregate consumer welfare under the usual assumption of
 optimal redistribution.} assuming that the total measure of consumers $%
-M_{t} $ is the same in each market  $t$?  
+M_{t} $ is the same in each market  $t$?  (The object you are computing is
+the Small--Rosen log-sum-exp $\Delta CS$ from the Welfare frames of the IIA
+Logit lecture.)
 \item[15.] Explain why this additional assumption
 (or data on the correct values of $M_{t}$) is needed here, whereas up to
 this point it was without loss to assume $M_{t}=1$. What is the predicted
@@ -287,7 +356,7 @@ In particular, if $z=(z_{1},\ldots ,z_{k})^{\prime }\sim N(0,I_{k})$ and $%
 A=Chol(\Sigma )$, then $Az$ is distributed $N(0,\Sigma )$.
 
 
-\item When you estimate the logit and nested logit models, you will have to choose which functions of the exogenous variables to use as instruments.  One option would be to use all of them---the exogenous demand shifters (own and competing products) and the exogenous cost shifters. Alternatively, you might want to use something more like the BLP approximation of the optimal instruments. For example,  for good $j$ in market $t$, the instruments might be $x_{jt},\text{w}_{jt}, satellite_{jt}, wired_{jt},$ the quality index summed over competing goods $-j$ in market $t$, the quality index of the other good in the same nest as good $j$.\footnote{ Note that on the supply side, there is an intercept in the marginal cost function, which will be collinear with the two dummies for satellite and wired.} The \texttt{pyBLP} package gives some convenient built-in functions \texttt{pyblp.build\_blp\_instruments()} and \texttt{pyblp.build\_differentiation\_instruments()}.\\
+\item When you estimate the logit and nested logit models, you will have to choose which functions of the exogenous variables to use as instruments.  One option would be to use all of them---the exogenous demand shifters (own and competing products) and the exogenous cost shifters. Alternatively, you might want to use something more like the BLP approximation of the optimal instruments. For example,  for good $j$ in market $t$, the instruments might be $x_{jt}, w_{jt}, satellite_{jt}, wired_{jt},$ the quality index summed over competing goods $-j$ in market $t$, the quality index of the other good in the same nest as good $j$.\footnote{ Note that on the supply side, there is an intercept in the marginal cost function, which will be collinear with the two dummies for satellite and wired.} The \texttt{pyBLP} package gives some convenient built-in functions \texttt{pyblp.build\_blp\_instruments()} and \texttt{pyblp.build\_differentiation\_instruments()}.\\
 
 
 Of course, you do not need to feed an approximation of the optimal IV into \texttt{pyBLP} if you are going to have \texttt{pyBLP} compute a (better) approximation of the optimal instruments. Though the quality of the approximation depends on the initial set of instruments.

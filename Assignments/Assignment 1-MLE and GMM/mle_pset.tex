@@ -3,6 +3,7 @@
 \usepackage{hyperref}
 \usepackage{fullpage}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage[shortlabels]{enumitem}
 
@@ -22,32 +23,40 @@ u_{ij} = \beta_1 \cdot \text{test scores}_j  +\beta_2 \cdot \text{sports}_j+ \xi
 \end{align*}
 We define the terms below:
 \begin{itemize}
-	\item Test Scores $[0-100]\%$: the average percentile of the students at the school on a standardized test
-	\item Sports $[0-5]$: how good the school is at sports
-	\item Distance $d_{ij} \in [0,\inf)$ how far away the school is in miles from household $i$
+	\item Test Scores $\in [0,1]$: the average percentile (as a fraction) of the students at the school on a standardized test
+	\item Sports $\in [0.3, 4]$ (roughly): how good the school is at sports
+	\item Distance $d_{ij} \in [0,\infty)$ how far away the school is in miles from household $i$
 	\item $\xi_j$: unobservable school ``quality''
 \end{itemize}
-The parameters of the model are $\theta = [\beta_1,\beta_2, \xi_1,\ldots,\xi_5, \alpha]$
+There is no outside option: every household chooses one of the five schools. That means only \emph{differences} in the $\xi_j$'s are identified, so normalize $\xi_1 = 0$. The full parameter list is $\theta = [\beta_1,\beta_2, \xi_2,\ldots,\xi_5, \alpha]$ --- though as you will discover below, you cannot estimate all of these at once.
 
 \section*{\normalsize Questions}
-For parameter estimates, also report: the (negative) log-likelihood, the diversion ratio from school 1 to school 2, the average own elasticitity with respect to distance for the chosen school.
+For parameter estimates, also report: the (negative) log-likelihood, the diversion ratio from school 1 to school 2, the average own elasticity with respect to distance for the chosen school.
 \begin{enumerate}
 	\item Look at the data and plot the distribution of distance to all schools, and the distribution of distance to the chosen school.
-	\item Write down the market share and log-likelihood for a plain logit model.
+	\item Write down the choice probability $\sigma_{ij}$ and log-likelihood for a plain logit model. (This is micro data: each household has its own $\sigma_{ij}$; save $s_j$ for observed shares.)
 	\item Write down the score and the gradient of your log-likelihood.
-	\item Estimate the plain logit model by maximimum likelihood. 
-	\item Estimate a restricted model with only $\xi_j$ parameters. Add that to your table. 
-	\item Now allow for parents to have different preferences for $ \text{test scores}_j$ so that $\beta_{1i}\sim N(\beta_1,\sigma_b)$. Write down the (simulated) market share and gradient expressions.
+	\item Estimate the \emph{characteristics} model by maximum likelihood: impose $\xi_j = 0$ for all $j$, so that $\theta = [\beta_1,\beta_2,\alpha]$.
+	\item Report standard errors for your estimates using the inverse Hessian (observed information). Compare with standard errors from the outer product of scores.
+	\item Estimate the \emph{fixed effects} model with only the $\xi_j$'s and $\alpha$ (i.e., impose $\beta_1=\beta_2=0$, so that $\theta = [\xi_2,\ldots,\xi_5,\alpha]$). Add that to your table. Show that the characteristics model from Question 4 is \emph{nested} in this one: what restriction on the $\xi_j$'s does it impose? Compare the two with a likelihood-ratio test --- how many degrees of freedom?
+	\item \label{q:ident} Why can't you estimate $\beta_1$, $\beta_2$, and all of the $\xi_j$'s jointly? (What varies \emph{within} a school across households, and what doesn't?) This is not a small-sample problem: it is exactly the situation in BLP-style demand models, where every product carries an unobservable $\xi_j$ alongside its characteristics $x_j$, and it is why product fixed effects ``absorb'' product characteristics. Now run the two-step fix: regress your estimated $\widehat{\xi}_j$'s from Question 6 on test scores and sports. How do the coefficients compare to Question 4's $\widehat{\beta}$'s, and why? With $J=5$ schools, would you trust the standard errors from that regression? (We will see this move again when we get to BLP.)
+	\item Now allow for parents to have different preferences for $ \text{test scores}_j$ so that $\beta_{1i}\sim N(\beta_1,\Sigma_b^2)$, where the standard deviation $\Sigma_b$ is just a scalar here. (Build on the characteristics model from Question 4, keeping $\xi_j = 0$.) Write down the (simulated) choice probability and gradient expressions.
 
-	\item Estimate this expanded model via maximum likelihood:
+	\item \label{q:rcml} Estimate this expanded model via maximum likelihood:
 	\begin{enumerate}
-		\item Using 100 Monte Carlo Draws from an apporpriately transformed standard normal.
+		\item Using 100 Monte Carlo Draws from an appropriately transformed standard normal.
 		\item Using a Gauss Hermite quadrature rule.
 	\end{enumerate}
 	\item Read Chapter 10 in Train and write down the MSM estimator for the expanded model. What are your ``instruments''?
 	\item Calculate the Jacobian of the MSM estimator.
 	\item Estimate the Parameters of the MSM estimator.
+	\item Report standard errors using the GMM sandwich formula. What adjustment does simulation error require? (Hint: with $S$ simulation draws the variance picks up a $(1+1/S)$ factor.)
 	\item Bonus: Using your initial MSM estimates as a starting point, explain how to construct an ``efficient'' MSM estimator, and produce ``efficient'' estimates.
+	\item Suppose school 1 closes. Using your mixed logit estimates from Question \ref{q:rcml}, compute each household's change in consumer surplus via the Small--Rosen log-sum-exp difference:
+	\begin{align*}
+	\Delta CS_i = \frac{1}{\alpha} \, \mathbb{E}_{\beta_{1i}}\left[ \log \sum_{j \neq 1} \exp(V_{ij}) - \log \sum_{j=1}^{5} \exp(V_{ij}) \right]
+	\end{align*}
+	Note that distance plays the role of price here, so the ``money'' metric is in miles of extra travel. Report the average $\Delta CS$ and a histogram across households. Compare with the plain-logit shortcut $\Delta CS_i = \frac{1}{\alpha} \log(1-\sigma_{i1})$ evaluated at your plain logit estimates. Why do the two differ? (See the Welfare frames from the IIA Logit lecture.)
 \end{enumerate}
 
 \end{document}
