@@ -41,6 +41,26 @@
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
 
+## 2026-09-02 (evening) — CMS frames refreshed in Week 5; new-machine setup
+
+- **Week 5 `machine_learning.tex`, "Idea #2" block**: the 2024 IIOC CMS frames
+  (ℓ1-constrained program, rank-15 profiles, F-Series table, in-sample figure)
+  replaced by 7 frames aligned with the 2026 paper/`PyCMS`: rank-of-D-by-model
+  table; the row-weighted program with simplex constraints, (I,λ) by CV,
+  softmax/Adam, sparsification, PyCMS link; raw MaritzCX heatmap; CV out-of-
+  sample fit vs GMY; rank-38 profiles; Suburban top-substitutes table; second
+  stage (type-level inversion, α_i calibration from own elasticities or margins
+  via the Bertrand FOC, row-multinomial bootstrap / invariant functionals).
+  Grad-IO notation (σ, w, D_{j→k}, −α_i p_j, Δ per NOTATION.md). Assets copied
+  from `CMS_Estimator/carsdata` as `resources/cms_*`; old assets removed (the
+  Leuven `demand_iioc` twin keeps its own copies). Builds clean, 17 pp.
+- **Syllabus/webpage**: Fall 2026 meeting time set to Thursday 1:30–4:30pm,
+  KMC 7-191 (syllabus-2026 + gradio.html; both pushed).
+- **This machine**: Dropbox root is on the external volume (`/Volumes/ZIKE
+  Samsung 990 Pro 4TB/Dropbox`); `~/Dropbox/Teaching` symlink added, texmf
+  symlinks recreated, `Assignments/solutions` symlink recreated, Claude memory
+  restored from the Dropbox snapshot.
+
 ## 2026-09-02 (later) — Reorganization executed (Tiew syllabus arrived)
 
 Tiew's ECON-GA 3002 syllabus (local, untracked) settled the open questions:

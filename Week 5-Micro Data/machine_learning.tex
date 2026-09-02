@@ -144,71 +144,119 @@ What if we could first estimate \alert{unobserved characteristics}?
 
 
 
-\begin{frame}{Conlon, Mortimer, Sarkis (2024): Structural Low Rank Approximations}
+\begin{frame}{Second Choices as a Matrix: How Much Rank Do You Need?}
+For any mixture of logits, the second-choice (product-removal) diversion from $j$ to $k$ is
+\begin{align*}
+D_{j \rightarrow k} = \sum_{i=1}^I w_i \cdot \frac{\sigma_{ij}}{1-\sigma_{ij}} \cdot \frac{\sigma_{ik}}{s_j}
+\quad\Longleftrightarrow\quad
+\symbf{D} = \text{diag}(\symbf{s})^{-1}\, \widetilde{\symbf{S}}\, \text{diag}(w)\, \symbf{S}^{\top},
+\qquad \widetilde{\sigma}_{ij} = \tfrac{\sigma_{ij}}{1-\sigma_{ij}},
+\end{align*}
+where the columns of $\symbf{S}$ are the type-level choice-probability vectors $\symbf{\sigma}_i$.
+\vspace{-0.1cm}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
 \small
-Fix $\textrm{rank}(\symbf{D}(\symbf{S},w))=I$, and for each choice of $I$ solve:
-\begin{align*}
-\min _{(\symbf{S}, w) \geq 0} \left\|\mathcal{P}_{\Omega}(\calD-\symbf{D}(\symbf{S},w))\right\|_{\ell_2}  &+ \lambda \left\|\symbf{s}- \symbf{S}\,w \right\|_{\ell_2} \text { with } \left\|w  \right\|_{\ell_1} \leq 1, \quad   \left\|\symbf{\sigma_i}  \right\|_{\ell_1} \leq 1.
-\end{align*}
-\vspace{-.25cm}
-\begin{itemize}
-\item Goal: estimate $\symbf{\sigma_i}$ (choice probabilities) and corresponding weights $w_i$ (Finite Mixture) in \alert{product space}
-\begin{itemize}
-\item Consistent with $U_{ij} = V_{ij} + \varepsilon_{ij}$ and logit error.
-\end{itemize}
-\item Constraints: Choice probabilities $\sigma_{ij}$ sum to one, type weights $w_i$ sum to one.
-\begin{itemize}
-\item $\ell_1$ constraints lead to \alert{sparsity}.
-\end{itemize}
-\item Idea: \alert{Control the rank by limiting $I$ directly}
-\begin{itemize}
-\item Use cross validation to select \# of types $I$ and Lagrange multiplier $\lambda$.
-\end{itemize}
-\item Matrix completion: We can construct estimates of $\symbf{D}(\symbf{S},w)$ including elements of $\mathcal{P}_{\overline{\Omega}}$.
-\begin{align*}
-%    & s_j = \sum_{i} \pi_i s_{i,j} \text{ for all } j \in \mathcal{J}\\
-    & \symbf{D}= \frac{1}{\symbf{s}}\sum_{i = 1}^I w_i \, \symbf{\sigma_i} \times \left[\frac{\symbf{\sigma_{i}}}{1-\symbf{\sigma_i}}\right]^T
-\end{align*}
-% \item Weights $\widetilde c_j$ and $c_j$ are proportional to $\ln q_j$
-\end{itemize}
+\begin{tabular}{lcl}
+\toprule
+\textbf{Model} & \textbf{rank}$(\symbf{D})$ & \textbf{Why} \\
+\midrule
+Logit ($I=1$) & $\leq 1$ & one outer product $\widetilde{\symbf{s}}\,\symbf{s}^{\top}$: proportional substitution \\
+Nested logit ($G$ nests) & $\leq G$ & one outer product per (non-singleton) nest \\
+Mixed logit ($I$ types) & $\leq \min\{I, J+1\}$ & one rank-one term per type \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{-0.1cm}
+\begin{wideitemize}
+    \item Logit and nested-logit bounds are \alert{tight}; the mixed-logit bound is usually slack (thousands of draws on a handful of characteristics).
+    \item Idea: skip characteristics and parametric random coefficients; \alert{control $\text{rank}(\symbf{D})$ directly} in product space.
+\end{wideitemize}
 \end{frame}
 
 
-\begin{frame}{Profiles of Types (Rank 15)}
+\begin{frame}{Conlon, Mortimer, Sarkis (2026): Second Choices in Product Space}
+\small
+Data from a \alert{single market}: shares $s_j$ and a subset $\Omega$ of survey second-choice cells $\calD_{j \rightarrow k}$. For each rank $I$, solve
+\begin{align*}
+\min_{(\symbf{S},\, w) \geq 0}\
+\sum_{(j,k) \in \Omega} \omega_{jk}\, \bigl(\calD_{j \rightarrow k} - D_{j \rightarrow k}(\symbf{S},w)\bigr)^2
+\;+\; \lambda\, \bigl\| \symbf{s} - \symbf{S}\, w \bigr\|_{\ell_2}^2
+\quad \text{s.t.}\quad
+\textstyle\sum_j \sigma_{ij} = 1\ \forall i,\quad \sum_i w_i = 1.
+\end{align*}
+\vspace{-0.4cm}
+\begin{wideitemize}
+\item \textbf{Estimates} $\symbf{\sigma}_i$ (type profiles) and $w_i$ (type weights): a finite mixture with $I \ll J$ and no characteristics.
+\item \textbf{Tuning}: $\lambda$ is a share-fit penalty (not a ridge); $(I,\lambda)$ chosen by cross-validation on held-out cells of $\Omega$.
+\item \textbf{Weights} $\omega_{jk} \propto n_j$, the respondents behind row $j$ (approximately inverse-variance under row-multinomial sampling).
+\item \textbf{Computation}: reparameterize $\sigma_{ij} = e^{V_{ij}}/\sum_k e^{V_{ik}}$, $w_i = e^{\gamma_i}/\sum_{\iota} e^{\gamma_\iota}$, so the problem is unconstrained; autodiff + Adam. Optional sparsification zeroes $\geq 75\%$ of $\symbf{S}$ (stop when AIC rises).
+\item \textbf{Matrix completion}: the fitted $\symbf{D}(\symbf{S},w)$ predicts the \emph{unobserved} cells $(j,k) \notin \Omega$.
+\item Software: \href{https://github.com/metalforpc/PyCMS}{\texttt{PyCMS}} (PyTorch).
+\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}[plain]{What the Data Look Like: MaritzCX Second Choices, 254 Cars and Light Trucks (2015)}
+\centering
+\includegraphics[height=\textheight,width=\textwidth, keepaspectratio]{resources/cms_divmat_cars_raw.pdf}
+\end{frame}
+
+
+\begin{frame}{Cross Validation: Out-of-Sample Fit}
+\centering
+\includegraphics[height=0.85\textheight,width=\textwidth, keepaspectratio]{resources/cms_cv_oos_rmse.pdf}\\
+\vspace{-0.1cm}
+{\footnotesize Held-out second-choice cells. Parametric BLP-style benchmark from Grieco, Murry, Yurukoglu (QJE 2023): $R^2 = 0.18$; CMS $I=38$ (one-SE rule): $0.65$; CMS $I=58$ (best): $0.78$.}
+\end{frame}
+
+
+\begin{frame}{Profiles of Types (Rank 38)}
 \begin{columns}
-\begin{column}{0.5\textwidth}
-    \includegraphics[height=0.95\textheight]{resources/hpc_rank_15_profiles}
+\begin{column}{0.55\textwidth}
+    \includegraphics[height=0.86\textheight,width=\textwidth,keepaspectratio]{resources/cms_profiles_rank38.pdf}
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.45\textwidth}
     \begin{itemize}
-        \item Each column of the matrix $\symbf{S}$ ($I \times J$) represents a ``type'' $\symbf{\sigma_i}$ (a $J \times 1$) vector of choice probabilities.
-        \item We see both the \alert{sparsity} as well as specific consumer \alert{segments} (or ``types'').
-        \item We also obtain the share of each type in the population $w_i$.
-        \item Remember that $u_{ij} - u_{i0} = \log \sigma_{ij} - \log \sigma_{i0}$, so that we identify indirect utilities (relative to outside good).
-        \item We still need to estimate $\frac{\partial u_{ij}}{\partial p_j}$ somehow.
+        \item Each column of $\symbf{S}$ is a ``type'' $\symbf{\sigma}_i$: a $(J+1) \times 1$ vector of choice probabilities.
+        \item We see both \alert{sparsity} and recognizable consumer \alert{segments}, without any characteristics.
+        \item We also obtain the population weight of each type, $w_i$.
+        \item Since $V_{ij} - V_{i0} = \log \sigma_{ij} - \log \sigma_{i0}$, we identify indirect utilities relative to the outside good (type by type).
+        \item We still need $\partial V_{ij}/\partial p_j$ from somewhere: next slide.
     \end{itemize}
 \end{column}
 \end{columns}
 \end{frame}
 
 
-\begin{frame}{In-Sample Performance}
-\label{in_sample}
-%\hyperlink{cross_valid}{\beamerbutton{Cross Validation}}
+\begin{frame}{Top Substitutes: Chevrolet Suburban (second-choice \%)}
 \centering
-\includegraphics[height=\textheight,width=\textwidth, keepaspectratio]{resources/standard_lambda_tuned.png}\\
+\resizebox{0.85\textwidth}{!}{\input{resources/cms_top_substitutes_suburban.tex}}\\
+\vspace{0.2cm}
+{\footnotesize Raw survey vs.\ the parametric GMY model vs.\ CMS at two ranks. The parametric model spreads substitution across the segment; the data concentrate it on two near-twins.}
 \end{frame}
 
 
-
-
- \begin{frame}{Top Substitutes: Ford F-Series}
-    \centering
-    \input{resources/comparison-cars-ford f series-top10_v2.tex}\\
- \end{frame}
-
-
-
+\begin{frame}{Second Stage: Putting Prices Back In}
+\small
+The first stage delivers $\widehat{\symbf{S}}, \widehat{w}$ and hence $V_{ij} - V_{i0}$, but no price sensitivity and no welfare. Assume $V_{ij} = V^{*}_{ij} - \alpha_i p_j$ (constant within type, free across types) and calibrate $\alpha_i > 0$ from one of:
+\vspace{-0.15cm}
+\begin{wideitemize}
+\item \textbf{Own-price elasticities} (a quasi-experiment, another study, a simpler demand system):
+\begin{align*}
+\min_{\alpha > 0}\ \Bigl\| \mathcal{E}_{jj} + \frac{p_j}{\widehat{s}_j} \sum_{i=1}^I \alpha_i\, \widehat{w}_i\, \widehat{\sigma}_{ij} (1-\widehat{\sigma}_{ij}) \Bigr\|_{\ell_2}
+\qquad \text{(need } \geq I \text{ targets, or } \alpha_i = \alpha \text{)}
+\end{align*}
+\item \textbf{Price-cost margins}: Bertrand FOC with ownership matrix $\symbf{H}$ and demand derivatives $\Delta(\alpha) = \sum_i \widehat{w}_i \Delta_i(\alpha_i)$,
+\begin{align*}
+\symbf{c}(\alpha) = \symbf{p} - \bigl(\symbf{H} \odot \Delta(\alpha)\bigr)^{-1} \symbf{s},
+\qquad
+\min_{\alpha > 0}\ \bigl\| \mathcal{C}_j - c_j(\alpha) \bigr\|_{\ell_2}.
+\end{align*}
+\item Either way you now have a full mixed logit in product space: elasticities, diversion under price changes, merger simulation (Week 7).
+\item \textbf{Inference}: each row of $\calD$ is $\text{Multinomial}(n_j, \cdot)$; parametric bootstrap with warm-started re-solves. Type labels are not identified, so report CIs for \alert{invariant functionals} only (fitted $D_{j\rightarrow k}$, elasticities). E.g.\ Suburban $\rightarrow$ Yukon XL $+$ Expedition: $65\%$, 95\% CI $[60\%, 71\%]$.
+\end{wideitemize}
+\end{frame}
 
 
 \begin{frame}{Idea \#3: Customer Overlap (Einav, Guido, Klenow 2025)}
