@@ -234,4 +234,4 @@ build_log.txt
 other_courses/*.pdf
 
 # assignment solutions and DGPs stay local
-Assignments/solutions/
+Assignments/solutions

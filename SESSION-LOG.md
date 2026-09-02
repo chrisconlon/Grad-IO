@@ -27,7 +27,12 @@
    supersede decision and the dead copy-paste sweep for Weeks 6–15.
 4. Solution keys for PS2 (numeric verification of the algebra), BLP_hw, PS4,
    following the PS0/PS1 pattern.
-5. Backup home for `Assignments/solutions/` (exists only on this Mac).
+5. ~~Backup home for `Assignments/solutions/`~~ — DONE 2026-09-02: off-repo
+   material parked in `~/Dropbox/Teaching/IO/` (solutions moved there with a
+   symlink back at `Assignments/solutions`; gitignore pattern de-slashed so
+   the symlink can't be committed; scripts re-anchored to
+   `git rev-parse --show-toplevel`; colleagues' syllabi and Claude memory
+   snapshots parked alongside — see the README there).
 6. Lecture 15: keep Dickstein MI guest slot or repurpose — pending his
    availability.
 7. Fill real Fall 2026 due dates (webpage "Due: TBD" × 3; ps4 still carries
