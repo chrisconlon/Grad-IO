@@ -25,8 +25,12 @@
 3. Weeks 7–15 streamlining review (the Weeks 1–5 treatment: content maps,
    dedup, dead-comment cleanup, gaps) — incl. the conduct.tex vs conduct_new
    supersede decision and the dead copy-paste sweep for Weeks 6–15.
-4. Solution keys for PS2 (numeric verification of the algebra), BLP_hw, PS4,
-   following the PS0/PS1 pattern.
+4. ~~Solution keys for PS2, BLP_hw, PS4~~ — DONE 2026-09-02 (see entry below).
+   Follow-ups: (a) ~~regenerate the Rust data~~ DONE 2026-09-02 (`rust_data_2026.csv`,
+   standard timing, `generate_rust_data.py`; 2020 file retired; ps4.tex repointed);
+   (b) BLP_hw 7a: N_t = 500 yields ~0.04% zeros — consider N_t = 50; (c) ~~σ_sat
+   boundary~~ DONE 2026-09-02: handout now has Design A / Design B and Q8a (Berry–Haile
+   identification via choice-set variation); see entry below.
 5. ~~Backup home for `Assignments/solutions/`~~ — DONE 2026-09-02: off-repo
    material parked in `~/Dropbox/Teaching/IO/` (solutions moved there with a
    symlink back at `Assignments/solutions`; gitignore pattern de-slashed so
@@ -40,6 +44,63 @@
 8. `demand_iioc.tex` IPDL row (~l.832) — looks like ξ-recovery mislabeled as
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
+
+## 2026-09-02 (later still) — BLP_hw: two designs and the Berry–Haile identification lesson
+
+- **`BLP_hw.tex`** (Chris's ruling): new Q3a builds **Design B** from the same draws with
+  one random product missing in half the markets (Design A = the original 2+2 design);
+  Q8 runs pyBLP on both; new **Q8a** asks for the GMM objective surface over
+  (Σ_sat, Σ_wired) for each design and an explanation via choice-set variation
+  (Berry–Haile 2014), contrasted with the nested-logit ρ_g; Q9–15 use Design B. Model
+  section now says "(up to) four inside goods". PDF rebuilt (8 pp).
+- **Key rewritten** for both designs (`blp_hw_solution.py`, ~6 min; parquet per design;
+  `figures/blp_objective_ridge.pdf`). Design A: demand/joint on the boundary
+  Σ = (0, 1.57); optimal IV at an interior σ → (0.96, 1.17). Design B: demand
+  (1.37, 0.89) ± 0.25, joint the same, optimal IV (1.19, 1.22) ± 0.18; objective at
+  the truth 8.3 vs 21.8 at (0, 1.5) — the ridge is gone. Mergers on B: 1+2 +8.6–9.1%,
+  1+3 +4.1%; 15% efficiencies leave ΔCS ≈ 0, ΔW > 0.
+
+## 2026-09-02 (late) — Rust data regenerated; BLP instrument experiment
+
+- **`rust_data_2026.csv`** replaces `rust_data_2020.csv` (Chris's ruling): standard
+  timing (y_it decided at x_it), same truth and design (50 × 150, seed 2026),
+  produced by `solutions/generate_rust_data.py` via `rust_jax.RustModel.simulate`;
+  byte-identical on rerun. `ps4.tex` repointed and rebuilt. Keys updated (transition
+  probabilities now condition on the *lagged* decision, as standard timing requires):
+  NFXP = MPEC = (1.92, 0.62, 10.57) ± (1.28, 1.91, 1.48) vs truth (2.46, 0.03, 11.73);
+  the lag-paired run is now the wrong one (−LL 917 vs 875). Old `rust.py` /
+  `generate_data.py` removed from Dropbox.
+- **BLP σ_sat boundary — is it the instruments?** No. Demand-only 2-step GMM, best of
+  two starts: base IV (1.16, 0.00); + satellite-interacted IV (1.08, 0.00);
+  T = 2400 (0.00, 1.48). With one randomly missing product in 50% of markets:
+  base IV (0.69, 1.19) with SEs > 1; + interactions + goods-count instruments
+  (0.84, 1.20) ± 0.25, another seed (1.02, 1.08) ± 0.23. Fixed 2+2 choice sets
+  make the two nest-level RCs nearly unidentified from aggregate data; choice-set
+  variation (Berry–Haile) is what identifies them.
+
+## 2026-09-02 (night) — Solution keys for PS2, BLP_hw, PS4 (all in Dropbox `solutions/`)
+
+- **`ps2_solution.py`**: numerical verification of all PS2 algebra (21 checks pass):
+  Quan–Williams aggregated inversion exact (Q5) and its Q7 approximation's two error
+  sources separated (L → noise, J → bias); nested-logit removal diversion closed form
+  (log-stable to ρ → 1); symmetric Q(p,J), CS, inverse demand = parallel shift
+  (1−ρ) ln J / α; dCS/dJ = −Q dp/dJ + ((1−ρ)/α) q_{J+1}; WTP; envelope theorem.
+- **`blp_hw_solution.py`**: full Q1–15 key with pyBLP 1.2. DGP verified against
+  `pyblp.Simulation` to 1e-13. `scipy.optimize.root` from mc+0.5 fails in 2/600
+  markets; the ζ fixed point never does and generates the data. Nested logit gets
+  ρ ≈ 0.15 in both nests. **σ_sat → 0 boundary** with BLP-style (and differentiation)
+  instruments, 1s/2s, any start: a ridge in the GMM objective (objective at truth
+  3.1 vs 2.6 at the boundary); optimal IV evaluated at an interior σ recovers
+  (0.96, 1.17) ± 0.25 and α = −1.93. Mergers: 1+2 (same nest) +8–9% vs 1+3 +4.5%;
+  15% efficiencies leave ΔCS ≈ 0. `compute_profits` needs post-merger shares passed
+  explicitly (else it reuses observed shares).
+- **`ps4_solution.py`** (numpy) and **`rust_jax.py`** (JAX `RustModel` class, implicit
+  differentiation through the Bellman fixed point, exact-Hessian SEs, standard-timing
+  simulator): NFXP = MPEC = (2.69, 0.23, 12.32), truth (2.46, 0.03, 11.73), within
+  1 SE; CCP on the θ1/θ2 ridge but agrees on c(x) over the data's support; β profile
+  flat (why β is fixed). **Data quirk found**: replacement rows in `rust_data_2020.csv`
+  record the new engine's mileage, so the naive (x_it, y_it) pairing gives garbage;
+  y_it must be paired with x_{i,t−1}. Documented in the Dropbox README.
 
 ## 2026-09-02 (evening) — CMS frames refreshed in Week 5; new-machine setup
 

@@ -57,7 +57,7 @@ You may work in groups of up to 3 on the coding, but your write-up must be your 
 You can do parts (2)--(4) in R, Matlab, Julia, or Python. Parts (5) and (6) use \texttt{pyblp} which you can run in R using \texttt{reticulate} if you really want.
 \section{Model}
 
-There are $T$ markets, each with four inside goods $j\in
+There are $T$ markets, each with (up to) four inside goods $j\in
 \{1,2,3,4\}$ and an outside option. Goods 1 and 2 are satellite television
 services (e.g., DirecTV and Dish); goods 3 and 4 are wired television
 services (e.g., Frontier and Comcast in New Haven).
@@ -173,7 +173,19 @@ your code or explaining why your preferred method is the one to be trusted.
 
 \item Calculate the observed shares $s_{jt}$ for
 your fake data set using your parameters, your draws of $x,w,\beta
-_{i},\omega ,\xi $, and your equilibrium prices.
+_{i},\omega ,\xi $, and your equilibrium prices. Call this data set
+\textbf{Design A}: every market contains the same two satellite and the same
+two wired goods.
+
+\item[3a.] \textbf{A second data set with choice-set variation.} Now build
+\textbf{Design B} from the \textit{same} draws of $(x,w,\xi ,\omega )$ and
+the same simulation draws of the random coefficients, except that in a
+randomly chosen half of the markets one randomly chosen product is not
+offered: drop it from the market \textit{before} solving for equilibrium
+prices, so that the remaining three firms compete among themselves, and
+recompute the shares. Keep both data sets. Questions 4--7 use Design A;
+question 8 uses both; questions 9--15 use Design B. You will see why in
+question 8a.
 \end{enumerate}
 
 \section{Estimate Some Mis-specified Models}
@@ -265,8 +277,31 @@ approximation of the optimal instruments.}
 \item[8.] Report a table with the estimates of the demand
 parameters and standard errors. Do this three times: once when you estimate demand
 alone, then again when you estimate jointly with supply; and again with the ``optimal IV''.
+Do all of this for \textbf{both} Design A and Design B.
 
-\item[9.] Using your preferred estimates from the prior step (explain your
+\item[8a.] \textbf{Identification (Berry and Haile 2014).} Compare your
+estimates of $\Sigma $ -- the standard deviations of the random coefficients
+on \textit{satellite} and \textit{wired} -- across the two designs. On Design
+A you will most likely find that one of them is driven to zero, or that the
+two trade off against each other, whichever instruments you use; on Design B
+both should be estimated with reasonable precision. To see what is going on,
+fix $(\Sigma _{sat},\Sigma _{wired})$ on a grid (say $\{0,0.25,\ldots
+,2\}^{2}$), evaluate the GMM objective at each grid point for each design
+(in \texttt{pyBLP}, \texttt{optimization=pyblp.Optimization('return')}
+evaluates the objective without optimizing), and plot the two objective
+surfaces side by side. Then explain: what variation in the data identifies
+the \textit{distribution} of tastes for a nest of products when every market
+contains exactly the same two products in each nest? What does Design B add?
+Relate your answer to the role of choice-set variation in Berry and Haile
+(2014), and contrast it with the nested-logit $\rho _{g}$ you estimated in
+question 6, which is a single within-nest correlation rather than a
+distribution. (Hint: think about what markets with one satellite good and
+markets with two reveal about how a nest's total share depends on its
+composition.) Finally, which instruments exploit this variation? Consider the
+number of products in the market and in good $j$'s nest, and the
+characteristics of same-nest rivals interacted with the nest dummy.
+
+\item[9.] Using your preferred Design B estimates from question 8 (explain your
 preference), provide a table comparing the estimated own-price elasticities
 to the true own-price elasticities. Provide two additional tables showing
 the true matrix of diversion ratios and the diversion ratios implied by your
@@ -312,8 +347,8 @@ intuition for what theory tells us is likely to happen to the equilibrium
 prices of each good $j$.
 
 \item[11.] Suppose firms 1 and 2 are proposing to merge. Use the \texttt{pyBLP}
-merger simulation procedure to provide a prediction of the post-merger
-equilibrium prices.
+merger simulation procedure (with your Design B estimates) to provide a prediction of the post-merger
+equilibrium prices (for each product, averaged across the markets in which it is offered).
 
 \item[12.] Now suppose instead that firms 1 and 3 are the ones to merge.
 Re-run the merger simulation. Provide a table comparing the (average
