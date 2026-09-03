@@ -11,8 +11,12 @@
 \usepackage[mmddyyyy]{datetime}% Use US date format
 \usepackage{advdate}
 \newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+% Run-in \paragraph headings are typeset when the NEXT paragraph starts, i.e. after
+% \AdvanceDate has run, which printed every date one week late. Set the date in a box first.
+\newsavebox{\weekdatebox}
 \newcommand{\week}[1]{%
-  \paragraph*{\kern-2ex\quad #1, \syldate{\today}:}% Print the week number and date
+  \sbox{\weekdatebox}{\syldate{\today}}% Typeset today's date now
+  \paragraph*{\kern-2ex\quad #1, \usebox{\weekdatebox}:}% Print the week number and date
   \AdvanceDate[7]% Advance to the next week's date
 }
 \usepackage{setspace}
