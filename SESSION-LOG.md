@@ -24,7 +24,7 @@
 
 3. Weeks 7–15 streamlining review (the Weeks 1–5 treatment: content maps,
    dedup, dead-comment cleanup, gaps) — Weeks 5/7 DONE 2026-10-06 (see entry);
-   conduct.tex retirement awaits Chris's `git rm`; **conduct_new major overhaul
+   conduct.tex retired 2026-10-06; **conduct_new major overhaul
    based on `../conduct_testing` is next (Chris, 2026-10-06)**; dead copy-paste
    sweep for Weeks 6–15 still open.
 4. ~~Solution keys for PS2, BLP_hw, PS4~~ — DONE 2026-09-02 (see entry below).
@@ -138,10 +138,8 @@ conduct_new is left alone pending a **major overhaul based on `../conduct_testin
 - **Website** (`chrisconlon.github.io/gradio.html`, LOCAL EDIT, NOT PUSHED): diversion entry moved
   from Lecture 7 to the Lecture 4–5 list (new raw/master path under Week 5; video link kept).
   Pushing deploys publicly — Chris's call.
-- **BLOCKED — needs Chris:** retiring `conduct.tex` (+ `conduct.pdf`, `resources/8_23_testing.tex`,
-  its only private resource). It is a strict subset of `conduct_new` and linked nowhere on the
-  live site. The `git rm` was denied by the permission classifier; run it by hand:
-  `git rm "Week 7- Mergers and Conduct/conduct.tex" "Week 7- Mergers and Conduct/conduct.pdf" "Week 7- Mergers and Conduct/resources/8_23_testing.tex"`.
+- `conduct.tex` (+ `conduct.pdf`, `resources/8_23_testing.tex`) RETIRED 2026-10-06 on Chris's
+  instruction: strict subset of `conduct_new`, linked nowhere on the live site.
 - Unreferenced Week 7 resources noted, not deleted: `new_prius1/4/linear.png`, `pca_01.pdf`,
   `sillydiversion.pdf`.
 - All six touched decks rebuild with zero errors; PDFs regenerated. Nothing committed.
