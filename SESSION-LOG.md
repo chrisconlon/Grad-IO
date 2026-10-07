@@ -23,8 +23,10 @@
 **Smaller / standing items:**
 
 3. Weeks 7–15 streamlining review (the Weeks 1–5 treatment: content maps,
-   dedup, dead-comment cleanup, gaps) — incl. the conduct.tex vs conduct_new
-   supersede decision and the dead copy-paste sweep for Weeks 6–15.
+   dedup, dead-comment cleanup, gaps) — Weeks 5/7 DONE 2026-10-06 (see entry);
+   conduct.tex retirement awaits Chris's `git rm`; **conduct_new major overhaul
+   based on `../conduct_testing` is next (Chris, 2026-10-06)**; dead copy-paste
+   sweep for Weeks 6–15 still open.
 4. ~~Solution keys for PS2, BLP_hw, PS4~~ — DONE 2026-09-02 (see entry below).
    Follow-ups: (a) ~~regenerate the Rust data~~ DONE 2026-09-02 (`rust_data_2026.csv`,
    standard timing, `generate_rust_data.py`; 2020 file retired; ps4.tex repointed);
@@ -44,6 +46,70 @@
 8. `demand_iioc.tex` IPDL row (~l.832) — looks like ξ-recovery mislabeled as
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
+
+## 2026-10-06 — Weeks 5 and 7 reorganization (Option A: diversion moves up, Week 7 becomes supply)
+
+Chris's rulings: diversion joins Week 5 (slotted micro_data → diversion → machine_learning);
+Week 7 becomes a pure supply/antitrust week (antitrust → pricing → passthrough → conduct_new);
+conduct_new is left alone pending a **major overhaul based on `../conduct_testing`**.
+
+- **`diversion.tex` → `Week 5-Micro Data/`** (git mv, with `nevo_elas.png`). Five agency-facing
+  frames (Unilateral Effects, In Theory, UPP, UPP Extensions, Diversion in Practice) moved into
+  `antitrust.tex` as a new "Unilateral Effects and Upward Pricing Pressure" section between Step 2
+  and Step 3. The two Welfare/WTP frames collapsed to one callback frame (mc1 now owns the worked
+  removal example). Section-title paren fixed; title block matches the Week 5 siblings. 22 → 16 frames.
+- **`antitrust.tex`** errata folded in: 2023 Guidelines thresholds (1800 / Δ100 / 30%, matching
+  Week 1; 2010 values kept as a parenthetical); Aggregate Diversion formula had the wrong
+  denominator (∂q_k/∂p_j) — rewritten as $D^{\mathcal{M}}_{j0} = 1 - \sum_{k \in \mathcal{M}\setminus j} D_{jk}$;
+  HSR thresholds updated to 2025 values ($126.4M / $505.8M; $252.9M / $25.3M size-of-person)
+  with the 2016 figure retained as the historical note. 15 → 20 frames.
+- **`pricing.tex`**: the seven generic solver frames (copied from Extra Notes/Systems of
+  Equations) collapsed to one table frame pointing there. 17 → 11 frames.
+  **Morrow–Skerlos frames generalized to mixed logit** (Chris's request): $\Lambda = \mathrm{Diag}[\sum_i w_i \alpha_i \sigma_{ij}]$,
+  $\Gamma = S\,\mathrm{Diag}[w_i\alpha_i]\,S'$ (rank ≤ I, callback to the CMS rank slide), plain logit as
+  the $I=1$ case, product-specific $\alpha_{ik}$ remark, ownership mask made explicit
+  ($\calH \odot \Delta = \Lambda - \calH \odot \Gamma$). **Sign fix:** under the deck's convention
+  ($\Delta$ positive on the diagonal, $q = \Delta(p-mc)$) the ζ fixed point is
+  $\Lambda^{-1}(\calH\odot\Gamma)(p-mc) \alert{+} \Lambda^{-1}\sigma$; the old slide had a minus (the
+  Conlon–Gortmaker signed-α form), now noted on the slide. Citation year 2010 → 2011.
+  Checked against `../jaxblp/jaxblp/model/common.py` (`compute_demand_jacobian_parts`): Λ and Γ
+  match (Γ's derivative index is the column), and the Bertrand system uses `O * Gamma.T` — so the
+  slide now says the mask multiplies $\Gamma'$ in general (matters for product-specific
+  $\alpha_{ik}$ or asymmetric κ).
+- **`passthrough.tex`**: the two verbatim "Recall" frames (Bertrand FOC, UPP) dropped; a one-line
+  UPP callback now opens the Jaffe–Weyl frame. 29 → 27 frames.
+- **`machine_learning.tex`**: Idea #3 (Einav–Guido–Klenow) slimmed to what is new relative to the
+  diversion lecture (figure, panel-data-only point, Conlon–Rao / Atalay nesting uses); the
+  second-choice-matrix frame now recalls rather than re-derives the decomposition; FKRB bullet
+  points back to the BLP lecture.
+- **`micro_data.tex`**: typos (Manchanda, specify, regression, including); forward pointer to the
+  diversion deck on the Seattle survey frame.
+- **Einav–Guido–Klenow frames rewritten from the CMS appendix** (`../CMS_Estimator/paper/sections/
+  appendix_theory.tex`, "Customer Overlap as a Proxy for Diversion"), per Chris: the old two frames
+  (limit "should be logit"; reweighting "could" recover second choices) replaced by three in course
+  notation — (1) overlap as a CM decomposition with the two offsetting selection forces; (2) the
+  population formula with per-type panel weight and the three regimes (T=2: quality diversion
+  exactly; small σ_ij: ≈ quality; T→∞: IIA); (3) the odds-ratio reweighted $A_{j\to k}$ with
+  second-choice weights, converging to $D_{j\to k}$ as T grows. Citation now AER: Insights 2026.
+  machine_learning's Idea #3 callback updated to match. diversion.tex is 17 frames.
+- **`machine_learning.tex` + Nevo–Tao–Gandhi (2026, WP) "Flexible Estimation of Differentiated
+  Product Demand Models Using Aggregate Data"** (Chris's request): two frames inserted after the
+  opener as "Idea #0" — symmetry of the inverse demand (log odds minus a permutation-invariant
+  $h_0$; nested logit as the special case), the Deep Sets sum decomposition with the share-weighted
+  distance interpretation, linear-IV first step + IFT elasticities, FKRB/ridge second step, Monte
+  Carlo headline numbers, relatives (Compiani, Monardo, Lu–Shi–Tao, Singh–Liu–Yoganarasimhan,
+  Gandhi–Houde), and the omitted-characteristics caveat that bridges to the embeddings frames.
+  Cited as a working paper only. Deck is 17 frames.
+- **Website** (`chrisconlon.github.io/gradio.html`, LOCAL EDIT, NOT PUSHED): diversion entry moved
+  from Lecture 7 to the Lecture 4–5 list (new raw/master path under Week 5; video link kept).
+  Pushing deploys publicly — Chris's call.
+- **BLOCKED — needs Chris:** retiring `conduct.tex` (+ `conduct.pdf`, `resources/8_23_testing.tex`,
+  its only private resource). It is a strict subset of `conduct_new` and linked nowhere on the
+  live site. The `git rm` was denied by the permission classifier; run it by hand:
+  `git rm "Week 7- Mergers and Conduct/conduct.tex" "Week 7- Mergers and Conduct/conduct.pdf" "Week 7- Mergers and Conduct/resources/8_23_testing.tex"`.
+- Unreferenced Week 7 resources noted, not deleted: `new_prius1/4/linear.png`, `pca_01.pdf`,
+  `sillydiversion.pdf`.
+- All six touched decks rebuild with zero errors; PDFs regenerated. Nothing committed.
 
 ## 2026-09-02 (later still) — BLP_hw: two designs and the Berry–Haile identification lesson
 

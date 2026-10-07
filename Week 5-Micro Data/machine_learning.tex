@@ -50,13 +50,41 @@ Mostly we mean putting a flexible distribution on $f(\beta_i,\alpha_i \mid \thet
 u_{ij} = \beta_i x_j - \alpha_i p_j + \xi_j + \varepsilon_{ij} \text{ with } f(\beta_i,\alpha_i \mid \theta)
 \end{align*}
 \begin{itemize}
-    \item Fixed Grids (Fox, Kim, Ryan, Bajari 2011, Heiss, Hetzenecker, Osterhaus 2022, Nevo Turner Williams 2016): draw from ``prior'' of $\beta_i$, compute $\sigma_{ij}(\beta_i)$ and choose weights on each $i$, $w_i$.
+    \item Fixed Grids (Fox, Kim, Ryan, Bajari 2011, Heiss, Hetzenecker, Osterhaus 2022, Nevo Turner Williams 2016; see the BLP lecture): draw from ``prior'' of $\beta_i$, compute $\sigma_{ij}(\beta_i)$ and choose weights on each $i$, $w_i$.
     \item Compiani (QE 2022): approximate $\sigma_{j}^{-1}(\symbf{s}_t,\symbf{x}_t^{(2)})$ directly with Bernstein Polynomials (ditches $\varepsilon \rightarrow$ very hard)
     \item Ao Wang (JE 2022): use polynomial sieves: $\mathbb{E}\left[\left(\sigma_j^{-1}\left(\symbf{s}_t ; \symbf{x}_t^{(2)}, \alert{F}\right)-X_t^{(1)} \beta^{(1)}\right) \phi_k\left(Z_{j t}\right)\right]=0$
     \item Lu, Shi, Tao (JE 2023): use partially linear model: $\log \left(s_{j t} / s_{0 t}\right)=X_{1, j t}^{\prime} \beta^0+\alert{\psi^0\left(X_{2, j t} ; IV_{J, t}\right)}+\xi_{j t}$ where        $\psi^0\left(x_{2, j t} ; IV_{J, t}\right)=\log \left[\frac{\int \frac{\exp \left(x_{2, j t}^{\prime} v\right)}{\exp \left(IV_{J, t}(v)\right)} f^0(v) d v}{\int \frac{1}{\exp \left(IV_{J, t}(v)\right)} f^0(v) d v}\right]$.
 \end{itemize}
 But these are still \alert{only as good as characteristics}.
 \end{frame}
+
+\begin{frame}{Idea \#0: Learn the Inverse Demand Directly (Nevo, Tao, Gandhi 2026)}
+\small
+Berry (1994) logic, generalized: for $u_{ijt} = x_{jt}\beta + \xi_{jt} + x^{(2)}_{jt}\nu_i + \varepsilon_{ijt}$ with iid $\varepsilon_{ijt}$ and \alert{any} $F_0(\nu)$, the inverse demand is
+\begin{align*}
+\sigma_j^{-1}(\symbf{s}_t, \symbf{x}^{(2)}_t) = \log(s_{jt}/s_{0t}) - h_0(\symbf{\omega}_{jt}), \qquad \symbf{\omega}_{jt} = \bigl\{(s_{kt},\; x^{(2)}_{kt}-x^{(2)}_{jt},\; \mathbb{1}[k=0])\bigr\}_{k \neq j},
+\end{align*}
+where $h_0$ is the \alert{same function for every $j$} and \alert{symmetric} (permutation invariant) in the other products $k$.
+\begin{itemize}
+\item Logit: $h_0 = 0$. Nested logit: $h_0 = \rho \log(s_{jt}/s_{G(j)t})$, a symmetric function of the shares in your nest. In general $h_0$ corrects the log odds for \alert{how crowded the neighborhood of $j$ is}: a high share means high quality \emph{or} no close substitutes.
+\item Symmetric functions have a sum decomposition (\alert{Deep Sets}, Zaheer et al.\ 2017): $h_0(\symbf{\omega}_{jt}) \approx \psi\bigl(\sum_{k \neq j} \phi(\symbf{\omega}_{jkt})\bigr)$. Their economic version, $\psi\bigl(\sum_{k \neq j} s_{kt}\, \phi(x^{(2)}_{kt}-x^{(2)}_{jt}, \mathbb{1}[k=0])\bigr)$: $\phi$ learns a \alert{distance} in characteristic space, the sum adds up share within each distance band, $\psi$ learns how to weight the bands. Nested logit with learned nests.
+\item $\phi$ and $\psi$ are small neural nets (or symmetric polynomial sieves); the parameter count does not grow with $J$ and evaluation is linear in $J$.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Deep Sets Demand: Estimation and How It Does}
+\small
+\textbf{Step 1 (linear IV, no contraction):} $\E[\xi_{jt} \mid z_t]=0$ with $\xi_{jt} = \log(s_{jt}/s_{0t}) - x_{jt}\beta - h(\symbf{\omega}_{jt})$. Simplest implementation: predict $\hat{s}_{kt}$ from $z_t$, plug into the sum, 2SLS for $\beta$ and the top layer. Own and cross elasticities from the IFT on the fitted inverse (as in Compiani 2022).\\
+\textbf{Step 2 (optional, needs T1EV):} with $\hat{\delta}_{jt}$ in hand, recover $F_0(\nu)$ on a fixed grid of types by ridge-penalized nonnegative least squares of $s_{jt}$ on type shares (FKRB; Heiss et al.\ 2022).
+\begin{itemize}
+\item Monte Carlo ($T=250$, $J=10$ to $20$): when $F_0$ is normal, BLP wins and the flexible estimator loses little. When $F_0$ is bimodal, normal-RC BLP has own-elasticity bias around $15\%$ and cross around $50\%$; the two-step estimator is around $1\%$ on own with a fraction of the RMSE, and within-cluster merger simulations have RMSE $2.5$ vs.\ $7.3$ percentage points.
+\item What drives it: how well step 1 recovers $\delta_{jt}$ (correlation $0.993$ vs.\ $0.9999$ for correctly specified BLP). Cross elasticities and the tails are the hard part for everyone.
+\item Relatives: Compiani (2022), Monardo (2026), Lu Shi Tao (2023), Singh Liu Yoganarasimhan (2024, neural nets), Gandhi Houde (2025, same symmetry result).
+\item The catch from the first slide: symmetry fails when horizontal differentiation is \alert{not in} $x^{(2)}$ ($\varepsilon$ no longer iid). So: where do characteristics come from?
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Idea \#1: t-STE Embeddings (Van Der Maaten and Weinberger, 2012)}
 \begin{itemize}
@@ -145,7 +173,7 @@ What if we could first estimate \alert{unobserved characteristics}?
 
 
 \begin{frame}{Second Choices as a Matrix: How Much Rank Do You Need?}
-For any mixture of logits, the second-choice (product-removal) diversion from $j$ to $k$ is
+Recall the second-choice decomposition from the diversion lecture; stacking it over $(j,k)$ gives a matrix:
 \begin{align*}
 D_{j \rightarrow k} = \sum_{i=1}^I w_i \cdot \frac{\sigma_{ij}}{1-\sigma_{ij}} \cdot \frac{\sigma_{ik}}{s_j}
 \quad\Longleftrightarrow\quad
@@ -259,20 +287,17 @@ The first stage delivers $\widehat{\symbf{S}}, \widehat{w}$ and hence $V_{ij} - 
 \end{frame}
 
 
-\begin{frame}{Idea \#3: Customer Overlap (Einav, Guido, Klenow 2025)}
+\begin{frame}{Idea \#3: Customer Overlap (Einav, Guido, Klenow, AER:I 2026)}
 \begin{columns}
 \begin{column}{0.5\textwidth}
      \includegraphics[width=\textwidth]{resources/einav_overlap}      
 \end{column}
 \begin{column}{0.5\textwidth}
     \begin{itemize}
-        \item Encode a $J \times 1$ vector $\symbf{q_i}$ of every purchase (0/1) within the category for the year
-        \item They use credit card data (don't see items, only stores).
-        \item Could use Nielsen panelists.
-        \item How many customers do two stores have in common? $C_{j \rightarrow k}=\frac{\sum_{i \in \mathcal{C}_j} q_{i,k}}{\sum_{i \in \mathcal{C}_j} q_{i,(-j)}}$.
-        \item Use to estimate diversion ratios (but not a demand model). 
-        \item Conlon Rao (JPE, forthcoming) use a similar measure to estimate nesting parameter.
-        \item Atalay et. al (JPE, 2024) use a similar measure to assign products to nests.
+        \item Encode a $J \times 1$ vector $\symbf{q_i}$ of every purchase (0/1) within the category for the year; count customers two sellers share.
+        \item From the diversion lecture: the raw overlap $C_{j \rightarrow k}$ is quality diversion for short panels but collapses to IIA as $T_i \rightarrow \infty$; the odds-reweighted $A_{j \rightarrow k}$ converges to \alert{second-choice diversion} instead.
+        \item So panel data alone (credit cards: stores, not items) can supply the $\calD$ matrix for the CMS program above, with no survey.
+        \item Conlon Rao (JPE, forthcoming) use a similar measure to estimate the nesting parameter; Atalay et al.\ (JPE 2024) use one to assign products to nests.
     \end{itemize}
 \end{column}
 \end{columns}

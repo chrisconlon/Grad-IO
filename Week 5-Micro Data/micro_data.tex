@@ -43,7 +43,7 @@ How can we make the best use of the data that we see?
 \begin{frame}{Common Approaches}
 \begin{enumerate}
 \item Use control function approach of Petrin and Train (2010)
-\item Fully specifiy likelihood with a parametric assumption on $f(\xi)$ (Jiang Machanda Rossi (2009))
+\item Fully specify likelihood with a parametric assumption on $f(\xi)$ (Jiang Manchanda Rossi (2009))
 \item Add ``micro-moments'' a la Petrin (2001) or Micro BLP (2004) but otherwise aggregate data.
 \begin{itemize}
 \item How do we choose them? Are we throwing away information?
@@ -61,7 +61,7 @@ p_{jt} &= f(x_{jt}, z_{jt}) + e_{jt}\\
 \end{align*}
 \begin{enumerate}
 \item Run a first-stage for price to get $\hat{f}(\cdot)$ and $\hat{e}_{jt}$.
-\item Plug in $\hat{e}_{jt}$ into inner IV regresion of BLP:
+\item Plug in $\hat{e}_{jt}$ into inner IV regression of BLP:
 \begin{align*}
 \delta_{jt}(\theta_2) = x_{jt} \beta -\alpha p_{jt}+ \lambda \hat{e}_{jt} + \zeta_{jt}
  \end{align*}
@@ -79,7 +79,7 @@ p_{jt} &= f(x_{jt}, z_{jt}) + e_{jt}\\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Fully specified $f(\xi,\omega)$ (Jiang Machanda Rossi (2009))}
+\begin{frame}{Fully specified $f(\xi,\omega)$ (Jiang Manchanda Rossi (2009))}
 These approaches come from the Bayesian Marketing literature and ``Bayesian IV''
 \begin{enumerate}
     \item Specify a reduced form pricing equation:
@@ -93,7 +93,7 @@ These approaches come from the Bayesian Marketing literature and ``Bayesian IV''
     \end{itemize}
     \item Advantage: now we can do individual data MLE. Can also allow for very flexible distributions of $f(\beta_i \mid \theta)$ if we do MCMC.
 \end{enumerate}
-Main Complaint: Markups are a function of \alert{everything} inclcuding $\omega_{-j,t}$ and $\xi_{-j,t}$ (maybe?)
+Main Complaint: Markups are a function of \alert{everything} including $\omega_{-j,t}$ and $\xi_{-j,t}$ (maybe?)
 \end{frame}
 
 \begin{frame}{Fully specified $f(\xi,\omega)$: Hortacsu, Natan, Parsley, Schweig, Williams (2023)}
@@ -501,7 +501,7 @@ A nice extension/application of this approach
                 \uncover<3->{
                     \item So also show how to run cheap \alert{second choice survey}
                     \begin{itemize}
-                        \item Diversion ratios discipline counterfactual in interpretable way
+                        \item Diversion ratios discipline counterfactual in interpretable way (what they are and where they come from: next deck)
                     \end{itemize}
                 }
             \end{wideitemize}

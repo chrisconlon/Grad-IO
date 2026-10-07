@@ -4,8 +4,8 @@
 
 \title{Diversion Ratios}
 \author{Chris Conlon}
-\institute{Grad IO}
-\date{\today}
+\institute{NYU Stern}
+\date{Fall 2026}
 
 \begin{document}
 
@@ -32,18 +32,6 @@ It's one of the best ways economists have to characterize competition among sell
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Unilateral Effects}
-\begin{itemize}
-\item Eliminating competition between the merging firms can itself constitute a substantial lessening of competition
-\item Developed in the 1992 Guidelines, and larger role in the 2010 Guidelines
-\item Based on modern theoretical literature: Farrell Shaprio (1990), Werden (1996), Farrel Shapiro (2010), Froeb and Werden (1998)
-\item Extension to multiple products/firms may be tricky (Carlton 2010, Hausman, Moresei, Rainey (2010)).
-\item Doesn't go as far as pass-through literature (Bulow Geanakoplos Klemperer (1985), Jaffe Weyl (2013)). 
-\item Limited empirical results in academic literature: (Cheung 2013, Miller, Remer, Ryan, Sheu (2013), Conlon Mortimer (2021))
-\item Commonplace at DOJ/FTC.
-\end{itemize} 
-\end{frame}
 
 \begin{frame}{Nevo (2000) Example}
 \begin{center}
@@ -121,62 +109,7 @@ Fruity Pebbles      &      0.61 &       0.59 &         0.71 &           0.71 &  
 %\end{itemize}
 %\end{frame}
 
-\section{Where do Diversion Ratios come from?\\ (Stolen from Conlon and Mortimer (2021)}
-\begin{frame}{In Theory}
-\footnotesize
-Consider Bertrand FOC's for multi-product firm $j$:
-\begin{align*}
-\label{eq:best_response}
-\rightarrow \nonumber p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1}}_{D_{jk}(\symbf{p})}\\
-p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right].
-\end{align*}
-Mult-product pricing \alert{raises the opportunity cost} of selling $j$.
-\end{frame}
-
-\begin{frame}{Upward Pricing Pressure}
-Agencies often calculate \alert{Upward Pricing Pressure} or UPP asks how merger \alert{changes} as we combine $\mathcal{J}_f$ and $\mathcal{J}_g$:
-\begin{align*}
-\left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right] \\
-UPP_j = \Delta c_j + \sum_{k \in \calJ_{g}}  (p_k-c_k) \cdot  D_{jk} (\symbf{p})
-\end{align*}
-How does the merger change the \alert{opportunity cost} for $j$?
-\end{frame}
-
-\begin{frame}
-\frametitle{UPP Extensions}
-\begin{block}{Extension to multiple acquisitions:}
-Very easy if we have that $p_j - mc_j = p - mc$ are the same for several values of $j$.  Then
-\begin{eqnarray*}
-UPP_j &\approx& (p - mc) \sum_k D_{jk}(\symbf{p}) -  \Delta mc_j \\
-\end{eqnarray*}
-\end{block}
-If several brands of acquisition have the same markup -- can consider firm-level diversion. (We can aggregate diversion across similar flavors)
-\begin{block}{Ignoring Efficiencies}
-\begin{eqnarray*}
-GUPPI_j &\approx& \frac{(p_j - mc_j)}{p_j} D_{jk}(\symbf{p}) \\
-\end{eqnarray*}
-\end{block}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Diversion: In Practice}
-\begin{enumerate}
-\item Calculated from an estimated demand system (ratio of estimated cross-price to own-price demand derivatives)
-\item Consumer surveys (what would you buy if not this?)
-\item Obtained in `course of business' (sales reps, internal reviews)
-\end{enumerate}
-Antitrust authorities may prefer different measures in different settings. Are they concerned about:
-\begin{itemize}
-\item Small but widespread price hikes?
-\item Product discontinuations or changes to availability?
-\end{itemize}
-Is it sufficient to rely on data from merging firms only?
-\begin{itemize}
-\item Do we need diversion to other products in the `market' or other functions of market-level data?
-\item Discrete-choice demand models imply that `aggregate diversion' (including to an outside good) sums to one.
-\end{itemize}
-\end{frame}
+\section{Where do Diversion Ratios come from?\\ (Stolen from Conlon and Mortimer (2021))}
 
 
 \begin{frame}{Wald Estimator}
@@ -263,69 +196,81 @@ Idea: different interventions change \alert{weights} but not \alert{individual d
 \end{frame}
 
 
-\begin{frame}{Application of CM Decomposition: Einav, Guido, Klenow (2025)}
-Measuring \alert{customer overlap} by counting total sales of substitute $k$ (Dunkin) and purchases of NOT focal product $j$ (Starbucks) using \alert{panel data}:
-\begin{align*}
-C_{j \rightarrow k}= 
-\frac{\sum_{\left\{i t \mid i \in \mathcal{C}_j\right\}} 1\left(d_{i t}=k\right)}{\sum_{\left\{i t \mid i \in \mathcal{C}_j\right\}} 1\left(d_{i t} \neq j\right)} 
-=\frac{\sum_{i \in \mathcal{C}_j} q_{i,k}}{\sum_{i \in \mathcal{C}_j} q_{i,(-j)}} 
-= \frac{Q_k}{\left(\sum_{i \in \mathcal{C}_j} T_i \right)
- -Q_j} \approx \frac{\sigma_k}{1-\sigma_j} \mid \text{ ever chooses } j
-\end{align*}
-\begin{itemize}
-	\item Restrict to the set $\mathcal{C}_j$ of households that \alert{ever purchased} $j$.
-	\item $T_i$ are total purchases in category by household $i$.
-    \item For any full support random utility model $u_{ij} = v_{ij}(\theta_i) + \varepsilon_{ijt}$ as $T_i \rightarrow \infty$.\\
-     $i$ will always choose $j$ with positive probability. This will make the $\mathcal{C}_j$ restriction meaningless.
-    \item In the limit we should get the logit prediction.
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Application of CM Decomposition: Einav, Guido, Klenow (2025)}
-Can I rewrite this as a weighted average of \alert{individual diversion ratios}? (Yes)
+\begin{frame}{Application of CM Decomposition: Customer Overlap (Einav, Guido, Klenow, AER:I 2026)}
+\small
+Panel data (credit cards, cell-phone traces, Nielsen panelists) record $T_i$ purchases per consumer but no second-choice question. Let $q_{ik}$ be $i$'s purchases of $k$, $\sum_k q_{ik} = T_i$, and $\mathcal{C}_j = \{i : q_{ij} \geq 1\}$ the consumers \alert{ever observed buying} $j$ (Starbucks). EGK propose the \alert{customer overlap}:
 \begin{align*}
 C_{j \rightarrow k}
-=\frac{\sum_{i \in \mathcal{C}_j} q_{i,k}}{\sum_{i \in \mathcal{C}_j} q_{i,(-j)}} 
-%&= \frac{\sum_{i \in \mathcal{C}_j} \sum_{t} 1\left(c_{i t}=k\right)}{\sum_{i \in \mathcal{C}_j} \sum_{t} 1\left(c_{i t} \neq j\right)} 
-= \frac{\sum_{i \in \mathcal{C}_j}   T_i \cdot \hat{s}_{ik} }{\sum_{i \in \mathcal{C}_j}  T_i \cdot (1-\hat{s}_{ij}) } 
-= \sum_{i \in \mathcal{C}_i} \underbrace{\frac{\hat{s}_{ik}}{1-\hat{s}_{ij}}}_{\hat{D}_{jk,i}} \cdot \underbrace{\frac{q_{i,(-j)}}{\sum_{i' \in \mathcal{C}_j} q_{i',(-j)}}}_{=\gamma_{ij}}.
+=\frac{\sum_{i \in \mathcal{C}_j} q_{ik}}{\sum_{i \in \mathcal{C}_j} (T_i - q_{ij})}
+= \sum_{i \in \mathcal{C}_j} \underbrace{\frac{\hat{\sigma}_{ik}}{1-\hat{\sigma}_{ij}}}_{\hat{D}_{jk,i}} \cdot \underbrace{\frac{T_i - q_{ij}}{\sum_{i' \in \mathcal{C}_j} (T_{i'}-q_{i'j})}}_{w_i^{\mathcal{C}}}
+\qquad \text{with } \hat{\sigma}_{ij} = q_{ij}/T_i.
 \end{align*}
 \begin{itemize}
-    \item Define: $\hat{s}_{ij} = \frac{1}{T_i} \sum_t 1(c_{it} =j)$, and $q_{i,(-j)} = \sum_{t} 1 [c_{it} \neq j] =  T_i (1- \hat{s}_{ij})$. 
-    \item Now the weights are $\Pr( \text{ Type } i  \mid \text{ chooses \alert{NOT} } j)$ for $i$ where $\hat{s}_{ij} > 0$.
-    \item We put the most weight on people who have the most \alert{non Starbucks} visits\\
-    (but zero if they never visit).
-    \item But with individual data, we could re-weight the households in the sample $\gamma_i$ such that we get \alert{second-choice diversion} (or whatever else we want).
+    \item Fits the CM decomposition: a weighted average of \alert{individual diversion ratios}, weights $\propto$ non-$j$ purchases.
+    \item Two forces pull in opposite directions. \emph{Conditional} on $i \in \mathcal{C}_j$, weight is heaviest on consumers \alert{least} loyal to $j$; \emph{selection} into $\mathcal{C}_j$ favors the \alert{most} loyal (they are the ones observed buying $j$ at all).
+    \item How much they cancel depends on panel length $T_i$. Assume mixed logit with persistent $V_{ij}$ and iid $\varepsilon_{ijt}$ across purchase occasions, so $q_{ij} \sim \text{Binomial}(T_i, \sigma_{ij})$ and we can work it out (next slide).
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Welfare and WTP}
-As we learned on HW2, welfare and willingness to pay are mostly about \alert{diversion to outside good}
+\begin{frame}{What Does Overlap Measure? (Conlon, Mortimer, Sarkis 2026, Appendix)}
+\small
+Population analogue (type weights $w_i$, per-type panel weight $\overline{w}_i(\sigma_{ij}) \equiv \E\left[T_i \left(1-(1-\sigma_{ij})^{T_i-1}\right) \mid i\right]$):
 \begin{align*}
-WTP_i(j) = \mathbb{E}[\max_{k \in \calJ} u_{ik}]  - \mathbb{E}[\max_{k' \in \calJ\setminus j} u_{ik'} ] =  \log \left( \sum_{k \in \calJ} \exp[V_{ik}] \right)-  \log \left(\sum_{k \in \calJ \setminus j} \exp[V_{ik}]\right)
+C_{j \rightarrow k} = \frac{\sum_i w_i\, \sigma_{ik}\, \overline{w}_i(\sigma_{ij})}{\sum_i w_i\, (1-\sigma_{ij})\, \overline{w}_i(\sigma_{ij})}
+= \sum_i \underbrace{\frac{w_i (1-\sigma_{ij}) \overline{w}_i(\sigma_{ij})}{\sum_{i'} w_{i'} (1-\sigma_{i'j}) \overline{w}_{i'}(\sigma_{i'j})}}_{\gamma_{ij}^{(C)}} \cdot D_{jk,i}
 \end{align*}
-Exploit the following:
-\begin{enumerate}
- \item the individual outside good choice probability $\sigma_{i0}(\calJ,x) = \frac{1}{ \sum_{k \in \calJ} \exp[V_{ik}]}$;
- \item  that the outside good choice probability after removing $j$ increases by the individual share of $j$ times the individual diversion ratio from $j$ to the outside good $\sigma_{i0}(\calJ\setminus j,x)  = \sigma_{i0}(\calJ,x) + D_{j0,i}(x) \cdot \sigma_{ij}(x)$;
- \item for members of the logit family: $D_{j0,i}(x) = \frac{\sigma_{i0}(x)}{1-\sigma_{ij}(x)}$.
-\end{enumerate}
+\vspace{-0.2cm}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+\toprule
+Panel length & $\gamma_{ij}^{(C)} \propto$ & $C_{j \rightarrow k}$ equals \\
+\midrule
+$T_i = 2$ for everyone & $w_i\, \sigma_{ij} (1-\sigma_{ij})$ & \alert{quality diversion} $D^{\xi}_{j \rightarrow k}$ (the $\partial/\partial \xi_j$ row of the weights table), exactly \\
+small $\sigma_{ij}$, moderate $T_i$ & $\approx w_i\, \sigma_{ij} (1-\sigma_{ij})$ & $\approx$ quality diversion (degrades for loyal $j$-buyers) \\
+$T_i \rightarrow \infty$ & $w_i (1-\sigma_{ij})$ & \alert{IIA logit} $\sigma_k/(1-\sigma_j)$: all heterogeneity gone \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+    \item The longer the panel, the \alert{less} the raw overlap tells you: every type eventually enters $\mathcal{C}_j$ and the selection no longer discriminates.
+    \item Regimes assume $T_i$ independent of type; heavy users observed longer tilt the weights by $\E[T_i \mid i]$.
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Welfare and WTP}
-To get EV we integrate over $\frac{1}{|\alpha_i|}$.
+
+\begin{frame}{A Better Overlap Measure: Odds-Ratio Reweighting (CMS 2026, Appendix)}
+\small
+Same data $(q_{ij}, q_{ik}, T_i)$. Weight each consumer by their share of $j$'s purchases $q_{ij}/Q_j$ instead of by their non-$j$ purchases (equivalently: reweight EGK by the odds $\hat{\sigma}_{ij}/(1-\hat{\sigma}_{ij})$):
 \begin{align*}
-WTP_i(j) &=\log \left( \frac{\sigma_{i0}(\calJ\setminus j,x) }{\sigma_{i0}(\calJ,x) }\right)
-=\log \left( 1+\frac{D_{j0,i}(x) \sigma_{ij}(x)}{\sigma_{i0}(\calJ,x) }\right)\\
-&=\log \left( 1+\frac{\sigma_{i0}(\calJ,x) \cdot \sigma_{ij}(x)}{(1-\sigma_{ij}(x)) \cdot \sigma_{i0}(\calJ,x) }\right)\\
-&=\log \left( 1+\frac{\sigma_{ij}(x)}{1-\sigma_{ij}(x)  }\right)
-\approx \frac{\sigma_{ij}(x)}{1-\sigma_{ij}(x) }
+A_{j \rightarrow k} = \frac{1}{Q_j} \sum_{i:\, q_{ij} < T_i} \frac{q_{ij}\, q_{ik}}{T_i - q_{ij}}
+= \sum_i \underbrace{\frac{\hat{\sigma}_{ik}}{1-\hat{\sigma}_{ij}}}_{\hat{D}_{jk,i}} \cdot \underbrace{\frac{\hat{\sigma}_{ij}}{\sum_{i'} \hat{\sigma}_{i'j}}}_{\hat{\gamma}_{ij}^{\text{second choice}}}, \qquad Q_j = \sum_i q_{ij}.
 \end{align*}
-Individual willingness to pay is exclusively about \alert{own share} (not presence of close substitutes). Is this a good property or not?
+\begin{itemize}
+    \item These are the empirical \alert{second-choice weights} $\gamma_{ij} = w_i \sigma_{ij}/\sigma_j$ from two slides ago. No conditioning on $\mathcal{C}_j$; consumers with $q_{ij}=0$ or $q_{ij}=T_i$ contribute nothing.
+    \item Population limits: $T_i = 2 \Rightarrow$ quality diversion (same as EGK); $T_i \rightarrow \infty \Rightarrow$ \alert{second-choice diversion} $D_{j \rightarrow k}$. It \alert{improves} with panel length rather than collapsing to IIA.
+    \item Either version is a legitimate input to the product-space estimator in the next deck, as long as the model-side formula matches (quality vs.\ second-choice weights differ by a factor $(1-\sigma_{ij})$, $\approx 1$ when shares are small).
+    \item Caveats: $\hat{\sigma}_{ij}$ is noisy at small $T_i$; assumes a stable environment over the panel (no entry/exit, price changes) and persistent $V_{ij}$ with iid $\varepsilon_{ijt}$.
+\end{itemize}
 \end{frame}
 
+
+\begin{frame}{Welfare and WTP: Diversion to the Outside Good}
+Recall the worked removal example from the logit lecture: for a member of the logit family, the welfare loss from removing $j$ is $\Delta CS_i = \frac{1}{\alpha_i}\log(1-\sigma_{ij})$. The same object, written in the language of this lecture:
+\begin{align*}
+WTP_i(j) = \log \left( \frac{\sigma_{i0}(\calJ\setminus j) }{\sigma_{i0}(\calJ) }\right)
+=\log \left( 1+\frac{D_{j0,i}\, \sigma_{ij}}{\sigma_{i0}(\calJ) }\right)
+=\log \left( 1+\frac{\sigma_{ij}}{1-\sigma_{ij}  }\right)
+\approx \frac{\sigma_{ij}}{1-\sigma_{ij} }
+\end{align*}
+using $\sigma_{i0}(\calJ\setminus j) = \sigma_{i0}(\calJ) + D_{j0,i} \cdot \sigma_{ij}$ and $D_{j0,i} = \frac{\sigma_{i0}}{1-\sigma_{ij}}$.
+\begin{itemize}
+\item Welfare and willingness to pay are mostly about \alert{diversion to the outside good} (HW2).
+\item Individual willingness to pay is exclusively about \alert{own share}, not the presence of close substitutes. Is this a good property or not?
+\item This is the $WTP_i(j)$ that drives the hospital-network literature (Capps, Dranove, Satterthwaite 2003), coming up in the Health IO lecture.
+\end{itemize}
+\end{frame}
 
 \begin{frame}{Practical Tips: Checklist}
 \begin{itemize}

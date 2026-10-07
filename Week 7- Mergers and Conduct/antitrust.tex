@@ -60,9 +60,9 @@
  \begin{itemize}
 \item Required pre-notification and registration of large mergers
 \begin{itemize}
-\item Transaction: \$78.2 million
-\item Size of Person: \$156.3 M with target of \$15.6 M or total transaction of \$312.6M
-\item These are ``inflation adjusted'' each year.
+\item Size of transaction: \$126.4 million (2025); above \$505.8 million every deal is reportable.
+\item Size of person: \$252.9 M acquirer with a \$25.3 M target (or vice versa) for deals between the two cutoffs.
+\item These are ``inflation adjusted'' each year (the 2016 cutoff was \$78.2 million).
 \end{itemize}
 \item Initial review period is 30 days after which DOJ/FTC can request additional information or allow merger to proceed.
 \item Second review usually involves detailed information about  price-cost margins, market shares, etc. (Usually more info available than to academic researchers).
@@ -79,13 +79,14 @@ Abrupt change to the transaction size was passed with other legislation, led to 
 \end{frame}
 
 \begin{frame}
-\frametitle{DOJ/FTC Horizontal Merger Guidelines}
+\frametitle{DOJ/FTC Merger Guidelines}
  \begin{itemize}
-\item DOJ/FTC describe markets as:
+\item DOJ/FTC (2023 Merger Guidelines) describe markets as:
 \begin{itemize}
-\item Highly Concentrated: $HHI \geq 2500$.
-\item Moderately Concentrated: $HHI \in [1500,2500]$. $\Delta HHI \geq 250$ merits scrutiny.
-\item Un-Concentrated: $HHI \leq 1500$.
+\item Highly Concentrated: post-merger $HHI > 1800$.
+\item Presumed to substantially lessen competition: post-merger $HHI > 1800$ and $\Delta HHI > 100$.
+\item Also presumed anticompetitive: merged firm's share $> 30\%$ and $\Delta HHI > 100$.
+\item (2010 Guidelines: $2500 / 1500$ with $\Delta HHI \geq 200$; the 2023 revision lowered every threshold.)
 \end{itemize}
 \item Also consider \alert{unilateral effects}/UPP and \alert{coordinated effects}.
 \item Three steps:
@@ -165,7 +166,7 @@ Example $L = 40\%$ and $\Delta p=.05$ (or 5\% increase)
 \begin{frame}{Aggregate Diversion}
 A related idea is \alert{aggregate diversion ratio}
 \begin{align*}
-D_{j0}^{\mathcal{M}} =  \frac{\sum_{k \in \mathcal{M}} \frac{\partial\, q_k}{\partial\, p_j}}{\frac{\partial\, q_k}{\partial\, p_j}}
+D_{j0}^{\mathcal{M}} = 1 - \sum_{k \in \mathcal{M} \setminus j} D_{jk} = 1 - \frac{\sum_{k \in \mathcal{M} \setminus j} \frac{\partial\, q_k}{\partial\, p_j}}{\left|\frac{\partial\, q_j}{\partial\, p_j}\right|}
 \end{align*}
 \begin{itemize}
     \item Raise the price $p_j$ and calculate the diversion ratio to the outside good (all products outside the candidate market $\mathcal{M}$).
@@ -197,6 +198,78 @@ Shows up not only in \alert{merger cases} but in \alert{monopolization cases} as
 \item Some markets may be highly concentrated and others may not be.
 \item Can ask for \alert{divestitures} as part of a \alert{remedy} if there are a few problematic markets in an otherwise uncontroversial merger.
  \end{itemize}
+\end{frame}
+
+
+\section{Unilateral Effects and Upward Pricing Pressure}
+
+\begin{frame}
+\frametitle{Unilateral Effects}
+\begin{itemize}
+\item Eliminating competition between the merging firms can itself constitute a substantial lessening of competition
+\item Developed in the 1992 Guidelines, larger role in the 2010 Guidelines, and Guideline 2 of the 2023 Guidelines
+\item Based on modern theoretical literature: Farrell Shapiro (1990), Werden (1996), Farrell Shapiro (2010), Froeb and Werden (1998)
+\item Extension to multiple products/firms may be tricky (Carlton 2010, Hausman, Moresi, Rainey (2010)).
+\item Doesn't go as far as pass-through literature (Bulow Geanakoplos Klemperer (1985), Jaffe Weyl (2013)). 
+\item Limited empirical results in academic literature: (Cheung 2013, Miller, Remer, Ryan, Sheu (2013), Conlon Mortimer (2021))
+\item Commonplace at DOJ/FTC.
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{In Theory}
+\footnotesize
+Recall the Bertrand FOC's for multi-product firm $f$ (written with the diversion ratio from the micro-data week):
+\begin{align*}
+\label{eq:best_response}
+\rightarrow \nonumber p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1}}_{D_{jk}(\symbf{p})}\\
+p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right].
+\end{align*}
+Multi-product pricing \alert{raises the opportunity cost} of selling $j$.
+\end{frame}
+
+\begin{frame}{Upward Pricing Pressure}
+Agencies often calculate \alert{Upward Pricing Pressure} or UPP, which asks how the opportunity cost \alert{changes} as we combine $\mathcal{J}_f$ and $\mathcal{J}_g$:
+\begin{align*}
+\left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right] \\
+UPP_j = \Delta c_j + \sum_{k \in \calJ_{g}}  (p_k-c_k) \cdot  D_{jk} (\symbf{p})
+\end{align*}
+How does the merger change the \alert{opportunity cost} for $j$?
+\end{frame}
+
+\begin{frame}
+\frametitle{UPP Extensions}
+\begin{block}{Extension to multiple acquisitions:}
+Very easy if we have that $p_j - mc_j = p - mc$ are the same for several values of $j$.  Then
+\begin{eqnarray*}
+UPP_j &\approx& (p - mc) \sum_k D_{jk}(\symbf{p}) -  \Delta mc_j \\
+\end{eqnarray*}
+\end{block}
+If several brands of acquisition have the same markup -- can consider firm-level diversion. (We can aggregate diversion across similar flavors)
+\begin{block}{Ignoring Efficiencies}
+\begin{eqnarray*}
+GUPPI_j &\approx& \frac{(p_j - mc_j)}{p_j} D_{jk}(\symbf{p}) \\
+\end{eqnarray*}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Diversion: In Practice}
+\begin{enumerate}
+\item Calculated from an estimated demand system (ratio of estimated cross-price to own-price demand derivatives)
+\item Consumer surveys (what would you buy if not this?)
+\item Obtained in `course of business' (sales reps, internal reviews)
+\end{enumerate}
+Antitrust authorities may prefer different measures in different settings. Are they concerned about:
+\begin{itemize}
+\item Small but widespread price hikes?
+\item Product discontinuations or changes to availability?
+\end{itemize}
+Is it sufficient to rely on data from merging firms only?
+\begin{itemize}
+\item Do we need diversion to other products in the `market' or other functions of market-level data?
+\item Discrete-choice demand models imply that `aggregate diversion' (including to an outside good) sums to one.
+\end{itemize}
 \end{frame}
 
 

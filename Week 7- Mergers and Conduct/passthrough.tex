@@ -73,32 +73,8 @@ Many studies of ``price elasticity'' for gasoline, cigarettes, tobacco, etc assu
 
 
 
-\begin{frame}{Recall: Multiproduct Bertrand and Diversion}
-\footnotesize
-Recall the Bertrand FOC's for multi-product firm $f$ from the diversion lecture:
-\begin{align*}
-\label{eq:best_response}
-\rightarrow \nonumber p_j &=q_{j}(\symbf{p}) \left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1} + c_{j} + \sum_{k \in \calJ_{f} \setminus j} \left(p_{k}-c_{k}\right) \underbrace{\frac{\partial q_{k}}{\partial p_{j}}(\symbf{p})\left[-\frac{\partial q_{j}}{\partial p_{j}}(\symbf{p})\right]^{-1}}_{D_{jk}(\symbf{p})}\\
-p_j(p_{-j}) &= \underbrace{\frac{1}{1+1/\epsilon_{jj}(\symbf{p})}}_{\text{Markup}} \left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right].
-\end{align*}
-Multi-product pricing \alert{raises the opportunity cost} of selling $j$.
-\end{frame}
-
-\begin{frame}{Recall: Upward Pricing Pressure}
-Agencies often calculate \alert{Upward Pricing Pressure}: UPP asks how the merger \alert{changes} the opportunity cost (recall the UPP frames from the diversion lecture):
-\begin{align*}
-\left[ c_j + \sum_{k \in \calJ_{f} \setminus j}  (p_k-c_k) \cdot  D_{jk} (\symbf{p}) \right] \\
-UPP_j = \Delta c_j + \sum_{k \in \calJ_{g}}  (p_k-c_k) \cdot  D_{jk} (\symbf{p})
-\end{align*}
-\begin{itemize}
-    \item How does the merger change the \alert{opportunity cost} for $j$?
-    \item If the opportunity cost change is positive we say there is \alert{upward pricing pressure}
-    \item But how much do we expect prices to rise?
-\end{itemize}
-\end{frame}
-
-
 \begin{frame}{Jaffe Weyl (2013)}
+Recall UPP from the antitrust deck: $UPP_j = \Delta c_j + \sum_{k \in \calJ_{g}}  (p_k-c_k) \cdot  D_{jk} (\symbf{p})$ is a change in \alert{opportunity cost}. But how much do we expect prices to rise?
 \begin{itemize}
 \item If we knew the \alert{pass-through rate} $\rho = \frac{\partial p_j}{\partial mc_j}$ we could convert $\Delta mc_j$ to $\Delta p_j$.
 \item But we would have to know the \alert{matrix} $\frac{\partial \symbf{p}}{\partial \symbf{mc}}$, which is fine except it is $J \times J$ parameters (again).

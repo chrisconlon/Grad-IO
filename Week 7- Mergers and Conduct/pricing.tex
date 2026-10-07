@@ -109,132 +109,61 @@ How do we solve: $\symbf{p} = \widehat{\symbf{mc}} - \Delta(\symbf{p})^{-1}q(\sy
 \end{frame} 
 
 
-\begin{frame}{Solution Methods}
-\vspace{0.5cm}
-General problem $F(\symbf{x}) = 0$ or $m$ nonlinear equations and $m$ unknowns $\symbf{x} = (x_1,\ldots, x_m) \in \mathbb{R}^m$.
-\begin{eqnarray*}
-F_1 (x_1,\ldots, x_m)  &=& 0 \\
-F_2 (x_1,\ldots, x_m)  &=& 0\\
-&\vdots&\\ 
-F_{N-1} (x_1,\ldots, x_m)  &=& 0\\
-F_N (x_1,\ldots, x_m)  &=& 0\\
-\end{eqnarray*}
-\end{frame} 
-
-\begin{frame}{Solution Methods}
-Helpful to write $F(\symbf{x}) = 0 \Leftrightarrow \symbf{x} - \alpha F(\symbf{x}) = \symbf{x}$ which yields the fixed point problem:
-\begin{eqnarray*}
-G(\symbf{x}) = \symbf{x} -\alpha F(\symbf{x})
-\end{eqnarray*}
-Fixed point iteration
-\begin{eqnarray*}
-\symbf{x^{n+1}} = G(\symbf{x^n})
-\end{eqnarray*}
-Nonlinear Richardson iteration or Picard iteration.\\
-\vspace{0.5cm}
-We need $G$ to be a \alert{contraction mapping} for iterative methods to guarantee a unique solution (often need strong monotonicity as well).
-\end{frame} 
-
-\begin{frame}{Gauss Jacobi: Simultaneous Best Reply}
-Current iterate: $\symbf{x^n} = (x_1^n,x_2^n,\ldots,x_{m-1}^n,x_m^n)$.\\
-\vspace{0.5cm}
-Compute the next iterate $\alert{x^{n+1}}$ by solving one equation in one variable using only values from $\symbf{x^n}$ : 
-\begin{eqnarray*}
-F_1 (\alert{x_1^{n+1}},x_2^n \ldots, x_{m-1}^n, x_m^n)  &=& 0 \\
-F_2  (x_1^n,\alert{x_2^{n+1}},\ldots,x_{m-1}^n,x_m^n)  &=& 0\\
-&\vdots&\\ 
-F_{m-1}  (x_1^n,x_2^n,\ldots,\alert{x_{m-1}^{n+1}},x_m^n)  &=& 0\\
-F_m  (x_1^n,x_2^n,\ldots,x_{m-1}^n, \alert{x_m^{n+1}})  &=& 0
-\end{eqnarray*}
-Requires contraction and strong monotonicity.
-\end{frame} 
-
-\begin{frame}{Gauss Seidel: Iterated Best Response}
-Current iterate: $\symbf{x^n} = (x_1^n,x_2^n,\ldots,x_{m-1}^n,x_m^n)$.\\
-\vspace{0.5cm}
-Compute the next iterate $\alert{\symbf{x^{n+1}}}$ by solving one equation in one variable updating as we go through:
-\begin{align*}
-F_1 (\alert{x_1^{n+1}},x_2^n \ldots, x_{m-1}^n, x_m^n)  &= 0 \\
-F_2  (\alert{x_1^{n+1},x_2^{n+1}},\ldots,x_{m-1}^n,x_m^n)  &= 0\\
-&\vdots\\ 
-F_{m-1}  (\alert{x_1^{n+1},x_2^{n+1},\ldots,x_{m-1}^{n+1}},x_m^n)  &= 0\\
-F_m (\alert{x_1^{n+1},x_2^{n+1},\ldots,x_{m-1}^{n+1}, x_m^{n+1}})  &= 0
-\end{align*}
-Requires contraction and strong monotonicity.\\
-You can speed things up (sometimes) by re-ordering equations.
-
-\end{frame} 
-
-\begin{frame}{Newton-Raphson Method}
-\begin{enumerate}
-\item Take an initial guess $\symbf{x^0}$
-\item Take a Newton step by solving the following system of linear equations
-\begin{eqnarray*}
-J_F(\symbf{x^n}) \symbf{s^n} = - F(\symbf{x^n})
-\end{eqnarray*}
-\item New guess $\symbf{x^{n+1}} =\symbf{x^n} + \symbf{s^n}$ or  $\symbf{x^{n+1}} =\symbf{x^n} - J_F^{-1}(\symbf{x^n})\cdot F(\symbf{x^n}) $ 
-\item Good (Quadratic) Local convergence
-\end{enumerate}
+\begin{frame}{Solving $F(\symbf{p})=0$: The One-Slide Version}
+General problem: $J$ nonlinear equations in $J$ unknowns, $F(\symbf{p}) = \symbf{p} - \widehat{\symbf{mc}} + \Delta(\symbf{p})^{-1}q(\symbf{p})=0$.
+\begin{center}
+\footnotesize
+\begin{tabular}{lll}
+\toprule
+Method & Update & Needs \\
+\midrule
+Gauss-Jacobi & solve each $F_j(\alert{p_j^{n+1}}, \symbf{p}_{-j}^{n})=0$ & contraction + strong monotonicity \\
+Gauss-Seidel & same, but use $p_{<j}^{n+1}$ as you go & contraction + strong monotonicity \\
+Newton-Raphson & $\symbf{p}^{n+1} = \symbf{p}^n - J_F(\symbf{p}^n)^{-1} F(\symbf{p}^n)$ & Jacobian of $\Delta^{-1} q$; quadratic local convergence \\
+Broyden / quasi-Newton & secant-style update of $J_F^{-1}$ & no derivatives; slower \\
+Picard & $\symbf{p} \mapsfrom \widehat{\symbf{mc}} - \Delta(\symbf{p})^{-1}q(\symbf{p})$ & \alert{not a contraction} (but you can get lucky) \\
+\bottomrule
+\end{tabular}
+\end{center}
 \begin{itemize}
-\item Requires $J_F$ (Jacobian) to be Lipschitz continuous. 
-\item Linearity means we do not need to take the inverse to solve the system\\
- (just QR decomp -- \texttt{backslash} in MATLAB).
-\item Non-singularity of $J_F$ is weaker than strong monotonicity (more like PSD).
+\item If Newton is feasible, start there. Best-response iteration is what most people reach for first and it is the least reliable.
+\item Derivations, convergence conditions, and accelerated fixed points (SQUAREM, Anderson) are in the \alert{Systems of Equations} notes in \texttt{Extra Notes}.
+\item For the pricing game specifically there is a better option: exploit the structure of $\Delta(\symbf{p})$ (next slide).
 \end{itemize}
-\end{frame} 
+\end{frame}
 
-\begin{frame}{Why not always do Newton-Raphson?}
-\begin{itemize}
-\item Often computing or inverting $J_f(\symbf{x^n})$ is hard.
-\item Alternatives focus on simplified ways to compute $J_f(\symbf{x^n})$ or to update $J_f^{-1}(\symbf{x^n})$
-\begin{itemize}
-\item Some techniques similar to \alert{secant method} (Broyden's Method).
-\item Also what are known as \alert{quasi-Newton} methods.
-\end{itemize}
-\item If NR is feasible: start with that!
-\end{itemize}
-\end{frame} 
-
-\begin{frame}{Broyden's Method}
-Idea: approximate the Jacobian $J_f(\symbf{x^n}) \approx A_n$
-\begin{enumerate}
-\item Start with $A_0 = \symbf{I}_m$.
-\item Iterate on $\symbf{x^{n+1}}= \symbf{x^n} - A_n^{-1} F\left(\symbf{x^{n}}\right)$
-\item Update the Jacobian:
+\begin{frame}{Exploit the (mixed) logit formula}
+For mixed logit with types $i$ (weights $w_i$, price coefficients $\alpha_i > 0$), the $\Delta$ matrix in a single market is:
 \begin{align*}
-A_{n+1}=A_{n}-\frac{F\left(\alert{\symbf{x^{n+1}}}\right)\left[A_{n}^{-1}  F\left(\symbf{x^{n}}\right) \right]^{\prime}}{\left[A_{n} F\left(\symbf{x^{n}}\right) \right]^{\prime}\left[A_{n} F\left(\symbf{x^{n}}\right) \right]}
-\end{align*}
-\end{enumerate}
-This is meant to be the multivariate version of the \alert{secant method}.
-\end{frame} 
-
-
-\begin{frame}{Exploit the logit formula}
-For the logit the $\Delta$ matrix (for a single market) looks like:
-\begin{align*}
-\Delta_{(j,k)}(\symbf{p}) = \left\{\begin{array}{lr}
-       \int \alpha_i \cdot \sigma_{ij}\cdot (1-\sigma_{ij}) \, \partial F_i& \text{ if } j=k \\
-       	  \quad -\int \alpha_i \cdot \sigma_{ij} \cdot \sigma_{ik} \, \partial F_i &  \text{ if }  j\neq k
+\Delta_{(j,k)}(\symbf{p}) = -\frac{\partial \sigma_j}{\partial p_k} = \left\{\begin{array}{lr}
+       \sum_i w_i\, \alpha_i \, \sigma_{ij} (1-\sigma_{ij}) & \text{ if } j=k \\
+       	  \quad -\sum_i w_i\, \alpha_i \, \sigma_{ij} \, \sigma_{ik} &  \text{ if }  j\neq k
         \end{array} \right\}
 \end{align*}
-Which we can factor into two parts (for plain logit):
+Both cases have the same structure, so $\Delta$ factors into a diagonal piece and a dense piece:
 \begin{align*}
-\Delta(\symbf{p}) =  \underbrace{\text{ Diag}\left[ \alpha \, \symbf{\sigma}(\symbf{p}) \, \right]}_{\Lambda(\symbf{p})} -  \underbrace{\alpha \cdot \symbf{\sigma}(\symbf{p}) \symbf{\sigma}(\symbf{p})'}_{\Gamma(\symbf{p})}
+\Delta(\symbf{p}) =  \underbrace{\text{Diag}\Big[ \sum_i w_i\, \alpha_i\, \sigma_{ij} \Big]}_{\Lambda(\symbf{p})} -  \underbrace{\Big[\sum_i w_i\, \alpha_i\, \sigma_{ij}\, \sigma_{ik} \Big]_{(j,k)}}_{\Gamma(\symbf{p}) \,=\, \symbf{S}\, \text{Diag}[w_i \alpha_i]\, \symbf{S}'}
 \end{align*}
-$\Gamma(\symbf{p})$ and $\Lambda(\symbf{p})$ are $J \times J$ matrices and $\Lambda(\symbf{p})$ is diagonal and $(j,k)$ is nonzero in $\Gamma(\symbf{p})$ only if $(j,k)$ share an owner.
+\begin{itemize}
+\item $\symbf{S}$ is $J \times I$ with columns $\symbf{\sigma}_i$: $\Gamma$ has \alert{rank $\leq I$} (the same rank-$I$ structure as the second-choice matrix in the micro-data week). Plain logit ($I=1$): $\Lambda = \alpha\, \text{Diag}[\symbf{\sigma}]$, $\Gamma = \alpha\, \symbf{\sigma} \symbf{\sigma}'$, rank one.
+\item $\Lambda$ is diagonal, so the ownership matrix only masks $\Gamma$: $\calH \odot \Delta = \Lambda - \calH \odot \Gamma$.
+\item Price-specific coefficients (log price, income effects): replace $\alpha_i$ by $\alpha_{ik} = -\partial V_{ik}/\partial p_k$, indexed by the \alert{column} $k$ in $\Gamma$ and by $j$ in $\Lambda$. Then $\Gamma$ is \alert{no longer symmetric} (next slide).
+\end{itemize}
 \end{frame}
 
 
-\begin{frame}{Morrow Skerlos (2010) Fixed Point}
-\begin{itemize}
-\item After factoring we can rescale by $\Lambda^{-1} (\symbf{p})$
+\begin{frame}{Morrow Skerlos (2011) Fixed Point}
+\small
+Start from the FOC $(\calH \odot \Delta)(\symbf{p} - \symbf{mc}) = \symbf{\sigma}$, substitute the factorization, and rescale by $\Lambda^{-1}$:
 \begin{align*}
-(\symbf{p}-\symbf{mc} ) \mapsfrom \Lambda^{-1}(\symbf{p}) \cdot \Gamma(\symbf{p})\cdot(\symbf{p}- \symbf{mc}) - \Lambda^{-1}(\symbf{p})\cdot \symbf{\sigma}(\symbf{p})
+(\symbf{p}-\symbf{mc} ) \mapsfrom \underbrace{\Lambda^{-1}(\symbf{p}) \cdot (\calH \odot \Gamma(\symbf{p}))\cdot(\symbf{p}- \symbf{mc}) + \Lambda^{-1}(\symbf{p})\cdot \symbf{\sigma}(\symbf{p})}_{\zeta(\symbf{p})}
 \end{align*}
-\item This alternative fixed point is in fact a contraction.
-\item Moreover the rate of convergence is generally fast and stable (much more than Gauss-Seidel or Gauss-Jacobi).
-\item Honestly, this is the best way to solve large pricing games. It nearly always wins and doesn't require derivatives.
-\item Coincidentally, this is what \texttt{PyBLP} defaults to.
+\vspace{-0.3cm}
+\begin{itemize}
+\item Reading: $\Lambda^{-1} \symbf{\sigma}$ has entries $\sigma_j / \sum_i w_i \alpha_i \sigma_{ij}$, the markup ignoring cannibalization; the $\Gamma$ term adds back own cannibalization ($\Gamma_{jj}$) and the opportunity cost of sister products. Single-product plain logit check: $(p_j - mc_j)(1-\sigma_j) = 1/\alpha$.
+\item Each iteration needs only $\sigma_{ij}$ at current prices: no derivatives, no Jacobian inverse, $\Lambda^{-1}$ is a diagonal scaling. Converges fast and stably, far better than Gauss-Seidel or Gauss-Jacobi on the raw FOC. Honestly, the best way to solve large pricing games; \texttt{PyBLP}'s default.
+\item Orientation: the FOC for $p_j$ needs $\partial \sigma_k/\partial p_j$, so in general the mask multiplies the \alert{transpose}, $\calH \odot \Gamma'$. Irrelevant with common $\alpha_i$ (symmetric $\Gamma$) and symmetric $\calH$; it matters with product-specific $\alpha_{ik}$ or asymmetric $\kappa_{fg}$ (conduct lecture).
+\item With $\alpha_i < 0$ as the signed coefficient the sign on $\Lambda^{-1}\symbf{\sigma}$ flips; that is how Conlon Gortmaker (2020) write it.
 \end{itemize}
 \end{frame}
 
