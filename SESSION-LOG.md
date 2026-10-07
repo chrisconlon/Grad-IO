@@ -24,8 +24,7 @@
 
 3. Weeks 7–15 streamlining review (the Weeks 1–5 treatment: content maps,
    dedup, dead-comment cleanup, gaps) — Weeks 5/7 DONE 2026-10-06 (see entry);
-   conduct.tex retired 2026-10-06; **conduct_new major overhaul
-   based on `../conduct_testing` is next (Chris, 2026-10-06)**; dead copy-paste
+   conduct.tex retired 2026-10-06; conduct_new overhaul DONE 2026-10-06 (pending Chris's long-vs-short choice for the full-CMR section); dead copy-paste
    sweep for Weeks 6–15 still open.
 4. ~~Solution keys for PS2, BLP_hw, PS4~~ — DONE 2026-09-02 (see entry below).
    Follow-ups: (a) ~~regenerate the Rust data~~ DONE 2026-09-02 (`rust_data_2026.csv`,
@@ -46,6 +45,65 @@
 8. `demand_iioc.tex` IPDL row (~l.832) — looks like ξ-recovery mislabeled as
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
+
+## 2026-10-06 (later) — conduct_new overhaul from `../conduct_testing` (BCS 2.0)
+
+Chris's rulings: build the in-depth full-CMR section AND a two-slide version side by side (he
+expects to pick the short one; the paper does not exist yet); cite only "BCS 2.0 (draft)" (Xiaohong
+Chen thanked on the paper's title page, not on slides); teach the single-product puzzle candidly;
+Starc–Wollmann cut to two frames.
+
+Source material read: `theory/conduct_test_theory.tex` (canonical full-CMR doc), `theory/
+bcs_g_justification.tex` (the standalone updated scalar-test paper), `notes/Q_construction.md`,
+`notes/plan.md`, `notes/statistical_theory.md` §11, `notes/cereal_results.tex` (§cmr, §master,
+§reconcile), `notes/notation.md`, `notes/kline_santos_relation.md`, `notes/R3_demand_correction.md`,
+`theory/bcs_master_table.tex`. Web-checked: DMSS QE 2024 (15(3):571–606; pyRVtest); BCS cereal =
+NBER WP 28350, R&R Econometrica.
+
+**New `conduct_new.tex`** (assembled programmatically: kept frames extracted by title from the old
+file, new frames spliced in; old file saved to the session scratchpad, recoverable from git), 61
+frames, 9 sections:
+1. The problem (10): old openers (DMSS/Starc–Wollmann/Scuderi–Roussille refs updated), Bresnahan,
+   Berry–Haile, setup, κ FOCs ×2, reasons, simultaneous problem; NEW "Two ways in" recap replaces
+   Approach #1/#2/what-people-do (owned by demand_new).
+2. Classic approaches (9): menus, single-model λ (the "=0s" typo fixed), Pakes/Wollmann ×2,
+   Bonnet–Dubois, Villas-Boas ×2, recap; NEW DMSS frame (RV vs specification tests, weak
+   instruments for testing, effective F, the 2SLS quadratic form as the finite-K object).
+3. The reframe (3, NEW): null = equal distance from the CMR (Vuong/RV/CHS); degeneracy =
+   observational equivalence with its three roads; constant-markup conducts as a scale degeneracy
+   (perfect competition is a straw man).
+4. Scalar BCS 2.0 (8): Basic Setup, The Question, Misspecification kept; NEW optimal-instrument
+   frame (FWL-partialled ĝ, optimality, the subtraction is not redundant), orthogonality +
+   cross-fitting, inference (analytic + three bootstraps + recentering), algorithm (K-fold over
+   clusters, per-model ω̂ reuse, 7-item spec); "BCS in one slide" kept with the closing line updated.
+   Dropped: Setup Challenges, Testing Environment, old 70/30 Algorithm, Comparison to Literature,
+   Limitations, and the ~10 commented-out 2020 frames.
+5. Full-CMR LONG (6, NEW): criterion and the three-criteria axis; U-statistic with diagonal removal
+   and basis centering; two regimes (Hoeffding, weighted χ²); unified multiplier bootstrap;
+   orthogonality/diagnostics/open problems + Monte Carlo; where scalar and norm agree/disagree.
+5′. Full-CMR SHORT (2, NEW): "in one slide" + "inference in one slide". **Chris chose SHORT
+   (2026-10-06); the long section is commented out in place (not deleted) for reference.**
+   Notation sweep applied across the deck (NOTATION.md): instruments italic `z_{jt}` everywhere
+   (`\textrm{z}`, `z^s` retired); A/B model labels → `m_1/m_2`; the misspecification frame's
+   0/1 → `m_0` (true) / `m_1` (wrong); Basic Setup's `\psi` (marginal revenue) → `mr` so `\psi_c`
+   is the Hájek influence only; the orthogonality frame's `\zeta` nuisance pair dropped (ζ is the
+   Morrow–Skerlos map in the pricing deck); constant-markup multiplier `\mu` → `\phi` (μ_m(z) is
+   the conditional moment); DMSS moment vector `\bar g_m` → bold `\bar{\symbf m}_m` (g is the
+   BCS instrument); "BCS in one slide" first stage rewritten as the FWL-partialled g(z). Second pass (Chris: "be
+   consistent with \\textrm{} etc."): all data vectors x/w/v/y upright via `\\textrm` (the
+   `\\mathrm` cluster in the common-ownership frames and two bare-italic inherited lines fixed);
+   expectation operator unified to the `\\E` macro (`\\mathbb{E}` and bare `E[` retired). 55 live
+   frames, 66 pp.
+6. What identifies conduct (4, NEW): internalization ladder; near-collinear markups; validity ⊥
+   cost shock not price + the instrument table (opt_iv / demog / opc / diff); FE, weighting, and
+   getting out of degeneracy (20-cell sweep).
+7. Examples (4): Scuderi–Roussille ×2; Starc–Wollmann quote+setup and testing-results figure.
+8. Common ownership (15): hypothesis, Big Three, assumptions, profit weight, reduced-form critique,
+   data, κ variation, implementation (updated last bullet), exclusion restrictions (rewritten to
+   the strength ranking), published Table 8 (retitled), NEW updated-results table (C·Q̂ + MCS per
+   instrument group), NEW single-product puzzle frame, τ ×2, stepping back (updated).
+Builds clean (0 errors, 73 pp. with both part-5 versions). Residual overfull warnings are the
+inherited full-height image frames only.
 
 ## 2026-10-06 — Weeks 5 and 7 reorganization (Option A: diversion moves up, Week 7 becomes supply)
 
