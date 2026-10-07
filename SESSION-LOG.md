@@ -1,6 +1,18 @@
 # Session log
 
-## To-do queue (as of 2026-09-02 close-out)
+## To-do queue (as of 2026-10-06 close-out)
+
+**Done this session (2026-10-06, all pushed; Grad-IO at c028633, site at abbe310):** Weeks 5/7
+reorganization (diversion → Week 5; Week 7 = supply); Einav–Guido–Klenow from the CMS appendix;
+Nevo–Tao–Gandhi Deep Sets frames; Morrow–Skerlos for mixed logit; pass-through restructure
+(jaxblp-checked); conduct_new overhaul around BCS 2.0; conduct.tex retired; Week 3 PDFs rebuilt.
+
+**Queued for next time:** vertical lectures overhaul (item 1 below), production functions deck +
+assignment (items 2–3), dead copy-paste sweep for Weeks 6–15, the Week 7 unreferenced resources
+(`new_prius*.png`, `pca_01.pdf`, `sillydiversion.pdf`, `neary_2.png` now unused), and — when the
+BCS 2.0 paper exists — revisit whether the conduct deck's commented-out six-frame full-CMR section
+should come back.
+
 
 **Major overhauls (next up, per Chris):**
 
