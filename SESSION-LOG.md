@@ -78,6 +78,41 @@ conduct_new is left alone pending a **major overhaul based on `../conduct_testin
   $\alpha_{ik}$ or asymmetric κ).
 - **`passthrough.tex`**: the two verbatim "Recall" frames (Bertrand FOC, UPP) dropped; a one-line
   UPP callback now opens the Jaffe–Weyl frame. 29 → 27 frames.
+  **Cross-checked against jaxblp** (`jaxblp/model/analysis.py`, `notes/passthrough.md`,
+  `notes/TODO.md` two-tier markups), per Chris: (1) wholesale FOC had $\mathcal{P}\Delta_r$; with
+  $\mathcal{P} = \partial p^r/\partial p^w$ the Jacobian the IFT frame derives (and PyBLP/JaxBLP
+  return) it must be $\mathcal{P}'\Delta_r$ (chain rule puts the derivative index on the row;
+  jaxblp writes `O_up o (PT' dS/dp')`) — fixed on the Villas-Boas frame and the Conlon–Rao frame;
+  (2) IFT "hard part" agrees with jaxblp's closed form $\partial\eta/\partial p = -A^{-1}[T + \partial s/\partial p]$,
+  $T_{lk} = \sum_m (\partial A_{lm}/\partial p_k)\eta_m$ — added the compact $T$ form and the
+  "contract with markups first" remark, plus the JaxBLP timing (0.4s vs 3.7s/31GB, 636 products);
+  (3) Conlon–Rao ζ frame: sign aligned with pricing.tex (+Λ⁻¹𝒫⁻¹σ, α>0 convention); the
+  "not sure about general case" resolved — diagonal 𝒫 works because $\mathcal{H}\odot(\mathcal{P}\Gamma)=\mathcal{P}(\mathcal{H}\odot\Gamma)$;
+  non-diagonal 𝒫 breaks the Λ split, use a diag(Ω_w) split or Newton.
+- **`passthrough.tex` FULL RESTRUCTURE** (Chris: "one of the weakest in the course"; approved
+  2026-10-06; previous version saved to the session scratchpad only, recoverable from git). New
+  arc, 25 frames + title: (1) what/why, hot take, the empirical puzzle as one table (merged the two
+  "How bad is it" frames); (2) one product: PC, Weyl–Fabinger monopoly condensed to one frame with
+  the log-curvature rule folded in, NEW canonical table (linear ½, exponential 1, CES ε/(ε−1),
+  logit 1−σ_j, PC 1), conduct + the Principle of Incidence $1/I = 1/\rho - (1-\theta)$ (verified),
+  Mrázová–Neary rewritten with κ for their curvature (ρ collision gone) + one figure (neary_3;
+  neary_2 no longer used, file kept); (3) NEW discrete-choice section: logit pass-through
+  $1-\sigma_j$ derived in two lines, mixed-logit curvature-from-mixing with Miravete–Seim–Thurk
+  (2023, R&R QE) and the supply-moment advice; (4) matrix: IFT "easy part" rewritten as
+  $\mathcal{P} = (I - \partial\eta/\partial p)^{-1}$, how-to + hard part kept, Jaffe–Weyl moved
+  here as the application, MRSS figures captioned and author order fixed; (5) vertical:
+  Villas-Boas (with transpose), Conlon–Rao ζ counterfactual, "what's the point" absorbed;
+  (6) taxes/data: NEW specific-vs-ad-valorem frame built on the ζ map (ad valorem taxes the
+  markup; Delipalla–Keen, Anderson–de Palma–Kreider), Conlon–Rao AEJ:EP 2020 three frames kept
+  with a theory-prediction line added, NEW DellaVigna–Gentzkow / Butters–Sacks–Seo frame (BSS
+  2022 AER: 68 excise + 76 sales-tax changes, 35,151 stores, 96 chains; local pass-through, no
+  spillovers → uniform pricing is about demand, not the explanation for the spirits results),
+  challenges with Kroft–Laliberté–Leal-Vizcaíno–Notowidigdo (ReStud 2024; bullet rewritten to the
+  published findings after Chris flagged that the earlier draft's framing is superseded). Errata: Miller,
+  Remer, Ryan, Sheu; Weyl and Fabinger; Pless and van Benthem; Chetty–Looney–Kroft 2009;
+  Conlon–Rao counterfactual year 2025 to match demand_new. Dropped: standalone log-curvature
+  frame, "Multiproduct Pass-Through" section stub, the curvature "What's the point" (absorbed by
+  the logit frames). 27 → 26 frames incl. title; builds clean.
 - **`machine_learning.tex`**: Idea #3 (Einav–Guido–Klenow) slimmed to what is new relative to the
   diversion lecture (figure, panel-data-only point, Conlon–Rao / Atalay nesting uses); the
   second-choice-matrix frame now recalls rather than re-derives the decomposition; FKRB bullet
