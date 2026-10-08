@@ -23,7 +23,7 @@ Foundational Empirical IO Question: How do we observe data on price and quantity
 \item Recent revival of ``internalization'' parameters: Miller and Weinberg (2017), Crawford, Lee, Whinston, and Yurukoglu (2017), Pakes (2017)
 \item Parallel work by: Duarte, Magnolfi, S\o lvsten, Sullivan (QE 2024): which test is best (RV) and when instruments are too weak to test. Magnolfi, Quint, Sullivan, Waldfogel (2022): should we test or estimate?
 \item Applications of our test: Starc and Wollmann (2022), Scuderi and Roussille (2025), others?
-\item Today: the classic approaches, then the Backus--Conlon--Sinkinson test as it stands in the current draft (``BCS 2.0''), then what the cereal data taught us about what identifies conduct.
+\item Today: the classic approaches, then the Backus--Conlon--Sinkinson scalar test (``BCS 1.0'') and the full conditional-moment test (``BCS 2.0''), then what the cereal data taught us about what identifies conduct.
 \end{itemize}
 Is conduct testable? Berry and Haile (2014): yes.
 \end{frame}
@@ -293,7 +293,7 @@ Take the supply equation seriously as a \alert{moment condition} and ask which c
 \end{frame}
 
 
-\section{The reframe: model selection under misspecification}
+\section{Model Selection under Misspecification}
 
 \begin{frame}{What Is the Null? Ranking Misspecified Models}
 \small
@@ -331,21 +331,22 @@ H_0: Q(\eta^{m_1}) = Q(\eta^{m_2}) \quad (\text{equally wrong}) \qquad \text{vs.
 
 
 \begin{frame}{A Different Degeneracy: Constant-Markup Conducts Are a Straw Man}
+\small
 Suppose conduct $m$ implies a \alert{constant proportional markup}, $p = \phi \cdot mc$ (perfect competition is $\phi=1$; symmetric CES-type pricing is $\phi > 1$). Then
 \begin{align*}
 \omega_\phi = p/\phi - h_s(\textrm{x}, \textrm{w}) = \tfrac{1}{\phi}\, \varrho, \qquad \varrho \equiv \text{the price residual on } (\textrm{x}, \textrm{w}), \qquad
 Q(\phi) = \tfrac{1}{\phi^2} \, \| \E[\varrho \mid z] \|^2 .
 \end{align*}
 \begin{itemize}
-\item The \alert{raw} criterion mechanically prefers the larger $\phi$ (it is not scale-invariant), and the \alert{studentized} statistic is identical for every $\phi$: the test cannot tell constant-markup conducts apart at all.
+\item The moments are \alert{proportional}, $\mu_{\phi} = \E[\varrho \mid z]/\phi$, so $\Delta\widetilde{Q} = \|\E[\varrho \mid z]\|^2 (\phi_1^{-2} - \phi_2^{-2})$: $\mathsf{T}_{RV}$ is normal with power and consistently selects the \alert{larger} markup. Scale, not fit; no instrument fixes it (lossless).
 \item So ``we reject perfect competition'' means only that the price residual projects onto $z$. It is a statement about demand-side variation in prices, not about conduct.
-\item Rules: never compare two constant-markup conducts; treat perfect competition as a sanity check, not an informative comparison; always report the studentized statistic.
+\item Rules: never compare two constant-markup conducts; treat perfect competition as a sanity check, not an informative comparison. Repairs: outside information on the markup \emph{level} (Nevo 2001), or studentizing each moment, which leaves nothing to test.
 \item The informative comparisons are between conducts that imply \alert{different patterns} of markups across products and markets: single-product vs.\ own-firm vs.\ common ownership vs.\ monopoly. Those differ in how much of the cross-price structure the firm internalizes.
 \end{itemize}
 \end{frame}
 
 
-\section{Backus, Conlon, Sinkinson: the scalar test (BCS 2.0)}
+\section{Backus, Conlon, Sinkinson: the scalar test (BCS 1.0)}
 
 \begin{frame}{Basic Setup}
 We start with marginal revenue and marginal cost (unobserved $\omega$, observed $h_s(\cdot)$)
@@ -369,7 +370,7 @@ p_{jt} = h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \tau\, \eta_{jt}^{m_1} + (1-\tau
 \end{align*}
 Model is defined by a conditional moment restriction $\E[\omega_{jt}  | z_{jt}]=0$
 \begin{itemize}
-\item $H_0: \tau =1 \text{ vs } H_a: \tau = 0$
+\item $\tau = 1$ is $m_1$, $\tau = 0$ is $m_2$. The null is \alert{equal fit}, $\widetilde{Q}(\eta^{m_1}) = \widetilde{Q}(\eta^{m_2})$, not ``$\tau = 1$'': both may be wrong.
 \item This is a \alert{model selection} problem or a \alert{non nested testing} problem.
 \begin{itemize}
 \item We might want to compare more than two alternatives (too bad).
@@ -393,8 +394,8 @@ $$p_{jt} -\eta_{jt}^{m_1} = h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \underbrace{\
 \end{frame}
 
 
-\begin{frame}{The Instrument: Optimal Among Single Directions (BCS 2.0)}
-\small
+\begin{frame}{The Instrument: Optimal Among Single Directions (BCS 1.0)}
+\footnotesize
 Collapse the moment against one direction $b(z)$: $\bar{m}_m(b) = \E[\omega^m b(z)]$ and $\widetilde{Q}(\eta^m) = \bar{m}_m^2$. Which $b$ discriminates $m_1$ from $m_2$ best?
 \begin{align*}
 \omega^{m_1} - \omega^{m_2} = -\big(\Delta\eta - \E[\Delta\eta \mid \textrm{x}, \textrm{w}]\big)
@@ -403,7 +404,8 @@ g(z) \equiv \E[\Delta\eta \mid \textrm{x}, \textrm{w}, z] - \E[\Delta\eta \mid \
 \end{align*}
 \begin{itemize}
 \item $g$ is the projection of the markup difference onto the \alert{excluded} instruments after the cost controls are partialled out (Frisch--Waugh--Lovell / Robinson). It is the Chamberlain optimal instrument for the omitted variable $\Delta\eta$ of the previous slide.
-\item \textbf{Optimality:} among all single directions, $g$ uniquely maximizes the signal-to-noise ratio for telling the two conducts apart; the maximum it attains is the full conditional-moment distance between them. In population, RV on this scalar is \alert{lossless}: $\bar{m}_1 - \bar{m}_2 = -\|\mu_{m_1} - \mu_{m_2}\|^2$.
+\item \textbf{Optimality:} among all single directions, $g$ uniquely maximizes the signal-to-noise ratio for telling the two conducts apart (Cauchy--Schwarz; heteroskedasticity adds a $1/\sigma^2(z)$ weight), attaining the full conditional-moment distance $\|\mu_{m_1} - \mu_{m_2}\|$. RV on it is \alert{lossless} in population: with $\|g\| = 1$, $\bar{m}_1^2 - \bar{m}_2^2 = \|\mu_{m_1}\|^2 - \|\mu_{m_2}\|^2$, the full-CMR ranking and null.
+\item \textbf{Failure set shrinks:} a generic $b$ also fails when $b \perp \mu_{m_1} - \mu_{m_2}$ (spurious equal fit) or $b \perp \text{span}\{\mu_{m_1}, \mu_{m_2}\}$ (Vuong degeneracy); along $g$ both collapse to observational equivalence.
 \item \textbf{The subtraction is not redundant} even though $(\textrm{x}, \textrm{w}) \subset z$: it is what makes $\E[g \mid \textrm{x}, \textrm{w}] = 0$, and that is what makes the moment insensitive to errors in $h_s$ (next slide).
 \item Practical: $\widehat{g}$ is two cross-fit regressions of $\Delta\eta$ (random forest, boosting, or a sieve), one on everything and one on the controls, differenced.
 \end{itemize}
@@ -415,7 +417,7 @@ g(z) \equiv \E[\Delta\eta \mid \textrm{x}, \textrm{w}, z] - \E[\Delta\eta \mid \
 Two nuisance functions, $h_s$ and $g$, are estimated and plugged in. Why does their estimation error not contaminate the test? (Chernozhukov et al.\ 2018 double machine learning, applied to a model-selection statistic.)
 \begin{itemize}
 \item \textbf{Cost direction.} Perturb $h_s \rightarrow h_s + \delta h$: the moment moves by $-\E[\delta h(\textrm{x}, \textrm{w}) \cdot \E[g \mid \textrm{x}, \textrm{w}]] = 0$ by construction of $g$. First-order error in the cost function \alert{cannot} enter. (This is Neyman orthogonality, delivered by the FWL subtraction.)
-\item \textbf{Instrument direction.} Perturb $g$: the criterion moves by $2 \bar{m}_m \E[\mu_m \delta g]$, which vanishes when the model's own moment is zero, i.e.\ for a correct model and under the alternative. In the both-wrong null a first-order term survives along the level direction $\mu_{m_1} + \mu_{m_2}$: strong rejections are safe, \alert{marginal} ones from a slow learner are not.
+\item \textbf{Instrument direction.} Perturb $g$: the moment moves by $\E[\mu_m \delta g]$, zero for every $\delta g$ iff $\mu_m \equiv 0$. No null is needed: a model that satisfies the CMR has its moment pinned at zero however badly $g$ is estimated, so with a true model on the menu $\widehat{g}$-error moves \alert{power}, not size. In the both-wrong null ($\bar{m}_1 = -\bar{m}_2 \neq 0$) a first-order term survives along the level direction $\mu_{m_1} + \mu_{m_2}$: strong rejections are safe, \alert{marginal} ones from a slow learner are not. (Conditional on the training folds $\widehat{g}$ \emph{is} the instrument, and the test is exactly sized for equal fit in that direction.)
 \item \textbf{Cross-fitting.} Split the \alert{clusters} (whole markets, never products within a market) into $K$ folds; evaluate each observation at nuisance functions fit on the other folds. This removes the own-observation bias that in-sample fitting puts into a \alert{squared} moment ($\E[\widetilde{Q}] = Q + \text{Var}(\bar{m}) + \text{overfit}$), without complexity restrictions on the learner.
 \item \textbf{Rate.} Remaining bias is a product of two nuisance errors, negligible once each converges faster than $n^{-1/4}$ (Bickel--Ritov). Random forests and boosting on a few hundred thousand rows clear this comfortably.
 \end{itemize}
@@ -424,19 +426,19 @@ Two nuisance functions, $h_s$ and $g$, are estimated and plugged in. Why does th
 
 \begin{frame}{Inference for the Scalar Test}
 \small
-Aggregate the integrand to \alert{cluster totals} $S^m_c = \sum_{i \in c} w_i\, \widehat{\omega}^m_i \widehat{g}_i$ (cluster $=$ chain$\times$year in cereal, $C = 242$), so $\bar{m}_m = \frac{1}{n}\sum_c S^m_c$ and $\Delta\widetilde{Q} = \bar{m}_1^2 - \bar{m}_2^2$.
+Aggregate the integrand to \alert{cluster totals} $S^m_c = \sum_{i \in c} w_i\, \widehat{\omega}^m_i \widehat{g}_i$, the cluster being a union of whole markets (cereal: markets, $C \approx 1900$), so $\bar{m}_m = \frac{1}{n}\sum_c S^m_c$ and $\Delta\widetilde{Q} = \bar{m}_1^2 - \bar{m}_2^2$.
 \begin{itemize}
 \item \textbf{Analytic (delta method).} $\mathsf{T}_{RV} = \sqrt{n}\, \Delta\widetilde{Q} / \widehat{\sigma}$ with $\widehat{\sigma}^2$ from the cluster totals and $\nabla f = (2\bar{m}_1, -2\bar{m}_2)$. Valid away from the boundary; as $\bar{m}_m \rightarrow 0$, $\widehat{\sigma} \rightarrow 0$ and it fails.
 \item \textbf{Bootstrap 1, multiplier on the influence function.} Rademacher weights $e_c$ on the linearized contribution: reproduces the analytic SE, same boundary problem (Kline--Santos 2012 score bootstrap).
 \item \textbf{Bootstrap 2, score-level wild.} Perturb each model's \alert{moment before squaring}, $\bar{m}^*_m = \bar{m}_m + \frac{1}{n}\sum_c e_c \tilde{S}^m_c$, then square. Keeps the cross term \emph{and} the quadratic term, so it self-adapts: normal far from the boundary, fat-tailed near it, with no pretest. The variance it adds relative to the linear term scales as $1/\mathsf{T}_m^2$, the per-model moment $t$-ratio.
 \item \textbf{Bootstrap 3, wild cluster bootstrap-$t$.} Studentize every draw; the few-cluster refinement (Cameron--Gelbach--Miller 2008).
-\item Because a squared mean is biased upward, Bootstraps 2--3 recenter: report $\Delta\widetilde{Q} - (\widehat{V}_1 - \widehat{V}_2)$ against the centered bootstrap law. (The 2021 code recentered with the opposite sign; it washes out in the ranking but not in the $p$-values.)
+\item Because a squared mean is biased upward, Bootstraps 2--3 recenter: report $\Delta\widetilde{Q} - (\widehat{V}_1 - \widehat{V}_2)$ against the centered bootstrap law.
 \item No refits: every bootstrap only reweights cached cluster totals. Markups and first stages are computed once.
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Algorithm (BCS 2.0)}
+\begin{frame}{Algorithm (BCS 1.0)}
 \small
 For a pair $(m_1, m_2)$; the menu test repeats over all pairs.
 \begin{enumerate}
@@ -444,12 +446,10 @@ For a pair $(m_1, m_2)$; the menu test repeats over all pairs.
 \item \textbf{Cost residuals, per model.} For each $m$ and fold $k$, fit $\widehat{h}_s^{(-k)}(\textrm{x}, \textrm{w}) = \widehat{\E}[MC^m \mid \textrm{x}, \textrm{w}]$ on the other folds and residualize on fold $k$; fixed effects (product, chain, year) absorbed by a within-transform first. Computed \alert{once} per model and reused in every pair.
 \item \textbf{Instrument, per pair.} Cross-fit the two projections of $\Delta\eta$ and difference them: $\widehat{g} = \widehat{\E}^{(-k)}[\Delta\eta \mid \textrm{x}, \textrm{w}, z] - \widehat{\E}^{(-k)}[\Delta\eta \mid \textrm{x}, \textrm{w}]$.
 \item \textbf{Moments.} Cluster totals $S^m_c$, sample moments $\bar{m}_m$, criteria $\widetilde{Q}_m = \bar{m}_m^2$, contrast $\Delta\widetilde{Q}$.
-\item \textbf{Inference.} $\mathsf{T}_{RV}$ and a bootstrap $p$-value (Bootstrap 2 or 3), reweighting the cached totals.
+\item \textbf{Inference.} $\mathsf{T}_{RV}$: analytic cluster SE by default, Bootstrap 2 or 3 near the boundary, cached totals only.
 \item \textbf{Menu.} Pairwise matrix of contrasts $\rightarrow$ model confidence set: the models never significantly beaten.
 \end{enumerate}
-\begin{itemize}
-\item Versus 2021: $K$-fold over clusters instead of one 70/30 split; FWL-partialled $\widehat{g}$; recentering fixed; cluster, weighting and FE declared. Every result travels with a seven-item spec (criterion, controls vs.\ instruments, FE, partialling, learner, inference, flavor of $Q$).
-\end{itemize}
+% \item Versus 2021: $K$-fold over clusters instead of one 70/30 split; FWL-partialled $\widehat{g}$; recentering fixed; cluster, weighting and FE declared. Every result travels with a seven-item spec (criterion, controls vs.\ instruments, FE, partialling, learner, inference, flavor of $Q$).
 \end{frame}
 
 
@@ -458,8 +458,8 @@ Two competing markups (markdowns) $(\eta_{jt}^{m_1}, \eta_{jt}^{m_2})$. Which fi
 \begin{align*}
 \only<1>{p_{jt} &= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \tau\, \eta_{jt}^{m_1} + (1-\tau)\,\eta_{jt}^{m_2} + \omega_{jt} 
 \text{ where } \E[\omega_{jt}  | \textrm{x}_{jt} ,\textrm{w}_{jt}, \alert{z_{jt}}]=0\\} 
-\only<2>{p_{jt} -\eta_{jt}^{m_1} &= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega_{jt} \text { under } H_0: \tau=1\\
-p_{jt} -\eta_{jt}^{m_2} &= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega_{jt} \text { under } H_1: \tau=0}
+\only<2>{p_{jt} -\eta_{jt}^{m_1} &= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega_{jt} \text { if } \tau=1 \ (m_1)\\
+p_{jt} -\eta_{jt}^{m_2} &= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega_{jt} \text { if } \tau=0 \ (m_2)}
 \end{align*}
 \pause
 The only IV that matters is the \alert{predicted markup difference}, net of the cost controls, which we get from two first stages
@@ -647,7 +647,7 @@ Group & What it is & Strength for conduct \\
 \end{center}
 \begin{itemize}
 \item The optimal IV is not circular: demand was estimated \alert{without} a supply side, so $\widehat{\E}[p \mid z]$ is a reduced-form fit, not an equilibrium price under an assumed conduct. Its near-perfect span of expected prices is the source of its power.
-\item The BLP instruments are the demand workhorse and the conduct runt: their conduct content is nonlinear and collinear with the FE. The 2021 paper's apparent strength on them was in-sample inflation.
+\item The BLP instruments are the demand workhorse and the conduct runt: their conduct content is nonlinear and collinear with the FE. Their apparent in-sample strength is squared-moment inflation.
 \item Partial the controls out of the instrument basis (FWL), as the scalar test partials $\widehat{g}$; otherwise control overlap inflates the Gram matrix and groups are not comparable. Partialling \alert{sharpens} valid strong instruments and exposes FE-collinear ones as weak.
 \end{itemize}
 \end{frame}
@@ -853,14 +853,14 @@ Things we don't use:
 \end{frame}
 
 
-\begin{frame}[plain,label=mainresults]{Published Results (BCS 2021, Table 8): Rivers--Vuong $\mathsf{T}$, $N(0,1)$}
+\begin{frame}[plain,label=mainresults]{Scalar Test Results (BCS 1.0): Rivers--Vuong $\mathsf{T}$, $N(0,1)$}
 \begin{center}
 \scalebox{0.5}{\input{resources/10_20noeprice_final.tex}}
 \end{center}
 \end{frame}
 
 
-\begin{frame}{Updated Results (BCS 2.0): Per-Model Criterion and Model Confidence Set}
+\begin{frame}{Full Conditional-Moment Results (BCS 2.0): Per-Model Criterion and Model Confidence Set}
 \footnotesize
 Full-CMR criterion $C \cdot \widehat{Q}(\eta^m)$ (smaller $=$ closer to $\E[\omega \mid z] = 0$) and the number of pairwise comparisons each model significantly loses (unified bootstrap); year$+$chain FE, boosting, controls partialled out of $z$, market clusters.
 \begin{center}
@@ -880,7 +880,7 @@ model confidence set & $\{$single$\}$ & $\{$single, monopoly-4$\}$ & all but mon
 \end{tabular}
 \end{center}
 \begin{itemize}
-\item \textbf{Own-profit is the robust substantive winner}: it beats common ownership, monopoly, and perfect competition on every instrument with power. Same ordering as the published Table 8, and the scalar test agrees.
+\item \textbf{Own-profit is the robust substantive winner}: it beats common ownership, monopoly, and perfect competition on every instrument with power. Same ordering as the scalar test.
 \item Only the optimal IV has the power to isolate a singleton set; the weaker groups rank the top of the ladder but cannot separate it.
 \item Every $Q_m > 0$: this is ``rank the misspecified models,'' conditional on the demand-side instruments being excluded from the true cost shock.
 \end{itemize}
@@ -889,7 +889,7 @@ model confidence set & $\{$single$\}$ & $\{$single, monopoly-4$\}$ & all but mon
 
 \begin{frame}{The Single-Product Puzzle}
 \begin{itemize}
-\item Single-product pricing (each brand ignores its sister brands) fits the moment condition \alert{better} than own-profit maximization. Robust across instruments, samples, fixed effects, weighting, learners, and both criteria; it is already in the 2021 Table 8 numbers.
+\item Single-product pricing (each brand ignores its sister brands) fits the moment condition \alert{better} than own-profit maximization. Robust across instruments, samples, fixed effects, weighting, learners, and both criteria; look back at the scalar-test table.
 \item It is \alert{not} ``no market power'': single-product markups are $1/(\alpha(1-\sigma_j))$-sized, comfortably above cost. It says firms appear to internalize \alert{less} cross-brand recapture than Bertrand with the estimated demand implies.
 \item Candidate explanations, none settled:
 \begin{enumerate}
@@ -927,7 +927,7 @@ We test $\tau \in (0.1, \ldots, 0.9)$ against own-profit maximization.
 
 \begin{frame}[plain]{Stepping Back: What About the Mechanism?}
 \begin{itemize}
-\item In RTE cereal, we see strong evidence in favor of own-profit maximization rather than common ownership pricing, on the published test and on BCS 2.0 alike.
+\item In RTE cereal, we see strong evidence in favor of own-profit maximization rather than common ownership pricing, on BCS 1.0 and BCS 2.0 alike.
 \item In some sense this is a \alert{frictionless} model
 \begin{itemize}
   \item Managers do exactly what investment managers want

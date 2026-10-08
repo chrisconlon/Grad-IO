@@ -58,6 +58,62 @@ should come back.
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
 
+## 2026-10-07 — conduct_new reconciled with `../conduct_testing/theory/bcs_g_justification.tex`
+
+Chris asked that his paper edits be reflected in the conduct deck. Finding: the only uncommitted
+edits in `conduct_testing` (mtime 2026-08-10; `bcs_theory.tex` is a byte-identical untracked copy)
+predate the 2026-10-06 overhaul, which read the working copy, so most were already in. The content
+cross-check against the current paper text turned up five mismatches, all fixed in `conduct_new.tex`:
+
+- **Orthogonality frame, instrument direction** — carried the "criterion needs only m̄_m = 0, i.e.
+  for a correct model and under the alternative" framing that the paper's appendix edit demoted.
+  Rewritten per Step 3b / cases 1–2 / punchline: the moment's derivative E[μ_m δg] is zero iff
+  μ_m ≡ 0 (function-level, no null needed; true model's moment pinned ⇒ ĝ-error moves power not
+  size); both-wrong null keeps the first-order term along μ_{m_1}+μ_{m_2}; conditional-on-ĝ remark
+  added in one sentence. (The paper's main text at l.218 still has the old opener — Chris's own
+  session_log flags it for his pass; the deck now follows the appendix.)
+- **Instrument frame** — the "lossless" identity was the discrimination identity
+  (m̄_1 − m̄_2 = −‖d‖²); replaced with Prop. 2's m̄_1² − m̄_2² = ‖μ_{m_1}‖² − ‖μ_{m_2}‖² (‖g‖=1),
+  homoskedasticity caveat added; new bullet on the failure-set shrinkage (generic b fails on
+  (1)–(4), g on (1)–(2)). Frame moved to \footnotesize.
+- **Constant-markup frame** — said the studentized statistic is identical across φ and the test
+  "cannot tell them apart"; the paper says T_RV is normal with power and consistently selects the
+  larger markup (scale, not fit), with Nevo-2001 level info or per-moment studentization as the
+  only repairs. Rewritten; frame moved to \small.
+- **The Question / BCS-in-one-slide** — inherited "H_0: τ=1 vs H_a: τ=0" contradicted the reframe
+  section and the paper's equal-fit null; now "τ=1 is m_1, τ=0 is m_2; the null is equal fit".
+  **Judgment call for Chris** — these were frames he chose to keep; revert if he wants the 2021
+  framing on the recap slide.
+- **Algorithm step 5** — paper default is the analytic delta-method SE, bootstraps 2–3 for the
+  boundary; deck said bootstrap by default. Fixed.
+- **Inference frame** — cluster parenthetical clarified: markets by default (C≈1900) for the
+  BCS 2.0 tables, chain×year (C=242) was the 2021 unit (per `notes/result_spec.md`,
+  `notes/cereal_results.tex`), so it no longer looks inconsistent with the results frame's
+  "market clusters".
+
+Not changed, noted: the misspecification frame defines Δη = η^{m_0} − η^{m_1} (true − wrong) while
+the instrument frame uses the paper's Δη = η^{m_1} − η^{m_2}; each is internally correct.
+Builds clean (0 errors, 66 pp.); overfull-vbox list identical to the pre-edit baseline (inherited
+image frames + the algorithm frame's 4pt). Not committed.
+
+**Terminology ruling (Chris, 2026-10-07): the scalar test is BCS 1.0 (the 2021 paper, as updated by
+`bcs_theory.tex`); the full conditional-moment test is BCS 2.0.** The 10-06 entry below and the
+10-06 commit message label the scalar overhaul "BCS 2.0" — read them with this correction. Deck
+relabeled: opener, scalar-section title, instrument frame, algorithm frame ("BCS 1.0, updated"),
+stepping-back frame; the full-CMR frames and the updated-results table keep "BCS 2.0".
+Also in `../conduct_testing` today: Aug-10 paper edits committed (f4991d6), origin merged (2fafd77,
+pushed by the editor's sync), `bcs_g_justification.tex` → `bcs_theory.tex` (ecbbd5f, pointer notes
+updated).
+**Chris, later: students have not seen the 2021 BCS paper, so the deck no longer compares against it.**
+Dropped: "as updated" in the opener, "updated" in the algorithm title, the chain×year/2021-unit
+clause on the inference frame, the 2021-recentering-sign parenthetical, "the 2021 paper's apparent
+strength" on the validity frame, "published Table 8" / "2021 Table 8" on the results and
+single-product frames. Table 8 frame retitled "Scalar Test Results (BCS 1.0)"; the full-CMR table
+"Full Conditional-Moment Results (BCS 2.0)". Chris commented out the "Versus 2021" algorithm bullet
+himself (left as his comment). AEJ:Micro 2021 / 2020 P&P citations on the common-ownership frames
+are other papers and stay. Also fixed `.vscode/settings.json`: the `latexmk-xelatex` tool lacked
+`-xelatex`, so LaTeX Workshop ran DVI-mode `latex` and died in fontspec; `-xelatex` added.
+
 ## 2026-10-06 (later) — conduct_new overhaul from `../conduct_testing` (BCS 2.0)
 
 Chris's rulings: build the in-depth full-CMR section AND a two-slide version side by side (he

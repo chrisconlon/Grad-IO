@@ -4,6 +4,7 @@
       "name": "latexmk-xelatex",
       "command": "/Library/TeX/texbin/latexmk",
       "args": [
+        "-xelatex",
         "-e",
         "$xelatex = \"/Library/TeX/texbin/xelatex %O %S\"",
         "-interaction=nonstopmode",
