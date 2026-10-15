@@ -58,6 +58,21 @@ should come back.
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
 
+## 2026-10-15 — passthrough.tex: Sangani (QJE 2026), "Complete Pass-Through in Levels"
+
+Paper extracted to `Readings/qjag014.md` (Sonnet; printed article only — the Online Appendix with
+proofs and Table A1 is not in the PDF). Both the PDF and the .md are kept **untracked** (copyright).
+Deck 26 → 31 frames: identity $\rho^{\log} = \rho/\mu$ on the hot-take frame; "Units" column on the
+puzzle table; new Logs-vs-Levels frame (Table I example, Prop. 1 second-order asymmetry/size
+dependence); evidence frame (Perth gasoline, food Table IV, NBER-CES Table VI, rice figure cropped
+to `resources/sangani_rice.png`); new section "Common shocks: shift vs. scale invariance" (Props.
+4–6, Examples 1–5; implications frame on margins/entry, dispersion, I-O inflation, Okun). Own
+additions beyond the paper, numerically verified (scratch script, not kept): $\mathcal{P}\mathbf{1}
+= \mathbf{1}$ under translation invariance for any ownership/mixing; symmetric logit with outside
+good $\rho^{common} = 1/(1 + \frac{\sigma_j}{1-\sigma_j} D_{j0})$; mixed logit with outside good
+overshifts (row sums 1.76–1.89 in the example). Sangani added to syllabus-2026 (Week 05
+pass-through block) and to the website Lecture 7 reading line.
+
 ## 2026-10-07 — conduct_new reconciled with `../conduct_testing/theory/bcs_g_justification.tex`
 
 Chris asked that his paper edits be reflected in the conduct deck. Finding: the only uncommitted

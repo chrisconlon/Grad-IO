@@ -32,8 +32,10 @@ Pass-through is the simplest thing in economics that nobody understands
 \begin{itemize}
 \item Often we are talking about different things
 \begin{itemize}
-\item IO: mostly $\rho = \frac{\partial p_j}{\partial mc_j}$ or the matrix $\frac{\partial\, \symbf{p}}{\partial\, \symbf{mc}}$
-\item Macro/Trade: mostly $\frac{\partial \log p_j}{\partial \log mc_j}$
+\item IO: mostly levels, $\rho = \frac{\partial p_j}{\partial mc_j}$ or the matrix $\frac{\partial\, \symbf{p}}{\partial\, \symbf{mc}}$
+\item Macro/Trade: mostly logs, $\rho^{\log} = \frac{\partial \log p_j}{\partial \log mc_j}$
+\item These are not the same number. With $\mu_j \equiv p_j / mc_j$: \quad $\rho^{\log}_j = \rho_j \cdot \frac{mc_j}{p_j} = \frac{\rho_j}{\mu_j}$. \\
+Complete pass-through in levels \alert{is} incomplete pass-through in logs whenever $p > mc$ (Sangani 2026).
 \item (Throughout this lecture $\rho$ is the \alert{pass-through rate} -- not the nesting parameter from the demand lectures.)
 \end{itemize}
 \item One thing we know for sure: constant marginal costs, perfect competition: \\
@@ -53,27 +55,84 @@ Pass-through is the simplest thing in economics that nobody understands
 \begin{center}
 \renewcommand{\arraystretch}{1.05}
 \scriptsize
-\begin{tabular}{lll}
+\begin{tabular}{llll}
 \toprule
-Shock $\rightarrow$ price & $\widehat{\rho}$ & Source \\
+Shock $\rightarrow$ price & Units & $\widehat{\rho}$ & Source \\
 \midrule
-Exchange rate $\rightarrow$ US import prices, dollar-priced & 0.25 & Gopinath Itskhoki Rigobon 2010 \\
-\quad same, priced in foreign currency & 0.95 & \\
-Exchange rate $\rightarrow$ retail beer & $\approx 0.25$ & Goldberg Hellerstein 2013 \\
-Commodity (coffee) $\rightarrow$ retail & $\approx 0.30$ & Nakamura Zerom 2010 \\
-Cigarette taxes & $<1$ \,/\, $\approx 1$ & Harding et al.\ 2012 / DeCicca et al.\ 2013 \\
-Gasoline taxes & $\approx 1$; holidays $\ll 1$ & Marion Muehlegger 2011; Doyle Samphantharak 2008 \\
-Sales taxes & $\approx 1$, half $>1$ & Poterba 1996; Besley Rosen 1999 \\
-Alcohol taxes & 1.5 -- 2.1 & Young Bielinska-Kwapisz 2002; Kenkel 2005 \\
+Exchange rate $\rightarrow$ US import prices, dollar-priced & logs & 0.25 & Gopinath Itskhoki Rigobon 2010 \\
+\quad same, priced in foreign currency & logs & 0.95 & \\
+Exchange rate $\rightarrow$ retail beer & logs & $\approx 0.25$ & Goldberg Hellerstein 2013 \\
+Commodity (coffee) $\rightarrow$ retail & logs & $\approx 0.30$ & Nakamura Zerom 2010 \\
+Cigarette taxes & levels & $<1$ \,/\, $\approx 1$ & Harding et al.\ 2012 / DeCicca et al.\ 2013 \\
+Gasoline taxes & levels & $\approx 1$; holidays $\ll 1$ & Marion Muehlegger 2011; Doyle Samphantharak 2008 \\
+Sales taxes & ad val. & $\approx 1$, half $>1$ & Poterba 1996; Besley Rosen 1999 \\
+Alcohol taxes & levels & 1.5 -- 2.1 & Young Bielinska-Kwapisz 2002; Kenkel 2005 \\
 \bottomrule
 \end{tabular}
 \end{center}
 \footnotesize
 \begin{itemize}
 \item Trade theory (CES + monopolistic competition) predicts 0 or 1 depending on invoicing currency. The data say 0.25 and 0.95.
+\item Read the \alert{units} column: the low numbers are in logs, the numbers near one are in levels. Nakamura--Zerom's 0.30 for coffee is one-for-one in cents (next slides).
 \item Anything from 0.25 to 2 shows up. Theory says that is \alert{exactly what to expect}: pass-through is about curvature and conduct, and both vary across markets.
 \item Many ``price elasticity'' studies (gasoline, cigarettes, alcohol) assume $\rho = 1$ and regress quantities on tax changes: $\frac{\partial \log q}{\partial \log t} = \frac{\partial \log q}{\partial \log p}$ (!)
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Logs vs.\ Levels: Sangani (QJE 2026)}
+\footnotesize
+Leontief, constant returns: unit cost $c + w$ (commodity $c$, everything else $w$). Two pricing rules:
+\begin{align*}
+\text{percentage markup:}\quad p = \mu\,(c + w) \qquad\qquad \text{additive markup:}\quad p = c + w + m
+\end{align*}
+\vspace{-0.4cm}
+\begin{center}
+\scriptsize
+\begin{tabular}{lcccccc}
+\toprule
+ & Initial & Change & New & \% Change & $\rho^{\log}$ (wrt $mc$) & $\rho$ (levels) \\
+\midrule
+Commodity cost $c$ & \$1 & $+\$0.20$ & \$1.20 & $+20$ & & \\
+Marginal cost $c + w$ & \$2 & $+\$0.20$ & \$2.20 & $+10$ & & \\
+Price, percentage markup ($\mu = 2$) & \$4 & $+\$0.40$ & \$4.40 & $+10$ & 1.0 & 2.0 \\
+Price, additive markup ($m = \$2$) & \$4 & $+\$0.20$ & \$4.20 & $+5$ & 0.5 & 1.0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item Regressing $\Delta \log p$ on $\Delta \log c$ estimates $\rho \cdot \frac{c}{p}$: level pass-through times the commodity's share of the \alert{price} (not of cost). A fixed percentage markup means $\rho = \mu > 1$ in levels.
+\item Log pass-through is not a stable statistic when markups are additive. For a firm whose whole marginal cost $c$ moves, with $dp = dc$ and $\mu = p/c$, to second order (his Prop.\ 1):
+\begin{align*}
+\rho^{\log} = \frac{\Delta \log p}{\Delta \log c} \approx \frac{1}{\mu}\left[ 1 + \frac{1}{2}\frac{\mu - 1}{\mu}\, \Delta \log c \right]
+\end{align*}
+so a log regression \alert{manufactures} asymmetry (increases $>$ decreases: ``rockets and feathers''), size dependence (big shocks $>$ small ones), and lower pass-through for high-markup firms (large firms, high quality), with no change in behavior.
+\item Scope: \alert{common} (industry-wide) shocks to relative input prices. Idiosyncratic shocks are a different experiment (later).
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Sangani (2026): Complete Pass-Through in Levels, Incomplete in Logs}
+\scriptsize
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item \alert{Perth gasoline} (weekly, station level, 2001--2022): long-run pass-through 0.991 (0.038) in levels; 0.899 (0.043) in logs, below gasoline's cost share ($\geq 0.97$).
+\item Interact with station markups: in levels the interaction is $\approx 0$; in logs it is $-0.010$ to $-0.015$ per point of net markup (OLS and IV), what additive markups predict ($\approx -0.01$). As markups $\to 0$, log pass-through $\to$ the cost share.
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item \alert{Food} (BLS average prices, 12 months), logs / levels: coffee 0.47 / 0.95, rice 0.31 / 0.88, flour 0.24 / 0.87, OJ 0.33 / 0.97, beef 0.41 / 0.90; sugar 0.37 / 0.69 is the exception.
+\item \alert{Manufacturing} (NBER-CES, 459 industries): $\Delta \log p$ on $\Delta \log c \times \frac{\text{input cost}}{\text{sales}}$ gives $\rho \approx 0.95$--$1.04$ (eq.\ (9) of the paper).
+\end{itemize}
+\end{column}
+\end{columns}
+\begin{center}
+\includegraphics[width=0.82\textwidth]{resources/sangani_rice}
+\end{center}
+\vspace{-0.2cm}
+{\scriptsize Rice in NielsenIQ, by tercile of unit price. 2008 run-up: cheap rice inflates 70\%, expensive rice under 25\% (left); all three rise by the same cents per unit (right).}
 \end{frame}
 
 
@@ -140,7 +199,7 @@ Logit, single-product firm, rivals fixed & $1 - \sigma_j$ & concave & $p_j - c_j
 \end{center}
 \begin{itemize}
 \item Linear, exponential and constant-elasticity are the $\rho = \frac{1}{2}$, $1$, $>1$ members of the Bulow--Pfleiderer (1983) constant pass-through family; the puzzle slide lives between the linear and CES rows.
-\item A \alert{constant absolute markup} (exponential) gives $\rho = 1$; a \alert{constant percentage markup} (CES) gives $\rho > 1$ because the markup scales with cost. Hence CES trade models over-shift unless pricing-to-market or invoicing is added.
+\item A \alert{constant absolute markup} (exponential) gives $\rho = 1$; a \alert{constant percentage markup} (CES) gives $\rho > 1$ because the markup scales with cost. Hence CES trade models over-shift unless pricing-to-market or invoicing is added. These are the two benchmarks on the logs-vs-levels slide: complete in levels vs.\ complete in logs.
 \item Logit sits below one and gets \alert{closer} to one as the product gets smaller. Derivation in two slides.
 \end{itemize}
 \end{frame}
@@ -206,7 +265,7 @@ Single-product firm, plain logit, rivals' prices held fixed. The FOC is $p_j = c
 \item Logit demand is \alert{log-concave} in own price: $(\log \sigma_j)'' = -\alpha^2 \sigma_j (1-\sigma_j) < 0$, so $\rho_j < 1$ always.
 \item The markup $\frac{1}{\alpha(1-\sigma_j)}$ \emph{falls} as the price rises (share shrinks), which is what absorbs part of the cost increase. A niche product passes through almost everything; a dominant product very little.
 \item Note what is \alert{not} in the formula: $\alpha$. The price coefficient sets the level of markups and elasticities; the curvature, and hence pass-through, is pinned down by the \alert{share alone}. This is the second-derivative analogue of IIA.
-\item With rivals responding (strategic complements) own pass-through is higher and cross pass-through is positive: that needs the matrix (next section). The $1-\sigma_j$ is its ``rivals fixed'' diagonal.
+\item With rivals responding (strategic complements) own pass-through is higher and cross pass-through is positive: that needs the matrix (next section). The $1-\sigma_j$ is its ``rivals fixed'' diagonal. A cost shock common to \alert{every} product is a third experiment, with its own answer (after the matrix).
 \end{itemize}
 \end{frame}
 
@@ -300,6 +359,60 @@ Recall UPP from the antitrust deck: $UPP_j = \Delta c_j + \sum_{k \in \calJ_{g}}
 \end{column}
 \end{columns}
 {\footnotesize Left (complete information): with the full pass-through matrix the approximation is close to exact for AIDS and acceptable for logit; log-linear (CES-like) demand is hopeless because the price effect is far from linear in the cost shock. Right (incomplete information): using only own-cost pass-through understates every price effect; the merging firms' rows do most of the work.}
+\end{frame}
+
+
+\section{Common shocks: shift vs.\ scale invariance}
+
+\begin{frame}{Which Demand Systems Pass a Common Shock Through in Levels? (Sangani 2026)}
+\footnotesize
+A \alert{common} shock raises every inside good's cost by $dc$ (outside prices fixed). Its price response is the \alert{row sum} $\mathcal{P}\symbf{1}$, not the diagonal.
+\begin{itemize}
+\item \alert{Scale invariance}: $D_j(\lambda \symbf{p}) = \lambda^{\varphi_j} D_j(\symbf{p})$ with $\varphi_j$ not depending on $p_j$. A proportional shift leaves every elasticity unchanged $\Rightarrow$ \alert{complete in logs}, so $\rho = \mu > 1$ in levels (Prop.\ 4).\\
+All homothetic demand: CES, Kimball, HSA, nested CES (Atkeson--Burstein), nested Kimball (Amiti--Itskhoki--Konings). Their variable markups only show up for idiosyncratic shocks.
+\item \alert{Shift invariance}: $D_j(\symbf{p} + \lambda \symbf{1}) = (1 + \lambda \psi_j)\, D_j(\symbf{p})$ with $\psi_j$ not depending on $p_j$. A uniform shift rescales each residual demand curve, leaving the additive markup $D_j / |\partial D_j / \partial p_j|$ unchanged $\Rightarrow$ \alert{complete in levels} (Prop.\ 5). No demand system is both (Prop.\ 6).
+\item Leading case, $\psi_j = 0$: quasi-linear random utility $u_{ij} = \delta_{ij} - p_j$ where every consumer buys one of the inside goods (McFadden's translation invariance; Anderson, de Palma, Thisse 1992). That covers logit, nested logit, \alert{mixed logit with any mixing distribution}, probit, Hotelling, and Salop.
+\end{itemize}
+In our notation: if $\symbf{\sigma}(\symbf{p} + \lambda\symbf{1}) = \symbf{\sigma}(\symbf{p})$, then $\Delta$ and $\symbf{\eta} = \Omega^{-1}\symbf{\sigma}$ depend only on price \emph{differences}, so
+\begin{align*}
+\frac{\partial \symbf{\eta}}{\partial \symbf{p}}\, \symbf{1} = \symbf{0}
+\quad\Rightarrow\quad
+\left(\mathbb{I}_J - \frac{\partial \symbf{\eta}}{\partial \symbf{p}}\right)\symbf{1} = \symbf{1}
+\quad\Rightarrow\quad
+\boxed{\;\mathcal{P}\, \symbf{1} = \symbf{1}\;}
+\end{align*}
+for any ownership matrix $\calH$. The diagonal of $\mathcal{P}$ can be anything the curvature says; the row sums cannot.
+\end{frame}
+
+
+\begin{frame}{The Outside Good Is What Breaks It}
+\footnotesize
+An outside good at a fixed price breaks translation invariance: a common increase pushes consumers out of the market. (So do income effects, $\alpha \log(y_i - p_j)$ as in BLP 1995 and Petrin 2002.) Take symmetric single-product logit with inside shares $\sigma_j$ and outside share $\sigma_0$. Raise all $J$ prices by $dp$:
+\begin{align*}
+d\sigma_j = -\alpha\, \sigma_j \sigma_0\, dp, \qquad
+d\eta_j = d\left[\frac{1}{\alpha(1-\sigma_j)}\right] = -\frac{\sigma_j \sigma_0}{(1-\sigma_j)^2}\, dp \\
+\Rightarrow\quad
+\rho^{\text{common}} = \frac{1}{1 + \frac{\sigma_j}{1-\sigma_j}\, \alert{D_{j0}}} \quad\text{vs.}\quad 1-\sigma_j = \frac{1}{1 + \frac{\sigma_j}{1-\sigma_j}}
+\end{align*}
+where $D_{j0} = \sigma_0/(1-\sigma_j)$ is logit diversion to the outside good.
+\begin{itemize}
+\item No diversion to the outside good $\Rightarrow$ complete in levels. Atomistic firms ($\sigma_j \to 0$) also give complete pass-through in levels: $p_j = c_j + p_0 / b_j$ in Sangani's logit.
+\item Mixed logit with an outside good can give anything. Numerical example: 4 products, three types $\alpha_i \in \{0.5, 1.5, 4\}$, $\sigma_0 \approx 0.72$. Row sums of $\mathcal{P}$ are \alert{1.76--1.89}, because the price-sensitive types leave first. Drop the outside good, keep the same $(\delta, \alpha_i)$: exactly 1.
+\item Own and common pass-through use different curvature: residual-demand superelasticity vs.\ that plus how rivals' prices move $j$'s elasticity. (Nakamura--Zerom's 4.64, in Kimball demand, still gives complete \emph{log} common pass-through.)
+\item For estimation: level pass-through of industry-wide shocks is a cheap moment that disciplines what prices and shares do not, \alert{the outside-good margin and the mixing distribution}.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Why Logs vs.\ Levels Matters Beyond Measurement (Sangani 2026)}
+\footnotesize
+\begin{itemize}
+\item \alert{Margins and entry.} Percentage markups plus inelastic industry demand mean a cost increase raises profit per unit, so operating margins or entry must rise. Data: gross margins \alert{fall} with input prices (elasticity $-0.26$ to $-0.29$ for retail gasoline, $-0.19$ for NBER-CES manufacturing). Operating margins and establishment counts do not move. Additive markups predict exactly this.
+\item \alert{Dispersion.} Additive markups mean a common cost increase compresses the dispersion of log prices, percentage markups, and TFPR / labor-productivity dispersion, with \emph{no} reallocation of quantities (rice, flour, coffee). Under non-homothetic demand, falling markup dispersion is not evidence of less misallocation.
+\item \alert{Measured markups.} Percentage markups and Lerner indices fall mechanically when input prices rise, with no change in conduct. Keep this in mind when reading markup time series.
+\item \alert{Macro.} Input--output model of the US (402 industries, Calvo). With CES (percentage) markups, CPI inflation has a standard deviation of 2.5\% vs.\ 1.1--1.3\% in the data. Calling labor a variable cost lowers it, but implies markups of 1.17--1.31. Logit (additive) markups give 1.3\% and match Känzig's oil-shock response of the CPI (peak 0.43 vs.\ 0.45).
+\item \alert{Okun (1981)}: firms pass materials through ``on a dollars-and-cents basis'' and labor ``with a percentage markup.'' In logit with $\alpha$ measured against the wage, the additive markup is $w/b$, so wage shocks move it.
+\end{itemize}
 \end{frame}
 
 
@@ -429,7 +542,7 @@ Producer price $\symbf{p}$, consumer price $\symbf{p^c}$. A \alert{specific} tax
 \item DellaVigna and Gentzkow (2019): US retail chains set nearly \alert{uniform prices} across their stores despite large differences in local demand and income. So a natural excuse for strange local tax pass-through: the chain prices nationally, the local tax is absorbed or spread across all stores.
 \item Butters, Sacks, Seo (2022) test it directly: 68 local excise tax changes (beer, liquor, cigarettes, soda) and 76 sales tax changes, 35,151 stores in 96 multi-state chains.
 \begin{itemize}
-\item Local cost shocks are passed through to \alert{local} prices, at similar rates for national and local chains.
+\item Local cost shocks are passed through to \alert{local} prices, at similar rates for national and local chains, and about one-for-one in levels (Sangani's benchmark).
 \item \alert{No spillovers} to unaffected stores in the same chain.
 \end{itemize}
 \item So chains price uniformly with respect to \alert{demand} but respond locally to \alert{costs}. Uniform pricing is not the explanation for the spirits results; price points and the discreteness of retail pricing are.
@@ -439,8 +552,9 @@ Producer price $\symbf{p}$, consumer price $\symbf{p^c}$. A \alert{specific} tax
 
 
 \begin{frame}{Some challenges}
+\small
 \begin{itemize}
-\item Pless and van Benthem (AEJ:Applied 2019): use pass-through $>1$ as a test for market power? Only if you are willing to rule out convex demand under competition, and to assume constant marginal cost.
+\item Pless and van Benthem (AEJ:Applied 2019): use pass-through $>1$ as a test for market power? Only if you are willing to rule out convex demand under competition, and to assume constant marginal cost. The converse fails too: $\rho = 1$ in levels is not evidence of competition. Shift-invariant demand delivers it at any markup (Sangani 2026).
 \item Chetty, Looney, Kroft (AER 2009)
 \begin{align*}
 \log q\left(p, \tau^S\right)&=\alpha+\beta \log p+\theta_\tau \beta \log \left(1+\tau^S\right)\\
