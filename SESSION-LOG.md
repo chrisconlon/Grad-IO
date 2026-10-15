@@ -79,6 +79,15 @@ checked: one type gives κ = (1−2σ)/(1−σ), 1/(2−κ) = 1−σ), two curva
 heterogeneity), f''=0 ↔ shift invariance; old "logit is a curve / not the data" wording dropped.
 New frame on their Nevo-cereal exercise with Fig. 1 (`resources/mst_fig1.png`); merger/pass-through
 medians are read off box plots. MST added to syllabus-2026 and website. Deck now 32 frames.
+Provenance of the outside-good formula: extracted ADK 2001a (efficiency, `adk_2001.md`), ADK 2001b
+(incidence, `adk_2000.md`), Adachi–Fabinger JPubE 2022 (`adachi_fabinger.md`); all of `Readings/`
+except history_of_scp.pdf is now gitignored. ADK 2001a,b already have complete level pass-through in
+covered logit/Salop (markup independent of cost) → cited on the invariance frame. Our symmetric-logit
+ρ^common = 1/(1+σ/(1−σ)·D_j0) is ADK 2001b eq. (9), ε_dd/(ε_dd+ε_DD−ε_m), evaluated at logit with an
+outside good (ε_dd=−αp(1−σ), ε_DD=−αpσ_0, ε_m=−αpσ_0(1−2σ)/(1−σ)); neither ADK (covered CES-logit only)
+nor AF (logit solved numerically) writes it. AF Prop. B.2.1 also reproduces it from their B.1
+definitions. Note: AF Table 1(c) logit α = (2ns−3)ns·p/(1−ns) is a misprint (dimensioned in p, no β;
+industry curvature −pq''/q' = βp(1−2ns)) — don't cite that entry.
 
 ## 2026-10-07 — conduct_new reconciled with `../conduct_testing/theory/bcs_g_justification.tex`
 

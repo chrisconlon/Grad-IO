@@ -401,7 +401,7 @@ A \alert{common} shock raises every inside good's cost by $dc$ (outside prices f
 \item \alert{Scale invariance}: $q_j(\lambda \symbf{p}) = \lambda^{\varphi_j} q_j(\symbf{p})$ with $\varphi_j$ not depending on $p_j$. A proportional shift leaves every elasticity unchanged $\Rightarrow$ \alert{complete in logs}, so $\rho = \mu > 1$ in levels (Prop.\ 4).\\
 All homothetic demand: CES, Kimball, HSA, nested CES (Atkeson--Burstein), nested Kimball (Amiti--Itskhoki--Konings). Their variable markups only show up for idiosyncratic shocks.
 \item \alert{Shift invariance}: $q_j(\symbf{p} + \lambda \symbf{1}) = (1 + \lambda \psi_j)\, q_j(\symbf{p})$ with $\psi_j$ not depending on $p_j$. A uniform shift rescales each residual demand curve, leaving the additive markup $q_j / |\partial q_j / \partial p_j|$ unchanged $\Rightarrow$ \alert{complete in levels} (Prop.\ 5). No demand system is both (Prop.\ 6).
-\item Leading case, $\psi_j = 0$: quasi-linear random utility $u_{ij} = \delta_{ij} - p_j$ where every consumer buys one of the inside goods (McFadden's translation invariance; Anderson, de Palma, Thisse 1992). That covers logit, nested logit, \alert{mixed logit with any mixing distribution}, probit, Hotelling, and Salop.
+\item Leading case, $\psi_j = 0$: quasi-linear random utility $u_{ij} = \delta_{ij} - p_j$ where every consumer buys one of the inside goods (McFadden's translation invariance; Anderson, de Palma, Thisse 1992). That covers logit, nested logit, \alert{mixed logit with any mixing distribution}, probit, Hotelling, and Salop. (Symmetric logit and Salop: Anderson, de Palma, Kreider 2001a,b already show the markup does not depend on cost, so a unit tax is fully passed on.)
 \end{itemize}
 In our notation: if $\symbf{\sigma}(\symbf{p} + \lambda\symbf{1}) = \symbf{\sigma}(\symbf{p})$, then $\Delta$ and $\symbf{\eta} = \Omega^{-1}\symbf{\sigma}$ depend only on price \emph{differences}, so
 \begin{align*}
@@ -417,18 +417,20 @@ for any ownership matrix $\calH$. The diagonal of $\mathcal{P}$ can be anything 
 
 \begin{frame}{The Outside Good Is What Breaks It}
 \footnotesize
-An outside good at a fixed price breaks translation invariance: a common increase pushes consumers out of the market. (So do income effects, $\alpha \log(y_i - p_j)$ as in BLP 1995 and Petrin 2002.) Take symmetric single-product logit with inside shares $\sigma_j$ and outside share $\sigma_0$. Raise all $J$ prices by $dp$:
+An outside good at a fixed price breaks translation invariance: a common increase pushes consumers out of the market. (So do income effects, $\alpha \log(y_i - p_j)$ as in BLP 1995 and Petrin 2002.) Symmetric Bertrand (Anderson, de Palma, Kreider 2001b, eq.\ 9), with $\varepsilon_{dd}$ the own-price elasticity, $\varepsilon_{DD}$ the elasticity when all prices move together, and $\varepsilon_m$ the elasticity of the $dd$ slope along $DD$:
 \begin{align*}
-d\sigma_j = -\alpha\, \sigma_j \sigma_0\, dp, \qquad
-d\eta_j = d\left[\frac{1}{\alpha(1-\sigma_j)}\right] = -\frac{\sigma_j \sigma_0}{(1-\sigma_j)^2}\, dp \\
-\Rightarrow\quad
-\rho^{\text{common}} = \frac{1}{1 + \frac{\sigma_j}{1-\sigma_j}\, \alert{D_{j0}}} \quad\text{vs.}\quad 1-\sigma_j = \frac{1}{1 + \frac{\sigma_j}{1-\sigma_j}}
+\rho^{\text{common}} = \frac{\varepsilon_{dd}}{\varepsilon_{dd} + \varepsilon_{DD} - \varepsilon_m}
+\qquad (\text{covered market: } \varepsilon_{DD} = \varepsilon_m = 0 \Rightarrow 1).
 \end{align*}
-where $D_{j0} = \sigma_0/(1-\sigma_j)$ is logit diversion to the outside good.
+Symmetric single-product logit with inside shares $\sigma_j$ and outside share $\sigma_0$ (derived here): $\varepsilon_{dd} = -\alpha p(1-\sigma_j)$, $\varepsilon_{DD} = -\alpha p\, \sigma_0$, $\varepsilon_m = -\alpha p\, \sigma_0 \frac{1-2\sigma_j}{1-\sigma_j}$, so
+\begin{align*}
+\rho^{\text{common}} = \frac{1}{1 + \frac{\sigma_j}{1-\sigma_j}\, \alert{D_{j0}}} \quad\text{vs.}\quad 1-\sigma_j = \frac{1}{1 + \frac{\sigma_j}{1-\sigma_j}},
+\qquad D_{j0} = \frac{\sigma_0}{1-\sigma_j} \text{ (logit diversion to the outside good)}.
+\end{align*}
 \begin{itemize}
-\item No diversion to the outside good $\Rightarrow$ complete in levels. Atomistic firms ($\sigma_j \to 0$) also give complete pass-through in levels: $p_j = c_j + p_0 / b_j$ in Sangani's logit.
+\item No diversion to the outside good, or atomistic firms ($\sigma_j \to 0$; Sangani's $p_j = c_j + p_0/b_j$) $\Rightarrow$ complete in levels.
 \item Mixed logit with an outside good can give anything. Numerical example: 4 products, three types $\alpha_i \in \{0.5, 1.5, 4\}$, $\sigma_0 \approx 0.72$. Row sums of $\mathcal{P}$ are \alert{1.76--1.89}, because the price-sensitive types leave first. Drop the outside good, keep the same $(\delta, \alpha_i)$: exactly 1.
-\item Own and common pass-through use different curvature: residual-demand superelasticity vs.\ that plus how rivals' prices move $j$'s elasticity. (Nakamura--Zerom's 4.64, in Kimball demand, still gives complete \emph{log} common pass-through.)
+\item Own and common pass-through use different curvature ($dd$ vs.\ $DD$). Nakamura--Zerom's residual superelasticity, in Kimball demand, still gives complete \emph{log} common pass-through.
 \item For estimation: level pass-through of industry-wide shocks is a cheap moment that disciplines what prices and shares do not, \alert{the outside-good margin and the mixing distribution}.
 \end{itemize}
 \end{frame}
