@@ -88,6 +88,10 @@ outside good (ε_dd=−αp(1−σ), ε_DD=−αpσ_0, ε_m=−αpσ_0(1−2σ)/(
 nor AF (logit solved numerically) writes it. AF Prop. B.2.1 also reproduces it from their B.1
 definitions. Note: AF Table 1(c) logit α = (2ns−3)ns·p/(1−ns) is a misprint (dimensioned in p, no β;
 industry curvature −pq''/q' = βp(1−2ns)) — don't cite that entry.
+Follow-ups: specific-vs-ad-valorem frame — ADK citation corrected (2001a is general conduct, not
+"logit oligopoly"; free-entry/love-of-variety caveat added) and "smaller still" replaced by AF Prop. 1,
+ρ_ν = (1 − θ/ε)ρ_t = (1 − L)ρ; Weyl–Fabinger frame gains ADK 2001b's Ẽ > 1 (overshift) / Ẽ > 2
+(profits rise). ADK 2001b added to syllabus-2026 and website.
 
 ## 2026-10-07 — conduct_new reconciled with `../conduct_testing/theory/bcs_g_justification.tex`
 

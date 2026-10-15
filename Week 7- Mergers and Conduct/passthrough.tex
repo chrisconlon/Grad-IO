@@ -206,6 +206,7 @@ Logit, single-product firm, rivals fixed & $1 - \sigma_j$ & concave & $p_j - c_j
 
 
 \begin{frame}{Conduct and Incidence (Weyl and Fabinger 2013)}
+\small
 Generalize to symmetric imperfect competition with a conduct parameter $\theta$: $\theta=0$ (PC), $\theta=1$ (monopoly), $\theta = 1/N$ (symmetric Cournot):
 \begin{align*}
 \rho=\frac{1}{1+\frac{\theta}{\epsilon_\theta}+\frac{\epsilon_D-\theta}{\epsilon_S}+\frac{\theta}{\epsilon_{m s}}}
@@ -219,6 +220,7 @@ Incidence follows from pass-through and conduct alone (their ``Principle of Inci
 \begin{itemize}
 \item Monopoly: producer surplus falls by exactly $q$ per dollar of tax (envelope theorem), consumer surplus by $\rho\, q$. So $\rho > 1$ means consumers bear \alert{more than the whole tax}.
 \item Two sufficient statistics for incidence, $(\rho, \theta)$, neither of which is an elasticity.
+\item Symmetric Bertrand (Anderson, de Palma, Kreider 2001b), with $\tilde E$ the curvature of own demand as all prices rise together (Seade's for monopoly): a unit tax is overshifted iff $\tilde E > 1$ and \alert{raises profits} iff $\tilde E > 2$.
 \item Not sure how I feel about the revival of the conduct parameter (more in the conduct lecture).
 \end{itemize}
 \end{frame}
@@ -505,7 +507,7 @@ Why do we care about pass-through in vertical settings?
 \section{Taxes and the data}
 
 \begin{frame}{Specific vs.\ Ad Valorem Taxes: The $\zeta$ Map Already Told Us}
-\small
+\footnotesize
 Producer price $\symbf{p}$, consumer price $\symbf{p^c}$. A \alert{specific} tax $t$ adds to cost; an \alert{ad valorem} tax $\tau$ scales the consumer price, $\symbf{p^c} = (1+\tau)\symbf{p}$, i.e.\ $\mathcal{P} = (1+\tau)\mathbb{I}_J$ on the previous slide:
 \begin{align*}
 \text{specific:}\quad \symbf{p} - \symbf{mc} - t\symbf{1} &= \Lambda^{-1}[\calH \odot \Gamma](\symbf{p} - \symbf{mc} - t\symbf{1}) + \Lambda^{-1}\symbf{\sigma}\\
@@ -513,8 +515,12 @@ Producer price $\symbf{p}$, consumer price $\symbf{p^c}$. A \alert{specific} tax
 \end{align*}
 \begin{itemize}
 \item A specific tax leaves the markup equation alone: the firm re-optimizes against a higher cost and pass-through is $\rho$ from before.
-\item An ad valorem tax \alert{taxes the markup}: the share term is scaled by $1/(1+\tau)$, so the producer gives up markup before any demand response. For the same revenue, ad valorem gives lower consumer prices under market power (Delipalla Keen 1992; Anderson, de Palma, Kreider 2001 for logit oligopoly).
-\item Single-product logit, rivals fixed: specific tax $\rho = 1-\sigma_j$; ad valorem consumer-price pass-through is smaller still.
+\item An ad valorem tax \alert{taxes the markup}: the share term is scaled by $1/(1+\tau)$, so the producer gives up markup before any demand response. For the same revenue, ad valorem gives lower consumer prices under market power (Delipalla Keen 1992, Cournot; Anderson, de Palma, Kreider 2001a, any conduct, identical costs, short run). Free entry with love of variety can flip it: in covered logit or Salop a unit tax is fully passed on and leaves entry alone, so a large ad valorem tax causes too much exit.
+\item How much smaller? Write the ad valorem tax as a share $\nu = \tau/(1+\tau)$ of the consumer price. Symmetric oligopoly, any conduct (Adachi Fabinger 2022, Prop.\ 1), with $L = \theta/\epsilon$ the (tax-adjusted) Lerner index:
+\begin{align*}
+\frac{1}{p^c}\frac{\partial p^c}{\partial \nu} = \left(1 - \frac{\theta}{\epsilon}\right)\frac{\partial p^c}{\partial t} = (1 - L)\, \rho
+\qquad \text{per dollar collected, ad valorem moves prices } (1-L) \text{ times as much.}
+\end{align*}
 \item US excise taxes (gasoline, cigarettes, alcohol, the Seattle soda tax) are \alert{specific}; sales taxes are ad valorem. Conlon Rao (2025) compare volume, sales and ethanol taxes on spirits this way.
 \end{itemize}
 \end{frame}
