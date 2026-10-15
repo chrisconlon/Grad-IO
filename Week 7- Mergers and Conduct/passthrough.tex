@@ -270,15 +270,45 @@ Single-product firm, plain logit, rivals' prices held fixed. The FOC is $p_j = c
 \end{frame}
 
 
-\begin{frame}{Mixed Logit: Curvature Comes From the Mixing Distribution}
+\begin{frame}{Mixed Logit: Where Curvature Comes From (Miravete, Seim, Thurk 2023)}
 \footnotesize
-Aggregate demand is a mixture, $\sigma_j(p) = \sum_i w_i\, \sigma_{ij}(p)$, and mixtures of log-concave functions need not be log-concave.
+Aggregate demand is a mixture, $\sigma_j(\symbf{p}) = \sum_i w_i\, \sigma_{ij}(\symbf{p})$, and mixtures of log-concave functions need not be log-concave. Let price enter utility through a \alert{price-response subfunction} $f_i(y_i, p_j)$ of income $y_i$ and price:
+\begin{align*}
+u_{ij} = x_j \beta_i + f_i(y_i, p_j) + \xi_j + \epsilon_{ij}, \qquad f'_{ij} \equiv \frac{\partial f_i}{\partial p_j}, \quad f''_{ij} \equiv \frac{\partial^2 f_i}{\partial p_j^2}.
+\end{align*}
+Writing $\omega_{ij} \equiv \sigma_{ij}(1-\sigma_{ij})$, own elasticity and curvature (MST call $\kappa$ ``$\rho$''; it is Mr\'azov\'a--Neary's $\kappa$):
+\begin{align*}
+\varepsilon_j = -\frac{p_j}{\sigma_j}\sum_i w_i\, f'_{ij}\, \omega_{ij},
+\qquad
+\kappa_j = \frac{\sigma_j \sum_i w_i \left[ \alert{f''_{ij}}\, \omega_{ij} + \alert{(f'_{ij})^2}\, \omega_{ij} (1 - 2\sigma_{ij}) \right]}{\left[ \sum_i w_i\, f'_{ij}\, \omega_{ij} \right]^2},
+\qquad \left.\frac{dp_j}{dc_j}\right|_{\text{rivals fixed}} = \frac{1}{2 - \kappa_j}
+\end{align*}
+\vspace{-0.3cm}
 \begin{itemize}
-\item Raise $p_j$: the price-sensitive types (high $\alpha_i$) leave first, so the \alert{residual} demand is less elastic than the average. That selection makes $\log \sigma_j$ more convex than any single type's, and $\rho_j > 1$ becomes possible.
-\item So in a BLP model pass-through is a byproduct of the \alert{distribution you assumed for $\alpha_i$} (and the characteristics with random coefficients), which estimation on prices and shares barely disciplines. Normal, lognormal, or a two-point $\alpha_i$ can all fit the same elasticities and imply different pass-through.
-\item Miravete, Seim, Thurk (2023, ``Elasticity and Curvature of Discrete Choice Demand Models''): map the $(\varepsilon, \kappa)$ pairs each specification can reach in equilibrium. Plain logit and nested logit are a curve; mixed logit is a region whose shape is set by the mixing family, not the data.
-\item Practical advice: (a) report the implied pass-through next to the elasticities, it is a cheap diagnostic; (b) if you have cost or tax variation, \alert{use it as a supply moment} (Conlon Rao in the BLP lecture matched observed markups and a tax change for exactly this reason); (c) if your counterfactual is a cost change, the mixing distribution is doing the work, so vary it.
+\item Check: one type, $f = -\alpha p_j$ gives $\kappa_j = \frac{1-2\sigma_j}{1-\sigma_j}$ and $\frac{1}{2-\kappa_j} = 1 - \sigma_j$, the logit slide.
+\item Two sources of curvature. (1) \alert{Nonlinear price}, $f'' \neq 0$: $\alpha \log(y_i - p_j)$ (BLP 1995), Box--Cox in $y_i - p_j$ (MST's companion WP). (2) \alert{Heterogeneous price sensitivity} $f'_{ij} = -\alpha_i$: raise $p_j$ and the price-sensitive types leave first, so residual demand is less elastic than the average and $\kappa_j > 1$ becomes possible. Random coefficients on \emph{characteristics} with a common $\alpha$ pull curvature down; in MST's estimates logit and nested logit never get past $\kappa = 1$, so they under-shift by construction.
+\item Quasi-linear $f_i = \alpha_i (y_i - p_j)$ kills (1), so curvature comes only from the \alert{distribution you assumed for $\alpha_i$}, which prices and shares barely discipline. Normal, lognormal, or two-point $\alpha_i$ can fit the same elasticities and imply different pass-through. ($f'' = 0$ is also what makes demand shift invariant in the common-shocks section.)
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Miravete, Seim, Thurk (IJIO 2023): Same Elasticities, Different Curvature}
+\scriptsize
+\begin{columns}[T]
+\begin{column}{0.56\textwidth}
+\includegraphics[width=\textwidth]{resources/mst_fig1}
+\end{column}
+\begin{column}{0.44\textwidth}
+\begin{itemize}
+\item Nevo (2000) cereal data, four specifications: (a) mixed logit, (b) $\alpha_i$ and $\beta_i$ from demographics only, (c) random coefficients on characteristics only (``pseudo nested logit''), (d) plain logit. Each dot is a product's $(\kappa, \varepsilon)$; horizontal axis is curvature.
+\item Average elasticities 3.62--3.73 and Lerner indices ($\approx 0.3$) are nearly identical across models. The \alert{curvature distributions are not}: (c) and (d) are capped at $\kappa = 1$; (a) spreads on both sides.
+\item 10\% marginal-cost increase (multiproduct Bertrand): mixed-logit pass-through centers near 1.03, with a wide spread; plain and nested logit are all below 1.
+\item Merger of the two largest firms: mixed logit predicts roughly twice the price increase (median $\approx 11\%$ vs.\ $\approx 6$--$7\%$) and needs larger synergies to offset ($\approx 27\%$ vs.\ $\approx 15\%$). (Read off box plots.)
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{-0.1cm}
+Practical advice: (a) report the per-product \alert{$(\varepsilon, \kappa)$ scatter}, not the average elasticity, and the implied pass-through next to it; (b) if you have cost or tax variation, \alert{use it as a supply moment} (as Conlon Rao do in the BLP lecture); (c) if your counterfactual is a cost change, the mixing distribution and the price subfunction are doing the work, so vary them.
 \end{frame}
 
 

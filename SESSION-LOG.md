@@ -72,6 +72,13 @@ additions beyond the paper, numerically verified (scratch script, not kept): $\m
 good $\rho^{common} = 1/(1 + \frac{\sigma_j}{1-\sigma_j} D_{j0})$; mixed logit with outside good
 overshifts (row sums 1.76–1.89 in the example). Sangani added to syllabus-2026 (Week 05
 pass-through block) and to the website Lecture 7 reading line.
+Same day, D_j → q_j on the invariance frame (D collided with diversion D_{j0}). Then Miravete–Seim–
+Thurk (IJIO 2023, `Readings/mst_ijio.pdf`, renamed from extensionless, untracked): mixed-logit frame
+rewritten around their ε/κ formula in the price-response subfunction f_i(y_i,p_j) (MST's "ρ" = MN κ;
+checked: one type gives κ = (1−2σ)/(1−σ), 1/(2−κ) = 1−σ), two curvature sources (f'' vs. α_i
+heterogeneity), f''=0 ↔ shift invariance; old "logit is a curve / not the data" wording dropped.
+New frame on their Nevo-cereal exercise with Fig. 1 (`resources/mst_fig1.png`); merger/pass-through
+medians are read off box plots. MST added to syllabus-2026 and website. Deck now 32 frames.
 
 ## 2026-10-07 — conduct_new reconciled with `../conduct_testing/theory/bcs_g_justification.tex`
 
