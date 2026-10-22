@@ -93,6 +93,92 @@ Follow-ups: specific-vs-ad-valorem frame — ADK citation corrected (2001a is ge
 ρ_ν = (1 − θ/ε)ρ_t = (1 − L)ρ; Weyl–Fabinger frame gains ADK 2001b's Ẽ > 1 (overshift) / Ẽ > 2
 (profits rise). ADK 2001b added to syllabus-2026 and website.
 
+## 2026-10-22 — conduct_new: the 10-07/08 corrections from `../conduct_testing` (theory part)
+
+Chris: "let's revisit the conduct slides." `conduct_testing` moved on 10-07/08 (commits 6630355 …
+83bc88e; `notes/session_log.md` entries of those dates, `notes/statistical_theory.md` §11.6,
+`bcs_cereal/notes/conduct_tests_2026-10-07.md`). Four things the deck taught were withdrawn there:
+
+1. **Degeneracy ≠ observational equivalence.** σ²_lin = Var(μ₁²−μ₂²) + 4E[Var(μ₁ε₁−μ₂ε₂|z)] is zero
+   only when μ₁ ≡ μ₂ ≡ 0 on span(z): neither model falsified (DMSS Prop. 3, "degeneracy only at the
+   origin"). Equal conditional moments with a common misfit are a regular point (null true, nothing to
+   rank, still normal). Collinear markups lower power but do not move the regime (scale cancels);
+   the regime is governed by DMSS's strength parameter. The "norm shrinks the degeneracy set" claim is
+   withdrawn in the full-CMR draft.
+2. **Scalar test, both-misspecified null:** Var(T_RV) → 1 + R²_r(1−R²_fs)/R²_fs (`eq:omittedvar` in
+   `bcs_theory.tex`); any first stage leaves the omitted variance component. Cereal opt_iv R²_fs
+   0.05–0.10, fixed-ĝ variance understated ×2.8–6 (T overstated ≈ ×1.6–2). Supersedes "strong
+   rejections are safe". Full CMR immune (no estimated direction).
+3. **Weight-matrix term** in ψ_c (2vω − v² − Q_m, DMSS eq. 8); earlier full-CMR SEs overstated.
+4. **Data:** the March 2025 export's differentiation instruments were row-scrambled; on the corrected
+   export diff is relevant (F 30–60, spanning R² ≈ 0.55). The published-style opt_iv result (own-profit
+   beats κ at −6) is gone on the scalar test (+0.7 to −1.8); stable in full CMR with demog (−4.1 to
+   −5.4 across the demand-parameter grid), parameter-dependent with opt_iv (−2.2 to −5.9); two
+   demand parameters (σ constant, mean price coefficient) carry it; MCS={single} in 14/20 sweep cells
+   (all 8 with product FE), collusive models survive in unweighted opt_iv cells without product FE.
+
+**Deck changes (theory/identification, done):** DMSS frame (degeneracy at the origin); degeneracy
+frame rewritten and retitled "When Neither Model Is Falsified" (σ²_lin formula, three bullets,
+strength parameter); instrument frame failure-set bullet (equal conditional moments; ĝ is first-stage
+noise there, 9–15% rejection); orthogonality frame instrument-direction bullet rewritten around
+`eq:omittedvar` with the cereal R²_fs and the ×2 overstatement, frame → \footnotesize; scalar
+inference frame cluster parenthetical (chain×year, C=242, the scalar tables' unit); full-CMR
+one-slide "why bother" rewritten (same degenerate set; no estimated direction); full-CMR inference
+frame (degenerate = neither falsified; weight-matrix term; diagnostics reframed; "demand-estimation
+uncertainty (first order in cereal)"); near-collinear frame retitled/rewritten (power, not regime);
+instrument table rows (effective F per group, diff relevant, demog the stable one) and the BLP bullet
+(scrambled rows, pipeline lesson); FE frame retitled/rewritten (14/20, product FE, additive vs
+interacted flips). Builds clean, 66 pp.; overfull list = inherited image frames + the instrument-table
+frame (12pt, fits visually).
+
+**Chris's rulings (10-22).** (a) *Teaching slides, not a project status update*: canonical framework
+plus example results; no comparisons to previous runs. Trimmed accordingly: the instrument table's
+strength column is just the effective-F ranges; the BLP bullet is the framework point (strength for
+conduct ≠ strength for demand), not the scrambled-rows story; the FE frame's sweep bullet reduced to
+the lesson (product FE → {single}; no product FE + no weights → collusive models survive under
+opt_iv); "first order in cereal" dropped from the open items. (b) Scalar results frame: keep the
+published Table 8 input, one-line note ("example results; T<0 favors own-profit; conditional on the
+estimated demand system"). (c) Full-CMR results frame: replaced the March-2025 per-model C·Q̂/MCS
+table with the pairwise Z table in the paper spec (own-profit vs single/κ/κ_lag/κ_ma/monopoly-4,
+opt_iv and demog columns with unified p; opc and diff summarized in a bullet — the run log is on the
+desktop only, so their per-cell values were not available here). (d) σ-constant fragility: not
+taught yet. Stepping Back: "strong evidence" → "the evidence favors". The deck does not mention the
+export change anywhere. Builds clean, 66 pp.; overfull list = inherited image frames only.
+
+**Reorder (Chris, 10-22):** the three common-ownership theory frames (hypothesis; investor-portfolio /
+manager-agency assumptions; profit-weight derivation κ_fg = Σγβ/Σγβ) moved from the application
+section to directly after the two multiproduct-Bertrand frames that put κ into the FOC, so κ gets
+its micro-foundation where it is introduced. The Big Three figure and the reduced-form critique stay
+with the application. Programmatic move (frames located by title); builds clean, 66 pp.
+
+**Cuts (Chris, 10-22: "present the method and results, not the intricacies of the cereal market; cut
+the internalization part too").** Removed from the application section: Cereal Data, Cereal Data:
+Variation in κ (figure), Implementation: Demand Specification, Possible Exclusion Restrictions
+(redundant with the identification section's instrument table), An Internalization Parameter, and
+Internalization Parameter Results (`tau_figure2.pdf`). One line of data context added to the scalar
+results frame (RTE cereal, NielsenIQ 2007–17, BLP with micro moments, the four-model menu). The
+application section is now: Big Three → reduced-form critique → scalar results → full-CMR results →
+single-product puzzle → mechanism. Newly unreferenced resources: `cereal_kappas_alpha_1.pdf`,
+`tau_figure2.pdf` (add to the Week 7 unreferenced-resources item).
+
+**Reorder 2 (Chris, 10-22):** the "What identifies conduct in the data" frames (internalization ladder,
+near-collinear markups, instrument validity table, FE/specification) belong to the BCS application,
+not the method part. Moved into the application section after the reduced-form critique and before
+the results tables; the standalone \section dropped. Deck order is now: problem (with the CO theory
+after the κ FOC) → classic approaches → model selection under misspecification → BCS 1.0 → BCS 2.0 →
+examples (Scuderi–Roussille, Starc–Wollmann) → application (Big Three, reduced form, identification
+×4, scalar results, full-CMR results, single-product puzzle, mechanism). Opener bullet updated.
+
+**Full-CMR procedure frame (Chris, 10-22: "describe the actual procedure — which regression is run and
+how the CMR is formed").** New frame between the "in one slide" and "inference" frames, built from
+`conduct_test_theory.tex` §Estimation and §Departures (1): split over clusters → per-model cost
+regression (FE within-transform, out of fold) → series basis on the excluded instruments with the
+controls partialled out of every column by a cross-fit regression (`partial_z`; centering = the
+constant-only case), whitened → the CMR estimate as the regression of ω̂ on the partialled basis
+(fitted value; its mean square = the DMSS 2SLS quadratic form, biased upward by the estimation
+variance) → cluster scores and the diagonal-removed U-statistic → contrast, ψ̂_c with the
+weight-matrix term, unified bootstrap → menu/MCS. "The price" bullet now says "two slides on".
+
 ## 2026-10-07 — conduct_new reconciled with `../conduct_testing/theory/bcs_g_justification.tex`
 
 Chris asked that his paper edits be reflected in the conduct deck. Finding: the only uncommitted
