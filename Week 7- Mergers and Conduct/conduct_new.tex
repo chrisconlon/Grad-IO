@@ -176,6 +176,19 @@ All three use the same supply CMR. The question is which test to run on it when 
 \end{frame}
 
 
+\begin{frame}{Goodness of Fit Tests: Bonnet and Dubois (RAND 2010)}
+Fit the cost equation separately under each conduct model:
+\begin{align*}
+\log MC^m = \log\left(p - \eta^m\right) = h_s(x) + \omega^m, \qquad SSR(m) = \textstyle\sum_i \big(\widehat{\omega}^m_i\big)^2 .
+\end{align*}
+\begin{itemize}
+\item Compare $SSR(m_1)$ and $SSR(m_2)$ with the \alert{non-nested test} of Rivers and Vuong (2002). Why non-nested? Neither model is a special case of the other, and both may be wrong.
+\item Working out the distribution of $SSR(m_1) - SSR(m_2)$ is the hard part.
+\item This is OLS (or NLLS) with no \alert{exclusion restrictions}: it asks which model's implied costs are best explained by the cost controls $x$, not which model satisfies a moment condition. Add excluded instruments and it becomes GMM (the ``formal'' test of Villas-Boas, ReStud 2007, I think).
+\end{itemize}
+\end{frame}
+
+
 \begin{frame}{Villas Boas (2007)}
 \begin{columns}
 \begin{column}{0.6\textwidth}
