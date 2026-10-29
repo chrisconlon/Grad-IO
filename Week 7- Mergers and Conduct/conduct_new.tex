@@ -19,11 +19,11 @@ Foundational Empirical IO Question: How do we observe data on price and quantity
 
 \begin{itemize}
 \item Early work: Porter (1983), Bresnahan (1982,1987)
-\item Subsequent work defined the ``menu" approach: Nevo (1998, 2001), Villas-Boas (2007) 
+\item Subsequent work defined the ``menu" approach: Nevo (1998, 2001), Villas-Boas (2007)
 \item Recent revival of ``internalization'' parameters: Miller and Weinberg (2017), Crawford, Lee, Whinston, and Yurukoglu (2017), Pakes (2017)
 \item Parallel work by: Duarte, Magnolfi, S\o lvsten, Sullivan (QE 2024): which test is best (RV) and when instruments are too weak to test. Magnolfi, Quint, Sullivan, Waldfogel (2022): should we test or estimate?
 \item Applications of our test: Starc and Wollmann (2022), Scuderi and Roussille (2025), others?
-\item Today: the classic approaches, then the Backus--Conlon--Sinkinson scalar test (``BCS 1.0'') and the full conditional-moment test (``BCS 2.0''), then the common-ownership application: what identifies conduct, and what the tests find.
+\item Today: the classic approaches; the supply conditional moment restriction (CMR) every test is built on; the Backus--Conlon--Sinkinson scalar test (``BCS 1.0'') and the full-CMR test (``BCS 2.0''); the common-ownership application.
 \end{itemize}
 Is conduct testable? Berry and Haile (2014): yes.
 \end{frame}
@@ -37,7 +37,7 @@ Is conduct testable? Berry and Haile (2014): yes.
 \end{itemize}
 \item We can make progress in two ways: (1) parametric restrictions on marginal costs; (2) exclusion restrictions on supply.
 \begin{itemize}
-\item Most of the literature focuses on (1) by assuming something like: $\ln mc_{jt} = \textrm{x}_{jt} \gamma_1 + \textrm{w}_{jt} \gamma_2 + \omega_{jt}$.
+\item Most of the literature focuses on (1): a functional form for marginal cost in observed cost shifters plus an unobserved shock.
 \item In principle (2) is possible if we have instruments that shift demand for products but not supply. (These are much easier to come up with than ``supply shifters''). (This is the point Berry Haile 2014 make).
 \end{itemize}
 \end{itemize}
@@ -60,50 +60,20 @@ Bresnahan (1980/1982) recognized this problem: we need ``rotations of demand''.
 \end{frame}
 
 
-\begin{frame}{Setup: Notation and Utility}
-We begin with a relatively standard BLP-style differentiated products setup.\\
-
-\begin{itemize}
-    \item Markets $t$
-    \item Products $j$
-    \item Data $\chi_t = \{(\textrm{x}_{jt},\textrm{v}_{jt},\textrm{w}_{jt})$ for all $j \in \calJ_t\}$.
-    \item Market Shares $\symbf{s}_t = [s_{1t}, \ldots, s_{Jt}, s_{0t}]$.
-    \item Prices $\symbf{p}_t = [p_{1t}, \ldots, p_{Jt}]$.
-    \item Consumers $i$ with demographics $\textrm{y}_{it}$ (income, presence of kids, etc.)
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Testing Conduct: Multiproduct Bertrand Example}
+\begin{frame}{Conduct Is a Markup: Profit Weights in the Bertrand FOC}
 \small
-We generalize the $\mathcal{H}(\kappa)$ and derive multi-product Bertrand FOCs:
+Firm $f$ puts weight $\kappa_{fg}$ on rival $g$'s profits ($\kappa_{ff} = 1$):
 \begin{align*}
-\arg \max_{p \in \calJ_f} \pi_f (\symbf{p}) &= \sum_{j \in \calJ_f} (p_j - c_j) \cdot q_j(\symbf{p}) +  \alert{\kappa_{fg} \sum_{j \in \calJ_g} (p_j - c_j) \cdot q_j(\symbf{p})} \\
-\rightarrow 0&= q_j(\symbf{p}) + \sum_{k \in (\calJ_f,\calJ_g)} \alert{\kappa_{fg}}\cdot (p_k - c_k) \frac{\partial q_{k}}{\partial p_j}(\symbf{p}) 
+\max_{\{p_j\}_{j \in \calJ_f}} \sum_{j \in \calJ_f} (p_j - c_j)\, q_j(\symbf{p}) + \alert{\sum_{g \neq f} \kappa_{fg}} \sum_{k \in \calJ_g} (p_k - c_k)\, q_k(\symbf{p})
+\quad\Rightarrow\quad
+\big(\calH(\kappa) \odot \Delta\big)(\symbf{p} - \symbf{mc}) = \symbf{q},
 \end{align*}
+with $\Delta$ the demand-derivative matrix of the pricing lecture and $\calH(\kappa)_{(j,k)} = \kappa_{fg}$ for $j \in \calJ_f$, $k \in \calJ_g$.
 \begin{itemize}
-\item Instead of $0$'s and $1$'s we now have $\kappa_{fg} \in [0,1]$ representing how much firm $f$ cares about the profits of $g$.
-\begin{itemize}
-\item If $f$ and $g$ merge (or fully coordinated) then $\kappa_{fg} =1$
-\item Often in the real world firms cannot reach fully collusive profits and $\kappa_{fg} \in (0,1)$.
-\item Evidence that $\kappa_{fg} > 0$ is not necessarily evidence of malfeasance, just a deviation from \alert{static Bertrand pricing} (e.g. Cournot, Dynamics, etc.)
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Testing Conduct: Multiproduct Bertrand Example}
-\begin{itemize}
-\item Recall the $\Delta$ matrix which we can write as $\Delta=\tilde{\Delta}\, \odot \mathcal{H}(\kappa)$, where $\odot$ is the element-wise or Hadamard product of two matrices. 
-\begin{itemize}
-\item $\tilde{\Delta}$ is the matrix of demand derivatives with $\Delta{(j,k)} = \frac{\partial q_j}{\partial p_k}$ for all elements.
-\item $\mathcal{H}(\kappa)=\kappa_{fg}$ for products owned by $(f,g)$ where $\kappa_{ff}=1$ always.
-\end{itemize}
-\item Mergers are about changing $0$'s to $1$'s in the $\mathcal{H}(\kappa)$ matrix.
-\item Matrix form of FOC: $q(\symbf{p}) = \Delta(\symbf{p},\kappa)\cdot(\symbf{p}-\symbf{mc})$
-\item $\symbf{mc} =  \symbf{p} - \underbrace{\Delta(\symbf{p}, \theta_2, \kappa)^{-1} \symbf{\sigma}(\symbf{p})}_{\eta(\symbf{p},\symbf{s},\theta_2,\kappa)}$
-where $\eta_{jt}$ is the markup.
+\item A conduct model $m$ (an $\calH$ matrix, or Cournot, or anything else) maps demand into a \alert{markup} vector,
+$\symbf{\eta}^m \equiv \symbf{p} - \symbf{mc} = \big(\calH(\kappa_m) \odot \Delta\big)^{-1} \symbf{q}$.
+\item Mergers change $0$'s to $1$'s in $\calH$. Partial coordination is $\kappa_{fg} \in (0,1)$.
+\item $\kappa_{fg} > 0$ is not necessarily evidence of malfeasance, just a deviation from \alert{static Bertrand pricing} (Cournot, dynamics, common ownership, \ldots).
 \end{itemize}
 \end{frame}
 
@@ -126,31 +96,20 @@ where $\eta_{jt}$ is the markup.
 \end{frame}
 
 
-\begin{frame}{Some Reasonable (?) Assumptions (BCS 2020 P\&P)}
-Most models of common ownership (implicitly) make the following assumptions:
-\begin{description}
-\item[Investor Portfolios] Investors are entitled to a share of profits $\beta_{fs}$ and hold portfolios $V_s = \sum_{f} \beta_{fs} \pi_f$
-\item[Manager Agency (Rotemberg 1984)] Managers maximize a $(\gamma)$ weighted average of investor payoffs $Q_f = \sum_{s} \gamma_{fs} V_s$.
-\end{description}
-These are pretty general since $s$ could contain the manager herself.\\
-\end{frame}
-
-
-\begin{frame}{Derivation of Profit Weight}
+\begin{frame}{Profit Weights from Portfolios (BCS 2020 P\&P)}
 \small
-Easy to show:
+Most models of common ownership (implicitly) assume:
+\begin{description}
+\item[Investor portfolios] Investor $s$ is entitled to a share $\beta_{fs}$ of firm $f$'s profits: $V_s = \sum_{f} \beta_{fs} \pi_f$.
+\item[Manager agency (Rotemberg 1984)] Managers maximize a $\gamma$-weighted average of investor payoffs, $U_f = \sum_{s} \gamma_{fs} V_s$ ($s$ could be the manager herself).
+\end{description}
+Rearranging,
 \begin{align*}
-Q_{f}\left(x_{f}, x_{-f}\right) &=\sum_{\forall s} \gamma_{f s} \cdot V_{s}\left(x_{f}, x_{-f}\right)\\
-&\propto \pi_{f}+\sum_{g \neq f} \underbrace{\left(\frac{\sum_{\forall s} \gamma_{f s} \beta_{g s}}{\sum_{\forall s} \gamma_{f s} \beta_{f s}}\right)}_{\equiv \kappa_{f g}\left(\gamma_{f}, \beta\right)} \pi_{g}
+U_f \;\propto\; \pi_{f}+\sum_{g \neq f} \underbrace{\left(\frac{\sum_{s} \gamma_{f s} \beta_{g s}}{\sum_{s} \gamma_{f s} \beta_{f s}}\right)}_{\equiv \kappa_{f g}(\gamma_{f}, \beta)} \pi_{g} .
 \end{align*}
 \begin{itemize}
-    \item $\kappa_{fg}$ is interpreted as a \alert{profit weight}, where one dollar of profits at firm $g$ are valued as $\kappa_{fg}$ dollars in the objective function of firm $f$.
-    \item Depends on two primitives: $\beta$ and $\gamma$.
-\begin{itemize}
-    \item $\beta$ (cash-flow rights) is often directly observable.
-    \item $\gamma$ embeds a model of corporate governance. Literature assumes $\gamma = \beta$ (``proportional control").
-\end{itemize}
-\item Not specific to a particular strategic game: this is the $\mathcal{H}(\kappa)$ from our multiproduct Bertrand FOCs.
+\item $\kappa_{fg}$ is a \alert{profit weight}: a dollar of profit at $g$ is worth $\kappa_{fg}$ dollars to $f$. It is the $\calH(\kappa)$ of the Bertrand FOC, and is not specific to a particular strategic game.
+\item $\beta$ (cash-flow rights) is often directly observable; $\gamma$ embeds a model of corporate governance. The literature assumes $\gamma = \beta$ (``proportional control'').
 \end{itemize}
 \end{frame}
 
@@ -159,7 +118,7 @@ Q_{f}\left(x_{f}, x_{-f}\right) &=\sum_{\forall s} \gamma_{f s} \cdot V_{s}\left
 \frametitle{Reasons for Deviations from Multiproduct Bertrand}
 \small
 \begin{description}
-\item[Biased estimates of own and cross price derivatives:] For anything to work, you have correct estimates of $\tilde{\Delta}$. My prior is most papers \alert{underestimate} diversion ratios for close substitutes.
+\item[Biased estimates of own and cross price derivatives:] For anything to work, you need correct estimates of $\Delta$. My prior is most papers \alert{underestimate} diversion ratios for close substitutes.
 \item[Vertical Relationships:] Who sets supermarket prices? Just the retailer? Just the manufacturer? Some combination of both? Retailers tend to \alert{soften} downstream price competition.
 \item[Faulty Timing Assumptions:] Bertrand is a simultaneous move pricing game. Lots of alternatives (Stackelberg leader-follower, Edgeworth cycles, etc.).
 \item[Dynamics and Dynamic Pricing:] Forward looking firms or consumers might not set static Nash prices. [e.g. Temporary Sales, Switching Costs, Network Effects, etc.]
@@ -168,123 +127,49 @@ Q_{f}\left(x_{f}, x_{-f}\right) &=\sum_{\forall s} \gamma_{f s} \cdot V_{s}\left
 \end{frame}
 
 
-\begin{frame}{Simultaneous Problem}
-Assume additivity, and write in terms of structural errors:
+\begin{frame}{Where the Instruments Come From}
+\small
+In the notation of the demand lectures (characteristics $\textrm{x}$, demand shifters $\textrm{v}$, cost shifters $\textrm{w}$, demographics $\textrm{y}$):
 \begin{align*}
-\delta_{jt}(\symbf{s}_t,\alert{\textrm{y}_t}, \widetilde{\theta}_2) + \alpha p_{jt} &= h_d(\textrm{x}_{jt}, \, \alert{\textrm{v}_{jt}},\theta_1)  + \xi_{jt} \\
- f \left( p_{jt} - \eta_{jt}(\symbf{p},\symbf{s},\theta_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \omega_{jt}
+\text{demand:}&\quad \delta_{jt}(\symbf{s}_t, \textrm{y}_t; \theta_2) + \alpha p_{jt} = h_d(\textrm{x}_{jt}, \textrm{v}_{jt}) + \xi_{jt}\\
+\text{supply, conduct } m:&\quad p_{jt} - \eta^m_{jt}(\symbf{p}_t, \symbf{s}_t; \theta_2) = h_s(\textrm{x}_{jt}, \textrm{w}_{jt}) + \omega^m_{jt}
 \end{align*}
-\vspace{-.4cm}
+\vspace{-0.3cm}
 \begin{itemize}
- \item To simplify slides we let $f(x)=x$ (often $f(x) =\log(x))$ but we can put that in $h_s(\cdot)$.
-\item $h(\cdot)$ are often just linear relationships like: $\theta_1 [\textrm{x}_{jt}, \textrm{v}_{jt}]$.
-\item Endogeneity Problem: $p_{jt}$ and $\eta_{jt}$ are functions of $(\symbf{\xi},\symbf{\omega})$.
-\item $(\theta_2, \kappa)$ parameters that determine markups
+\item \textbf{Demand first.} Estimate $\theta_2$ from the demand CMR $\E[\xi_{jt} \mid \textrm{x}_t, \textrm{v}_t, \textrm{w}_t, \textrm{y}_t] = 0$, then compute $\eta^m$ for \alert{every} $m$. The demand CMR is the same for every conduct model: stacking it with supply in one GMM (BLP 1995) only adds common overidentifying restrictions. Conduct enters through the \alert{supply CMR} alone.
+\item For any $m$ some $\symbf{mc}$ rationalizes the data ($J$ equations, $J$ unknowns). The supply CMR has content only through \alert{exclusion}: variables that move markups but not own cost (Berry Haile 2014).
+\item Candidates: demand shifters $\textrm{v}$ and demographics $\textrm{y}$ (they rotate demand); rivals' characteristics $\textrm{x}_{-j}$ and rivals' cost shifters $\textrm{w}_{-j}$ (they move rivals' prices, hence my markup).
 \end{itemize}
-\end{frame}
-
-
-\begin{frame}{Two Ways In (Recap of the BLP Lecture)}
-\begin{enumerate}
-\item \textbf{Demand first.} Estimate $\theta_2$ from demand alone with $\E[\xi_{jt} \mid \textrm{x}_t, \textrm{v}_t, \textrm{w}_t] = 0$; recover $\widehat{\symbf{mc}} = \symbf{p} - \symbf{\eta}(\symbf{p}, \symbf{s}, \widehat{\theta}_2, \kappa)$ for \alert{any} $\kappa$.
-\item \textbf{Jointly.} Stack the supply moments $\E[\omega_{jt} \mid \textrm{x}_t, \textrm{w}_t, \textrm{v}_t]=0$ with demand; the supply side sharpens $\alpha$ (BLP 1995) but imports whatever conduct you assumed.
-\end{enumerate}
-The problem with either: given $[\symbf{q}, \symbf{p}, \widetilde{\Delta}, \calH(\kappa)]$ there is \alert{always} a vector $\symbf{mc}$ that rationalizes the data ($J$ equations, $J$ unknowns). Nonparametrically $\kappa$ is not identified without more.
-\begin{itemize}
-\item Restriction 1: a model of marginal cost, $f(p_{jt} - \eta_{jt}(\kappa)) = h_s(\textrm{x}_{jt}, \textrm{w}_{jt}; \theta_3) + \omega_{jt}$, so that ``$mc < 0$'' or ``$mc$ jumps around'' become evidence.
-\item Restriction 2: \alert{exclusion}. Something that moves markups but not costs, $\E[\omega_{jt} \mid z_{jt}] = 0$ (Berry Haile 2014: demand rotators $\textrm{v}_t$, rivals' characteristics).
-\item Everything that follows is a way of turning those two restrictions into a test. The second one does all the real work.
-\end{itemize}
+\textbf{From here on:} $x$ is every included cost control ($\textrm{x}$, $\textrm{w}$, fixed effects), $z^e$ the excluded instruments, and $\symbf{z} = (z^e, x)$. Demand, and so each $\eta^m$, is taken as known.
 \end{frame}
 
 
 \section{Classic approaches}
 
-\begin{frame}{Estimation vs. Menus}
-There are 2.5 ways to think about conduct:
+\begin{frame}{Three Classic Ways to Use the Supply Restriction}
+\small
+Each conduct $m$ implies a marginal cost $MC^m = p - \eta^m$:
 \begin{enumerate}
-\item Using moment conditions to estimate $\widehat{\kappa}$ or $\mathcal{H}(\kappa)$ directly. (Wald)
-\begin{itemize}
-\item Often with a small number of parameters (ie: $\kappa_{fg}=0$ except for firms I know are in a cartel).
-\item Can be challenging to tell similar values of $\kappa_{fg}$ apart (under-powered).
-\end{itemize}
-\item ``Menu Approach'' / (LR)
-\begin{itemize}
-\item  Nevo (Economics Letters 1998)
-\item Bresnahan (1987)
-\item Compare some goodness-of-fit critieria across assumed values of $\kappa$ (Bertrand vs. Collusion)
-  \end{itemize}
-\item Rejecting (or failing to reject) a single model.
-\begin{itemize}
-  \item ``We can reject monopoly pricing...''
-\end{itemize}
-  \end{enumerate}
-\end{frame}
-
-
-\begin{frame}{Testing a single model of $\kappa$}
-Put the $\eta_{jt}$ on the RHS and test whether $\lambda=1$:
-\begin{align*}
- p_{jt} = h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\symbf{p},\symbf{s},\theta_2,\kappa \right)+  \omega_{jt} \text{ with }
- \E[\omega_{jt} | \textrm{x}_{t},\textrm{w}_{t},z_{t}]=0
-\end{align*}
-\vspace{-0.25cm}
-\begin{itemize}
-\item We are basically running 2SLS with IV for the endogenous $\eta_{jt}$
-\item ``Informal'' test of Villas Boas (2007): $\E[\omega_{jt} | \textrm{x}_{jt},\alert{\textrm{w}_{jt}},\alert{\eta_{jt}}]=0$.
-\begin{itemize}
-\item Considers different forms of $f(\cdot)$: linear, exponential, logarithmic.
-\item WP discusses this more than Restud version.
-  \end{itemize}
-\item Pakes (2017) uses Wollman (2018) data and BLP IV $\E[\omega_{jt} \mid \textrm{x}_{jt},\textrm{w}_{jt},f(\textrm{x}_{-j})]=0$.
-\item $\lambda \neq 0$ is hard to interpret.
-\end{itemize}
+\item \textbf{Estimate} (Wald). Put the markup on the right and instrument for it with $z^e$:
+$p = h_s(x) + \lambda\, \eta^m + \omega$; test $\lambda = 1$ (Pakes 2017, with Wollmann's trucks). Or estimate $\kappa$ directly. Often underpowered, and $\lambda \neq 1$ is hard to interpret.
+\item \textbf{Fit one model} (Anderson--Rubin / GMM-$J$). Put the markup on the left, $MC^m = h_s(x) + \omega^m$, and test $\E[\omega^m \mid \symbf{z}] = 0$. Bonnet and Dubois (2010) and Villas-Boas (2007) compare such fits across models (Rivers--Vuong, Cox), often with no excluded instruments at all.
+\item \textbf{Menu} (likelihood ratio). Estimate demand and supply jointly under each $m$ and compare fit (Bresnahan 1987, Nevo 1998).
+\end{enumerate}
+All three use the same supply CMR. The question is which test to run on it when \alert{every} model is wrong.
 \end{frame}
 
 
 \begin{frame}{Pakes (2018)/Wollman (2017) Regressions: Heavy Trucks}
-\begin{center}
-\includegraphics[height=0.9\textheight]{./resources/wollman_regression.png}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{Single Model Regressions}
-These are somewhat reassuring:
-\begin{itemize}
-\item $\lambda\approx 1$ for multiproduct-oligopoly
-\item Fit is pretty good $R^2 > 0.8$ and $R^2 > 0.5$ for within vehicle regressions (not shown).
-\item As a behavioral model, multiproduct demand estimation seems successful.
-\item But, do we know that an alternative $\mathcal{H}(\kappa)$ would have a $\lambda \neq 1$ or a lower $R^2$, and if so how low before we can ``reject'' the model?
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Goodness of Fit Tests}
-Another idea (Bonnet and Dubois, Rand 2010) runs the following regression:
-\begin{align*}
-\log \left( p_{jt} - \eta_{jt}(\symbf{p},\symbf{s},\widehat{\theta}_2,\kappa) \right) &= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \omega_{jt}
-\end{align*}
-\begin{itemize}
-\item Run a regression for each $\kappa$ and obtain $Q(\kappa)=\sum_{jt} \widehat{\omega}_{jt}^2$
-\item Employ the \alert{non nested test} of Rivers and Vuong (2002). Why?
-\item Working out the distribution of $Q(\kappa_1) - Q(\kappa_2)=T(\kappa_1,\kappa_2)$ is the hard part.
-\item Also this is OLS (or NLLS) and there are no instruments or \alert{exclusion restrictions} for the supply side. Presumably we could add some and do GMM? (I think this is the ``formal'' test of Villas Boas (ReStud 2007)).
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Villas Boas (2007)}
-
 \begin{columns}
-\begin{column}{0.5\textwidth}
-\includegraphics[height=0.9\textheight]{resources/villas_boas_table8.png}
+\begin{column}{0.6\textwidth}
+\includegraphics[height=0.88\textheight,width=\textwidth,keepaspectratio]{./resources/wollman_regression.png}
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.4\textwidth}
+\small
 \begin{itemize}
-\item Try out different models of price setting behavior, compute $\eta$ markups.
-\item Unsurprisingly models with higher markups also have more costs $MC < 0$.
-\item Is this evidence of incorrect conduct assumption or inelastic demand?
+\item $\lambda \approx 1$ for multiproduct oligopoly, and fit is good: $R^2 > 0.8$ ($> 0.5$ within vehicle).
+\item As a behavioral model, multiproduct Bertrand with estimated demand looks successful.
+\item But would an alternative $\calH(\kappa)$ give $\lambda \neq 1$ or a lower $R^2$? How low before we ``reject''?
 \end{itemize}
 \end{column}
 \end{columns}
@@ -295,192 +180,176 @@ Another idea (Bonnet and Dubois, Rand 2010) runs the following regression:
 \begin{columns}
 \begin{column}{0.6\textwidth}
 \begin{center}
-\includegraphics[height=0.9\textheight]{resources/villas_boas_table10.png}
+\includegraphics[height=0.9\textheight,width=\textwidth,keepaspectratio]{resources/villas_boas_table10.png}
 \end{center}
 \end{column}
 \begin{column}{0.4\textwidth}
+\small
 \begin{itemize}
-\item Cox test has pairwise rejection problem (4) rejects (5) and (5) rejects (4).
-\item Likewise for 3.1 and 3.2 in top panel.
+\item Try out different models of price setting, compute $\eta^m$, compare fit.
+\item Models with higher markups also have more $MC^m < 0$: wrong conduct, or inelastic demand?
+\item The Cox test rejects in both directions: (4) rejects (5) and (5) rejects (4); likewise 3.1 and 3.2 in the top panel.
 \end{itemize}
 \end{column}
 \end{columns}
-
-
-\end{frame}
-
-
-\begin{frame}{Recap}
-\small
-So far three approaches to exploit $ \E[\omega_{jt} | \textrm{x}_{t}, \textrm{w}_{t}, z_{t}]=0$
-\begin{enumerate}
-\item Put the markup on RHS and instrument for it to test $\lambda=1$ (Wald)
-\begin{align*}
- p_{jt} &= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) + \lambda \cdot \eta_{jt}\left(\symbf{p},\symbf{s},\widehat{\theta_2},\kappa \right)+  \omega_{jt}
-\end{align*}
-\item Put the markup on LHS assuming $\lambda=1$ and test goodness of fit of supply equation (Anderson Rubin)
-\begin{align*}
- p_{jt} -\eta_{jt}\left(\symbf{p},\symbf{s},\widehat{\theta_2},\kappa \right)&= h_s(\textrm{x}_{jt}, \alert{\textrm{w}_{jt}},\theta_3) +  \omega_{jt}
-\end{align*}
-\item Estimate supply and demand simultaneously $[\theta_1,\theta_2,\theta_3]$ and compare goodness of fit for different $\kappa$. (Likelihood Ratio)
-\end{enumerate}
-
 \end{frame}
 
 
 \begin{frame}{Which Test? Duarte, Magnolfi, S\o lvsten, Sullivan (QE 2024)}
 \small
-Take the supply equation seriously as a \alert{moment condition} and ask which classical test to run on a menu of markups $\{\eta^m\}$:
 \begin{itemize}
-\item \textbf{Specification tests} of one model at a time (Wald on $\lambda=1$, Anderson--Rubin / GMM-$J$ on $\E[\omega^m z]=0$, Cox): with enough data \alert{every} model is rejected, because no conduct model is exactly right. Villas-Boas's Cox test rejecting in both directions is the symptom.
-\item \textbf{Model selection} (Rivers--Vuong 2002): compare two models' GMM criteria, $Q_W(\eta^{m_1}) - Q_W(\eta^{m_2})$, under the null that they are \alert{equally} misspecified. Only RV behaves sensibly when both models are wrong, which is always.
-\item The catch: RV is \alert{degenerate} when \alert{neither} model is falsified through the instruments (degeneracy only at the origin, their Proposition 3). DMSS define \alert{weak instruments for testing}, extend Stock--Yogo to model selection, and give an effective-$F$ diagnostic with critical values for worst-case size and best-case power (\texttt{pyRVtest}).
-\item Their criterion is a finite-dimensional 2SLS quadratic form, $\bar{\symbf{m}}_m' (z'z)^{-1} \bar{\symbf{m}}_m$ with $\bar{\symbf{m}}_m = \frac{1}{n}\sum_i z_i \omega^m_i$ (a $K$-vector of unconditional moments). Keep that in mind: the two BCS criteria below are a \alert{single optimal direction} and the \alert{full conditional-moment norm}, and the DMSS object is the finite-$K$ thing in between.
+\item \textbf{Specification tests} of one model at a time (Wald on $\lambda=1$, Anderson--Rubin / GMM-$J$, Cox): with enough data \alert{every} model is rejected, because no conduct model is exactly right. Villas-Boas's two-way Cox rejections are the symptom.
+\item \textbf{Model selection} (Rivers--Vuong 2002): compare two models' criteria under the null that they are \alert{equally} misspecified. Only RV behaves sensibly when both models are wrong, which is always.
+\item The catch: RV is \alert{degenerate} when \alert{neither} model is falsified by the instruments (their Proposition 3). DMSS define \alert{weak instruments for testing} and give an effective-$F$ diagnostic (\texttt{pyRVtest}).
+\item Their criterion uses $K$ unconditional moments $\bar{\symbf{m}}_m = \E[z^e\, \omega^m]$ in the 2SLS quadratic form $\bar{\symbf{m}}_m' \,\E[z^e z^{e\prime}]^{-1} \bar{\symbf{m}}_m$: the supply CMR contracted against $K$ directions. BCS 1.0 uses \alert{one} optimal direction; BCS 2.0 uses \alert{all} of them.
 \end{itemize}
 \end{frame}
 
 
 \section{Model Selection under Misspecification}
 
-\begin{frame}{What Is the Null? Ranking Misspecified Models}
+\begin{frame}{The Supply CMR and the Null: Ranking Misspecified Models}
 \small
-Each conduct $m$ implies markups $\eta^m_{jt}$, hence an implied cost and a cost residual:
+Residualize each model's implied cost on the controls, then ask whether what is left is predictable from the excluded instruments:
 \begin{align*}
-c^m_{jt} = p_{jt} - \eta^m_{jt} = h_s(\textrm{x}_{jt}, \textrm{w}_{jt}) + \omega^m_{jt}, \qquad
-\mu_m(z) \equiv \E[\omega^m_{jt} \mid z_{jt}], \qquad
-Q(\eta^m) \equiv \| \mu_m \|^2 = \E[\mu_m(z)^2] \geq 0 .
+\omega^m = MC^m - h_s^m(x), \quad h_s^m(x) \equiv \E[MC^m \mid x],
+\qquad
+\mu^m(\symbf{z}) \equiv \E[\omega^m \mid \symbf{z}],
+\qquad
+Q(m) \equiv \|\mu^m\|^2 = \E\big[\mu^m(\symbf{z})^2\big] .
 \end{align*}
 \begin{itemize}
-\item Correct conduct: $\mu_m \equiv 0$ and $Q(\eta^m) = 0$. On real data \alert{every} $Q(\eta^m) > 0$: no model on the menu satisfies the restriction exactly.
-\item So the honest hypothesis is not ``Bertrand is true'' but Vuong (1989) / Rivers--Vuong (2002) / Chen--Hong--Shum (2007):
-\begin{align*}
-H_0: Q(\eta^{m_1}) = Q(\eta^{m_2}) \quad (\text{equally wrong}) \qquad \text{vs.} \qquad H_A: \text{one is closer to the moment condition.}
-\end{align*}
-\item A ``test of conduct'' is therefore a \alert{ranking}: which markups are closest to $\E[\omega \mid z] = 0$. ``Model $m$ is in the model confidence set'' means it is the hardest to beat, not that it is correct.
-\item The cost function $h_s$ is a nuisance; it is the \alert{pseudo-true} cost function under each (possibly wrong) conduct, well defined because the criterion is shared across models.
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Degeneracy: When Neither Model Is Falsified}
-\footnotesize
-The RV statistic is $\sqrt{n}\,(\widehat{Q}_1 - \widehat{Q}_2)/\widehat{\sigma}$. Write $\omega^m = \mu_m(z) + \varepsilon^m$. The influence of the contrast is $(\mu_{m_1}^2 - \mu_{m_2}^2) + 2(\mu_{m_1}\varepsilon^{m_1} - \mu_{m_2}\varepsilon^{m_2})$, so
-\begin{align*}
-\sigma^2_{\text{lin}} = \text{Var}\big(\mu_{m_1}^2 - \mu_{m_2}^2\big) + 4\,\E\big[\text{Var}\big(\mu_{m_1}\varepsilon^{m_1} - \mu_{m_2}\varepsilon^{m_2} \mid z\big)\big] .
-\end{align*}
-\begin{itemize}
-\item $\sigma^2_{\text{lin}} = 0$ only when $\mu_{m_1} \equiv \mu_{m_2} \equiv 0$ on the span of the instruments: \alert{neither model is falsified}. Both correct, or $z$ irrelevant for both: DMSS's weak instruments for testing (``degeneracy only at the origin''). There $\widehat{\sigma} \rightarrow 0$ and the normal approximation fails.
-\item Equal conditional moments with a common misfit, $\mu_{m_1} \equiv \mu_{m_2} \not\equiv 0$, are \alert{not} degenerate: $\sigma^2_{\text{lin}} = 4\E[\mu^2\, \text{Var}(\Delta\eta \mid z)] > 0$. The null is simply true, there is nothing to rank, and the statistic stays normal. (Unlike the likelihood case of Vuong / Chen--Hong--Shum, where equal densities zero out every observation's contribution.)
-\item Nearly identical markups are not degeneracy either: scale $\Delta\eta$ by $\delta \rightarrow 0$ and the signal and $\sigma_{\text{lin}}$ both scale with $\delta$, so the regime of the studentized statistic does not move. What falls is \alert{power}.
-\item What governs the regime is \alert{instrument strength for testing} (DMSS Proposition 4): the concentration parameter of $\Delta\eta$ on the excluded $z$ net of controls, plus that of the level $\mu_{m_1} + \mu_{m_2}$. Weak-instrument comparisons sit near the boundary; the rest of the lecture is about inference that survives there.
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{A Different Degeneracy: Constant-Markup Conducts Are a Straw Man}
-\small
-Suppose conduct $m$ implies a \alert{constant proportional markup}, $p = \phi \cdot mc$ (perfect competition is $\phi=1$; symmetric CES-type pricing is $\phi > 1$). Then
-\begin{align*}
-\omega_\phi = p/\phi - h_s(\textrm{x}, \textrm{w}) = \tfrac{1}{\phi}\, \varrho, \qquad \varrho \equiv \text{the price residual on } (\textrm{x}, \textrm{w}), \qquad
-Q(\phi) = \tfrac{1}{\phi^2} \, \| \E[\varrho \mid z] \|^2 .
-\end{align*}
-\begin{itemize}
-\item The moments are \alert{proportional}, $\mu_{\phi} = \E[\varrho \mid z]/\phi$, so $\Delta\widetilde{Q} = \|\E[\varrho \mid z]\|^2 (\phi_1^{-2} - \phi_2^{-2})$: $\mathsf{T}_{RV}$ is normal with power and consistently selects the \alert{larger} markup. Scale, not fit; no instrument fixes it (lossless).
-\item So ``we reject perfect competition'' means only that the price residual projects onto $z$. It is a statement about demand-side variation in prices, not about conduct.
-\item Rules: never compare two constant-markup conducts; treat perfect competition as a sanity check, not an informative comparison. Repairs: outside information on the markup \emph{level} (Nevo 2001), or studentizing each moment, which leaves nothing to test.
-\item The informative comparisons are between conducts that imply \alert{different patterns} of markups across products and markets: single-product vs.\ own-firm vs.\ common ownership vs.\ monopoly. Those differ in how much of the cross-price structure the firm internalizes.
+\item Correct conduct: $\mu^m \equiv 0$. Wrong conduct: $\mu^m \neq 0$, \alert{if} the instruments are rich enough to tell (falsifiability; Berry Haile 2014). $\E[\omega^m \mid x] = 0$ holds by construction for every $m$, so all the content is in $z^e$.
+\item On real data every $Q(m) > 0$. The honest hypothesis is not ``Bertrand is true'' but \alert{equal fit} (Vuong 1989, Rivers--Vuong 2002, Chen--Hong--Shum 2007):
+$H_0: Q(m_1) = Q(m_2)$ against $H_A$: one model is closer to the CMR.
+\item A ``test of conduct'' is therefore a \alert{ranking}; the model confidence set holds the models never significantly beaten, not the correct one.
+\item $\mu^m$ is a function. Contract it against one direction (BCS 1.0), $K$ directions (DMSS), or estimate the norm (BCS 2.0). Notation: $\langle a, b \rangle = \E[a(\symbf{z})\, b(\symbf{z})]$, $\|a\|^2 = \langle a, a \rangle$.
 \end{itemize}
 \end{frame}
 
 
 \section{Backus, Conlon, Sinkinson: the scalar test (BCS 1.0)}
 
-\begin{frame}{Basic Setup}
-We start with marginal revenue and marginal cost (unobserved $\omega$, observed $h_s(\cdot)$)
+\begin{frame}{One Direction: The Scalar Moment and Rivers--Vuong}
+\small
+For any direction $g(\symbf{z})$, iterated expectations collapse the CMR to a scalar:
 \begin{align*}
-mr_{jt}^{m} &= mc_{jt} \\
-p_{jt} -\eta_{jt}^m &= h_s(\textrm{x}_{jt},\textrm{w}_{jt})  + \omega_{jt}^m
+\bar m_m = \langle \mu^m, g \rangle = \E[\omega^m\, g(\symbf{z})], \qquad \widetilde Q(m) = \bar m_m^2, \qquad \Delta\widetilde Q = \bar m_1^2 - \bar m_2^2,
+\\
+\mathsf{T}_{RV} = \frac{\sqrt{n}\, \Delta\widetilde Q}{\widehat\sigma} \xrightarrow{d} \mathcal{N}(0,1) \text{ under } \Delta\widetilde Q = 0 .
 \end{align*}
 \begin{itemize}
-\item Let's be vague/flexible with $h_s(\cdot)$ for now, but I don't know the production function.
-\item Assume: Demand and hence $\eta_{jt}^{m}$ are \alert{known (given conduct)}.\\
-\item Idea $(\eta^{m_1},\eta^{m_2})$ are own-profit vs.\ common ownership, or single-product vs.\ own-profit, or Cournot vs.\ Bertrand.
+\item \textbf{Validity is measurability.} $g$ must be a function of $\symbf{z}$ alone. Then a correct model has $\bar m_m = 0$ in \alert{every} direction.
+\item The raw markup difference fails: $\eta^m$ depends on prices and shares, hence on $\omega$, so $\E[\omega^m\, \Delta\eta] \neq 0$ even under true conduct. Its \alert{projection} onto $\symbf{z}$ is valid.
+\item $\mathsf{T}_{RV} < 0$ favors $m_1$. Which $g$? The one that best tells $m_1$ from $m_2$.
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{The Question}
-Two competing markups $(\eta_{jt}^{m_1}, \eta_{jt}^{m_2})$: which fits the data better?\\
-(both may be misspecified)
+\begin{frame}{The Wrong Model Omits a Markup Difference}
+\small
+Write $\Delta\eta \equiv \eta^{m_1} - \eta^{m_2}$. Implied costs differ by the markup difference with the opposite sign, so
 \begin{align*}
-p_{jt} = h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \tau\, \eta_{jt}^{m_1} + (1-\tau)\,\eta_{jt}^{m_2} + \omega_{jt}
+MC^{m_1} - MC^{m_2} = -\Delta\eta, \qquad
+h_s^{m_1} - h_s^{m_2} = -\E[\Delta\eta \mid x], \qquad
+\omega^{m_1} - \omega^{m_2} = -\big(\Delta\eta - \E[\Delta\eta \mid x]\big).
 \end{align*}
-Model is defined by a conditional moment restriction $\E[\omega_{jt}  | z_{jt}]=0$
+Project onto $\symbf{z}$ (using $x \subseteq \symbf{z}$) to get the \alert{discriminating direction}:
+\begin{align*}
+d(\symbf{z}) \equiv \mu^{m_1} - \mu^{m_2} = -\big(\E[\Delta\eta \mid \symbf{z}] - \E[\Delta\eta \mid x]\big) \equiv -\,g(\symbf{z}).
+\end{align*}
 \begin{itemize}
-\item $\tau = 1$ is $m_1$, $\tau = 0$ is $m_2$. The null is \alert{equal fit}, $\widetilde{Q}(\eta^{m_1}) = \widetilde{Q}(\eta^{m_2})$, not ``$\tau = 1$'': both may be wrong.
-\item This is a \alert{model selection} problem or a \alert{non nested testing} problem.
-\begin{itemize}
-\item We might want to compare more than two alternatives (too bad).
-\end{itemize}
-\item Obvious endogeneity problem with $\eta_{jt}$!
+\item If $m_1$ is true, $\omega^{m_2} = \omega^{m_1} + (\Delta\eta - \E[\Delta\eta \mid x])$: misspecifying conduct puts an \alert{omitted variable}, the residualized markup difference, into the cost shock. The test looks for it.
+\item $g$ is the predicted markup difference net of the controls: two regressions of $\Delta\eta$, one on $\symbf{z}$ and one on $x$, differenced (Frisch--Waugh--Lovell / Robinson).
+\item Subtracting $\E[\Delta\eta \mid x]$ cancels exactly the difference between the two models' cost functions.
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}[plain,label=misspecification]{Our Idea: Motivation \#2 (Misspecification)}
-Index the \alert{true} model by $m_0$ and a wrong one by $m_1$. Then,
-$$ p_{jt} -\eta^{m_0}_{jt}= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega^{m_0}_{jt}.$$
-To motivate a useful test, we ask what happens when we estimate supply with the \alert{wrong} conduct model $m_1$:
-
-$$p_{jt} -\eta_{jt}^{m_1} = h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \underbrace{\underbrace{\eta^{m_0}_{jt} - \eta^{m_1}_{jt}}_{\equiv \Delta \eta_{jt}} +  \omega_{jt}^{m_0}}_{\omega_{jt}^{m_1}}.$$
+\begin{frame}{Why $g$ Is the Optimal Single Direction}
+\small
+Collapse the difference in cost shocks against an arbitrary direction $b(\symbf{z})$:
+\begin{align*}
+M(b) \equiv \E\big[(\omega^{m_1} - \omega^{m_2})\, b(\symbf{z})\big] = \langle d, b \rangle,
+\qquad
+\text{s.e.}\big(\widehat M(b)\big) = \frac{\sigma\, \|b\|}{\sqrt n} \ \text{ when } \Var(\omega^{m_1} - \omega^{m_2} \mid \symbf{z}) = \sigma^2 .
+\end{align*}
+Choose $b$ to maximize the signal-to-noise ratio. Cauchy--Schwarz gives $\langle d, b \rangle \leq \|d\|\, \|b\|$, with equality iff $b \propto d$, so
+\begin{align*}
+\frac{\sqrt{n}\, \langle d, b \rangle}{\sigma\, \|b\|} \;\leq\; \frac{\sqrt{n}\, \|d\|}{\sigma} = \frac{\sqrt{n}\, \|\mu^{m_1} - \mu^{m_2}\|}{\sigma},
+\qquad \text{with equality iff } b \propto d \propto g .
+\end{align*}
 \begin{itemize}
-\item Misspecifying conduct introduces an omitted variable: the difference in markups.
-\item Our test is premised on detection of this omitted variable.
+\item \textbf{Unique}: any direction not proportional to $g$ has strictly less power to tell the two models apart.
+\item \textbf{Attains the full CMR}: the best single direction recovers the whole conditional-moment distance $\|\mu^{m_1} - \mu^{m_2}\|$.
+\item \textbf{Chamberlain (1987)}: on the line $\eta(\tau) = \tau\eta^{m_1} + (1-\tau)\eta^{m_2}$, $\E[\partial\omega(\tau)/\partial\tau \mid \symbf{z}] = -g$, so $g$ is the optimal instrument for $\tau$ (with heteroskedasticity, $g/\sigma^2(\symbf{z})$).
+\item \textbf{Caveats}: optimal \alert{per pair} (each pair has its own $g$), and direction is not strength: $z^e$ must still predict $\Delta\eta$ beyond $x$.
 \end{itemize}
-% \hyperlink{advantages}{\beamerskipbutton{back}} 
 \end{frame}
 
 
-\begin{frame}{The Instrument: Optimal Among Single Directions (BCS 1.0)}
+\begin{frame}{Rivers--Vuong on $g$ Reproduces the Full-CMR Ranking}
+\small
+Optimality was for the linear contrast $\bar m_1 - \bar m_2$; Rivers--Vuong uses squares. Both factor through the same inner product:
+\begin{align*}
+\Delta\widetilde Q(b) = (\bar m_1 - \bar m_2)(\bar m_1 + \bar m_2) = \underbrace{\langle d, b \rangle}_{\text{discrimination}}\; \underbrace{\langle r, b \rangle}_{\text{level}},
+\qquad r \equiv \mu^{m_1} + \mu^{m_2} .
+\end{align*}
+Normalize $\hat g = g/\|g\| = -d/\|d\|$. Then $\langle d, \hat g \rangle = -\|d\|$, $\langle r, \hat g \rangle = -\langle d, r \rangle / \|d\|$, and
+\begin{align*}
+\Delta\widetilde Q(\hat g) = \langle d, r \rangle = \langle \mu^{m_1} - \mu^{m_2},\, \mu^{m_1} + \mu^{m_2} \rangle = \|\mu^{m_1}\|^2 - \|\mu^{m_2}\|^2 = Q(m_1) - Q(m_2).
+\end{align*}
+\begin{itemize}
+\item In population the scalar test and the full CMR \alert{rank the models identically and share the null}: nothing is lost by using one direction.
+\item Population only: in samples $\widehat g$ is estimated, so bias, variance and first-stage rates differ from the full-CMR estimator (BCS 2.0).
+\item Maximizing the raw $\Delta\widetilde Q(b)$ instead would tilt $b$ toward the bisector of $d$ and $r$: a bigger statistic for a different null (equal projection, not equal fit).
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{When Does the Test Fail?}
 \footnotesize
-Collapse the moment against one direction $b(z)$: $\bar{m}_m(b) = \E[\omega^m b(z)]$ and $\widetilde{Q}(\eta^m) = \bar{m}_m^2$. Which $b$ discriminates $m_1$ from $m_2$ best?
-\begin{align*}
-\omega^{m_1} - \omega^{m_2} = -\big(\Delta\eta - \E[\Delta\eta \mid \textrm{x}, \textrm{w}]\big)
-\quad\Rightarrow\quad
-g(z) \equiv \E[\Delta\eta \mid \textrm{x}, \textrm{w}, z] - \E[\Delta\eta \mid \textrm{x}, \textrm{w}]
-\end{align*}
-\begin{itemize}
-\item $g$ is the projection of the markup difference onto the \alert{excluded} instruments after the cost controls are partialled out (Frisch--Waugh--Lovell / Robinson). It is the Chamberlain optimal instrument for the omitted variable $\Delta\eta$ of the previous slide.
-\item \textbf{Optimality:} among all single directions, $g$ uniquely maximizes the signal-to-noise ratio for telling the two conducts apart (Cauchy--Schwarz; heteroskedasticity adds a $1/\sigma^2(z)$ weight), attaining the full conditional-moment distance $\|\mu_{m_1} - \mu_{m_2}\|$. RV on it is \alert{lossless} in population: with $\|g\| = 1$, $\bar{m}_1^2 - \bar{m}_2^2 = \|\mu_{m_1}\|^2 - \|\mu_{m_2}\|^2$, the full-CMR ranking and null.
-\item \textbf{Failure set shrinks:} a generic $b$ also fails when $b \perp \mu_{m_1} - \mu_{m_2}$ (spurious equal fit) or $b \perp \text{span}\{\mu_{m_1}, \mu_{m_2}\}$ (Vuong degeneracy); along $g$ both collapse to equal conditional moments, $d = 0$, where $g$ itself vanishes. With $\mu_{m_1} \equiv \mu_{m_2} \equiv 0$ that is the DMSS degeneracy; with a common misfit $\widehat{g}$ is first-stage noise, the limit is non-degenerate, but the fixed-$\widehat{g}$ SE is too small (9--15\% rejection at nominal 5\%).
-\item \textbf{The subtraction is not redundant} even though $(\textrm{x}, \textrm{w}) \subset z$: it is what makes $\E[g \mid \textrm{x}, \textrm{w}] = 0$, and that is what makes the moment insensitive to errors in $h_s$ (next slide).
-\item Practical: $\widehat{g}$ is two cross-fit regressions of $\Delta\eta$ (random forest, boosting, or a sieve), one on everything and one on the controls, differenced.
-\end{itemize}
+The RV variance degenerates exactly when \alert{neither} model is falsified in the direction used, $\bar m_1 = \bar m_2 = 0$ (DMSS Proposition 3).\\[0.15cm]
+\textbf{Two failures survive the optimal $g$}; both are matters of identification, not of instrument choice:
+\begin{enumerate}
+\item \textbf{Equal conditional moments}, $d = 0$: $g$ itself vanishes and there is nothing to rank. If $\mu^{m_1} \equiv \mu^{m_2} \equiv 0$ (both correct, or $z^e$ irrelevant for both), this is the DMSS degeneracy. With a common misfit the limit is non-degenerate, but $\widehat g$ is pure first-stage noise and the fixed-$\widehat g$ SE is too small (9--15\% rejections at nominal 5\%).
+\item \textbf{Proportional moments}, $\mu^{m_1} \propto \mu^{m_2}$. Canonical case: two constant-markup rules $p = a_m\, mc$ give $\mu^m = v/a_m$ with $v = \E[p \mid \symbf{z}] - \E[p \mid x]$, so $\Delta\widetilde Q = \|v\|^2 (a_1^{-2} - a_2^{-2})$ and the test consistently picks the \alert{larger} markup: scale, not fit, and no instrument fixes it. Never compare two constant-markup conducts. Perfect competition is a straw man: ``we reject PC'' only says that prices project onto $z^e$.
+\end{enumerate}
+\textbf{Two more failures hit a generic direction $b$}, which need not lie in $\text{span}\{\mu^{m_1}, \mu^{m_2}\}$:
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item $\langle d, b \rangle = 0$ with $d \neq 0$: $\bar m_1 = \bar m_2$, spurious equal fit, no power.
+\item $b \perp \text{span}\{\mu^{m_1}, \mu^{m_2}\}$: $\bar m_1 = \bar m_2 = 0$, the original Vuong degeneracy.
+\end{enumerate}
+Along $g \propto d \in \text{span}\{\mu^{m_1}, \mu^{m_2}\}$, (3) and (4) can happen only at $d = 0$. In samples a poor $\widehat g$ (weak $z^e$) can bring them back.
 \end{frame}
 
 
-\begin{frame}{Orthogonality and Cross-Fitting in One Slide}
+\begin{frame}{Plugging In $\widehat h_s$ and $\widehat g$: Orthogonality and Cross-Fitting}
 \footnotesize
-Two nuisance functions, $h_s$ and $g$, are estimated and plugged in. Why does their estimation error not contaminate the test? (Chernozhukov et al.\ 2018 double machine learning, applied to a model-selection statistic.)
+Both nuisance functions are fit by machine learning and \alert{plugged in once}, never refit in the bootstrap. Why is that safe? Perturb $(h_s, g)$ by $(\delta h, \delta g)$:
+\begin{align*}
+\frac{d}{dt}\Big|_{t=0} \bar m_m = \underbrace{-\,\E\big[\delta h(x)\, \E[g \mid x]\big]}_{\text{cost direction}} + \underbrace{\E\big[\mu^m\, \delta g\big]}_{\text{instrument direction}},
+\qquad
+\frac{d}{dt}\Big|_{t=0} \widetilde Q(m) = 2\, \bar m_m \cdot \frac{d}{dt}\Big|_{t=0} \bar m_m .
+\end{align*}
 \begin{itemize}
-\item \textbf{Cost direction.} Perturb $h_s \rightarrow h_s + \delta h$: the moment moves by $-\E[\delta h(\textrm{x}, \textrm{w}) \cdot \E[g \mid \textrm{x}, \textrm{w}]] = 0$ by construction of $g$. First-order error in the cost function \alert{cannot} enter. (This is Neyman orthogonality, delivered by the FWL subtraction.)
-\item \textbf{Instrument direction.} Perturb $g$: the moment moves by $\E[\mu_m \delta g]$, zero for every $\delta g$ iff $\mu_m \equiv 0$. No null is needed: a model that satisfies the CMR has its moment pinned at zero however badly $g$ is estimated, so with a true model on the menu $\widehat{g}$-error moves \alert{power}, not size. In the both-wrong null ($\bar{m}_1 = -\bar{m}_2 \neq 0$) a first-order term survives along the level direction $\mu_{m_1} + \mu_{m_2}$, and \alert{any} first stage leaves it out of the fixed-$\widehat{g}$ SE: $\text{Var}(\mathsf{T}_{RV}) \rightarrow 1 + R^2_r\,(1 - R^2_{fs})/R^2_{fs}$, with $R^2_{fs}$ the first-stage $R^2$ of $\Delta\eta$ on the excluded $z$ net of controls and $R^2_r$ the share of the level they explain. In cereal under the optimal IV, $R^2_{fs} \approx 0.05$--$0.10$, so the fixed-$\widehat{g}$ $\mathsf{T}$ is overstated by a factor of about 2. Report $R^2_{fs}$; a refit bootstrap or generated-instrument correction restores the term; the full-CMR criterion has no estimated direction and is immune.
-\item \textbf{Cross-fitting.} Split the \alert{clusters} (whole markets, never products within a market) into $K$ folds; evaluate each observation at nuisance functions fit on the other folds. This removes the own-observation bias that in-sample fitting puts into a \alert{squared} moment ($\E[\widetilde{Q}] = Q + \text{Var}(\bar{m}) + \text{overfit}$), without complexity restrictions on the learner.
-\item \textbf{Rate.} Remaining bias is a product of two nuisance errors, negligible once each converges faster than $n^{-1/4}$ (Bickel--Ritov). Random forests and boosting on a few hundred thousand rows clear this comfortably.
+\item \textbf{Cost direction: zero by construction.} $\E[g \mid x] = 0$ because we subtracted $\E[\Delta\eta \mid x]$ (Neyman orthogonality; Chernozhukov et al.\ 2018). The subtraction is not redundant even though $x \subseteq \symbf{z}$: without it, error in $\widehat h_s$ enters the moment at first order.
+\item \textbf{Instrument direction: zero iff $\mu^m \equiv 0$.} A model that satisfies the CMR has its moment pinned at zero however badly $g$ is estimated. With a true model on the menu, $\widehat g$-error moves \alert{power}, not size.
+\item \textbf{Both-wrong null} ($\bar m_1 = -\bar m_2 = -\|d\|^2/2$): a term $-\|d\|^2 \langle r, \delta g \rangle$ survives along the level direction, and a fixed-$\widehat g$ SE omits its variance: $\Var(\mathsf{T}_{RV}) \rightarrow 1 + R^2_r\,(1 - R^2_{fs})/R^2_{fs}$, with $R^2_{fs}$ the first-stage $R^2$ of $\Delta\eta$ on $z^e$ net of $x$ and $R^2_r$ the share of the level they explain. Report $R^2_{fs}$. A refit bootstrap restores the term, and the full-CMR criterion (no estimated direction) is immune.
+\item \textbf{Cross-fitting} over whole clusters (markets, never products within a market) removes own-observation overfitting. The remaining bias is a product of two nuisance errors, negligible once each converges faster than $n^{-1/4}$.
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Inference for the Scalar Test}
 \small
-Aggregate the integrand to \alert{cluster totals} $S^m_c = \sum_{i \in c} w_i\, \widehat{\omega}^m_i \widehat{g}_i$, the cluster being a union of whole markets (cereal scalar tables: chain$\times$year, $C = 242$), so $\bar{m}_m = \frac{1}{n}\sum_c S^m_c$ and $\Delta\widetilde{Q} = \bar{m}_1^2 - \bar{m}_2^2$.
+Aggregate to \alert{cluster totals} $S^m_c = \sum_{i \in c} w_i\, \widehat\omega^m_i \widehat g_i$ (clusters are unions of whole markets, $w_i$ observation weights), so $\bar m_m = \frac{1}{n}\sum_c S^m_c$. No method below refits a nuisance function; each reweights the cached totals.
 \begin{itemize}
-\item \textbf{Analytic (delta method).} $\mathsf{T}_{RV} = \sqrt{n}\, \Delta\widetilde{Q} / \widehat{\sigma}$ with $\widehat{\sigma}^2$ from the cluster totals and $\nabla f = (2\bar{m}_1, -2\bar{m}_2)$. Valid away from the boundary; as $\bar{m}_m \rightarrow 0$, $\widehat{\sigma} \rightarrow 0$ and it fails.
-\item \textbf{Bootstrap 1, multiplier on the influence function.} Rademacher weights $e_c$ on the linearized contribution: reproduces the analytic SE, same boundary problem (Kline--Santos 2012 score bootstrap).
-\item \textbf{Bootstrap 2, score-level wild.} Perturb each model's \alert{moment before squaring}, $\bar{m}^*_m = \bar{m}_m + \frac{1}{n}\sum_c e_c \tilde{S}^m_c$, then square. Keeps the cross term \emph{and} the quadratic term, so it self-adapts: normal far from the boundary, fat-tailed near it, with no pretest. The variance it adds relative to the linear term scales as $1/\mathsf{T}_m^2$, the per-model moment $t$-ratio.
-\item \textbf{Bootstrap 3, wild cluster bootstrap-$t$.} Studentize every draw; the few-cluster refinement (Cameron--Gelbach--Miller 2008).
-\item Because a squared mean is biased upward, Bootstraps 2--3 recenter: report $\Delta\widetilde{Q} - (\widehat{V}_1 - \widehat{V}_2)$ against the centered bootstrap law.
-\item No refits: every bootstrap only reweights cached cluster totals. Markups and first stages are computed once.
+\item \textbf{Analytic (default).} Delta method with gradient $(2\bar m_1, -2\bar m_2)$ and a cluster-robust variance. Fails as $\bar m_m \rightarrow 0$, where $\widehat\sigma \rightarrow 0$.
+\item \textbf{Multiplier on the influence function.} Rademacher weights $e_c$ on the linearized contributions. Reproduces the analytic SE and its boundary problem (Kline--Santos 2012).
+\item \textbf{Score-level wild.} Perturb each moment \alert{before squaring}, $\bar m^*_m = \bar m_m + \frac{1}{n}\sum_c e_c \tilde S^m_c$ with $\tilde S^m_c$ the centered totals, then square. The extra quadratic term takes over near the boundary, so the bootstrap law self-adapts with no pretest. Recenter, since squaring a mean biases it up: report $\Delta\widetilde Q - (\widehat V_1 - \widehat V_2)$, with $\widehat V_m$ the bootstrap variance of $\bar m^*_m$.
+\item \textbf{Wild cluster bootstrap-$t$.} Studentize each draw: the few-cluster refinement (Cameron--Gelbach--Miller 2008).
 \end{itemize}
 \end{frame}
 
@@ -489,36 +358,13 @@ Aggregate the integrand to \alert{cluster totals} $S^m_c = \sum_{i \in c} w_i\, 
 \small
 For a pair $(m_1, m_2)$; the menu test repeats over all pairs.
 \begin{enumerate}
-\item \textbf{Split.} Partition the $C$ clusters into $K$ folds (3 in cereal); every observation inherits its cluster's fold. The same split is reused for every first stage.
-\item \textbf{Cost residuals, per model.} For each $m$ and fold $k$, fit $\widehat{h}_s^{(-k)}(\textrm{x}, \textrm{w}) = \widehat{\E}[MC^m \mid \textrm{x}, \textrm{w}]$ on the other folds and residualize on fold $k$; fixed effects (product, chain, year) absorbed by a within-transform first. Computed \alert{once} per model and reused in every pair.
-\item \textbf{Instrument, per pair.} Cross-fit the two projections of $\Delta\eta$ and difference them: $\widehat{g} = \widehat{\E}^{(-k)}[\Delta\eta \mid \textrm{x}, \textrm{w}, z] - \widehat{\E}^{(-k)}[\Delta\eta \mid \textrm{x}, \textrm{w}]$.
-\item \textbf{Moments.} Cluster totals $S^m_c$, sample moments $\bar{m}_m$, criteria $\widetilde{Q}_m = \bar{m}_m^2$, contrast $\Delta\widetilde{Q}$.
-\item \textbf{Inference.} $\mathsf{T}_{RV}$: analytic cluster SE by default, Bootstrap 2 or 3 near the boundary, cached totals only.
+\item \textbf{Split.} Partition the $C$ clusters into $K$ folds; every observation inherits its cluster's fold, and every first stage reuses the split.
+\item \textbf{Cost residuals, per model.} For each $m$ and fold $k$, fit $\widehat h_s^{m,(-k)}(x) = \widehat{\E}[MC^m \mid x]$ on the other folds (fixed effects absorbed by a within-transform) and set $\widehat\omega^m_i = MC^m_i - \widehat h_s^{m,(-k)}(x_i)$. Computed once per model and reused in every pair.
+\item \textbf{Instrument, per pair.} $\widehat g_i = \widehat{\E}^{(-k)}[\Delta\eta \mid \symbf{z}]_i - \widehat{\E}^{(-k)}[\Delta\eta \mid x]_i$. Regress $\Delta\eta$ itself: for a nonlinear learner, $\widehat{\E}[\eta^{m_1} \mid \cdot] - \widehat{\E}[\eta^{m_2} \mid \cdot] \neq \widehat{\E}[\Delta\eta \mid \cdot]$.
+\item \textbf{Moments.} Cluster totals $S^m_c$, moments $\bar m_m$, contrast $\Delta\widetilde Q = \bar m_1^2 - \bar m_2^2$.
+\item \textbf{Inference.} $\mathsf{T}_{RV}$ with the analytic cluster SE; score-level wild or bootstrap-$t$ near the boundary. $\mathsf{T}_{RV} < 0$ favors $m_1$.
 \item \textbf{Menu.} Pairwise matrix of contrasts $\rightarrow$ model confidence set: the models never significantly beaten.
 \end{enumerate}
-% \item Versus 2021: $K$-fold over clusters instead of one 70/30 split; FWL-partialled $\widehat{g}$; recentering fixed; cluster, weighting and FE declared. Every result travels with a seven-item spec (criterion, controls vs.\ instruments, FE, partialling, learner, inference, flavor of $Q$).
-\end{frame}
-
-
-\begin{frame}{BCS in one slide}
-Two competing markups (markdowns) $(\eta_{jt}^{m_1}, \eta_{jt}^{m_2})$. Which fit data better? (both may be misspecified)\\
-\begin{align*}
-\only<1>{p_{jt} &= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \tau\, \eta_{jt}^{m_1} + (1-\tau)\,\eta_{jt}^{m_2} + \omega_{jt} 
-\text{ where } \E[\omega_{jt}  | \textrm{x}_{jt} ,\textrm{w}_{jt}, \alert{z_{jt}}]=0\\} 
-\only<2>{p_{jt} -\eta_{jt}^{m_1} &= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega_{jt} \text { if } \tau=1 \ (m_1)\\
-p_{jt} -\eta_{jt}^{m_2} &= h_s(\textrm{x}_{jt},\textrm{w}_{jt}) + \omega_{jt} \text { if } \tau=0 \ (m_2)}
-\end{align*}
-\pause
-The only IV that matters is the \alert{predicted markup difference}, net of the cost controls, which we get from two first stages
-\begin{align*}
-g(z_{jt}) = \E[\eta_{jt}^{m_1}- \eta_{jt}^{m_2} \mid \textrm{x}_{jt},\textrm{w}_{jt}, \alert{z_{jt}}] - \E[\eta_{jt}^{m_1}- \eta_{jt}^{m_2} \mid \textrm{x}_{jt},\textrm{w}_{jt}]
-\end{align*}
-As long as we have some \alert{exclusion restrictions $z_{jt}$} that:
-\begin{itemize}
-  \item \textbf{Relevance}: Predict markups \alert{beyond} the cost shifters $(\textrm{x}_{jt},\textrm{w}_{jt})$.
-  \item \textbf{Exclusion}: Do \alert{not} affect marginal cost.
-\end{itemize}
-Rest of paper: make $h(\cdot)$ and $g(\cdot)$ as flexible as possible (cross-fit), partial the controls out of $g$, and get a Vuong test whose inference survives the degeneracy boundary.
 \end{frame}
 
 
@@ -620,16 +466,17 @@ Rest of paper: make $h(\cdot)$ and $g(\cdot)$ as flexible as possible (cross-fit
 %
 % ---- END LONG VERSION ----
 
+
 \section{The full conditional-moment test (BCS 2.0)}
 
 \begin{frame}{The Full Conditional-Moment Test in One Slide (BCS 2.0)}
 \small
-Use all of $\mu_m(z) = \E[\omega^m \mid z]$, not one direction: $Q(\eta^m) = \|\mu_m\|^2$, $H_0: Q(\eta^{m_1}) = Q(\eta^{m_2})$. The scalar BCS moment, the DMSS 2SLS quadratic form, and this norm are one direction, $K$ directions, and all directions of the same object.
+Use all of $\mu^m(\symbf{z}) = \E[\omega^m \mid \symbf{z}]$, not one direction: $Q(m) = \|\mu^m\|^2$, $H_0: Q(m_1) = Q(m_2)$. The scalar BCS moment, the DMSS 2SLS quadratic form, and this norm are one direction, $K$ directions, and all directions of the same object.
 \begin{align*}
-\widehat{Q}(\eta^m) = \frac{1}{C(C-1)} \sum_{c \neq c'} (u^m_c)' u^m_{c'}, \qquad u^m_c = \widehat{\Sigma}^{-1/2} \sum_{j \in c} \widehat{\omega}^m_{j}\, b(z_{j}), \qquad b \text{ mean-centered}.
+\widehat{Q}(m) = \frac{1}{C(C-1)} \sum_{c \neq c'} (u^m_c)' u^m_{c'}, \qquad u^m_c = \widehat{\Sigma}^{-1/2} \sum_{i \in c} \widehat{\omega}^m_{i}\, b(z^e_{i}), \qquad b \text{ a series basis, controls partialled out}.
 \end{align*}
 \begin{itemize}
-\item \textbf{Cross-cluster U-statistic}: products of residuals from different markets are unbiased for $\|\mu_m\|^2$; the own-cluster terms carry the estimation noise that inflates any plug-in (the ``positive shift''), so they are deleted. Centering $b$ removes an $O(1)$ bias from the intercept of $h_s$ (FWL).
+\item \textbf{Cross-cluster U-statistic}: products of residuals from different markets are unbiased for $\|\mu^m\|^2$; the own-cluster terms carry the estimation noise that inflates any plug-in (the ``positive shift''), so they are deleted.
 \item \textbf{Why bother}: the degenerate set is the \alert{same} as the scalar test's (neither model falsified), so it buys no power there. What it buys is an instrument side with \alert{no estimated direction}: where the scalar $\widehat{g}$ is first-stage noise (equal conditional moments, the both-wrong null) the norm keeps nominal size. One cross-fit regression per model, nothing refit per pair.
 \item \textbf{The price}: under a correct model the criterion sits at its minimum and is not normal, so inference has two regimes (two slides on).
 \end{itemize}
@@ -641,12 +488,12 @@ Use all of $\mu_m(z) = \E[\omega^m \mid z]$, not one direction: $Q(\eta^m) = \|\
 For a menu of models $m$; only step 2 is per model, nothing is refit per pair.
 \begin{enumerate}
 \item \textbf{Split.} Partition the $C$ clusters (whole markets) into $K$ folds; the same split serves every regression below.
-\item \textbf{Cost residuals, per model.} Regress $MC^m = p - \eta^m$ on the cost controls $(\textrm{x}, \textrm{w})$ with the FE absorbed by a within-transform, out of fold: $\widehat{\omega}^m_i = MC^m_i - \widehat{h}_s^{(-k)}(\textrm{x}_i, \textrm{w}_i)$. The same residuals as the scalar test; the only nonparametric nuisance.
-\item \textbf{Instrument basis.} Take a series basis $b(z) \in \mathbb{R}^{K_z}$ on the excluded instruments (a low-order polynomial). Regress every column on $(\textrm{x}, \textrm{w}, \text{FE})$, cross-fit, and keep the residuals $\tilde{b}(z)$: the controls are partialled out of the basis exactly as they are out of $\widehat{g}$ (mean-centering is the constant-only case). Whiten with $\widehat{\Sigma} = \frac{1}{n}\sum_i \tilde{b}_i \tilde{b}_i'$.
-\item \textbf{The CMR estimate is a regression.} Regress $\widehat{\omega}^m$ on $\tilde{b}(z)$: $\widehat{\mu}_m(z) = \tilde{b}(z)'\,\widehat{\Sigma}^{-1}\, \frac{1}{n}\sum_i \tilde{b}_i \widehat{\omega}^m_i$, the fitted value. Its mean square, $\widehat{\nu}_m' \widehat{\nu}_m$ with $\widehat{\nu}_m = \widehat{\Sigma}^{-1/2} \frac{1}{n}\sum_i \tilde{b}_i \widehat{\omega}^m_i$, is the 2SLS quadratic form of DMSS. It is biased upward by the estimation variance of $\widehat{\mu}_m$.
+\item \textbf{Cost residuals, per model.} Regress $MC^m = p - \eta^m$ on the controls $x$ with the FE absorbed by a within-transform, out of fold: $\widehat{\omega}^m_i = MC^m_i - \widehat{h}_s^{m,(-k)}(x_i)$. The same residuals as the scalar test; the only nonparametric nuisance.
+\item \textbf{Instrument basis.} Take a series basis $b(z^e) \in \mathbb{R}^{K_z}$ on the excluded instruments (a low-order polynomial). Regress every column on $x$, cross-fit, and keep the residuals $\tilde{b}(z^e)$: the controls are partialled out of the basis exactly as they are out of $\widehat{g}$ (mean-centering is the constant-only case). Whiten with $\widehat{\Sigma} = \frac{1}{n}\sum_i \tilde{b}_i \tilde{b}_i'$.
+\item \textbf{The CMR estimate is a regression.} Regress $\widehat{\omega}^m$ on $\tilde{b}$: $\widehat{\mu}^m = \tilde{b}'\,\widehat{\Sigma}^{-1}\, \frac{1}{n}\sum_i \tilde{b}_i \widehat{\omega}^m_i$, the fitted value. Its mean square, $\widehat{\nu}_m' \widehat{\nu}_m$ with $\widehat{\nu}_m = \widehat{\Sigma}^{-1/2} \frac{1}{n}\sum_i \tilde{b}_i \widehat{\omega}^m_i$, is the 2SLS quadratic form of DMSS. It is biased upward by the estimation variance of $\widehat{\mu}^m$.
 \item \textbf{Debias with cluster scores.} $G^m_c = \sum_{i \in c} w_i\, \widehat{\omega}^m_i \tilde{b}_i$, $u^m_c = \widehat{\Sigma}^{-1/2} G^m_c$, and
-$\widehat{Q}(\eta^m) = \frac{1}{C(C-1)}\big(\|\sum_c u^m_c\|^2 - \sum_c \|u^m_c\|^2\big)$: the cross-cluster products only. Dropping $c = c'$ drops $\E\|\widehat{\mu}_m - \mu_m\|^2$.
-\item \textbf{Contrast and inference.} $\Delta\widehat{Q} = \widehat{Q}(\eta^{m_1}) - \widehat{Q}(\eta^{m_2})$; per-cluster influence $\widehat{\psi}_c$ (leave-one-out $\widehat{\nu}$, weight-matrix term); unified multiplier bootstrap on the cached $u^m_c$; $p$-value from the bootstrap law (next slide).
+$\widehat{Q}(m) = \frac{1}{C(C-1)}\big(\|\sum_c u^m_c\|^2 - \sum_c \|u^m_c\|^2\big)$: the cross-cluster products only. Dropping $c = c'$ drops $\E\|\widehat{\mu}^m - \mu^m\|^2$.
+\item \textbf{Contrast and inference.} $\Delta\widehat{Q} = \widehat{Q}(m_1) - \widehat{Q}(m_2)$; per-cluster influence $\widehat{\psi}_c$ (leave-one-out $\widehat{\nu}$, weight-matrix term); unified multiplier bootstrap on the cached $u^m_c$; $p$-value from the bootstrap law (next slide).
 \item \textbf{Menu.} Pairwise matrix of contrasts $\rightarrow$ model confidence set.
 \end{enumerate}
 \end{frame}
@@ -655,12 +502,12 @@ $\widehat{Q}(\eta^m) = \frac{1}{C(C-1)}\big(\|\sum_c u^m_c\|^2 - \sum_c \|u^m_c\
 \begin{frame}{Inference in One Slide: Two Regimes, One Bootstrap}
 \footnotesize
 \begin{align*}
-\Delta\widehat{Q} - (Q_{m_1} - Q_{m_2}) = \underbrace{\tfrac{1}{C} \textstyle\sum_c \psi_c}_{\sqrt{C}\text{-normal if } \sigma^2_{\text{lin}} > 0} + \underbrace{\tfrac{1}{C(C-1)} \textstyle\sum_{c \neq c'} \Psi(c,c')}_{\text{rate-}C\text{ weighted } \chi^2 \text{ if } \mu_{m_1} \equiv \mu_{m_2} \equiv 0}
+\Delta\widehat{Q} - \big(Q(m_1) - Q(m_2)\big) = \underbrace{\tfrac{1}{C} \textstyle\sum_c \psi_c}_{\sqrt{C}\text{-normal if } \sigma^2_{\text{lin}} > 0} + \underbrace{\tfrac{1}{C(C-1)} \textstyle\sum_{c \neq c'} \Psi(c,c')}_{\text{rate-}C\text{ weighted } \chi^2 \text{ if } \mu^{m_1} \equiv \mu^{m_2} \equiv 0}
 \end{align*}
 \begin{itemize}
-\item \textbf{Non-degenerate}: at least one model violates the CMR on the span of $z$; cluster-robust RV is fine. \textbf{Degenerate}: neither does (both correct, or weak instruments for testing); the linear term vanishes, $C\widehat{Q} \rightarrow \sum_r v_r(\chi^2_{1,r} - 1)$, mean zero and right-skewed, so a normal cutoff under-covers the upper tail. The standard error differs by $\sqrt{C}$ between regimes and weak-instrument comparisons sit near the boundary. Because $\widehat{\Sigma}$ is estimated, $\psi_c$ carries a weight-matrix term: per observation the influence of $Q_m$ is $2v\omega^m - v^2 - Q_m$ with $v$ the fitted moment (DMSS eq.~8); dropping $v^2$ overstates the variance.
+\item \textbf{Non-degenerate}: at least one model violates the CMR on the span of $z^e$; cluster-robust RV is fine. \textbf{Degenerate}: neither does (both correct, or weak instruments for testing); the linear term vanishes, $C\widehat{Q} \rightarrow \sum_r v_r(\chi^2_{1,r} - 1)$, mean zero and right-skewed, so a normal cutoff under-covers the upper tail. The standard error differs by $\sqrt{C}$ between regimes and weak-instrument comparisons sit near the boundary. Because $\widehat{\Sigma}$ is estimated, $\psi_c$ carries a weight-matrix term: per observation the influence of $Q(m)$ is $2v\omega^m - v^2 - Q(m)$ with $v$ the fitted moment (DMSS eq.~8); dropping $v^2$ overstates the variance.
 \item \textbf{One multiplier bootstrap} on both terms, $\Delta\widehat{Q}^* - \Delta\widehat{Q} = \frac{1}{C}\sum_c e_c \widehat{\psi}_c + \frac{1}{C(C-1)}\sum_{c \neq c'} e_c e_{c'} \widehat{\Psi}(c,c')$, one Rademacher weight per cluster shared across terms and models. It nests the linear RV and the score-wild bootstrap and interpolates between them with no pretest and no switch; the $p$-value comes from the bootstrap law, not a normal table; nothing is refit.
-\item \textbf{Diagnostics}: $\widehat{F} = \max_m C\widehat{Q}(\eta^m)$ over the pair (near degeneracy only when \alert{both} criteria are near zero) and the first-stage fit of $\Delta\eta$ on $z$ (is there anything to rank?), both descriptive. \textbf{Open}: uniform validity across the boundary (the Shi 2015 analogue), demand-estimation uncertainty, a Hansen model confidence set.
+\item \textbf{Diagnostics}: $\widehat{F} = \max_m C\widehat{Q}(m)$ over the pair (near degeneracy only when \alert{both} criteria are near zero) and the first-stage fit of $\Delta\eta$ on $z^e$ (is there anything to rank?), both descriptive. \textbf{Open}: uniform validity across the boundary (the Shi 2015 analogue), demand-estimation uncertainty, a Hansen model confidence set.
 \end{itemize}
 \end{frame}
 
@@ -753,7 +600,7 @@ In cereal the candidate conducts differ in \alert{how much of the cross-price st
 \item \alert{All} of them, single-product included, price above marginal cost. The test ranks models by the recapture they internalize, not by whether market power exists.
 \item So ``single-product fits the moment best'' is a statement about \alert{cross-price internalization}, not a rejection of market power, and not a statement that firms ignore their sister brands in any literal sense.
 \item Perfect competition is on the menu as a straw man only (the constant-markup degeneracy). Cournot vs.\ Bertrand would be a different ladder.
-\item This is the substantive content of a criterion $\|\E[\omega^m \mid z]\|^2$ here: it orders the ladder; it does not estimate a markup level. The markup level comes from demand.
+\item This is the substantive content of the criterion $Q(m) = \|\E[\omega^m \mid \symbf{z}]\|^2$ here: it orders the ladder; it does not estimate a markup level. The markup level comes from demand.
 \end{itemize}
 \end{frame}
 
@@ -770,7 +617,7 @@ In cereal the candidate conducts differ in \alert{how much of the cross-price st
 
 \begin{frame}{Validity Is Orthogonality to the Cost Shock, Not to Price}
 \footnotesize
-A conduct instrument must be excluded from $\omega$; it \alert{must} correlate with price, since a useful instrument moves markups. Choosing price-orthogonal instruments manufactures weak ones. The cereal instrument groups, after partialling $(\textrm{x}, \textrm{w}, \text{FE})$ out:
+A conduct instrument must be excluded from $\omega$; it \alert{must} correlate with price, since a useful instrument moves markups. Choosing price-orthogonal instruments manufactures weak ones. The cereal instrument groups, after partialling the controls $x$ (FE included) out:
 \begin{center}
 \renewcommand{\arraystretch}{1.15}
 \scriptsize
@@ -778,7 +625,7 @@ A conduct instrument must be excluded from $\omega$; it \alert{must} correlate w
 \toprule
 Group & What it is & Strength for conduct \\
 \midrule
-\texttt{opt\_iv} & demand-side Chamberlain optimal IV, $\E[\partial\xi/\partial\theta \mid z]$ at a flexible $\widehat{\E}[p \mid z]$ & \alert{strong} (effective $F \approx 50$--$60$) \\
+\texttt{opt\_iv} & demand-side Chamberlain optimal IV, $\E[\partial\xi/\partial\theta \mid \symbf{z}]$ at a flexible $\widehat{\E}[p \mid \symbf{z}]$ & \alert{strong} (effective $F \approx 50$--$60$) \\
 \texttt{demog} & chain-level income and demographic moments & moderate ($F \approx 10$--$17$); mostly absorbed by the FE \\
 \texttt{opc} & price of a grain the product does \emph{not} use (a rival's cost shifter) & valid; $\approx 10\%$ of its variance survives the FE ($F \approx 5$--$12$) \\
 \texttt{diff} & BLP / Gandhi--Houde differentiation instruments & relevant ($F \approx 30$--$60$) \\
@@ -786,7 +633,7 @@ Group & What it is & Strength for conduct \\
 \end{tabular}
 \end{center}
 \begin{itemize}
-\item The optimal IV is not circular: demand was estimated \alert{without} a supply side, so $\widehat{\E}[p \mid z]$ is a reduced-form fit, not an equilibrium price under an assumed conduct. Its near-perfect span of expected prices is the source of its power.
+\item The optimal IV is not circular: demand was estimated \alert{without} a supply side, so $\widehat{\E}[p \mid \symbf{z}]$ is a reduced-form fit, not an equilibrium price under an assumed conduct. Its near-perfect span of expected prices is the source of its power.
 \item The BLP differentiation instruments are built for demand. Their strength for conduct is a separate empirical question, answered by the first-stage $F$ for $\Delta\eta$ and not by their strength for demand.
 \item Partial the controls out of the instrument basis (FWL), as the scalar test partials $\widehat{g}$; otherwise control overlap inflates the Gram matrix and groups are not comparable. Partialling \alert{sharpens} valid strong instruments and exposes FE-collinear ones as weak.
 \end{itemize}

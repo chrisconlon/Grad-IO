@@ -58,6 +58,30 @@ should come back.
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
 
+## 2026-10-29 — conduct_new shortened around `../conduct_testing/theory/bcs_theory.tex`
+
+Chris: shorter; follow bcs_theory; supply CMR is the event (demand CMR only a remark: it is common to
+every conduct model, so stacking it with supply adds shared overidentifying restrictions); minimal
+notation after 1–2 IV-motivation frames; show the BCS 1.0 optimal-direction argument. Rulings (10-29,
+via questions): demand side = one bullet on the IV frame; degeneracy and constant-markup frames merged
+into a BCS 1.0 "When Does the Test Fail?" frame (bcs_theory failures (1)–(4)).
+Method part (problem → BCS 2.0) rewritten, 39 frames total (was 50), 48 pp. (was 66):
+
+- Problem: κ FOC on one frame in pricing-lecture notation, η^m = (H(κ_m)⊙Δ)^{-1}q (quantities q, so σ
+  stays free); CO assumptions + profit-weight derivation merged (manager objective renamed U_f, Q is the
+  criterion); "Setup", "Simultaneous Problem", "Two Ways In" → one "Where the Instruments Come From"
+  frame in BLP notation ending with the dictionary x = all included controls (x, w, FE), z^e excluded,
+  z = (z^e, x).
+- Classic: 9 → 4 (three uses of the supply restriction; Wollmann figure with the single-model bullets;
+  Villas-Boas Table 10 only; DMSS as the K-direction contraction of the CMR).
+- Model selection + BCS 1.0, bcs_theory order: supply CMR and equal-fit null → scalar moment and RV →
+  d = μ¹−μ² = −g (omitted variable) → Cauchy–Schwarz optimality + Chamberlain → RV on ĝ = full-CMR
+  ranking (ΔQ̃ = ⟨d,r⟩) → failures (1)–(4) → orthogonality/cross-fitting → inference → algorithm.
+  "Basic Setup", "The Question", "Motivation #2" and "BCS in one slide" dropped (content absorbed).
+- BCS 2.0 three frames kept, notation aligned (μ^m, Q(m), x, z^e). Commented long-version block kept.
+- Examples and application unchanged except notation (Q(m), bold z, controls x).
+Newly unreferenced: `resources/villas_boas_table8.png` (add to the Week 7 unreferenced-resources item).
+
 ## 2026-10-15 — passthrough.tex: Sangani (QJE 2026), "Complete Pass-Through in Levels"
 
 Paper extracted to `Readings/qjag014.md` (Sonnet; printed article only — the Online Appendix with
