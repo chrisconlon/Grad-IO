@@ -81,6 +81,10 @@ Method part (problem → BCS 2.0) rewritten, 39 frames total (was 50), 48 pp. (w
 - BCS 2.0 three frames kept, notation aligned (μ^m, Q(m), x, z^e). Commented long-version block kept.
 - Examples and application unchanged except notation (Q(m), bold z, controls x).
 Newly unreferenced: `resources/villas_boas_table8.png` (add to the Week 7 unreferenced-resources item).
+Follow-ups (Chris, same day): Bonnet–Dubois goodness-of-fit frame restored after the Wollmann frame
+(criterion renamed SSR(m), since Q(m) is the CMR norm); the constant-markup straw-man frame restored as
+its own frame right after "When Does the Test Fail?" (failure (2) there now points to it; repairs now
+include tax-rate instruments, Dearing–Magnolfi–Quint–Sullivan–Waldfogel 2024, per bcs_theory). 41 frames.
 
 ## 2026-10-15 — passthrough.tex: Sangani (QJE 2026), "Complete Pass-Through in Levels"
 

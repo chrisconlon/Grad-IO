@@ -326,7 +326,7 @@ The RV variance degenerates exactly when \alert{neither} model is falsified in t
 \textbf{Two failures survive the optimal $g$}; both are matters of identification, not of instrument choice:
 \begin{enumerate}
 \item \textbf{Equal conditional moments}, $d = 0$: $g$ itself vanishes and there is nothing to rank. If $\mu^{m_1} \equiv \mu^{m_2} \equiv 0$ (both correct, or $z^e$ irrelevant for both), this is the DMSS degeneracy. With a common misfit the limit is non-degenerate, but $\widehat g$ is pure first-stage noise and the fixed-$\widehat g$ SE is too small (9--15\% rejections at nominal 5\%).
-\item \textbf{Proportional moments}, $\mu^{m_1} \propto \mu^{m_2}$. Canonical case: two constant-markup rules $p = a_m\, mc$ give $\mu^m = v/a_m$ with $v = \E[p \mid \symbf{z}] - \E[p \mid x]$, so $\Delta\widetilde Q = \|v\|^2 (a_1^{-2} - a_2^{-2})$ and the test consistently picks the \alert{larger} markup: scale, not fit, and no instrument fixes it. Never compare two constant-markup conducts. Perfect competition is a straw man: ``we reject PC'' only says that prices project onto $z^e$.
+\item \textbf{Proportional moments}, $\mu^{m_1} \propto \mu^{m_2}$. The test has power, but the criterion difference reflects only the constant of proportionality. Canonical case: two constant-markup conducts (next slide).
 \end{enumerate}
 \textbf{Two more failures hit a generic direction $b$}, which need not lie in $\text{span}\{\mu^{m_1}, \mu^{m_2}\}$:
 \begin{enumerate}
@@ -335,6 +335,23 @@ The RV variance degenerates exactly when \alert{neither} model is falsified in t
 \item $b \perp \text{span}\{\mu^{m_1}, \mu^{m_2}\}$: $\bar m_1 = \bar m_2 = 0$, the original Vuong degeneracy.
 \end{enumerate}
 Along $g \propto d \in \text{span}\{\mu^{m_1}, \mu^{m_2}\}$, (3) and (4) can happen only at $d = 0$. In samples a poor $\widehat g$ (weak $z^e$) can bring them back.
+\end{frame}
+
+
+\begin{frame}{A Different Degeneracy: Constant-Markup Conducts Are a Straw Man}
+\footnotesize
+Suppose conduct $m$ implies a \alert{constant proportional markup}, $p = a_m \cdot mc$ (perfect competition is $a_m = 1$; symmetric CES-type pricing is $a_m > 1$). Then
+\begin{align*}
+MC^m = p/a_m, \qquad \omega^m = \tfrac{1}{a_m}\big(p - \E[p \mid x]\big), \qquad
+\mu^m = \tfrac{1}{a_m}\, v, \quad v \equiv \E[p \mid \symbf{z}] - \E[p \mid x], \qquad
+Q(m) = \tfrac{1}{a_m^2}\, \|v\|^2 .
+\end{align*}
+\begin{itemize}
+\item The moments are \alert{proportional}, so $\Delta\widetilde Q = \|v\|^2 (a_1^{-2} - a_2^{-2})$: $\mathsf{T}_{RV}$ is normal with power and consistently selects the \alert{larger} markup. Scale, not fit, and no instrument fixes it ($g$ already reproduces the full CMR).
+\item So ``we reject perfect competition'' means only that the price residual projects onto $z^e$. It is a statement about demand-side variation in prices, not about conduct.
+\item Rules: never compare two constant-markup conducts; treat perfect competition as a sanity check, not an informative comparison. Repairs: outside information on the markup \emph{level} (Nevo 2001), instruments with a known effect on own marginal cost such as tax rates (Dearing, Magnolfi, Quint, Sullivan, Waldfogel 2024), or studentizing each moment, which leaves nothing to test.
+\item The informative comparisons are between conducts that imply \alert{different patterns} of markups across products and markets: single-product vs.\ own-firm vs.\ common ownership vs.\ monopoly. Those differ in how much of the cross-price structure the firm internalizes.
+\end{itemize}
 \end{frame}
 
 
