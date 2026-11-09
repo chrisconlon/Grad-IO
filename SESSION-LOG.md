@@ -58,6 +58,45 @@ should come back.
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
 
+## 2026-11-09 — Production functions: literature extracted and synthesized (deck not yet built)
+
+- Nine papers in Dropbox `Production Literature/` (OP 1996, ACF 2015, GNR 2020, DLW 2012,
+  Raval 2023, Doraszelski–Li 2025, Jaumandreu 2025, Edmond–Midrigan–Xu w24800,
+  De Loecker–Syverson w29229) plus Paul Scott's 2021 deck were extracted to Markdown by
+  Sonnet agents; the `.md` files sit next to the PDFs (Dropbox, not the repo).
+- Extraction repairs: the OP agent was stopped by an output filter (finished by a second
+  agent; header written by hand); the Doraszelski–Li and Jaumandreu agents wrote into each
+  other's files (both repaired; Jaumandreu pp. 1–16 re-extracted; a few DL sentences at the
+  end of p. 20 lost and flagged).
+- `Production Literature/synthesis.md`: one-notation synthesis (firm index $j$, $\theta^X$
+  elasticities, $\alpha^X$ revenue shares, $\mu = p/mc$), the literature as one argument,
+  a ~50-frame outline mapped onto Paul's 88 pages, and errata in Paul's deck. Waiting on
+  Chris's notation decisions (§1.2 of the memo) before building
+  `Week 6- Production Functions/production.tex`.
+- `syllabus-2026.tex` Week 6 rewritten into five groups (overview; estimation; prices, demand
+  and market power; markups; aggregation and misallocation), 24 entries in the house
+  "Author (Year, Journal). *Title*." style. Fixed: GNR was "WP 2016" with the old title
+  (now JPE 2020); "Ulrich and Jordi Jaumandreu" → Doraszelski and Jaumandreu (2013); OP
+  title now "Telecommunications *Equipment* Industry". Stars unchanged (OP, ACF). PDF rebuilt
+  with pdflatex; no new overfull boxes.
+- Round 2: Chris added 12 PDFs (LP 2003, Klette–Griliches 1996, FHS 2008, Syverson 2011,
+  Bond–Hashemi–Kaplan–Zoch 2021, De Ridder–Grassi–Morzenti 2026, Doraszelski–Jaumandreu 2019 WP,
+  Demirer 2026 WP, Raval 2019 RAND, Raval 2019 WP, Rubens 2023, ACDL 2014). All extracted cleanly
+  (agents told to write only to their own file, no temp files, paraphrase). `synthesis.md` now has
+  a Leontief addendum (Rubens eq. 4d = De Loecker–Scott formula) and a round-2 addendum
+  (revenue arc KG → BHKZ → De Ridder; heterogeneity fixes; $\mu = \nu\,pY/VC$; markdowns; ACDL);
+  outline now ~57 frames.
+- Notation decided (Chris): firm $j$; $\xi$ = productivity innovation; prices $p$, $w^X$ in levels;
+  $\nu,\sigma,\rho$ reused deck-locally with labels. Recorded in `NOTATION.md` (new Production section).
+- Built `Week 6- Production Functions/production.tex`: 49 frames / 60 pages, XeLaTeX, only the
+  standard title-page overfull. Two figure crops in `Week 6- Production Functions/resources/`
+  (`emx_fig8_weights.png`, `raval_fig3_us_trends.png`); all other tables retyped in booktabs.
+  Uncommitted; Paul's `ProductionProductivity.pdf` left in place.
+- New frame "TFPR Is Not the Revenue Residual" (after Measuring Output; now 50 frames / 61 pages):
+  Klette–Griliches CES derivation, $\omega^R = \text{TFPR} + \frac1\eta(f(\mathbf x) - \bar y_t)$, and the
+  Hsieh–Klenow case where TFPR is constant across firms but $\omega^R$ is not. Replaces the stated
+  claim (De Loecker–Syverson fn. 6) on "What Is Productivity?" with a pointer.
+
 ## 2026-10-29 — conduct_new shortened around `../conduct_testing/theory/bcs_theory.tex`
 
 Chris: shorter; follow bcs_theory; supply CMR is the event (demand CMR only a remark: it is common to

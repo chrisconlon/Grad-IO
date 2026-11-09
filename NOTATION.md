@@ -27,3 +27,19 @@ Following Berry & Haile (2014). Adopted 2026-08 for the demand material; new dec
   Classify aggregate uses by the underlying experiment (marginal price change vs. removal of $j$). **Individual-level** diversion ratios are always plain `D_{jk,i}` (no arrow): $D_{jk,i} = \frac{\sigma_{ik}}{1-\sigma_{ij}}$ does not depend on the intervention — only the aggregation weights do.
 - `a` — the T1EV/error **scale parameter** (formerly $\sigma$): $\sigma_{ij} = e^{V_{ij}/a}/\sum_k e^{V_{ik}/a}$, only $\beta/a$ identified.
 - Probability statements: use `\Pr(\cdot)` or `\prob{\cdot}` (both render blackboard $\mathbb{P}$ via `teaching_slides.sty`), not literal `\mathbb{P}`.
+
+## Production functions (Week 6) — decided 2026-11-09
+
+Applies to `Week 6- Production Functions/production.tex` and the production problem set. Lowercase letters are logs of uppercase levels, **except prices**, which stay lowercase levels as everywhere else in the course (logs written $\ln p$, $\ln w^X$).
+
+| Object | Symbol | Note |
+|---|---|---|
+| Producer, period | $j$, $t$ | not $i$ (investment is $i_{jt}$; consumers are $i$ elsewhere) |
+| Output, inputs | $Y,K,L,M$ / $y,k,l,m$; vector $\mathbf x_{jt}$; generic variable input $X$; variable inputs $\mathcal V$ | $q$ stays a demand quantity |
+| Production function | $y = f(\mathbf x) + \omega + \varepsilon$ | Hicks-neutral $\omega$; $\varepsilon$ ex post shock / measurement error |
+| Markov law | $\omega_{jt} = g(\omega_{jt-1}) + \xi_{jt}$; AR(1) persistence $\rho$ | **$\xi$ here is the productivity innovation, not BLP's demand unobservable**; demand shifters are $\delta_{jt}$. Say so on the slide where $\xi$ first appears. |
+| Control function | $\omega = h_t(\mathbf o_{jt})$; step-1 observables $\mathbf o_{jt}$; extra input-demand shifters $\mathbf d_{jt}$; first stage $\Phi_t$; instruments $\mathbf z_{jt}$ | DLW's $\mathbf z$ is renamed $\mathbf d$ so $\mathbf z$ means instruments, as in the conduct deck |
+| Prices | output price $p_{jt}$, input prices $w^X_{jt}$ (levels) | |
+| Elasticities and shares | $\theta^X = \partial f/\partial x$; revenue share $\alpha^X = w^X X/(pY)$; $\alpha^{\mathcal V} = VC/(pY)$ | not $s$ (observed market shares) |
+| Scale, markup | $\nu = \sum_{X\in\mathcal V}\theta^X$; $mc$; $\mu = p/mc$ | $\mu$ matches the pass-through deck |
+| Deck-local reuse (label on first use) | $\rho$ = AR(1) persistence; $\nu$ = short-run scale elasticity; $\sigma$ = elasticity of substitution | course-wide meanings: nesting parameter, RC draws, choice probability |
