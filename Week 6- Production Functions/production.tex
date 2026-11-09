@@ -13,14 +13,13 @@
 \begin{frame}{Overview}
 \begin{itemize}
 \item Why we estimate production functions: productivity facts, and two uses of $f(\cdot)$
-\item The identification problem: simultaneity, selection, and prices
-\item One equation, two families of estimators
+\item The identification problem: simultaneity, selection, and prices (TFPR vs TFPQ; Foster--Haltiwanger--Syverson)
+\item One equation, three families of estimators
 \begin{itemize}
 \item dynamic panel (Blundell--Bond)
 \item proxy / control function: Olley--Pakes, Levinsohn--Petrin, Ackerberg--Caves--Frazer
-\item gross output: Gandhi--Navarro--Rivers; Leontief in materials
+\item first-order conditions for gross output: Gandhi--Navarro--Rivers; plus Leontief in materials
 \end{itemize}
-\item Physical vs revenue productivity (Foster--Haltiwanger--Syverson)
 \item Markups from production data (De Loecker--Warzynski), and where it breaks
 \begin{itemize}
 \item revenue data; invertibility; market power; heterogeneous technology; input market power
@@ -142,15 +141,19 @@ y_{jt} = f(k_{jt}, l_{jt}, m_{jt}) + \omega_{jt} + \varepsilon_{jt}, \qquad
 
 
 \begin{frame}{Simultaneity (Marschak and Andrews 1944)}
-Regress output on inputs, nonparametrically if you like:
+\small
+Regress output on inputs and the slope is $\theta^X$ plus a \alert{transmission bias}, $\partial \E[\omega_{jt} \mid \mathbf{x}_{jt}]/\partial x$. To see its size, take Cobb--Douglas value added with $k$ predetermined, $l$ flexible, price taking, and a firm-level price ratio $d_{jt} \equiv \ln(w^L_{jt}/p_{jt})$ independent of $\omega$. The labor FOC gives
 \begin{align*}
-\frac{\partial}{\partial x}\, \E[y_{jt} \mid \mathbf{x}_{jt}] = \underbrace{\theta^X_{jt}}_{\text{what we want}} + \underbrace{\frac{\partial}{\partial x}\, \E[\omega_{jt} \mid \mathbf{x}_{jt}]}_{\text{transmission bias}}.
+l_{jt} = \frac{\ln\beta_l - d_{jt} + \beta_k k_{jt} + \omega_{jt}}{1 - \beta_l}
+\quad\Longrightarrow\quad
+\operatorname{plim} \hat\beta_l^{\,OLS} = \beta_l + (1 - \beta_l)\, \frac{\sigma^2_\omega}{\sigma^2_\omega + \sigma^2_d},
 \end{align*}
+with variances net of $k$.
 \begin{itemize}
-\item Firms that know they are productive use more inputs. The more flexible the input, the larger the bias.
-\item OLS overstates the materials elasticity by 34\% on average in Chilean and Colombian plants (GNR 2020), and overstates labor in Olley--Pakes's data.
-\item Biases on less flexible inputs (capital) can go either way, because inputs are correlated.
-\item The textbook fix, input prices as instruments, needs firm-level prices that are observed and exogenous. Price differences often reflect input quality or a firm's position on an upward-sloping supply curve (Griliches--Mairesse 1998).
+\item With no price dispersion ($\sigma^2_d = 0$), $\omega$ is an exact function of $(l, k)$ and $y_{jt} = l_{jt} + \text{const} + \varepsilon_{jt}$: OLS puts 1 on labor and 0 on capital, whatever the truth.
+\item The more an input responds to $\omega$ rather than to prices, the closer its coefficient gets to 1. In data, OLS overstates the materials elasticity by 34\% (Chile and Colombia, GNR 2020) and labor in Olley--Pakes's data. Biases on less flexible inputs can go either way.
+\item $\sigma^2_d$ is the variation an input-price IV would use, but firm-level prices are rarely observed and often reflect quality or an upward-sloping supply curve (Griliches--Mairesse 1998).
+\item $\sigma^2_d = 0$ comes back twice: in LP's first stage (ACF) and for gross output (GNR).
 \end{itemize}
 \end{frame}
 
@@ -175,7 +178,7 @@ Most producer data record sales and expenditures. With an industry deflator $\ba
 r_{jt} - \ln \bar p_t = f(\mathbf{x}_{jt}) + \omega_{jt} + \varepsilon_{jt} + \underbrace{(\ln p_{jt} - \ln \bar p_t)}_{\text{omitted price}}.
 \end{align*}
 \begin{itemize}
-\item If firms set prices, $\ln p_{jt}$ falls as output rises, so it is correlated with every input. Klette and Griliches (1996): scale estimates are biased toward a value below one.
+\item If firms set prices, $\ln p_{jt}$ falls as output rises, so it is correlated with every input. Klette and Griliches (1996): the estimated elasticities are scaled down by $1/\mu$ (next slide).
 \item Input expenditures have the same problem when input prices vary across firms.
 \item Even with quantities: multi-product producers, quality differences, units that are not comparable across firms.
 \item We come back to this when we estimate markups, where it matters most.
@@ -199,6 +202,44 @@ Klette and Griliches (1996): $y_{jt} = f(\mathbf{x}_{jt}) + \omega_{jt}$ (drop $
 \end{frame}
 
 
+\begin{frame}{Foster, Haltiwanger and Syverson (2008)}
+\small
+Eleven physically homogeneous products (ready-mixed concrete, block ice, sugar, plywood, \ldots), US Census of Manufactures 1977--97, 17,669 plant-years. Prices and quantities are both observed.
+
+Two benchmarks bracket the data. Price taking: $\operatorname{corr}(p, \text{TFPQ}) = 0$ and TFPR $=$ TFPQ. Hsieh--Klenow (previous slide): $\operatorname{corr}(p, \text{TFPQ}) = -1$ and TFPR does not vary.
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{center}
+\scriptsize
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{lccc}
+\toprule
+Correlations & Price & TFPR & TFPQ \\
+\midrule
+Price & 1.00 & & \\
+TFPR & 0.16 & 1.00 & \\
+TFPQ & $-0.54$ & 0.75 & 1.00 \\
+\midrule
+s.d. & 0.18 & 0.22 & 0.26 \\
+1-yr persistence & 0.82 & 0.77 & 0.79 \\
+\bottomrule
+\end{tabular}
+
+{\tiny FHS Tables 1 and 3; product-year effects removed. Demand shocks: persistence 0.91.}
+\end{center}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{itemize}
+\item The data sit in between: more physically productive plants charge \alert{lower} prices, so TFPR understates TFPQ dispersion.
+\item Entrants have higher TFPQ than incumbents but charge lower prices: revenue measures understate the entrant advantage.
+\item Exit depends on TFPQ \alert{and} on demand. Selection is on profitability, not just productivity.
+\item Demand shocks are more persistent than productivity.
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+
 \begin{frame}{Classic Fixes and What They Assume}
 \small
 \renewcommand{\arraystretch}{1.25}
@@ -219,7 +260,7 @@ Cost shares / index numbers & static FOCs for \emph{all} inputs, CRS, no ex post
 \end{frame}
 
 
-\section{One Equation, Two Families}
+\section{One Equation, Three Families}
 
 \begin{frame}{One Equation Behind Every Estimator}
 Substitute the Markov process into the production function:
@@ -429,7 +470,7 @@ LP's first stage, $y_{jt} = \beta_l l_{jt} + \Phi_t(k_{jt}, m_{jt}) + \varepsilo
 \end{align*}
 \begin{itemize}
 \item But if labor is chosen like materials, $l_{jt} = \ell_t(k_{jt}, \omega_{jt}) = \ell_t\big(k_{jt}, h_t(k_{jt}, m_{jt})\big)$: \alert{no variation left}.
-\item A parametric version makes the point stark. Cobb--Douglas with a price-taking FOC for $m$, inverted for $\omega$ and plugged back in:
+\item The simultaneity algebra again, now in LP's first stage. Cobb--Douglas with a price-taking FOC for $m$, inverted for $\omega$ and plugged back in:
 \begin{align*}
 y_{jt} = \ln\Big(\frac{1}{\beta_m}\Big) + \ln\Big(\frac{w^M_t}{p_t}\Big) + m_{jt} + \varepsilon_{jt}.
 \end{align*}
@@ -537,7 +578,7 @@ Only $\xi_{jt}$, which is orthogonal to every instrument by construction, and th
 \end{align*}
 satisfies exactly the same moment conditions. The same holds for investment proxies and for dynamic panel (their App. O1).
 \item Time-series price variation identifies in theory but not in practice. In their Monte Carlo the estimated $\theta^M$ is about 0.9--1.0 against a truth of 0.65, unless price variation is 10 times the baseline and $T \ge 20$.
-\item What you need is an \alert{excluded shifter} of materials demand that varies across firms: firm-level input prices, or something else.
+\item What you need is an \alert{excluded shifter} of materials demand that varies across firms, $\sigma^2_d > 0$ as in the simultaneity slide: firm-level input prices, or something else.
 \end{itemize}
 \end{frame}
 
@@ -599,44 +640,6 @@ mc = \frac{w^M}{\gamma} + \frac{w^L L}{\theta^L Y} \quad\Longrightarrow\quad \mu
 The naive $\theta^L/\alpha^L$ overstates $\mu$: with $\alpha^M = 0.6$, $\alpha^L = 0.2$, $\theta^L = 0.6$, it gives 3.0 against the true 1.07 (De Loecker--Scott; Rubens 2023, eq.\ 4d).
 \item \alert{Cautions}: idle capacity breaks the Leontief equality (GNR's critique, ACF App.); estimated labor--materials substitution elasticities are well above zero (Doraszelski--Jaumandreu 2018; Edmond--Midrigan--Xu calibrate 0.5).
 \end{itemize}
-\end{frame}
-
-
-\section{Physical vs Revenue Productivity}
-
-\begin{frame}{Foster, Haltiwanger and Syverson (2008)}
-\small
-Eleven physically homogeneous products (boxes, bread, carbon black, coffee, ready-mixed concrete, oak flooring, gasoline, block and processed ice, plywood, sugar), US Census of Manufactures 1977--97, 17,669 plant-years. Prices and quantities are both observed.
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{center}
-\scriptsize
-\renewcommand{\arraystretch}{1.1}
-\begin{tabular}{lccc}
-\toprule
-Correlations & Price & TFPR & TFPQ \\
-\midrule
-Price & 1.00 & & \\
-TFPR & 0.16 & 1.00 & \\
-TFPQ & $-0.54$ & 0.75 & 1.00 \\
-\midrule
-s.d. & 0.18 & 0.22 & 0.26 \\
-1-yr persistence & 0.82 & 0.77 & 0.79 \\
-\bottomrule
-\end{tabular}
-
-{\tiny FHS Tables 1 and 3; product-year effects removed. Demand shocks: persistence 0.91.}
-\end{center}
-\end{column}
-\begin{column}{0.48\textwidth}
-\begin{itemize}
-\item More physically productive plants charge \alert{lower} prices, so TFPR understates TFPQ dispersion.
-\item Entrants have higher TFPQ than incumbents but charge lower prices: revenue measures understate the entrant advantage.
-\item Exit depends on TFPQ \alert{and} on demand. Selection is on profitability, not just productivity.
-\item Demand shocks are more persistent than productivity.
-\end{itemize}
-\end{column}
-\end{columns}
 \end{frame}
 
 
@@ -725,7 +728,7 @@ This is exactly Raval's (2023) test, and it is what fails in the data.
 \begin{column}{0.44\textwidth}
 \begin{center}
 \scriptsize
-Median markups
+Median markups\par\smallskip
 \renewcommand{\arraystretch}{1.1}
 \begin{tabular}{lc}
 \toprule
@@ -968,14 +971,13 @@ Demirer & ratio of input demands + control variable & non-homothetic $(L,M)$; de
 
 
 \begin{frame}{Which Average Markup? (Edmond, Midrigan and Xu 2023)}
-The markup that distorts aggregate input choices is the \alert{cost-weighted} mean, which equals the \alert{sales-weighted harmonic} mean:
+The markup that distorts aggregate input choices is the \alert{cost-weighted} mean. With constant returns to the variable bundle, $\mu_{jt} = R_{jt}/VC_{jt}$; with sales shares $s_{jt} = R_{jt}/\sum_k R_{kt}$:
 \begin{align*}
-\mathcal{M}_t = \sum_j \mu_{jt}\, \frac{VC_{jt}}{\sum_k VC_{kt}} = \Bigg(\sum_j \frac{1}{\mu_{jt}}\, \frac{R_{jt}}{\sum_k R_{kt}}\Bigg)^{-1}.
+\mathcal{M}_t \equiv \sum_j \mu_{jt}\, \frac{VC_{jt}}{\sum_k VC_{kt}} = \frac{\sum_j R_{jt}}{\sum_j VC_{jt}} = \Bigg(\sum_j \frac{s_{jt}}{\mu_{jt}}\Bigg)^{-1} \le \sum_j s_{jt}\, \mu_{jt}.
 \end{align*}
 \begin{itemize}
-\item It is the wedge in the aggregate FOC: the aggregate variable-input share of revenue is $(\text{returns to the variable bundle})/\mathcal{M}_t$.
-\item Holds for any demand system or conduct (their App.\ A): it is just $\theta^X = \mu\,\alpha^X$ summed over firms.
-\item The sales-weighted arithmetic mean overweights the inputs hired by high-markup firms, so it overstates the aggregate distortion.
+\item $\mathcal{M}_t$ is aggregate revenue over aggregate variable cost: the wedge in the aggregate FOC. The steps use only $\theta^X = \mu\,\alpha^X$, so they hold for any demand system or conduct (their App.\ A).
+\item The inequality is harmonic $\le$ arithmetic mean, with equality only if markups are equal. The sales-weighted mean overweights high-markup firms, so it overstates the aggregate distortion whenever markups are dispersed.
 \item Compustat 2012: 1.26 cost-weighted (1.21 counting SG\&A as cost) vs about 1.6 sales-weighted.
 \end{itemize}
 \end{frame}
@@ -1009,18 +1011,30 @@ Kimball demand: larger, more productive firms face less elastic demand and charg
 \end{frame}
 
 
-\begin{frame}{Misallocation: Distortions or Dynamics?}
+\begin{frame}{Misallocation: Hsieh and Klenow (2009)}
 \begin{itemize}
-\item \alert{Hsieh and Klenow (2009)}: with CES demand, Cobb--Douglas CRS technology, common input prices, and no adjustment costs, marginal revenue products should be equal across producers. Dispersion in TFPR therefore measures wedges.
-\begin{itemize}
+\item Benchmark: CES demand, CRS Cobb--Douglas technology, common input prices, no adjustment costs. Marginal revenue products are equal across producers, and $\text{TFPR}_{jt} = \ln\mu + \ln c(\mathbf{w}_t) - \ln \bar p_t$ is the same for every firm (shown earlier).
+\item So any TFPR dispersion is read as wedges. With an output wedge $\tau^Y_{jt}$ and a capital wedge $\tau^K_{jt}$:
+\begin{align*}
+\text{TFPR}_{jt} = \text{const}_t + \beta_k \ln\big(1 + \tau^K_{jt}\big) - \ln\big(1 - \tau^Y_{jt}\big).
+\end{align*}
 \item Equalizing marginal products to the US level would raise manufacturing TFP by 30--50\% in China and 40--60\% in India.
+\item But outside the benchmark TFPR also varies with demand and markups (Haltiwanger, Kulick and Syverson 2018; FHS 2008), and with the timing of inputs (next slide).
 \end{itemize}
-\item \alert{Asker, Collard-Wexler and De Loecker (2014)}: capital is chosen in advance and costly to adjust. With volatile TFPR, dispersion in the marginal revenue product of capital (MRPK) arises with \alert{no} distortion at all.
+\end{frame}
+
+
+\begin{frame}{\ldots or Dynamics? (Asker, Collard-Wexler and De Loecker 2014)}
+Capital is chosen a period ahead. After optimizing out the flexible inputs, log revenue is $r_{jt} = c_t + \gamma\, k_{jt} + \tilde\omega_{jt}$, with $\gamma < 1$ and revenue productivity $\tilde\omega_{jt} = \rho\, \tilde\omega_{jt-1} + \xi_{jt}$. With no distortions the firm sets $\E_{t-1}[\text{MRPK}_{jt}] = w^K_t$, so
+\begin{align*}
+\ln \text{MRPK}_{jt} = \ln\gamma + c_t - (1 - \gamma)\, k_{jt} + \tilde\omega_{jt}
+\quad\Longrightarrow\quad
+\ln \text{MRPK}_{jt} = \ln w^K_t - \ln \E\big[e^{\xi}\big] + \xi_{jt}.
+\end{align*}
 \begin{itemize}
-\item TFPR volatility and MRPK dispersion line up across industries in 8 countries and across 33 countries in the World Bank Enterprise Surveys.
+\item MRPK is dispersed with \alert{no} distortion: its cross-sectional variance is $\sigma^2_\xi$, the volatility of revenue productivity, which ACDL measure from a revenue production function. Adjustment costs add more.
+\item Measured volatility and MRPK dispersion line up across industries in 8 countries and across 33 countries in the World Bank Enterprise Surveys.
 \item A dynamic investment model with adjustment costs fits the cross-industry and cross-country dispersion with an uncentered $R^2$ of about 0.8--0.9.
-\end{itemize}
-\item TFPR dispersion also reflects demand and markups (Haltiwanger, Kulick and Syverson 2018; FHS 2008).
 \item Lesson: static marginal-product gaps are weak evidence of policy distortions. The production function, the timing of inputs, and the demand system all matter.
 \end{itemize}
 \end{frame}

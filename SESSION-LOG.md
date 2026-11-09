@@ -96,6 +96,12 @@ should come back.
   Klette–Griliches CES derivation, $\omega^R = \text{TFPR} + \frac1\eta(f(\mathbf x) - \bar y_t)$, and the
   Hsieh–Klenow case where TFPR is constant across firms but $\omega^R$ is not. Replaces the stated
   claim (De Loecker–Syverson fn. 6) on "What Is Productivity?" with a pointer.
+- Refinement pass (51 frames / 61 pages): derived rather than asserted on three slides —
+  Simultaneity (plim $\hat\beta_l^{OLS} = \beta_l + (1-\beta_l)\sigma^2_\omega/(\sigma^2_\omega+\sigma^2_d)$; $\sigma^2_d = 0$
+  gives $y = l + c$, threaded through the ACF and GNR slides), EMX ($\mathcal M = \sum R/\sum VC$ = harmonic
+  sales-weighted $\le$ arithmetic), ACDL (split from HK: $\ln\text{MRPK} = \text{const} + \xi$ with time to build).
+  FHS moved next to the TFPR slide with the price-taking / HK benchmarks; "Physical vs Revenue" section
+  dropped; section renamed "One Equation, Three Families"; KG bullet now "scaled down by $1/\mu$".
 
 ## 2026-10-29 — conduct_new shortened around `../conduct_testing/theory/bcs_theory.tex`
 
