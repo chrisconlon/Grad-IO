@@ -1,17 +1,22 @@
 # Session log
 
-## To-do queue (as of 2026-10-06 close-out)
+## To-do queue (as of 2026-11-10 close-out)
 
-**Done this session (2026-10-06, all pushed; Grad-IO at c028633, site at abbe310):** Weeks 5/7
-reorganization (diversion → Week 5; Week 7 = supply); Einav–Guido–Klenow from the CMS appendix;
-Nevo–Tao–Gandhi Deep Sets frames; Morrow–Skerlos for mixed logit; pass-through restructure
-(jaxblp-checked); conduct_new overhaul around BCS 2.0; conduct.tex retired; Week 3 PDFs rebuilt.
+**Done this session (2026-11-09 → 11-10, all pushed; Grad-IO at 7a87471, site at 825a8a3):** Week 6
+production deck built and owned (`production.tex`, 56 frames / 66 pp.) from three extraction rounds
+(31 papers; one-notation synthesis in Dropbox `Production Literature/synthesis.md`); syllabus Week 6
+rewritten; Production section in `NOTATION.md`; website Lecture 6 links the deck and adds Traina,
+FGT and DLEU. Paul's `ProductionProductivity.pdf` stays in the folder for posterity (Chris).
 
-**Queued for next time:** vertical lectures overhaul (item 1 below), production functions deck +
-assignment (items 2–3), dead copy-paste sweep for Weeks 6–15, the Week 7 unreferenced resources
-(`new_prius*.png`, `pca_01.pdf`, `sillydiversion.pdf`, `neary_2.png` now unused), and — when the
-BCS 2.0 paper exists — revisit whether the conduct deck's commented-out six-frame full-CMR section
-should come back.
+**Queued for next time:** vertical lectures overhaul (item 1 below); production-functions
+assignment (item 3); syllabus-2026 Week 6 still lacks Traina (2018), Flynn–Gandhi–Traina (2019),
+Wooldridge (2009), DGKP (2016) and De Loecker (2013), which are on the slides (and the first two on
+the website); production deck length (56 frames for one session) and the optional simulated figures /
+thinning of dense slides; Kirov–Mengano–Traina critique points parked (synthesis §2.10a, unchecked;
+discuss with Chris before any slide use); dead copy-paste sweep for Weeks 6–15, the Week 7
+unreferenced resources (`new_prius*.png`, `pca_01.pdf`, `sillydiversion.pdf`, `neary_2.png` now
+unused), and — when the BCS 2.0 paper exists — revisit whether the conduct deck's commented-out
+six-frame full-CMR section should come back.
 
 
 **Major overhauls (next up, per Chris):**
@@ -21,10 +26,11 @@ should come back.
    Respect the sequence carve: this course keeps the demand-side story
    (foreclosure with estimated demand, rebates/AUD, double marginalization)
    plus a bargaining-econometrics overview pointing into Nguyen's 1802.
-2. **Production functions** (Week 6) — currently a guest-lecture PDF with no
+2. ~~**Production functions** (Week 6) — currently a guest-lecture PDF with no
    .tex source; build a proper owned deck reflecting current practice
    (OP/LP/ACF, Gandhi–Navarro–Rivers, the De Loecker–Warzynski markup program
-   and its critics, what IO borrows vs. what trade/macro does with it).
+   and its critics, what IO borrows vs. what trade/macro does with it).~~
+   DONE 2026-11-09/10 (see entry).
 3. **NEW production-functions assignment** (per Chris, 2026-09-02) — natural
    design follows the BLP_hw pattern: simulate a panel from a known DGP
    (productivity following an AR(1), input timing assumptions explicit),
