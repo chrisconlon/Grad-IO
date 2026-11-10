@@ -42,4 +42,5 @@ Applies to `Week 6- Production Functions/production.tex` and the production prob
 | Prices | output price $p_{jt}$, input prices $w^X_{jt}$ (levels) | |
 | Elasticities and shares | $\theta^X = \partial f/\partial x$; revenue share $\alpha^X = w^X X/(pY)$; $\alpha^{\mathcal V} = VC/(pY)$ | not $s$ (observed market shares) |
 | Scale, markup | $\nu = \sum_{X\in\mathcal V}\theta^X$; $mc$; $\mu = p/mc$ | $\mu$ matches the pass-through deck |
-| Deck-local reuse (label on first use) | $\rho$ = AR(1) persistence; $\nu$ = short-run scale elasticity; $\sigma$ = elasticity of substitution | course-wide meanings: nesting parameter, RC draws, choice probability |
+| Deck-local reuse (label on first use) | $\rho$ = AR(1) persistence; $\nu$ = short-run scale elasticity; $\sigma$ = elasticity of substitution; $\eta > 1$ = CES demand elasticity, $\mu = \eta/(\eta-1)$ | course-wide meanings: nesting parameter, RC draws, choice probability |
+| Controlled Markov process; multi-product firms | $\omega_{jt} = g(\omega_{jt-1}, a_{jt-1}) + \xi_{jt}$ with $a$ = export $e$, R&D $\mathit{rd}$, quota $\mathit{qr}$; product $n$ of firm $j$, input share $\phi_{jnt}$ | added 2026-11-09 (round 3); $g$ and $\rho$ were taken, so not DGKP's product index $j$ or share $\rho$ |

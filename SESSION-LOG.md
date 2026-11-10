@@ -102,6 +102,24 @@ should come back.
   sales-weighted $\le$ arithmetic), ACDL (split from HK: $\ln\text{MRPK} = \text{const} + \xi$ with time to build).
   FHS moved next to the TFPR slide with the price-taking / HK benchmarks; "Physical vs Revenue" section
   dropped; section renamed "One Equation, Three Families"; KG bullet now "scaled down by $1/\mu$".
+- Fixes: OP Table XI starts at 1975 (printed 1974 row does not add up); Doraszelski–Li "badly biased" → $-0.15$.
+- Round 3 (8 papers, Sonnet extractions + per-paper briefs, all checked against PDFs): De Loecker (2011, 2013),
+  Doraszelski–Jaumandreu (2013), Wooldridge (2009), DGKP (2016), Traina (2018), Flynn–Gandhi–Traina (2019),
+  Kirov–Mengano–Traina (2025). Four extraction errors fixed (synthesis §5). `synthesis.md` refactored into one
+  document in deck order (v2; v1 + addenda in Dropbox history).
+- Deck now 56 frames / 66 pages: new frames Endogenous Productivity (DL 2013 bias derivation + DJ 2013),
+  Multi-Product Firms (DGKP allocation, CD closed form, Table IX split), Estimate the Demand Side Too (DL 2011,
+  opens "Where it breaks"), Which Costs Are Variable? (Traina 2018, Fig. 2 crop in `resources/`). Edits: Wooldridge
+  line on ACF Procedure; FGT as third closure on One FOC and on the GNR slide ("or known RTS"); Rise of Market
+  Power adds which costs / which identification; DJ 2013 credited for the FOC row; Takeaways adds "actions in $g$".
+  KMT kept off slides (open points in synthesis §2.10a, unchecked). `NOTATION.md`: $\eta$, controlled $g$, product $n$.
+- Chris: skip the KMT points; add FGT's revenue caveat to One FOC (with revenue and constant $\mu$, the CRS moments
+  return $\hat\theta^M = 1$, $\hat\mu = pY/VC = \mu/\theta^M$). DLEU (2020, QJE) added and extracted: Rise of Market
+  Power now uses its own numbers (1.34 / 1.21 / 1.61; two-thirds reallocation); the Traina slide adds DLEU's reply
+  ($\tau$ 1.08 → 1.18 on their sample; SG&A as an input about 1.0 → 1.3; profit rate 1% → 8%). Synthesis updated in place.
+- 2026-11-10: round 3 committed and pushed. Website Lecture 6 (`gradio.html`): "[Guest Lecture]" dropped, [Notes] now
+  points at `production.pdf` (was Paul Scott's deck), readings add Traina (2018), FGT (2019), DLEU (2020). Paul's
+  `ProductionProductivity.pdf` is still in the Week 6 folder.
 
 ## 2026-10-29 — conduct_new shortened around `../conduct_testing/theory/bcs_theory.tex`
 

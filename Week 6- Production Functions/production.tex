@@ -20,11 +20,12 @@
 \item proxy / control function: Olley--Pakes, Levinsohn--Petrin, Ackerberg--Caves--Frazer
 \item first-order conditions for gross output: Gandhi--Navarro--Rivers; plus Leontief in materials
 \end{itemize}
-\item Markups from production data (De Loecker--Warzynski), and where it breaks
+\item Endogenous productivity: exporting and R\&D belong in the law of motion
+\item Markups from production data (De Loecker--Warzynski; multi-product firms), and where it breaks
 \begin{itemize}
 \item revenue data; invertibility; market power; heterogeneous technology; input market power
 \end{itemize}
-\item Aggregation (Edmond--Midrigan--Xu) and misallocation
+\item Aggregation (which costs, which average) and misallocation
 \end{itemize}
 \vfill
 {\footnotesize Notation: producer $j$, period $t$. Lowercase letters are logs of uppercase levels, \alert{except prices}: output price $p_{jt}$ and input prices $w^X_{jt}$ are levels, as in the rest of the course.}
@@ -115,7 +116,7 @@ Hicks-neutral productivity $\Omega$: \quad $Y = \Omega\, F(K, L, M)$.
 \end{column}
 \end{columns}
 \vfill
-All of these need a credible estimate of $\omega_{jt}$, which needs a credible estimate of $f$.
+All of these need a credible estimate of $\omega_{jt}$, which needs a credible estimate of $f$. Firm choices among them (R\&D, exporting) belong in the law of motion for $\omega$ (later).
 \end{frame}
 
 
@@ -198,7 +199,7 @@ Klette and Griliches (1996): $y_{jt} = f(\mathbf{x}_{jt}) + \omega_{jt}$ (drop $
 \item The gap grows with the firm's inputs at rate $1/\eta$, a demand parameter: big firms look better by $\omega^R$.
 \item Starkest case (Hsieh--Klenow): CRS, flexible inputs, common input prices $\mathbf{w}_t$. Then $mc = c(\mathbf{w}_t)/\Omega$ and $p = \mu\, mc$, so $\text{TFPR}_{jt} = \ln \mu + \ln c(\mathbf{w}_t) - \ln \bar p_t$: \alert{the same for every firm}. With $\eta = 4$, 10\% more TFPQ raises $\omega^R$ by 7.5\% and a 10\% demand shock raises it by 2.5\%; neither moves TFPR.
 \end{itemize}
-{\footnotesize De Loecker--Syverson (2021), fns.\ 6 and 42.}
+{\footnotesize De Loecker--Syverson (2021), fns.\ 6 and 42. De Loecker (2011) estimates $\eta$ inside the production function (later).}
 \end{frame}
 
 
@@ -284,7 +285,7 @@ FOC / share form & $y_{jt-1} - f(\mathbf{x}_{jt-1}) + \ln\big(\alpha^X_{jt-1}/\t
 \vspace{0.5em}
 
 \normalsize
-Framing from Jaumandreu (2025). With a linear $g$ and correct FOCs, all three should agree up to sampling error. Disagreement is informative.
+Framing from Jaumandreu (2025); the FOC row starts with Doraszelski--Jaumandreu (2013). With a linear $g$ and correct FOCs, all three should agree up to sampling error. Disagreement is informative.
 \end{frame}
 
 
@@ -396,7 +397,7 @@ the unweighted mean plus a covariance between size and productivity.
 \toprule
 Year & $\Omega_t$ & $\bar\Omega_t$ & Covariance \\
 \midrule
-1974 & 1.00 & 0.90 & 0.01 \\
+1975 & 0.72 & 0.66 & 0.06 \\
 1978 & 0.92 & 0.80 & 0.12 \\
 1981 & 1.11 & 0.76 & 0.35 \\
 1984 & 0.90 & 0.83 & 0.07 \\
@@ -513,6 +514,7 @@ Invert the demand for materials \alert{conditional on labor}, $m_{jt} = \tilde{\
 \item Allows dynamic labor, labor chosen before materials, and serially correlated unobserved wage shocks.
 \item Does \alert{not} allow unobserved materials prices or demand shocks.
 \item Meant for value added, or gross output that is Leontief in $m$. Next: why not general gross output.
+\item Wooldridge (2009): both stages as one GMM system; efficient, easy robust SEs.
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -578,7 +580,7 @@ Only $\xi_{jt}$, which is orthogonal to every instrument by construction, and th
 \end{align*}
 satisfies exactly the same moment conditions. The same holds for investment proxies and for dynamic panel (their App. O1).
 \item Time-series price variation identifies in theory but not in practice. In their Monte Carlo the estimated $\theta^M$ is about 0.9--1.0 against a truth of 0.65, unless price variation is 10 times the baseline and $T \ge 20$.
-\item What you need is an \alert{excluded shifter} of materials demand that varies across firms, $\sigma^2_d > 0$ as in the simultaneity slide: firm-level input prices, or something else.
+\item What you need is an \alert{excluded shifter} of materials demand that varies across firms ($\sigma^2_d > 0$: firm-level input prices), or known returns to scale instead (FGT 2019).
 \end{itemize}
 \end{frame}
 
@@ -643,6 +645,26 @@ The naive $\theta^L/\alpha^L$ overstates $\mu$: with $\alpha^M = 0.6$, $\alpha^L
 \end{frame}
 
 
+\section{Endogenous Productivity}
+
+\begin{frame}{Endogenous Productivity: Firm Actions Belong in $g$}
+\small
+Exporting, R\&D, or trade protection at $t-1$ shift the conditional mean of productivity: $\omega_{jt} = g(\omega_{jt-1}, a_{jt-1}) + \xi_{jt}$, with $a_{jt-1} \in \mathcal{I}_{jt-1}$. The moments are unchanged; $g$ just gains an argument.
+
+Suppose the truth is $\omega_{jt} = \omega_{jt-1} + \gamma\, e_{jt-1} + \xi_{jt}$ with export status $e$, but $g$ is treated as exogenous (De Loecker 2013). With $\tilde y = y - \hat\beta_l l$:
+\begin{align*}
+\Delta\tilde y_{jt} = \beta_k \Delta k_{jt} + \underbrace{\gamma\, e_{jt-1} + \xi_{jt}}_{\text{error}} + \Delta\varepsilon_{jt}
+\quad\Longrightarrow\quad
+\operatorname{plim} \hat\beta_k = \beta_k + \gamma\,\frac{\Cov(\Delta k_{jt}, e_{jt-1})}{\Var(\Delta k_{jt})} > \beta_k.
+\end{align*}
+\begin{itemize}
+\item Exporters invest more, so $\hat\beta_k$ is too high, and a DID on $\hat\omega$ subtracts too much of export starters' capital growth. Slovenia: $\hat\beta_k$ is about 30\% higher under an exogenous $g$, and the DID misses 1.5 pp of a 4.1\% learning-by-exporting effect in the entry year.
+\item Estimating $\hat\omega$ with an exogenous $g$ and then regressing it on $e$ tests what step 1 assumed away.
+\item \alert{R\&D} (Doraszelski--Jaumandreu 2013, Spain): the exogenous process is rejected in all 9 industries; R\&D makes productivity riskier (larger $\hat\xi^2$ in every industry, while physical investment does not); the net return is about 40\%, roughly twice that on physical capital.
+\end{itemize}
+\end{frame}
+
+
 \section{Markups from Production Data}
 
 \begin{frame}{Three Ways to Measure a Markup}
@@ -697,6 +719,38 @@ Multiply by $X/Y$, then multiply and divide by $p$:
 \item Use planned rather than realized output in the share: $\hat\alpha^X_{jt} = w^X_{jt} X_{jt} / \big(p_{jt} Y_{jt}\, e^{-\hat\varepsilon_{jt}}\big)$.
 \item Then project: $\ln \hat\mu_{jt} = \delta_0 + \delta_1\, \text{export}_{jt} + \text{controls} + e_{jt}$.
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Multi-Product Firms (De Loecker, Goldberg, Khandelwal, Pavcnik 2016)}
+\small
+Indian manufacturers, 1989--2003: product quantities and unit-value prices, but inputs only at the firm level, as deflated expenditures $\tilde{\mathbf{x}}_{jt}$. Products $n$, input shares $\phi_{jnt}$.
+\begin{enumerate}
+\item Estimate $f$ on single-product firms (selection-corrected), proxying input prices by $\ln\tilde w = \mathcal{W}(\ln p, \text{market share}, \text{product})$.
+\item $\omega_{jt}$ is common to the firm's products, so physical output pins down each product's input share:
+\[ \hat y_{jnt} = f\big(\tilde{\mathbf{x}}_{jt} + \ln\phi_{jnt} - \ln\hat{\tilde w}_{jnt}\big) + \omega_{jt}, \qquad \textstyle\sum_n \phi_{jnt} = 1. \]
+Cobb--Douglas with returns $\Gamma$: $\phi_{jnt} \propto \hat{\tilde w}_{jnt}\,\hat Y_{jnt}^{1/\Gamma}$. Splitting inputs by revenue is right only if markups are equal across products.
+\item $\mu_{jnt} = \theta^M_{jnt}\, p_{jnt}Y_{jnt}/(\phi_{jnt}\, w^M_{jt}M_{jt})$, and $mc_{jnt} = p_{jnt}/\mu_{jnt}$.
+\end{enumerate}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\centering
+\scriptsize
+\begin{tabular}{lccc}
+\toprule
+India 1989--97, \% & output tariffs & input tariffs & total \\
+\midrule
+$\Delta\ln p$ & $-9.7$ & $-8.4$ & $-18.1$ \\
+$\Delta\ln mc$ & $-2.9$ & $-27.8$ & $-30.7$ \\
+$\Delta\ln\mu$ & $-6.8$ & $+19.4$ & $+12.6$ \\
+\bottomrule
+\end{tabular}
+\end{column}
+\begin{column}{0.43\textwidth}
+\scriptsize
+Tariffs fell 62 pp (output) and 24 pp (input). \alert{Cheaper inputs were kept as markup}: pass-through about 0.3. Median markup 1.34 (mean 2.70). The markup total is not significant (s.e.\ 11.9). Closed form and split derived here (eqs.\ 23--24, App.\ B, Table IX).
+\end{column}
+\end{columns}
 \end{frame}
 
 
@@ -759,21 +813,38 @@ Single markup, first differences & 1.11 \\
 
 
 \begin{frame}{One FOC, Two Unknowns}
-The flexible-input FOC is one equation in two unknowns:
-\begin{align*}
-\ln \alpha^M_{jt} = \ln \theta^M_{jt} - \ln \mu_{jt} + \ln \mathcal{E} - \varepsilon_{jt}.
-\end{align*}
+\small
+The flexible-input FOC, $\ln \alpha^M_{jt} = \ln \theta^M_{jt} - \ln \mu_{jt} + \ln \mathcal{E} - \varepsilon_{jt}$, is one equation in two unknowns.
 \begin{itemize}
-\item \alert{GNR} read it left to right with $\mu \equiv 1$ (price taking): the share regression identifies $\theta^M$.
-\item \alert{DLW} read it right to left: take $\theta^M$ from somewhere else, back out $\mu$.
-\item Under market power, GNR's share regression recovers $\theta^M/\mu$ (projected on inputs), not $\theta^M$. Their App.\ O6 handles CES monopolistic competition by writing down the demand system.
-\item So in DLW the markup is identified by whatever identifies $\theta^M$. GNR's theorem says that for a flexible input this must be an \alert{excluded shifter} of input demand. In DLW's gross-output specification it is serially correlated firm-level input prices (DLW p.\ 2446).
+\item \alert{GNR} read it left to right with $\mu \equiv 1$ (price taking): the share regression identifies $\theta^M$. Under market power it recovers $\theta^M/\mu$ instead.
+\item \alert{DLW} read it right to left: take $\theta^M$ from the production function and back out $\mu$. The markup is identified by whatever identifies $\theta^M$: an \alert{excluded shifter} of input demand, here serially correlated firm-level input prices (DLW p.\ 2446). Unobserved, those prices would also break the proxy (Flynn--Gandhi--Traina 2019).
+\item \alert{Flynn--Gandhi--Traina (2019)} use a shape restriction instead. With Cobb--Douglas and $\pi_x \equiv \partial\E[x_{jt} \mid k_{jt}, \mathbf{o}_{jt-1}]/\partial k_{jt}$, timing gives one equation, $\pi_y = \theta^K + \theta^M \pi_m$. Constant returns close it:
+\begin{align*}
+\theta^M = \frac{1 - \pi_y}{1 - \pi_m}, \qquad \mu = (1 - \theta^K)\,\frac{pY}{VC}.
+\end{align*}
+This fails when $\pi_m = 1$, which (with a constant markup) happens exactly when $\mu = 1$: GNR's case. It also needs \alert{quantity} output. With revenue and a constant markup, planned revenue is $\ln(\mu/\theta^M) + \ln w^M + m$, so $\pi_r = \pi_m$ and the same moments return $\hat\theta^M = 1$ and $\hat\mu = pY/VC = \mu/\theta^M$: Bond et al.'s problem in CRS form.
 \end{itemize}
-{\footnotesize Juxtaposition derived here from GNR (2020) and DLW (2012).}
+{\footnotesize Derived here from GNR (2020), DLW (2012) and FGT (2019).}
 \end{frame}
 
 
 \section{Where the Production Approach Breaks}
+
+\begin{frame}{Estimate the Demand Side Too (De Loecker 2011)}
+\small
+Belgian textiles, 1994--2002: no prices, but segment output $\bar y_{st}$ (including imports), EU quota protection $\mathit{qr}_{jt} \in [0,1]$, and product dummies $\mathbf{D}_j$. Take the TFPR slide's equation with $\eta \to \eta_s$ and $\delta_{jt} = \mathbf{D}_j'\boldsymbol{\kappa} + \tau\,\mathit{qr}_{jt} + \tilde\delta_{jt}$:
+\begin{align*}
+\tilde r_{jt} &= \textstyle\sum_X \underbrace{\tfrac{\theta^X}{\mu_s}}_{\beta_X} x_{jt} + \underbrace{\tfrac{1}{\eta_s}}_{\beta_s} \bar y_{st} + \tfrac{1}{\eta_s}\big(\tau\,\mathit{qr}_{jt} + \mathbf{D}_j'\boldsymbol{\kappa}\big) + \tfrac{\eta_s - 1}{\eta_s}\,\omega_{jt} + \tilde\varepsilon_{jt}, \\
+\omega_{jt} &= g(\omega_{jt-1}, \mathit{qr}_{jt-1}) + \xi_{jt}, \qquad \omega_{jt} = h_t(k_{jt}, m_{jt}, \mathit{qr}_{jt}, \bar y_{st}, \mathbf{D}_j).
+\end{align*}
+\begin{itemize}
+\item The coefficient on market size is the Lerner index: $\hat\mu_s = 1/(1 - \hat\beta_s)$, $\hat\theta^X = \hat\mu_s\,\hat\beta_X$. Quotas shift demand at once ($\tau$), productivity only with a lag ($g$).
+\item With demand controls: $\hat\eta$ 2.86 $\to$ 3.85, $\hat\mu$ 1.54 $\to$ 1.35, returns to scale 1.3 $\to$ 1.11 (revenue OLS: 0.95).
+\item Removing all quotas raises productivity 2.1\%, not 8.6\% (over three years: 4.6\%, not 13.5\%).
+\item CES fixes $\mu_s$, so liberalization cannot move markups; $\beta_X$ is the next slide's revenue elasticity.
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Revenue Elasticities Carry No Markup Information (Bond et al.\ 2021)}
 With revenue data we can at best learn the \alert{revenue} elasticity. With $R = pY$:
@@ -826,7 +897,7 @@ The proxy assumes \alert{invertibility}: $\E[\omega_{jt} \mid \mathbf{o}_{jt}] =
 Monte Carlo (truth: mean log markup 0.25, $g'(0) = 0.70$) & Standard ACF & $+\,k_{t+1}$ & $+\,k_{t+1}, p_t$ \\
 \midrule
 AR(1) productivity: mean log markup & $-0.24$ & 0.25 & 0.25 \\
-Nonlinear productivity: mean log markup & badly biased & 0.30 & 0.25 \\
+Nonlinear productivity: mean log markup & $-0.15$ & 0.30 & 0.25 \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -958,15 +1029,37 @@ Demirer & ratio of input demands + control variable & non-homothetic $(L,M)$; de
 
 \begin{frame}{The Rise of Market Power?}
 \begin{itemize}
-\item De Loecker, Eeckhout and Unger (2020): the sales-weighted average firm markup in Compustat rises from about 1.2 (1980) to about 1.6, driven by the upper tail and by reallocation toward high-markup firms. They use DLW with cost of goods sold as the variable input.
+\item De Loecker, Eeckhout and Unger (2020): the sales-weighted average firm markup in Compustat is 1.34 in the 1960s, 1.21 in 1980 and 1.61 in 2016. The median is flat and the upper tail rises; about two-thirds of the rise is reallocation toward high-markup firms. DLW with COGS as the variable input, sector-year Cobb--Douglas.
 \item Every piece of this lecture bears on that number:
 \begin{itemize}
+\item \alert{which costs}: COGS alone, or COGS plus selling, general and administrative costs (Traina 2018; next slide);
 \item \alert{which input}: labor, materials, or COGS give opposite trends (Raval 2023);
 \item \alert{which technology}: Cobb--Douglas vs heterogeneous technology, +18 vs +6.6 pp in US manufacturing (Demirer 2026);
+\item \alert{which identification}: known returns to scale give cost-weighted Compustat markups of about 1.04--1.20 (Flynn--Gandhi--Traina 2019);
 \item \alert{which data}: revenue data cannot pin down levels, but trends can survive (Bond et al.\ 2021; De Ridder et al.\ 2026);
-\item \alert{which average}: next slide.
+\item \alert{which average}: Edmond--Midrigan--Xu (below).
 \end{itemize}
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Which Costs Are Variable? (Traina 2018; DLEU 2020)}
+\small
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+\includegraphics[width=\textwidth]{traina_fig2_cogs_opex.png}
+
+{\scriptsize Sales-weighted Compustat markups with COGS (red) or operating expenses, COGS + SG\&A (blue), as the variable input. Traina (2018), Fig.\ 2.}
+\end{column}
+\begin{column}{0.46\textwidth}
+\begin{itemize}
+\item DLEU's method, with operating expenses (COGS + SG\&A) as the variable input.
+\item SG\&A rose from about 12\% to 22\% of operating expenses. A constant omitted share biases the \alert{level}; a \alert{rising} one biases the \alert{trend}.
+\item COGS: 1.15 (1980) to about 1.40. Operating expenses: about 1.15 (1950), under 1.10 (early 1980s), back to the 1950 level. Reweighting to the Census size distribution makes it flat or falling.
+\item \alert{DLEU's reply}: on their sample his measure still rises, 1.08 to 1.18 (1980--2016); with SG\&A as an input the markup rises from about 1.0 to 1.3; the profit rate rises from 1\% to 8\% while overhead goes from 15\% to 21\% of total cost.
+\end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 
@@ -1045,6 +1138,7 @@ Capital is chosen a period ahead. After optimizing out the flexible inputs, log 
 \item Be explicit about \alert{timing}, the \alert{scalar unobservable}, and what moves a flexible input besides $\omega$. That last item is your exclusion restriction.
 \item Use ACF-style conditional proxies rather than LP's first stage. For gross output use GNR (price takers) or a Leontief argument, and cross-check against dynamic panel.
 \item Under market power, put demand and conduct shifters (and $k_{t+1}$) into step 1, or use cost-share forms of the FOC.
+\item Put firm actions (exporting, R\&D) into the law of motion $g$, not into a second-stage regression on $\hat\omega$.
 \item Markups:
 \begin{itemize}
 \item levels need output prices; dispersion and trends survive revenue data if technology is common;
