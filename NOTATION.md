@@ -44,3 +44,15 @@ Applies to `Week 6- Production Functions/production.tex` and the production prob
 | Scale, markup | $\nu = \sum_{X\in\mathcal V}\theta^X$; $mc$; $\mu = p/mc$ | $\mu$ matches the pass-through deck |
 | Deck-local reuse (label on first use) | $\rho$ = AR(1) persistence; $\nu$ = short-run scale elasticity; $\sigma$ = elasticity of substitution; $\eta > 1$ = CES demand elasticity, $\mu = \eta/(\eta-1)$ | course-wide meanings: nesting parameter, RC draws, choice probability |
 | Controlled Markov process; multi-product firms | $\omega_{jt} = g(\omega_{jt-1}, a_{jt-1}) + \xi_{jt}$ with $a$ = export $e$, R&D $\mathit{rd}$, quota $\mathit{qr}$; product $n$ of firm $j$, input share $\phi_{jnt}$ | added 2026-11-09 (round 3); $g$ and $\rho$ were taken, so not DGKP's product index $j$ or share $\rho$ |
+
+## Conduct deck (Week 7): labor-market applications — added 2026-11-13
+
+Deck-local to the labor frames of `Week 7- Mergers and Conduct/conduct_new.tex` (the monopsony-vs-oligopsony primer, Scuderi–Roussille, Sharma). Label on first use.
+
+| Object | Symbol | Note |
+|---|---|---|
+| Wage, employment | $w_j$, $n_j$ | the papers' notation; italic $w_j$ is not the upright cost shifters $\textrm{w}$ of this deck, nor the type weights $w_i$ |
+| Markdown | $w_j = \text{MRPL}_j/\psi_j$, $\psi_j = 1 + 1/\varepsilon_j$ | Week 6's input-market wedge $\psi$; Sharma writes the markdown as $\mu = 1/\psi$, but $\mu^m$ is the conditional moment in this deck |
+| Labor-supply elasticity | $\varepsilon_j = \partial\ln n_j/\partial\ln w_j$ | Week 6's $\varepsilon$ is the ex post production shock |
+| Nest elasticities | $e$ (across employers within a market), $e_M < e$ (market as a whole) | the literature's $\eta$, $\theta$; $\eta$ is the markup in this deck |
+| Shares | $s_j$ = wage-bill share of the local labor market | an observed data share, consistent with $s$ = observed shares |

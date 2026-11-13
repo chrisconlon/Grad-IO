@@ -22,7 +22,7 @@ Foundational Empirical IO Question: How do we observe data on price and quantity
 \item Subsequent work defined the ``menu" approach: Nevo (1998, 2001), Villas-Boas (2007)
 \item Recent revival of ``internalization'' parameters: Miller and Weinberg (2017), Crawford, Lee, Whinston, and Yurukoglu (2017), Pakes (2017)
 \item Parallel work by: Duarte, Magnolfi, S\o lvsten, Sullivan (QE 2024): which test is best (RV) and when instruments are too weak to test. Magnolfi, Quint, Sullivan, Waldfogel (2022): should we test or estimate?
-\item Applications of our test: Starc and Wollmann (2022), Scuderi and Roussille (2025), others?
+\item Applications of our test: Starc and Wollmann (2022), Scuderi and Roussille (2025), Sharma (2025), Calder-Wang and Kim (2026).
 \item Today: the classic approaches; the supply conditional moment restriction (CMR) every test is built on; the Backus--Conlon--Sinkinson scalar test (``BCS 1.0'') and the full-CMR test (``BCS 2.0''); the common-ownership application.
 \end{itemize}
 Is conduct testable? Berry and Haile (2014): yes.
@@ -544,6 +544,98 @@ $\widehat{Q}(m) = \frac{1}{C(C-1)}\big(\|\sum_c u^m_c\|^2 - \sum_c \|u^m_c\|^2\b
 
 \section{Examples}
 
+\begin{frame}{Starc Wollmann: Generic Pharma Cartel + Entry}
+Do cartels encourage entry with high prices? Starc and Wollmann (2022) apply the BCS test to the generic-drug cartel; the menu is competitive vs.\ joint-profit-maximizing pricing before and after cartel formation, with non-members best responding.\\
+\vspace{0.25cm}
+\begin{quote}
+in 2013, Teva Pharmaceuticals, the largest generic firm, hired NP, a marketing executive with especially strong industry relationships, and tasked her with "price increase implementation."1 Over an 18-month period, industry participants exchanged thousands of calls and texts—alongside countless LinkedIn, Facebook, and WhatsApp messages and face-to-face conversations—with contacts at rival firms to coordinate the increases (Complaint, page 322).2 Following this period, prescription drug expenditures by governments, private insurers, and individuals rose sharply by billions of dollars.
+\end{quote}
+\end{frame}
+
+
+\begin{frame}{Starc Wollmann: Testing Results (prices rise with the cartel, less in markets that invite entry)}
+\begin{center}
+\includegraphics[height=0.85\textheight]{resources/starc_2}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Calder-Wang Kim (2026): Algorithmic Pricing in Multifamily Rentals}
+\small
+Does revenue-management software (RealPage's YieldStar, and LRO) coordinate rents among landlords who use the same product? DOJ sued RealPage in 2024. Among adopters, the profit weights in the Bertrand FOC are
+\begin{align*}
+\calH^A(\tau)_{(j,k)} =
+\begin{cases}
+1 & j, k \text{ same owner}\\
+\tau & j, k \text{ different owners, same software}\\
+0 & \text{otherwise}
+\end{cases}
+\end{align*}
+$\tau = 0$ is own profit; $\tau = 1$ is joint profit among same-software users.
+\begin{itemize}
+\item \textbf{Why a test.} The software also makes rents more responsive to demand, so price patterns alone cannot separate coordination from responsiveness without an exclusion restriction on cost.
+\item \textbf{Data.} REIS building-level rents with hand-collected adoption. Test sample: 11 metros, 2007--2017, before RealPage bought LRO.
+\item \textbf{Non-adopters} get their own flexible block (a time-varying scaling of the Bertrand markup), and the test uses adopters only, so it does not depend on how non-adopters price.
+\item \textbf{BCS scalar test.} $h_s(x)$ = product and year fixed effects; $z^e$ = the demand-side optimal IV; direction $\E[\Delta\eta \mid \symbf{z}]$ fit by a sieve. First stage for $\Delta\eta$: partial $F = 43.9$ (LRO), $36.1$ (RealPage).
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Calder-Wang Kim: Testing Results (coordination within, not across, software)}
+\centering
+\small
+\begin{tabular}{l cccccccccc}
+\toprule
+ & \multicolumn{10}{c}{Weight $\tau$ in the alternative model} \\
+\cmidrule(lr){2-11}
+ & 0.1 & 0.2 & 0.3 & 0.4 & 0.5 & 0.6 & 0.7 & 0.8 & 0.9 & 1.0 \\
+\midrule
+Within LRO & $3.11$ & $3.04$ & $2.97$ & $2.89$ & $2.80$ & $2.69$ & $2.59$ & $2.47$ & $2.33$ & \alert{$2.18$} \\
+Within RealPage & $4.25$ & $4.22$ & $4.19$ & $4.14$ & $4.08$ & $4.00$ & $3.92$ & $3.81$ & $3.69$ & \alert{$3.55$} \\
+\midrule
+Across RealPage and LRO & $0.90$ & $0.82$ & $0.74$ & $0.64$ & $0.54$ & $0.43$ & $0.31$ & $0.18$ & $0.05$ & $-0.09$ \\
+\bottomrule
+\end{tabular}
+
+{\footnotesize Rivers--Vuong $\mathsf{T}$; positive favors the alternative to own profit (the cereal tables below use the same convention). Row 3 adds weight $\tau$ across the two products to within-software coordination.\\
+{\color{lightgray}Bootstrap resamples management companies. Source: Calder-Wang \& Kim (2026), Tables 11 and 12.}}
+
+\raggedright
+\begin{itemize}
+\item Within each software, coordination beats own profit at every $\tau$. Across the two products, nothing is significant.
+\item Unlike cereal, $\mathsf{T}$ does not shrink as $\tau \to 0$: power falls when both models are near the truth, and here the truth is away from own profit.
+\item Implied markup from coordination: about \$34 per unit per month, on 4.2 million units nationwide.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Labor Markets: Monopsony vs.\ Oligopsony}
+\small
+Employer $j$ faces upward-sloping labor supply $n_j(w_j, w_{-j})$ (wage $w_j$, employment $n_j$). Maximizing $R_j(n_j) - w_j n_j$ gives a \alert{markdown} $\psi_j$, the input-market wedge from the production lecture:
+\begin{align*}
+w_j = \frac{\text{MRPL}_j}{\psi_j}, \qquad \psi_j = 1 + \frac{1}{\varepsilon_j}, \qquad \varepsilon_j = \frac{\partial \ln n_j}{\partial \ln w_j}.
+\end{align*}
+Conduct changes only $\varepsilon_j$. Nested logit or CES: $e$ within a market, $e_M < e$ for the market as a whole, $s_j$ = wage-bill share.
+
+{\centering\footnotesize
+\begin{tabular}{lll}
+\toprule
+Conduct & $\varepsilon_j$ & Product-market analogue \\
+\midrule
+Perfect competition & $\infty$, so $w_j = \text{MRPL}_j$ & price $=$ marginal cost \\
+Monopsonistic competition (``monopsony'') & $e$ for every $j$: constant markdown & monopolistic competition \\
+Bertrand oligopsony (set wages) & $(1 - s_j)\, e + s_j\, e_M$ & Bertrand \\
+Cournot oligopsony (set employment) & $\big[(1 - s_j)/e + s_j/e_M\big]^{-1}$ & Cournot \\
+Collusion & joint wage setting, or a focal wage & joint profit \\
+\bottomrule
+\end{tabular}\par}
+\begin{itemize}
+\item ``Monopsony'' here means monopsonistic competition, not a sole employer: the markdown is constant, the labor version of the constant-markup case.
+\item Under oligopsony, bigger employers mark wages down further; a sole employer ($s_j = 1$) faces $e_M$.
+\end{itemize}
+\end{frame}
+
+
 \begin{frame}{Scuderi Roussille (2025): Models of Labor Supply}
 \begin{columns}
 \begin{column}{0.7\textwidth}
@@ -576,19 +668,63 @@ $\widehat{Q}(m) = \frac{1}{C(C-1)}\big(\|\sum_c u^m_c\|^2 - \sum_c \|u^m_c\|^2\b
 \end{frame}
 
 
-\begin{frame}{Starc Wollmann: Generic Pharma Cartel + Entry}
-Do cartels encourage entry with high prices? Starc and Wollmann (2022) apply the BCS test to the generic-drug cartel; the menu is competitive vs.\ joint-profit-maximizing pricing before and after cartel formation, with non-members best responding.\\
-\vspace{0.25cm}
-\begin{quote}
-in 2013, Teva Pharmaceuticals, the largest generic firm, hired NP, a marketing executive with especially strong industry relationships, and tasked her with "price increase implementation."1 Over an 18-month period, industry participants exchanged thousands of calls and texts—alongside countless LinkedIn, Facebook, and WhatsApp messages and face-to-face conversations—with contacts at rival firms to coordinate the increases (Complaint, page 322).2 Following this period, prescription drug expenditures by governments, private insurers, and individuals rose sharply by billions of dollars.
-\end{quote}
+\begin{frame}{Sharma (2025): Collusion Among Employers in India}
+\small
+Large garment employers in industry associations pay exactly the state minimum wage. A large brand demand shock pushes the affected members above it. How do \alert{unshocked} employers respond?
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\centering
+{\footnotesize Unshocked non-members}\\
+\includegraphics[width=0.8\textwidth]{resources/sharma_fig12.png}\\
+{\footnotesize Unshocked members}\\
+\includegraphics[width=0.8\textwidth]{resources/sharma_fig13.png}
+\end{column}
+\begin{column}{0.43\textwidth}
+\begin{itemize}
+\item \textbf{Oligopsony or monopsony:} a rival's higher wage rotates my labor supply left, so I raise wages and \alert{cut} employment. Non-members do this.
+\item \textbf{Collusion breaks:} unshocked colluders raise wages \alert{and} employment. Members do this.
+\item The sign test needs only invertible labor supply with connected substitutes, not a particular labor-supply system.
+\end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 
-\begin{frame}{Starc Wollmann: Testing Results (prices rise with the cartel, less in markets that invite entry)}
-\begin{center}
-\includegraphics[height=0.85\textheight]{resources/starc_2}
-\end{center}
+\begin{frame}{Sharma (2025): BCS for a Change in Conduct}
+\begin{columns}[T]
+\begin{column}{0.53\textwidth}
+\small
+Wage $=$ MRPL $/$ markdown, so in differences
+\begin{align*}
+d\ln w_{jt} = -\,d\ln\psi^m_{jt} + d\ln\tilde z^m_{jt} + (\tilde\alpha - 1)\, d\ln n_{jt}.
+\end{align*}
+\vspace{-0.4cm}
+\begin{itemize}
+\item Each conduct path $m$ implies a markdown change $d\ln\psi^m$ and so a productivity shock $d\ln\tilde z^m$, the analogue of $\omega^m$. (Sharma writes the markdown as $1/\psi$.)
+\item \textbf{Instrument:} rivals' exposure to the shock, $\sum_{j' \neq j} \frac{s_{j'}}{1 - s_j}\, 1[j' \text{ shocked}]$.
+\end{itemize}
+\vspace{0.1cm}
+\centering
+\begin{tabular}{lc}
+\toprule
+Breakdown (min.\ wage $\to$ Cournot) against & $\mathsf{T}$ \\
+\midrule
+Continued Cournot oligopsony & \alert{$7.59$} \\
+Collusion $\to$ joint profit max & \alert{$13.52$} \\
+\bottomrule
+\end{tabular}
+
+{\footnotesize Positive favors breakdown. It also beats monopsony and Bertrand oligopsony (not tabulated).}
+\end{column}
+\begin{column}{0.45\textwidth}
+\centering
+\includegraphics[width=0.85\textwidth]{resources/sharma_figA10.png}\\
+{\footnotesize Implied $d\ln\tilde z$ against the instrument: correlated under oligopsony, flat under breakdown.}\\[0.05cm]
+\raggedright
+\small
+Collusion lowers wages 9.6\% and employment 17\% relative to independent oligopsony.
+\end{column}
+\end{columns}
 \end{frame}
 
 
