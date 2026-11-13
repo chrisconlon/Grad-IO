@@ -1,8 +1,14 @@
 # Session log
 
-## To-do queue (as of 2026-11-10 close-out)
+## To-do queue (as of 2026-11-13 close-out)
 
-**Done this session (2026-11-09 → 11-10, all pushed; Grad-IO at 7a87471, site at 825a8a3):** Week 6
+**Done 2026-11-13 (Grad-IO at 11b6b28, pushed):** conduct_new Examples extended with
+Calder-Wang–Kim (algorithmic pricing), a monopsony-vs-oligopsony primer and Sharma (collusion
+among employers); labor section in `NOTATION.md`. See the 2026-11-13 entry. New open item:
+syllabus-2026 Week 7 lists none of the four conduct applications (Starc–Wollmann,
+Calder-Wang–Kim, Roussille–Scuderi, Sharma).
+
+**Done 2026-11-09 → 11-10 (all pushed; Grad-IO at 7a87471, site at 825a8a3):** Week 6
 production deck built and owned (`production.tex`, 56 frames / 66 pp.) from three extraction rounds
 (31 papers; one-notation synthesis in Dropbox `Production Literature/synthesis.md`); syllabus Week 6
 rewritten; Production section in `NOTATION.md`; website Lecture 6 links the deck and adds Traina,
@@ -63,6 +69,25 @@ six-frame full-CMR section should come back.
 8. `demand_iioc.tex` IPDL row (~l.832) — looks like ξ-recovery mislabeled as
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
+
+## 2026-11-13 — conduct_new: algorithmic pricing, a labor primer and Sharma
+
+Built alongside Chris's CACE panel deck, which lives in `../bcs_cereal/slides/cace_panel_2026.tex`
+(committed there, not here) and shares these applications.
+
+- `Week 7- Mergers and Conduct/conduct_new.tex` (52 frames / 55 pp., 11b6b28, pushed). The
+  Examples section now runs Starc–Wollmann (2) → Calder-Wang–Kim (2026), algorithmic pricing in
+  multifamily rentals (2: the internalization matrix $\calH^A(\tau)$ and the BCS scalar test, their
+  Tables 11–12) → "Labor Markets: Monopsony vs. Oligopsony" (markdown $\psi_j = 1 + 1/\varepsilon_j$;
+  Bertrand and Cournot nested-CES elasticities with $e$, $e_M$) → Roussille–Scuderi (2) → Sharma
+  (2025), collusion among garment employers in India (2: the sign test on unshocked employers;
+  BCS for a change in conduct, $\mathsf T = 7.59$, $13.52$). The section's intro line lists the
+  four applications. New figures: `resources/sharma_fig12.png`, `sharma_fig13.png`,
+  `sharma_figA10.png`.
+- `NOTATION.md`: new section "Conduct deck (Week 7): labor-market applications". The lecture
+  writes the markdown as $\psi_j$ (the production deck's input wedge); the panel deck writes
+  $\mu_j = \varepsilon_j/(1+\varepsilon_j)$ because $\psi$ is unused there.
+- Open: syllabus-2026 Week 7 does not list the four applications.
 
 ## 2026-11-09 — Production functions: literature extracted and synthesized (deck not yet built)
 
