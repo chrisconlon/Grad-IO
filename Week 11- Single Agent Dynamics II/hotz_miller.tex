@@ -40,12 +40,13 @@ Policy Iteration is even easier if choices AND states are discrete.
 \end{itemize}
 Now updating the value function is easy for $k$th iterate of PI
 \begin{align*}
-V^k(x) &= \E u(x,d^k(x)) + \beta \, \symbf{\tilde{F}}^k \, V^k(x)\\
-\Rightarrow V^k(x) &= [\symbf{I} - \beta \, \symbf{\tilde{F}}^k]^{-1}\, \E u(x,d^k(x))
+V^k &= \E u^k + \beta \, \symbf{\tilde{F}}^k \, V^k\\
+\Rightarrow V^k &= [\symbf{I} - \beta \, \symbf{\tilde{F}}^k]^{-1}\, \E u^k
 \end{align*}
-\vspace{-.5cm}
+where $V^k$ and $u^k$ stack $V^k(x)$ and $u(x,d^k(x))$ over $x$.
+\vspace{-.2cm}
 \begin{itemize}
-\item Very fast when $\beta > 0.95$ and $s$ is relatively small. (Rust says 500 more like 5000).
+\item Very fast when $\beta > 0.95$ and the number of states $|X|$ is relatively small. (Rust says 500 more like 5000).
 \item Inverting a large matrix is tricky
 \item \alert{This trick is implicit in the HM/AM formulation}.
 \end{itemize}
@@ -262,7 +263,7 @@ to restrict the utility function for identification.
 characterization of identification of DDC models:
 \begin{itemize}
 \item Specify a vector of utilities for the reference action
-$\widetilde{u}_0$, a distribution for the idiosycratic shocks $G$,
+$\widetilde{u}_0$, a distribution for the idiosyncratic shocks $G$,
 and a discount factor, and we will be able to find a model rationalizing
 the CCPs that features $\left(\widetilde{u}_0,\beta,G\right)$.
 \end{itemize}
@@ -284,7 +285,7 @@ But do these restrictions affect counterfactuals?
 \begin{itemize}
 \item It turns out that some (but not all!) counterfactuals ARE identified, in spite of the
 under-identification of the utility function.
-\item Whatever value
+\item For \alert{those} counterfactuals, whatever value
 $\widetilde{u}_{0}$ we impose for the reference action, the model will not only
 rationalize the observed CCP's but also predict \alert{the same counterfactual CCP's}.
 \item Kalouptsidi, Scott, and Souza-Rodrigues (2021) sort out when counterfactuals
@@ -338,7 +339,7 @@ The cost of never replacing is baked into the replacement payoff.
 \item We cheated a bit because we assumed that not only were actions discrete but so was the state space. This trick is often attributed to Pesendorfer and Schmidt-Dengler (ReStud 2008).
 \item If the state space is not discrete we need to do some forward-simulation [next slide]. (Hotz, Miller, Sanders, Smith ReStud 1994).
 \item Others have extended these ideas to \alert{dynamic games}. See Aguirregabiria and Mira (Ecma 2002/2007) and Bajari Benkard and Levin (Ecma 2007).
-\item Srisuma and Linton (2009) [very hard] show how to use Fredholm integral equations of 2nd kind to extend to continuous case.
+\item Srisuma and Linton (JoE 2012) [very hard] show how to use Fredholm integral equations of 2nd kind to extend to continuous case.
 \end{itemize}
 \end{frame}
 
@@ -346,22 +347,22 @@ The cost of never replacing is baked into the replacement payoff.
 When state space is continuous instead of discrete:\\
 Exact Problem
 \begin{align*}
-V(x) = \max_{d \in \mathcal{D}(x)} \left[ (1-\beta)\, u(x,d) + \beta \, \int V(x')\, f(dx' | x,d) \right]
+V(x) = \ln \sum_{d \in \mathcal{D}} \exp\left[ u(x,d) + \beta \, \int V(x')\, f(dx' | x,d) \right]
 \end{align*}
-Approximation to the problem:
+Approximation to the problem (quadrature nodes $x'_k$, weights $w_k$):
 \begin{align*}
-\hat{V}(x) = \max_{d \in \hat{\mathcal{D}}(x)} \left[ (1-\beta) \, u(x,d) + \beta \, \sum_{k=1}^N \hat{V}(x_k') \, f (x_k' | x,d) \right]
+\hat{V}(x) = \ln \sum_{d \in \mathcal{D}} \exp\left[ u(x,d) + \beta \, \sum_{k=1}^N w_k \, \hat{V}(x_k') \, f (x_k' | x,d) \right]
 \end{align*}
 \begin{itemize}
 \item Now we need to do actual numerical integration instead of just summation.
-\item We cannot use the $[\symbf{I}- \beta \, \symbf{F}]^{-1}$ to get the ergodic distribution.
+\item We cannot solve for $V$ with $[\symbf{I}- \beta \, \symbf{F}]^{-1}$ directly: $\symbf{F}$ is now an integral operator, not a finite matrix.
 \item Usually requires interpolating between grid points to evaluate $EV(\cdot)$.
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Forward Simulation}
-In practice, "truncate" the infinite sum at some period $T$:
+In practice, ``truncate'' the infinite sum at some period $T$:
 \begin{align*}
 & v(x, 1;\theta) =\\
 & u(x, 1; \theta) + \beta \E_{x'|x, 1} \E_{d'|x'} \E_{\varepsilon'|d', x'} [u(x', d';\theta) + \varepsilon'(d') \\
@@ -384,7 +385,7 @@ v (x, d; \theta) \approx & \frac 1 S \sum_s [ u(x, d;\theta) + \beta [ u(x'^s, d
 \vspace{-.4cm}
 \begin{itemize}
 \item $x'^s \sim \hat f(\cdot | x, d)$ and  $d'^s \sim \hat P(\cdot | x'^s)$ and $x''^s \sim \hat f(\cdot | x'^s, d'^s)$, etc.
-\item In short, you simulate $v (x, d;\theta)$ by drawing $S$ \alert{sequences} of $(d_t, x_t)$ with a initial value of $(d, x)$, and compute the present-discounted utility correspond to each sequence.
+\item In short, you simulate $v (x, d;\theta)$ by drawing $S$ \alert{sequences} of $(d_t, x_t)$ with an initial value of $(d, x)$, and compute the present-discounted utility corresponding to each sequence.
 \item Then the simulation estimate of $v (x, d;\theta)$ is obtained as the sample average.
 \end{itemize}
 \end{frame}
@@ -398,21 +399,21 @@ Given an estimate of $v (\cdot, d; \theta)$, you can get the \alert{predicted ch
 and analogously for $\tilde P (d = 0 |x ; \theta)$.
 \begin{itemize}
 \item Note that the predicted choice probabilities are different from $\hat P (d|x)$, which are the \alert{actual choice probabilities} computed from the actual data.
-\item The predicted choice probabilites depend on the parameters $\theta$, whereas $\hat P (d|x)$ depend solely on the data.
+\item The predicted choice probabilities depend on the parameters $\theta$, whereas $\hat P (d|x)$ depend solely on the data.
 \end{itemize}
 \medskip
-An obvious estimator minimizes $\arg \min_{\theta} \|  \tilde{P} (d |x ; \theta) -\hat{P} (d |x) \|$
+An obvious estimator is $\hat\theta = \arg \min_{\theta} \|  \tilde{P} (d |x ; \theta) -\hat{P} (d |x) \|$
 \end{frame}
 
 \begin{frame}{Rust and Hotz-Miller Comparison}
 Rust's NFXP Algorithm
 \begin{align*}
-V_{\theta}(x) &= \Gamma(V_{\theta}(x),x,\theta) \Rightarrow  \Gamma^{-1}(x,\theta)  \\
+V_{\theta} &= \Gamma(V_{\theta},\theta) \Rightarrow  V_\theta = V(\theta) \text{ (the fixed point)}  \\
 P(d | x;\theta) &= g(V_{\theta}(x),x,\theta) \\
-P(d | x;\theta) &= g(\Gamma^{-1}(x,\theta))
+P(d | x;\theta) &= g(V(\theta)(x),x,\theta)
 \end{align*}
 \begin{itemize}
-\item At every guess of $\theta$ we solve the fixed point inverse
+\item At every guess of $\theta$ we solve the fixed point
 \item Plug that in to get choice probabilities
 \item Evaluate the likelihood
 \end{itemize}
@@ -435,13 +436,15 @@ P(d | x;\theta) &=& g(V_{\theta}(x),x,\theta) \\
 
 
 \begin{frame}{Hotz-Miller (1993) to Aguirregabiria and Mira (2002)}
+With AM's policy-iteration operator $\Psi(\symbf{P},\theta) \equiv g(h(\symbf{P},\cdot,\theta),\cdot,\theta)$:
 \begin{eqnarray*}
-P^{k+1}(d | x;\theta) &=& g(h(\hat{P}^{k}(d | x; \theta),x ,\theta),x,\theta)
+\hat\theta_{k+1} &=& \arg\max_\theta \sum_{i,t} \ln \Psi(\hat{\symbf{P}}^{k},\theta)(d_{it} \mid x_{it})\\
+\hat{\symbf{P}}^{k+1} &=& \Psi(\hat{\symbf{P}}^{k},\hat\theta_{k+1})
 \end{eqnarray*}
 \vspace{-0.5cm}
 \begin{itemize}
-\item Key point here is that the functions $h(\cdot)$ and $g(\cdot)$ are quite easy to compute (compared to the inverse $\Gamma^{-1}$).
-\item We can substantially improve estimation speed by replacing $P$ with $\hat{P}$ the Hotz-Miller simulated analogue.
+\item Key point here is that the functions $h(\cdot)$ and $g(\cdot)$ are quite easy to compute (compared to solving the fixed point for $V(\theta)$).
+\item We can substantially improve estimation speed by replacing $\symbf{P}$ with $\hat{\symbf{P}}$, a consistent first-stage estimate.
 \item The idea is to reformulate the problem from \alert{value space} to \alert{probability space}.
 \item When initializing the algorithm with consistent nonparametric estimates of CCP, successive iterations return a sequence of estimators of the structural parameters
 \item Call this the $K$ stage policy iteration (PI) estimator.
@@ -452,9 +455,9 @@ P^{k+1}(d | x;\theta) &=& g(h(\hat{P}^{k}(d | x; \theta),x ,\theta),x,\theta)
 \begin{itemize}
 \item This algorithm nests Hotz Miller $(K=1)$ and Rust's NFXP $(K=\infty)$.
 \item Asymptotically everything has the same distribution, but finite sample performance may be increasing in $K$ (at least in Monte Carlo).
-\item The Nested Pseudo Likelihood (NPL) estimator of AM $(K=2)$ seems to have much of the gains.
-\item For games things are more complicated. Pesendorfer and Schmidt-Dengler describe some problems with AM2007.
-\item For a modern treatment see Blevins and Dearing (2020).
+\item In AM's Monte Carlos $K=2$ already seems to capture much of the gain; iterating to convergence gives the Nested Pseudo Likelihood (NPL) estimator.
+\item For games things are more complicated. Pesendorfer and Schmidt-Dengler (Ecma 2010) describe some problems with AM (2007).
+\item For a modern treatment see Dearing and Blevins (ReStud 2025).
 \end{itemize}
 \end{frame}
 

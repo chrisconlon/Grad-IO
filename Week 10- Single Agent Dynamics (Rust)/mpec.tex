@@ -188,61 +188,75 @@ If we did we would have to \alert{interpolate}.
 \end{itemize}
 \end{frame}
 
-\frame{\frametitle{Results}
+\begin{frame}{Monte Carlo: Su and Judd's design, our code}
+\footnotesize
+\begin{itemize}
+\item Rust's bus model as in Su and Judd (2012): $N = 175$ mileage states, $c(x;\theta^c) = 0.001\,\theta^c_1\,x$ (their $\theta_{11}$), $u(x,1) = -RC$; truth $(\theta^c_1, RC) = (2.4569, 11.7257)$, $\theta^f = (.0937, .4475, .4459, .0127, .0002)$.
+\item For each $\beta \in \{0.975, 0.985, 0.995, 0.999, 0.9995, 0.9999\}$: 250 datasets of 50 buses $\times$ 120 months (6{,}000 obs.), 5 random starts each ($\theta^c_1 \sim U[0.5,5]$, $RC \sim U[5,20]$): 1{,}250 runs per method.
+\item Two-step: $\hat\theta^f$ from frequencies, then $(\theta^c_1, RC)$ by three estimators of the same partial likelihood:
+\begin{itemize}
+\item \alert{NFXP-SA}: the inner loop is successive approximations until $\|EV_{k+1} - EV_k\| < 10^{-10}$ (Su and Judd's NFXP).
+\item \alert{NFXP-NK}: Rust's polyalgorithm: successive approximations until the contraction rate is close to $\beta$, then Newton--Kantorovich. Outer loop: trust region on the BHHH matrix; gradient by the implicit function theorem.
+\item \alert{MPEC}: $\max_{\theta, EV} \ell(\theta, EV)$ s.t.\ $EV = T_\theta(EV)$, SLSQP with exact Jacobians, $EV$ rescaled by $(1-\beta)$.
+\end{itemize}
+\item Python (NumPy/SciPy; the successive-approximation loop compiled with JAX), one core per run. \alert{Converged} = the solver reports success \emph{and} reaches the best likelihood found on that dataset.
+\end{itemize}
+\end{frame}
 
-\begin{figure}[htbp]
+\begin{frame}{Monte Carlo results: speed}
+\scriptsize
 \begin{center}
-\color{transparent}
-\includegraphics[width=4.5in]{resources/su1.pdf}
+\begin{tabular}{l rrr c rrr c rrr}
+\toprule
+ & \multicolumn{3}{c}{MPEC} & & \multicolumn{3}{c}{NFXP-NK} & & \multicolumn{3}{c}{NFXP-SA}\\
+\cmidrule{2-4} \cmidrule{6-8} \cmidrule{10-12}
+$\beta$ & Conv. & CPU (ms) & Iter. & & Conv. & CPU (ms) & SA + NK & & Conv. & CPU (ms) & SA steps\\
+\midrule
+0.975  & 1{,}250 & 36.3 & 26.9 & & 1{,}250 & 10.1 & 93 + 31  & & 1{,}250 & 50.1    & 6{,}484\\
+0.985  & 1{,}250 & 36.6 & 27.2 & & 1{,}250 & 10.3 & 97 + 30  & & 1{,}250 & 78.9    & 10{,}293\\
+0.995  & 1{,}250 & 34.4 & 27.9 & & 1{,}250 &  9.5 & 100 + 29 & & 1{,}250 & 215.6   & 29{,}708\\
+0.999  & 1{,}250 & 41.3 & 28.3 & & 1{,}250 &  9.1 & 97 + 28  & & 1{,}250 & 926.5   & 143{,}205\\
+0.9995 & 1{,}250 & 38.9 & 28.5 & & 1{,}250 &  8.9 & 95 + 27  & & 1{,}250 & 1{,}815.2 & 283{,}658\\
+0.9999 & 1{,}249 & 30.5 & 28.4 & & 1{,}250 &  7.9 & 100 + 27 & & 1{,}250 & 9{,}100.6 & 1{,}447{,}801\\
+\bottomrule
+\end{tabular}
 \end{center}
-\end{figure}
-}
+Conv.: converged runs out of 1{,}250. CPU: mean milliseconds per estimation over converged runs, one core. Iter.: SLSQP iterations. SA + NK / SA steps: inner-loop iterations per estimation, summed over the outer loop.
+\end{frame}
 
-\frame{\frametitle{Results}
-\begin{figure}[htbp]
+\begin{frame}{Monte Carlo results: estimates}
+\footnotesize
 \begin{center}
-\color{transparent}
-\includegraphics[width=4.5in]{resources/su2.pdf}
-\label{default}
+\begin{tabular}{l cc}
+\toprule
+ & $\theta^c_1$ & $RC$\\
+\midrule
+truth & 2.4569 & 11.7257\\
+\midrule
+$\beta = 0.975$  & 2.597 (0.474) & 12.225 (1.537)\\
+$\beta = 0.985$  & 2.587 (0.453) & 12.173 (1.471)\\
+$\beta = 0.995$  & 2.573 (0.478) & 12.058 (1.531)\\
+$\beta = 0.999$  & 2.551 (0.423) & 12.022 (1.318)\\
+$\beta = 0.9995$ & 2.595 (0.471) & 12.172 (1.477)\\
+$\beta = 0.9999$ & 2.549 (0.430) & 12.010 (1.276)\\
+\bottomrule
+\end{tabular}
 \end{center}
-\end{figure}
-}
-\frame{\frametitle{Results}
-\begin{figure}[htbp]
-\begin{center}
-\color{transparent}
-\includegraphics[width=4.5in]{resources/su3.pdf}
-\label{default}
-\end{center}
-\end{figure}
-}
-\frame{\frametitle{Results}
-\begin{figure}[htbp]
-\begin{center}
-\color{transparent}
-\includegraphics[width=4.5in]{resources/su4.pdf}
-\label{default}
-\end{center}
-\end{figure}
-}
-\frame{\frametitle{Results}
-\begin{figure}[htbp]
-\begin{center}
-\color{transparent}
-\includegraphics[width=2.5in]{resources/su5.pdf}
-\label{default}
-\end{center}
-\end{figure}
-}
-\frame{\frametitle{Results}
-\begin{figure}[htbp]
-\begin{center}
-\color{transparent}
-\includegraphics[width=4.5in]{resources/su6.pdf}
-\label{default}
-\end{center}
-\end{figure}
-}
+Mean (standard deviation) across the 250 datasets of the estimate at the best likelihood. Conditional on convergence the three methods return the same estimates up to the solvers' stopping tolerances: on any dataset they differ by at most 0.011 in $\theta^c_1$ and 0.04 in $RC$, no more than different starts of one method and under 3\% of a standard deviation. The upward bias in both parameters (a quarter of a standard deviation) is finite-sample bias of the estimator, not of any one algorithm.
+\end{frame}
+
+\begin{frame}{What changed between 2012 and 2016?}
+\begin{itemize}
+\item Su and Judd (2012): ``MPEC is significantly faster than NFXP.'' But their NFXP solved the inner loop by successive approximations, which takes about $\ln(\text{tol}/\|EV_0 - EV\|)/\ln\beta$ steps per solve: thousands per estimation at $\beta = 0.975$, over a million at $\beta = 0.9999$.
+\item Iskhakov, Lee, Rust, Schjerning and Seo (Ecma 2016): with Rust's own NFXP-NK polyalgorithm, NFXP is about as fast as MPEC. In our runs each inner solve takes about a dozen successive approximations and 3--4 Newton steps at every $\beta$, and NFXP-NK is about four times faster than our SLSQP-based MPEC.
+\item Lessons:
+\begin{itemize}
+\item Compare good implementations: the inner solver matters more than nested vs.\ constrained.
+\item Exact derivatives do the heavy lifting: implicit differentiation for NFXP, exact Jacobians for MPEC.
+\item MPEC is sensitive to scaling: $EV = O(1/(1-\beta))$. Without rescaling $EV$, MPEC converges in every run for $\beta \le 0.995$ (in twice as many iterations), in 76 of 1{,}250 runs at $\beta = 0.999$, and in none for $\beta \ge 0.9995$.
+\end{itemize}
+\end{itemize}
+\end{frame}
 
 \frame{\frametitle{BLP Demand Example}
 \begin{exampleblock}{BLP 1995}

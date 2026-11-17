@@ -6,10 +6,11 @@
 Rust/CCP decks overhauled — Su–Judd notation (new `NOTATION.md` section), regenerated data,
 new Part 4 (engine demand / KSS), due Dec 10, 2026; the tracked `rust.cpython-37.pyc`
 (bytecode of the retired 2020 DGP) deleted from the tree (it remains in git history). See
-the 2026-11-17 entry. New open items: `Week 11/dynamics2.tex` repeats the Rust–HM
-comparison and AM frames in the old notation; mpec's EL frames use $\rho_i$
-(clashes with nesting $\rho$); unverified refs in mpec ("Conlon, Kim, Manresa, Li (2025)")
-and hotz_miller ("Srisuma and Linton (2009)" is the WP year, "Blevins and Dearing (2020)").
+the 2026-11-17 entry. Later the same day: hotz_miller error/notation pass, and mpec's
+Su–Judd result images replaced by our own Monte Carlo (see "2026-11-17 (later)"). Open
+items: mpec's EL frames use $\rho_i$ (clashes with nesting $\rho$); unverified ref in mpec
+("Conlon, Kim, Manresa, Li (2025)"). (`Week 11/dynamics2.tex` is deprecated, per Chris —
+replaced by hotz_miller + Paul Scott's deck, unlinked on the website; not an open item.)
 
 **Done 2026-11-13 (Grad-IO at 11b6b28, pushed):** conduct_new Examples extended with
 Calder-Wang–Kim (algorithmic pricing), a monopsony-vs-oligopsony primer and Sharma (collusion
@@ -78,6 +79,33 @@ six-frame full-CMR section should come back.
 8. `demand_iioc.tex` IPDL row (~l.832) — looks like ξ-recovery mislabeled as
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
+
+## 2026-11-17 (later) — hotz_miller fixes; MPEC Monte Carlo from our own code
+
+- **`hotz_miller.tex`** (29 pp): policy-iteration update in vector form; "$|X|$ states"
+  for "$s$"; continuous-state frame rewritten (exact Bellman with $f(dx'\mid x,d)$, then
+  quadrature weights $w_k$; $\mathbf F$ is an integral operator, so no $[\mathbf I-\beta\mathbf F]^{-1}$);
+  Rust/HM comparison states the fixed point $V_\theta = V(\theta)$; NPL frame rewritten with
+  AM's $\Psi(P,\theta)$ ($\hat\theta_{k+1} = \arg\max \sum \ln \Psi(\hat P^k,\theta)$,
+  $\hat P^{k+1} = \Psi(\hat P^k,\hat\theta_{k+1})$; $K=2$ already captures much of the gain);
+  refs fixed to Srisuma and Linton (JoE 2012), Pesendorfer and Schmidt-Dengler (Ecma 2010),
+  Dearing and Blevins (ReStud 2025); typos.
+- **`mpec.tex`** (26 → 24 pp): the six image frames of Su–Judd's KNITRO output
+  (`resources/su1–6.pdf`, deleted) replaced by four frames — design, speed table, estimates
+  table, "What changed between 2012 and 2016?" (Su–Judd vs Iskhakov–Lee–Rust–Schjerning–Seo,
+  Ecma 2016). Su–Judd's design ($N=175$, truth $(2.4569, 11.7257)$, $\theta^f$ two-step,
+  250 datasets of 50×120 × 5 starts × 6 $\beta$'s), three estimators of the same partial
+  likelihood: MPEC (SLSQP, exact Jacobians, $EV$ scaled by $1-\beta$), NFXP-NK (Rust's
+  polyalgorithm, trust region on BHHH, IFT gradient), NFXP-SA (successive approximations to
+  $10^{-10}$, JAX-compiled). Results: everything converges (MPEC 1,249/1,250 at 0.9999);
+  CPU per estimation MPEC 30–41 ms, NFXP-NK 8–10 ms, NFXP-SA 50 ms → 9.1 s; SA steps 6,484 →
+  1,447,801; NFXP-NK ≈ 12 SA + 3.5 NK per inner solve at every $\beta$. Methods agree to
+  0.011 / 0.04 (the same as across starts within a method: stopping tolerances). Unscaled
+  MPEC: all converge at $\beta \le 0.995$ (2× the iterations), 76/1,250 at 0.999, 0 at
+  $\ge 0.9995$. Estimates biased up ~¼ SD for every method (finite sample).
+- **Code** (private, Dropbox `solutions/mpec_montecarlo.py`; uses the PS4 estimators, so it
+  stays private at least until after Dec 10): writes `mpec_mc_results.csv` (30,000 runs,
+  2,506 s wall on 9 workers) and prints the table rows; `--quick` for a 3-dataset check.
 
 ## 2026-11-17 — PS4 (Rust) and the Rust/CCP decks: notation, new data, KSS counterfactual
 
