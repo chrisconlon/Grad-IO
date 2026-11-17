@@ -1,74 +1,95 @@
 \documentclass{article}
 \usepackage{verbatim}
 \usepackage{fullpage}
+\usepackage{amsmath,amssymb}
+\newcommand{\E}{\mathbb{E}}
 
 \title{Empirical IO: Problem Set 4}
 \author{Chris Conlon}
 \begin{document}
 \small
-\date{Due date: Nov 30, 2020}
+\date{Due date: Dec 10, 2026}
 \maketitle
 Your answers should be produced in \LaTeX, or Jupyter, and should include all relevant graphs and code.  Code should be in the appropriate verbatim environment and properly documented.\\
 
-The data are \texttt{rust\_data\_2026.csv} (the only file in the GitHub folder). The fields are \texttt{bus\_id}, \texttt{period\_id},  \texttt{y\_it} (replacement decision) and  \texttt{x\_it} (mileage state). Throughout, fix the discount factor at $\beta = 0.975$. (Why can't we estimate $\beta$ along with the other parameters?)\\
+The data are \texttt{rust\_data\_2026.csv} (the only file in the GitHub folder): 100 buses observed for 200 periods each. The fields are \texttt{bus\_id}, \texttt{period\_id}, \texttt{x\_it} (mileage state) and \texttt{d\_it} (replacement decision). The notation follows the lecture slides (Su and Judd 2012).\\
 
-Part 0 shouldn't take more than 5 minutes. Part 3 is the second easiest. Part 1 and 2 are challenging.
+Part 0 shouldn't take more than 5 minutes. Part 3 is the second easiest. Parts 1 and 2 are challenging. Part 4 reuses your code from Parts 1 and 3.
+
+\section*{The Model}
+Each period Harold Zurcher observes the mileage bin $x_t \in \{0,1,\ldots,89\}$ of a bus and payoff shocks $\varepsilon_t(d)$, which are i.i.d.\ type I extreme value, and chooses $d_t \in \{0,1\}$: keep the engine ($d_t = 0$) or replace it ($d_t = 1$). The flow payoffs are
+\begin{align*}
+u(x,0;\theta) = -c(x;\theta^c), \qquad u(x,1;\theta) = -RC - c(0;\theta^c), \qquad c(x;\theta^c) = \theta^c_1 \left(\frac{x}{100}\right) + \theta^c_2 \left(\frac{x}{100}\right)^2,
+\end{align*}
+plus $\varepsilon_t(d_t)$, so $\theta = (\theta^c_1, \theta^c_2, RC, \theta^f)$. We use \emph{standard timing}: $d_t$ is chosen at the recorded state $x_t$, and
+\begin{align*}
+x_{t+1} = (1-d_t)\, x_t + \Delta_{t+1}, \qquad \Delta_{t+1} \in \{0,1,2,3,4\} \text{ i.i.d.\ with } \Pr(\Delta = k) = \theta^f_k,
+\end{align*}
+where mileage that would pass bin 89 stays at 89. Throughout, fix the discount factor at $\beta = 0.975$. Because a replacement restarts the bus at zero, $f(x' \mid x,1) = f(x' \mid 0,0)$ and $EV(x,1) = EV(0,0)$, so a single function $EV(x) \equiv EV(x,0)$ on the grid suffices (dropping Euler's $\gamma$):
+\begin{align*}
+EV(x) = \sum_{x'} f(x' \mid x,0) \ln\left[ e^{v(x',0)} + e^{v(x',1)} \right], \qquad v(x,0) = u(x,0;\theta) + \beta EV(x), \qquad v(x,1) = u(x,1;\theta) + \beta EV(0).
+\end{align*}
 
 \section*{Part 0: Pre-Estimation}
 \begin{enumerate}
-\item Compute $P(x' | x,y=0) = Pr(\Delta x_{it} | y_{it} = 0)$ in a separate first stage -- \textbf{you should have 5 of them}.
-\item Populate a transition probability matrix with states of $x_{it} \in \{0,\ldots,200\}$.\\
- (Adjust your matrix so that rows sum to one!)
+\item Estimate $\theta^f$ -- \textbf{you should have 5 of them}. Every period after the first reveals an increment, $\Delta_{i,t+1} = x_{i,t+1} - (1-d_{it})\,x_{it}$.
+\item Populate the $90 \times 90$ transition matrices $\mathbf F_0$ (keep) and $\mathbf F_1$ (replace: every row equals row 0 of $\mathbf F_0$). Adjust them so that rows sum to one!
 \end{enumerate}
 
 \section*{Part 1: Estimation MLE}
-Estimate the model using the NFXP approach of Rust. Computers are fast enough you can probably get away with finite differences for the gradient, but analytic gradients will be more reliable in addition to faster. If you are feeling ambitious, \texttt{JAX}'s autodiff makes the gradient cheap.
+Estimate $(\theta^c_1, \theta^c_2, RC)$ using the NFXP approach of Rust. Computers are fast enough that you can probably get away with finite differences for the gradient, but analytic gradients will be more reliable in addition to faster. If you are feeling ambitious, \texttt{JAX}'s autodiff makes the gradient cheap -- differentiate the fixed point implicitly, not through the iterations (see \texttt{jax.lax.custom\_root}).
 \begin{enumerate}
-\item Compute $EV(x, \theta)$ for a given guess of the parameters via the fixed point.
-\item Construct the CCP given your $EV(x, \theta)$ for every possible mileage state.
-\item Construct the likelihood and its gradient contribution with respect to $\theta$ for every possible mileage state.
-\item Finally, apply your likelihood and gradient contributions to observed data.
+\item Compute $EV(x;\theta)$ for a given guess of the parameters via the fixed point.
+\item Construct the CCP $P(1 \mid x;\theta)$ given your $EV(x;\theta)$ for every possible mileage state.
+\item Construct the log-likelihood and its gradient with respect to $\theta$ for every possible mileage state (the implicit function theorem gives $\partial EV/\partial\theta = [\mathbf I - \partial T_\theta/\partial EV]^{-1}\, \partial T_\theta/\partial\theta$).
+\item Apply your likelihood and gradient contributions to the observed data and maximize. Report standard errors from the inverse Hessian. What do these standard errors ignore?
+\item Why can't we estimate $\beta$ along with the other parameters? Re-estimate the model for each $\beta \in \{0.9,\allowbreak 0.95,\allowbreak 0.975,\allowbreak 0.99,\allowbreak 0.999\}$ and report the maximized log-likelihood and $\hat\theta$ for each.
 \end{enumerate}
 
 
 \section*{Part 2: Estimation MPEC}
 Estimate the model using the MPEC method of Su and Judd (2012). You can set up the constrained problem directly in \texttt{scipy.optimize} (\texttt{SLSQP} or \texttt{trust-constr}); if you are feeling ambitious, you can try a modeling language like \texttt{CasADi} or \texttt{Pyomo} in Python, or \texttt{JuMP} in Julia.
 \begin{enumerate}
-\item You will probably want to work out the analytic Jacobian where $EV_{\theta}$ is a free parameter.
-\item After you complete Part 3, compare the results from all three estimators in a table and discuss.
+\item You will probably want to work out the analytic Jacobian of the constraints $EV = T_\theta(EV)$, where $EV$ is now a vector of free parameters.
 \item Plot the $EV(\cdot)$ you have obtained for both estimators.
 \end{enumerate}
 
-
-
-\newpage
 \section*{Part 3: The Optimization-Free (CCP) Estimator}
-This is taken from Han Hong's problem set at Stanford, the idea is that we can use the arguments in Hotz-Miller (1993), or Pesendorfer Schmidt-Dengler (2008) to construct an optimization free method to recover the utility parameters in the Rust problem.\\
-
-We began by defining the choice specific value function with $\epsilon_{it}$ i.i.d. and EV.
-\begin{eqnarray*}
-v(x,d) &=& u(x,d) + \beta \int \log \left ( \sum_{d' \in D} \exp ( v (x',d'))  \right) p(x' | x, d) dx' \\
-v(x,d) &=& u(x,d) + \beta \int \log \left ( \sum_{d' \in D} \exp ( v (x',d') - v(x',1) )  \right) p(x' | x, d) dx'  + \beta \int v(x',1) p (x' | x,d) dx'\\
-\end{eqnarray*}
+This is adapted from Han Hong's problem set at Stanford: the idea is that we can use the arguments in Hotz and Miller (1993), or Pesendorfer and Schmidt-Dengler (2008), to construct an optimization-free method to recover the payoffs in the Rust problem. Use \textbf{replacement as the reference action}: normalize $u(x,1) = 0$ for all $x$.
 \begin{enumerate}
-\item Estimate $p(x' | x,d)$ non parametrically or parametrically (for example as a set of  multinomial with $n$ outcomes or an exponential distribution).  Call your estimate $\hat{p}(x' | x,d)$.
-\item Estimate $p(d | x)$ (the CCP) non-parametrically. You can use the binomial logit model with a basis function (increasing number of terms) or you can use a kernel. (Extra Credit: Impose monotonicty on CCP's).
-\item Now use the Hotz-Miller inversion to estimate:  $\hat{v}(x,d) - \hat{v}(x,1) = \log \hat{p}(d|x) - \log \hat{p}(1|x)$
-\item Normalize $u(x,1) = 0$ and so for $d=1$  we have that
-\begin{eqnarray*}
-v(x,1) &=& \beta \int v(x',1) p(x' | x,1) dx' + \beta \int \log \left( \sum_{d' \in D} \exp(\hat{v}(x',d') - \hat{v}(x',1)) \right) \hat{p}(x' | x,1) dx' \\
-&=& \beta \int v(x',1) p(x' | x,1) dx' - \beta \int \log \left(\hat{p}(1| x') \right)  \hat{p}(x' | x,1) dx' \\
-\end{eqnarray*}
-This defines a fixed point that we can iterate on to obtain a nonparametric estimate of $\hat{v}(x,1)$ .  Add this to $\hat{v}(x,d) - \hat{v}(x,1)$ to recover the choice specific value functions for $d=1,\ldots,D$.
-\item  Once we know $\hat{v}(x,d)$ for all $d \in D$ we can recover the nonparametric estimate of $u(x,d)$ for $d \geq 2$ by 
-\begin{eqnarray*}
-\hat{u}(x,d) = \hat{v}(x,d) - \beta \int \log \left( \sum_{d' \in D} \exp(\hat{v}(x',d')) \right) \hat{p}(x' | x,d) dx'
-\end{eqnarray*}
-(Consistent with the displays above, we have dropped the Euler constant $\gamma_E \approx 0.5772$ from the expected maximum; keeping it would only shift each $\hat{u}(x,d)$ by the constant $-\beta \gamma_E$.)
+\item Use your $\hat{\mathbf F}_0, \hat{\mathbf F}_1$ from Part 0.
+\item Estimate the CCP $\hat P(1 \mid x)$ non-parametrically. You can use a binomial logit on a polynomial basis in $x$ (increasing number of terms) or a kernel. Try at least two specifications (e.g.\ quadratic and cubic) and plot them against the empirical replacement frequencies and the CCPs implied by your NFXP estimates. (Extra Credit: Impose monotonicity on the CCPs.)
+\item Use the Hotz--Miller inversion: $\hat v(x,0) - \hat v(x,1) = \ln \hat P(0 \mid x) - \ln \hat P(1 \mid x)$.
+\item With $u(x,1) = 0$,
+\begin{align*}
+v(x,1) = \beta \sum_{x'} f(x' \mid x,1)\, V(x') = \beta \sum_{x'} f(x' \mid 0,0) \left[ v(x',1) - \ln \hat P(1 \mid x') \right],
+\end{align*}
+where $V(x') = \ln \sum_d e^{v(x',d)}$ is the ex ante value function. Show that $v(x,1)$ does not depend on $x$ and solve this fixed point in closed form. Add it to $\hat v(x,0) - \hat v(x,1)$ to recover both choice-specific value functions.
+\item Recover the payoff of keeping,
+\begin{align*}
+\hat u(x,0) = \hat v(x,0) - \beta \sum_{x'} \hat f(x' \mid x,0) \ln\left[ e^{\hat v(x',0)} + e^{\hat v(x',1)} \right].
+\end{align*}
+Under this normalization $u(x,0) = RC - c(x;\theta^c)$, so a (weighted) regression of $\hat u(x,0)$ on $(1, -x/100, -(x/100)^2)$ over the states you observe recovers $(RC, \theta^c_1, \theta^c_2)$. (Consistent with the displays above, we have dropped the Euler constant $\gamma \approx 0.5772$ from the expected maximum.)
+\item This estimator requires only one (trivial) fixed point, so we can do inference by the bootstrap. Compute bootstrap standard errors by resampling \emph{buses} with replacement ($B \geq 200$), re-estimating both first stages ($\hat\theta^f$ and $\hat P$) in every replication. Do this for each first-stage specification. How do the standard errors compare across specifications and with NFXP's, and why?
+\item Compare the estimates from all three estimators (NFXP, MPEC, CCP) in a table and discuss. Since $\theta^c_1$ and $\theta^c_2$ are hard to separate, also plot $\hat c(x)$ over the observed mileage range for each estimator.
 \end{enumerate}
-This estimator should be very simple to implement (and only requires one fixed point) so we could do inference via the bootstrap if we wanted to.
 
-
+\section*{Part 4: Counterfactuals and the Normalization}
+Rust (1987) used his estimates to trace out a demand curve for bus engines. Treat the CCPs implied by your NFXP estimates, $P(1 \mid x;\hat\theta)$ on the whole grid, as the population CCPs.
+\begin{enumerate}
+\item Recover payoffs from these CCPs by the Hotz--Miller inversion under two normalizations: (R) $u(x,1) = 0$, as in Part 3; and (K) $u(x,0) = 0$, for which
+\begin{align*}
+V = (\mathbf I - \beta \mathbf F_0)^{-1} \left[-\ln P(0 \mid \cdot)\right], \qquad u(x,1) = V(x) + \ln P(1 \mid x) - \beta (\mathbf F_1 V)(x).
+\end{align*}
+Verify that both payoff vectors reproduce the same CCPs. Show that (R) differs from the NFXP payoffs by a constant, and plot the (K) payoff $u(x,1)$. Compare it to $-RC + C(x) - C(0)$, where $C = (\mathbf I - \beta \mathbf F_0)^{-1} c$ is the present value of maintenance costs if the engine is never replaced.
+\item \textbf{Engine demand.} Let the price of an engine change by $\tau$, so $u^\tau(x,1) = u(x,1) - \tau$. For $\tau \in [-5, 5]$, solve the model, compute the stationary distribution $\mu$ of mileage under the controlled transition matrix
+\begin{align*}
+\mathbf M = \mathrm{diag}\big(P(0 \mid \cdot)\big)\,\mathbf F_0 + \mathrm{diag}\big(P(1 \mid \cdot)\big)\,\mathbf F_1, \qquad \mu' = \mu' \mathbf M,
+\end{align*}
+and the long-run engine demand $\bar d(\tau) = \sum_x \mu(x)\, P(1 \mid x)$ (replacements per bus per period). Plot $\bar d(\tau)$ for the NFXP payoffs and for (R) and (K).
+\item Now suppose the buses move to routes on which mileage accrues twice as fast: $\Delta' = 2\Delta$, with the same $\hat\theta^f$. Redraw the three demand curves.
+\item Which of these two counterfactuals is identified from the CCPs, and which is not? Explain why (R) and (K) agree in 2 but not in 3, and which normalization gives the right answer in 3 and why. (Kalouptsidi, Scott, and Souza-Rodrigues, 2021.)
+\item Why didn't we use the first-stage $\hat P$ from Part 3 in this part? Try the counterfactual in 3 at $\tau = 0$ with (R) payoffs recovered from each of your Part 3 first stages, and explain what you find.
+\end{enumerate}
 
 \end{document}
-

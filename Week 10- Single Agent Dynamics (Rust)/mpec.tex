@@ -21,7 +21,7 @@ Often faced with extremum estimator problems in econometrics (ML, GMM, MD, etc.)
 \begin{align*}
 \hat{\theta} = \arg \max_{\theta} Q_n(\theta), \quad  \theta \in \Theta
 \end{align*}
-Many economic problems contain constraints, such as: market clearing (supply equals demand), consumer's consume their entire budget set, or firm's first order conditions are satisfied.  A natural way to represent these problems is as constrained optimization.
+Many economic problems contain constraints, such as: market clearing (supply equals demand), consumers consume their entire budget set, or firms' first order conditions are satisfied.  A natural way to represent these problems is as constrained optimization.
 }
 
 \begin{frame}{Constrained Problems}
@@ -63,22 +63,22 @@ Mostly this is in response to change in technology: nonlinear solvers supporting
 \item Bus repairman sees mileage $x_t$ at time $t$ since last overhaul
 \item Repairman chooses between overhaul and normal maintenance
 \begin{align*}
-u(x_t, d_t, \alert{\theta^c}, \alert{RC}) =
-\begin{cases} -c(x_t,\alert{\theta^c}) \quad &\mbox{if} \quad d_t=0\\
--(\alert{RC} + c(0,\alert{\theta^c}) \quad) &\mbox{if} \quad d_t =1\\
+u(x_t, d_t; \alert{\theta^c}, \alert{RC}) =
+\begin{cases} -c(x_t;\alert{\theta^c}) \quad &\mbox{if} \quad d_t=0\\
+-(\alert{RC} + c(0;\alert{\theta^c})) &\mbox{if} \quad d_t =1\\
 \end{cases}
 \end{align*}
 \item Repairman solves DP:
 \begin{align*}
-V_{\alert{\theta}} (x_t) = \sum_{f_t,f_{t+1},\ldots} E \left\{  \sum_{j=t}^{\infty} \beta^{j-t}   [u(x_j,f_j,\alert{\theta}) + \varepsilon_{j}(f_j)]| x_t \right\}
+V_{\alert{\theta}} (x_t, \varepsilon_t) = \max_{\{d_t,d_{t+1},\ldots\}} E \left\{  \sum_{j=t}^{\infty} \beta^{j-t}   [u(x_j,d_j;\alert{\theta}) + \varepsilon_{j}(d_j)]| x_t, \varepsilon_t \right\}
 \end{align*}
 \end{itemize}
 \begin{itemize}
 %\item Observe mileage $x_t$ and decision $d_t$ but not cost.
 %\item Assumes extreme value distribution for $\varepsilon_t(d_t)$
-\item Structural parameters to be estimated $\alert{\theta = (\theta^c, RC, \theta^p)}$.
-\item Coefficients of cost function $c(x,\alert{\theta^c}) = \theta^c_1 x + \theta^c_2 x^2$
-\item Transition probabilities in mileages $p(x_{t+1} | x_t, d_t, \alert{\theta^p})$
+\item Structural parameters to be estimated $\alert{\theta = (\theta^c, RC, \theta^f)}$.
+\item Coefficients of cost function $c(x;\alert{\theta^c}) = \theta^c_1 x + \theta^c_2 x^2$
+\item Transition probabilities in mileages $f(x_{t+1} | x_t, d_t; \alert{\theta^f})$
 \end{itemize}
 \end{frame}
 
@@ -88,14 +88,14 @@ V_{\alert{\theta}} (x_t) = \sum_{f_t,f_{t+1},\ldots} E \left\{  \sum_{j=t}^{\inf
 \item Data: time series $(x_t,d_t)_{t=1}^T$
 \item Likelihood function
 \begin{align*}
-\mathcal{L}(\theta) &= \prod_{t=2}^T P(d_t | x_t, \alert{\theta^c}, \alert{RC}) p(x_t | x_{t-1}, d_{t-1},\alert{\theta^p})\\
-\mbox{ with }  P(d | x, \alert{\theta^c}, \alert{RC}) &= \frac{\exp[u(x,d,\alert{\theta^c},\alert{RC}) + \beta \textcolor{blue}{EV}_{\alert{\theta}}(x,d)}
-{\sum_{d' \in \{0,1\}} \exp[u(x,d',\alert{\theta^c},\alert{RC}) + \beta \textcolor{blue}{EV}_{\alert{\theta}}(x',d)}\\
+\mathcal{L}(\theta) &= \prod_{t=2}^T P(d_t | x_t; \alert{\theta^c}, \alert{RC}) f(x_t | x_{t-1}, d_{t-1};\alert{\theta^f})\\
+\mbox{ with }  P(d | x; \alert{\theta^c}, \alert{RC}) &= \frac{\exp[u(x,d;\alert{\theta^c},\alert{RC}) + \beta \textcolor{blue}{EV}_{\alert{\theta}}(x,d)]}
+{\sum_{d' \in \{0,1\}} \exp[u(x,d';\alert{\theta^c},\alert{RC}) + \beta \textcolor{blue}{EV}_{\alert{\theta}}(x,d')]}\\
 \textcolor{blue}{EV}_{\alert{\theta}}(x,d) &= T_{\alert{\theta}}(\textcolor{blue}{EV}_{\alert{\theta}})(x,d)\\
 \end{align*}
 \vspace{-1cm}
 \begin{align*}
-\equiv \int_{x'=0}^{\infty} &\log \left[ \sum_{d' \in \{0,1\}} \exp[u(x,d',\alert{\theta^c},\alert{RC}) + \beta \textcolor{blue}{EV}_{\alert{\theta}}(x',d)]  \right] p(dx' | x,d,\alert{\theta^p}) 
+\equiv \int_{x'=0}^{\infty} &\log \left[ \sum_{d' \in \{0,1\}} \exp[u(x',d';\alert{\theta^c},\alert{RC}) + \beta \textcolor{blue}{EV}_{\alert{\theta}}(x',d')]  \right] f(dx' | x,d;\alert{\theta^f})
 \end{align*}
 \end{itemize}
 \end{frame}
@@ -105,7 +105,7 @@ V_{\alert{\theta}} (x_t) = \sum_{f_t,f_{t+1},\ldots} E \left\{  \sum_{j=t}^{\inf
 \begin{itemize}
 \item Outer Loop: Solve Likelihood
 \begin{align*}
-\max_{\alert{\theta} \geq 0} \mathcal{L}(\theta) &= \prod_{t=2}^T \Pr(d_t | x_t, \alert{\theta^c}, \alert{RC}) p(x_t | x_{t-1}, d_{t-1},\alert{\theta^p})\\
+\max_{\alert{\theta} \geq 0} \mathcal{L}(\theta) &= \prod_{t=2}^T P(d_t | x_t; \alert{\theta^c}, \alert{RC}) f(x_t | x_{t-1}, d_{t-1};\alert{\theta^f})\\
 \end{align*}
 \item Convergence test: $\norm{\nabla_{\theta} \mathcal{L}(\alert{\theta})} \leq \alert{\epsilon_{out}}$
 \item Inner Loop: Compute expected value function $ \textcolor{blue}{EV}_{\alert{\theta}}$ for a given $\alert{\theta}$
@@ -149,13 +149,13 @@ V_{\alert{\theta}} (x_t) = \sum_{f_t,f_{t+1},\ldots} E \left\{  \sum_{j=t}^{\inf
 \end{itemize}
 \end{frame}
 
-\begin{frame}{MPEC Alternative (Su and Judd))}
+\begin{frame}{MPEC Alternative (Su and Judd)}
 \begin{itemize}
 \item Form the augmented likelihood function for data $X = (x_t, d_t)_{t=1}^T$
 \begin{align*}
-\mathcal{L}(\textcolor{blue}{EV}, \alert{\theta}; X) &= \prod_{t=2}^T P(d_t | x_t, \alert{\theta^c}, \alert{RC}) p(x_t | x_{t-1}, d_{t-1},\alert{\theta^p})\\
-\mbox{ with }  P(d | x, \alert{\theta^c}, \alert{RC}) &= \frac{\exp[u(x,d,\alert{\theta^c},\alert{RC}) + \beta \textcolor{blue}{EV}(x,d)}
-{\sum_{d' \in \{0,1\}} \exp[u(x,d',\alert{\theta^c},\alert{RC}) + \beta \textcolor{blue}{EV}(x',d)}\\
+\mathcal{L}(\textcolor{blue}{EV}, \alert{\theta}; X) &= \prod_{t=2}^T P(d_t | x_t; \alert{\theta^c}, \alert{RC}) f(x_t | x_{t-1}, d_{t-1};\alert{\theta^f})\\
+\mbox{ with }  P(d | x; \alert{\theta^c}, \alert{RC}) &= \frac{\exp[u(x,d;\alert{\theta^c},\alert{RC}) + \beta \textcolor{blue}{EV}(x,d)]}
+{\sum_{d' \in \{0,1\}} \exp[u(x,d';\alert{\theta^c},\alert{RC}) + \beta \textcolor{blue}{EV}(x,d')]}\\
 \end{align*}
 \item Rationality and Bellman equation imposes a relationship between $\alert{\theta}$ and $\textcolor{blue}{EV}$
 \begin{align*}
@@ -174,8 +174,8 @@ V_{\alert{\theta}} (x_t) = \sum_{f_t,f_{t+1},\ldots} E \left\{  \sum_{j=t}^{\inf
 The previous approach solves the problem ``on the grid''.
 \begin{itemize}
 \item $x_t$ takes on discrete values.
-\item We only evaluate $EV(x_t,i_t)$ at values on the grid.
-\item We don't evaluate $EV(x_t,i_t)$ and values between $[x_s,x_{s+1}]$.
+\item We only evaluate $EV(x_t,d_t)$ at values on the grid.
+\item We don't evaluate $EV(x_t,d_t)$ and values between $[x_s,x_{s+1}]$.
 \end{itemize}
 If we did we would have to \alert{interpolate}.
 \begin{itemize}
@@ -250,9 +250,9 @@ The estimator solves the following mathematical program:
 \begin{align*}
 \min_{\alert{\theta_2}}\, & g(\xi(\alert{\theta_2}))' W g(\xi(\alert{\theta_2})) \quad \mbox{ s.t. } \\
 g(\xi(\alert{\theta_2})) &= \frac{1}{N} \sum_{\forall j,t} \xi_{jt} (\alert{\theta_2}) ' z_{jt} \\
-\xi_{jt}(\alert{\theta_2}) &= \delta_j(\alert{\theta_2}) - x_{jt} \beta - \alpha p_{jt} \\
-s_{jt}(\delta(\alert{\theta_2}),\alert{\theta_2}) &= \int \frac{\exp[\delta_j(\alert{\theta_2})+ \mu_{ij}]}{1+\sum_k \exp[\delta_j(\alert{\theta_2})+ \mu_{ik}]} f(\mu | \alert{\theta_2})\\
-\log(S_{jt})  &= \log(s_{jt}(\delta(\alert{\theta_2}),\alert{\theta_2})) \quad \forall j,t
+\xi_{jt}(\alert{\theta_2}) &= \delta_{jt}(\alert{\theta_2}) - x_{jt} \beta + \alpha p_{jt} \\
+\sigma_{jt}(\delta_t(\alert{\theta_2}),\alert{\theta_2}) &= \int \frac{\exp[\delta_{jt}(\alert{\theta_2})+ \mu_{ijt}]}{1+\sum_k \exp[\delta_{kt}(\alert{\theta_2})+ \mu_{ikt}]} f(\mu | \alert{\theta_2})\\
+\log s_{jt}  &= \log \sigma_{jt}(\delta_t(\alert{\theta_2}),\alert{\theta_2}) \quad \forall j,t
 \end{align*}
 \end{exampleblock}
 }
@@ -261,34 +261,35 @@ s_{jt}(\delta(\alert{\theta_2}),\alert{\theta_2}) &= \int \frac{\exp[\delta_j(\a
 The estimation algorithm is generally as follows:
 \begin{enumerate}
 \item Guess a value of nonlinear parameters $\alert{\theta_2}$
-\item Compute $s_{jt}(\delta,\alert{\theta_2})$ via integration
-\item Iterate on $\delta_{jt}^{h+1}  = \delta_{jt}^h +  \log(S_{jt}) - \log(s_{jt}(\delta^{h},\alert{\theta_2}))$ to find the $\delta$ that satisfies the share equation
+\item Compute $\sigma_{jt}(\delta_t,\alert{\theta_2})$ via integration
+\item Iterate on $\delta_{jt}^{h+1}  = \delta_{jt}^h +  \log s_{jt} - \log \sigma_{jt}(\delta^{h}_t,\alert{\theta_2})$ to find the $\delta$ that satisfies the share equation
 \item IV Regression $\delta$ on observable $X$ and instruments $Z$ to get residual $\xi$.
 \item Use $\xi$ to construct $g(\xi(\alert{\theta_2}))$.
 \item Possibly construct other errors/instruments from supply side.
 \item Construct GMM Objective
 \end{enumerate}
-The idea is that $\delta(\alert{\theta_2})$ is an implicit function of the nonlinear parameters $\alert{\theta_2}$. And for each guess we find that implicit solution for reduce the parameter space of the problem. But the Jacobian: $\frac{\partial \symbf{\xi_t}}{\partial \theta_2}(\theta_2) = -{\left[\frac{\partial \symbf{s}_t}{\partial \symbf{\delta_t}}(\theta_2)\right]^{-1} \left[\frac{\partial \symbf{s}_t}{\partial \theta_2}(\theta_2)\right]} $ is complicated to compute.
+The idea is that $\delta(\alert{\theta_2})$ is an implicit function of the nonlinear parameters $\alert{\theta_2}$. And for each guess we find that implicit solution for reduce the parameter space of the problem. But the Jacobian: $\frac{\partial \symbf{\xi_t}}{\partial \theta_2}(\theta_2) = -{\left[\frac{\partial \symbf{\sigma}_t}{\partial \symbf{\delta_t}}(\theta_2)\right]^{-1} \left[\frac{\partial \symbf{\sigma}_t}{\partial \theta_2}(\theta_2)\right]} $ is complicated to compute.
 }
 
 
 
 \frame{\frametitle{Dube Fox Su 2012}
+\footnotesize
 \begin{exampleblock}{BLP-MPEC}
 The estimator solves the following mathematical program:
 \begin{align*}
 \label{blpmpec}
 \min_{\alert{\Sigma,\alpha,\beta, \xi}}  & g(\alert{\xi})' W g(\alert{\xi}) \quad \mbox{ s.t. } \\
 g(\alert{\xi}) &= \frac{1}{N} \sum_{\forall j,t} \alert{\xi_{jt}'} z_{jt} \\
-s_{jt}(\alert{\Sigma,\alpha,\beta, \xi}) &=  \sum_i w_i \frac{\exp[x_{jt} \alert{\beta} + \alert{\xi_{jt}} - \alert{\alpha} p_{jt} +  \left(\alert{\Sigma} \cdot \nu_{il}\right) x_{jt} ] }
-{1+ \sum_k \exp[x_{kt} \alert{\beta} + \alert{\xi_{kt}} - \alert{\alpha} p_{kt} + \left(\alert{\Sigma} \cdot \nu_{il}\right) x_{jt} ]} \\
-\log(S_{jt})  &= \log s_{jt}(\alert{\Sigma,\alpha,\beta, \xi}) \quad \forall j,t
+\sigma_{jt}(\alert{\Sigma,\alpha,\beta, \xi}) &=  \sum_i w_i \frac{\exp[x_{jt} \alert{\beta} + \alert{\xi_{jt}} - \alert{\alpha} p_{jt} +  x_{jt}\alert{\Sigma} \nu_{i} ] }
+{1+ \sum_k \exp[x_{kt} \alert{\beta} + \alert{\xi_{kt}} - \alert{\alpha} p_{kt} + x_{kt}\alert{\Sigma} \nu_{i} ]} \\
+\log s_{jt}  &= \log \sigma_{jt}(\alert{\Sigma,\alpha,\beta, \xi}) \quad \forall j,t
 \end{align*}
 \end{exampleblock}
 \begin{itemize}
 \item Expand the parameter space of the nonlinear search to include $\alert{\alpha,\beta,\xi}$
 \item Don't have to solve for $\xi$ except at the end.
-\item No implicit functions of $\theta_2$ and $\left[\frac{\partial \symbf{s}_t}{\partial \sigma}(\alert{\sigma,\alpha,\beta, \xi})\right]$ is straightforward (no matrix inverse!).
+\item No implicit functions of $\theta_2$ and $\left[\frac{\partial \symbf{\sigma}_t}{\partial \Sigma}(\alert{\Sigma,\alpha,\beta, \xi})\right]$ is straightforward (no matrix inverse!).
 \item Sparsity!
 \end{itemize}
 }
@@ -302,15 +303,15 @@ s_{jt}(\alert{\Sigma,\alpha,\beta, \xi}) &=  \sum_i w_i \frac{\exp[x_{jt} \alert
 \begin{tabular}{lrrrr}
 & Nevo & BLP-MPEC & EL\\
 Price& -28.189  & -62.726  & -61.433  \\
-$\sigma_{p}$ &0.330 & 0.558 & 0.524\\
-$\sigma_{const}$ &2.453 &3.313 & 3.143\\
-$\sigma_{sugar} $& 0.016&-0.006 & 0\\
-$\sigma_{mushy} $&0.244 &0.093&0.085\\
-$\pi_{p,inc}$ &15.894  &588.206 & 564.262\\
-$\pi_{p,inc2}$ &-1.200  &-30.185 &-28.930 \\
-$\pi_{p,kid}$ &2.634 &11.058 &   11.700\\
-$\pi_{c,inc}$ &5.482 & 2.29084&2.246\\
-$\pi_{c,age} $& 0.2037&1.284 & 1.37873 \\
+$\Sigma_{p}$ &0.330 & 0.558 & 0.524\\
+$\Sigma_{const}$ &2.453 &3.313 & 3.143\\
+$\Sigma_{sugar} $& 0.016&-0.006 & 0\\
+$\Sigma_{mushy} $&0.244 &0.093&0.085\\
+$\Pi_{p,inc}$ &15.894  &588.206 & 564.262\\
+$\Pi_{p,inc2}$ &-1.200  &-30.185 &-28.930 \\
+$\Pi_{p,kid}$ &2.634 &11.058 &   11.700\\
+$\Pi_{c,inc}$ &5.482 & 2.29084&2.246\\
+$\Pi_{c,age} $& 0.2037&1.284 & 1.37873 \\
 GMM &29.3611 &4.564 & \\
 EL & & &-17422  \\
 Time & 28 s & 12s & 19s  \\

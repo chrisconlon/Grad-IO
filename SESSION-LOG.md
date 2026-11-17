@@ -2,6 +2,15 @@
 
 ## To-do queue (as of 2026-11-13 close-out)
 
+**Done 2026-11-17 (pushed; website Homework 4 now shows the due date):** PS4 and the
+Rust/CCP decks overhauled — Su–Judd notation (new `NOTATION.md` section), regenerated data,
+new Part 4 (engine demand / KSS), due Dec 10, 2026; the tracked `rust.cpython-37.pyc`
+(bytecode of the retired 2020 DGP) deleted from the tree (it remains in git history). See
+the 2026-11-17 entry. New open items: `Week 11/dynamics2.tex` repeats the Rust–HM
+comparison and AM frames in the old notation; mpec's EL frames use $\rho_i$
+(clashes with nesting $\rho$); unverified refs in mpec ("Conlon, Kim, Manresa, Li (2025)")
+and hotz_miller ("Srisuma and Linton (2009)" is the WP year, "Blevins and Dearing (2020)").
+
 **Done 2026-11-13 (Grad-IO at 11b6b28, pushed):** conduct_new Examples extended with
 Calder-Wang–Kim (algorithmic pricing), a monopsony-vs-oligopsony primer and Sharma (collusion
 among employers); labor section in `NOTATION.md`. See the 2026-11-13 entry. New open item:
@@ -64,11 +73,52 @@ six-frame full-CMR section should come back.
    snapshots parked alongside — see the README there).
 6. Lecture 15: keep Dickstein MI guest slot or repurpose — pending his
    availability.
-7. Fill real Fall 2026 due dates (webpage "Due: TBD" × 3; ps4 still carries
-   its old date field).
+7. Fill real Fall 2026 due dates (webpage "Due: TBD" × 3, and its Homework 4 line
+   has no date; ps4.tex now says Dec 10, 2026 — done 2026-11-17).
 8. `demand_iioc.tex` IPDL row (~l.832) — looks like ξ-recovery mislabeled as
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
+
+## 2026-11-17 — PS4 (Rust) and the Rust/CCP decks: notation, new data, KSS counterfactual
+
+Per Chris: Su–Judd notation with standard timing, regenerate the data so mileage covers
+more of the grid, an engine-demand question that shows the KSS point, bootstrap SEs for
+one estimator, every slide suggestion, due date Dec 10, 2026; Euler-equation CCPs stay in
+Paul Scott's Lecture 11 deck.
+
+- **`NOTATION.md`**: new section "Single-agent dynamics" — $d_t$ (0 keep, 1 replace),
+  $u(x,d;\theta)$, $\theta = (\theta^c, RC, \theta^f)$, $v(x,d)$, $EV$, ex ante $V$, CCP $P(d\mid x)$,
+  transitions $f$ / $\mathbf F_d$ (not Su–Judd's $p$: $p$ is a price), stationary $\mu$ (not $\pi$),
+  Euler's $\gamma$ dropped except in forward simulation, engine demand $\bar d$, price change $\tau$.
+- **Decks** (`rust_part1` 20→21 pp, `rust_part2` 17→19, `mpec` 26, `hotz_miller` 27→29):
+  all four converted. Errata fixed: replacement payoff sign ($-(RC+c(0))$); $x_{t+1}=0$ after
+  replacement (now $f(x'\mid x,1)=f(x'\mid 0,0)$); CCPs conditioned on $\varepsilon_t$; T1EV mean;
+  silent $\gamma$ drop; mpec's $\sum$→$\max$, CCP brackets/$EV(x,d')$, Bellman integrand, BLP
+  $\xi$ sign and $\sigma/s$ notation, $\delta_{kt}$/$x_{kt}$ denominators; hotz_miller's logit
+  denominator, $1\to\mathbf I$, $\lim \mathbf F^t$, forward-simulation primes, $s\to x$,
+  Aguirregabiria 2002/2007, Fredholm, Schmidt-Dengler, KSS 2021. New frames: "Model: Timing"
+  (rust_part1); "one value function on the grid" ($EV(x,1)=EV(0,0)$) and "Gradients: the
+  implicit function theorem" (rust_part2, terms checked against the key's analytic
+  gradient); "Normalizations in Rust (KSS 2021)" and "Which counterfactuals are identified?"
+  (hotz_miller: $h$-equivalence, replace normalization = level shift, keep normalization
+  $\tilde u(x,1) = -RC + C(x) - C(0)$, $\tau$ identified, $\mathbf F'$ not; no sign claimed and
+  no PS4 numbers). Rust's symbols mapped on his table frames. The slide edits also stripped
+  trailing whitespace on untouched lines (diff noise only).
+- **Data** (`rust_data_2026.csv`, overwritten): 90 bins, costs in $x/100$, truth
+  $(1.0, 1.5, 10.0)$, 100 buses × 200 periods, column `d_it`; mileage reaches 61 of 89 (was
+  61 of 200). Chosen from a scan of ~60 designs (scripts in the session scratchpad, not
+  kept): coverage, convexity, headroom for the counterfactuals at the grid ceiling, and a
+  visible KSS gap. $\theta^c_1$/$\theta^c_2$ stay hard to separate in every design
+  (corr$(x,x^2)=0.955$), so the pset asks for $\hat c(x)$ over the support.
+- **`ps4.tex`** (3 pp): model stated in full (cost form and scaling, timing, $EV$ reduction);
+  Part 1 adds inverse-Hessian SEs and the $\beta$ profile; Part 3 fixes replace as the
+  reference action, asks for the closed-form $v(x,1)$, two first-stage specifications and a
+  bus bootstrap; new Part 4 inverts the NFXP CCPs under both normalizations and draws engine
+  demand over $\tau\in[-5,5]$ at the data's mileage and with $\Delta'=2\Delta$, then asks why
+  Part 3's $\hat P$ isn't used (it extrapolates past $x=61$).
+- **Keys** (Dropbox `solutions/`, README updated with all answers): `ps4_solution.py` Parts
+  0–4; `rust_jax.py` / `generate_rust_data.py` on the new design (byte-identical rerun; JAX key
+  matches numpy to 4 decimals). Run with `uv run --no-project --with …` from the repo root.
 
 ## 2026-11-13 — conduct_new: algorithmic pricing, a labor primer and Sharma
 

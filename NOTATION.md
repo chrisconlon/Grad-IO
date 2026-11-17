@@ -56,3 +56,27 @@ Deck-local to the labor frames of `Week 7- Mergers and Conduct/conduct_new.tex` 
 | Labor-supply elasticity | $\varepsilon_j = \partial\ln n_j/\partial\ln w_j$ | Week 6's $\varepsilon$ is the ex post production shock |
 | Nest elasticities | $e$ (across employers within a market), $e_M < e$ (market as a whole) | the literature's $\eta$, $\theta$; $\eta$ is the markup in this deck |
 | Shares | $s_j$ = wage-bill share of the local labor market | an observed data share, consistent with $s$ = observed shares |
+
+## Single-agent dynamics (Weeks 10–11: Rust, MPEC, Hotz–Miller; PS4) — decided 2026-11-17
+
+Applies to `rust_part1.tex`, `rust_part2.tex`, `mpec.tex` (Week 10), `hotz_miller.tex` (Week 11) and `Assignments/Assignment 4- Rust/ps4.tex`. Follows **Su and Judd (2012)** with two exceptions: transitions are $f$/$\mathbf F$, not Su–Judd's $p$ (lowercase $p$ is always a price, and prices are state variables in the dynamic-demand weeks), and the stationary distribution is $\mu$, not $\pi$ ($\pi_f$ is profits only). Rust's own symbols ($i_t$ for the decision, $\theta_1, \theta_2, \theta_3$, $\pi(x,i)$ for payoffs) are retired; a slide that reproduces one of Rust's tables says which of his symbols map to ours.
+
+| Object | Symbol | Note |
+|---|---|---|
+| Agent (bus), period | $i$, $t$ | $i$ is never the decision |
+| State, next state | $x_t \in \{0,\ldots,N-1\}$ (mileage bins), $x'$ | costs may use a rescaled $x/100$; say so |
+| Decision | $d_t \in \{0,1\}$: $0$ = keep, $1$ = replace; general decks $d \in \mathcal D$ | Su–Judd; data column `d_it` |
+| Payoff shocks | $\varepsilon_t(d)$, iid T1EV, location $0$, scale $1$ (mean $\gamma$) | |
+| Flow payoff | $u(x,d;\theta)$: $u(x,0) = -c(x;\theta^c)$, $u(x,1) = -RC - c(0;\theta^c)$ | deterministic part; $\varepsilon_t(d)$ added separately |
+| Parameters | $\theta = (\theta^c, RC, \theta^f)$; $c(x;\theta^c) = \theta^c_1 x + \theta^c_2 x^2$; $\theta^f_k = \Pr(\Delta = k)$ | Rust's $\theta_1$ = our $\theta^c$, his $\theta_3$ = our $\theta^f$; $\beta$ is fixed, not in $\theta$ |
+| Timing (standard) | $d_t$ chosen after seeing $(x_t, \varepsilon_t)$; $x_{t+1} = (1-d_t)\,x_t + \Delta_{t+1}$ | so $f(x' \mid x,1) = f(x' \mid 0,0)$ |
+| Transitions | density $f(x' \mid x,d;\theta^f)$; matrices $\mathbf F_d$ (rows = current state) | $\mathbf F_1$ has every row equal to row $0$ of $\mathbf F_0$ |
+| Expected value function | $EV_\theta(x,d) = \E[V_\theta(x') \mid x,d]$; Bellman operator $EV = T_\theta(EV)$ | $EV(x,1) = EV(0,0)$, so one function $EV(x) \equiv EV(x,0)$ on the grid |
+| Choice-specific value | $v_\theta(x,d) = u(x,d;\theta) + \beta\, EV_\theta(x,d)$ | replaces $\tilde V$ |
+| Ex ante (integrated) value | $V(x) = \ln \sum_d \exp v(x,d)$ | **Euler's $\gamma$ is dropped** from $V$ and $EV$ (it adds $\gamma/(1-\beta)$ and leaves CCPs unchanged); keep it, and say so, only where $\E[\varepsilon \mid d,x] = \gamma - \ln P(d \mid x)$ itself appears (forward simulation) |
+| CCPs | model $P(d \mid x;\theta)$; first stage $\hat P(d \mid x)$; vector $\mathbf P(x)$ | capital $P$ is a probability here; $\sigma$ stays the static-demand choice probability |
+| Hotz–Miller, Arcidiacono–Miller | $\phi_{dd'}(\mathbf P(x)) = v(x,d) - v(x,d')$; $\psi_d(\mathbf P(x)) = V(x) - v(x,d)$ | logit: $\ln P(d\mid x) - \ln P(d'\mid x)$ and $-\ln P(d \mid x)$ (no $\gamma$, per the row above) |
+| Normalizations (KSS) | "replace normalization" $u(x,1) = 0$; "keep normalization" $u(x,0) = 0$ | the first is a level shift in Rust because $u(x,1)$ is constant in $x$; the second is not |
+| Cost of never replacing | $C = (\mathbf I - \beta \mathbf F_0)^{-1} c$ | keep normalization gives $\tilde u(x,1) = -RC + C(x) - C(0)$ |
+| Long run | stationary distribution $\mu(x)$ of the controlled chain; engine demand $\bar d = \sum_x \mu(x) P(1 \mid x)$ | replacements per bus per period |
+| Counterfactuals | engine-price change $\tau$: $u^\tau(x,1) = u(x,1) - \tau$; new transitions $\mathbf F'_d$ | $\Delta$ is the mileage increment, so not $\Delta$ for the price change |
