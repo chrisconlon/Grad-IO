@@ -5,9 +5,8 @@
 **Done 2026-11-17 (latest): new ECCP deck drafted.** `Week 11/eccp.tex` (20 frames, 27 pp.)
 replaces Paul Scott's 82-page ECCP deck (his PDF stays in the folder; still linked on the website
 until the deck is final). Sources extracted to Dropbox `ECCP Literature/` with `synthesis.md`;
-ECCP block in `NOTATION.md`; bridge + corrections frames at the end of hotz_miller. See the
-"2026-11-17 (latest)" entry. Open: Scott's TSE WP 14-526 (May 2014) to replace the Dec-2013
-results; then website/syllabus links and shrink the hotz_miller bridge to a pointer.
+ECCP block in `NOTATION.md`. See the "2026-11-17 (latest)" entry. Open: Scott's TSE WP 14-526
+(May 2014) to replace the Dec-2013 results; then website/syllabus links.
 
 **Done 2026-11-17 (pushed; website Homework 4 now shows the due date):** PS4 and the
 Rust/CCP decks overhauled — Su–Judd notation (new `NOTATION.md` section), regenerated data,
@@ -97,8 +96,9 @@ state and $k$ years since crops (deck-local; `NOTATION.md` "Euler-equation CCPs"
 
 - **hotz_miller.tex** (31 pp.): two frames before "Thanks": a symbol map from our notation to
   Paul's, and the seven corrections to his slides (pp. 26, 28, 29, 69, 70, 72, 81 — checked
-  against the rendered pages; Scott's Dec-2013 paper has the right signs). Interim, until
-  eccp.pdf is linked.
+  against the rendered pages; Scott's Dec-2013 paper has the right signs). **Removed the same
+  day** (Chris found them odd once our own deck existed); the corrections list lives in
+  `synthesis.md` §8. hotz_miller is back to ending with the NPL frames (29 pp.).
 - **Sources** (Dropbox `ECCP Literature/`, PDFs from Chris): Scott (Dec-2013 draft), KSS JoE
   2021, KSS QE 2021 (+ the 2019 WP's extra appendices), Arcidiacono–Miller 2011 and 2019,
   Aguirregabiria–Magesan 2013, and Paul's deck, each extracted to Markdown;
@@ -117,8 +117,7 @@ state and $k$ years since crops (deck-local; `NOTATION.md` "Euler-equation CCPs"
   plus a 2006–12 validation, 6.1% simulated vs 5.7% actual). The latest public version is TSE
   WP 14-526 (May 2014); swap the results and biofuels frames once it is in the folder.
 - Open: website Lecture 11 should link eccp.pdf (Paul's PDF unlinked, kept for posterity);
-  syllabus-2026 Week 11 still cites AM (2015 WP) and KSS (2016 WP); shrink the hotz_miller
-  bridge frames to a pointer once eccp is linked.
+  syllabus-2026 Week 11 still cites AM (2015 WP) and KSS (2016 WP).
 
 ## 2026-11-17 (later) — hotz_miller fixes; MPEC Monte Carlo from our own code
 
