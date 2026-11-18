@@ -7,7 +7,9 @@ replaces Paul Scott's 82-page ECCP deck (his PDF stays in the folder; still link
 until the deck is final). Sources extracted to Dropbox `ECCP Literature/` with `synthesis.md`;
 ECCP block in `NOTATION.md`. See the "2026-11-17 (latest)" entry. Scott's TSE WP 14-526 (May 2014)
 checked: same results as the Dec-2013 draft, so the deck stands. syllabus-2026 Weeks 09–10
-updated (published citations; MPEC, k-EPL and ECCP readings). Open: website Lecture 11 link.
+updated (published citations; MPEC, k-EPL and ECCP readings). Website Lecture 11 (site a912d48)
+now links eccp.pdf plus KSS JoE/QE 2021, Scott 2014 and Dearing–Blevins 2025; Paul's PDF and
+its video are unlinked (PDF kept in the folder). **The ECCP item is closed.**
 
 **Done 2026-11-17 (pushed; website Homework 4 now shows the due date):** PS4 and the
 Rust/CCP decks overhauled — Su–Judd notation (new `NOTATION.md` section), regenerated data,
@@ -119,11 +121,24 @@ state and $k$ years since crops (deck-local; `NOTATION.md` "Euler-equation CCPs"
   WP 14-526 (May 2014), turned out to be identical to the Dec-2013 draft apart from an
   acknowledgments footnote (sentence-level diff; same tables), so the deck's numbers stand and it
   now cites Scott (2014, TSE WP 14-526). Paul's numbers are from a later, unpublished revision.
-- Open: website Lecture 11 should link eccp.pdf (Paul's PDF unlinked, kept for posterity);
+- Website done the same day (site a912d48): Lecture 11 links eccp.pdf; Paul's PDF and video unlinked.
   syllabus-2026 updated the same day: Week 09 adds Su–Judd (2012), Iskhakov et al. (2016) and
   Dearing–Blevins (2025), fixes PSD to 2008 and publishes AM (2020 JoE) and KSS (2021 QE);
   Week 10 is retitled for finite dependence / ECCP and adds KSS (2021 JoE), Scott (2014 TSE WP)
   and Aguirregabiria–Magesan (2013); AM nonstationary → 2019 QE, Blevins → 2016 JAE.
+
+## 2026-11-17 (close-out) — hotz_miller: zero Jacobian and k-EPL
+
+- Dearing–Blevins (ReStud 2025) extracted to Dropbox `ECCP Literature/dearing_blevins_2025.md`.
+  Their §3.4: with one agent k-EPL *is* AM's K-step estimator, so it adds no new single-agent
+  algorithm. hotz_miller's last NPL frame became two frames (0856787): why every K is efficient
+  (AM 2002 Prop. 2 zero Jacobian; MLE a fixed point; Kasahara–Shimotsu 2008 rate) and why NPL
+  fails in games and how k-EPL's Newton step in value space fixes it (Monte Carlo: NPL never
+  converges, bias −1.38 on a true 4; k-EPL unbiased in ≤6 iterations). Old "nests HM (K=1) and
+  NFXP (K=∞)" wording replaced.
+- Euler's γ: explained in chat why it drops (common to every action → $V_\gamma = V_0 + \gamma/(1-\beta)$);
+  it matters only with terminal actions (equivalent to shifting the continuing action's intercept
+  by $\beta\gamma$), when $V$ is matched to data in levels, or if conventions are mixed.
 
 ## 2026-11-17 (later) — hotz_miller fixes; MPEC Monte Carlo from our own code
 
