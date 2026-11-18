@@ -6,7 +6,8 @@
 replaces Paul Scott's 82-page ECCP deck (his PDF stays in the folder; still linked on the website
 until the deck is final). Sources extracted to Dropbox `ECCP Literature/` with `synthesis.md`;
 ECCP block in `NOTATION.md`. See the "2026-11-17 (latest)" entry. Scott's TSE WP 14-526 (May 2014)
-checked: same results as the Dec-2013 draft, so the deck stands. Open: website/syllabus links.
+checked: same results as the Dec-2013 draft, so the deck stands. syllabus-2026 Weeks 09–10
+updated (published citations; MPEC, k-EPL and ECCP readings). Open: website Lecture 11 link.
 
 **Done 2026-11-17 (pushed; website Homework 4 now shows the due date):** PS4 and the
 Rust/CCP decks overhauled — Su–Judd notation (new `NOTATION.md` section), regenerated data,
@@ -119,7 +120,10 @@ state and $k$ years since crops (deck-local; `NOTATION.md` "Euler-equation CCPs"
   acknowledgments footnote (sentence-level diff; same tables), so the deck's numbers stand and it
   now cites Scott (2014, TSE WP 14-526). Paul's numbers are from a later, unpublished revision.
 - Open: website Lecture 11 should link eccp.pdf (Paul's PDF unlinked, kept for posterity);
-  syllabus-2026 Week 11 still cites AM (2015 WP) and KSS (2016 WP).
+  syllabus-2026 updated the same day: Week 09 adds Su–Judd (2012), Iskhakov et al. (2016) and
+  Dearing–Blevins (2025), fixes PSD to 2008 and publishes AM (2020 JoE) and KSS (2021 QE);
+  Week 10 is retitled for finite dependence / ECCP and adds KSS (2021 JoE), Scott (2014 TSE WP)
+  and Aguirregabiria–Magesan (2013); AM nonstationary → 2019 QE, Blevins → 2016 JAE.
 
 ## 2026-11-17 (later) — hotz_miller fixes; MPEC Monte Carlo from our own code
 
