@@ -1,0 +1,386 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{teaching_slides}
+
+\title{Euler-Equation CCPs: Finite Dependence and Linear IV}
+\author{C.Conlon - based on slides by Paul Scott}
+\institute{Grad IO}
+\date{\today}
+
+% Notation: NOTATION.md "Single-agent dynamics" + "Euler-equation CCPs".
+% Sources and derivations: Dropbox `ECCP Literature/synthesis.md`.
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Why Euler equations?}
+
+\begin{frame}{What Hotz--Miller still needs}
+\small
+\begin{itemize}
+\item Hotz--Miller and NPL use $V = (\symbf I - \beta \symbf F_0)^{-1}\psi_0(\symbf P)$: CCPs and transitions at \alert{every} state, forever, in a stationary problem.
+\item Now add an aggregate state $\omega_t$: output prices, input costs, policy, inventories.
+\begin{itemize}
+\item We must model and estimate how $\omega_t$ evolves. Scott's crop returns use 11 prices, so an unrestricted VAR(1) already has 121 coefficients, and beliefs about policy are harder still.
+\item Unobserved market shocks $\xi_t$ that move with prices cannot be integrated out of a state space we don't observe.
+\end{itemize}
+\item Hall (1978) faced the same problem with consumption, $u'(c_t) = \beta(1+r)\,E_t[u'(c_{t+1})]$. Replace $E_t[\cdot]$ by the realization plus a forecast error that is mean-independent of anything known at $t$, then estimate by IV with lagged instruments. The income process is never modelled.
+\item \alert{ECCP} is the discrete-choice version: weigh a choice today against a compensating choice tomorrow, and let the realized future stand in for its expectation.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Finite dependence (Arcidiacono and Miller 2011)}
+\small
+\begin{itemize}
+\item Choices $d$ and $d'$ have \alert{$\tau$-period finite dependence} if some sequences $(d, d_1, \ldots, d_\tau)$ and $(d', d'_1, \ldots, d'_\tau)$ lead to the same distribution of states:
+\begin{align*}
+\symbf F_d \symbf F_{d_1} \cdots \symbf F_{d_\tau} = \symbf F_{d'} \symbf F_{d'_1} \cdots \symbf F_{d'_\tau}.
+\end{align*}
+\item Then $v(x,d) - v(x,d')$ depends on payoffs and CCPs only up to $t + \tau$. The agent need not follow either sequence: the AM lemma prices each step at its CCP.
+\item One period is enough with a \alert{renewal} action $R$, $\symbf F_d \symbf F_R = \symbf F_{d'} \symbf F_R$ (replacing an engine, planting crops, choosing an occupation), or a \alert{terminal} action (retiring, defaulting, installing solar panels, ending a taxi shift).
+\item Longer sequences: migration with one-period memory needs two. Sequences can be stochastic, with weights that may be negative or exceed one (Arcidiacono and Miller 2019). It fails with constant-rate depreciation, $k' = \delta k + d$ (capital, learning by doing).
+\item Aguirregabiria and Magesan (2013) derive the same equations as first-order conditions, treating CCPs as continuous choices.
+\end{itemize}
+\end{frame}
+
+\section{ECCP on the bus}
+
+\begin{frame}{Finite dependence on the bus}
+\begin{itemize}
+\item Replacing the engine is a renewal action: after a replacement, next period's mileage is drawn from $f(\cdot \mid 0,0)$ whatever the mileage was, so $f(x' \mid x,1) = f(x' \mid 0,0)$ for every $x$.
+\item Start at $x_t = x$ and compare two two-period paths:
+\par\smallskip
+{\centering
+\begin{tabular}{lccc}
+\toprule
+ & $d_t$ & $d_{t+1}$ & $x_{t+2} \sim$ \\
+\midrule
+replace, then replace & 1 & 1 & $f(\cdot \mid 0,0)$\\
+keep, then replace & 0 & 1 & $f(\cdot \mid 0,0)$\\
+\bottomrule
+\end{tabular}\par}
+\smallskip
+\item From $t+2$ on, the two paths face the same distribution of states, so everything after $t+1$ cancels when we compare them.
+\item Arcidiacono and Miller (2011) open their paper with exactly this example.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Deriving the ECCP equation}
+\small
+Hotz--Miller inversion at $x$:
+\begin{align*}
+\ln \frac{P(1 \mid x)}{P(0 \mid x)} = v(x,1) - v(x,0) = u(x,1) - u(x,0) + \beta \sum_{x'} \big[f(x' \mid 0,0) - f(x' \mid x,0)\big]\, V(x').
+\end{align*}
+AM lemma with $d = 1$ at each $x'$ (logit, no $\gamma$):
+\begin{align*}
+V(x') = v(x',1) - \ln P(1 \mid x') = \underbrace{u(x',1) + \beta \textstyle\sum_{x''} f(x'' \mid 0,0)\, V(x'')}_{\text{same for every } x'} - \ln P(1 \mid x').
+\end{align*}
+The bracket sums to zero over $x'$, so the constant drops out and
+\begin{align*}
+Y(x) \equiv \ln \frac{P(1 \mid x)}{P(0 \mid x)} + \beta \sum_{x'} \ln P(1 \mid x') \big[f(x' \mid 0,0) - f(x' \mid x,0)\big] &= u(x,1) - u(x,0)\\
+&= \alert{c(x;\theta^c) - RC}.
+\end{align*}
+The left side uses only CCPs and transitions, and the right side is \alert{linear} in $(RC, \theta^c)$ (using $c(0;\theta^c) = 0$).
+\end{frame}
+
+\begin{frame}{Estimation: least squares instead of a fixed point}
+\small
+\begin{itemize}
+\item Plug in first-stage $\hat P$ and $\hat f$ and regress $\hat Y(x)$ on $(1, x, x^2)$ over the observed states, weighted by the number of observations at $x$. The coefficients are $(-RC, \theta^c_1, \theta^c_2)$.
+\item At the true CCPs the equation holds \alert{exactly} at every $x$: the bus model has no structural error term, and the regression residual is first-stage noise. (With market states it will have one.)
+\item No $V$, no $(\symbf I - \beta \symbf F_0)^{-1}$, no inner loop. Hotz--Miller needs $\hat P$ at every state; here we need $\hat P$ only at $x$ and one period ahead, on the support of $f(\cdot \mid x,0)$ and $f(\cdot \mid 0,0)$.
+\item What it costs:
+\begin{itemize}
+\item It is still a two-step estimator. First-stage noise passes through $\ln \hat P$, so thin cells give biased $\hat Y(x)$, and standard errors must account for the first stage (bootstrap over buses).
+\item $\hat Y(x)$ near the top of the observed mileage needs $\hat P(1 \mid x')$ above it: the same extrapolation problem as any CCP estimator.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{ECCP with market states}
+
+\begin{frame}{Land use (Scott 2013): the model}
+\small
+\begin{itemize}
+\item Field $i$, year $t$. Decision $d_{it} = 1$ crops, $0$ other (pasture, hay, fallow, forest, \ldots).
+\item Field state $k_{it} \in \{0, \ldots, \bar k\}$, years since last in crops: $\kappa(1,k) = 0$, $\kappa(0,k) = \min\{k+1, \bar k\}$. Planting crops is a \alert{renewal action}, just like replacing the engine.
+\item Market state $\omega_t$: everything farmers know about current and future returns (futures prices, input costs, policy, stocks). We never observe all of it and never specify how it evolves. One field can't move prices: $G(\omega_{t+1} \mid \omega_t, d_{it}) = G(\omega_{t+1} \mid \omega_t)$.
+\item Payoff $u_t(k,d) + \varepsilon_{it}(d)$ with
+\begin{align*}
+u_t(k,d) = \alpha_0(k,d) + \alpha_R\, R_t(d) + \xi_t(k,d),
+\end{align*}
+$R_t(d)$ measured expected returns per acre, $\xi_t(k,d)$ unmeasured local prices and non-crop returns. Dynamics come only through the switching costs $\alpha_0(k,d)$.
+\item Everything carries a $t$: $v_t(k,d) = u_t(k,d) + \beta E_t[V_{t+1}(\kappa(d,k))]$; $P_t(d \mid k)$ is estimated by county and year from many fields.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The ECCP equation in three steps}
+\small
+\begin{enumerate}
+\item Hotz--Miller inversion, as on the bus:
+\begin{align*}
+\ln \frac{P_t(1 \mid k)}{P_t(0 \mid k)} = u_t(k,1) - u_t(k,0) + \beta \Big\{E_t\big[V_{t+1}(0)\big] - E_t\big[V_{t+1}(\kappa(0,k))\big]\Big\}.
+\end{align*}
+\item Replace each expectation by its realization and an \alert{expectational error}:
+\begin{align*}
+E_t\big[V_{t+1}(k')\big] = V_{t+1}(k') - \eta_{t+1}(k'), \qquad E\big[\eta_{t+1}(k') \mid \omega_t\big] = 0 \text{ under rational expectations.}
+\end{align*}
+\item AM lemma with crops at $t+1$:
+\begin{align*}
+V_{t+1}(k') = u_{t+1}(k',1) + \underbrace{\beta E_{t+1}\big[V_{t+2}(0)\big]}_{\text{same for } k' = 0 \text{ and } k' = \kappa(0,k)} - \ln P_{t+1}(1 \mid k').
+\end{align*}
+\end{enumerate}
+Steps 1 and 3 are the bus derivation. Step 2 is new: the market state makes $V_{t+1}$ random, and the realized $V_{t+1}$ is what the data reveal through $P_{t+1}$.
+\end{frame}
+
+\begin{frame}{The regression equation}
+\small
+\vspace{-0.5em}
+\begin{align*}
+Y_t(k) \equiv \ln\frac{P_t(1 \mid k)}{P_t(0 \mid k)} + \beta \ln \frac{P_{t+1}(1 \mid 0)}{P_{t+1}(1 \mid \kappa(0,k))} = \tilde\Delta\alpha_0(k) + \alpha_R\, \Delta R_t + \underbrace{\tilde\Delta\xi_t(k) + \beta\, \Delta\eta_{t+1}(k)}_{\text{error}}
+\end{align*}
+\vspace{-1em}
+\begin{align*}
+\tilde\Delta\alpha_0(k) &= \alpha_0(k,1) - \alpha_0(k,0) + \beta\big[\alpha_0(0,1) - \alpha_0(\kappa(0,k),1)\big]\\
+\Delta R_t &= R_t(1) - R_t(0) \qquad \text{(crop returns at $t+1$ cancel)}\\
+\tilde\Delta\xi_t(k) &= \xi_t(k,1) - \xi_t(k,0) + \beta\big[\xi_{t+1}(0,1) - \xi_{t+1}(\kappa(0,k),1)\big]\\
+\Delta\eta_{t+1}(k) &= \eta_{t+1}(\kappa(0,k)) - \eta_{t+1}(0)
+\end{align*}
+\begin{itemize}
+\item Same form as the bus with $f$ replaced by the deterministic $\kappa$, but now with an error term: $\xi$ and the forecast error.
+\item A \alert{myopic} model ($\beta = 0$) drops the second term on the left; a \alert{static} model ($\bar k = 0$) also pools over $k$.
+\item Scott writes $\varepsilon^V$ for the forecast error; KSS write $e^V$ (their $\eta$ is the market state).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Instruments, fixed effects, and first differences}
+\small
+\begin{itemize}
+\item \alert{Forecast error $\eta$}: anything in the farmer's time-$t$ information set is a valid instrument (law of iterated expectations, as in Hall). Anything dated $t+1$ is not: $R_{t+1}$ moves $V_{t+1}$. Neither is this year's weather.
+\item \alert{Structural error $\xi$}: correlated with $R$ in the cross section (good crop land is good grass land) and over time (pasture returns follow feed prices). $\tilde\Delta\xi_t$ contains $\xi_{t+1}$, so it is serially correlated by construction.
+\item Scott adds county fixed effects. The \alert{within estimator is invalid}: it needs $E[\Delta\eta_{t+1} \cdot \Delta R_{t'}] = 0$ for \emph{all} $t, t'$, but $R_{t+1}$ is a main driver of the period-$t$ forecast error.
+\item Arellano--Bond instead: first-difference, then instrument $\Delta R_{t+1} - \Delta R_t$ with $\Delta R_t$. That is valid if return levels are uncorrelated with later \emph{changes} in $\xi$; rational expectations handle $\eta$. Instruments: lagged returns, caloric yields, a constant; two-step GMM.
+\item \alert{Macro shocks}: a price surprise hits every county in the same year, so $\eta$ does not average out across counties. In the KSS Monte Carlo the intercept is 25\% biased with $T=10$, $M=160$ and 1.5\% with $T=160$, $M=10$. Scott's effective panel is four years.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The general recipe (Kalouptsidi, Scott, Souza-Rodrigues 2021)}
+\small
+\begin{itemize}
+\item Ingredients:
+\begin{enumerate}
+\item agent states $k$ whose transitions are known or estimable and don't depend on unobservables; market states $\omega$ with an unrestricted law of motion that no single agent can move (so \alert{no games});
+\item finite dependence in $k$;
+\item instruments for $\xi$; rational expectations for $\eta$;
+\item a normalization on one action's payoff.
+\end{enumerate}
+\item With $\bar u = x\theta$ any finite-dependence pattern stacks into $Y = \tilde X\theta + u$: linear IV.
+\item Monte Carlo (durable goods, unobserved quality correlated with price): a CCP estimator that treats price as the only market state is badly biased; ECCP-IV with a cost shifter is not.
+\item Taxi drivers (stopping is terminal): instrumenting earnings with the previous day's earnings in the same hour multiplies the OLS coefficient by 6; implied fatigue cost \$13/h instead of \$81/h.
+\item Counterfactuals still need a model of how $\omega$ evolves: add those assumptions only for the counterfactual.
+\end{itemize}
+\end{frame}
+
+\section{Application: US land use}
+
+\begin{frame}{Question and data (Scott 2013)}
+\small
+\begin{itemize}
+\item Biofuel mandates: 35--40\% of US corn goes to ethanol. Net of feed by-products, the US mandate is about a \alert{3.3\% increase in long-run world crop demand} (Roberts and Schlenker 2013).
+\item How much new land comes into crops, and how much do prices rise? That depends on the \alert{long-run} acreage elasticity. Static models see only year-to-year price variation, but the mandate is permanent.
+\item Data:
+\begin{itemize}
+\item USDA Cropland Data Layer (satellite), 2006--2012; fields are points on an 840\,m grid; crops vs.\ other.
+\item 1{,}975 counties ($>$90\% of US cropland), 6{,}296 county-years.
+\item $R_t(1)$: futures prices $\times$ weather-based yield forecasts $-$ costs, by county; $R_t(0)$: pasture rents.
+\item $\hat P_t(d \mid k)$ by county-year, smoothed across nearby counties (median county keeps 98\% of the weight).
+\end{itemize}
+\item $\beta = 0.9$ imposed; $\bar k \in \{1,2\}$. Elasticity: steady-state acreage after a permanent 10\% rise in all crop prices, with $\xi$ at its mean.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Static, myopic, dynamic: only the dependent variable changes}
+\small
+\begin{align*}
+\text{static:}\quad & \ln \frac{P_t}{1-P_t}, \qquad P_t = \textstyle\sum_k \mu_t(k)\, P_t(1 \mid k)\\
+\text{myopic:}\quad & \ln \frac{P_t(1 \mid k)}{P_t(0 \mid k)}\\
+\text{dynamic:}\quad & \ln \frac{P_t(1 \mid k)}{P_t(0 \mid k)} + \beta \ln \frac{P_{t+1}(1 \mid 0)}{P_{t+1}(1 \mid \kappa(0,k))}
+\end{align*}
+\begin{itemize}
+\item Pooling over $k$ hides transitions: if few fields are in crops, a large jump in the other-to-crops rate barely moves the aggregate share in one year, yet it adds up to a large acreage response if prices stay high.
+\item The dynamic correction is not ignorable noise. Prices are autocorrelated, so $R_t$ predicts next year's CCPs and the omitted term is correlated with the regressor.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Long-run acreage elasticities}
+\small
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+ & No unobserved heterogeneity & Two types per county\\
+\midrule
+Static ($\bar k = 0$) & 0.016 (0.005) & 0.026 (0.008)\\
+Myopic ($\beta = 0$), $\bar k = 1$ & 0.068 (0.021) & 0.008 (0.005)\\
+Myopic ($\beta = 0$), $\bar k = 2$ & 0.133 (0.036) & $-$0.002 (0.022)\\
+Dynamic ($\beta = 0.9$), $\bar k = 1$ & 0.652 (0.376) & 0.242 (0.019)\\
+Dynamic ($\beta = 0.9$), $\bar k = 2$ & 0.351 (0.337) & 0.301 (0.115)\\
+\bottomrule
+\end{tabular}
+\end{center}
+{\footnotesize Scott (2013, December draft), Table 2. First differences with instruments; standard errors clustered by year.\par}
+\begin{itemize}
+\item Static: 0.02--0.03. Myopic: 0 to 0.13. Forward-looking farmers with two types: about \alert{0.3}, ten times the static estimate.
+\item Heterogeneity barely moves the point estimate with $\bar k = 2$, but it makes it far more precise.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Unobserved heterogeneity}
+\small
+\begin{itemize}
+\item Two field types $\zeta \in \{0,1\}$ per county, with an unrestricted initial distribution $\mu_z(\zeta, k)$. First stage by EM (Arcidiacono and Miller 2011):
+\begin{itemize}
+\item E-step: posterior $q_{i\zeta} \propto \mu_z(\zeta, k_{i1}) \prod_t P_{z\zeta t}(d_{it} \mid k_{it})$;
+\item M-step: type-specific CCPs are $q$-weighted frequencies.
+\end{itemize}
+Then run the ECCP regression type by type.
+\item Identification: persistence beyond what $k$ explains (fields in crops for five straight years stay more than $k$ predicts).
+\item With $\bar k = 2$: the high type (25\% of fields) is 89\% in crops and barely responds to returns ($\alpha_R = 0.04$). The low type (75\%) is 3.5\% in crops and responds strongly ($\alpha_R = 0.22$). The marginal fields drive the elasticity.
+\item Without types, lots of switching can only mean near-indifference, so any change in returns predicts a huge response. Holding 2006 returns fixed, the no-type model's confidence band for acreage fans out over ten years; the two-type model's stays narrow.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Biofuels: what the long run changes}
+\small
+\begin{itemize}
+\item Roberts and Schlenker's back-of-the-envelope: $\Delta p = \Delta q / (\mathcal E_S - \mathcal E_D)$, with $\Delta q = 0.033$ and calorie demand elasticity $\mathcal E_D = -0.05$.
+\par\smallskip
+{\centering
+\begin{tabular}{lccc}
+\toprule
+ & Supply elasticity & Price & Crop acreage\\
+\midrule
+Static & $\approx 0.03$ & $+44\%$ & $+1.1\%$\\
+Dynamic & $\approx 0.3$ & $+9.7\%$ & $+2.9\%$\\
+\bottomrule
+\end{tabular}\par}
+\smallskip
+\item Dynamics: 160\% more land-use change, 78\% less long-run price increase.
+\item Caveats:
+\begin{itemize}
+\item a long-run supply elasticity in a static equilibrium; the short-run price effect can be much larger (2008);
+\item theirs is a total derivative, $(\partial Q/\partial P + \partial Q/\partial C \cdot dC/dP)\,P/Q$, since costs rise with crop prices; Scott's holds costs fixed.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Identification}
+
+\begin{frame}{What the regression identifies}
+\small
+\begin{itemize}
+\item One intercept $\tilde\Delta\alpha_0(k)$ for each $k$, but $2|\mathcal K|$ switching costs $\alpha_0(k,d)$, one of which is a free level.
+\item Scott assumes the payoff to other uses doesn't depend on $k$: $\alpha_0(k,0) = 0$ for all $k$. That is $|\mathcal K| - 1$ \alert{substantive} restrictions, not normalizations (Magnac and Thesmar 2002). Then $\alpha_0(k,1)$ follows by solving forward in $k$.
+\item $\alpha_R$ is identified from variation in returns, with or without those restrictions.
+\item In general (KSS 2021, QE), stacking over states:
+\begin{align*}
+u_d = \symbf A_d\, u_J + \symbf A_d \psi_J - \psi_d, \qquad \symbf A_d = (\symbf I - \beta \symbf F_d)(\symbf I - \beta \symbf F_J)^{-1}.
+\end{align*}
+The data pin down everything except the payoff $u_J$ of one reference action. The Hotz--Miller deck set $u_0 = 0$; Scott sets $u_J = 0$ for $J$ = other, up to returns.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Which counterfactuals survive the restriction? (KSS 2021, QE)}
+\small
+With $u_t(k,d) = \theta_0(k,d) + \theta_1 Z_t(d)$, where $\theta_0$ is not identified and $\theta_1$ is:
+\begin{itemize}
+\item changes to $\theta_1 Z$ (returns, taxes or subsidies on returns): \alert{identified};
+\item changes to how the market state evolves: \alert{identified};
+\item changes to $\theta_0$ or to the field-state transitions: identified only under conditions on $\symbf A_d$.
+\end{itemize}
+Two counterfactuals on the land-use model:
+\begin{itemize}
+\item \alert{Long-run elasticity}: raise $Z(\text{crops})$ by 10\% $\Rightarrow$ identified.
+\item \alert{``Fertilizer tax''}: make replanting after crops costlier by 10\% of the benefit of a fallow year,
+\begin{align*}
+\tilde\theta_0(0,1) = \theta_0(0,1) + 0.1\,\big[\theta_0(1,1) - \theta_0(0,1)\big] \Rightarrow \text{not identified.}
+\end{align*}
+\end{itemize}
+This is the same logic as the replace and keep normalizations in Rust.
+\end{frame}
+
+\begin{frame}{Same data, two identifying restrictions (KSS 2021, QE)}
+\footnotesize
+\begin{itemize}
+\item \alert{CCP}: Scott's restriction $\theta_0(k,0) = 0$. \alert{V-CCP}: land resale prices measure $V$ (many identical buyers), so $v_d = V - \psi_d$ gives $u_d$ with no restriction. $\theta_1$ is the same in both; $1/\theta_1 = \$734$ per acre is the dollar value of one unit of the logit shock.
+\item 647 counties, 2008--2013, $\bar k = 2$. 15\% of land in crops; 85\% of crop fields stay in crops; after two years out, 1.6\% return.
+\end{itemize}
+\begin{columns}[T]
+\begin{column}{0.56\textwidth}
+\centering
+\begin{tabular}{lrr}
+\toprule
+\$/acre & CCP & V-CCP\\
+\midrule
+$\theta_0(0,1)/\theta_1$ & $-722$ & $-1{,}229$\\
+$\theta_0(1,1)/\theta_1$ & $-2{,}584$ & $-1{,}119$\\
+$\theta_0(2,1)/\theta_1$ & $-5{,}071$ & $-4{,}530$\\
+$\theta_0(0,0)/\theta_1$ & 0 & $-2{,}380$\\
+$\theta_0(1,0)/\theta_1$ & 0 & 470\\
+$\theta_0(2,0)/\theta_1$ & 0 & $-455$\\
+$1/\theta_1$ & 734 & 734\\
+\bottomrule
+\end{tabular}
+\end{column}
+\begin{column}{0.42\textwidth}
+\centering
+\begin{tabular}{lrr}
+\toprule
+ & CCP & V-CCP\\
+\midrule
+Long-run elasticity & 0.57 & 0.57\\
+Fertilizer tax & $+32\%$ & $-16\%$\\
+\bottomrule
+\end{tabular}
+\par\medskip
+\raggedright
+The restriction is rejected. V-CCP finds that replanting after a fallow year is \emph{cheaper}; the restricted model hides this and reads the tax as a subsidy.
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Wrap-up}
+
+\begin{frame}{Where ECCP has been used}
+\footnotesize
+\begin{tabular}{ll}
+\toprule
+Paper & Setting\\
+\midrule
+Scott (2013) & land use (crops is a renewal action)\\
+De Groote and Verboven (AER 2019) & solar panel adoption (adopting is terminal)\\
+Traiberman (AER 2019) & occupational choice (choosing an occupation is a renewal action)\\
+Diamond, McQuade, Qian (AER 2019) & rent control and tenant mobility\\
+Almagro and Dom\'inguez-Iino (Ecma 2025) & neighborhood choice\\
+Araujo, Costa, Sant'Anna (ReStud 2026) & Amazon deforestation\\
+Hsiao (Ecma 2026) & palm oil and deforestation\\
+KSS (JoE 2021) & taxi drivers' daily labor supply (stopping is terminal)\\
+\bottomrule
+\end{tabular}
+\begin{itemize}
+\item Diamond, McQuade, and Qian difference the Euler equation between tenants whose buildings a 1994 ballot measure brought under rent control and comparable tenants whose buildings it did not, which removes local amenities $\xi$.
+\item Dickstein and Morales (2018) build \emph{moment inequalities} from the same one-period deviations, using revealed preference instead of a logit inversion.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Takeaways}
+\begin{itemize}
+\item ECCP = Hotz--Miller inversion + AM lemma + finite dependence + rational expectations $\Rightarrow$ \alert{linear IV}.
+\item Estimation never solves the dynamic program or models the market state. Data limitations show up as an error term, as in static applied micro, rather than as misspecification of the state process.
+\item What it needs: finite dependence in the agent's state; many agents per market and period for the first-stage CCPs; a known $\beta$; a long panel when shocks are common across markets.
+\item Instruments must be in the time-$t$ information set: fixed effects are invalid, first differences with lags are not.
+\item Counterfactuals still need a model of the market state, and an identifying restriction on payoffs matters for some of them but not others.
+\end{itemize}
+\end{frame}
+
+\end{document}

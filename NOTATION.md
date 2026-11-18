@@ -80,3 +80,16 @@ Applies to `rust_part1.tex`, `rust_part2.tex`, `mpec.tex` (Week 10), `hotz_mille
 | Cost of never replacing | $C = (\mathbf I - \beta \mathbf F_0)^{-1} c$ | keep normalization gives $\tilde u(x,1) = -RC + C(x) - C(0)$ |
 | Long run | stationary distribution $\mu(x)$ of the controlled chain; engine demand $\bar d = \sum_x \mu(x) P(1 \mid x)$ | replacements per bus per period |
 | Counterfactuals | engine-price change $\tau$: $u^\tau(x,1) = u(x,1) - \tau$; new transitions $\mathbf F'_d$ | $\Delta$ is the mileage increment, so not $\Delta$ for the price change |
+
+### Euler-equation CCPs (Week 11 `eccp.tex`, replaces Paul Scott's deck) — decided 2026-11-17
+
+Extends the single-agent block above; everything there still applies (scale 1, no $\gamma$, $\psi_d = -\ln P(d \mid x)$). Chris decided $\eta$ and $d$; the rest is the proposal he did not object to and may be revised once the deck is built. A slide that reproduces one of Scott's tables says which of his symbols map to ours ($j \to d$, $p_{jkt} \to P_t(d \mid k)$, $\nu \to \varepsilon$, $\varepsilon^{CV} \to \eta$, $\pi \to u$).
+
+| Object | Symbol | Note |
+|---|---|---|
+| Decision (land use) | $d_{it} \in \{0,1\}$: $1$ = crops (the renewal action, like "replace"), $0$ = other | Scott's $j$ |
+| Field state | $k_{it} \in \{0,\ldots,\bar k\}$, years since last in crops; $k_{i,t+1} = \kappa(d_{it}, k_{it})$ with $\kappa(1,k) = 0$, $\kappa(0,k) = \min\{k+1, \bar k\}$ | deterministic, so $\kappa$ rather than $f$ |
+| Market state | $\omega_t$, the farmers' information set; state $x_{it} = (k_{it}, \omega_t)$ | **deck-local**: $\omega$ is productivity in Week 6 |
+| Flow payoff | $u_t(k,d) = \alpha_0(k,d) + \alpha_R R_t(d) + \xi_t(k,d)$, plus $\varepsilon_{it}(d)$ | $R$ observed returns; $\xi$ unobserved aggregate shock; normalization $\alpha_0(k,0) = 0$ for all $k$ |
+| CCPs, values | $P_t(d \mid k)$; $v_t(k,d)$, $V_t(k)$, all carrying $t$ because $\omega_t$ makes the problem non-stationary | |
+| Expectational error | $\eta_{t+1}(k') = V_{t+1}(k') - \E_t[V_{t+1}(k')]$, $\E[\eta_{t+1} \mid \omega_t] = 0$ | **deck-local**: $\eta$ is a demand elasticity or markup elsewhere; $\varepsilon$ stays the logit shock |

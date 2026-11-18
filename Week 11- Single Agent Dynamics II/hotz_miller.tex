@@ -461,6 +461,45 @@ With AM's policy-iteration operator $\Psi(\symbf{P},\theta) \equiv g(h(\symbf{P}
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Next: Euler-equation CCPs (Paul Scott's slides)}
+\footnotesize
+Paul's land-use deck estimates a DDC model by \alert{linear regression}: the AM lemma and a \alert{renewal action} cancel continuation values after one period (finite dependence, AM 2011). Same objects as here, different symbols:
+\par\smallskip
+{\centering\scriptsize
+\begin{tabular}{ll}
+\toprule
+Here & Paul \\
+\midrule
+action $d$, state $x$ & land use $j$ (appendix: $a$); field state $k$ and market state $\omega_t$\\
+payoff $u(x,d)$ & profit $\pi(j,k,\omega_t,\nu)$; without the shock, $\bar\pi_t(j,k)$\\
+logit shock $\varepsilon(d)$ & $\nu_{ijt}$\\
+--- & $\varepsilon^{CV}_t$, $\varepsilon^{V}_t$: \alert{expectational errors}\\
+CCP $P(d \mid x)$ & $p_{jkt}$ (a CCP, not a price)\\
+transitions $\symbf{F}_d$ & $\kappa^+(j,k)$ (deterministic); appendix: $\symbf{F}_a$\\
+$v(x,d)$, $V(x)$ & $v_t(j,k)$, $\bar V_t(k)$; appendix: $V$\\
+$\psi_d = -\ln P(d \mid x)$, scale 1, no $\gamma$ & $\sigma\psi_a$, scale $\sigma$, keeps Euler's $\gamma$\\
+\bottomrule
+\end{tabular}\par}
+\begin{itemize}
+\item Everything carries a $t$: market states make the problem non-stationary, so $V_t \neq V_{t+1}$ and there is no $(\symbf{I}-\beta\symbf{F})^{-1}$. Planting crops resets $k$ to 0, just as replacing the engine resets mileage.
+\item $E_t \bar V_{t+1}$ is replaced by its realization plus an expectational error, mean-independent of the farmer's information: the discrete-choice analog of Hall's (1978) Euler equation.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Paul Scott's slides: corrections}
+\small
+Page numbers are PDF pages.
+\begin{itemize}
+\item p.~26 (Step 1): $\bar\pi_t(j,k) - \bar\pi_t(j',k) \alert{-} \ln\left(p_{jkt}/p_{j'kt}\right) = \beta\left(E_t \bar V_{t+1}(\kappa(j',k)) - E_t \bar V_{t+1}(\kappa(j,k))\right)$. Step 4 is derived from this sign.
+\item p.~28 (Step 3): both lines omit $\gamma$ and the $E_{t+1}$ on $\beta \bar V_{t+2}(0)$. Both cancel in the difference.
+\item p.~29 (Step 4): $\tilde\Delta\xi_{kt} = \xi_{\text{crops},k,t} - \xi_{\text{other},k,t} + \beta\left(\xi_{\text{crops},0,t+1} \alert{-} \xi_{\text{crops},\kappa(\text{other},k),t+1}\right)$, matching $\tilde\Delta\alpha_0(k)$.
+\item p.~69: with scale $\sigma$, $V(x) - v_a(x) = -\sigma\ln p_a(x) + \alert{\sigma}\gamma$.
+\item p.~70: $\pi_a = v_a - \alert{\beta}\symbf{F}_a V$.
+\item p.~72: $V = (\symbf{I}-\beta\symbf{F}_{\alert{J}})^{-1}(\pi_J + \sigma\psi_J)$.
+\item p.~81: $\psi_{a,t} - \psi_{J,t} + \beta(\symbf{F}^k_a - \symbf{F}^k_J)\psi_{J,t+1} = \alert{-}\sigma^{-1}\pi_{a,t} + \ldots$
+\end{itemize}
+\end{frame}
+
 
 \section{Thanks!}
 

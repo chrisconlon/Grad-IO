@@ -2,6 +2,13 @@
 
 ## To-do queue (as of 2026-11-13 close-out)
 
+**Done 2026-11-17 (latest): new ECCP deck drafted.** `Week 11/eccp.tex` (20 frames, 27 pp.)
+replaces Paul Scott's 82-page ECCP deck (his PDF stays in the folder; still linked on the website
+until the deck is final). Sources extracted to Dropbox `ECCP Literature/` with `synthesis.md`;
+ECCP block in `NOTATION.md`; bridge + corrections frames at the end of hotz_miller. See the
+"2026-11-17 (latest)" entry. Open: Scott's TSE WP 14-526 (May 2014) to replace the Dec-2013
+results; then website/syllabus links and shrink the hotz_miller bridge to a pointer.
+
 **Done 2026-11-17 (pushed; website Homework 4 now shows the due date):** PS4 and the
 Rust/CCP decks overhauled — Su–Judd notation (new `NOTATION.md` section), regenerated data,
 new Part 4 (engine demand / KSS), due Dec 10, 2026; the tracked `rust.cpython-37.pyc`
@@ -79,6 +86,39 @@ six-frame full-CMR section should come back.
 8. `demand_iioc.tex` IPDL row (~l.832) — looks like ξ-recovery mislabeled as
    the inversion; needs Chris's eye.
 9. Cereal BCS citation year in syllabus-2026 if now published.
+
+## 2026-11-17 (latest) — Euler-equation CCPs: our own deck replaces Paul Scott's
+
+Chris: Paul's ECCP deck (`ptscott_SingleAgentDynamics2.pdf`, 82 pp.) is far too long; build our
+own in course notation within two weeks, keep his land-use paper as a ~5-frame application,
+include the bus ECCP derivation. Notation decided: $\eta$ = expectational error (realized minus
+expected), $d$ = decision ($d=1$ crops, the renewal action like "replace"), $\omega_t$ market
+state and $k$ years since crops (deck-local; `NOTATION.md` "Euler-equation CCPs").
+
+- **hotz_miller.tex** (31 pp.): two frames before "Thanks": a symbol map from our notation to
+  Paul's, and the seven corrections to his slides (pp. 26, 28, 29, 69, 70, 72, 81 — checked
+  against the rendered pages; Scott's Dec-2013 paper has the right signs). Interim, until
+  eccp.pdf is linked.
+- **Sources** (Dropbox `ECCP Literature/`, PDFs from Chris): Scott (Dec-2013 draft), KSS JoE
+  2021, KSS QE 2021 (+ the 2019 WP's extra appendices), Arcidiacono–Miller 2011 and 2019,
+  Aguirregabiria–Magesan 2013, and Paul's deck, each extracted to Markdown;
+  `synthesis.md` (one notation, deck order) and `applications_status.md` (publication status of
+  the "other applications": Almagro–Domínguez-Iino Ecma 2025, Hsiao Ecma 2026,
+  Araujo–Costa–Sant'Anna ReStud 2026 retitled; Hutchins dropped, no journal version).
+- **eccp.tex**: why Euler equations (Hall 1978; finite dependence); the bus ECCP equation
+  $Y(x) = \ln[P(1|x)/P(0|x)] + \beta\sum_{x'}\ln P(1|x')[f(x'|0,0)-f(x'|x,0)] = c(x)-RC$
+  (checked numerically at the PS4 design to 7e-15; derivation only, no PS4 numbers before
+  Dec 10); Scott's model, the three-step derivation, IV/FE/FD and macro shocks; KSS's general
+  recipe (Monte Carlo, taxi drivers); land-use application (data, static/myopic/dynamic,
+  elasticities, heterogeneity, biofuels); identification (KSS QE: long-run elasticity 0.57
+  under both CCP and V-CCP, fertilizer tax +32% vs −16%); applications; takeaways.
+- **Version caveat:** the deck's results are from Scott's Dec-2013 draft (static 0.026, dynamic
+  ≈0.30 with two types). Paul's slides use a later version (static 0.10, dynamic 0.32–0.46,
+  plus a 2006–12 validation, 6.1% simulated vs 5.7% actual). The latest public version is TSE
+  WP 14-526 (May 2014); swap the results and biofuels frames once it is in the folder.
+- Open: website Lecture 11 should link eccp.pdf (Paul's PDF unlinked, kept for posterity);
+  syllabus-2026 Week 11 still cites AM (2015 WP) and KSS (2016 WP); shrink the hotz_miller
+  bridge frames to a pointer once eccp is linked.
 
 ## 2026-11-17 (later) — hotz_miller fixes; MPEC Monte Carlo from our own code
 
