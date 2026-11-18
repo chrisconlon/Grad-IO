@@ -451,13 +451,36 @@ With AM's policy-iteration operator $\Psi(\symbf{P},\theta) \equiv g(h(\symbf{P}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Hotz-Miller (1993) to Aguirregabiria and Mira (2002)}
+\begin{frame}{Why every iteration is efficient: the zero Jacobian}
+\small
 \begin{itemize}
-\item This algorithm nests Hotz Miller $(K=1)$ and Rust's NFXP $(K=\infty)$.
-\item Asymptotically everything has the same distribution, but finite sample performance may be increasing in $K$ (at least in Monte Carlo).
-\item In AM's Monte Carlos $K=2$ already seems to capture much of the gain; iterating to convergence gives the Nested Pseudo Likelihood (NPL) estimator.
-\item For games things are more complicated. Pesendorfer and Schmidt-Dengler (Ecma 2010) describe some problems with AM (2007).
-\item For a modern treatment see Dearing and Blevins (ReStud 2025).
+\item $K = 1$ is a pseudo-likelihood version of Hotz--Miller; iterating to convergence is the Nested Pseudo Likelihood (NPL) estimator.
+\item Aguirregabiria and Mira (2002, Prop.~2): at the fixed point $\symbf P_\theta = \Psi(\symbf P_\theta, \theta)$, $\;\partial \Psi(\symbf P, \theta)/\partial \symbf P \,\big|_{\symbf P = \symbf P_\theta} = 0$.
+$\Psi$ is one policy-iteration step, which is a Newton step on the Bellman equation, so first-order errors in $\hat{\symbf P}$ do not move it.
+\item Consequences in single-agent models:
+\begin{itemize}
+\item every $K \ge 1$ has the same asymptotic distribution as the MLE: the first-stage $\hat{\symbf P}$ adds no variance at first order;
+\item the MLE is a fixed point of the iterations, so NPL reproduces the NFXP estimate;
+\item each iteration shrinks the distance to the MLE by a factor of order $N^{-1/2}$ (Kasahara and Shimotsu 2008), which is why $K = 2$ already captures much of the gain in AM's Monte Carlos.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Games: why NPL can fail, and the fix (Dearing and Blevins 2025)}
+\small
+\begin{itemize}
+\item In a game $\Psi$ also runs through the rivals' CCPs, and $\partial \Psi / \partial \symbf P \neq 0$:
+\begin{itemize}
+\item $K$-step estimators are no longer efficient (Aguirregabiria and Mira 2007);
+\item NPL may not converge, and is inconsistent if the data come from an equilibrium that is unstable under best responses (Pesendorfer and Schmidt-Dengler 2010; Kasahara and Shimotsu 2012).
+\end{itemize}
+\item k-EPL takes a Newton step on the equilibrium condition in choice-specific values, $G(\theta, v) = v - \Phi(\theta, v) = 0$:
+\begin{align*}
+\Upsilon(\theta) = \hat v_{k-1} - \nabla_v G(\hat\theta_{k-1}, \hat v_{k-1})^{-1}\, G(\theta, \hat v_{k-1}), \qquad \hat\theta_k = \arg\max_\theta \textstyle\sum \ln \Lambda\big(\Upsilon(\theta)\big).
+\end{align*}
+This restores the zero Jacobian: every iteration is efficient, and the sequence converges to the MLE. With linear utility, each step is linear systems plus a concave static logit.
+\item With one agent, $\nabla_{\symbf P} G = \symbf I$ at the fixed point, and k-EPL is exactly AM's $K$-step estimator.
+\item Monte Carlo (entry game, strong competition): NPL never converges and misses the competition effect of 4 by $-1.38$; k-EPL is unbiased within 6 iterations. More in IO Part III.
 \end{itemize}
 \end{frame}
 
