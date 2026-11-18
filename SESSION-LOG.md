@@ -5,8 +5,8 @@
 **Done 2026-11-17 (latest): new ECCP deck drafted.** `Week 11/eccp.tex` (20 frames, 27 pp.)
 replaces Paul Scott's 82-page ECCP deck (his PDF stays in the folder; still linked on the website
 until the deck is final). Sources extracted to Dropbox `ECCP Literature/` with `synthesis.md`;
-ECCP block in `NOTATION.md`. See the "2026-11-17 (latest)" entry. Open: Scott's TSE WP 14-526
-(May 2014) to replace the Dec-2013 results; then website/syllabus links.
+ECCP block in `NOTATION.md`. See the "2026-11-17 (latest)" entry. Scott's TSE WP 14-526 (May 2014)
+checked: same results as the Dec-2013 draft, so the deck stands. Open: website/syllabus links.
 
 **Done 2026-11-17 (pushed; website Homework 4 now shows the due date):** PS4 and the
 Rust/CCP decks overhauled — Su–Judd notation (new `NOTATION.md` section), regenerated data,
@@ -114,8 +114,10 @@ state and $k$ years since crops (deck-local; `NOTATION.md` "Euler-equation CCPs"
   under both CCP and V-CCP, fertilizer tax +32% vs −16%); applications; takeaways.
 - **Version caveat:** the deck's results are from Scott's Dec-2013 draft (static 0.026, dynamic
   ≈0.30 with two types). Paul's slides use a later version (static 0.10, dynamic 0.32–0.46,
-  plus a 2006–12 validation, 6.1% simulated vs 5.7% actual). The latest public version is TSE
-  WP 14-526 (May 2014); swap the results and biofuels frames once it is in the folder.
+  plus a 2006–12 validation, 6.1% simulated vs 5.7% actual). The latest public version, TSE
+  WP 14-526 (May 2014), turned out to be identical to the Dec-2013 draft apart from an
+  acknowledgments footnote (sentence-level diff; same tables), so the deck's numbers stand and it
+  now cites Scott (2014, TSE WP 14-526). Paul's numbers are from a later, unpublished revision.
 - Open: website Lecture 11 should link eccp.pdf (Paul's PDF unlinked, kept for posterity);
   syllabus-2026 Week 11 still cites AM (2015 WP) and KSS (2016 WP).
 
